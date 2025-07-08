@@ -308,25 +308,8 @@ header.color-scheme-4 {
     padding: 40px 20px;
     text-align: center;
     background: url('/images/chaos-bg.webp') no-repeat center center/cover;
-    background-color: #121212;
     position: relative;
     animation: parallax 20s infinite linear;
-}
-
-.chaos-live::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3); /* Réduit l'opacité */
-    z-index: 1;
-}
-
-.chaos-live > * {
-    position: relative;
-    z-index: 2;
 }
 
 .chaos-live h2 {
@@ -334,6 +317,8 @@ header.color-scheme-4 {
     font-size: 28px;
     color: #ffd700;
     margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
 }
 
 .chaos-live p {
@@ -343,6 +328,8 @@ header.color-scheme-4 {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    z-index: 2;
 }
 
 .live-status {
@@ -353,8 +340,10 @@ header.color-scheme-4 {
     margin-bottom: 20px;
     padding: 10px;
     border-radius: 8px;
-    background: rgba(18, 18, 18, 0.7); /* Moins opaque */
+    background: rgba(18, 18, 18, 0.7);
     transition: background 0.3s;
+    position: relative;
+    z-index: 2;
 }
 
 .live-status:hover {
@@ -372,6 +361,8 @@ header.color-scheme-4 {
     background: #999;
     border-radius: 50%;
     transition: background 0.3s;
+    position: relative;
+    z-index: 2;
 }
 
 .live-indicator.live {
@@ -383,6 +374,8 @@ header.color-scheme-4 {
     color: #ccc;
     font-weight: bold;
     font-family: 'Montserrat', sans-serif;
+    position: relative;
+    z-index: 2;
 }
 
 .live-text.live {
