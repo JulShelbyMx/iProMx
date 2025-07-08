@@ -307,7 +307,7 @@ header.color-scheme-4 {
 .chaos-live {
     padding: 40px 20px;
     text-align: center;
-    background: url('/images/chaos-bg.webp') no-repeat center center/cover;
+    background: url('/images/chaos-bg.webp') no-repeat center center/cover !important;
     position: relative;
     animation: parallax 20s infinite linear;
 }
@@ -358,7 +358,7 @@ header.color-scheme-4 {
 .live-indicator {
     width: 12px;
     height: 12px;
-    background: #999;
+    background: #999; /* Gris pour Chargement */
     border-radius: 50%;
     transition: background 0.3s;
     position: relative;
@@ -366,12 +366,16 @@ header.color-scheme-4 {
 }
 
 .live-indicator.live {
-    background: #ff0000;
+    background: #00ff00; /* Vert pour LIVE */
     animation: pulse 2s infinite;
 }
 
+.live-indicator.offline {
+    background: #ff0000; /* Rouge pour OFFLINE */
+}
+
 .live-text {
-    color: #ccc;
+    color: #999; /* Gris pour Chargement */
     font-weight: bold;
     font-family: 'Montserrat', sans-serif;
     position: relative;
@@ -379,7 +383,11 @@ header.color-scheme-4 {
 }
 
 .live-text.live {
-    color: #ff0000;
+    color: #00ff00; /* Vert pour LIVE */
+}
+
+.live-text.offline {
+    color: #ff0000; /* Rouge pour OFFLINE */
 }
 
 /* Universe Section */

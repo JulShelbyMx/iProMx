@@ -27,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Vérifier statut Twitch avec retry
     async function checkTwitchStatus(retryCount = 3, delay = 2000) {
+        liveText.textContent = 'iProMx est Chargement...'; // État initial
+        liveIndicator.classList.remove('live', 'offline');
+        liveText.classList.remove('live', 'offline');
+        liveStatus.classList.remove('live');
+
         for (let i = 0; i < retryCount; i++) {
             try {
                 const response = await fetch('/.netlify/functions/live-on-twitch');
@@ -37,13 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 if (data.status === 'online') {
                     liveIndicator.classList.add('live');
-                    liveText.textContent = 'LIVE';
+                    liveText.textContent = 'iProMx est en live';
                     liveText.classList.add('live');
                     liveStatus.classList.add('live');
                 } else {
-                    liveIndicator.classList.remove('live');
-                    liveText.textContent = 'OFFLINE';
-                    liveText.classList.remove('live');
+                    liveIndicator.classList.add('offline');
+                    liveText.textContent = 'iProMx n’est pas en live';
+                    liveText.classList.add('offline');
                     liveStatus.classList.remove('live');
                 }
                 return; // Succès
@@ -57,7 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Échec après toutes les tentatives
         console.error('Échec de la vérification du statut Twitch après plusieurs tentatives.');
         liveText.textContent = 'Erreur de statut';
-        liveIndicator.classList.remove('live');
+        liveIndicator.classList.remove('live', 'offline');
+        liveText.classList.remove('live', 'offline');
         liveStatus.classList.remove('live');
         liveIndicator.style.background = '#ff0000'; // Rouge pour erreur
     }
