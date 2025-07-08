@@ -293,10 +293,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 entry.target.classList.add('fade-in');
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.2 }); // Augmenté pour déclencher plus tôt
 
     sections.forEach(section => {
-        section.style.opacity = 0;
+        // Ne pas appliquer opacity: 0 pour .chaos-live
+        if (!section.classList.contains('chaos-live')) {
+            section.style.opacity = 0;
+        }
         observer.observe(section);
     });
 });

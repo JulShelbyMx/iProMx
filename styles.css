@@ -59,6 +59,7 @@ body {
 
 .fade-in {
     animation: fadeIn 0.5s ease-in forwards;
+    opacity: 1 !important; /* Force opacité à 1 après animation */
 }
 
 .glitch {
@@ -310,6 +311,7 @@ header.color-scheme-4 {
     background: url('/images/chaos-bg.webp') no-repeat center center/cover !important;
     position: relative;
     animation: parallax 20s infinite linear;
+    opacity: 1 !important; /* Force opacité pour éviter fade-in bug */
 }
 
 .chaos-live h2 {
