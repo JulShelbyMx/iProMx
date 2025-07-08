@@ -5,7 +5,7 @@ exports.handler = async (event, context) => {
   try {
     const clientId = process.env.TWITCH_CLIENT_ID;
     const clientSecret = process.env.TWITCH_CLIENT_SECRET;
-    const streamerName = 'ipromx'; // Remplace par ton pseudo Twitch exact
+    const streamerName = 'ipromx'; // Remplace par le pseudo Twitch exact
 
     if (!clientId || !clientSecret) {
       return {
