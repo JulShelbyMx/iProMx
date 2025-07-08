@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayton FLASH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-background: 18, 18, 18;
+            --color-foreground: 255, 255, 255;
+            --color-accent: 255, 215, 0;
+            --color-hover: 252, 228, 119;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: rgb(var(--color-background));
+            color: rgba(var(--color-foreground), 0.75);
+        }
+
+        header.color-scheme-4 {
+            background-color: #121212;
+            padding: 10px 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: #121212;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #fce477;
+        }
+
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .character-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .character-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .character-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .character-image .car-caption {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .character-info {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .character-info h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .character-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .character-info p {
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .playlist-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .playlist-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .episode-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .episode-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #222222;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            transition: transform 0.3s ease;
+        }
+
+        .episode-item:hover {
+            transform: scale(1.02);
+            border-color: #fce477;
+        }
+
+        .episode-title {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .watch-button, .alert-button, .go-button, .close-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #121212;
+        }
+
+        .watch-button:hover, .alert-button:hover, .go-button:hover, .close-button:hover {
+            background-color: #fce477;
+        }
+
+        .alert-modal, .order-modal, .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            margin: auto;
+            background-color: #121212;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px 20px 10px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .order-table-container {
+            max-height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .order-table-container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .order-table-container::-webkit-scrollbar-track {
+            background: #333333;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb {
+            background: #ffffff;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb:hover {
+            background: #fce477;
+        }
+
+        .order-table-container {
+            scrollbar-width: auto;
+            scrollbar-color: #ffffff #333333;
+        }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .order-table tr {
+            border: 2px solid #ffd700;
+            background-color: #222222;
+            border-radius: 8px;
+        }
+
+        .order-table tr:hover {
+            border-color: #fce477;
+        }
+
+        .order-table td {
+            padding: 10px;
+            font-size: 14px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+        }
+
+        .order-table td span {
+            margin-right: 5px;
+        }
+
+        .alert-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #fce477;
+        }
+
+        .close-button {
+            margin-top: 10px;
+            min-width: 100px;
+            padding: 8px 16px;
+            font-size: 16px;
+            z-index: 10;
+        }
+
+        footer.color-scheme-4 {
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .list-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffd700;
+            text-decoration: none;
+            max-width: 100px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #fce477;
+            transform: scale(1.1);
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+        }
+
+        .social-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #ffd700;
+        }
+
+        .social-link:hover .social-title {
+            color: #fce477;
+        }
+
+        @media (max-width: 1024px) {
+            .character-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .character-image {
+                min-width: 250px;
+            }
+
+            .character-info h1 {
+                font-size: 20px;
+            }
+
+            .character-info p {
+                font-size: 14px;
+            }
+
+            .episode-title {
+                font-size: 14px;
+            }
+
+            .character-image .car-caption {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .character-container {
+                padding: 15px;
+            }
+
+            .character-image {
+                min-width: 200px;
+            }
+
+            .character-info h1 {
+                font-size: 18px;
+            }
+
+            .character-info p {
+                font-size: 12px;
+            }
+
+            .episode-title {
+                font-size: 12px;
+            }
+
+            .social-title {
+                font-size: 12px;
+            }
+
+            .modal-content {
+                max-height: 80vh;
+                padding: 20px;
+            }
+
+            .order-table-container {
+                max-height: 300px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 4px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+
+            .character-image .car-caption {
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .character-container {
+                padding: 10px;
+            }
+
+            .character-image {
+                min-width: 150px;
+            }
+
+            .character-info h1 {
+                font-size: 16px;
+            }
+
+            .character-info p {
+                font-size: 11px;
+            }
+
+            .episode-title {
+                font-size: 10px;
+            }
+
+            .social-title {
+                font-size: 10px;
+            }
+
+            .social-link {
+                max-width: 80px;
+            }
+
+            .modal-content {
+                max-height: 70vh;
+                padding: 20px;
+            }
+
+            .order-table-container {
+                max-height: 250px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 3px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+
+            .character-image .car-caption {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="color-scheme-4">
+        <a href="../flash/flash.html" class="back-button">RETOUR</a>
+        <div class="logo">
+            <a href="../flash/flash.html">
+                <img src="../../images/logo.webp" alt="Logo iProMx" class="password-logo">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="character-container">
+            <div class="character-image">
+                <img src="../../images/monstrekayton_flash.webp" alt="Monstre Kayton FLASH">
+                <p class="car-caption"><strong>(Oui c'était lui)</strong></p>
+                <img src="../../images/kayton_flash.webp" alt="Kayton FLASH">
+                <img src="../../images/loupgaroukayton.webp" alt="Loup-garou - Symbole de Kayton" class="symbol-image">
+            </div>
+            <div class="character-info">
+                <h1>Kayton FLASH</h1>
+                <h2>Avant</h2>
+                <p><strong>Kayton Flash, le monstre.</strong></p>
+                <p>Issu d’une liaison entre Ken Flash et Luna, Kayton n’a jamais véritablement vu le jour. Une fausse couche brisa l’existence de cet enfant, mais son esprit perdura, invisible, veillant sur sa mère tel un ange gardien. Tout changea lorsque Ken, son père, tua Luna sous ses yeux. L’ange devint démon, consumé par une douleur infinie et une soif de vengeance contre la lignée Flash.</p>
+                <p>Convaincu que la génération de David Jr., Aaron et Kylie devait être la dernière pour éviter le chaos, cet esprit maléfique orchestra une guerre contre les Flash. Manipulant David Jr., il attisa sa haine, propageant peur, traumatismes et cauchemars. Il fut responsable de la mort de millions de civils, de Giulia Vitale, Angela Moore, Ken Flash, Aby Santini Anderson, et de leur équipe, semant destruction et désespoir.</p>
+                <p>Mais son plan échoua. Dans un ultime moment de clarté, il révéla la vérité à Aaron, qui la transmit à Damon. Ce dernier conçut un plan en deux étapes : affaiblir et immobiliser le démon, puis lui offrir toute son énergie, non pour le détruire, mais pour lui permettre de renaître. Ainsi, Kayton, libéré de sa haine, retrouva une existence nouvelle, prêt à découvrir la vie en tant qu’être aimé – un oncle, un frère d’âme, une conscience perdue.</p>
+                
+                <h2>Après</h2>
+                <p><strong>Kayton Flash, 52 ans, homme</strong></p>
+                <p>Renaissant dans le corps d’un homme de 23 ans, mais avec l’âme d’un cinquantenaire, Kayton Flash entama une nouvelle vie après la rédemption offerte par son neveu Damon. Pour apprendre à vivre, il devint pompier, puis rejoignit la LSPD, où il rencontra Arya Anderson, lieutenante au regard perçant. Leur lien se renforça, mais une nuit, Kayton se transforma en loup-garou, une créature sauvage et incontrôlable. Un vieil homme lui enseigna à maîtriser cette bête, au prix d’un terrible sacrifice : consommer de la chair humaine à chaque pleine lune.</p>
+                <p>Refusant de redevenir un monstre, Kayton lutta, soutenu par Arya, ignorant son secret. Leur relation devint profonde, mais lorsqu’il avoua son passé et le meurtre d’Aby Santini Anderson, la mère d’Arya, elle le rejeta, bouleversée. Brisé, Kayton céda à sa part bestiale, disparaissant plusieurs jours. Arya, malgré sa douleur, lui offrit une chance de rédemption : prouver qu’il pouvait changer.</p>
+                <p>Kayton entama une quête intérieure, récupérant les balles magiques des anciens membres de l’équipe de Damon pour se renforcer. Sur la Terre des Flash, il s’entraîna avec rigueur, déclarant enfin son amour à Arya. Leur baiser scella leur union, et ils se marièrent, donnant naissance à deux jumelles, Zayra et Erza Flash.</p>
+                <p>Avant leur naissance, Kayton affronta Adrian, l’incarnation du mal. Comme Damon avant lui, he se sacrifia pour un avenir meilleur, mourant à 52 ans, dans le corps d’un homme de son âge, marié à une femme de 25 ans. Il connut la vie, l’amour et la rédemption.</p>
+                
+                <h2>Animal spirituel</h2>
+                <p>Le loup-garou, animal spirituel de Kayton Flash, incarne un cœur blessé derrière une apparence monstrueuse. Il symbolise la lutte quotidienne pour surmonter ses démons intérieurs, redevenir humain et trouver la rédemption par la volonté de changer.</p>
+            </div>
+        </div>
+
+        <div class="playlist-section">
+            <h2>Épisodes de Kayton FLASH</h2>
+            <h3>Saison 1</h3>
+            <ul class="episode-list">
+                    <li class="episode-item">
+                <span class="episode-title">Épisode 1: UN NOUVEAU FLASH ! PREMIER FILS DE KEN FLASH ! GTA V RP ! by iProMx #1</span>
+                <button class="watch-button" data-video-id="Ic56_QKPepo">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 2: KAYTON FAIT DU SALE CE SOIR ! GTA V RP ! by iProMx #2</span>
+                <button class="watch-button" data-video-id="JH0cbJY3Ueo">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 3: KAYTON FLASH DANS LES PROBLEMES ! GTA V RP ! by iProMx #3</span>
+                <button class="watch-button" data-video-id="bGZiC5gre_U">Regarder</button>
+            </li>
+            </ul>
+            <h3>Saison 2</h3>
+            <ul class="episode-list">
+                    <li class="episode-item">
+                <span class="episode-title">Épisode 1: KAYTON FLASH , LE RETOUR FRACASSANT ! GTA V RP ! by iProMx #1 S2</span>
+                <button class="watch-button" data-video-id="fn-eVAAVPKw">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 2: KAYTON LE LOUP GAROU ! LA RENCONTRE AVEC REMY ? GTA V RP ! by iProMx #2</span>
+                <button class="watch-button" data-video-id="jphdiP7EKYs">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 3: KAYTON DIT LA VERITE A ARIA ! LE LOUP DE PLUS EN PLUS FEROCE ! GTA V RP ! by iProMx #3</span>
+                <button class="watch-button" data-video-id="VT72DdVgxzA">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 4: L'ENFER SOUS TERRE - KAYTON FLASH ! GTA V RP ! by iProMx #4</span>
+                <button class="watch-button" data-video-id="7bf8DnLZwPU">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 5: L’ARRIVÉE DE LA FILLE DE GRINCHIAT ! KAYTON FLASH ! GTA V RP ! by iProMx #5</span>
+                <button class="watch-button" data-video-id="00ZDSGI8EgQ">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 6: KAYTON DE PLUS EN PLUS FÉROCE ! GTA V RP ! by iProMx #6</span>
+                <button class="watch-button" data-video-id="6-ELp9OUHbw">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 7: KAYTON VA CRÉER SA MEUTE ! GTA V RP ! by iProMx #7</span>
+                <button class="watch-button" data-video-id="tEXgA3MbAz0">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 8: CINEMATIQUE ! LE RETOUR D'AARON FLASH ! GTA V RP ! by iProMx !</span>
+                <button class="watch-button" data-video-id="3kOx1rZOtSo">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: PART 1: KAYTON x AARON ! GTA V RP ! by iProMx #8</span>
+                <button class="watch-button" data-video-id="cVjxyI0rJdU">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: PART 2: KAYTON x AARON ! GTA V RP ! by iProMx #8</span>
+                <button class="watch-button" data-video-id="sXjcaej7ONY">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: PART 3: KAYTON x AARON ! GTA V RP ! by iProMx #8</span>
+                <button class="watch-button" data-video-id="rtDzdAxhOL4">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: PART 4: KAYTON x AARON ! GTA V RP ! by iProMx #8</span>
+                <button class="watch-button" data-video-id="U_n_OLguMSw">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: PART 5: KAYTON x AARON ! GTA V RP ! by iProMx #8</span>
+                <button class="watch-button" data-video-id="o5v2ZNKZV2Y">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: PART 6: KAYTON x AARON ! GTA V RP ! by iProMx #8</span>
+                <button class="watch-button" data-video-id="FGDS5oUj1kg">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: PART 7: KAYTON x AARON ! GTA V RP ! by iProMx #8</span>
+                <button class="watch-button" data-video-id="UTCR1NxvjVY">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 10: KAYTON FLASH ! LE GRAND TOURNOI DE F1 ! GTA V RP ! by iProMx #9</span>
+                <button class="watch-button" data-video-id="ii5OSsdSH4A">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 11: KAYTON FLASH ! LE GRAND TOURNOI DE F1 ! GTA V RP ! by iProMx #9 PART 2</span>
+                <button class="watch-button" data-video-id="6LTNDe_Zjic">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 12: KAYTON FLASH - LE PLUS GROS TOURNOI F1 ! GTA V RP ! by iProMx #10</span>
+                <button class="watch-button" data-video-id="0Z_LGoflqLk">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 13: KAYTON A RENDEZ-VOUS AVEC AARON FLASH ! GTA V RP ! by iProMx #11</span>
+                <button class="watch-button" data-video-id="kJCez15gXlE">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 14: LE GRAND JOUR ! LE BRAQUAGE DU MUSEE ! GTA V RP ! by iProMx #12</span>
+                <button class="watch-button" data-video-id="BK2Kj9W9ZzM">Regarder</button>
+            </li>
+            </ul>
+            <h3>Saison 3</h3>
+            <ul class="episode-list">
+                    <li class="episode-item">
+                <span class="episode-title">Épisode 0: 6 MOIS PLUS TARD LE TUNNEL EST PRÊT ! GTA V RP ! by xTremX !</span>
+                <button class="watch-button" data-video-id="kefF0LyjwNU">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 1: KAYTON FLASH DOIT SURVIVRE EN PRISON ! GTA V RP ! by iProMx #1 S3</span>
+                <button class="watch-button" data-video-id="veNEop8zNDM">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 2: LE GRAND JOUR ! L'EVASION DE KAYTON ! GTA V RP  ! by iProMx #2 S3</span>
+                <button class="watch-button" data-video-id="0jIVArQI-wM">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 3: KAYTON EMPRISONNE SUR UNE ILE ! ON S'EVADE ! GTA V RP ! by iProMx #3</span>
+                <button class="watch-button" data-video-id="XCsTDICnXzE">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 4: KAYTON RECUPERE LA BALLE ! INFILTRATION A CAYO ! GTA V RP ! by iProMx #4</span>
+                <button class="watch-button" data-video-id="kbkF6rwNmlQ">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 5: LE FACE A FACE AVEC AARON ! GTA V RP ! by iProMx #5</span>
+                <button class="watch-button" data-video-id="7TettAJlImM">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 6: LE SORCIER MAUDIT S'EST ECHAPPE DE LA TERRE DES FLASH ! GTA V RP  ! by iProMx #6</span>
+                <button class="watch-button" data-video-id="tKQxRL_ok9Y">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 7: KAYTON A PERDU TOUTES LES BALLES ! GTA V RP ! by iProMx #7</span>
+                <button class="watch-button" data-video-id="kZV2_f-UUis">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 7: PART 2 ! KAYTON A PERDU TOUTES LES BALLES ! GTA V RP ! by iProMx #7</span>
+                <button class="watch-button" data-video-id="pGRaTqafaRQ">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 8: L'EQUIPAGE QUITTE LOS SANTOS EN DIRECTION TEXAS POUR LA BALLE ! GTA V RP ! by iProMx #8</span>
+                <button class="watch-button" data-video-id="0IIaMTJjYxw">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: LA FIN DE KAYTON FLASH ! GTA V RP ! by iProMx #9</span>
+                <button class="watch-button" data-video-id="153rhyNkxrI">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: PARTIE 2 ! LA FIN DE KAYTON FLASH ! GTA V RP ! by iProMx #9</span>
+                <button class="watch-button" data-video-id="79XMv8kW9Ag">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 10: LA POSSIBLE FIN DE L'EQUIPE DE KAYTON ! GTA V RP ! by xTremX #10</span>
+                <button class="watch-button" data-video-id="3k_pshDDTsY">Regarder</button>
+            </li>
+            </ul>
+            <div class="alert-modal" id="alertModal">
+                <div class="modal-content">
+                    <p>Attention, souhaitez-vous avoir un rappel de l'ordre de visionnage de la série "Flash" ?</p>
+                    <div class="alert-buttons">
+                        <button class="alert-button" id="showOrderButton">Oui</button>
+                        <button class="alert-button" id="closeAlertButton">Non</button>
+                    </div>
+                </div>
+            </div>
+            <div class="order-modal" id="orderModal">
+                <div class="modal-content">
+                    <h3>Ordre de visionnage de la famille FLASH</h3>
+                    <div class="order-table-container">
+                        <table class="order-table">
+                            <tbody>
+                                <tr>
+                                    <td><span>David Flash:</span> <button class="go-button" data-url="david.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>John Flash:</span> <button class="go-button" data-url="john.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 1):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 1):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 2):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 2):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 1):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 2):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>David Jr Flash (vieux):</span> <button class="go-button" data-url="davidjr.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 3):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 1):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 2):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 3):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Adrian Flash:</span> <button class="go-button" data-url="adrian.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden et Aaron vs Adrian:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ned Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Manda Flash:</span> <button class="go-button" data-url="manda.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Cody Hunters (Ned Flash):</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="close-button" id="closeOrderButton">Fermer</button>
+                </div>
+            </div>
+            <div class="video-modal" id="videoModal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-modal">×</span>
+                    <iframe id="modalVideo" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="color-scheme-4">
+        <ul class="list-social">
+            <li>
+                <a href="https://x.com/ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/x.png" alt="X" class="social-icon">
+                    <span class="social-title">X</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.tiktok.com/@ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/tiktok.webp" alt="TikTok" class="social-icon">
+                    <span class="social-title">TikTok</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMx" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@ipromxenfolie1688" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°2</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMxHD" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°3</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.com/invite/fantasticwl" target="_blank" class="social-link">
+                    <img src="../../images/discord.png" alt="Discord Fantastic" class="social-icon">
+                    <span class="social-title">Fantastic WL</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const watchButtons = document.querySelectorAll('.watch-button');
+            const alertModal = document.getElementById('alertModal');
+            const showOrderButton = document.getElementById('showOrderButton');
+            const closeAlertButton = document.getElementById('closeAlertButton');
+            const orderModal = document.getElementById('orderModal');
+            const closeOrderButton = document.getElementById('closeOrderButton');
+            const videoModal = document.getElementById('videoModal');
+            const closeModal = document.querySelectorAll('.close-modal');
+            let currentVideoId = null;
+
+            alertModal.style.display = 'none';
+            orderModal.style.display = 'none';
+            videoModal.style.display = 'none';
+
+            watchButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    currentVideoId = button.getAttribute('data-video-id');
+                    alertModal.style.display = 'flex';
+                });
+            });
+
+            showOrderButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                orderModal.style.display = 'flex';
+            });
+
+            closeAlertButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeOrderButton.addEventListener('click', () => {
+                orderModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeModal.forEach(button => {
+                button.addEventListener('click', () => {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                });
+            });
+
+            alertModal.addEventListener('click', (e) => {
+                if (e.target === alertModal) {
+                    alertModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            orderModal.addEventListener('click', (e) => {
+                if (e.target === orderModal) {
+                    orderModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                }
+            });
+
+            document.querySelectorAll('.go-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const url = button.getAttribute('data-url');
+                    window.location.href = url;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qui est iProMx ?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
+    <style>
+        /* Réinitialisation */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-background: 18, 18, 18;
+            --color-foreground: 255, 255, 255;
+            --color-button: 252, 228, 119;
+            --color-link: 255, 255, 255;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: rgb(var(--color-background));
+            color: rgba(var(--color-foreground), 0.75);
+        }
+
+        /* Return Button */
+        .return-button {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            padding: 8px 15px;
+            background-color: transparent;
+            color: #ffd700;
+            text-decoration: none;
+            border: 2px solid #ffd700;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .return-button i {
+            margin-right: 8px;
+        }
+
+        .return-button:hover {
+            background-color: #ffd700;
+            color: #121212;
+            transform: scale(1.05);
+        }
+
+        /* Main Content */
+        .about-container {
+            max-width: 1200px;
+            margin: 50px auto 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            position: relative;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+        }
+
+        .about-info {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .about-info h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .about-info p {
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .about-text h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-text p {
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer.color-scheme-4 {
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .list-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffd700;
+            text-decoration: none;
+            max-width: 100px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #fce477;
+            transform: scale(1.1);
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .social-link:hover .social-icon {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        .social-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #ffd700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .social-link:hover .social-title {
+            color: #fce477;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .return-button {
+                font-size: 14px;
+                padding: 7px 12px;
+                top: 5px;
+                right: 10px;
+            }
+
+            .about-container {
+                flex-direction: column;
+                align-items: center;
+                margin-top: 40px;
+            }
+
+            .about-image {
+                min-width: 250px;
+            }
+
+            .about-info h1 {
+                font-size: 20px;
+            }
+
+            .about-info p {
+                font-size: 14px;
+            }
+
+            .about-text h2 {
+                font-size: 20px;
+            }
+
+            .about-text p {
+                font-size: 14px;
+            }
+
+            .social-title {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .return-button {
+                font-size: 13px;
+                padding: 6px 10px;
+                top: 4px;
+                right: 8px;
+            }
+
+            .about-container {
+                padding: 15px;
+                margin-top: 35px;
+            }
+
+            .about-image {
+                min-width: 200px;
+            }
+
+            .about-info h1 {
+                font-size: 18px;
+            }
+
+            .about-info p {
+                font-size: 12px;
+            }
+
+            .about-text h2 {
+                font-size: 18px;
+            }
+
+            .about-text p {
+                font-size: 12px;
+            }
+
+            .social-title {
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .return-button {
+                font-size: 12px;
+                padding: 5px 8px;
+                top: 3px;
+                right: 5px;
+            }
+
+            .about-container {
+                padding: 10px;
+                margin-top: 30px;
+            }
+
+            .about-image {
+                min-width: 150px;
+            }
+
+            .about-info h1 {
+                font-size: 16px;
+            }
+
+            .about-info p {
+                font-size: 11px;
+            }
+
+            .about-text h2 {
+                font-size: 16px;
+            }
+
+            .about-text p {
+                font-size: 11px;
+            }
+
+            .social-title {
+                font-size: 10px;
+            }
+
+            .social-link {
+                max-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="about-container">
+        <a href="../index.html" class="return-button"><i class="fas fa-arrow-left"></i> Retour</a>
+        <div class="about-image">
+            <img src="../images/ipromxgrrrrrr.jpg" alt="iProMx">
+            <div class="about-info">
+                <h1>iProMx</h1>
+                <p>Streamer : GTA RP</p>
+                <p>Âge : 32 ans (2025)</p>
+                <p>Date de naissance : 12 avril 1993</p>
+                <p>Followers YouTube en tout : Environ 1,400,000</p>
+                 <p>Création Twitch : 25 février 2015</p>
+                <p>Followers Twitch : 271,3 k</p>
+                <p>Père de famille, homme marié.</p>
+            </div>
+        </div>
+        <div class="about-text">
+            <h2>IPROMX ?? T KI?</h2>
+            <p>iProMx est un streamer & Youtubeur gaming spécialisé dans le « Roleplay » sur GTA RP. Né le 12 avril 1993 et originaire de l'île de La Réunion, il commence en tant que créateur de contenus avec des vidéos sur YouTube à partir de 2009.</p>
+            <p>En 2009, iProMx commence à publier des vidéos sur YouTube avec des vidéos sur les iPhones de premières générations sur sa chaîne « IphoneTheProMx ». Il se fera hacker sa chaîne YouTube ainsi que son site internet sur sa passion : les iPhones.</p>
+            <p>Le 14 novembre 2011, environ deux ans après son hacking, il créer une nouvelle chaîne YouTube sous le nom « iProMx » en partageant des vidéos d'astuces Tech au départ.</p>
+            <p>À partir de 2014, iProMx commence la création de vidéos sur le jeu GTA 5 avec des astuces, des vidéos trolls, des défis sur le mode "online", mais surtout avec des histoires imaginées avec différents personnages, c'est le début du « role play ».</p>
+            <p>C'est à partir de cette période qu'il commence à avoir une audience avec des vidéos qui plaisent sur un jeu très populaire qui ne fera que grandir au fil du temps.</p>
+            <p>En février 2015, iProMx créer sa chaîne sur la plateforme Twitch pour pouvoir diffuser en direct son gameplay et ses aventures sur GTA. Il effectuera quelques lives par ci par là, mais son contenu principal reste sur YouTube.</p>
+            <p>En 2018-2019, iProMx démarre son empire sur Twitch et devient rapidement Partenaire.</p>
+            <p>Depuis septembre 2019, il a dépassé le million d'abonnés sur YouTube.</p>
+            <p>Le 8 juillet 2023, le streamer iProMx devient partenaire avec la plateforme Kick.</p>
+            <p>Dominant Twitch et YouTube, il se créer alors deux communautés distinctes.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="color-scheme-4">
+        <ul class="list-social">
+            <li>
+                <a href="https://x.com/iProMxYt" target="_blank" class="social-link">
+                    <img src="../images/x.png" alt="X" class="social-icon">
+                    <span class="social-title">X</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.tiktok.com/@ipromx__" target="_blank" class="social-link">
+                    <img src="../images/tiktok.webp" alt="TikTok" class="social-icon">
+                    <span class="social-title">TikTok</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMx" target="_blank" class="social-link">
+                    <img src="../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@ipromxenfolie1688" target="_blank" class="social-link">
+                    <img src="../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°2</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMxHD" target="_blank" class="social-link">
+                    <img src="../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°3</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.com/invite/fantasticwl" target="_blank" class="social-link">
+                    <img src="../images/discord.png" alt="Discord Fantastic" class="social-icon">
+                    <span class="social-title">Fantastic WL</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+</body>
+</html>

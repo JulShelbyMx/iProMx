@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>David FLASH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-background: 18, 18, 18;
+            --color-foreground: 255, 255, 255;
+            --color-accent: 255, 215, 0;
+            --color-hover: 252, 228, 119;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: rgb(var(--color-background));
+            color: rgba(var(--color-foreground), 0.75);
+        }
+
+        header.color-scheme-4 {
+            background-color: #121212;
+            padding: 10px 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: #121212;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #fce477;
+        }
+
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .character-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .character-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .character-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .character-info {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .character-info h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .character-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .character-info p {
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .playlist-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .playlist-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .episode-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .episode-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #222222;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            transition: transform 0.3s ease;
+        }
+
+        .episode-item:hover {
+            transform: scale(1.02);
+            border-color: #fce477;
+        }
+
+        .episode-title {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .watch-button, .alert-button, .go-button, .close-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #121212;
+        }
+
+        .watch-button:hover, .alert-button:hover, .go-button:hover, .close-button:hover {
+            background-color: #fce477;
+        }
+
+        .alert-modal, .order-modal, .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            margin: auto;
+            background-color: #121212;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px 20px 10px; /* Reduced bottom padding on desktop */
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .order-table-container {
+            max-height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+
+        /* Custom scrollbar styles */
+        .order-table-container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .order-table-container::-webkit-scrollbar-track {
+            background: #333333;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb {
+            background: #ffffff;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb:hover {
+            background: #fce477;
+        }
+
+        /* For Firefox */
+        .order-table-container {
+            scrollbar-width: auto;
+            scrollbar-color: #ffffff #333333;
+        }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .order-table tr {
+            border: 2px solid #ffd700;
+            background-color: #222222;
+            border-radius: 8px;
+        }
+
+        .order-table tr:hover {
+            border-color: #fce477;
+        }
+
+        .order-table td {
+            padding: 10px;
+            font-size: 14px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+        }
+
+        .order-table td span {
+            margin-right: 5px;
+        }
+
+        .alert-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #fce477;
+        }
+
+        .close-button {
+            margin-top: 10px; /* Reduced margin to minimize space on desktop */
+            min-width: 100px;
+            padding: 8px 16px;
+            font-size: 16px;
+            z-index: 10;
+        }
+
+        footer.color-scheme-4 {
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .list-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffd700;
+            text-decoration: none;
+            max-width: 100px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #fce477;
+            transform: scale(1.1);
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+        }
+
+        .social-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #ffd700;
+        }
+
+        .social-link:hover .social-title {
+            color: #fce477;
+        }
+
+        @media (max-width: 1024px) {
+            .character-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .character-image {
+                min-width: 250px;
+            }
+
+            .character-info h1 {
+                font-size: 20px;
+            }
+
+            .character-info p {
+                font-size: 14px;
+            }
+
+            .episode-title {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .character-container {
+                padding: 15px;
+            }
+
+            .character-image {
+                min-width: 200px;
+            }
+
+            .character-info h1 {
+                font-size: 18px;
+            }
+
+            .character-info p {
+                font-size: 12px;
+            }
+
+            .episode-title {
+                font-size: 12px;
+            }
+
+            .social-title {
+                font-size: 12px;
+            }
+
+            .modal-content {
+                max-height: 80vh;
+                padding: 20px; /* Maintain mobile padding */
+            }
+
+            .order-table-container {
+                max-height: 300px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 4px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .character-container {
+                padding: 10px;
+            }
+
+            .character-image {
+                min-width: 150px;
+            }
+
+            .character-info h1 {
+                font-size: 16px;
+            }
+
+            .character-info p {
+                font-size: 11px;
+            }
+
+            .episode-title {
+                font-size: 10px;
+            }
+
+            .social-title {
+                font-size: 10px;
+            }
+
+            .social-link {
+                max-width: 80px;
+            }
+
+            .modal-content {
+                max-height: 70vh;
+                padding: 20px; /* Maintain mobile padding */
+            }
+
+            .order-table-container {
+                max-height: 250px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 3px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="color-scheme-4">
+        <a href="../flash/flash.html" class="back-button">RETOUR</a>
+        <div class="logo">
+            <a href="../flash/flash.html">
+                <img src="../../images/logo.webp" alt="Logo iProMx" class="password-logo">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="character-container">
+            <div class="character-image">
+                <img src="../../images/david_flash.jpg" alt="David FLASH">
+                <img src="../../images/tigreblancdavid.webp" alt="Tigre Blanc - Animal spirituel de David" class="symbol-image">
+            </div>
+            <div class="character-info">
+                <h1>David FLASH</h1>
+                <h2>Avant</h2>
+                <p><strong>David Flash, 21 ans, homme.</strong></p>
+                <p>À 21 ans, David fonde un gang qui deviendra célèbre à travers plusieurs générations.</p>
+                <p>Leurs ennemis furent nombreux : le FBI, une mafia, un gang rival, le LSPD et l'armée américaine.</p>
+                <p>À l'âge de 22 ans, il fait la rencontre d'Alexandra, pour qui ce fut le coup de foudre immédiat. À la fin de la saison 2, ils se marient, et elle tombe enceinte de leur unique fils : John Flash. Plus tard, pendant une guerre de gang, Alexandra meurt, et les médecins, sur ordre de la LSPD, font croire à David que le bébé est mort dans le ventre.</p>
+
+                <h2>Après</h2>
+                <p><strong>David Flash, 74 ans, homme.</strong></p>
+                <p>Après un long périple de 18 ans en prison, David s'évade et simule sa propre mort afin de protéger son fils John à distance.</p>
+                <p>Après l'arc centré sur John, l'histoire se répète avec son petit-fils Ken. Cette fois-ci, David entre directement en contact avec lui pour l'aider à retrouver John, et lui transmettre les clés de la nouvelle version du gang : la version 2.0.</p>
+                <p>À l'âge de 74 ans, David retrouve enfin John et lui demande de l'aide pour sauver Ken. C'est alors que David, John et Ken fusionnent, ne formant plus qu'une seule entité dotée de trois voix et trois consciences distinctes.</p>
+                <p>À 92 ans, David meurt dans le corps de son petit-fils Ken, se sacrifiant pour les générations futures en aidant son arrière-petit-fils Aaron à combattre David Jr., son second arrière-petit-fils.</p>
+
+                <h2>Symbole</h2>
+                <p>L'animal spirituel de David était le tigre blanc, symbole de sagesse et de protection envers les siens.</p>
+            </div>
+        </div>
+
+        <!-- Contenu généré par le script Python -->
+        <div class="playlist-section">
+            <h2>Épisodes de David FLASH</h2>
+            <ul class="episode-list">
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP - UN TROLLEUR SUR UN JEU ROLEPLAY ?</span>
+                    <button class="watch-button" data-video-id="z_H0tafxHAc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 2: GTAV RP #2 - JE FAIS DE L'ILLÉGAL POUR LA PREMIÈRE FOIS !</span>
+                    <button class="watch-button" data-video-id="_fABb3_UqlI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 3: ON MENACE DE ME TUER - GTAV RP #3</span>
+                    <button class="watch-button" data-video-id="rnlPQz_yZkk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 4: GTAV RP #4 - ON KIDNAPPE UN MEC ET L'OBLIGE À TRAVAILLER POUR NOUS DANS L'ILLÉGAL !</span>
+                    <button class="watch-button" data-video-id="1RT89ZnoIFc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 5: GTAV RP #5 - ON CRÉE NOTRE GANG ET ESSAYE DE NOUS FAIRE RESPECTER ! FIVELIFE</span>
+                    <button class="watch-button" data-video-id="bAL5YrzkmPI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 6: JE SUIS DEVENU UNE VRAIE RACAILLE + ON RECRUTE 2 MECS DANS NOTRE GANG - GTAV RP #6</span>
+                    <button class="watch-button" data-video-id="uJx1Z2AQHnA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 7: ON PRÉPARE NOTRE PLUS GROS COUP QUI PEUT NOUS RENDRE MILLIONNAIRE ! GTAV RP #7</span>
+                    <button class="watch-button" data-video-id="c02txsFw56U">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 8: ON VOLE UN TANK ET DEMANDE UNE RANÇON DE 1 MILLION AUX POLICIERS ! GTAV RP #8</span>
+                    <button class="watch-button" data-video-id="CJl7bC9cfxc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 9: LE GRAND JOUR, NÉGOCIATION AVEC LA POLICE POUR ÉCHANGE TANK CONTRE 1 MILLION DOLLARS - GTAV RP #9</span>
+                    <button class="watch-button" data-video-id="Dhy2Uz0CkA8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 10: COURSE-POURSUITE AVEC LA POLICE AVEC 600 000$ DANS LA POCHE - GTAV RP #10</span>
+                    <button class="watch-button" data-video-id="2zrMMtsB1r0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 11: LES AGENTS SECRETS NOUS ONT RETROUVÉ, JE PERDS MON MEILLEUR AMI GUY TRAGIQUEMENT :'( - GTAV RP #11</span>
+                    <button class="watch-button" data-video-id="kGu8Bqy8Q50">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 12: JE VAIS ME VENGER DE LA MORT DE GUY MAUD ! - GTAV RP #12</span>
+                    <button class="watch-button" data-video-id="r1qBzNm5aHY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 13: ACHETER DES ARMES ILLÉGALES ET S’INFILTRER DANS LE FBI POUR SE VENGER DE GUY ! GTAV RP #13</span>
+                    <button class="watch-button" data-video-id="OjNnC83AaM4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 14: LA FIN DU GANG DOUBLE ? :( GTAV RP #14</span>
+                    <button class="watch-button" data-video-id="s-wSTU9i1Lw">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 15: LE GANG DOUBLE REVIENT EN FORCE ! GTAV RP #15</span>
+                    <button class="watch-button" data-video-id="B608R75HNfE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 16: C’ÉTAIT TROP BEAU POUR ÊTRE VRAI ! RETOURNEMENT DE SITUATION ! GTAV RP #16</span>
+                    <button class="watch-button" data-video-id="Rb0XbQdD31g">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 17: PERDU SEUL DANS LA FORÊT ENTOURÉ D’ANIMAUX SAUVAGES ! GTAV RP #17</span>
+                    <button class="watch-button" data-video-id="vy_Ci-ctl-U">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 18: TRAILER ÉPISODE FINAL DU GANG DOUBLE ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="b8OeooNJ2lk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 19: LE PLUS GROS COUP DU GANG DOUBLE ! VENGEANCE ULTIME - GTAV RP ÉPISODE FINAL</span>
+                    <button class="watch-button" data-video-id="cxtl5GTsmhE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 20: JE DOIS CHOISIR ENTRE LA FEMME DE MA VIE OU LE GANG DOUBLE ? GTAV RP SAISON 2 #1</span>
+                    <button class="watch-button" data-video-id="Eoo3Vpelub4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 21: JE RECONSTRUIS LE GANG DOUBLE DANS LE DOS DE MA FEMME - GTAV RP S2 #2</span>
+                    <button class="watch-button" data-video-id="u-c7OsaY62M">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 22: LE GRAND JOUR, VOLER DES VOITURES QUI VALENT DES MILLIONS À DES HOMMES RICHES - GTAV RP S2 #3</span>
+                    <button class="watch-button" data-video-id="wbw-dOzIe7Q">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 23: MA FEMME APPREND QUE J’AI REFORMÉ LE GANG DOUBLE, VA-T-ELLE ME QUITTER ? GTAV RP S2 #4</span>
+                    <button class="watch-button" data-video-id="gyc2K4p3KG4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 24: LE JOUR DE LA PAYE, QUE LES CHOSES SÉRIEUSES COMMENCENT ! GTAV RP S2 #5</span>
+                    <button class="watch-button" data-video-id="7p01OcCJ62Y">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 25: ON ME FAIT QUITTER LE GANG DOUBLE DE FORCE :'( - GTAV RP S2 #6</span>
+                    <button class="watch-button" data-video-id="KiUrxBgYMRI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 26: DOUBLE C’EST FINI ?! NON ! JAMAIS DE LA VIE ! EXPLICATION</span>
+                    <button class="watch-button" data-video-id="E02ICk8dnJc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 27: COMMENT ALEXANDRA S’EST FAIT KIDNAPPER ? - GTAV RP S2</span>
+                    <button class="watch-button" data-video-id="AoKd1OPhb7I">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 28: DAVID FLASH VA-T-IL RÉINTÉGRER LE GANG DOUBLE ET SAUVER SA FEMME ? GTAV RP S2 #7</span>
+                    <button class="watch-button" data-video-id="VSlcPS0yUgY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 29: ALEXANDRA EST-ELLE MORTE ? DES GENS VEULENT DÉTRUIRE LE GANG DOUBLE ! GTAV RP S2 #8</span>
+                    <button class="watch-button" data-video-id="vGKQWWrEn5E">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 30: ON SE FAIT PASSER POUR DES POLICIERS POUR S’INFILTRER DANS LE COMMISSARIAT ! GTAV RP S2 #9</span>
+                    <button class="watch-button" data-video-id="48d6rARuXcc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 31: TRAILER ÉPISODE 10 ASSAUT DE LA PRISON FÉDÉRALE ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="op4u7AXMijM">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 32: ON ATTAQUE LA PRISON FÉDÉRALE ! GTAV RP #10</span>
+                    <button class="watch-button" data-video-id="zBLrb3oA5kY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 33: LE GRAND JOUR ! ÉVASION DE RAY DEFESSE ET DE BOUNDRIL ! GTAV S2 #11</span>
+                    <button class="watch-button" data-video-id="vWqf1P05D4k">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 34: LE PLUS GRAND ÉVÉNEMENT DE LA VIE DE DAVID FLASH ! DOUBLE A ACCOMPLI L’IMPOSSIBLE ! GTAV RP FINAL S2</span>
+                    <button class="watch-button" data-video-id="5OAmyfAAbu4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 35: J’OUVRE MON ENTREPRISE D’ARMES ILLÉGALES - GTAV RP HS #1</span>
+                    <button class="watch-button" data-video-id="-28O2WxPClI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 36: NOTRE MEILLEUR COUP ? LE GANG DOUBLE MILLIONNAIRE ? GTAV RP SAISON 3 #1</span>
+                    <button class="watch-button" data-video-id="FDsqTZf8eg4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 37: ALEXANDRA ET MON FILS MORTS ? UN NOUVEAU GANG NOUS MENACE ! GTAV RP S3 #2</span>
+                    <button class="watch-button" data-video-id="vDm9BvzsuAQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 38: LE GANG SPINNER A ENCORE FRAPPÉ ! GTAV RP S3 #3</span>
+                    <button class="watch-button" data-video-id="VRDxUyr7vgI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 39: J’AI PERDU TOUS LES MEMBRES DU GANG DOUBLE :( ! LE GANG SPINNER VEUT NOUS DÉTRUIRE ! GTAV S3 #4</span>
+                    <button class="watch-button" data-video-id="c1CqiTsd9tA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 40: JE PRÉPARE UN GROS PIÈGE AU GANG SPINNER ! GTAV RP S3 #5</span>
+                    <button class="watch-button" data-video-id="sYAB_akUuV8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 41: J’ARRÊTE LA SÉRIE DU GANG DOUBLE ! LES ABONNÉS PÈTENT UN CÂBLE !</span>
+                    <button class="watch-button" data-video-id="NUBlOdmIGg0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 42: LE GANG DOUBLE EN PRISON ? GTAV RP S3 #6</span>
+                    <button class="watch-button" data-video-id="molx0yNEUNM">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 43: ON S’INFILTRE DANS LE QG DU GANG SPINNER - GTAV RP S3 #7</span>
+                    <button class="watch-button" data-video-id="R6V_icHGkvc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 44: ON SE DÉGUISE EN GANG SPINNER POUR RETROUVER LE BOSS ! GTAV RP S3 #8</span>
+                    <button class="watch-button" data-video-id="sbhbMxMIvMI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 45: LE GRAND JOUR, LE FACE-À-FACE AVEC LE CHEF SPINNER ! GTAV RP S3 #9</span>
+                    <button class="watch-button" data-video-id="2RRBgXB2aDQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 46: LE CHEF SPINNER NOUS DEMANDE DE FAIRE L’IMPOSSIBLE POUR SURVIVRE ! GTAV RP S3 #10</span>
+                    <button class="watch-button" data-video-id="Gf2Zbia3Dps">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 47: RETOURNEMENT DE SITUATION, LE CHEF SPINNER VA LE REGRETTER ! GTAV RP S3 #11</span>
+                    <button class="watch-button" data-video-id="WbfH4Al6AeY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 48: LA FIN DU GANG SPINNER OU DU GANG DOUBLE ? ÉPISODE FINAL SAISON 3 ! GTAV RP #12</span>
+                    <button class="watch-button" data-video-id="djbhlQxN4RE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 49: DAVID FLASH SE LANCE DANS DU TRAFIC ILLÉGAL DANS UNE NOUVELLE VILLE ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="urOab280d00">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 50: DAVID FLASH DANS LE CAMP DES FLICS ? GTAV RP LIVE #1</span>
+                    <button class="watch-button" data-video-id="BoAs8IN83xs">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 51: J’OUVRE ENFIN MON ENTREPRISE D’ARMES ILLÉGAUX ! GTAV RP LIVE #2</span>
+                    <button class="watch-button" data-video-id="78TonPlT0dk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 52: À LA RECHERCHE DE PABLO KEY POUR RÈGLEMENT DE COMPTE ! GTAV RP LIVE #2</span>
+                    <button class="watch-button" data-video-id="W02l-9kobMY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 53: GROS CONVOI DE CARGAISONS D’ARMES ILLÉGALES PLUS DE 5 MILLIONS $ ! GTAV RP LIVE #4</span>
+                    <button class="watch-button" data-video-id="PYV2PNYudn8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 54: DAVID FLASH DEVIENT UN TUEUR À GAGES ! GTAV RP LIVE #5</span>
+                    <button class="watch-button" data-video-id="WLYvqz1wzK4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 55: MON PREMIER CONTRAT DE TUEUR À GAGES ! GTAV RP LIVE #6</span>
+                    <button class="watch-button" data-video-id="_knXty9Cv-A">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 56: JE PRÉPARE UNE SURPRISE À MON AMI DOUME PAOLI POUR LES RETROUVAILLES ! GTAV RP LIVE #7</span>
+                    <button class="watch-button" data-video-id="MJOIpkzlIOc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 57: LE GRAND JOUR, DAVID FLASH TRAVAILLE AVEC D’AUTRES GANGS ! GTAV RP LIVE #8</span>
+                    <button class="watch-button" data-video-id="__8J5xGuEdE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 58: LE GRAND JOUR, DAVID FLASH TRAVAILLE AVEC D’AUTRES GANGS ! GTAV RP LIVE #8</span>
+                    <button class="watch-button" data-video-id="PCy6ACpY0XE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 59: GANG DOUBLE SAISON 4 #1 - LA VÉRITÉ ! GTAV RP [COURT-MÉTRAGE]</span>
+                    <button class="watch-button" data-video-id="aqqLKLpwgUg">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 60: GANG DOUBLE #2 S4 - LA FEMME MYSTÉRIEUSE - GTAV RP [COURT-MÉTRAGE]</span>
+                    <button class="watch-button" data-video-id="nNPojO9fZFc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 61: DAVID FLASH VA REFORMER LE GANG DOUBLE ! GTAV RP #3 SAISON 4</span>
+                    <button class="watch-button" data-video-id="OGhPP6Fb_Us">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 62: OPÉRATION BRAQUAGE DE BANQUE SOUS-TERRAIN - GTAV RP #4 [GANG DOUBLE]</span>
+                    <button class="watch-button" data-video-id="UKT4XRH0ZmU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 63: LES CHOSES SÉRIEUSES COMMENCENT ! PIRATAGE SYSTÈME CAMÉRA ! GTAV RP #5</span>
+                    <button class="watch-button" data-video-id="FOd15vE2u7c">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 64: GROS BRAQUAGE DE LA BANQUE CENTRALE PAR SOUS-TERRAIN ! GTAV RP #6</span>
+                    <button class="watch-button" data-video-id="cSkKh59QQAU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 65: DAVID FLASH A FAIT L’IMPOSSIBLE MAIS SA MALADIE LE MENACE ! GTAV RP #7</span>
+                    <button class="watch-button" data-video-id="iK5E34WF5uI">Regarder</button>
+                </li>
+            </ul>
+            <div class="alert-modal" id="alertModal">
+                <div class="modal-content">
+                    <p>Attention, souhaitez-vous avoir un rappel de l'ordre de visionnage de la série "Flash" ?</p>
+                    <div class="alert-buttons">
+                        <button class="alert-button" id="showOrderButton">Oui</button>
+                        <button class="alert-button" id="closeAlertButton">Non</button>
+                    </div>
+                </div>
+            </div>
+            <div class="order-modal" id="orderModal">
+                <div class="modal-content">
+                    <h3>Ordre de visionnage de la famille FLASH</h3>
+                    <div class="order-table-container">
+                        <table class="order-table">
+                            <tbody>
+                                <tr>
+                                    <td><span>David Flash:</span> <button class="go-button" data-url="david.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>John Flash:</span> <button class="go-button" data-url="john.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 1):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 1):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 2):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 2):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 1):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 2):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>David Jr Flash (vieux):</span> <button class="go-button" data-url="davidjr.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 3):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 1):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 2):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 3):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Adrian Flash:</span> <button class="go-button" data-url="adrian.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden et Aaron vs Adrian:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ned Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Manda Flash:</span> <button class="go-button" data-url="manda.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Cody Hunters (Ned Flash):</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="close-button" id="closeOrderButton">Fermer</button>
+                </div>
+            </div>
+            <div class="video-modal" id="videoModal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-modal">×</span>
+                    <iframe id="modalVideo" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="color-scheme-4">
+        <ul class="list-social">
+            <li>
+                <a href="https://x.com/ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/x.png" alt="X" class="social-icon">
+                    <span class="social-title">X</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.tiktok.com/@ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/tiktok.webp" alt="TikTok" class="social-icon">
+                    <span class="social-title">TikTok</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMx" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@ipromxenfolie1688" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°2</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMxHD" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°3</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.com/invite/fantasticwl" target="_blank" class="social-link">
+                    <img src="../../images/discord.png" alt="Discord Fantastic" class="social-icon">
+                    <span class="social-title">Fantastic WL</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const watchButtons = document.querySelectorAll('.watch-button');
+            const alertModal = document.getElementById('alertModal');
+            const showOrderButton = document.getElementById('showOrderButton');
+            const closeAlertButton = document.getElementById('closeAlertButton');
+            const orderModal = document.getElementById('orderModal');
+            const closeOrderButton = document.getElementById('closeOrderButton');
+            const videoModal = document.getElementById('videoModal');
+            const closeModal = document.querySelectorAll('.close-modal');
+            let currentVideoId = null;
+
+            // Ensure all modals are hidden on page load
+            alertModal.style.display = 'none';
+            orderModal.style.display = 'none';
+            videoModal.style.display = 'none';
+
+            watchButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    currentVideoId = button.getAttribute('data-video-id');
+                    alertModal.style.display = 'flex';
+                });
+            });
+
+            showOrderButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                orderModal.style.display = 'flex';
+            });
+
+            closeAlertButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeOrderButton.addEventListener('click', () => {
+                orderModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeModal.forEach(button => {
+                button.addEventListener('click', () => {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                });
+            });
+
+            alertModal.addEventListener('click', (e) => {
+                if (e.target === alertModal) {
+                    alertModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            orderModal.addEventListener('click', (e) => {
+                if (e.target === orderModal) {
+                    orderModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                }
+            });
+
+            document.querySelectorAll('.go-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const url = button.getAttribute('data-url');
+                    window.location.href = url;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

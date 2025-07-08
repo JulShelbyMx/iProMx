@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famille FLASH</title>
+    <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: black;
+            margin: 0;
+            padding: 6.25px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: black;
+            border-radius: 6.25px;
+            padding: 12.5px;
+            box-shadow: 0 6.25px 12.5px rgba(0, 0, 0, 0.1);
+            margin-top: 60px; /* Décalage pour éviter le chevauchement avec le bouton */
+        }
+
+        h1 {
+            text-align: center;
+            color: #e0a800;
+            margin-bottom: 15.625px;
+            font-size: 0.78125em;
+            text-shadow: 0.625px 0.625px 1.25px rgba(0, 0, 0, 0.1);
+        }
+
+        .tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 46.875px;
+            padding: 12.5px 0;
+            position: relative;
+            background-color: grey;
+            padding-top: 40px;
+        }
+
+        .generation {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0;
+            flex-wrap: wrap;
+            position: relative;
+            width: 100%;
+            min-height: 62.5px;
+        }
+
+        .generation-label {
+            position: absolute;
+            top: -18.75px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            color: black;
+            padding: 3.75px 7.5px;
+            border-radius: 7.8125px;
+            font-weight: bold;
+            font-size: 0.34375em;
+            box-shadow: 0 1.25px 2.5px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .family-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            margin: 0 4.6875px;
+        }
+
+        .person-row {
+            display: flex;
+            gap: 15.625px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            width: 100%;
+        }
+
+        .partners-row {
+            display: flex;
+            gap: 15.625px;
+            justify-content: center;
+            margin-top: 6.25px;
+            position: relative;
+            width: 100%;
+        }
+
+        .person {
+            background: white;
+            border: 0.9375px solid #ffd700;
+            border-radius: 4.6875px;
+            padding: 6.25px;
+            text-align: center;
+            min-width: 50px;
+            min-height: 28.125px;
+            box-shadow: 0 2.5px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            margin: 3.125px;
+            flex-shrink: 1;
+            cursor: pointer;
+        }
+
+        .person:hover {
+            transform: translateY(-1.5625px);
+            box-shadow: 0 3.75px 7.5px rgba(0, 0, 0, 0.2);
+        }
+
+        .person.male {
+            border-color: #3498db;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        }
+
+        .person.female {
+            border-color: #e91e63;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+        }
+
+        .person.deceased::after {
+            content: "†";
+            position: absolute;
+            top: -3.125px;
+            right: -3.125px;
+            background: #e74c3c;
+            color: white;
+            width: 7.8125px;
+            height: 7.8125px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 5.625px;
+        }
+
+        @media (min-width: 769px) {
+            .person.deceased::after {
+                font-size: 1.5em;
+                width: 15px;
+                height: 15px;
+            }
+        }
+
+        .person.unknown {
+            border-color: #f39c12;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffcc80 100%);
+        }
+
+        .person.no-partner {
+            border-color: none;
+            background: white;
+        }
+
+        .person a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .person a:hover {
+            color: rgba(255, 215, 0, 0.7);
+            text-decoration: underline;
+        }
+
+        .name {
+            font-weight: bold;
+            font-size: 0.34375em;
+            margin-bottom: 1.5625px;
+            color: #2c3e50;
+        }
+
+        .surname {
+            font-size: 0.28125em;
+            color: darkgoldenrod;
+            margin-bottom: 2.5px;
+        }
+
+        .nickname {
+            font-style: italic;
+            color: #8e44ad;
+            font-size: 0.265625em;
+            margin-top: 1.5625px;
+        }
+
+        .relationship-symbol {
+            color: #e91e63;
+            font-size: 0.5625em;
+            font-weight: bold;
+            margin: 0 3.125px;
+        }
+
+        .simple-relation {
+            color: #7f8c8d;
+            font-size: 0.46875em;
+            margin: 0 3.125px;
+        }
+
+        .toxic-symbol {
+            color: #e74c3c;
+            font-size: 0.46875em;
+            animation: pulse 2s infinite;
+            margin: 0 3.125px;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .connection-line {
+            position: absolute;
+            background: #ffd700;
+            z-index: 1;
+        }
+
+        .connection-line.toxic {
+            background: #e74c3c;
+        }
+
+        .person-to-partner-vertical {
+            width: 0.9375px;
+            height: 6.25px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffd700;
+        }
+
+        .kylie-vertical {
+            width: 0.9375px;
+            height: 5.3125px;
+            top: 48%;
+            left: 10%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            position: absolute;
+        }
+
+        .aaron-vertical {
+            width: 0.9375px;
+            height: 5.3125px;
+            top: 48%;
+            left: 37.5%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            position: absolute;
+        }
+
+        .kayton-vertical {
+            width: 0.9375px;
+            height: 5.3125px;
+            top: 48%;
+            left: 62.5%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            position: absolute;
+        }
+
+        .david-jr-vertical {
+            width: 0.9375px;
+            height: 5.3125px;
+            top: 48%;
+            left: 89%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            position: absolute;
+        }
+
+        .david-vertical {
+            width: 0.9375px;
+            height: 6.25px;
+            top: 47%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            position: absolute;
+        }
+
+        .john-vertical {
+            width: 0.9375px;
+            height: 6.25px;
+            top: 47%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            position: absolute;
+        }
+
+        .ken-vertical {
+            width: 0.9375px;
+            height: 6.25px;
+            top: 64%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            position: absolute;
+        }
+
+        .ned-vertical {
+            width: 0.9375px;
+            height: 5.3125px;
+            top: 52.3%;
+            left: 12.5%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            position: absolute;
+        }
+
+        .eden-vertical {
+            width: 0.9375px;
+            height: 5.3125px;
+            top: 52.3%;
+            left: 37.5%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            position: absolute;
+        }
+
+        .eddy-vertical {
+            width: 0.9375px;
+            height: 5.3125px;
+            top: 52.3%;
+            left: 62.5%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            position: absolute;
+        }
+
+        .adrian-vertical {
+            width: 0.9375px;
+            height: 5.3125px;
+            top: 52.3%;
+            left: 87.5%;
+            transform: translateX(-50%);
+            background: #ffd700;
+            position: absolute;
+        }
+
+        .children-horizontal {
+            height: 0.9375px;
+            top: -3.125px;
+            left: 0;
+            width: 100%;
+            position: absolute;
+            background: #ffd700;
+        }
+
+        .child-vertical {
+            width: 0.9375px;
+            height: 6.25px;
+            top: 0;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .legend {
+            margin-top: 10px;
+            padding: 7px;
+            background: black;
+            border-radius: 4.6875px;
+            border-left: 1.5625px solid #ffd700;
+            margin-bottom: 55px;
+        }
+
+        .legend h3 {
+            background-color: white;
+            color: grey;
+            margin-bottom: 1px;
+            font-size: 0.40625em;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(93.75px, 1fr));
+            gap: 4.6875px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 3.75px;
+        }
+
+        .legend-item span:nth-child(2) {
+            color: white;
+            font-size: 0.5em; /* Taille par défaut pour mobile */
+        }
+
+        .legend-symbol {
+            font-size: 0.40625em;
+            font-weight: bold;
+            min-width: 9.375px;
+        }
+
+        /* CSS spécifique pour Ava, JADE 000, et Jade FLASH/MONROE (PC par défaut) */
+        .person.ava-partner {
+            border-color: #e91e63;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+            left: -0.4%
+        }
+
+        .person.jade-000-partner {
+            border-color: #e91e63;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+            left: -39.4%;
+        }
+
+        .person.jade-monroe-partner {
+            border-color: #e91e63;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+            left: -39.4%;
+        }
+
+        /* Logo en haut à droite */
+        .logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            max-width: 100px; /* Ajuste la taille selon ton image */
+            z-index: 1000;
+        }
+
+        /* Nouvelle section de navigation rapide */
+        .quick-nav {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            margin: 20px auto 40px; /* Ajout de margin-bottom pour gap */
+            border-radius: 6.25px;
+            border: 1px solid #ffd700;
+            max-width: 800px;
+        }
+
+        .quick-nav h2 {
+            color: #e0a800;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .quick-nav-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .quick-nav-button {
+            background-color: #ffd700;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.8em;
+            transition: background-color 0.3s ease;
+            display: block;
+            text-align: center;
+        }
+
+        .quick-nav-button:hover {
+            background-color: #e0a800;
+        }
+
+        /* Media queries pour responsivité PC */
+        @media (min-width: 769px) {
+            .container {
+                max-width: 3200px;
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+                margin-bottom: 50px;
+            }
+
+            .tree {
+                gap: 150px;
+                padding: 40px 0;
+                padding-top: 80px;
+            }
+
+            .generation {
+                min-height: 200px;
+            }
+
+            .generation-label {
+                top: -60px;
+                padding: 12px 24px;
+                font-size: 1.1em;
+            }
+
+            .family-group {
+                margin: 0 15px;
+            }
+
+            .person-row {
+                gap: 50px;
+            }
+
+            .partners-row {
+                gap: 50px;
+                margin-top: 20px;
+            }
+
+            .person {
+                border: 3px solid #ffd700;
+                border-radius: 15px;
+                padding: 20px;
+                min-width: 160px;
+                min-height: 90px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+                margin: 10px;
+            }
+
+            .person:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            }
+
+            .name {
+                font-size: 1.1em;
+                margin-bottom: 5px;
+            }
+
+            .surname {
+                font-size: 0.9em;
+                margin-bottom: 8px;
+            }
+
+            .nickname {
+                font-size: 0.85em;
+                margin-top: 5px;
+            }
+
+            .relationship-symbol {
+                font-size: 1.8em;
+                margin: 0 10px;
+            }
+
+            .simple-relation {
+                font-size: 1.5em;
+                margin: 0 10px;
+            }
+
+            .toxic-symbol {
+                font-size: 1.5em;
+                margin: 0 10px;
+            }
+
+            .person-to-partner-vertical {
+                width: 3px;
+                height: 20px;
+            }
+
+            .kylie-vertical, .aaron-vertical, .kayton-vertical, .david-jr-vertical, .ned-vertical, .eden-vertical, .eddy-vertical, .adrian-vertical {
+                width: 3px;
+                height: 17px;
+            }
+
+            .david-vertical, .john-vertical, .ken-vertical {
+                width: 3px;
+                height: 20px;
+            }
+
+            .children-horizontal {
+                height: 3px;
+                top: -10px;
+            }
+
+            .child-vertical {
+                width: 3px;
+                height: 20px;
+            }
+
+            .legend {
+                margin-top: 50px;
+                padding: 25px;
+                border-left: 5px solid #ffd700;
+            }
+
+            .legend h3 {
+                margin-bottom: 20px;
+                font-size: 1.3em;
+            }
+
+            .legend-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 15px;
+            }
+
+            .legend-item {
+                gap: 12px;
+            }
+
+            .legend-symbol {
+                font-size: 1.3em;
+                min-width: 30px;
+            }
+
+            .legend-item span:nth-child(2) {
+                color: white;
+                font-size: 1em; /* Taille réduite pour mobile */
+            }
+
+            .container {
+                margin-top: 80px; /* Ajustement pour desktop */
+            }
+
+            .logo {
+                max-width: 150px; /* Taille plus grande pour desktop */
+            }
+
+            .quick-nav {
+                padding: 40px;
+                max-width: 1000px;
+                margin-bottom: 60px; /* Gap plus grand pour desktop */
+            }
+
+            .quick-nav h2 {
+                font-size: 1.2em;
+                margin-bottom: 20px;
+            }
+
+            .quick-nav-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 15px;
+            }
+
+            .quick-nav-button {
+                padding: 15px;
+                font-size: 1em;
+            }
+        }
+
+        /* Ajustement spécifique pour la ligne de Ned et des partenaires sur mobile */
+        @media (max-width: 768px) {
+            .gen5-main-row {
+                flex-wrap: nowrap;
+                gap: 2.34375px;
+                justify-content: space-between;
+                width: 100%;
+                max-width: 375px;
+            }
+
+            .gen5-main-row .person {
+                min-width: 35px;
+                flex-shrink: 1;
+                padding: 4.6875px;
+            }
+
+            .person-row.gen5-line-1 {
+                margin-top: 6.25px;
+            }
+
+            .person-row.gen5-line-2 {
+                margin-top: 6.25px;
+            }
+
+            .person-row.gen5-line-3 {
+                margin-top: 6.25px;
+            }
+
+            .person-row.gen5-line-4 {
+                margin-top: 6.25px;
+                max-width: 375px;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                gap: 1.5625px;
+            }
+
+            .person-row.gen5-line-4 .person {
+                min-width: 30px;
+                padding: 3.125px;
+            }
+
+            .person-row.gen5-line-5 {
+                margin-top: 6.25px;
+                max-width: 375px;
+                position: relative;
+            }
+
+            .person-row.gen5-line-5 .jade-000-partner {
+                left: -38%;
+            }
+
+            .person-row.gen5-line-6 {
+                margin-top: 6.25px;
+                max-width: 375px;
+                position: relative;
+            }
+
+            .person-row.gen5-line-6 .jade-monroe-partner {
+                left: -38%;
+            }
+
+            .ned-vertical {
+                top: 58%;
+                left: 12.5%;
+            }
+
+            .eden-vertical {
+                top: 58%;
+                left: 37.5%;
+            }
+
+            .eddy-vertical {
+                top: 58%;
+                left: 62.5%;
+            }
+
+            .adrian-vertical {
+                top: 58%;
+                left: 87.5%;
+            }
+
+            /* Ajustement pour la génération 4 sur mobile */
+            .generation:nth-child(4) .person-row {
+                max-width: 375px;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                gap: 2.34375px;
+            }
+
+            .generation:nth-child(4) .kylie-vertical {
+                left: 12.5%;
+            }
+
+            .generation:nth-child(4) .aaron-vertical {
+                left: 37.5%;
+            }
+
+            .generation:nth-child(4) .kayton-vertical {
+                left: 62.5%;
+            }
+
+            .generation:nth-child(4) .david-jr-vertical {
+                left: 87.5%;
+            }
+        }
+
+        /* Nouvelle section présentation */
+        .presentation {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.7);
+            margin: 0 auto 20px;
+            border-radius: 6.25px;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .intro-text {
+            font-size: 0.9em;
+            color: black;
+            margin-bottom: 15px;
+        }
+
+        .presentation-image {
+            max-width: 300px;
+            border-radius: 6.25px;
+            position: relative;
+        }
+
+        .presentation-image::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, black 0%, transparent 10%, transparent 90%, black 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ffd700;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background-color: #e0a800;
+        }
+
+        @media (min-width: 769px) {
+            .presentation {
+                padding: 40px;
+                max-width: 1000px;
+            }
+
+            .intro-text {
+                font-size: 1.2em;
+            }
+
+            .presentation-image {
+                max-width: 400px;
+            }
+
+            .presentation-image::before {
+                background: linear-gradient(to right, black 0%, transparent 15%, transparent 85%, black 100%);
+            }
+
+            .back-button {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Rendre les blocs des hommes cliquables (rediriger vers le lien)
+            document.querySelectorAll('.person.male').forEach(person => {
+                const link = person.querySelector('a');
+                if (link) {
+                    person.addEventListener('click', (e) => {
+                        if (!e.target.closest('a')) {
+                            window.location.href = link.href;
+                        }
+                    });
+                }
+            });
+
+            // Rendre les blocs des femmes et inconnus cliquables (alerte)
+            document.querySelectorAll('.person.female, .person.no-partner, .person.unknown, .person.ava-partner, .person.jade-000-partner, .person.jade-monroe-partner').forEach(person => {
+                person.addEventListener('click', () => {
+                    alert('Pas d\'information sur ce personnage');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <img src="../../images/logo.webp" alt="Logo iProMx" class="logo">
+
+    <a href="../../index.html" class="back-button">RETOUR</a>
+    <div class="container">
+        <!-- Section de présentation -->
+        <div class="presentation">
+            <p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p>
+            <img src="../../images/flash.jpg" alt="Famille FLASH" class="presentation-image">
+            <p class="intro-text">Mais qui sont-ils réellement ?</p>
+        </div>
+
+        <!-- Nouvelle section de navigation rapide -->
+        <div class="quick-nav">
+            <h2>Cliquez sur le personnage de votre choix pour accéder à ses informations</h2>
+            <div class="quick-nav-grid">
+                <a href="david.html" class="quick-nav-button">David FLASH</a>
+                <a href="john.html" class="quick-nav-button">John FLASH</a>
+                <a href="ken.html" class="quick-nav-button">Ken FLASH</a>
+                <a href="aaron.html" class="quick-nav-button">Aaron FLASH</a>
+                <a href="kayton.html" class="quick-nav-button">Kayton FLASH</a>
+                <a href="david-jr.html" class="quick-nav-button">David Jr FLASH</a>
+                <a href="damon.html" class="quick-nav-button">Damon FLASH</a>
+                <a href="3freres.html" class="quick-nav-button">Ned FLASH</a>
+                <a href="3freres.html" class="quick-nav-button">Eden FLASH</a>
+                <a href="3freres.html" class="quick-nav-button">Eddy FLASH</a>
+                <a href="adrian.html" class="quick-nav-button">Adrian FLASH</a>
+                <a href="manda.html" class="quick-nav-button">Manda FLASH</a>
+            </div>
+        </div>
+
+        <h1>Voici l'arbre généalogique des FLASH, le plus simplifié possible pour une totale compréhension !</h1>
+
+        <div class="legend">
+            <h3>📋 Légende de l'arbre généalogique</h3>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <span class="legend-symbol" style="color: #3498db;">Bloc bleu</span>
+                    <span>Homme</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol" style="color: #e91e63;">Bloc rose</span>
+                    <span>Femme</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol" style="color: #f39c12;">Bloc jaune</span>
+                    <span>Statut inconnu</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol" style="color: #3498db;">│</span>
+                    <span>Liens de couple/mariage/etc</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol" style="color: grey;">Bloc blanc</span>
+                    <span>Pas de mari/femme</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-symbol" style="color: #e74c3c;">†</span>
+                    <span>Décédé</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tree">
+            <!-- Génération 1 - Les Fondateurs -->
+            <div class="generation">
+                <div class="generation-label">Génération 1 - Les Fondateurs</div>
+                <div class="family-group">
+                    <div class="person-row">
+                        <div class="person male deceased">
+                            <div class="name"><a href="david.html">David FLASH</a></div>
+                            <div class="surname">Flash le plus ancien connu</div>
+                        </div>
+                    </div>
+                    <div class="david-vertical"></div>
+                    <div class="partners-row">
+                        <div class="person female deceased">
+                            <div class="name">Alexandra FLASH</div>
+                            <div class="surname">Femme de David</div>
+                        </div>
+                    </div>
+                    <div class="children-horizontal"></div>
+                    <div class="child-vertical" style="left: 50%;"></div>
+                </div>
+            </div>
+
+            <!-- Génération 2 -->
+            <div class="generation">
+                <div class="generation-label">Génération 2</div>
+                <div class="family-group">
+                    <div class="person-row">
+                        <div class="person male deceased">
+                            <div class="name"><a href="john.html">John FLASH</a></div>
+                            <div class="surname">Enfant de David & Alexandra</div>
+                        </div>
+                    </div>
+                    <div class="john-vertical"></div>
+                    <div class="partners-row">
+                        <div class="person female deceased">
+                            <div class="name">Emy SMITH</div>
+                            <div class="surname">Autrefois en couple avec John</div>
+                        </div>
+                        <div class="person female deceased">
+                            <div class="name">Angel FLASH</div>
+                            <div class="surname">Femme de John</div>
+                        </div>
+                    </div>
+                    <div class="children-horizontal"></div>
+                    <div class="child-vertical" style="left: 25%;"></div>
+                    <div class="child-vertical" style="left: 75%;"></div>
+                </div>
+            </div>
+
+            <!-- Génération 3 -->
+            <div class="generation">
+                <div class="generation-label">Génération 3</div>
+                <div class="family-group">
+                    <div class="person female deceased">
+                        <div class="name"><a href="ken.html">Raven FLASH</a></div>
+                        <div class="surname">Enfant de John & Emy</div>
+                    </div>
+                    <div class="person-row">
+                        <div class="person male deceased">
+                            <div class="name"><a href="ken.html">Ken FLASH</a></div>
+                            <div class="surname">Enfant de John & Angel</div>
+                        </div>
+                    </div>
+                    <div class="ken-vertical"></div>
+                    <div class="partners-row">
+                        <div class="person female deceased">
+                            <div class="name">Laila FLASH</div>
+                            <div class="surname">Femme de Ken</div>
+                        </div>
+                        <div class="person female deceased">
+                            <div class="name">Luna</div>
+                            <div class="surname">Autrefois en couple avec Ken</div>
+                        </div>
+                        <div class="person female deceased">
+                            <div class="name">Giulia VITALE</div>
+                            <div class="surname">Autrefois en couple avec Ken</div>
+                        </div>
+                    </div>
+                    <div class="children-horizontal"></div>
+                    <div class="child-vertical" style="left: 33.33%;"></div>
+                    <div class="child-vertical" style="left: 66.67%;"></div>
+                </div>
+            </div>
+
+            <!-- Génération 4 -->
+            <div class="generation">
+                <div class="generation-label">Génération 4</div>
+                <div class="family-group">
+                    <div class="person-row">
+                        <div class="person female">
+                            <div class="name">Kylie FLASH</div>
+                            <div class="surname">Enfant de Ken & Laila</div>
+                        </div>
+                        <div class="person male deceased">
+                            <div class="name"><a href="aaron.html">Aaron FLASH</a></div>
+                            <div class="surname">Enfant de Ken & Laila</div>
+                        </div>
+                        <div class="person male deceased">
+                            <div class="name"><a href="kayton.html">Kayton FLASH</a></div>
+                            <div class="surname">Enfant de Ken & Luna</div>
+                        </div>
+                        <div class="person male deceased">
+                            <div class="name"><a href="david-jr.html">David Jr FLASH</a></div>
+                            <div class="surname">Enfant de Ken & Giulia</div>
+                        </div>
+                    </div>
+                    <div class="children-horizontal"></div>
+                    <div class="child-vertical" style="left: 12.5%;"></div>
+                    <div class="child-vertical" style="left: 37.5%;"></div>
+                    <div class="child-vertical" style="left: 62.5%;"></div>
+                    <div class="child-vertical" style="left: 87.5%;"></div>
+                    <div class="kylie-vertical"></div>
+                    <div class="aaron-vertical"></div>
+                    <div class="kayton-vertical"></div>
+                    <div class="david-jr-vertical"></div>
+                    <div class="partners-row">
+                        <div class="person male no-partner">
+                            <div class="name">Pas de mari</div>
+                        </div>
+                        <div class="person female deceased">
+                            <div class="name">Nina FLASH</div>
+                            <div class="surname">Femme d'Aaron</div>
+                        </div>
+                        <div class="person female">
+                            <div class="name">Arya FLASH</div>
+                            <div class="surname">Femme de Kayton</div>
+                        </div>
+                        <div class="person female deceased">
+                            <div class="name">Kayla QUEEN</div>
+                            <div class="surname">"Femme" de David Jr</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Génération 5 -->
+            <div class="generation">
+                <div class="generation-label">Génération 5</div>
+                <div class="family-group">
+                    <div style="text-align: center; margin-bottom: 6.25px; font-weight: bold; color: #ffd700;">Pas marié(e)s et pas d'enfant(s)</div>
+                    <div class="person-row gen5-line-1">
+                        <div class="person male deceased">
+                            <div class="name"><a href="damon.html">Damon FLASH</a></div>
+                            <div class="surname">Enfant de Aaron & Angela</div>
+                        </div>
+                        <div class="person female">
+                            <div class="name">Daysie FLASH</div>
+                            <div class="surname">Enfant de Aaron & Nina</div>
+                        </div>
+                        <div class="person female deceased">
+                            <div class="name">Jenna FLASH</div>
+                            <div class="surname">Enfant de David Jr & Kayla</div>
+                        </div>
+                    </div>
+                    <div class="children-horizontal"></div>
+                    <div class="child-vertical" style="left: 16.67%;"></div>
+                    <div class="child-vertical" style="left: 50%;"></div>
+                    <div class="child-vertical" style="left: 83.33%;"></div>
+
+                    <div class="person-row gen5-line-2">
+                        <div class="person female">
+                            <div class="name">Zeyra FLASH</div>
+                            <div class="surname">Enfant de Kayton & Arya</div>
+                        </div>
+                        <div class="person female">
+                            <div class="name">Erza FLASH</div>
+                            <div class="surname">Enfant de Kayton & Arya</div>
+                        </div>
+                    </div>
+                    <div class="children-horizontal"></div>
+                    <div class="child-vertical" style="left: 25%;"></div>
+                    <div class="child-vertical" style="left: 75%;"></div>
+
+                    <div style="text-align: center; margin-top: 6.25px; margin-bottom: 6.25px; font-weight: bold; color: #ffd700;">Marié(e)s ou/et enfant(s)</div>
+                    <div class="person-row gen5-line-3 gen5-main-row">
+                        <div class="person male">
+                            <div class="name"><a href="3freres.html">Ned FLASH</a></div>
+                            <div class="surname">Enfant de Aaron & Nina</div>
+                        </div>
+                        <div class="person male">
+                            <div class="name"><a href="3freres.html">Eden FLASH</a></div>
+                            <div class="surname">Enfant de Aaron & Nina</div>
+                        </div>
+                        <div class="person male">
+                            <div class="name"><a href="3freres.html">Eddy FLASH</a></div>
+                            <div class="surname">Enfant de Aaron & Nina</div>
+                        </div>
+                        <div class="person male deceased">
+                            <div class="name"><a href="adrian.html">Adrian FLASH</a></div>
+                            <div class="surname">Enfant de David Jr & Kayla</div>
+                        </div>
+                    </div>
+                    <div class="children-horizontal"></div>
+                    <div class="child-vertical" style="left: 12.5%;"></div>
+                    <div class="child-vertical" style="left: 37.5%;"></div>
+                    <div class="child-vertical" style="left: 62.5%;"></div>
+                    <div class="child-vertical" style="left: 87.5%;"></div>
+                    <div class="ned-vertical"></div>
+                    <div class="eden-vertical"></div>
+                    <div class="eddy-vertical"></div>
+                    <div class="adrian-vertical"></div>
+
+                    <div class="person-row gen5-line-4">
+                        <div class="person ava-partner deceased">
+                            <div class="name">Ava</div>
+                            <div class="surname">Autrefois en couple avec Ned</div>
+                        </div>
+                        <div class="person female">
+                            <div class="name">June</div>
+                            <div class="surname">En couple avec Eden</div>
+                        </div>
+                        <div class="person female no-partner">
+                            <div class="name">Pas de femme</div>
+                        </div>
+                        <div class="person female deceased">
+                            <div class="name">Avery</div>
+                            <div class="surname">A eu des gènes artificiellement</div>
+                        </div>
+                    </div>
+                    <div class="children-horizontal"></div>
+                    <div class="child-vertical" style="left: 12.5%;"></div>
+                    <div class="child-vertical" style="left: 37.5%;"></div>
+                    <div class="child-vertical" style="left: 62.5%;"></div>
+                    <div class="child-vertical" style="left: 87.5%;"></div>
+
+                    <div class="person-row gen5-line-5">
+                        <div class="person jade-000-partner">
+                            <div class="name">JADE 000</div>
+                            <div class="surname">A baisé pleins de fois avec Ned</div>
+                        </div>
+                    </div>
+                    <div class="children-horizontal"></div>
+                    <div class="child-vertical" style="left: 12.5%;"></div>
+
+                    <div class="person-row gen5-line-6">
+                        <div class="person jade-monroe-partner">
+                            <div class="name">Jade FLASH/MONROE</div>
+                            <div class="surname">Femme officielle de Ned</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Génération 6 -->
+            <div class="generation">
+                <div class="generation-label">Génération 6</div>
+                <div class="family-group">
+                    <div class="person-row">
+                        <div class="person male">
+                            <div class="name"><a href="manda.html">Manda FLASH</a></div>
+                            <div class="surname">Enfant de Adrian & Avery</div>
+                        </div>
+                        <div class="person unknown deceased">
+                            <div class="name">?</div>
+                            <div class="surname">Enfant de Ned & Jade FLASH/MONROE</div>
+                        </div>
+                        <div class="person unknown">
+                            <div class="name">?</div>
+                            <div class="surname">Enfant de Ned & JADE 000</div>
+                        </div>
+                    </div>
+                    <div class="children-horizontal"></div>
+                    <div class="child-vertical" style="left: 16.67%;"></div>
+                    <div class="child-vertical" style="left: 50%;"></div>
+                    <div class="child-vertical" style="left: 83.33%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

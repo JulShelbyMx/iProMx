@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damon FLASH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-background: 18, 18, 18;
+            --color-foreground: 255, 255, 255;
+            --color-accent: 255, 215, 0;
+            --color-hover: 252, 228, 119;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: rgb(var(--color-background));
+            color: rgba(var(--color-foreground), 0.75);
+        }
+
+        header.color-scheme-4 {
+            background-color: #121212;
+            padding: 10px 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: #121212;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #fce477;
+        }
+
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .character-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .character-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .character-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .character-info {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .character-info h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .character-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .character-info p {
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .playlist-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .playlist-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .episode-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .episode-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #222222;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            transition: transform 0.3s ease;
+        }
+
+        .episode-item:hover {
+            transform: scale(1.02);
+            border-color: #fce477;
+        }
+
+        .episode-title {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .watch-button, .alert-button, .go-button, .close-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #121212;
+        }
+
+        .watch-button:hover, .alert-button:hover, .go-button:hover, .close-button:hover {
+            background-color: #fce477;
+        }
+
+        .alert-modal, .order-modal, .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            margin: auto;
+            background-color: #121212;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px 20px 10px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .order-table-container {
+            max-height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .order-table-container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .order-table-container::-webkit-scrollbar-track {
+            background: #333333;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb {
+            background: #ffffff;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb:hover {
+            background: #fce477;
+        }
+
+        .order-table-container {
+            scrollbar-width: auto;
+            scrollbar-color: #ffffff #333333;
+        }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .order-table tr {
+            border: 2px solid #ffd700;
+            background-color: #222222;
+            border-radius: 8px;
+        }
+
+        .order-table tr:hover {
+            border-color: #fce477;
+        }
+
+        .order-table td {
+            padding: 10px;
+            font-size: 14px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+        }
+
+        .order-table td span {
+            margin-right: 5px;
+        }
+
+        .alert-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #fce477;
+        }
+
+        .close-button {
+            margin-top: 10px;
+            min-width: 100px;
+            padding: 8px 16px;
+            font-size: 16px;
+            z-index: 10;
+        }
+
+        footer.color-scheme-4 {
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .list-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffd700;
+            text-decoration: none;
+            max-width: 100px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #fce477;
+            transform: scale(1.1);
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+        }
+
+        .social-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #ffd700;
+        }
+
+        .social-link:hover .social-title {
+            color: #fce477;
+        }
+
+        @media (max-width: 1024px) {
+            .character-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .character-image {
+                min-width: 250px;
+            }
+
+            .character-info h1 {
+                font-size: 20px;
+            }
+
+            .character-info p {
+                font-size: 14px;
+            }
+
+            .episode-title {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .character-container {
+                padding: 15px;
+            }
+
+            .character-image {
+                min-width: 200px;
+            }
+
+            .character-info h1 {
+                font-size: 18px;
+            }
+
+            .character-info p {
+                font-size: 12px;
+            }
+
+            .episode-title {
+                font-size: 12px;
+            }
+
+            .social-title {
+                font-size: 12px;
+            }
+
+            .modal-content {
+                max-height: 80vh;
+                padding: 20px;
+            }
+
+            .order-table-container {
+                max-height: 300px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 4px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .character-container {
+                padding: 10px;
+            }
+
+            .character-image {
+                min-width: 150px;
+            }
+
+            .character-info h1 {
+                font-size: 16px;
+            }
+
+            .character-info p {
+                font-size: 11px;
+            }
+
+            .episode-title {
+                font-size: 10px;
+            }
+
+            .social-title {
+                font-size: 10px;
+            }
+
+            .social-link {
+                max-width: 80px;
+            }
+
+            .modal-content {
+                max-height: 70vh;
+                padding: 20px;
+            }
+
+            .order-table-container {
+                max-height: 250px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 3px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="color-scheme-4">
+        <a href="../flash/flash.html" class="back-button">RETOUR</a>
+        <div class="logo">
+            <a href="../flash/flash.html">
+                <img src="../../images/logo.webp" alt="Logo iProMx" class="password-logo">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="character-container">
+            <div class="character-image">
+                <img src="../../images/damon_flash1.jpg" alt="Damon FLASH">
+                <img src="../../images/damon_flash2.jpg" alt="Damon FLASH">
+                <img src="../../images/liondamon.webp" alt="Lion - Symbole de Damon" class="symbol-image">
+            </div>
+            <div class="character-info">
+                <h1>Damon FLASH</h1>
+                <h2>Avant</h2>
+                <p><strong>Damon Flash, l’enfant maudit</strong></p>
+                <p>Fils d’Aaron Flash et d’Angela Moore, Damon naquit d’une union éphémère. À quelques mois, il fut enlevé par une entité spectrale enflammée, un esprit maléfique assoiffé de chair humaine. Incapable de posséder le nourrisson trop jeune, l’entité l’abandonna devant une maison, attendant dans l’ombre qu’il grandisse pour devenir vulnérable. Recueilli par William Roule, commandant du LSPD, Damon grandit dans un foyer brisé. William, alcoolique et absent, accaparé par son travail et ses vices, laissa l’enfant livré à lui-même, plongé dans une solitude profonde.</p>
+                <p>À 9 ans, Damon traînait dans les rues. À 11 ans, il rejoignit les Vagos, un gang latino, où il fut tatoué du mot « Muerte », symbole de leur devise « Hasta la muerte ». Rapidement, il sombra dans la toxicomanie, consommant cannabis, cocaïne et autres substances. À 20 ans, endetté auprès des Vagos, il tua 22 hommes, dont leur chef, avant de s’enfuir avec 30 kilos de cocaïne. Arrêté peu après, il fut incarcéré. À 21 ans, envoyé dans un camp de redressement militaire expérimental, il s’évada avec d’anciens détenus et se lança dans une série de braquages à travers la région.</p>
+                <p>Alors que ses pouvoirs incontrôlables s’éveillaient, l’entité enflammée réapparut, lui proposant un marché cruel : sacrifier son équipe ou lui appartenir corps et âme. Pour protéger ses compagnons, Damon accepta. Sous l’emprise de l’esprit, il se proclama Roi de Los Santos, instaurant une monarchie absolue où ses opposants périssaient. L’entité le poussa à l’irréparable : tuer sa propre mère, Angela Moore. En reprenant brièvement le contrôle, Damon hurla de douleur : « Non, qu’est-ce que j’ai fait, maman ? » L’esprit avait atteint son but : briser Damon en lui faisant commettre l’impensable.</p>
+                
+                <h2>Après</h2>
+                <p><strong>Damon Flash, 23 ans, homme</strong></p>
+                <p>Après le meurtre de sa mère, Damon disparut sous une nouvelle identité, Jacob Lopez, son nom véritable étant trop dangereux, car recherché mondialement. Malgré ses addictions persistantes, il tenta une vie discrète dans un ranch sous les ordres de Gianna Vitale, ignorant qu’elle était la demi-sœur de David Jr. et la fille de Giulia Vitale. Gianna le haïssait pour le meurtre de sa fille et pour les crimes de David Jr. contre leur mère.</p>
+                <p>Au ranch, Damon rencontra Lucie Requefort, une femme douce et forte dont il tomba amoureux. Hanté par son crime, il se refusait à l’amour, convaincu de ne pas le mériter. Sous l’emprise de la drogue, il se rapprochait de Lucie, pour mieux la repousser sobre en criant : « Je ne t’aime pas », alors que son cœur murmurait : « Je ne peux pas t’aimer… Je ne le mérite pas… Je veux mourir. »</p>
+                <p>Grâce à la méditation, Damon renforça son esprit et développa ses pouvoirs. Lorsqu’il affronta à nouveau l’entité maléfique, il la vainquit, mais au prix de blessures graves, frôlant la mort. Retrouvé par son oncle David Jr., il fut ramené à son père, Aaron Flash, qui l’entraîna rigoureusement pour un ultime combat. Avec une équipe guidée par David Jr., Damon affronta l’esprit une dernière fois. Découvrant l’histoire et les souffrances de cet être, il changea d’approche : au lieu de détruire, il choisit d’aimer. À 23 ans, Damon et son équipe se sacrifièrent, non pour tuer l’entité, mais pour lui offrir l’amour et la vie qu’elle n’avait jamais connus. Ainsi, l’esprit maléfique, révélé être Kayton Flash, renaquit en un véritable Flash, libéré de sa haine et prêt à découvrir une existence nouvelle.</p>
+                
+                <h2>Animal spirituel</h2>
+                <p>Le lion, animal spirituel de Damon Flash, incarne son charisme, son courage et sa domination, mais surtout son sacrifice ultime pour la paix, reflet d’un cœur brisé cherchant la rédemption.</p>
+            </div>
+        </div>
+
+        <div class="playlist-section">
+            <h2>Épisodes de Damon FLASH</h2>
+            <h3>Saison 1</h3>
+            <ul class="episode-list">
+                    <li class="episode-item">
+                <span class="episode-title">Épisode 1: L'ARRIVÉ DE DAMON FLASH ! by iProMx #1</span>
+                <button class="watch-button" data-video-id="tXoCThA1kOc">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 2: DAMON FLASH ! LES CONNERIES COMMENCE ! UN NOUVEAU POUVOIR ? GTAV RP ! by iProMx #2</span>
+                <button class="watch-button" data-video-id="xiexAHuPLnc">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 3: DAMON FLASH ! EN CAVALE ! UN NOUVEAU POUVOIR ? GTAV RP ! by iProMx #3</span>
+                <button class="watch-button" data-video-id="Bky6e_NEG44">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 4: DAMON FLASH VS LES VAGOS ! GTA V RP ! by iProMx #4</span>
+                <button class="watch-button" data-video-id="MVJEPMmMj3A">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 5: DAMON FLASH, LE PIRE DES FLASH ! GTA V RP ! by iProMx #5</span>
+                <button class="watch-button" data-video-id="0-NHcsWzU_M">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 6: DAMON CONTRE TOUS ! DOUBLE PRIME SUR LA TÊTE ! GTA V RP ! by iProMx #6</span>
+                <button class="watch-button" data-video-id="udI1pHZ46Qc">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 7: DAMON EXPLOSE LES VAGOS ! GTA V RP ! by iProMx #7</span>
+                <button class="watch-button" data-video-id="5BrCr_DYBmk">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 8: DAMON DEVIENT INCONTRÔLABLE ! GTA V RP ! by iProMx #8</span>
+                <button class="watch-button" data-video-id="q0JevUlqggg">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: DAMON FLASH ! BRAQUAGE ! GTA V RP ! by iProMx #9</span>
+                <button class="watch-button" data-video-id="gwz71I43JsY">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 10: INFILTRATION BASE MILITAIRE ! GTA V RP ! by iProMx #10</span>
+                <button class="watch-button" data-video-id="nBe6XxYkBvk">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 11: SUITE DE INFILTRATION BASE MILITAIRE ! GTA V RP ! by iProMx #11</span>
+                <button class="watch-button" data-video-id="RYTh-gQBzCo">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 12: DAMON FLASH CONTROLE TOUT OU PAS ?! GTA V RP ! by iProMx #12</span>
+                <button class="watch-button" data-video-id="8mHprd0dXGY">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 13: LA SUITE DE DAMON FLASH CONTROLE TOUT OU PAS ! GTA V RP ! by iProMx #13</span>
+                <button class="watch-button" data-video-id="XjV9IKGBLag">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 14: DAMON FLASH BEAUCOUP PLUS FORT ?! GTA¨V RP ! by iProMx #14</span>
+                <button class="watch-button" data-video-id="1wDdMPGPhN8">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 15: DAMON FLASH EN CAVALE ! 10 000 000 DE PRIME ! GTA V RP ! by iProMx #15</span>
+                <button class="watch-button" data-video-id="y0F9g8Lbv8o">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 16: DAMON FLASH VS GANG DOUBLE ! GTA V RP ! by iProMx #16</span>
+                <button class="watch-button" data-video-id="ueSuP3jLgr0">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 17: DAMON FLASH DANS LE CORPS DU PRESIDENT ! GTA V RP ! by iProMx #17</span>
+                <button class="watch-button" data-video-id="_lazoeU5x5I">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 18: DAMON FLASH DANS LE MAL ! GTA V RP ! by iProMx #18</span>
+                <button class="watch-button" data-video-id="0ZiV7Wa97Xk">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 19: LA MORT DE LOLA ! GTA V RP ! by iProMx #19</span>
+                <button class="watch-button" data-video-id="9TorBcz0j5k">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 20: LE RÉVEIL DE DAMON APRES DES NUITS TERRIBLE ! GTA V RP ! by iProMx #20</span>
+                <button class="watch-button" data-video-id="JIrAzcyK3Qk">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 21: DAMON FLASH, NOUVEAU POUVOIR ?! GTA V RP ! by iProMx #21</span>
+                <button class="watch-button" data-video-id="wvUlHrcRSWI">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 22: DAMON FLASH, LA VÉRITÉ ! GTA V RP ! by iProMx #22</span>
+                <button class="watch-button" data-video-id="GEi1MiXTOYI">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 23: DAMON FLASH, LA VÉRITÉ ! GTA V RP ! by iProMx #22</span>
+                <button class="watch-button" data-video-id="GEi1MiXTOYI">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 24: DAMON FLASH, LE SURVIVANT A 30M $ DE PRIME ! GTA V RP ! by iProMx #23</span>
+                <button class="watch-button" data-video-id="o2mHTwb_WMI">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 25: DAMON FLASH PRÉSIDENT ! GTA V RP ! by iProMx #24</span>
+                <button class="watch-button" data-video-id="XeVPfOB9vlM">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 26: LE ROI DAMON , LA MONARCHIE ABSOLUE ! GTA V RP ! by iProMx #25</span>
+                <button class="watch-button" data-video-id="_E7sX18AllQ">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 27: DAMON FLASH , L'ATTAQUE ULTIME ! GTA V RP ! by iProMx #26</span>
+                <button class="watch-button" data-video-id="m4i7Ql8kE68">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 28: DAMON FLASH BATAILLE FINAL CONTRE SA MÈRE ! GTA V RP ! by iProMx #27</span>
+                <button class="watch-button" data-video-id="TpgaMig4SMY">Regarder</button>
+            </li>
+            </ul>
+            <h3>Saison 2</h3>
+            <ul class="episode-list">
+                    <li class="episode-item">
+                <span class="episode-title">Épisode 1: DAMON FLASH LE RETOUR ! GTA V RP ! by iProMx #1 S2</span>
+                <button class="watch-button" data-video-id="kZln8jDSDBY">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 2: DAMON FLASH, LA COURSE DE CHEVAUX ! GTA V RP ! by iProMx #2 S2</span>
+                <button class="watch-button" data-video-id="UC1DxsK2E7I">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 3: DAMON FLASH PARLE AUX ANIMAUX ! GRAND PRIX KARTING ! GTA V RP ! by iProMx #3 S2</span>
+                <button class="watch-button" data-video-id="Be9FxCL-Scs">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 4: DAMON FLASH A FAIT UNE CONNERIE ! GTA V RP ! by iProMx #4 S2</span>
+                <button class="watch-button" data-video-id="9MW6jrwveM4">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 5: DAMON FLASH A ENCORE FAIT UNE CONNERIE ! GTA V RP ! by iProMx #5 S2</span>
+                <button class="watch-button" data-video-id="G0IDqgrz7wA">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 6: DAMON FLASH CHEZ LES FLICS ! GTA V RP ! by iProMx #6 S2</span>
+                <button class="watch-button" data-video-id="yPe2sJ9yMjg">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 7: DAMON FLASH, LES ÉPREUVES COMMENCENT ! GTA V RP ! by iProMx #7 S2</span>
+                <button class="watch-button" data-video-id="5f32le2kEvw">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 8: DAMON FLASH DORT AVEC SA PATRONNE ?! GTA V RP ! by iProMx #8 S2</span>
+                <button class="watch-button" data-video-id="frO8IwsEmrk">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: DAMON FLASH MENTAL 50% + DEMI FINAL DES APPRENTIS AVENTURIERS ! GTA V RP ! by iProMx #9 S2</span>
+                <button class="watch-button" data-video-id="uycdNEXa3ro">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 10: DAMON FLASH - LA FINALE ! MENTAL 70% ! GTA V RP ! by iProMx #10 S2</span>
+                <button class="watch-button" data-video-id="SsdzX07K0nc">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 11: DAMON FLASH CONVOQUÉ PAR LA FBI ! GTA V RP ! by iProMx #11 S2</span>
+                <button class="watch-button" data-video-id="U1aAQ-yO2RI">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 12: PART 1 - DAMON FLASH - PRIME 55M$ - LA FIB DANS LA POCHE ? GTAV RP ! GTA V RP ! by iProMx #12 S2</span>
+                <button class="watch-button" data-video-id="LSFfz1vwowQ">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 13: PART 2 - DAMON FLASH - PRIME 55M$ - LA FIB DANS LA POCHE ? GTAV RP  ! by iProMx #12 S2 ( Partie 2 )</span>
+                <button class="watch-button" data-video-id="HZnx4U9Vw6w">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 14: PART 3 - DAMON FLASH - PRIME 55M$ - LA FIB DANS LA POCHE ? GTAV RP ! by iProMx #12 S2 ( Partie 3 )</span>
+                <button class="watch-button" data-video-id="fGAymc_ajQY">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 15: DAMON FLASH, LES POUVOIRS PRENNENT LE CONTRÔLE ! GTA V RP ! by iProMx #13 S2</span>
+                <button class="watch-button" data-video-id="1b4I9FgX88Q">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 16: DAMON FLASH - LE MONDE SUR SON DOS ! MENTAL 98% ! GTA V RP ! by iProMx #14 S2</span>
+                <button class="watch-button" data-video-id="dW9Kq0AaAo4">Regarder</button>
+            </li>
+            </ul>
+            <h3>Saison 3</h3>
+            <ul class="episode-list">
+                    <li class="episode-item">
+                <span class="episode-title">Épisode 0: BEFORE DAMON SEASON 3 ! by xTremX</span>
+                <button class="watch-button" data-video-id="LHhAPyBm0rY">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 1: LE RETOUR DE DAMON FLASH ! GTA V RP ! by iProMx #1 S3</span>
+                <button class="watch-button" data-video-id="R_c4vDRNrCE">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 2: DAMON TROP DE FORCE ! + NOUVEAU POUVOIR ! GTA V RP ! by iProMx #2 S3</span>
+                <button class="watch-button" data-video-id="eqMSUPjT5EI">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 3: DAMON A DEBLOQUÉ LE MEILLEUR POUVOIR DES FLASH ! GTA V RP ! by iProMx #3 S3</span>
+                <button class="watch-button" data-video-id="e4kGpTC16zE">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 4: LE TEMPS EST COMPTER ! GTA V RP ! by iProMx #4</span>
+                <button class="watch-button" data-video-id="bc6KVCwg5bY">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 5: DAMON DOIT REPARER SES ERREURS ! GTA V RP ! by iProMx #5 S3</span>
+                <button class="watch-button" data-video-id="wWL8vGT9DKY">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 6: DAMON A FAIT UNE GROSSE CONNERIE ! GTA V RP ! by iProMx #6 S3</span>
+                <button class="watch-button" data-video-id="DoosWiG7QvM">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 7: PART1- DAMON DOIT PARTIR SUR LA TERRE DES FLASH POUR SE FAIRE PARDONNER ! GTA V RP ! by iProMx #7 S3</span>
+                <button class="watch-button" data-video-id="QOdQ939oTDk">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 7: PART2- DAMON DOIT PARTIR SUR LA TERRE DES FLASH POUR SE FAIRE PARDONNER ! GTA V RP ! by iProMx #7 S3</span>
+                <button class="watch-button" data-video-id="GfAo2jKO4Vo">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 8: LUCIE A TROMPÉ JACOB AVEC DAMON :O ! GTA V RP ! by iProMx #8 S3</span>
+                <button class="watch-button" data-video-id="cMFVj8RG7_Q">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 9: LE GRAND JOUR ! LA TERRE DES FLASH ! GTA V RP ! by iProMx #9 S3</span>
+                <button class="watch-button" data-video-id="6OmBw9b_bOw">Regarder</button>
+            </li>
+            <li class="episode-item">
+                <span class="episode-title">Épisode 10: DAMON FLASH LE FILM OFFICIEL ! COMBAT FINAL ! GTA V RP ! by iProMx #10 S3</span>
+                <button class="watch-button" data-video-id="TyAXhptUiuE">Regarder</button>
+            </li>
+            </ul>
+            <div class="alert-modal" id="alertModal">
+                <div class="modal-content">
+                    <p>Attention, souhaitez-vous avoir un rappel de l'ordre de visionnage de la série "Flash" ?</p>
+                    <div class="alert-buttons">
+                        <button class="alert-button" id="showOrderButton">Oui</button>
+                        <button class="alert-button" id="closeAlertButton">Non</button>
+                    </div>
+                </div>
+            </div>
+            <div class="order-modal" id="orderModal">
+                <div class="modal-content">
+                    <h3>Ordre de visionnage de la famille FLASH</h3>
+                    <div class="order-table-container">
+                        <table class="order-table">
+                            <tbody>
+                                <tr>
+                                    <td><span>David Flash:</span> <button class="go-button" data-url="david.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>John Flash:</span> <button class="go-button" data-url="john.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 1):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 1):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 2):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 2):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 1):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 2):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>David Jr Flash (vieux):</span> <button class="go-button" data-url="davidjr.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 3):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 1):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 2):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 3):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Adrian Flash:</span> <button class="go-button" data-url="adrian.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden et Aaron vs Adrian:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ned Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Manda Flash:</span> <button class="go-button" data-url="manda.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Cody Hunters (Ned Flash):</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="close-button" id="closeOrderButton">Fermer</button>
+                </div>
+            </div>
+            <div class="video-modal" id="videoModal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-modal">×</span>
+                    <iframe id="modalVideo" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="color-scheme-4">
+        <ul class="list-social">
+            <li>
+                <a href="https://x.com/ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/x.png" alt="X" class="social-icon">
+                    <span class="social-title">X</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.tiktok.com/@ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/tiktok.webp" alt="TikTok" class="social-icon">
+                    <span class="social-title">TikTok</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMx" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@ipromxenfolie1688" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°2</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMxHD" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°3</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.com/invite/fantasticwl" target="_blank" class="social-link">
+                    <img src="../../images/discord.png" alt="Discord Fantastic" class="social-icon">
+                    <span class="social-title">Fantastic WL</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const watchButtons = document.querySelectorAll('.watch-button');
+            const alertModal = document.getElementById('alertModal');
+            const showOrderButton = document.getElementById('showOrderButton');
+            const closeAlertButton = document.getElementById('closeAlertButton');
+            const orderModal = document.getElementById('orderModal');
+            const closeOrderButton = document.getElementById('closeOrderButton');
+            const videoModal = document.getElementById('videoModal');
+            const closeModal = document.querySelectorAll('.close-modal');
+            let currentVideoId = null;
+
+            alertModal.style.display = 'none';
+            orderModal.style.display = 'none';
+            videoModal.style.display = 'none';
+
+            watchButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    currentVideoId = button.getAttribute('data-video-id');
+                    alertModal.style.display = 'flex';
+                });
+            });
+
+            showOrderButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                orderModal.style.display = 'flex';
+            });
+
+            closeAlertButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeOrderButton.addEventListener('click', () => {
+                orderModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeModal.forEach(button => {
+                button.addEventListener('click', () => {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                });
+            });
+
+            alertModal.addEventListener('click', (e) => {
+                if (e.target === alertModal) {
+                    alertModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            orderModal.addEventListener('click', (e) => {
+                if (e.target === orderModal) {
+                    orderModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                }
+            });
+
+            document.querySelectorAll('.go-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const url = button.getAttribute('data-url');
+                    window.location.href = url;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

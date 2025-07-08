@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>David Jr. FLASH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-background: 18, 18, 18;
+            --color-foreground: 255, 255, 255;
+            --color-accent: 255, 215, 0;
+            --color-hover: 252, 228, 119;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: rgb(var(--color-background));
+            color: rgba(var(--color-foreground), 0.75);
+        }
+
+        header.color-scheme-4 {
+            background-color: #121212;
+            padding: 10px 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: #121212;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #fce477;
+        }
+
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .character-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .character-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .character-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .character-image .car-caption {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .character-info {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .character-info h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .character-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .character-info p {
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .playlist-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .playlist-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .episode-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .episode-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #222222;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            transition: transform 0.3s ease;
+        }
+
+        .episode-item:hover {
+            transform: scale(1.02);
+            border-color: #fce477;
+        }
+
+        .episode-title {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .watch-button, .alert-button, .go-button, .close-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #121212;
+        }
+
+        .watch-button:hover, .alert-button:hover, .go-button:hover, .close-button:hover {
+            background-color: #fce477;
+        }
+
+        .alert-modal, .order-modal, .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            margin: auto;
+            background-color: #121212;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px 20px 10px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .order-table-container {
+            max-height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .order-table-container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .order-table-container::-webkit-scrollbar-track {
+            background: #333333;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb {
+            background: #ffffff;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb:hover {
+            background: #fce477;
+        }
+
+        .order-table-container {
+            scrollbar-width: auto;
+            scrollbar-color: #ffffff #333333;
+        }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .order-table tr {
+            border: 2px solid #ffd700;
+            background-color: #222222;
+            border-radius: 8px;
+        }
+
+        .order-table tr:hover {
+            border-color: #fce477;
+        }
+
+        .order-table td {
+            padding: 10px;
+            font-size: 14px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+        }
+
+        .order-table td span {
+            margin-right: 5px;
+        }
+
+        .alert-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #fce477;
+        }
+
+        .close-button {
+            margin-top: 10px;
+            min-width: 100px;
+            padding: 8px 16px;
+            font-size: 16px;
+            z-index: 10;
+        }
+
+        footer.color-scheme-4 {
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .list-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffd700;
+            text-decoration: none;
+            max-width: 100px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #fce477;
+            transform: scale(1.1);
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+        }
+
+        .social-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #ffd700;
+        }
+
+        .social-link:hover .social-title {
+            color: #fce477;
+        }
+
+        @media (max-width: 1024px) {
+            .character-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .character-image {
+                min-width: 250px;
+            }
+
+            .character-info h1 {
+                font-size: 20px;
+            }
+
+            .character-info p {
+                font-size: 14px;
+            }
+
+            .episode-title {
+                font-size: 14px;
+            }
+
+            .character-image .car-caption {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .character-container {
+                padding: 15px;
+            }
+
+            .character-image {
+                min-width: 200px;
+            }
+
+            .character-info h1 {
+                font-size: 18px;
+            }
+
+            .character-info p {
+                font-size: 12px;
+            }
+
+            .episode-title {
+                font-size: 12px;
+            }
+
+            .social-title {
+                font-size: 12px;
+            }
+
+            .modal-content {
+                max-height: 80vh;
+                padding: 20px;
+            }
+
+            .order-table-container {
+                max-height: 300px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 4px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+
+            .character-image .car-caption {
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .character-container {
+                padding: 10px;
+            }
+
+            .character-image {
+                min-width: 150px;
+            }
+
+            .character-info h1 {
+                font-size: 16px;
+            }
+
+            .character-info p {
+                font-size: 11px;
+            }
+
+            .episode-title {
+                font-size: 10px;
+            }
+
+            .social-title {
+                font-size: 10px;
+            }
+
+            .social-link {
+                max-width: 80px;
+            }
+
+            .modal-content {
+                max-height: 70vh;
+                padding: 20px;
+            }
+
+            .order-table-container {
+                max-height: 250px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 3px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+
+            .character-image .car-caption {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="color-scheme-4">
+        <a href="../flash/flash.html" class="back-button">RETOUR</a>
+        <div class="logo">
+            <a href="../flash/flash.html">
+                <img src="../../images/logo.webp" alt="Logo iProMx" class="password-logo">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="character-container">
+            <div class="character-image">
+                <img src="../../images/davidjr_flash1.webp" alt="David Jr. FLASH1">
+                <img src="../../images/davidjr_flash.webp" alt="David Jr. FLASH">
+                <img src="../../images/rt70davidjr_flash.webp" alt="RT70 de David Jr. FLASH">
+                <p class="car-caption"><strong>La RT70 de David Jr.</strong><br>Véhicule emblématique aux roues enflammées, la RT70 est dotée d’une technologie avancée lui conférant une forme de conscience. Infusée des pouvoirs de David Jr., elle peut voler et se transformer en une arme redoutable, reflétant son aura destructrice.</p>
+                <img src="../../images/cobradavidjr.webp" alt="Cobra - Animal spirituel de David Jr." class="symbol-image">
+            </div>
+            <div class="character-info">
+                <h1>David Jr. Vitale FLASH</h1>
+                <h2>Avant</h2>
+                <p><strong>David Jr. Vitale Flash, 23 ans, homme</strong></p>
+                <p>Né en Italie, David Jr. est le fruit de l’union brisée entre Giulia Vitale et Ken Flash, juste après leur séparation à Los Santos. Son accouchement, douloureux, nécessite l’aide de David Flash, le grand-père paternel de Ken. En hommage à cet homme et à la fierté mêlée de souffrance de cette naissance, Giulia nomme son fils David Jr.</p>
+                <p>Dès 4 ans, David Jr. est confronté à un monde de haine, de solitude et d’obscurité. Élevé au sein de la mafia italienne, où sa mère règne en tant que marraine suprême du clan Vitale, il grandit délaissé, forgeant son caractère dans la douleur et le silence. À 10 ans, il rencontre sa petite sœur, Gianna Vitale, née pour sceller une alliance entre deux familles mafieuses. Bien que consumé par le mal, David Jr. voue à Gianna un amour sincère et protecteur, elle étant la seule lumière dans son cœur sombre.</p>
+                <p>À 18 ans, mû par une haine froide et une détermination implacable, il quitte l’Italie pour Los Santos, décidé à venger la famille Flash. À 23 ans, il retrouve son demi-frère Aaron et sa demi-sœur Kylie, mais rien ne peut freiner sa soif de destruction. Dans l’ombre, il sème le chaos :</p>
+                <ul>
+                    <li>Il répand "Le Venin", un poison toxique de sa création, dans la ville.</li>
+                    <li>Il orchestre l’assassinat de sa belle-mère.</li>
+                    <li>Il élimine ses ennemis les plus proches.</li>
+                    <li>Il déploie des millions de prototypes robotiques, des machines tueuses, plongeant Los Santos dans un bain de sang.</li>
+                </ul>
+                <p>Lors d’un combat final, David Jr. commet l’irréparable :</p>
+                <ul>
+                    <li>Il tue sa mère, Giulia Vitale.</li>
+                    <li>Il assassine son père, Ken Flash.</li>
+                </ul>
+                <p>Mais il est finalement vaincu par Aaron, son demi-frère, mettant fin à sa croisade destructrice.</p>
+                
+                <h2>Après</h2>
+                <p><strong>David Jr. Vitale Flash, 45 ans, homme</strong></p>
+                <p>Après sa défaite face à Aaron, David Jr. est libéré de la haine qui le rongeait depuis l’enfance. Pour la première fois, il ressent un vide apaisant, mais aussi le poids écrasant de ses crimes. Une conversation avec son jeune demi-frère lui révèle qu’il a peut-être été manipulé toute sa vie par une force obscure. Il réalise qu’Aaron, en l’épargnant, lui a offert une seconde chance.</p>
+                <p>David Jr. choisit l’isolement, se réfugiant dans un ranch appartenant à Kayla Queen, une femme forte et bienveillante. Avec elle, il entame un chemin de rédemption à travers la méditation, l’entraînement mental et l’introspection. Leur amitié évolue en un amour profond ; ils se marient en secret et ont un fils. Hanté par son passé, David Jr., craignant que son enfant (Adrian Flash) ne suive ses traces, le confie à Kylie, sa demi-sœur, pour lui offrir une vie loin des ténèbres.</p>
+                <p>Cinq ans plus tard, tout en veillant discrètement sur Damon, le fils d’Aaron, David Jr devient père d’une fille, Jenna Flash. Lorsque Damon souffre mentalement et physiquement, David Jr. intervient, le ramenant à Aaron et formant une équipe pour affronter une entité démoniaque vengeresse. Cette équipe inclut :</p>
+                <ul>
+                    <li>Octave, ancien coéquipier de Damon.</li>
+                    <li>Jenna Flash, sa fille.</li>
+                    <li>Kayla Queen, sa femme.</li>
+                    <li>Laora Mancini, cousine d’Aaron.</li>
+                    <li>Maddie, amie d’Octave.</li>
+                    <li>Alec, ancien détective ayant enquêté sur Damon.</li>
+                    <li>Titeuff, ancien bras droit de Ken dans le Gang Double 2.0.</li>
+                </ul>
+                <p>À l’approche de la menace finale, après un ultime entraînement, David Jr se sacrifie pour sauver l’équipe, offrant sa vie en rédemption de ses fautes passées.</p>
+                
+                <h2>Animal spirituel</h2>
+                <p>Le cobra, animal spirituel de David Jr. Vitale Flash, représente sa nature autrefois terrifiante et son passé empoisonné. Comme le serpent qui mue, il symbolise sa capacité à changer, à se dépouiller de ses erreurs et à renaître meilleur.</p>
+            </div>
+        </div>
+
+        <div class="playlist-section">
+            <h2>Épisodes de David Jr. FLASH (vieux)</h2>
+            <ul class="episode-list">
+                    <li class="episode-item">
+                    <span class="episode-title">Épisode 1: LE RETOUR D'UNE LEGENDE ! GTA V RP ! by iProMx #1</span>
+                    <button class="watch-button" data-video-id="X4l0agpzSqI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 2: LES CHOSES  SÉRIEUSES COMMENCENT ! GTA V RP ! by iProMx #2</span>
+                    <button class="watch-button" data-video-id="DanPvfSEjck">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 3: LE RÉVEIL LE PLUS ÉTRANGE DE DAVID JR ! GTA V RP ! by iProMx #3</span>
+                    <button class="watch-button" data-video-id="_0rsz-moP-4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 4: DAVID JR FLASH ! LA VÉRITÉ DOIT ÉCLATER ! GTA V RP ! by iProMx #4</span>
+                    <button class="watch-button" data-video-id="6VF7jvsvz3A">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 5: LA MORT EST PROCHE + NOUVEAU POUVOIR ! GTA V RP ! by iProMx #5</span>
+                    <button class="watch-button" data-video-id="RXcPVscGhFU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 6: BONUS: DISCUSSION ENTRE DAVID JR ET GIANNA ! GTA V RP ! (NO MUTE)</span>
+                    <button class="watch-button" data-video-id="oZlKvCWx_Sc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 7: DAVID JR FLASH CONVOQUÉ A LA LSPD ! GTA V RP ! by iProMx #6</span>
+                    <button class="watch-button" data-video-id="_0uIBSnwDHk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 8: DAVID JR FLASH, LA PRÉPARATION ULTIME ! GTA V RP ! by iProMx #7</span>
+                    <button class="watch-button" data-video-id="k16-ww_ezL4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 9: LE GRAND JOUR ! LA TERRE DES FLASH ! GTA V RP ! by iProMx #8</span>
+                    <button class="watch-button" data-video-id="sNQ3s-LdJHk">Regarder</button>
+                </li>
+            </ul>
+            <div class="alert-modal" id="alertModal">
+                <div class="modal-content">
+                    <p>Attention, souhaitez-vous avoir un rappel de l'ordre de visionnage de la série "Flash" ?</p>
+                    <div class="alert-buttons">
+                        <button class="alert-button" id="showOrderButton">Oui</button>
+                        <button class="alert-button" id="closeAlertButton">Non</button>
+                    </div>
+                </div>
+            </div>
+            <div class="order-modal" id="orderModal">
+                <div class="modal-content">
+                    <h3>Ordre de visionnage de la famille FLASH</h3>
+                    <div class="order-table-container">
+                        <table class="order-table">
+                            <tbody>
+                                <tr>
+                                    <td><span>David Flash:</span> <button class="go-button" data-url="david.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>John Flash:</span> <button class="go-button" data-url="john.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 1):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 1):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 2):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 2):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 1):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 2):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>David Jr Flash (vieux):</span> <button class="go-button" data-url="davidjr.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 3):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 1):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 2):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 3):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Adrian Flash:</span> <button class="go-button" data-url="adrian.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden et Aaron vs Adrian:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ned Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Manda Flash:</span> <button class="go-button" data-url="manda.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Cody Hunters (Ned Flash):</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="close-button" id="closeOrderButton">Fermer</button>
+                </div>
+            </div>
+            <div class="video-modal" id="videoModal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-modal">×</span>
+                    <iframe id="modalVideo" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="color-scheme-4">
+        <ul class="list-social">
+            <li>
+                <a href="https://x.com/ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/x.png" alt="X" class="social-icon">
+                    <span class="social-title">X</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.tiktok.com/@ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/tiktok.webp" alt="TikTok" class="social-icon">
+                    <span class="social-title">TikTok</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMx" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@ipromxenfolie1688" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°2</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMxHD" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°3</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.com/invite/fantasticwl" target="_blank" class="social-link">
+                    <img src="../../images/discord.png" alt="Discord Fantastic" class="social-icon">
+                    <span class="social-title">Fantastic WL</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const watchButtons = document.querySelectorAll('.watch-button');
+            const alertModal = document.getElementById('alertModal');
+            const showOrderButton = document.getElementById('showOrderButton');
+            const closeAlertButton = document.getElementById('closeAlertButton');
+            const orderModal = document.getElementById('orderModal');
+            const closeOrderButton = document.getElementById('closeOrderButton');
+            const videoModal = document.getElementById('videoModal');
+            const closeModal = document.querySelectorAll('.close-modal');
+            let currentVideoId = null;
+
+            alertModal.style.display = 'none';
+            orderModal.style.display = 'none';
+            videoModal.style.display = 'none';
+
+            watchButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    currentVideoId = button.getAttribute('data-video-id');
+                    alertModal.style.display = 'flex';
+                });
+            });
+
+            showOrderButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                orderModal.style.display = 'flex';
+            });
+
+            closeAlertButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeOrderButton.addEventListener('click', () => {
+                orderModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeModal.forEach(button => {
+                button.addEventListener('click', () => {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                });
+            });
+
+            alertModal.addEventListener('click', (e) => {
+                if (e.target === alertModal) {
+                    alertModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            orderModal.addEventListener('click', (e) => {
+                if (e.target === orderModal) {
+                    orderModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                }
+            });
+
+            document.querySelectorAll('.go-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const url = button.getAttribute('data-url');
+                    window.location.href = url;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

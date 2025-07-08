@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iProMx</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
+</head>
+<body>
+    <!-- Header -->
+    <header class="color-scheme-4">
+        <div class="logo">
+            <img src="images/logo.webp" alt="Logo iProMx" class="password-logo">
+        </div>
+        <button class="hamburger"><i class="fas fa-bars"></i></button>
+        <div class="nav-buttons">
+            <a href="https://ipromx.store/" class="nav-button"><i class="fas fa-store"></i> Store</a>
+            <a href="https://ipromx.tebex.io/" class="nav-button"><i class="fas fa-shopping-cart"></i> Tebex</a>
+            <a href="/about/about" class="nav-button"><i class="fas fa-info-circle"></i> Qui est iProMx ?</a>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-bar" placeholder="Rechercher...">
+            <button id="search-button"><i class="fas fa-search"></i></button>
+            <ul id="search-suggestions" class="suggestions-list"></ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="glitch" data-text="Bienvenue sur le site d'iProMx">Bienvenue sur le site d'iProMx</h2>
+            <p>Découvrez iProMx et ses univers</p>
+            <img src="images/ipromxlogo.jpg" alt="iProMx LOGO" class="hero-logo">
+        </div>
+    </section>
+
+    <!-- Chaos Live Section -->
+    <section class="chaos-live">
+        <h2 class="neon-glow">iProMx domine Los Santos</h2>
+        <p>Live ou rien ! Suis le chaos en direct.</p>
+        <div class="live-status">
+            <span class="live-indicator"></span>
+            <span>iProMx est <span class="live-text">Chargement...</span></span>
+        </div>
+        <a href="https://www.twitch.tv/ipromx" class="cta-button pulse">Regarde le chaos</a>
+    </section>
+
+    <!-- Univers iProMx -->
+    <section class="universe-section">
+        <h2 class="neon-glow">Univers iProMx</h2>
+        <p>Le chaos t’attend. Rejoins iProMx sur Discord.</p>
+        <a href="https://discord.com/invite/ipromx" class="cta-button pulse">Rejoins l'aventure</a>
+    </section>
+
+    <!-- Personnages Carousel -->
+    <section id="personnages" class="categories">
+        <h2>PERSONNAGES</h2>
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="site-card">
+                    <a href="/personnages/flash/flash" target="_blank">
+                        <img src="images/flashlogo.webp" alt="FLASH">
+                        <h3 class="card-title">FLASH</h3>
+                    </a>
+                </div>
+                <div class="site-card">
+                    <a href="/personnages/shade/shade" target="_blank">
+                        <img src="images/shadelogo.webp" alt="SHADE">
+                        <h3 class="card-title">SHADE</h3>
+                    </a>
+                </div>
+                <div class="site-card">
+                    <a href="/personnages/winters/winters" target="_blank">
+                        <img src="images/winterslogo.webp" alt="WINTERS">
+                        <h3 class="card-title">WINTERS</h3>
+                    </a>
+                </div>
+                <div class="site-card">
+                    <a href="/personnages/tom-escobar/tom-escobar" target="_blank">
+                        <img src="images/tom-escobarlogo.webp" alt="TOM ESCOBAR">
+                        <h3 class="card-title">TOM ESCOBAR</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="color-scheme-4">
+        <div class="social-footer">
+            <a href="https://www.youtube.com/@iProMx" class="social-link">
+                <img src="images/youtube.png" alt="YouTube" class="social-icon">
+                <span>YouTube Principal</span>
+            </a>
+            <a href="https://www.twitch.tv/ipromx" class="social-link live-indicator">
+                <img src="images/twitch.png" alt="Twitch" class="social-icon">
+                <span>Twitch</span>
+            </a>
+            <a href="https://www.youtube.com/@ipromxenfolie1688" class="social-link">
+                <img src="images/youtube.png" alt="YouTube" class="social-icon">
+                <span>YouTube Secondaire</span>
+            </a>
+            <a href="https://www.youtube.com/@iProMxHD" class="social-link">
+                <img src="images/youtube.png" alt="YouTube" class="social-icon">
+                <span>YouTube N°3</span>
+            </a>
+            <a href="https://discord.com/invite/fantasticwl" class="social-link">
+                <img src="images/discord.png" alt="Discord" class="social-icon">
+                <span>Fantastic WL</span>
+            </a>
+            <a href="https://www.tiktok.com/@ipromx__" class="social-link">
+                <img src="images/tiktok.webp" alt="TikTok" class="social-icon">
+                <span>TikTok</span>
+            </a>
+            <a href="https://x.com/iProMxYt" class="social-link">
+                <img src="images/x.png" alt="X" class="social-icon">
+                <span>X (Twitter)</span>
+            </a>
+        </div>
+        <p>© 2025 iProMx. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="script.js"></script>
+</body>
+</html>

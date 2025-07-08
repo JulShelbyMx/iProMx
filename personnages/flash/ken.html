@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ken FLASH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-background: 18, 18, 18;
+            --color-foreground: 255, 255, 255;
+            --color-accent: 255, 215, 0;
+            --color-hover: 252, 228, 119;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: rgb(var(--color-background));
+            color: rgba(var(--color-foreground), 0.75);
+        }
+
+        header.color-scheme-4 {
+            background-color: #121212;
+            padding: 10px 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: #121212;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #fce477;
+        }
+
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .character-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .character-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .character-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .character-info {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .character-info h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .character-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .character-info p {
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .playlist-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .playlist-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .episode-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .episode-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #222222;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            transition: transform 0.3s ease;
+        }
+
+        .episode-item:hover {
+            transform: scale(1.02);
+            border-color: #fce477;
+        }
+
+        .episode-title {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .watch-button, .alert-button, .go-button, .close-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #121212;
+        }
+
+        .watch-button:hover, .alert-button:hover, .go-button:hover, .close-button:hover {
+            background-color: #fce477;
+        }
+
+        .alert-modal, .order-modal, .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            margin: auto;
+            background-color: #121212;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px 20px 10px; /* Reduced bottom padding on desktop */
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .order-table-container {
+            max-height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+
+        /* Custom scrollbar styles */
+        .order-table-container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .order-table-container::-webkit-scrollbar-track {
+            background: #333333;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb {
+            background: #ffffff;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb:hover {
+            background: #fce477;
+        }
+
+        /* For Firefox */
+        .order-table-container {
+            scrollbar-width: auto;
+            scrollbar-color: #ffffff #333333;
+        }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .order-table tr {
+            border: 2px solid #ffd700;
+            background-color: #222222;
+            border-radius: 8px;
+        }
+
+        .order-table tr:hover {
+            border-color: #fce477;
+        }
+
+        .order-table td {
+            padding: 10px;
+            font-size: 14px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+        }
+
+        .order-table td span {
+            margin-right: 5px;
+        }
+
+        .alert-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #fce477;
+        }
+
+        .close-button {
+            margin-top: 10px; /* Reduced margin to minimize space on desktop */
+            min-width: 100px;
+            padding: 8px 16px;
+            font-size: 16px;
+            z-index: 10;
+        }
+
+        footer.color-scheme-4 {
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .list-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffd700;
+            text-decoration: none;
+            max-width: 100px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #fce477;
+            transform: scale(1.1);
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+        }
+
+        .social-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #ffd700;
+        }
+
+        .social-link:hover .social-title {
+            color: #fce477;
+        }
+
+        @media (max-width: 1024px) {
+            .character-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .character-image {
+                min-width: 250px;
+            }
+
+            .character-info h1 {
+                font-size: 20px;
+            }
+
+            .character-info p {
+                font-size: 14px;
+            }
+
+            .episode-title {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .character-container {
+                padding: 15px;
+            }
+
+            .character-image {
+                min-width: 200px;
+            }
+
+            .character-info h1 {
+                font-size: 18px;
+            }
+
+            .character-info p {
+                font-size: 12px;
+            }
+
+            .episode-title {
+                font-size: 12px;
+            }
+
+            .social-title {
+                font-size: 12px;
+            }
+
+            .modal-content {
+                max-height: 80vh;
+                padding: 20px; /* Maintain mobile padding */
+            }
+
+            .order-table-container {
+                max-height: 300px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 4px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .character-container {
+                padding: 10px;
+            }
+
+            .character-image {
+                min-width: 150px;
+            }
+
+            .character-info h1 {
+                font-size: 16px;
+            }
+
+            .character-info p {
+                font-size: 11px;
+            }
+
+            .episode-title {
+                font-size: 10px;
+            }
+
+            .social-title {
+                font-size: 10px;
+            }
+
+            .social-link {
+                max-width: 80px;
+            }
+
+            .modal-content {
+                max-height: 70vh;
+                padding: 20px; /* Maintain mobile padding */
+            }
+
+            .order-table-container {
+                max-height: 250px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 3px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="color-scheme-4">
+        <a href="../flash/flash.html" class="back-button">RETOUR</a>
+        <div class="logo">
+            <a href="../flash/flash.html">
+                <img src="../../images/logo.webp" alt="Logo iProMx" class="password-logo">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="character-container">
+            <div class="character-image">
+                <img src="../../images/ken_flash1.webp" alt="Ken FLASH1">
+                <img src="../../images/ken_flash2.webp" alt="Ken FLASH2">
+                <img src="../../images/ken_flash.jpg" alt="Ken FLASH">
+                <img src="../../images/dragonken.png" alt="Dragon - Animal spirituel de Ken" class="symbol-image">
+            </div>
+            <div class="character-info">
+                <h1>Ken FLASH</h1>
+                <h2>Avant</h2>
+                <p><strong>Ken Flash, 18 ans, homme.</strong></p>
+                <p>Ken croyait porter le nom de Wayathe jusqu’à ce que sa mère, en larmes après avoir retrouvé la mémoire, lui révèle qu’elle a trahi l’amour de John Flash. Il découvre alors que John, qu’il pensait être l’assassin de son père, est en réalité son véritable père. Abandonnant son faux nom, Ken adopte fièrement le patronyme Flash.</p>
+                <p>À 18 ans, il part en Italie avec son ami d’enfance Mario. Lors d’un voyage, il rencontre Giulia Vitale, une femme mystérieuse qu’il prend en stop sous la pluie. Une connexion immédiate naît entre eux, et Ken tombe amoureux. Cependant, Giulia, tourmentée par ses propres secrets, pense : <em>« Ce garçon est trop impulsif, trop pur… Je ne peux pas l’entraîner dans mon monde. »</em> Malgré leur nuit passée ensemble, elle disparaît.</p>
+                <p>À 19 ans, Ken retourne à Los Santos, plus déterminé que jamais. Il se distingue dans des combats de rue, attirant l’attention d’un capitaine de la LSPD qui l’intègre dans une nouvelle brigade. Son objectif : retrouver Giulia, disparue depuis un an. Après des succès dans la police, il la retrouve enfin. Giulia a abandonné sa vie de mafieuse italienne, et ils entament une relation stable sans jamais se marier. Ken rencontre alors son grand-père, David Flash, et sa demi-sœur, Raven Flash, découvrant l’histoire complexe de sa famille. Il accepte sa destinée : reprendre le Gang Double pour en faire la 2e génération.</p>
+                <p>À 23 ans, de retour à Los Santos, Ken avoue à Giulia ses activités criminelles. Sous le nom de Drago, il est devenu braqueur, tueur et dealer, figurant parmi les criminels les plus recherchés. Dégoûtée par sa double vie et sa liaison avec une autre femme, Giulia le quitte et retourne en Italie.</p>
+                <p>À 24 ans, Ken est envoyé de force dans un camp militaire. Il y excelle, devenant caporal, mais replonge dans la violence. Recherché, il apprend que Luna, une femme avec qui il a eu une aventure, est enceinte. Il disparaît à nouveau. À 25 ans, il revient à Los Santos et fonde le Gang Double 2.0. Lorsqu’il retrouve Luna et découvre qu’elle a fait une fausse couche, il la tue.</p>
+                <p>Plus tard, Ken rencontre Laila, une psychologue italienne. Leur relation, d’abord physique, évolue vers un mariage. Laila tombe enceinte de jumeaux. Ken retrouve Giulia, qui lui révèle qu’elle a eu un enfant de lui, élevé en secret par David Flash. Ken lui confesse tout : son mariage, les jumeaux à venir, et son statut de criminel recherché sous le nom de Drago. Sa liberté touche à sa fin. Capturé lors d’un assaut à Los Santos, il est emprisonné.</p>
+                
+                <h2>Après</h2>
+                <p><strong>Ken Flash, 44 ans, homme.</strong></p>
+                <p>En prison, Ken est sauvé par son père, John Flash, et son grand-père, David Flash, qui fusionnent leurs consciences avec la sienne, formant une entité unique dans son corps. Sa voix devient un mélange de trois timbres distincts, reflétant leurs trois esprits.</p>
+                <p>À ce moment, le Gang Double est au bord de l’effondrement, ses membres arrêtés les uns après les autres. Ken libère sa femme Laila, Choux Fleur, et Jason DaSilva. Avec Laila, Jason (bras droit), Titeuff (bras gauche), Waki Anderlock, Juarez McKalister, et Choux Fleur, il reforme le gang. Mais, décidé à changer, Ken dissout le Gang Double et confie ses clés à Jason, espérant qu’il les transmettra un jour à Aaron, son fils avec Laila. Il révèle à Laila que leur fils aîné, David Jr., né de son union avec Giulia, est consumé par le mal. Pour éviter une catastrophe, Ken sépare leurs jumeaux nourrissons, Aaron et Kylie. Laila élèvera Kylie, tandis que Ken formera Aaron pour qu’il puisse un jour affronter David Jr. Après un adieu déchirant, ils se séparent.</p>
+                <p>À 44 ans, Ken revient dans un Los Santos post-apocalyptique. Il retrouve Giulia et les membres du Gang Double 3.0, qu’il entraîne pour un ultime combat contre David Jr. Le gang, jadis criminel, devient une équipe de héros défendant la nation. Ken prend également sous son aile Nina, une jeune femme du même âge que son fils, qu’il forme à la méditation. Grâce à cette pratique et à la force de l’amour, Nina ramène Aaron à la vie. Pendant ce temps, Ken affronte seul David Jr. dans une bataille acharnée pour gagner du temps. Il se sacrifie, mourant pour offrir une dernière chance à la paix.</p>
+                
+                <h2>Animal spirituel</h2>
+                <p>Le dragon, animal spirituel de Ken Flash, représente sa puissance indomptable et sa détermination sans faille à ne jamais renoncer.</p>
+            </div>
+        </div>
+
+        <!-- Contenu généré par le script Python -->
+        <div class="playlist-section">
+            <h2>Épisodes de Ken FLASH</h2>
+            <h3>Saison 1</h3>
+            <ul class="episode-list">
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 1: Qui est Ken Flash ?! GTAV RP Adastra 450 Slots ! FR</span>
+                    <button class="watch-button" data-video-id="exCu9-AzaKs">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 2: Je deviens videur ! GTAV RP Adastra 450 Slots ! FR</span>
+                    <button class="watch-button" data-video-id="h_DWnfYPTeg">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 3: Je vais me faire passer pour un homme riche ! GTAV RP - 450 Personnes ! FR</span>
+                    <button class="watch-button" data-video-id="3Dx5NEwvXy8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 4: Qu'est-ce que Giulia me cache ? Ken est amoureux ! FR</span>
+                    <button class="watch-button" data-video-id="jlhhq90wAjQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 5: Qu'est-ce que Giulia me cache ? Ken est amoureux ! FR</span>
+                    <button class="watch-button" data-video-id="jlhhq90wAjQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 6: Giulia me trouve trop jeune ! : Je vais lui prouver que je suis un homme GTAV RP ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="RqgzYFw9WdE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 7: [Part 1] Un gang me propose du boulot sale ! Giulia ne doit pas le savoir ! GTAV RP ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="df-zdoTbHkY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 8: [Part 2] Un gang me propose du boulot sale ! Giulia ne doit pas le savoir ! GTAV RP ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="Mss5cVx3Kxk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 9: J'ai posé un lapin à Giulia :S ! GTAV RP Adastra #7 ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="0Gj0b_7EA34">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 10: Ken va-t-il avouer ses sentiments à Giulia ?! GTAV RP Adastra #8 ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="lHDG3wu6Als">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 11: Un amour impossible ?! GTAV RP #9 ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="7t6PbzYYVMI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 12: Giulia et Ken, un vrai amour ! GTAV RP #10 ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="LxX9SXnVK8k">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 13: Giulia, où es-tu ?! Épisode cinématique GTAV RP Saison 2 #1 ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="bOsjL7cTDsQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 14: Ken va se venger ! GTAV RP Saison 2 #2 ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="R0sz-GPwZUE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 15: Qui est cette femme mystérieuse ?! GTAV RP Saison 2 #3 ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="wEC298AlC1o">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 16: [Part 1] Giulia encore en vie ?! Je vais à sa recherche ! GTAV RP Saison 2 #4 ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="v3Zxpnh1p4U">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 17: [Part 2] Giulia encore en vie ?! Je vais à sa recherche ! GTAV RP Saison 2 #4 ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="JLzqnanJvXs">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 18: Giulia m'a oublié :'( ! GTAV RP #5 ! FR #RoadTo700K</span>
+                    <button class="watch-button" data-video-id="Mo33-wJW6pw">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 19: David Flash vs Ken Flash ! Le face-à-face ! GTAV RP #6</span>
+                    <button class="watch-button" data-video-id="Ir86G35BFZ4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 20: Giulia va-t-elle se souvenir de Ken ? GTAV RP #7 FR</span>
+                    <button class="watch-button" data-video-id="Lo9Xe_kGVkg">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 21: Ken prend un peu de temps pour réfléchir GTAV RP #8 FR</span>
+                    <button class="watch-button" data-video-id="f4Rv1iK3TO4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 22: Ken Flash is back ! GTAV RP !</span>
+                    <button class="watch-button" data-video-id="rFiVADIGAYw">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 23: Giulia et Ken au septième ciel ! GTA V RP #2</span>
+                    <button class="watch-button" data-video-id="yR-scoxR2os">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 24: On commence notre business ! GTA V RP #3</span>
+                    <button class="watch-button" data-video-id="SMycS7_b4_4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 25: On va faire du sale ce soir ! Wesh ! GTAV RP !</span>
+                    <button class="watch-button" data-video-id="z6IMsxMRUQY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 26: Giulia et Ken, un amour pas comme les autres ! GTA V RP #5</span>
+                    <button class="watch-button" data-video-id="J971vE3MALY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 27: Ken est perdu ! GTA V RP #6</span>
+                    <button class="watch-button" data-video-id="Je-eB9H0FbA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 28: [Redif] Ken va braquer des banques ce soir ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="AWyH0A1GTx8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 29: Ken Flash vs Agent X ! GTAV RP !</span>
+                    <button class="watch-button" data-video-id="5XIFuAouWrk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 30: Ken Flash sur les traces de son père ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="m5ccmRJATzQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 31: Ken Flash, l’héritage de David Flash ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="qEPtPfjuSVs">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 32: Ken a fait une connerie ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="opbsib6F-e4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 33: Ken vs le braquage du siècle ! GTAV RP !</span>
+                    <button class="watch-button" data-video-id="gCPAHoQMBYE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 34: Ken Flash reprend du service ! Infiltration ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="F9eeI6bn1DM">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 35: Ken Flash recherché par l’armée ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="gHNKOLezRCQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 36: Ken Flash le mythomane (c’est une maladie donc) ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="sbymrOkKz3c">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 37: Ken Flash le mythomane (c’est une maladie donc) ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="sbymrOkKz3c">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 38: Ken Flash le mythomane (c’est une maladie donc) ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="sbymrOkKz3c">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 39: Ken Flash promu dans l’armée GTAV RP</span>
+                    <button class="watch-button" data-video-id="Mdiyz9pGG5c">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 40: Aby ma friendzone ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="1n6iywBWM3M">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 41: Aby ma friendzone ! GTAV RP</span>
+                    <button class="watch-button" data-video-id="1n6iywBWM3M">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 42: La maladie de Ken Flash ! GTA V RP ! by iProMx #1</span>
+                    <button class="watch-button" data-video-id="pJaNjitlPrs">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 43: L’état de Ken Flash s’empire ! GTA V RP ! by iProMx #2</span>
+                    <button class="watch-button" data-video-id="68ueJGE17Fk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 44: Ken Flash recherché par toute la ville ! GTA V RP ! by iProMx #3</span>
+                    <button class="watch-button" data-video-id="URF-z5UP34I">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 45: Ken Flash assiste à sa propre enterrement ! GTA V RP ! by iProMx #4</span>
+                    <button class="watch-button" data-video-id="wPc_o9Hf72w">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 46: Ken Flash bientôt papa ?! GTA V RP ! by iProMx #5</span>
+                    <button class="watch-button" data-video-id="N63XpjYrYu4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 47: Nouvelle identité pour Ken Flash ! GTA V RP ! by iProMx #6</span>
+                    <button class="watch-button" data-video-id="1nivt1UBPT4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 48: [Part 1] Ken Flash vs Paco ! Retrouvailles ! GTA V RP ! by iProMx #7</span>
+                    <button class="watch-button" data-video-id="yohgteo6JJw">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 49: [Part 2] Ken Flash vs Paco ! Retrouvailles ! GTA V RP ! by iProMx #8</span>
+                    <button class="watch-button" data-video-id="rtzAQuJftUg">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 50: Le retour de Ken Flash ! Nouvelle ville ! Nouvelle vie ! GTA V RP ! by iProMx #9</span>
+                    <button class="watch-button" data-video-id="HImjSIoumxU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 51: Ken Flash achète l’hôpital ! Retrouvailles avec Alessa ! GTA V RP ! by iProMx #10</span>
+                    <button class="watch-button" data-video-id="bo9BEeLzAZU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 52: Ken Flash et la drogue de son père ! GTA V RP ! by iProMx #11</span>
+                    <button class="watch-button" data-video-id="byEsbbvs7IM">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 53: Ken Flash, la fortune ! GTAV RP #1 Saison Finale !</span>
+                    <button class="watch-button" data-video-id="k29gTJH9Llw">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 54: Ken achète des armes ! GTA V RP ! by iProMx #13</span>
+                    <button class="watch-button" data-video-id="MjHWbOTvBIQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 55: Ken Flash gère la drogue Moukate ! GTA V RP ! by iProMx #12</span>
+                    <button class="watch-button" data-video-id="PJb9TOKZOH0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 56: Ken, Titeuf et Juarez font une soirée dans leur villa ! GTA V RP ! by iProMx #14</span>
+                    <button class="watch-button" data-video-id="OZ7iTCeedt4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 57: Ken Flash sur les pas de John Flash ! GTA V RP ! by iProMx #15</span>
+                    <button class="watch-button" data-video-id="tfyN6pbl1Cw">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 58: Ken Flash bombarde la ville ! GTA V RP ! by iProMx #16</span>
+                    <button class="watch-button" data-video-id="qFnB878QQ4w">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 59: Ken Flash, un amour impossible ?! GTA V RP ! by iProMx #17</span>
+                    <button class="watch-button" data-video-id="-42cYApGrKU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 60: Ken Flash vs Gang ! GTA V RP ! by iProMx #18</span>
+                    <button class="watch-button" data-video-id="QhYpaIsTwZ0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 61: L’empire de Ken Flash ! GTA V RP ! by iProMx #19</span>
+                    <button class="watch-button" data-video-id="DBgJTIwIkJ8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 62: Ken et Giulia, le face-à-face ! GTA V RP ! by iProMx #22</span>
+                    <button class="watch-button" data-video-id="rzkBgMKQCTA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 63: Braquage du siècle ! GTA V RP ! by iProMx #21</span>
+                    <button class="watch-button" data-video-id="Mkyc3mvqVfA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 64: Ken et Giulia, le face-à-face ! GTA V RP ! by iProMx #22</span>
+                    <button class="watch-button" data-video-id="rzkBgMKQCTA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 65: Ken Flash, le dragon ! GTA V RP ! by iProMx #23</span>
+                    <button class="watch-button" data-video-id="vqBovrASPIU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 66: La reprise du Gang Double ! GTA V RP ! by iProMx #24</span>
+                    <button class="watch-button" data-video-id="GHaSDqr2QG4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 67: La trahison d’Esteban ! GTA V RP ! by iProMx #25</span>
+                    <button class="watch-button" data-video-id="PjKSfA0cyd4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 68: Le message de David Flash ! GTA V RP ! by iProMx #26</span>
+                    <button class="watch-button" data-video-id="54A7cJ42RiQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 69: Leila enceinte ?! Ken abandonne Giulia ?! GTA V RP ! by iProMx #27</span>
+                    <button class="watch-button" data-video-id="-WnDe5Vb73E">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 70: Leila enceinte ?! Ken abandonne Giulia ?! GTA V RP ! by iProMx #27</span>
+                    <button class="watch-button" data-video-id="-WnDe5Vb73E">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 71: Ken Flash encore papa ?! GTA V RP ! by iProMx #29</span>
+                    <button class="watch-button" data-video-id="W8abCxQrz-0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 72: Ken Flash enfin papa ?! La relève ! GTA V RP ! by iProMx #30</span>
+                    <button class="watch-button" data-video-id="C4jeRu8P_J0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 73: L’annonce de Giulia ! GTA V RP ! by iProMx #31</span>
+                    <button class="watch-button" data-video-id="LU7LwmByuTQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 74: La mort de Dereck McCalister ! GTA V RP ! by iProMx #32</span>
+                    <button class="watch-button" data-video-id="VzuyMcDoz_4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 75: Ken Flash recherché par toute la ville ! 1 million de prime ! GTA V RP ! by iProMx #33</span>
+                    <button class="watch-button" data-video-id="rHjQ-Njhlfg">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 76: Les familles à travers de Double 2.0 ! GTA V RP ! by iProMx #34</span>
+                    <button class="watch-button" data-video-id="9fFKnzrdQ3Y">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 77: La prime s’élève à 5 millions ! GTA V RP ! by iProMx #35</span>
+                    <button class="watch-button" data-video-id="jSTPbDtS1rE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 78: Leila accouche ?! GTA V RP ! by iProMx #36</span>
+                    <button class="watch-button" data-video-id="ExolwJX7iVA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 79: La mort de Ken Flash (ou pas) ?! GTA V RP ! by iProMx #37</span>
+                    <button class="watch-button" data-video-id="YxgfKEe5KKI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 80: David, John et Ken, le face-à-face ! GTA V RP ! by iProMx #38</span>
+                    <button class="watch-button" data-video-id="BaTvecWl2wk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 81: Ken Flash achète l’hôpital ! Retrouvailles avec Alessa ! GTA V RP ! by iProMx #10</span>
+                    <button class="watch-button" data-video-id="bo9BEeLzAZU">Regarder</button>
+                </li>
+            </ul>
+            <h3>Saison 2</h3>
+            <ul class="episode-list">
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 1: Le retour de Ken Flash ! GTA V RP ! by iProMx #1 S2</span>
+                    <button class="watch-button" data-video-id="UOjLYusF2ls">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 2: Les nouveaux pouvoirs du dragon ! GTA V RP ! by iProMx #2 S2</span>
+                    <button class="watch-button" data-video-id="OJ5JqkbRg_w">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 3: Ken Flash vs le juge ! GTA V RP ! by iProMx #3 S2</span>
+                    <button class="watch-button" data-video-id="S-S3iqsVPMg">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 4: Ken Flash, la dernière préparation ! GTA V RP ! by iProMx #4 S2</span>
+                    <button class="watch-button" data-video-id="4qfjyCL3t9A">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 5: Ken Flash contrôle la LSPD + braquage ! 120 000 000 prime ! GTA V RP ! by iProMx #5 S2</span>
+                    <button class="watch-button" data-video-id="0HBwBKfY95M">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 6: Ken Flash vs David Jr ! 300 000 000 prime ! GTA V RP ! by iProMx #6 S2</span>
+                    <button class="watch-button" data-video-id="d8_pu_G3Yyk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 7: Ken Flash, un méchant héros ?! GTA V RP ! by iProMx #7 S2</span>
+                    <button class="watch-button" data-video-id="21tNh6lcIww">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 8: La fin de Ken Flash ?! GTA V RP ! by iProMx #8 S2</span>
+                    <button class="watch-button" data-video-id="dAFbobin9X0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 9: Ken Flash, dernier jour avant le grand départ ?! GTA V RP ! by iProMx #9 S2</span>
+                    <button class="watch-button" data-video-id="oEap9q-vAH4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 10: Ken Flash, les adieux ! GTA V RP ! by iProMx #10 S2</span>
+                    <button class="watch-button" data-video-id="4L92knQnHf8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 11: La bataille finale des Flash ! GTA V RP ! by iProMx #11 S2</span>
+                    <button class="watch-button" data-video-id="9iO1wJlbbOY">Regarder</button>
+                </li>
+            </ul>
+            <div class="alert-modal" id="alertModal">
+                <div class="modal-content">
+                    <p>Attention, souhaitez-vous avoir un rappel de l'ordre de visionnage de la série "Flash" ?</p>
+                    <div class="alert-buttons">
+                        <button class="alert-button" id="showOrderButton">Oui</button>
+                        <button class="alert-button" id="closeAlertButton">Non</button>
+                    </div>
+                </div>
+            </div>
+            <div class="order-modal" id="orderModal">
+                <div class="modal-content">
+                    <h3>Ordre de visionnage de la famille FLASH</h3>
+                    <div class="order-table-container">
+                        <table class="order-table">
+                            <tbody>
+                                <tr>
+                                    <td><span>David Flash:</span> <button class="go-button" data-url="david.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>John Flash:</span> <button class="go-button" data-url="john.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 1):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 1):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 2):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 2):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 1):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 2):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>David Jr Flash (vieux):</span> <button class="go-button" data-url="davidjr.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 3):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 1):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 2):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 3):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Adrian Flash:</span> <button class="go-button" data-url="adrian.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden et Aaron vs Adrian:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ned Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Manda Flash:</span> <button class="go-button" data-url="manda.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Cody Hunters (Ned Flash):</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="close-button" id="closeOrderButton">Fermer</button>
+                </div>
+            </div>
+            <div class="video-modal" id="videoModal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-modal">×</span>
+                    <iframe id="modalVideo" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="color-scheme-4">
+        <ul class="list-social">
+            <li>
+                <a href="https://x.com/ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/x.png" alt="X" class="social-icon">
+                    <span class="social-title">X</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.tiktok.com/@ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/tiktok.webp" alt="TikTok" class="social-icon">
+                    <span class="social-title">TikTok</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMx" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@ipromxenfolie1688" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°2</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMxHD" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°3</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.com/invite/fantasticwl" target="_blank" class="social-link">
+                    <img src="../../images/discord.png" alt="Discord Fantastic" class="social-icon">
+                    <span class="social-title">Fantastic WL</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const watchButtons = document.querySelectorAll('.watch-button');
+            const alertModal = document.getElementById('alertModal');
+            const showOrderButton = document.getElementById('showOrderButton');
+            const closeAlertButton = document.getElementById('closeAlertButton');
+            const orderModal = document.getElementById('orderModal');
+            const closeOrderButton = document.getElementById('closeOrderButton');
+            const videoModal = document.getElementById('videoModal');
+            const closeModal = document.querySelectorAll('.close-modal');
+            let currentVideoId = null;
+
+            // Ensure all modals are hidden on page load
+            alertModal.style.display = 'none';
+            orderModal.style.display = 'none';
+            videoModal.style.display = 'none';
+
+            watchButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    currentVideoId = button.getAttribute('data-video-id');
+                    alertModal.style.display = 'flex';
+                });
+            });
+
+            showOrderButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                orderModal.style.display = 'flex';
+            });
+
+            closeAlertButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeOrderButton.addEventListener('click', () => {
+                orderModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeModal.forEach(button => {
+                button.addEventListener('click', () => {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                });
+            });
+
+            alertModal.addEventListener('click', (e) => {
+                if (e.target === alertModal) {
+                    alertModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            orderModal.addEventListener('click', (e) => {
+                if (e.target === orderModal) {
+                    orderModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                }
+            });
+
+            document.querySelectorAll('.go-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const url = button.getAttribute('data-url');
+                    window.location.href = url;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

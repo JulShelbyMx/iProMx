@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John FLASH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-background: 18, 18, 18;
+            --color-foreground: 255, 255, 255;
+            --color-accent: 255, 215, 0;
+            --color-hover: 252, 228, 119;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: rgb(var(--color-background));
+            color: rgba(var(--color-foreground), 0.75);
+        }
+
+        header.color-scheme-4 {
+            background-color: #121212;
+            padding: 10px 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: #121212;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #fce477;
+        }
+
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .character-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .character-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .character-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .character-info {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .character-info h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .character-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .character-info p {
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .playlist-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .playlist-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .episode-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .episode-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #222222;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            transition: transform 0.3s ease;
+        }
+
+        .episode-item:hover {
+            transform: scale(1.02);
+            border-color: #fce477;
+        }
+
+        .episode-title {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .watch-button, .alert-button, .go-button, .close-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #121212;
+        }
+
+        .watch-button:hover, .alert-button:hover, .go-button:hover, .close-button:hover {
+            background-color: #fce477;
+        }
+
+        .alert-modal, .order-modal, .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            margin: auto;
+            background-color: #121212;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px 20px 10px; /* Reduced bottom padding on desktop */
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .order-table-container {
+            max-height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+
+        /* Custom scrollbar styles */
+        .order-table-container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .order-table-container::-webkit-scrollbar-track {
+            background: #333333;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb {
+            background: #ffffff;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb:hover {
+            background: #fce477;
+        }
+
+        /* For Firefox */
+        .order-table-container {
+            scrollbar-width: auto;
+            scrollbar-color: #ffffff #333333;
+        }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .order-table tr {
+            border: 2px solid #ffd700;
+            background-color: #222222;
+            border-radius: 8px;
+        }
+
+        .order-table tr:hover {
+            border-color: #fce477;
+        }
+
+        .order-table td {
+            padding: 10px;
+            font-size: 14px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+        }
+
+        .order-table td span {
+            margin-right: 5px;
+        }
+
+        .alert-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #fce477;
+        }
+
+        .close-button {
+            margin-top: 10px; /* Reduced margin to minimize space on desktop */
+            min-width: 100px;
+            padding: 8px 16px;
+            font-size: 16px;
+            z-index: 10;
+        }
+
+        footer.color-scheme-4 {
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .list-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffd700;
+            text-decoration: none;
+            max-width: 100px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #fce477;
+            transform: scale(1.1);
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+        }
+
+        .social-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #ffd700;
+        }
+
+        .social-link:hover .social-title {
+            color: #fce477;
+        }
+
+        @media (max-width: 1024px) {
+            .character-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .character-image {
+                min-width: 250px;
+            }
+
+            .character-info h1 {
+                font-size: 20px;
+            }
+
+            .character-info p {
+                font-size: 14px;
+            }
+
+            .episode-title {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .character-container {
+                padding: 15px;
+            }
+
+            .character-image {
+                min-width: 200px;
+            }
+
+            .character-info h1 {
+                font-size: 18px;
+            }
+
+            .character-info p {
+                font-size: 12px;
+            }
+
+            .episode-title {
+                font-size: 12px;
+            }
+
+            .social-title {
+                font-size: 12px;
+            }
+
+            .modal-content {
+                max-height: 80vh;
+                padding: 20px; /* Maintain mobile padding */
+            }
+
+            .order-table-container {
+                max-height: 300px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 4px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .character-container {
+                padding: 10px;
+            }
+
+            .character-image {
+                min-width: 150px;
+            }
+
+            .character-info h1 {
+                font-size: 16px;
+            }
+
+            .character-info p {
+                font-size: 11px;
+            }
+
+            .episode-title {
+                font-size: 10px;
+            }
+
+            .social-title {
+                font-size: 10px;
+            }
+
+            .social-link {
+                max-width: 80px;
+            }
+
+            .modal-content {
+                max-height: 70vh;
+                padding: 20px; /* Maintain mobile padding */
+            }
+
+            .order-table-container {
+                max-height: 250px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 3px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="color-scheme-4">
+        <a href="../flash/flash.html" class="back-button">RETOUR</a>
+        <div class="logo">
+            <a href="../flash/flash.html">
+                <img src="../../images/logo.webp" alt="Logo iProMx" class="password-logo">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="character-container">
+            <div class="character-image">
+                <img src="../../images/john_flash.jpg" alt="John FLASH">
+                <img src="../../images/loupjohn.webp" alt="Loup - Animal spirituel de John" class="symbol-image">
+            </div>
+            <div class="character-info">
+                <h1>John FLASH</h1>
+                <h2>Avant</h2>
+                <p><strong>John Flash, 18 ans, homme.</strong></p>
+                <p>Élevé par son oncle Franck, capitaine du LSPD, John Flash a grandi en menant une double vie. Discret en apparence, il se passionnait pour les voitures et participait à des courses de rue illégales à l’insu de son oncle.</p>
+                <p>Un jour, il se fait arrêter. Son oncle l’emmène visiter une prison et lui montre un homme seul assis sur un muret : <em>« Tu vois cet homme là-bas ? C’est le criminel le plus dangereux de Los Santos... Tu veux finir comme lui ? »</em></p>
+                <p>Peu après, John est envoyé dans un camp de redressement militaire. Il s’en évade, mais est victime d’un grave accident. À l’hôpital, il découvre la vérité : cet homme sur le muret était son père, David Flash.</p>
+                <p>À 23 ans, après avoir accepté ses origines, John ouvre un concessionnaire automobile tout en organisant des braquages. Il rencontre Angel, une agente du LSPD, dont il tombe amoureux. Leur couple devient solide.</p>
+                <p>Malheureusement, un ami d’enfance jaloux le drogue. Sous influence, John trompe Angel avec Emy, vice-présidente de Los Santos. Emy tombe enceinte et meurt en accouchant de leur fille, Raven. David Flash choisit d’élever Raven en secret jusqu’à sa majorité, sans en parler à John.</p>
+                
+                <h2>Après</h2>
+                <p><strong>John Flash, 51 ans, homme.</strong></p>
+                <p>Après avoir épousé Angel, John relance son concessionnaire tout en continuant ses activités criminelles. Son ami d’enfance Garry refait surface. Malgré leur passé conflictuel, John se remémore leurs souvenirs communs : courses de rue, ouverture de leur premier concessionnaire et braquages ensemble. Il lui donne une dernière chance.</p>
+                <p>Mais Angel, enceinte, est victime d’un accident et perd la mémoire. Garry profite de cette faiblesse pour lui mentir, se faisant passer pour son mari et le père de son enfant, tout en décrivant John comme un fou dangereux. Il l’isole sous prétexte de la protéger.</p>
+                <p>Quand John découvre le complot, il tue Garry sous les yeux d’Angel dans un accès de rage. Horrifiée, elle appelle la police, et John est emprisonné. Assis sur un muret en prison, he repense aux mots de son oncle : <em>« Cet homme là-bas est le criminel le plus dangereux de Los Santos... Tu veux finir comme lui ? »</em> Cette fois, John se promet : <em>« Oui... je serai comme mon père. Pire encore. »</em></p>
+                <p>En prison, John est grièvement blessé à la gorge lors d’une rixe. Considéré comme mort, il est recousu et envoyé à la morgue, mais se réveille et s’évade. À 51 ans, il devient le plus grand criminel du continent, dirigeant une mafia de plus de 5 000 hommes, avec des tanks, des avions de chasse et un porte-avions.</p>
+                <p>Plus tard, il apprend que son fils Ken a volé les ingrédients de la drogue Mouk4 qu’il avait créée. John ordonne à son bras droit de transmettre son empire à Ken. À 70 ans, John meurt dans le corps de son fils Ken, lors d’un combat final entre ses arrière-petits-fils, Aaron et David Jr.</p>
+                
+                <h2>Animal spirituel</h2>
+                <p>L’animal spirituel de John est le loup, symbole de son chemin solitaire et de son rôle de chef d’une organisation puissante.</p>
+            </div>
+        </div>
+
+        <!-- Contenu généré par le script Python -->
+        <div class="playlist-section">
+            <h2>Épisodes de John FLASH</h2>
+            <ul class="episode-list">
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 1: LES BOSS DES RUES ! GTAV RP #1</span>
+                    <button class="watch-button" data-video-id="NGjgos92uSU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 2: MA PREMIERE COURSE DE RUE AVEC MA NOUVELLE VOITURE ! GTAV RP #2</span>
+                    <button class="watch-button" data-video-id="5u8ihEBUOP8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 3: LE FACE A FACE AVEC DAVID FLASH ! GTAV RP #3</span>
+                    <button class="watch-button" data-video-id="gtGflOqqt6c">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 4: LE PIRE CAUCHEMAR DE JOHN LEWIS  ! GTAV RP #4</span>
+                    <button class="watch-button" data-video-id="x9rM5-rIFgE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 5: L'EVASION DE JOHN LEWIS ! LA FIN DE DAVID FLASH ? GTAV RP #5</span>
+                    <button class="watch-button" data-video-id="PltSSkJoBQY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 6: JE SUIS AU BOUT DE MA VIE ! GTA V RP #6</span>
+                    <button class="watch-button" data-video-id="rD_7_5fj-tM">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 7: SUIVRE LES PAS DE SON PERE ! GTAV RP #7</span>
+                    <button class="watch-button" data-video-id="fnUvrpOg85U">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 8: JOHN FLASH EST ENFIN PRET POUR SE VENGER ! GTAV RP #8</span>
+                    <button class="watch-button" data-video-id="bxwYVN3Ypy4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 9: JOHN FLASH VS THE KING OF STREET DUEL EPISODE FINAL SAISON 1 - GTAV RP #9</span>
+                    <button class="watch-button" data-video-id="sA4ZOLRI6wQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 10: LES BOSS DES RUES ! GTAV RP #1 SAISON 2</span>
+                    <button class="watch-button" data-video-id="CCXaXnwWPFA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 11: LE RETOUR DE JOHN FLASH ! GTAV RP #1</span>
+                    <button class="watch-button" data-video-id="nbpTl-8ElhA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 12: ON A REÇUS DU LOURRDD ! GTAV RP #2</span>
+                    <button class="watch-button" data-video-id="90a3VGU3Tmk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 13: ON A LA FOULE AU CONCESSIONNAIRE ! :o GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="giNlhqB3QMI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 14: OMG ON PASSE AU CHOSE SÉRIEUSE AU CONCESSIONNAIRE :o GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="cASimC-eWwo">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 15: ON EST DÉBORDÉ :O GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="rkOn4HBiL8s">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 16: OMG REGARDEZ NOTRE TOUT NOUVEAU VÉHICULE DE FONCTION :O GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="dnvHQnoBEH4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 17: CE SOIR ON ORGANISE NOTRE PLUS GRAND EVÉNEMENT ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="I-N9H34oqVM">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 18: ON CONTINUE LE BUSINESS ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="e-MtFqChIVY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 19: J'AI DROGUE UNE FEMME + GARRY A VOLE TOUT L'ARGENT DE L'ENTREPRISE ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="nq4mg6SQtUA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 20: JOHN FLASH A LA RECHERCHE DE L'AMOUR + NOUVELLE VOITURE  ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="tzjjR7vUrQU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 21: JOHN FLASH - UN AMOUR IMPOSSIBLE ?! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="HQrb853E2ZQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 22: LA VILLE EST OUVERTE POUR TOUT LE MONDE :O ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="BEhRxdWcNAs">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 23: ANGEL M'A TROMPE :'( ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="YCNXVxQv1RA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 24: QU'EST-CE QUI SE CACHE DANS CETTE MINE ? GARRY TRAUMATISE ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="QtcppzPyYvA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 25: ON DOIT RETROUVER ANGEL ! ON PASSE AU CHOSE SÉRIEUSES  ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="aA_nMNRhVDI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 26: JE VAIS CHERCHER DE LA COKE POUR LA VICE PRÉSIDENTE ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="PEAtvzOUFMA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 27: JE RISQUE DE PERDRE ANGEL :S ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="OKr_qeGR2f8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 28: LA VICE PRÉSIDENTE DANS MON LIT :O !!!! WTF !!!! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="edx_TGlbkhY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 29: LA VICE PRÉSIDENTE ENCEINTE DE MOI , ANGEL SE DOUTE DE QUELQUE CHOSE ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="r47yf3T2qE8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 30: ANGEL VEUT TUER MON FILS ET LA VICE PRÉSIDENTE ! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="23WTYkv6Hho">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 31: LA MORT DE JOHN FLASH ?</span>
+                    <button class="watch-button" data-video-id="YJPf8vjD20k">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 32: LA FIN DE JOHN FLASH ?! GTAV RP LIVE FR</span>
+                    <button class="watch-button" data-video-id="FBhW9KNyTyU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 33: LE FACE A FLASH ! GTA V RP ! EXCLU !</span>
+                    <button class="watch-button" data-video-id="1uftSWQ73-0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 34: LE FACE A FACE ? GTAV RP EXCLU</span>
+                    <button class="watch-button" data-video-id="tOOXC0Bthkw">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 35: SA VA PARTIR EN CACAHUÈTE ? GTAV RP EXCLU</span>
+                    <button class="watch-button" data-video-id="NWpRrc2kZYU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 36: A LA RECHERCHE DE ANGEL POUR LUI DIRE LA VÉRITÉ SUR GARRY ! GTAV RP EXCLU</span>
+                    <button class="watch-button" data-video-id="1ztTH5xkN4o">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 37: DAVID FLASH VS HENRIC PEPITO !</span>
+                    <button class="watch-button" data-video-id="UnVzdySCGqQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 38: L'ETAPE LA PLUS DURE POUR JOHN FLASH ! GTAV RP LE FILM !</span>
+                    <button class="watch-button" data-video-id="U3Ri989csgQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 39: LE GRAND JOUR , LE MARIAGE DE JOHN ET ANGEL + NOUVEAU DÉPART ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="Rzp_pvHW2tE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 40: LE GRAND JOUR , LE MARIAGE DE JOHN ET ANGEL + NOUVEAU DÉPART ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="kTPMvBA0WMI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 41: NOUVELLE VIE POUR JOHN ET ANGEL ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="JV6rFr94SgE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 42: JE SUIS L'HOMME LE PLUS RECHERCHE DE LA VILLE ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="9ibAfbEmuOk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 43: ANGEL EN PRISON A CAUSE DE MOI ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="ik33GFgcNnc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 44: FAIRE DU PROPRE ET EN MÊME TEMPS DU SALE ! GTAV RP ! FR</span>
+                    <button class="watch-button" data-video-id="u7X8Y7nifdI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 45: ANGEL ENCEINTE OU PAS !?? GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="LDqKxks9s5Q">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 46: ENJOY LIFE VA ETRE DÉTRUIT PAR UNE MÉTÉORITE ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="5SHFBQsHHa8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 47: ANGEL M'A T'ELLE VRAIMENT TRAHI ET TROMPE ? JE MÈNE MON ENQUÊTE ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="YXAuNZnDCmI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 48: JOHN FLASH TRAVAILLE AVEC LE GANG DOUBLE ?! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="MuojJf0T3rA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 49: ON VA FAIRE DU SALE ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="qywY-FFFaK4">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 50: JE LANCE MA DROGUE MOUKATE ! ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="RTE2VHCEZ7w">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 51: ON VA FAIRE LE PLUS GROS BRAQUAGE DU SIÈCLE ! LA CASA DE PAPEL ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="IWG6SuyCsf0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 52: J'INSTALLE UN TRACEUR SUR ANGEL POUR L'ESPIONNER ET SAVOIR LA VÉRITÉ ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="xwI3qnGVgeY">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 53: MA VILLE A ÉTÉ DETRUITE ! ON VA LA RÉPARER ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="o5LuP-Ur50A">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 54: ANGEL A DISPARU ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="c_VhhL0qCYc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 55: ON COMMENCE LES GROS TRAVAUX + ANGEL TOUJOURS PORTÉE DISPARUE  ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="0mk1Nyvxpl8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 56: GROSSE ANNONCE + RETOUR DE LA SAISON 2 JOHN FLASH ! GTAV RP FR</span>
+                    <button class="watch-button" data-video-id="6DbUdI8_uAI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 57: JOHN FLASH SAISON 2 TRAILER OFFICIEL !</span>
+                    <button class="watch-button" data-video-id="oui8-7oH-Y8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 58: LA MORT D'ANGEL ?! GTAV RP SAISON 2 #1</span>
+                    <button class="watch-button" data-video-id="P04hXwK0YzM">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 59: GARRY A T'IL TUE JOHN FLASH ?</span>
+                    <button class="watch-button" data-video-id="lUnQHvJy-jM">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 60: ENFERME DANS UN CONTENEUR ! ANGEL MORTE ? GTAV RP SAISON 2 #2</span>
+                    <button class="watch-button" data-video-id="bmIJqQi96yQ">Regarder</button>
+                </li>
+            </ul>
+           <div class="alert-modal" id="alertModal">
+                <div class="modal-content">
+                    <p>Attention, souhaitez-vous avoir un rappel de l'ordre de visionnage de la série "Flash" ?</p>
+                    <div class="alert-buttons">
+                        <button class="alert-button" id="showOrderButton">Oui</button>
+                        <button class="alert-button" id="closeAlertButton">Non</button>
+                    </div>
+                </div>
+            </div>
+            <div class="order-modal" id="orderModal">
+                <div class="modal-content">
+                    <h3>Ordre de visionnage de la famille FLASH</h3>
+                    <div class="order-table-container">
+                        <table class="order-table">
+                            <tbody>
+                                <tr>
+                                    <td><span>David Flash:</span> <button class="go-button" data-url="david.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>John Flash:</span> <button class="go-button" data-url="john.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 1):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 1):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 2):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 2):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 1):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 2):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>David Jr Flash (vieux):</span> <button class="go-button" data-url="davidjr.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 3):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 1):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 2):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 3):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Adrian Flash:</span> <button class="go-button" data-url="adrian.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden et Aaron vs Adrian:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ned Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Manda Flash:</span> <button class="go-button" data-url="manda.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Cody Hunters (Ned Flash):</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="close-button" id="closeOrderButton">Fermer</button>
+                </div>
+            </div>
+            <div class="video-modal" id="videoModal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-modal">×</span>
+                    <iframe id="modalVideo" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="color-scheme-4">
+        <ul class="list-social">
+            <li>
+                <a href="https://x.com/ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/x.png" alt="X" class="social-icon">
+                    <span class="social-title">X</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.tiktok.com/@ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/tiktok.webp" alt="TikTok" class="social-icon">
+                    <span class="social-title">TikTok</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMx" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@ipromxenfolie1688" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°2</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@iProMxHD" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°3</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.com/invite/fantasticwl" target="_blank" class="social-link">
+                    <img src="../../images/discord.png" alt="Discord Fantastic" class="social-icon">
+                    <span class="social-title">Fantastic WL</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const watchButtons = document.querySelectorAll('.watch-button');
+            const alertModal = document.getElementById('alertModal');
+            const showOrderButton = document.getElementById('showOrderButton');
+            const closeAlertButton = document.getElementById('closeAlertButton');
+            const orderModal = document.getElementById('orderModal');
+            const closeOrderButton = document.getElementById('closeOrderButton');
+            const videoModal = document.getElementById('videoModal');
+            const closeModal = document.querySelectorAll('.close-modal');
+            let currentVideoId = null;
+
+            // Ensure all modals are hidden on page load
+            alertModal.style.display = 'none';
+            orderModal.style.display = 'none';
+            videoModal.style.display = 'none';
+
+            watchButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    currentVideoId = button.getAttribute('data-video-id');
+                    alertModal.style.display = 'flex';
+                });
+            });
+
+            showOrderButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                orderModal.style.display = 'flex';
+            });
+
+            closeAlertButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeOrderButton.addEventListener('click', () => {
+                orderModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeModal.forEach(button => {
+                button.addEventListener('click', () => {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                });
+            });
+
+            alertModal.addEventListener('click', (e) => {
+                if (e.target === alertModal) {
+                    alertModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            orderModal.addEventListener('click', (e) => {
+                if (e.target === orderModal) {
+                    orderModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                }
+            });
+
+            document.querySelectorAll('.go-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const url = button.getAttribute('data-url');
+                    window.location.href = url;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
