@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch('/.netlify/functions/live-on-twitch');
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! Status: ${response.status}, Details: ${errorText}`);
                 }
                 const data = await response.json();
                 if (data.status === 'online') {
@@ -45,9 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     liveText.classList.remove('live');
                     liveStatus.classList.remove('live');
                 }
-                return; // Succès, sortir de la boucle
+                return; // Succès
             } catch (error) {
-                console.error(`Tentative ${i + 1}/${retryCount} - Erreur lors de la vérification du statut Twitch:`, error);
+                console.error(`Tentative ${i + 1}/${retryCount} - Erreur lors de la vérification du statut Twitch:`, error.message);
                 if (i < retryCount - 1) {
                     await new Promise(resolve => setTimeout(resolve, delay));
                 }
@@ -55,9 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // Échec après toutes les tentatives
         console.error('Échec de la vérification du statut Twitch après plusieurs tentatives.');
-        liveText.textContent = 'Indisponible';
+        liveText.textContent = 'Erreur de statut';
         liveIndicator.classList.remove('live');
         liveStatus.classList.remove('live');
+        liveIndicator.style.background = '#ff0000'; // Rouge pour erreur
     }
 
     checkTwitchStatus();
