@@ -1,26 +1,16 @@
+import { gsap } from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
+import { ScrollTrigger } from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
+
+gsap.registerPlugin(ScrollTrigger);
+
 document.addEventListener('DOMContentLoaded', () => {
     const carousels = document.querySelectorAll('.carousel-container');
-    const searchBar = document.getElementById('search-bar');
-    const searchButton = document.getElementById('search-button');
-    const suggestionsList = document.getElementById('search-suggestions');
-    const siteCards = document.querySelectorAll('.site-card');
-    const backToTopButton = document.getElementById('back-to-top');
-    const hamburger = document.querySelector('.hamburger');
-    const navButtons = document.querySelector('.nav-buttons');
     const liveIndicator = document.querySelector('.live-indicator');
     const liveText = document.querySelector('.live-text');
     const liveStatus = document.querySelector('.live-status');
     const lastLive = document.querySelector('.last-live');
 
     // Vérification des éléments
-    if (!searchBar || !searchButton || !suggestionsList) {
-        console.error('Éléments de recherche manquants.');
-        return;
-    }
-    if (!hamburger || !navButtons) {
-        console.error('Éléments du menu hamburger manquants.');
-        return;
-    }
     if (!liveIndicator || !liveText || !liveStatus || !lastLive) {
         console.error('Éléments du statut live manquants.');
         return;
@@ -53,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     liveText.textContent = 'iProMx n’est pas en live';
                     liveText.classList.add('offline');
                     liveStatus.classList.remove('live');
-                    // Récupérer dernier live
                     try {
                         const lastLiveResponse = await fetch('/.netlify/functions/live-on-twitch', {
                             headers: { 'X-Last-Live': 'true' }
@@ -84,29 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     checkTwitchStatus();
     setInterval(checkTwitchStatus, 60000);
-
-    // Menu hamburger
-    hamburger.addEventListener('click', () => {
-        navButtons.classList.toggle('active');
-        hamburger.querySelector('i').classList.toggle('fa-bars');
-        hamburger.querySelector('i').classList.toggle('fa-times');
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!hamburger.contains(e.target) && !navButtons.contains(e.target)) {
-            navButtons.classList.remove('active');
-            hamburger.querySelector('i').classList.remove('fa-times');
-            hamburger.querySelector('i').classList.add('fa-bars');
-        }
-    });
-
-    navButtons.querySelectorAll('.nav-button').forEach(button => {
-        button.addEventListener('click', () => {
-            navButtons.classList.remove('active');
-            hamburger.querySelector('i').classList.remove('fa-times');
-            hamburger.querySelector('i').classList.add('fa-bars');
-        });
-    });
 
     // Drag-to-scroll pour carrousels
     carousels.forEach((carouselContainer) => {
@@ -143,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Clic sur cartes ou titres
+    const siteCards = document.querySelectorAll('.site-card');
     siteCards.forEach(card => {
         card.addEventListener('click', (e) => {
             const link = card.querySelector('a');
@@ -160,147 +127,180 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Scroll vers carte
-    const scrollToCard = (card) => {
-        siteCards.forEach(c => c.classList.remove('highlight'));
-        card.classList.add('highlight');
-
-        const carouselContainer = card.closest('.carousel-container');
-        const scrollPosition = card.offsetLeft - (carouselContainer.offsetWidth / 2) + (card.offsetWidth / 2);
-
-        carouselContainer.scrollTo({
-            left: scrollPosition,
-            behavior: 'smooth'
-        });
-
-        const section = card.closest('.categories');
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-
-    // Suggestions de recherche
-    const showSuggestions = (searchTerm) => {
-        suggestionsList.innerHTML = '';
-        if (!searchTerm) {
-            suggestionsList.classList.remove('show');
-            return;
-        }
-
-        const matchingCards = Array.from(siteCards).filter(card => {
-            const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
-            const link = card.querySelector('a')?.href.toLowerCase() || '';
-            return title.includes(searchTerm) || link.includes(searchTerm);
-        });
-
-        if (matchingCards.length === 0) {
-            suggestionsList.classList.remove('show');
-            return;
-        }
-
-        matchingCards.forEach(card => {
-            const title = card.querySelector('.card-title')?.textContent || 'Sans titre';
-            const imgSrc = card.querySelector('img')?.src || '';
-
-            const li = document.createElement('li');
-            li.innerHTML = `
-                ${imgSrc ? `<img src="${imgSrc}" alt="${title}">` : ''}
-                <span>${title}</span>
-            `;
-            li.addEventListener('click', () => {
-                scrollToCard(card);
-                suggestionsList.classList.remove('show');
-                searchBar.value = '';
-            });
-
-            suggestionsList.appendChild(li);
-        });
-
-        suggestionsList.classList.add('show');
-    };
-
-    searchBar.addEventListener('input', () => {
-        showSuggestions(searchBar.value.toLowerCase());
+    // GSAP Animations
+    gsap.from(".hero-main-container", {
+        scale: 1.45,
+        duration: 2.8,
+        ease: "power3.out",
     });
 
-    searchButton.addEventListener('click', () => {
-        const searchTerm = searchBar.value.toLowerCase();
-        const firstMatch = Array.from(siteCards).find(card => {
-            const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
-            const link = card.querySelector('a')?.href.toLowerCase() || '';
-            return title.includes(searchTerm) || link.includes(searchTerm);
-        });
-
-        if (firstMatch) {
-            scrollToCard(firstMatch);
-            suggestionsList.classList.remove('show');
-            searchBar.value = '';
-        } else {
-            alert('Aucun résultat trouvé pour "' + searchTerm + '".');
-        }
+    gsap.to(".overlay", {
+        opacity: 0,
+        duration: 2.8,
+        ease: "power3.out",
+        onComplete: () => {
+            document.body.style.overflow = "visible";
+            document.body.style.overflowX = "hidden";
+        },
     });
 
-    // Navigation clavier
-    let selectedIndex = -1;
-    searchBar.addEventListener('keydown', (e) => {
-        const suggestions = suggestionsList.querySelectorAll('li');
-        if (suggestions.length === 0) return;
-
-        if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            selectedIndex = Math.min(selectedIndex + 1, suggestions.length - 1);
-            updateSelectedSuggestion(suggestions);
-            suggestions[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            selectedIndex = Math.max(selectedIndex - 1, -1);
-            updateSelectedSuggestion(suggestions);
-            if (selectedIndex >= 0) suggestions[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        } else if (e.key === 'Enter' && selectedIndex >= 0) {
-            e.preventDefault();
-            suggestions[selectedIndex].click();
-        } else if (e.key === 'Enter' && selectedIndex === -1) {
-            e.preventDefault();
-            const searchTerm = searchBar.value.toLowerCase();
-            const firstMatch = Array.from(siteCards).find(card => {
-                const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
-                const link = card.querySelector('a')?.href.toLowerCase() || '';
-                return title.includes(searchTerm) || link.includes(searchTerm);
-            });
-
-            if (firstMatch) {
-                scrollToCard(firstMatch);
-                suggestionsList.classList.remove('show');
-                searchBar.value = '';
-            } else {
-                alert('Aucun résultat trouvé pour "' + searchTerm + '".');
-            }
-        }
+    const scrollIndicator = document.querySelector(".scroll-indicator");
+    const bounceTimeline = gsap.timeline({
+        repeat: -1,
+        yoyo: true,
     });
 
-    function updateSelectedSuggestion(suggestions) {
-        suggestions.forEach((suggestion, index) => {
-            suggestion.classList.toggle('selected', index === selectedIndex);
-        });
-    }
-
-    // Cacher suggestions
-    document.addEventListener('click', (e) => {
-        if (!searchBar.contains(e.target) && !suggestionsList.contains(e.target)) {
-            suggestionsList.classList.remove('show');
-            selectedIndex = -1;
-        }
+    bounceTimeline.to(scrollIndicator, {
+        y: 20,
+        opacity: 0.6,
+        duration: 0.8,
+        ease: "power1.inOut",
     });
 
-    // Bouton retour en haut
-    window.addEventListener('scroll', () => {
-        backToTopButton.style.display = window.scrollY > 200 ? 'block' : 'none';
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: ".container",
+            scrub: 2,
+            pin: true,
+            start: "top top",
+            end: "+=2000",
+            ease: "none",
+        },
     });
 
-    backToTopButton.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    tl.set(".hero-main-container", {
+        scale: 1.25,
     });
+
+    tl.to(".hero-main-container", {
+        scale: 1,
+        duration: 1,
+    });
+
+    tl.to(
+        ".hero-main-logo",
+        {
+            opacity: 0,
+            duration: 0.5,
+        },
+        "<"
+    );
+
+    tl.to(
+        ".hero-main-image",
+        {
+            opacity: 0,
+            duration: 0.9,
+        },
+        "<+=0.5"
+    );
+
+    tl.to(
+        ".hero-main-container",
+        {
+            backgroundSize: "28vh",
+            duration: 1.5,
+        },
+        "<+=0.2"
+    );
+
+    tl.fromTo(
+        ".hero-text",
+        {
+            backgroundImage: `radial-gradient(
+                circle at 50% 200vh,
+                rgba(255, 214, 135, 0) 0,
+                rgba(157, 47, 106, 0.5) 90vh,
+                rgba(157, 47, 106, 0.8) 120vh,
+                rgba(32, 31, 66, 0) 150vh
+            )`,
+        },
+        {
+            backgroundImage: `radial-gradient(circle at 50% 3.9575vh, rgb(255, 213, 133) 0vh,
+                rgb(247, 77, 82) 50.011vh,
+                rgb(145, 42, 105) 90.0183vh,
+                rgba(32, 31, 66, 0) 140.599vh)`,
+            duration: 3,
+        },
+        "<1.2"
+    );
+
+    tl.fromTo(
+        ".hero-text-logo",
+        {
+            opacity: 0,
+            maskImage: `radial-gradient(circle at 50% 145.835%, rgb(0, 0, 0) 36.11%, rgba(0, 0, 0, 0) 68.055%)`,
+        },
+        {
+            opacity: 1,
+            maskImage: `radial-gradient(
+                circle at 50% 105.594%,
+                rgb(0, 0, 0) 62.9372%,
+                rgba(0, 0, 0, 0) 81.4686%
+            )`,
+            duration: 3,
+        },
+        "<0.2"
+    );
+
+    tl.set(".hero-main-container", { opacity: 0 });
+
+    tl.to(".hero-1-container", { scale: 0.85, duration: 3 }, "<-=3");
+
+    tl.set(
+        ".hero-1-container",
+        {
+            maskImage: `radial-gradient(circle at 50% 16.1137vh, rgb(0, 0, 0) 96.1949vh, rgba(0, 0, 0, 0) 112.065vh)`,
+        },
+        "<+=2.1"
+    );
+
+    tl.to(
+        ".hero-1-container",
+        {
+            maskImage: `radial-gradient(circle at 50% -40vh, rgb(0, 0, 0) 0vh, rgba(0, 0, 0, 0) 80vh)`,
+            duration: 2,
+        },
+        "<+=0.2"
+    );
+
+    tl.to(
+        ".hero-text-logo",
+        {
+            opacity: 0,
+            duration: 2,
+        },
+        "<1.5"
+    );
+
+    tl.set(".hero-1-container", { opacity: 0 });
+    tl.set(".hero-2-container", { visibility: "visible" });
+
+    tl.to(".hero-2-container", { opacity: 1, duration: 3 }, "<+=0.2");
+
+    tl.fromTo(
+        ".hero-2-container",
+        {
+            backgroundImage: `radial-gradient(
+                circle at 50% 200vh,
+                rgba(255, 214, 135, 0) 0,
+                rgba(157, 47, 106, 0.5) 90vh,
+                rgba(157, 47, 106, 0.8) 120vh,
+                rgba(32, 31, 66, 0) 150vh
+            )`,
+        },
+        {
+            backgroundImage: `radial-gradient(circle at 50% 3.9575vh, rgb(255, 213, 133) 0vh,
+                rgb(247, 77, 82) 50.011vh,
+                rgb(145, 42, 105) 90.0183vh,
+                rgba(32, 31, 66, 0) 140.599vh)`,
+            duration: 3,
+        },
+        "<1.2"
+    );
 
     // Fade-in animation pour sections
-    const sections = document.querySelectorAll('.hero, .chaos-live, .universe-section, .categories');
+    const sections = document.querySelectorAll('.categories, .social-footer');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -310,9 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.2 });
 
     sections.forEach(section => {
-        if (!section.classList.contains('chaos-live')) {
-            section.style.opacity = 0;
-        }
+        section.style.opacity = 0;
         observer.observe(section);
     });
 });
