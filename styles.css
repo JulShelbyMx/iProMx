@@ -21,49 +21,44 @@ body {
 
 /* Animations */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes glitch {
     0% { transform: translate(0); }
-    20% { transform: translate(-6px, 6px); }
-    40% { transform: translate(-6px, -6px); }
-    60% { transform: translate(6px, 6px); }
-    80% { transform: translate(6px, -6px); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
     100% { transform: translate(0); }
 }
 
 @keyframes neonGlow {
-    0% { text-shadow: 0 0 5px #ffd700, 0 0 15px #ffd700, 0 0 30px #ffd700; }
-    50% { text-shadow: 0 0 10px #ffd700, 0 0 25px #ffd700, 0 0 40px #e0a800; }
-    100% { text-shadow: 0 0 5px #ffd700, 0 0 15px #ffd700, 0 0 30px #ffd700; }
+    0% { text-shadow: 0 0 3px #ffd700, 0 0 8px #ffd700; }
+    50% { text-shadow: 0 0 5px #ffd700, 0 0 12px #e0a800; }
+    100% { text-shadow: 0 0 3px #ffd700, 0 0 8px #ffd700; }
 }
 
 @keyframes pulse {
     0% { transform: scale(1); box-shadow: 0 0 5px #ffd700; }
-    50% { transform: scale(1.05); box-shadow: 0 0 15px #ffd700; }
+    50% { transform: scale(1.03); box-shadow: 0 0 10px #ffd700; }
     100% { transform: scale(1); box-shadow: 0 0 5px #ffd700; }
 }
 
 @keyframes neonBorder {
-    0% { box-shadow: 0 0 5px #ffd700, 0 0 15px #ffd700, 0 0 30px #e0a800; }
-    50% { box-shadow: 0 0 10px #ffd700, 0 0 25px #ffd700, 0 0 40px #e0a800; }
-    100% { box-shadow: 0 0 5px #ffd700, 0 0 15px #ffd700, 0 0 30px #e0a800; }
-}
-
-@keyframes parallax {
-    0% { background-position: center 0; }
-    100% { background-position: center -50px; }
+    0% { box-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700; }
+    50% { box-shadow: 0 0 8px #ffd700, 0 0 15px #e0a800; }
+    100% { box-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700; }
 }
 
 .fade-in {
     animation: fadeIn 0.5s ease-in forwards;
-    opacity: 1 !important; /* Force opacité à 1 après animation */
+    opacity: 1 !important;
 }
 
 .glitch {
-    animation: glitch 0.4s infinite alternate;
+    animation: glitch 0.6s infinite alternate;
     position: relative;
 }
 
@@ -79,19 +74,19 @@ body {
 
 .glitch::before {
     color: #e0a800;
-    animation: glitch 0.4s infinite alternate-reverse;
+    animation: glitch 0.6s infinite alternate-reverse;
     clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
 }
 
 .glitch::after {
     color: #ffd700;
-    animation: glitch 0.4s infinite alternate;
+    animation: glitch 0.6s infinite alternate;
     clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%);
 }
 
 .neon-glow {
     font-family: 'Bebas Neue', sans-serif;
-    animation: neonGlow 1.5s infinite alternate;
+    animation: neonGlow 2s infinite alternate;
 }
 
 .pulse {
@@ -99,7 +94,7 @@ body {
 }
 
 .neon-border.live {
-    animation: neonBorder 1.5s infinite alternate;
+    animation: neonBorder 2s infinite alternate;
 }
 
 /* Header */
@@ -124,12 +119,17 @@ header.color-scheme-4 {
 }
 
 .hamburger {
-    display: none;
     background: none;
     border: none;
     color: #ffd700;
     font-size: 24px;
     cursor: pointer;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+.hamburger:hover {
+    transform: scale(1.1);
 }
 
 .nav-buttons {
@@ -308,10 +308,9 @@ header.color-scheme-4 {
 .chaos-live {
     padding: 40px 20px;
     text-align: center;
-    background: url('/images/chaos-bg.webp') no-repeat center center/cover !important;
+    background: #121212 !important;
     position: relative;
-    animation: parallax 20s infinite linear;
-    opacity: 1 !important; /* Force opacité pour éviter fade-in bug */
+    opacity: 1 !important;
 }
 
 .chaos-live h2 {
@@ -336,9 +335,10 @@ header.color-scheme-4 {
 
 .live-status {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 20px;
     padding: 10px;
     border-radius: 8px;
@@ -354,13 +354,13 @@ header.color-scheme-4 {
 
 .live-status.live {
     border: 2px solid #ffd700;
-    animation: neonBorder 1.5s infinite alternate;
+    animation: neonBorder 2s infinite alternate;
 }
 
 .live-indicator {
     width: 12px;
     height: 12px;
-    background: #999; /* Gris pour Chargement */
+    background: #999;
     border-radius: 50%;
     transition: background 0.3s;
     position: relative;
@@ -368,16 +368,16 @@ header.color-scheme-4 {
 }
 
 .live-indicator.live {
-    background: #00ff00; /* Vert pour LIVE */
+    background: #00ff00;
     animation: pulse 2s infinite;
 }
 
 .live-indicator.offline {
-    background: #ff0000; /* Rouge pour OFFLINE */
+    background: #ff0000;
 }
 
 .live-text {
-    color: #999; /* Gris pour Chargement */
+    color: #999;
     font-weight: bold;
     font-family: 'Montserrat', sans-serif;
     position: relative;
@@ -385,11 +385,19 @@ header.color-scheme-4 {
 }
 
 .live-text.live {
-    color: #00ff00; /* Vert pour LIVE */
+    color: #00ff00;
 }
 
 .live-text.offline {
-    color: #ff0000; /* Rouge pour OFFLINE */
+    color: #ff0000;
+}
+
+.last-live {
+    color: #ccc;
+    font-size: 0.9em;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    z-index: 2;
 }
 
 /* Universe Section */
@@ -512,11 +520,14 @@ footer.color-scheme-4 {
 }
 
 .social-footer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: 4px;
-    max-width: 800px;
-    margin: 0 auto 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow-x: auto;
+    padding: 10px;
 }
 
 .social-link {
@@ -526,6 +537,7 @@ footer.color-scheme-4 {
     text-decoration: none;
     color: #ccc;
     transition: transform 0.3s, color 0.3s;
+    min-width: 80px;
 }
 
 .social-link:hover {
@@ -534,19 +546,16 @@ footer.color-scheme-4 {
 }
 
 .social-link img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
     margin-bottom: 6px;
 }
 
 .social-link span {
-    font-size: 0.9em;
+    font-size: 0.8em;
     text-align: center;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
 }
 
 .social-link.live-indicator::after {
@@ -559,11 +568,6 @@ footer.color-scheme-4 {
     background: #ff0000;
     border-radius: 50%;
     animation: pulse 2s infinite;
-}
-
-footer p {
-    font-size: 14px;
-    color: #ccc;
 }
 
 /* Back to Top Button */
@@ -601,12 +605,20 @@ footer p {
         left: 0;
         width: 100%;
         background-color: #121212;
-        padding: 10px 0;
+        padding: 15px 0;
         align-items: center;
+        border-bottom: 2px solid #ffd700;
+        z-index: 1000;
     }
 
     .nav-buttons.active {
         display: flex;
+        animation: slideIn 0.3s ease-in forwards;
+    }
+
+    @keyframes slideIn {
+        from { transform: translateY(-20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
     }
 
     #search-bar {
@@ -663,18 +675,17 @@ footer p {
         font-size: 14px;
     }
 
+    .social-footer {
+        gap: 15px;
+    }
+
     .social-link img {
-        width: 28px;
-        height: 28px;
+        width: 40px;
+        height: 40px;
     }
 
     .social-link span {
-        font-size: 0.6em;
-    }
-
-    .social-footer {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 4px;
+        font-size: 0.7em;
     }
 }
 
@@ -685,6 +696,7 @@ footer p {
 
     .nav-button {
         font-size: 14px;
+        padding: 6px 12px;
     }
 
     .hero {
@@ -759,18 +771,17 @@ footer p {
         font-size: 12px;
     }
 
+    .social-footer {
+        gap: 10px;
+    }
+
     .social-link img {
-        width: 28px;
-        height: 28px;
+        width: 35px;
+        height: 35px;
     }
 
     .social-link span {
         font-size: 0.6em;
-    }
-
-    .social-footer {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 4px;
     }
 }
 
@@ -802,11 +813,11 @@ footer p {
     }
 
     .chaos-live h2 {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .chaos-live p {
-        font-size: 0.6em;
+        font-size: 0.8em;
     }
 
     .live-status {
@@ -814,11 +825,11 @@ footer p {
     }
 
     .universe-section h2 {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .universe-section p {
-        font-size: 0.6em;
+        font-size: 0.8em;
     }
 
     .cta-button {
@@ -839,17 +850,16 @@ footer p {
         font-size: 10px;
     }
 
+    .social-footer {
+        gap: 8px;
+    }
+
     .social-link img {
-        width: 26px;
-        height: 26px;
+        width: 30px;
+        height: 30px;
     }
 
     .social-link span {
         font-size: 0.55em;
-    }
-
-    .social-footer {
-        grid-template-columns: 1fr;
-        gap: 4px;
     }
 }

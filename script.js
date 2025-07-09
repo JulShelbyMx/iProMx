@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const liveIndicator = document.querySelector('.live-indicator');
     const liveText = document.querySelector('.live-text');
     const liveStatus = document.querySelector('.live-status');
+    const lastLive = document.querySelector('.last-live');
 
     // Vérification des éléments
     if (!searchBar || !searchButton || !suggestionsList) {
@@ -20,14 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Éléments du menu hamburger manquants.');
         return;
     }
-    if (!liveIndicator || !liveText || !liveStatus) {
+    if (!liveIndicator || !liveText || !liveStatus || !lastLive) {
         console.error('Éléments du statut live manquants.');
         return;
     }
 
     // Vérifier statut Twitch avec retry
     async function checkTwitchStatus(retryCount = 3, delay = 2000) {
-        liveText.textContent = 'iProMx est Chargement...'; // État initial
+        liveText.textContent = 'iProMx est Chargement...';
+        lastLive.textContent = 'Chargement du dernier live';
         liveIndicator.classList.remove('live', 'offline');
         liveText.classList.remove('live', 'offline');
         liveStatus.classList.remove('live');
@@ -45,13 +47,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     liveText.textContent = 'iProMx est en live';
                     liveText.classList.add('live');
                     liveStatus.classList.add('live');
+                    lastLive.textContent = 'Dernier live : À l’instant';
                 } else {
                     liveIndicator.classList.add('offline');
                     liveText.textContent = 'iProMx n’est pas en live';
                     liveText.classList.add('offline');
                     liveStatus.classList.remove('live');
+                    // Récupérer dernier live
+                    try {
+                        const lastLiveResponse = await fetch('/.netlify/functions/live-on-twitch', {
+                            headers: { 'X-Last-Live': 'true' }
+                        });
+                        if (!lastLiveResponse.ok) throw new Error('Erreur dernier live');
+                        const lastLiveData = await lastLiveResponse.json();
+                        lastLive.textContent = `Dernier live : ${lastLiveData.lastLive || 'Inconnu'}`;
+                    } catch (error) {
+                        lastLive.textContent = 'Dernier live : Inconnu';
+                    }
                 }
-                return; // Succès
+                return;
             } catch (error) {
                 console.error(`Tentative ${i + 1}/${retryCount} - Erreur lors de la vérification du statut Twitch:`, error.message);
                 if (i < retryCount - 1) {
@@ -59,17 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
-        // Échec après toutes les tentatives
         console.error('Échec de la vérification du statut Twitch après plusieurs tentatives.');
         liveText.textContent = 'Erreur de statut';
+        lastLive.textContent = 'Erreur lors du chargement du dernier live';
         liveIndicator.classList.remove('live', 'offline');
         liveText.classList.remove('live', 'offline');
         liveStatus.classList.remove('live');
-        liveIndicator.style.background = '#ff0000'; // Rouge pour erreur
+        liveIndicator.style.background = '#ff0000';
     }
 
     checkTwitchStatus();
-    setInterval(checkTwitchStatus, 60000); // Vérifier toutes les 60s
+    setInterval(checkTwitchStatus, 60000);
 
     // Menu hamburger
     hamburger.addEventListener('click', () => {
@@ -293,10 +307,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 entry.target.classList.add('fade-in');
             }
         });
-    }, { threshold: 0.2 }); // Augmenté pour déclencher plus tôt
+    }, { threshold: 0.2 });
 
     sections.forEach(section => {
-        // Ne pas appliquer opacity: 0 pour .chaos-live
         if (!section.classList.contains('chaos-live')) {
             section.style.opacity = 0;
         }
