@@ -60,13 +60,15 @@ exports.handler = async (event) => {
             const lastLiveDate = videosData.data.length > 0 ? new Date(videosData.data[0].created_at).toLocaleDateString('fr-FR', {
                 year: 'numeric',
                 month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
+                day: 'numeric'
             }) : 'Inconnu';
+            const lastLiveTitle = videosData.data.length > 0 ? videosData.data[0].title : 'Inconnu';
             return {
                 statusCode: 200,
-                body: JSON.stringify({ lastLive: lastLiveDate })
+                body: JSON.stringify({ 
+                    lastLive: lastLiveDate,
+                    title: lastLiveTitle
+                })
             };
         }
 

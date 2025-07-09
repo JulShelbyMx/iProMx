@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                         if (!lastLiveResponse.ok) throw new Error('Erreur dernier live');
                         const lastLiveData = await lastLiveResponse.json();
-                        lastLive.textContent = `Dernier live : ${lastLiveData.lastLive || 'Inconnu'}`;
+                        lastLive.textContent = `Dernier live : ${lastLiveData.lastLive || 'Inconnu'} - ${lastLiveData.title || 'Inconnu'}`;
                     } catch (error) {
                         lastLive.textContent = 'Dernier live : Inconnu';
                     }
