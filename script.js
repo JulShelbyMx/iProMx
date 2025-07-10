@@ -99,9 +99,18 @@ document.addEventListener('DOMContentLoaded', () => {
     checkTwitchStatus();
     setInterval(checkTwitchStatus, 60000);
 
-    // GSAP Animations (inspiré par App.jsx, GTA VI max)
+    // GSAP Animations (GTA VI ultime)
+    const isMobile = window.innerWidth <= 768;
+    const durations = {
+        zoom: isMobile ? 0.6 : 0.4, // Plus lent sur mobile
+        dezoom: isMobile ? 2 : 1.5,
+        fade: isMobile ? 0.6 : 0.4,
+        pause: isMobile ? 1.2 : 1,
+        status: isMobile ? 0.6 : 0.4,
+    };
+
     gsap.from(".hero-main-container", {
-        scale: 1.7, // Zoom initial
+        scale: 1.7,
         duration: 3.5,
         ease: "power4.out",
     });
@@ -133,76 +142,77 @@ document.addEventListener('DOMContentLoaded', () => {
             scrub: true,
             pin: true,
             start: "top top",
-            end: "+=3000", // Fluide et réversible
+            end: "+=2000", // Compact pour éviter scroll mort
             ease: "none",
         },
     });
 
     // Étape 1 : Grande image + texte "iProMx" TRÈS haut, blanc pur
     tl.set(".hero-main-image", { opacity: 1, zIndex: 2 });
-    tl.set(".hero-black-background", { opacity: 0, zIndex: 3, transform: "scale(20)" }); // Zoom max
+    tl.set(".hero-black-background", { opacity: 0, zIndex: 3, transform: "scale(30)" });
     tl.set(".hero-text-logo-container", { opacity: 1, zIndex: 4, y: 0 });
-    tl.set(".hero-logo", { opacity: 0, scale: 1.4 }); // Prêt pour pop
+    tl.set(".hero-logo", { opacity: 0, scale: 1.4 });
     tl.set(".hero-text", { className: "hero-text" });
     tl.set(".hero-1-container", { opacity: 1, display: 'flex' });
     tl.set(".status", { opacity: 0 });
 
-    // Étape 2 : Texte zoome à mort (devient invisible)
+    // Étape 2 : Texte s’agrandit à mort (reste centré)
     tl.to(".hero-text-logo-container", {
-        scale: 20, // Zoom max, invisible
+        scale: 30, // Agrandissement max
         opacity: 0,
-        duration: 0.2,
+        duration: durations.zoom,
         ease: "power4.out",
     });
 
-    // Étape 3 : Fond noir apparaît + texte transparent dézoome
+    // Étape 3 : Décalage invisible + fond noir + texte transparent dézoome
+    tl.set(".hero-text-logo-container", { y: 500 }); // Décalage invisible
     tl.set(".hero-text", { className: "hero-text transparent" });
-    tl.to(".hero-black-background", {
+    tl.to(".hero-text-logo-container", {
+        y: 0, // Recentré
+        scale: 1, // Dézoom
         opacity: 1,
-        transform: "scale(1)", // Dézoom fond noir
-        duration: 1.5,
+        duration: durations.dezoom,
         ease: "power4.out",
     }, "<");
-    tl.to(".hero-text-logo-container", {
-        scale: 1, // Dézoom texte
+    tl.to(".hero-black-background", {
         opacity: 1,
-        y: 0, // Toujours haut
-        duration: 1.5, // Syncho fond noir
+        transform: "scale(1)",
+        duration: durations.dezoom,
         ease: "power4.out",
     }, "<");
 
     // Étape 4 : Image fade out, texte blanc pur, descend, logo pop SYNCHRO
     tl.to(".hero-main-image", {
         opacity: 0,
-        duration: 0.4,
+        duration: durations.fade,
         ease: "power4.out",
     });
     tl.set(".hero-text", { className: "hero-text" });
     tl.to(".hero-text-logo-container", {
-        y: 100, // Descend un poil
-        duration: 0.4,
+        y: 100,
+        duration: durations.fade,
         ease: "power4.out",
     }, "<");
     tl.to(".hero-logo", {
         opacity: 1,
-        scale: 1, // Pop synchro
-        duration: 0.4,
+        scale: 1,
+        duration: durations.fade,
         ease: "power4.out",
     }, "<");
 
-    // Étape 5 : Pause pour stabiliser
-    tl.to({}, { duration: 1 });
+    // Étape 5 : Pause
+    tl.to({}, { duration: durations.pause });
 
-    // Étape 6 : Statut apparaît
+    // Étape 6 : Statut
     tl.to(".status", {
         opacity: 1,
-        duration: 0.4,
+        duration: durations.status,
         ease: "power4.out",
     });
 
     // AOS Init
     AOS.init({
-        duration: 1200,
+        duration: isMobile ? 1800 : 1200, // Plus lent sur mobile
         easing: 'ease-out',
         once: true,
     });
@@ -218,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
             el: '.swiper-pagination',
             clickable: true,
         },
-        speed: 800,
+        speed: isMobile ? 1200 : 800, // Plus lent sur mobile
         effect: 'slide',
         slidesPerView: 1,
         spaceBetween: 10,
