@@ -99,26 +99,27 @@ document.addEventListener('DOMContentLoaded', () => {
     checkTwitchStatus();
     setInterval(checkTwitchStatus, 60000);
 
-    // GSAP Animations (GTA VI ultime)
+    // GSAP Animations (GTA VI cinématique)
     const isMobile = window.innerWidth <= 768;
     const durations = {
-        zoom: isMobile ? 0.6 : 0.4, // Plus lent sur mobile
-        dezoom: isMobile ? 2 : 1.5,
-        fade: isMobile ? 0.6 : 0.4,
-        pause: isMobile ? 1.2 : 1,
-        status: isMobile ? 0.6 : 0.4,
+        center: isMobile ? 0.5 : 0.3, // Recentrer
+        zoom: isMobile ? 1.5 : 1, // Agrandissement
+        dezoom: isMobile ? 4 : 3, // Rétrécissement
+        fade: isMobile ? 1 : 0.8,
+        pause: isMobile ? 2 : 1.5,
+        status: isMobile ? 1 : 0.8,
     };
 
     gsap.from(".hero-main-container", {
         scale: 1.7,
-        duration: 3.5,
-        ease: "power4.out",
+        duration: 4,
+        ease: "power3.out",
     });
 
     gsap.to(".overlay", {
         opacity: 0,
-        duration: 3.5,
-        ease: "power4.out",
+        duration: 4,
+        ease: "power3.out",
         onComplete: () => {
             document.body.style.overflow = "visible";
             document.body.style.overflowX = "hidden";
@@ -132,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }).to(scrollIndicator, {
         y: 20,
         opacity: 0.6,
-        duration: 0.8,
+        duration: 1,
         ease: "power1.inOut",
     });
 
@@ -142,62 +143,85 @@ document.addEventListener('DOMContentLoaded', () => {
             scrub: true,
             pin: true,
             start: "top top",
-            end: "+=2000", // Compact pour éviter scroll mort
+            end: "+=1500",
             ease: "none",
         },
     });
 
-    // Étape 1 : Grande image + texte "iProMx" TRÈS haut, blanc pur
+    // Étape 1 : Grande image + texte "iProMx" à gauche, gros
     tl.set(".hero-main-image", { opacity: 1, zIndex: 2 });
     tl.set(".hero-black-background", { opacity: 0, zIndex: 3, transform: "scale(30)" });
-    tl.set(".hero-text-logo-container", { opacity: 1, zIndex: 4, y: 0 });
+    tl.set(".hero-text-logo-container", { 
+        opacity: 1, 
+        zIndex: 4, 
+        y: 0, 
+        left: isMobile ? "10%" : "20%", 
+        transform: isMobile ? "translate(-10%, -50%)" : "translate(-20%, -50%)",
+        onComplete: () => console.log('Texte initial à gauche')
+    });
     tl.set(".hero-logo", { opacity: 0, scale: 1.4 });
     tl.set(".hero-text", { className: "hero-text" });
     tl.set(".hero-1-container", { opacity: 1, display: 'flex' });
     tl.set(".status", { opacity: 0 });
 
-    // Étape 2 : Texte s’agrandit à mort (reste centré)
+    // Étape 1.5 : Recentrer avant zoom
     tl.to(".hero-text-logo-container", {
-        scale: 30, // Agrandissement max
-        opacity: 0,
-        duration: durations.zoom,
-        ease: "power4.out",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        duration: durations.center,
+        ease: "power3.out",
+        onUpdate: () => console.log('Recentrer texte:', document.querySelector('.hero-text-logo-container').style.left),
+        onComplete: () => console.log('Texte centré avant zoom')
     });
 
-    // Étape 3 : Décalage invisible + fond noir + texte transparent dézoome
-    tl.set(".hero-text-logo-container", { y: 500 }); // Décalage invisible
+    // Étape 2 : Zoom (agrandissement à mort)
+    tl.to(".hero-text-logo-container", {
+        scale: 30,
+        opacity: 0,
+        duration: durations.zoom,
+        ease: "power3.out",
+        delay: 0.2,
+        onComplete: () => console.log('Zoom terminé')
+    });
+
+    // Étape 3 : Décalage invisible + fond noir + texte transparent dézoom (rétrécissement)
+    tl.set(".hero-text-logo-container", { y: 500 });
     tl.set(".hero-text", { className: "hero-text transparent" });
     tl.to(".hero-text-logo-container", {
-        y: 0, // Recentré
-        scale: 1, // Dézoom
+        y: 0,
+        scale: 1,
         opacity: 1,
+        left: "50%", // Forcer centrage après dézoom
+        transform: "translate(-50%, -50%)",
         duration: durations.dezoom,
-        ease: "power4.out",
+        ease: "power3.out",
+        onUpdate: () => console.log('Dézoom:', document.querySelector('.hero-text-logo-container').style.left),
+        onComplete: () => console.log('Hero-text-logo-container centré après dézoom')
     }, "<");
     tl.to(".hero-black-background", {
         opacity: 1,
         transform: "scale(1)",
         duration: durations.dezoom,
-        ease: "power4.out",
+        ease: "power3.out",
     }, "<");
 
     // Étape 4 : Image fade out, texte blanc pur, descend, logo pop SYNCHRO
     tl.to(".hero-main-image", {
         opacity: 0,
         duration: durations.fade,
-        ease: "power4.out",
+        ease: "power3.out",
     });
     tl.set(".hero-text", { className: "hero-text" });
     tl.to(".hero-text-logo-container", {
         y: 100,
         duration: durations.fade,
-        ease: "power4.out",
+        ease: "power3.out",
     }, "<");
     tl.to(".hero-logo", {
         opacity: 1,
         scale: 1,
         duration: durations.fade,
-        ease: "power4.out",
+        ease: "power3.out",
     }, "<");
 
     // Étape 5 : Pause
@@ -207,12 +231,12 @@ document.addEventListener('DOMContentLoaded', () => {
     tl.to(".status", {
         opacity: 1,
         duration: durations.status,
-        ease: "power4.out",
+        ease: "power3.out",
     });
 
     // AOS Init
     AOS.init({
-        duration: isMobile ? 1800 : 1200, // Plus lent sur mobile
+        duration: isMobile ? 2000 : 1500,
         easing: 'ease-out',
         once: true,
     });
@@ -228,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
             el: '.swiper-pagination',
             clickable: true,
         },
-        speed: isMobile ? 1200 : 800, // Plus lent sur mobile
+        speed: isMobile ? 1500 : 1000,
         effect: 'slide',
         slidesPerView: 1,
         spaceBetween: 10,
