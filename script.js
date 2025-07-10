@@ -1,35 +1,59 @@
-import { gsap } from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
-import { ScrollTrigger } from 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
-
-gsap.registerPlugin(ScrollTrigger);
-
 document.addEventListener('DOMContentLoaded', () => {
-    const carousels = document.querySelectorAll('.carousel-container');
+    const gsap = window.gsap;
+    const ScrollTrigger = window.ScrollTrigger;
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Top-bar
+    const btnBurger = document.querySelector('#burger-menu');
+    const nav = document.querySelector('.navigation');
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+
+    btnBurger.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        btnBurger.classList.toggle('bx-x');
+    });
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            nav.classList.remove('active');
+            btnBurger.classList.remove('bx-x');
+            const targetId = link.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    window.addEventListener('scroll', () => {
+        nav.classList.remove('active');
+        btnBurger.classList.remove('bx-x');
+    });
+
+    // Twitch Status
     const liveIndicator = document.querySelector('.live-indicator');
     const liveText = document.querySelector('.live-text');
     const liveStatus = document.querySelector('.live-status');
     const lastLive = document.querySelector('.last-live');
 
-    // Vérification des éléments
     if (!liveIndicator || !liveText || !liveStatus || !lastLive) {
         console.error('Éléments du statut live manquants.');
         return;
     }
 
-    // Vérifier statut Twitch avec retry
     async function checkTwitchStatus(retryCount = 3, delay = 2000) {
         liveText.textContent = 'iProMx est Chargement...';
         lastLive.textContent = 'Chargement du dernier live';
         liveIndicator.classList.remove('live', 'offline');
         liveText.classList.remove('live', 'offline');
-        liveStatus.classList.remove('live');
+        liveStatus.classList.remove('live', 'active');
 
         for (let i = 0; i < retryCount; i++) {
             try {
                 const response = await fetch('/.netlify/functions/live-on-twitch');
                 if (!response.ok) {
-                    const errorText = await response.text();
-                    throw new Error(`HTTP error! Status: ${response.status}, Details: ${errorText}`);
+                    throw new Error(`HTTP error! Status: ${response.status}, Details: ${await response.text()}`);
                 }
                 const data = await response.json();
                 if (data.status === 'online') {
@@ -42,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     liveIndicator.classList.add('offline');
                     liveText.textContent = 'iProMx n’est pas en live';
                     liveText.classList.add('offline');
-                    liveStatus.classList.remove('live');
+                    liveStatus.classList.remove('live', 'active');
                     try {
                         const lastLiveResponse = await fetch('/.netlify/functions/live-on-twitch', {
                             headers: { 'X-Last-Live': 'true' }
@@ -51,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const lastLiveData = await lastLiveResponse.json();
                         lastLive.textContent = `Dernier live : ${lastLiveData.lastLive || 'Inconnu'} - ${lastLiveData.title || 'Inconnu'}`;
                     } catch (error) {
+                        console.error('Erreur dernier live:', error.message);
                         lastLive.textContent = 'Dernier live : Inconnu';
                     }
                 }
@@ -67,77 +92,24 @@ document.addEventListener('DOMContentLoaded', () => {
         lastLive.textContent = 'Erreur lors du chargement du dernier live';
         liveIndicator.classList.remove('live', 'offline');
         liveText.classList.remove('live', 'offline');
-        liveStatus.classList.remove('live');
+        liveStatus.classList.remove('live', 'active');
         liveIndicator.style.background = '#ff0000';
     }
 
     checkTwitchStatus();
     setInterval(checkTwitchStatus, 60000);
 
-    // Drag-to-scroll pour carrousels
-    carousels.forEach((carouselContainer) => {
-        const carousel = carouselContainer.querySelector('.carousel');
-        if (!carousel) return;
-
-        let isMouseDown = false;
-        let startX, scrollLeft;
-
-        carouselContainer.addEventListener('mousedown', (e) => {
-            isMouseDown = true;
-            startX = e.pageX - carouselContainer.offsetLeft;
-            scrollLeft = carouselContainer.scrollLeft;
-            carouselContainer.style.cursor = 'grabbing';
-        });
-
-        carouselContainer.addEventListener('mouseleave', () => {
-            isMouseDown = false;
-            carouselContainer.style.cursor = 'grab';
-        });
-
-        carouselContainer.addEventListener('mouseup', () => {
-            isMouseDown = false;
-            carouselContainer.style.cursor = 'grab';
-        });
-
-        carouselContainer.addEventListener('mousemove', (e) => {
-            if (!isMouseDown) return;
-            e.preventDefault();
-            const x = e.pageX - carouselContainer.offsetLeft;
-            const walk = (x - startX) * 3;
-            carouselContainer.scrollLeft = scrollLeft - walk;
-        });
-    });
-
-    // Clic sur cartes ou titres
-    const siteCards = document.querySelectorAll('.site-card');
-    siteCards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            const link = card.querySelector('a');
-            if (link && !e.target.closest('.card-title')) {
-                window.open(link.href, '_blank');
-            }
-        });
-
-        const title = card.querySelector('.card-title');
-        if (title) {
-            title.addEventListener('click', () => {
-                const link = card.querySelector('a');
-                if (link) window.open(link.href, '_blank');
-            });
-        }
-    });
-
-    // GSAP Animations
+    // GSAP Animations (inspiré par App.jsx, GTA VI max)
     gsap.from(".hero-main-container", {
-        scale: 1.45,
-        duration: 2.8,
-        ease: "power3.out",
+        scale: 1.7, // Zoom initial
+        duration: 3.5,
+        ease: "power4.out",
     });
 
     gsap.to(".overlay", {
         opacity: 0,
-        duration: 2.8,
-        ease: "power3.out",
+        duration: 3.5,
+        ease: "power4.out",
         onComplete: () => {
             document.body.style.overflow = "visible";
             document.body.style.overflowX = "hidden";
@@ -145,12 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const scrollIndicator = document.querySelector(".scroll-indicator");
-    const bounceTimeline = gsap.timeline({
+    gsap.timeline({
         repeat: -1,
         yoyo: true,
-    });
-
-    bounceTimeline.to(scrollIndicator, {
+    }).to(scrollIndicator, {
         y: 20,
         opacity: 0.6,
         duration: 0.8,
@@ -160,154 +130,120 @@ document.addEventListener('DOMContentLoaded', () => {
     const tl = gsap.timeline({
         scrollTrigger: {
             trigger: ".container",
-            scrub: 2,
+            scrub: true,
             pin: true,
             start: "top top",
-            end: "+=2000",
+            end: "+=3000", // Fluide et réversible
             ease: "none",
         },
     });
 
-    tl.set(".hero-main-container", {
-        scale: 1.25,
+    // Étape 1 : Grande image + texte "iProMx" TRÈS haut, blanc pur
+    tl.set(".hero-main-image", { opacity: 1, zIndex: 2 });
+    tl.set(".hero-black-background", { opacity: 0, zIndex: 3, transform: "scale(20)" }); // Zoom max
+    tl.set(".hero-text-logo-container", { opacity: 1, zIndex: 4, y: 0 });
+    tl.set(".hero-logo", { opacity: 0, scale: 1.4 }); // Prêt pour pop
+    tl.set(".hero-text", { className: "hero-text" });
+    tl.set(".hero-1-container", { opacity: 1, display: 'flex' });
+    tl.set(".status", { opacity: 0 });
+
+    // Étape 2 : Texte zoome à mort (devient invisible)
+    tl.to(".hero-text-logo-container", {
+        scale: 20, // Zoom max, invisible
+        opacity: 0,
+        duration: 0.2,
+        ease: "power4.out",
     });
 
-    tl.to(".hero-main-container", {
-        scale: 1,
-        duration: 1,
+    // Étape 3 : Fond noir apparaît + texte transparent dézoome
+    tl.set(".hero-text", { className: "hero-text transparent" });
+    tl.to(".hero-black-background", {
+        opacity: 1,
+        transform: "scale(1)", // Dézoom fond noir
+        duration: 1.5,
+        ease: "power4.out",
+    }, "<");
+    tl.to(".hero-text-logo-container", {
+        scale: 1, // Dézoom texte
+        opacity: 1,
+        y: 0, // Toujours haut
+        duration: 1.5, // Syncho fond noir
+        ease: "power4.out",
+    }, "<");
+
+    // Étape 4 : Image fade out, texte blanc pur, descend, logo pop SYNCHRO
+    tl.to(".hero-main-image", {
+        opacity: 0,
+        duration: 0.4,
+        ease: "power4.out",
+    });
+    tl.set(".hero-text", { className: "hero-text" });
+    tl.to(".hero-text-logo-container", {
+        y: 100, // Descend un poil
+        duration: 0.4,
+        ease: "power4.out",
+    }, "<");
+    tl.to(".hero-logo", {
+        opacity: 1,
+        scale: 1, // Pop synchro
+        duration: 0.4,
+        ease: "power4.out",
+    }, "<");
+
+    // Étape 5 : Pause pour stabiliser
+    tl.to({}, { duration: 1 });
+
+    // Étape 6 : Statut apparaît
+    tl.to(".status", {
+        opacity: 1,
+        duration: 0.4,
+        ease: "power4.out",
     });
 
-    tl.to(
-        ".hero-main-logo",
-        {
-            opacity: 0,
-            duration: 0.5,
+    // AOS Init
+    AOS.init({
+        duration: 1200,
+        easing: 'ease-out',
+        once: true,
+    });
+
+    // Swiper Init
+    new Swiper('.swiper', {
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
         },
-        "<"
-    );
-
-    tl.to(
-        ".hero-main-image",
-        {
-            opacity: 0,
-            duration: 0.9,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
         },
-        "<+=0.5"
-    );
-
-    tl.to(
-        ".hero-main-container",
-        {
-            backgroundSize: "28vh",
-            duration: 1.5,
+        speed: 800,
+        effect: 'slide',
+        slidesPerView: 1,
+        spaceBetween: 10,
+        breakpoints: {
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+            },
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+            },
         },
-        "<+=0.2"
-    );
+    });
 
-    tl.fromTo(
-        ".hero-text",
-        {
-            backgroundImage: `radial-gradient(
-                circle at 50% 200vh,
-                rgba(255, 214, 135, 0) 0,
-                rgba(157, 47, 106, 0.5) 90vh,
-                rgba(157, 47, 106, 0.8) 120vh,
-                rgba(32, 31, 66, 0) 150vh
-            )`,
-        },
-        {
-            backgroundImage: `radial-gradient(circle at 50% 3.9575vh, rgb(255, 213, 133) 0vh,
-                rgb(247, 77, 82) 50.011vh,
-                rgb(145, 42, 105) 90.0183vh,
-                rgba(32, 31, 66, 0) 140.599vh)`,
-            duration: 3,
-        },
-        "<1.2"
-    );
-
-    tl.fromTo(
-        ".hero-text-logo",
-        {
-            opacity: 0,
-            maskImage: `radial-gradient(circle at 50% 145.835%, rgb(0, 0, 0) 36.11%, rgba(0, 0, 0, 0) 68.055%)`,
-        },
-        {
-            opacity: 1,
-            maskImage: `radial-gradient(
-                circle at 50% 105.594%,
-                rgb(0, 0, 0) 62.9372%,
-                rgba(0, 0, 0, 0) 81.4686%
-            )`,
-            duration: 3,
-        },
-        "<0.2"
-    );
-
-    tl.set(".hero-main-container", { opacity: 0 });
-
-    tl.to(".hero-1-container", { scale: 0.85, duration: 3 }, "<-=3");
-
-    tl.set(
-        ".hero-1-container",
-        {
-            maskImage: `radial-gradient(circle at 50% 16.1137vh, rgb(0, 0, 0) 96.1949vh, rgba(0, 0, 0, 0) 112.065vh)`,
-        },
-        "<+=2.1"
-    );
-
-    tl.to(
-        ".hero-1-container",
-        {
-            maskImage: `radial-gradient(circle at 50% -40vh, rgb(0, 0, 0) 0vh, rgba(0, 0, 0, 0) 80vh)`,
-            duration: 2,
-        },
-        "<+=0.2"
-    );
-
-    tl.to(
-        ".hero-text-logo",
-        {
-            opacity: 0,
-            duration: 2,
-        },
-        "<1.5"
-    );
-
-    tl.set(".hero-1-container", { opacity: 0 });
-    tl.set(".hero-2-container", { visibility: "visible" });
-
-    tl.to(".hero-2-container", { opacity: 1, duration: 3 }, "<+=0.2");
-
-    tl.fromTo(
-        ".hero-2-container",
-        {
-            backgroundImage: `radial-gradient(
-                circle at 50% 200vh,
-                rgba(255, 214, 135, 0) 0,
-                rgba(157, 47, 106, 0.5) 90vh,
-                rgba(157, 47, 106, 0.8) 120vh,
-                rgba(32, 31, 66, 0) 150vh
-            )`,
-        },
-        {
-            backgroundImage: `radial-gradient(circle at 50% 3.9575vh, rgb(255, 213, 133) 0vh,
-                rgb(247, 77, 82) 50.011vh,
-                rgb(145, 42, 105) 90.0183vh,
-                rgba(32, 31, 66, 0) 140.599vh)`,
-            duration: 3,
-        },
-        "<1.2"
-    );
-
-    // Fade-in animation pour sections
-    const sections = document.querySelectorAll('.categories, .social-footer');
+    // Fade-in sections
+    const sections = document.querySelectorAll('.status, .socials, .characters');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('fade-in');
+                entry.target.style.opacity = 1;
             }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.3 });
 
     sections.forEach(section => {
         section.style.opacity = 0;
