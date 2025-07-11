@@ -461,7 +461,7 @@ section {
     }
 
     .hero-text-logo-container {
-        left: 10% !important; /* À gauche mobile */
+        left: 25% !important; /* À gauche mobile */
         transform: translate(-10%, -50%) !important;
     }
 
