@@ -120,9 +120,10 @@ body {
 
 .hero-main-container {
     width: 100%;
-    height: 100vh;
+    height: 110vh;
     position: absolute;
     z-index: 1;
+    transform: scale(1) !important; /* Pas de crop */
 }
 
 .hero-main-image {
@@ -130,7 +131,9 @@ body {
     height: 100%;
     position: absolute;
     inset: 0;
-    object-fit: cover;
+    object-fit: cover; /* Plein écran, pas de crop */
+    object-position: center; /* Centré */
+    transform: scale(1) !important; /* Forcer */
     z-index: 2;
 }
 
@@ -152,8 +155,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     z-index: 4;
     transform-origin: center center !important;
+    width: auto;
 }
 
 .hero-text-logo-container.centered {
@@ -240,7 +245,7 @@ section {
 .box-img img {
     width: 100%;
     height: 300px;
-    object-fit: cover;
+    object-fit: cover; /* Images nettes */
     border-radius: 8px;
     transition: transform 0.3s;
 }
@@ -359,7 +364,7 @@ section {
 .slider-container img {
     width: 100%;
     height: 300px;
-    object-fit: cover;
+    object-fit: cover; /* Images nettes */
     box-shadow: var(--shadow);
 }
 
@@ -437,10 +442,7 @@ section {
 
     .slider-container img {
         height: 350px;
-    }
-
-    .slider-container .card-title {
-        font-size: 1.5rem;
+        object-fit: cover;
     }
 
     .scroll-indicator {
@@ -491,6 +493,7 @@ section {
 
     .box-img img, .slider-container img {
         height: 220px;
+        object-fit: cover; /* Images nettes mobile */
     }
 
     .live-text {

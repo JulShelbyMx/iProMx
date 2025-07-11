@@ -110,10 +110,17 @@ document.addEventListener('DOMContentLoaded', () => {
         status: isMobile ? 1 : 0.8,
     };
 
-    gsap.from(".hero-main-container", {
-        scale: 1.7,
-        duration: 4,
-        ease: "power3.out",
+    // Image plein écran, pas de zoom
+    gsap.set(".hero-main-container", {
+        scale: 1,
+        clearProps: "all", // Reset props
+        onComplete: () => console.log('Hero-main-image plein écran, no crop')
+    });
+
+    gsap.set(".hero-main-image", {
+        scale: 1,
+        transform: "none",
+        onComplete: () => console.log('Hero-main-image initialisée')
     });
 
     gsap.to(".overlay", {
@@ -149,27 +156,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Étape 1 : Grande image + texte "iProMx" à gauche, gros
-    tl.set(".hero-main-image", { opacity: 1, zIndex: 2 });
-    tl.set(".hero-black-background", { opacity: 0, zIndex: 3, transform: "scale(30)" });
+    tl.set(".hero-main-image", { 
+        opacity: 1, 
+        zIndex: 2,
+        scale: 1,
+        transform: "none",
+        onComplete: () => console.log('Hero-main-image chargée')
+    });
+    tl.set(".hero-black-background", { 
+        opacity: 0, 
+        zIndex: 3, 
+        transform: "scale(30)" 
+    });
     tl.set(".hero-text-logo-container", { 
         opacity: 1, 
         zIndex: 4, 
         y: 0, 
         left: isMobile ? "10%" : "20%", 
         transform: isMobile ? "translate(-10%, -50%)" : "translate(-20%, -50%)",
+        clearProps: "left,transform", // Reset avant
         onComplete: () => console.log('Texte initial à gauche')
     });
-    tl.set(".hero-logo", { opacity: 0, scale: 1.4 });
-    tl.set(".hero-text", { className: "hero-text" });
-    tl.set(".hero-1-container", { opacity: 1, display: 'flex' });
-    tl.set(".status", { opacity: 0 });
+    tl.set(".hero-logo", { 
+        opacity: 0, 
+        scale: 1.4 
+    });
+    tl.set(".hero-text", { 
+        className: "hero-text" 
+    });
+    tl.set(".hero-1-container", { 
+        opacity: 1, 
+        display: 'flex' 
+    });
+    tl.set(".status", { 
+        opacity: 0 
+    });
 
     // Étape 1.5 : Recentrer avant zoom
     tl.to(".hero-text-logo-container", {
-        left: "50%",
+        left: "42%",
         transform: "translate(-50%, -50%)",
         duration: durations.center,
         ease: "power3.out",
+        onStart: () => console.log('Début recentrage texte'),
         onUpdate: () => console.log('Recentrer texte:', document.querySelector('.hero-text-logo-container').style.left),
         onComplete: () => console.log('Texte centré avant zoom')
     });
@@ -181,20 +210,29 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: durations.zoom,
         ease: "power3.out",
         delay: 0.2,
+        onStart: () => console.log('Début zoom'),
         onComplete: () => console.log('Zoom terminé')
     });
 
     // Étape 3 : Décalage invisible + fond noir + texte transparent dézoom (rétrécissement)
-    tl.set(".hero-text-logo-container", { y: 500 });
-    tl.set(".hero-text", { className: "hero-text transparent" });
+    tl.set(".hero-text-logo-container", { 
+        y: 500, 
+        left: "42%", 
+        transform: "translate(-50%, -50%)" 
+    });
+    tl.set(".hero-text", { 
+        className: "hero-text transparent" 
+    });
     tl.to(".hero-text-logo-container", {
         y: 0,
         scale: 1,
         opacity: 1,
-        left: "50%", // Forcer centrage après dézoom
+        left: "42%",
+        top:"50%",
         transform: "translate(-50%, -50%)",
         duration: durations.dezoom,
         ease: "power3.out",
+        onStart: () => console.log('Début dézoom'),
         onUpdate: () => console.log('Dézoom:', document.querySelector('.hero-text-logo-container').style.left),
         onComplete: () => console.log('Hero-text-logo-container centré après dézoom')
     }, "<");
@@ -211,7 +249,9 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: durations.fade,
         ease: "power3.out",
     });
-    tl.set(".hero-text", { className: "hero-text" });
+    tl.set(".hero-text", { 
+        className: "hero-text" 
+    });
     tl.to(".hero-text-logo-container", {
         y: 100,
         duration: durations.fade,
