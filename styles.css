@@ -38,7 +38,7 @@ body {
 }
 
 .top-bar .logo img {
-    width: 64px; /* Agrandi */
+    width: 64px;
     opacity: 0.9;
     transition: opacity 0.3s;
 }
@@ -120,7 +120,7 @@ body {
 
 .hero-main-container {
     width: 100%;
-    height: 100vh; /* Corrigé */
+    height: 110vh;
     position: absolute;
     z-index: 1;
     transform: scale(1) !important; /* Pas de crop */
@@ -393,7 +393,7 @@ section {
 
 @media (min-width: 1024px) {
     .top-bar .logo img {
-        width: 96px; /* Agrandi */
+        width: 96px;
     }
 
     #burger-menu {
@@ -457,25 +457,25 @@ section {
     }
 
     .top-bar .logo img {
-        width: 64px; /* Agrandi */
+        width: 64px;
     }
 
     .hero-text-logo-container {
-        left: 10% !important; /* À gauche mobile */
+        left: 25% !important; /* À gauche mobile */
         transform: translate(-10%, -50%) !important;
     }
 
     .hero-text-logo-container.centered {
-        left: 50% !important; /* Centré avant zoom */
+        left: 80% !important;
         transform: translate(-50%, -50%) !important;
     }
 
     .hero-text {
-        font-size: 2.5rem;
+        font-size: 3.5rem;
     }
 
     .hero-logo {
-        width: 60%;
+        width: 80%;
         max-width: 250px;
     }
 
