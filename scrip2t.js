@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Étape 1.5 : Recentrer avant zoom
     tl.to(".hero-text-logo-container", {
-        left: "50%",
+        left: "42%",
         transform: "translate(-50%, -50%)",
         duration: durations.center,
         ease: "power3.out",
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Étape 3 : Décalage invisible + fond noir + texte transparent dézoom (rétrécissement)
     tl.set(".hero-text-logo-container", { 
         y: 500, 
-        left: "50%", 
+        left: "42%", 
         transform: "translate(-50%, -50%)" 
     });
     tl.set(".hero-text", { 
@@ -227,7 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
         y: 0,
         scale: 1,
         opacity: 1,
-        left: "50%",
+        left: "42%",
+        top:"50%",
         transform: "translate(-50%, -50%)",
         duration: durations.dezoom,
         ease: "power3.out",
