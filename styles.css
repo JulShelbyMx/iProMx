@@ -461,12 +461,12 @@ section {
     }
 
     .hero-text-logo-container {
-        left: 25% !important; /* À gauche mobile */
+        left: 10% !important; /* À gauche mobile */
         transform: translate(-10%, -50%) !important;
     }
 
     .hero-text-logo-container.centered {
-        left: 70% !important;
+        left: 80% !important;
         transform: translate(-50%, -50%) !important;
     }
 
@@ -475,7 +475,7 @@ section {
     }
 
     .hero-logo {
-        width: 100%;
+        width: 80%;
         max-width: 250px;
     }
 
