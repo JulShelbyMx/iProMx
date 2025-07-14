@@ -259,12 +259,14 @@ section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
-    padding: 20px;
+    justify-content: center; /* Centrer verticalement le contenu */
+    gap: 12px; /* Augmenter légèrement l'espacement */
+    padding: 30px; /* Plus de padding pour remplir l'espace */
     background: linear-gradient(135deg, rgba(157, 47, 106, 0.1), rgba(32, 31, 66, 0.1));
     border-radius: 8px;
     border: 1px solid var(--pink);
     text-align: left;
+    margin-top: 80px;
 }
 
 .live-indicator {
@@ -287,7 +289,7 @@ section {
 .live-text {
     color: #999;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.8rem; /* Agrandi pour mieux remplir */
 }
 
 .live-text.live {
@@ -300,7 +302,7 @@ section {
 
 .last-live {
     color: #ccc;
-    font-size: 0.9rem;
+    font-size: 1.1rem; /* Agrandi pour PC */
     font-family: 'Inter', sans-serif;
 }
 
@@ -520,6 +522,10 @@ section {
         max-height: 260px; /* Uniforme mobile, adapté ratio ~9:16 */
         height: auto;
         object-fit: contain; /* Image entière */
+    }
+
+    .live-status {
+        margin-top: 0px;
     }
 
     .live-text {
