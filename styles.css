@@ -120,7 +120,7 @@ body {
 
 .hero-main-container {
     width: 100%;
-    height: 110vh;
+    height: 100vh;
     position: absolute;
     z-index: 1;
     transform: scale(1) !important; /* Pas de crop */
@@ -461,12 +461,13 @@ section {
     }
 
     .hero-text-logo-container {
+        top: 30% !important; /* Descendu légèrement */
         left: 25% !important; /* À gauche mobile */
         transform: translate(-10%, -50%) !important;
     }
 
     .hero-text-logo-container.centered {
-        left: 80% !important;
+        left: 50% !important; /* Centré avant zoom */
         transform: translate(-50%, -50%) !important;
     }
 
@@ -523,6 +524,7 @@ section {
     }
 
     .scroll-indicator {
+        bottom: 10% !important; /* Remonté */
         width: 50px;
         height: 20px;
     }
