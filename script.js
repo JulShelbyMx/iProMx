@@ -36,74 +36,85 @@ document.addEventListener('DOMContentLoaded', () => {
     const liveText = document.querySelector('.live-text');
     const liveStatus = document.querySelector('.live-status');
     const lastLive = document.querySelector('.last-live');
+    const statusImage = document.querySelector('.box-img img'); // Cible l'image dans .box-img
 
-    if (!liveIndicator || !liveText || !liveStatus || !lastLive) {
+    if (!liveIndicator || !liveText || !liveStatus || !lastLive || !statusImage) {
         console.error('Éléments du statut live manquants.');
         return;
     }
 
     async function checkTwitchStatus(retryCount = 3, delay = 2000) {
-    const liveImage = document.querySelector('.live-status-image');
-    liveText.textContent = 'iProMx est Chargement...';
-    lastLive.textContent = 'Chargement du dernier live';
-    liveIndicator.classList.remove('live', 'offline');
-    liveText.classList.remove('live', 'offline');
-    liveStatus.classList.remove('live', 'active');
-    liveImage.classList.remove('active'); // Cacher l'image pendant le chargement
-    liveImage.src = ''; // Réinitialiser la source
+        liveText.textContent = 'iProMx est Chargement...';
+        lastLive.textContent = 'Chargement du dernier live';
+        liveIndicator.classList.remove('live', 'offline');
+        liveText.classList.remove('live', 'offline');
+        liveStatus.classList.remove('live', 'active');
+        statusImage.style.opacity = 0; // Cacher l'image pendant le chargement
 
-    for (let i = 0; i < retryCount; i++) {
-        try {
-            const response = await fetch('/.netlify/functions/live-on-twitch');
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}, Details: ${await response.text()}`);
-            }
-            const data = await response.json();
-            if (data.status === 'online') {
-                liveIndicator.classList.add('live');
-                liveText.textContent = 'iProMx est en live';
-                liveText.classList.add('live');
-                liveStatus.classList.add('live');
-                lastLive.textContent = 'Dernier live : À l’instant';
-                liveImage.src = '/images/ipromxlive-on.gif'; // Image pour statut en live
-                liveImage.classList.add('active');
-            } else {
-                liveIndicator.classList.add('offline');
-                liveText.textContent = 'iProMx n’est pas en live';
-                liveText.classList.add('offline');
-                liveStatus.classList.remove('live', 'active');
-                liveImage.src = '/images/ipromxlive-off.webp'; // Image pour statut hors ligne
-                liveImage.classList.add('active');
-                try {
-                    const lastLiveResponse = await fetch('/.netlify/functions/live-on-twitch', {
-                        headers: { 'X-Last-Live': 'true' }
-                    });
-                    if (!lastLiveResponse.ok) throw new Error('Erreur dernier live');
-                    const lastLiveData = await lastLiveResponse.json();
-                    lastLive.textContent = `Dernier live : ${lastLiveData.lastLive || 'Inconnu'} - ${lastLiveData.title || 'Inconnu'}`;
-                } catch (error) {
-                    console.error('Erreur dernier live:', error.message);
-                    lastLive.textContent = 'Dernier live : Inconnu';
+        for (let i = 0; i < retryCount; i++) {
+            try {
+                const response = await fetch('/.netlify/functions/live-on-twitch');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}, Details: ${await response.text()}`);
+                }
+                const data = await response.json();
+                if (data.status === 'online') {
+                    liveIndicator.classList.add('live');
+                    liveText.textContent = 'iProMx est en live';
+                    liveText.classList.add('live');
+                    liveStatus.classList.add('live');
+                    lastLive.textContent = 'Dernier live : À l’instant';
+                    statusImage.src = '/images/ipromxlive-on.gif'; // Image pour statut en live
+                    statusImage.style.opacity = 1; // Afficher l'image
+                    gsap.fromTo(statusImage, 
+                        { opacity: 0, y: 20 }, 
+                        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
+                    ); // Animation
+                } else {
+                    liveIndicator.classList.add('offline');
+                    liveText.textContent = 'iProMx n’est pas en live';
+                    liveText.classList.add('offline');
+                    liveStatus.classList.remove('live', 'active');
+                    statusImage.src = '/images/ipromxlive-off.webp'; // Image pour statut hors ligne
+                    statusImage.style.opacity = 1; // Afficher l'image
+                    gsap.fromTo(statusImage, 
+                        { opacity: 0, y: 20 }, 
+                        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
+                    ); // Animation
+                    try {
+                        const lastLiveResponse = await fetch('/.netlify/functions/live-on-twitch', {
+                            headers: { 'X-Last-Live': 'true' }
+                        });
+                        if (!lastLiveResponse.ok) throw new Error('Erreur dernier live');
+                        const lastLiveData = await lastLiveResponse.json();
+                        lastLive.textContent = `Dernier live : ${lastLiveData.lastLive || 'Inconnu'} - ${lastLiveData.title || 'Inconnu'}`;
+                    } catch (error) {
+                        console.error('Erreur dernier live:', error.message);
+                        lastLive.textContent = 'Dernier live : Inconnu';
+                    }
+                }
+                return;
+            } catch (error) {
+                console.error(`Tentative ${i + 1}/${retryCount} - Erreur lors de la vérification du statut Twitch:`, error.message);
+                if (i < retryCount - 1) {
+                    await new Promise(resolve => setTimeout(resolve, delay));
                 }
             }
-            return;
-        } catch (error) {
-            console.error(`Tentative ${i + 1}/${retryCount} - Erreur lors de la vérification du statut Twitch:`, error.message);
-            if (i < retryCount - 1) {
-                await new Promise(resolve => setTimeout(resolve, delay));
-            }
         }
+        console.error('Échec de la vérification du statut Twitch après plusieurs tentatives.');
+        liveText.textContent = 'Erreur de statut';
+        lastLive.textContent = 'Erreur lors du chargement du dernier live';
+        liveIndicator.classList.remove('live', 'offline');
+        liveText.classList.remove('live', 'offline');
+        liveStatus.classList.remove('live', 'active');
+        liveIndicator.style.background = '#ff0000';
+        statusImage.src = '/images/error.png'; // Image pour erreur
+        statusImage.style.opacity = 1; // Afficher l'image
+        gsap.fromTo(statusImage, 
+            { opacity: 0, y: 20 }, 
+            { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }
+        ); // Animation
     }
-    console.error('Échec de la vérification du statut Twitch après plusieurs tentatives.');
-    liveText.textContent = 'Erreur de statut';
-    lastLive.textContent = 'Erreur lors du chargement du dernier live';
-    liveIndicator.classList.remove('live', 'offline');
-    liveText.classList.remove('live', 'offline');
-    liveStatus.classList.remove('live', 'active');
-    liveIndicator.style.background = '#ff0000';
-    liveImage.src = '/images/error.png'; // Image pour erreur
-    liveImage.classList.add('active');
-}
 
     checkTwitchStatus();
     setInterval(checkTwitchStatus, 60000);
