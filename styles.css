@@ -524,8 +524,8 @@ section {
     }
 
     .scroll-indicator {
-        bottom: 10% !important; /* Remonté */
-        width: 50px;
-        height: 20px;
+        bottom: 15% !important; /* Remonté plus haut */
+        width: 60px !important; /* Plus grosse */
+        height: 24px !important;
     }
 }
