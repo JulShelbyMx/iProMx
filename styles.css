@@ -512,6 +512,20 @@ section {
         object-fit: cover; /* Images nettes mobile */
     }
 
+    .live-status-image {
+    width: 100%;
+    max-width: 200px; /* Ajuste selon tes besoins */
+    height: auto;
+    border-radius: 8px;
+    margin: 10px 0;
+    display: none; /* Caché par défaut, affiché quand le statut est chargé */
+}
+
+.live-status-image.active {
+    display: block; /* Affiché quand le statut est défini */
+}
+
+
     .slider-container {
         min-height: 280px; /* Uniformité mobile */
     }
