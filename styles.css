@@ -507,7 +507,7 @@ section {
     }
 
     .box-img img {
-        padding-top: 5 px;
+        padding-top: 0.5px;
         height: 300px;
         object-fit: cover; /* Images nettes mobile */
     }
