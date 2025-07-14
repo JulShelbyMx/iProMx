@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         liveText.classList.remove('live', 'offline');
         liveStatus.classList.remove('live', 'active');
         liveIndicator.style.background = '#ff0000';
-        statusImage.src = '/images/error.png'; // Image pour erreur
+        statusImage.src = '/images/ipromxerror.jpg'; // Image pour erreur
         statusImage.style.opacity = 1; // Afficher l'image
         gsap.fromTo(statusImage, 
             { opacity: 0, y: 20 }, 
