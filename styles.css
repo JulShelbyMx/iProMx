@@ -242,6 +242,38 @@ section {
     gap: 1.5rem;
 }
 
+.about-container {
+    max-width: 960px;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    color: #ccc;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.about-text p {
+    line-height: 1.6;
+}
+
+.about-para {
+    max-width: 500px;
+    margin: 1rem auto;
+    font-family: 'Impact', sans-serif;
+    font-size: 1rem;
+    color: #ccc;
+    text-align: center;
+}
+
 .box-img img {
     padding-top: 50px;
     width: 100%;

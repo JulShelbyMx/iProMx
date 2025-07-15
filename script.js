@@ -32,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Twitch Status
-    const liveIndicator = document.querySelector('.live-indicator');
-    const liveText = document.querySelector('.live-text');
-    const liveStatus = document.querySelector('.live-status');
-    const lastLive = document.querySelector('.last-live');
-    const statusImage = document.querySelector('.box-img img'); // Cible l'image dans .box-img
+    const liveIndicator = document.querySelector('#status .live-indicator');
+    const liveText = document.querySelector('#status .live-text');
+    const liveStatus = document.querySelector('#status .live-status');
+    const lastLive = document.querySelector('#status .last-live');
+    const statusImage = document.querySelector('#status .box-img img'); // Cible spécifique à #status
 
     if (!liveIndicator || !liveText || !liveStatus || !lastLive || !statusImage) {
         console.error('Éléments du statut live manquants.');
@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Fade-in sections
-    const sections = document.querySelectorAll('.status, .socials, .characters');
+    const sections = document.querySelectorAll('.about, .status, .socials, .characters');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
