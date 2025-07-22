@@ -79,8 +79,8 @@ def update_playlist_html(videos, character_name):
     print(f"{len(videos)} vidéos embeddables insérées dans {playlist_html_path}")
 
 # Exemple : Playlist ID 
-playlist_id = "PLSER88E5c570ltCEouVXtFXcbqhmuNRDr"
-character_name = "Damon FLASH"
+playlist_id = "PLSER88E5c573CeR39ttl35-1htPUaqSuh"
+character_name = "Adrian FLASH"
 
 # Mettre à jour playlist.html
 videos = get_playlist_videos(playlist_id)

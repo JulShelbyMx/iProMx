@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adrian FLASH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-background: 18, 18, 18;
+            --color-foreground: 255, 255, 255;
+            --color-accent: 255, 215, 0;
+            --color-hover: 252, 228, 119;
+        }
+
+        body {
+                font-family: 'Inter', sans-serif;
+                background-color: rgb(var(--color-background));
+                background-image: url('../../images/adrianbackground.webp');
+                background-repeat: repeat-y; /* Répète uniquement verticalement */
+                background-size: auto;
+                background-position: center; /* Positionne l'image à gauche */
+                color: rgba(var(--color-foreground), 0.75);
+                position: relative;
+}
+
+        /* Styles pour la vidéo plein écran */
+        #introVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: 2000;
+            background-color: #000000;
+        }
+
+        /* Style pour le message d'erreur */
+        #videoError {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+            font-size: 16px;
+            z-index: 2001;
+            text-align: center;
+        }
+
+        /* Style pour le conteneur des boutons */
+        #videoControls {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2001;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #startVideo, #skipVideo {
+            background-color: #ffd700;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: #121212;
+        }
+
+        #startVideo:hover, #skipVideo:hover {
+            background-color: #fce477;
+        }
+
+        header.color-scheme-4 {
+            background-color: #121212;
+            padding: 10px 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: #121212;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #fce477;
+        }
+
+        .logo img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        .character-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .character-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .character-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .character-image .car-caption {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .character-info {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .character-info h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .character-info h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .character-info p {
+            font-size: 16px;
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .playlist-section {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .playlist-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .episode-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .episode-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #222222;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #ffd700;
+            transition: transform 0.3s ease;
+        }
+
+        .episode-item:hover {
+            transform: scale(1.02);
+            border-color: #fce477;
+        }
+
+        .episode-title {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .watch-button, .alert-button, .go-button, .close-button {
+            background-color: #ffd700;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #121212;
+        }
+
+        .watch-button:hover, .alert-button:hover, .go-button:hover, .close-button:hover {
+            background-color: #fce477;
+        }
+
+        .alert-modal, .order-modal, .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            margin: auto;
+            background-color: #121212;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px 20px 10px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .order-table-container {
+            max-height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .order-table-container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .order-table-container::-webkit-scrollbar-track {
+            background: #333333;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb {
+            background: #ffffff;
+            border-radius: 5px;
+        }
+
+        .order-table-container::-webkit-scrollbar-thumb:hover {
+            background: #fce477;
+        }
+
+        .order-table-container {
+            scrollbar-width: auto;
+            scrollbar-color: #ffffff #333333;
+        }
+
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .order-table tr {
+            border: 2px solid #ffd700;
+            background-color: #222222;
+            border-radius: 8px;
+        }
+
+        .order-table tr:hover {
+            border-color: #fce477;
+        }
+
+        .order-table td {
+            padding: 10px;
+            font-size: 14px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+        }
+
+        .order-table td span {
+            margin-right: 5px;
+        }
+
+        .alert-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #fce477;
+        }
+
+        .close-button {
+            margin-top: 10px;
+            min-width: 100px;
+            padding: 8px 16px;
+            font-size: 16px;
+            z-index: 10;
+        }
+
+        footer.color-scheme-4 {
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .list-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ffd700;
+            text-decoration: none;
+            max-width: 100px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: #fce477;
+            transform: scale(1.1);
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 5px;
+        }
+
+        .social-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #ffd700;
+        }
+
+        .social-link:hover .social-title {
+            color: #fce477;
+        }
+
+        @media (max-width: 1024px) {
+            .character-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .character-image {
+                min-width: 250px;
+            }
+
+            .character-info h1 {
+                font-size: 20px;
+            }
+
+            .character-info p {
+                font-size: 14px;
+            }
+
+            .episode-title {
+                font-size: 14px;
+            }
+
+            .character-image .car-caption {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .character-container {
+                padding: 15px;
+            }
+
+            .character-image {
+                min-width: 200px;
+            }
+
+            .character-info h1 {
+                font-size: 18px;
+            }
+
+            .character-info p {
+                font-size: 12px;
+            }
+
+            .episode-title {
+                font-size: 12px;
+            }
+
+            .social-title {
+                font-size: 12px;
+            }
+
+            .modal-content {
+                max-height: 80vh;
+                padding: 20px;
+            }
+
+            .order-table-container {
+                max-height: 300px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 4px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+
+            .character-image .car-caption {
+                font-size: 11px;
+            }
+
+            #startVideo, #skipVideo {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .character-container {
+                padding: 10px;
+            }
+
+            .character-image {
+                min-width: 150px;
+            }
+
+            .character-info h1 {
+                font-size: 16px;
+            }
+
+            .character-info p {
+                font-size: 11px;
+            }
+
+            .episode-title {
+                font-size: 10px;
+            }
+
+            .social-title {
+                font-size: 10px;
+            }
+
+            .social-link {
+                max-width: 80px;
+            }
+
+            .modal-content {
+                max-height: 70vh;
+                padding: 20px;
+            }
+
+
+
+            .order-table-container {
+                max-height: 250px;
+            }
+
+            .order-table-container::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: #ffffff;
+                border-radius: 3px;
+            }
+
+            .order-table-container::-webkit-scrollbar-track {
+                background: #333333;
+            }
+
+            .order-table-container {
+                scrollbar-width: auto;
+                scrollbar-color: #ffffff #333333;
+            }
+
+            .close-button {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+
+            .character-image .car-caption {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <video id="introVideo">
+        <source src="../../vidéos/adriananimation1.mp4" type="video/mp4; codecs=hev1">
+        <source src="../../vidéos/adriananimation1.mp4" type="video/mp4">
+        <p id="videoError">Erreur : Impossible de charger la vidéo. Vérifiez le chemin du fichier ou votre connexion.</p>
+    </video>
+    <div id="videoControls">
+        <button id="startVideo">Démarrer la vidéo</button>
+        <button id="skipVideo">Passer (conseillé si t'as une mauvais connexion)</button>
+    </div>
+
+    <header class="color-scheme-4">
+        <a href="../flash/flash.html" class="back-button">RETOUR</a>
+        <div class="logo">
+            <a href="../flash/flash.html">
+                <img src="../../images/logo.webp" alt="Logo iProMx" class="password-logo">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="character-container">
+            <div class="character-image">
+                <img src="../../images/adrian_flash1.webp" alt="Adrian Flash 1 jeune">
+                <img src="../../images/adrian_flash2.webp" alt="Adrian Flash 2 basilic">
+                <img src="../../images/adrian_flash3.webp" alt="Adrian Flash 3 vieux">
+                <img src="../../images/basilicadrian.webp" alt="Basilic - Symbole de d'Adrian" class="symbol-image">
+            </div>
+            <div class="character-info">
+                <h1>Adrian FLASH / JEFFERSON</h1>
+                <h2>Avant</h2>
+                <p><strong>Adrian Jefferson, 21 ans, homme.</strong></p>
+                <p>Fils aîné de David Jr. et Kayla, Adrian fut confié dès sa naissance à sa demi-sœur Kylie par un père rongé par la peur qu’il ne reproduise ses erreurs passées.</p>
+                <p>Élevé en croyant que Kylie était sa véritable mère, il grandit dans un environnement qu’on voulait sain.</p>
+                <p>À 17 ans, il s’engage dans l’armée américaine, où son courage et ses nombreuses missions réussies lui permettent de gravir rapidement les échelons.</p>
+                <p>À 20 ans, il devient sergent instructeur, chargé de réinsérer des prisonniers par une éducation militaire stric Elder stricte, dans le but de les ramener sur le droit chemin.</p>
+                <p>Vivant avec Kylie et la famille Jefferson, il partage son quotidien avec son petit frère adoptif, Dénis, qu’il tente d’éduquer avec des valeurs solides. Cependant, Dénis multiplie les bêtises en son absence, obligeant Adrian à le recadrer régulièrement.</p>
+                <p>Tout bascule lors d’un entraînement, où Adrian tue accidentellement une recrue. Malgré ses états de service et ses décorations, le tribunal le condamne pour homicide involontaire à 5 ans de prison en isolement total.</p>
+                <p>À sa sortie, à 25 ans, brisé mais animé par une soif de vengeance contre l’injustice, he discovers that his powers awakened in detention.</p>
+                <p>Déterminé aihe discovers that his powers awakened in detention.</p>
+                <p>Déterminé à se venger du monde, il monte une équipe, orchestre des braquages spectaculaires et amasse une immense fortune.</p>
+                <p>Son véritable objectif, plus sombre, est de soumettre le monde à la haine née de l’injustice qu’il a subie. Mais ses coéquipiers, lassés de ses trahisons, finissent par le capturer et le tuer.</p>
+                <h2>Après</h2>
+                <p><strong>Adrian Jefferson, 32 ans, homme.</strong></p>
+                <p>Bien que tué et enterré, Adrian, tel un basilic, mue et renaît. Il se réveille dans son cercueil, ses yeux noirs à liris orange trahissant sa nouvelle nature de mort-vivant, doté d’une hyper-intelligence et d’une puissance surhumaine.</p>
+                <p>Se nourrissant de chair humaine, il utilise sa nouvelle forme pour manipuler le monde, inspirant la terreur par son seul souffle.</p>
+                <p>Dans sa quête de vengeance, il élimine son ancienne équipe et anéantit toute la famille Jefferson, ne laissant aucun survivant.</p>
+                <p>Sur la Terre des Flash, il affronte Kayton et Aaron Flash, les tuant tous deux, tout en manipulant Eddy et Ned.</p>
+                <p>Avec Ned, il crée la Tache, et ensemble, ils kidnappent Avery. Dans un acte abominable, Adrian viole Avery et la fait tomber enceinte, cherchant à s’approprier la puissance de son futur fils.</p>
+                <p>Pendant 9 mois, il torture Avery, mais à la naissance, son fils Manda le piège, l’affaiblissant pendant 21 ans.</p>
+                <p>À 53 ans, Adrian retrouve sa pleine puissance, mais lors d’un combat final contre Ned, Eden et Eddy, il est vaincu et meurt définitivement.</p>
+                <h2>Animal spirituel</h2>
+                <p>Le basilic, animal spirituel d’Adrian Jefferson, est un serpent géant, impossible à tuer, aussi obscur physiquement que mentalement.</p>
+                <p>Il incarne la noirceur d’une âme consumée par la haine et la soif de vengeance, manipulant et détruisant tout sur son passage.</p>
+            </div>
+        </div>
+
+        <div class="playlist-section">
+            <h2>Épisodes d'Adrian FLASH</h2>
+            <h3>Saison 1</h3>
+            <ul class="episode-list">
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 1: LE NOUVEAU FLASH ! GTA V RP ! by iProMx #1</span>
+                    <button class="watch-button" data-video-id="9-CkiigRt0w">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 2: LE PREMIER GROS BRAQUAGE D'ADRIAN FLASH ! GTA V RP ! by iProMx #2</span>
+                    <button class="watch-button" data-video-id="8dANlZcVCJc">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 3: ADRIAN CONVOQUÉ PAR LE FBI ! GTA V RP ! by iProMx #3</span>
+                    <button class="watch-button" data-video-id="HvWLUuJBpa0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 4: PARTIE 1 - ADRIAN FLASH, GROS BRAQUAGE BIJOUTERIE ! GTA V RP ! by iProMx #4</span>
+                    <button class="watch-button" data-video-id="jKKxKcERukI">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 4: PARTIE 2 - ADRIAN FLASH, GROS BRAQUAGE BIJOUTERIE ! GTA V RP ! by iProMx #4</span>
+                    <button class="watch-button" data-video-id="ufzc5Qt7y7w">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 5: LE RETOUR DE DENIS ! ADRIAN DANS LES PROBLEMES AVEC LE FBI ! GTA V RP ! by iProMx #5</span>
+                    <button class="watch-button" data-video-id="sOlNtWyB3Ag">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode Bonus: CONVERSATION ADRIAN ET KYLIE FLASH ! by ItalianGirl (Lien en description)</span>
+                    <button class="watch-button" data-video-id="-6Mz_0OwXA8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 6: PARTIE 1 - LE JUGEMENT ! ADRIAN VS DENIS ! GTA V RP ! by iProMx #6</span>
+                    <button class="watch-button" data-video-id="0KTCHm1L6Gk">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 6: PARTIE 2 - LE JUGEMENT ! ADRIAN VS DENIS ! GTA V RP ! by iProMx #6</span>
+                    <button class="watch-button" data-video-id="LopyXidGl1w">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 7: PREPARATION DU PLUS GROS BRAQUAGE ! GTA V RP ! by iProMx #7</span>
+                    <button class="watch-button" data-video-id="TRrhOWIgDYo">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 8: ADRIAN FLASH, LE BRAQUAGE DU SIECLE ! GTA V RP ! by iProMx #8</span>
+                    <button class="watch-button" data-video-id="V4xdrwIwego">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 9: ADRIAN VA SAVOIR LA VERITE SUR DAVID JR FLASH ! GTA V RP ! by iProMx #9</span>
+                    <button class="watch-button" data-video-id="nj7dqZEnNj8">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 10: ADRIAN FLASH, LE BRAQUAGE DE CASINO ! GTA V RP ! by iProMx #10</span>
+                    <button class="watch-button" data-video-id="L4mL2DlbovA">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 11: LE REVEIL DU BASILIC, LE DEBUT DES POUVOIRS ! GTA V RP ! by iProMx #11</span>
+                    <button class="watch-button" data-video-id="Y78miycO-JQ">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 12: LA MORT D'ADRIAN FLASH ! GTA V RP ! by iProMx #12</span>
+                    <button class="watch-button" data-video-id="rqsi6fVmUgE">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 13: L'ENTERREMENT D'ADRIAN FLASH ! CINEMATIQUE ! GTA V RP</span>
+                    <button class="watch-button" data-video-id="s5PIZkTvdcU">Regarder</button>
+                </li>
+            </ul>
+            <h3>Saison 2</h3>
+            <ul class="episode-list">
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 1: ADRIAN FLASH DECOUVRE SES NOUVEAUX POUVOIRS ! GTA V RP ! by iProMx #1 S2</span>
+                    <button class="watch-button" data-video-id="Zgd6PNhFnB0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 2: PARTIE 1 - ADRIAN DE PLUS EN PLUS FORT ! GTA V RP ! by iProMx #2 S2</span>
+                    <button class="watch-button" data-video-id="DwKdv0XFY_A">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 2: PARTIE 2 - ADRIAN DE PLUS EN PLUS FORT ! GTA V RP ! by iProMx #2 S2</span>
+                    <button class="watch-button" data-video-id="401hB4a_PEg">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 3: LA FIN D'ADRIAN FLASH ! GTA V RP ! by iProMx #3 S2</span>
+                    <button class="watch-button" data-video-id="yVgjsXqfvD0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 4: ADRIAN ET LENA DEBUT D'UNE HISTOIRE D'AMOUR ? GTA V RP ! by iProMx #4 S2</span>
+                    <button class="watch-button" data-video-id="KWbuqkxpzk0">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 5: KAYTON VS ADRIAN ! LE COMBAT FINALE ! GTA V RP ! by iProMx #END</span>
+                    <button class="watch-button" data-video-id="SzgnVcClZoQ">Regarder</button>
+                </li>
+            </ul>
+            <h3>Saison 3</h3>
+            <ul class="episode-list">
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 1: LE RETOUR D'ADRIAN FLASH ! PARTIE 1 ! #1 S3</span>
+                    <button class="watch-button" data-video-id="VLIMlbJ19eU">Regarder</button>
+                </li>
+                <li class="episode-item">
+                    <span class="episode-title">Épisode 1: LE RETOUR D'ADRIAN FLASH ! PARTIE 2 ! #1 S3</span>
+                    <button class="watch-button" data-video-id="ETV4TcSbZos">Regarder</button>
+                </li>
+            </ul>
+            <div class="alert-modal" id="alertModal">
+                <div class="modal-content">
+                    <p>Attention, souhaitez-vous avoir un rappel de l'ordre de visionnage de la série "Flash" ?</p>
+                    <div class="alert-buttons">
+                        <button class="alert-button" id="showOrderButton">Oui</button>
+                        <button class="alert-button" id="closeAlertButton">Non</button>
+                    </div>
+                </div>
+            </div>
+            <div class="order-modal" id="orderModal">
+                <div class="modal-content">
+                    <h3>Ordre de visionnage de la famille FLASH</h3>
+                    <div class="order-table-container">
+                        <table class="order-table">
+                            <tbody>
+                                <tr>
+                                    <td><span>David Flash:</span> <button class="go-button" data-url="david.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>John Flash:</span> <button class="go-button" data-url="john.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 1):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 1):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ken Flash (Saison 2):</span> <button class="go-button" data-url="ken.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Aaron Flash (Saison 2):</span> <button class="go-button" data-url="aaron.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 1):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 2):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>David Jr Flash (vieux):</span> <button class="go-button" data-url="davidjr.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Damon Flash (Saison 3):</span> <button class="go-button" data-url="damon.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 1):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 2):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Kayton Flash (Saison 3):</span> <button class="go-button" data-url="kayton.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Adrian Flash:</span> <button class="go-button" data-url="adrian.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden et Aaron vs Adrian:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Eden Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Ned Flash:</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Manda Flash:</span> <button class="go-button" data-url="manda.html">Y ALLER</button></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Cody Hunters (Ned Flash):</span> <button class="go-button" data-url="3freres.html">Y ALLER</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="close-button" id="closeOrderButton">Fermer</button>
+                </div>
+            </div>
+            <div class="video-modal" id="videoModal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-modal">×</span>
+                    <iframe id="modalVideo" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="color-scheme-4">
+        <ul class="list-social">
+            <li>
+                <a href="https://www.youtube.com/@iProMx" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/@ipromxenfolie1688" target="_blank" class="social-link">
+                    <img src="../../../images/youtube.png" alt="YouTube" class="social-icon">
+                    <span class="social-title">YouTube N°2</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://twitch.tv/ipromx" target="_blank" class="social-link">
+                    <img src="../../../images/twitch.webp" alt="Twitch" class="social-icon">
+                    <span class="social-title">Twitch</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.tiktok.com/@ipromx__" target="_blank" class="social-link">
+                    <img src="../../../images/tiktok.webp" alt="TikTok" class="social-icon">
+                    <span class="social-title">TikTok</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.com/invite/ipromx" target="_blank" class="social-link">
+                    <img src="../../images/discord.webp" alt="Discord communauté" class="social-icon">
+                    <span class="social-title">Discord</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://discord.com/invite/fantasticwl" target="_blank" class="social-link">
+                    <img src="../../images/discord.webp" alt="Discord Fantastic" class="social-icon">
+                    <span class="social-title">Fantastic WL</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://x.com/iProMxYt" target="_blank" class="social-link">
+                    <img src="../../../images/x.webp" alt="X" class="social-icon">
+                    <span class="social-title">X</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const introVideo = document.getElementById('introVideo');
+            const videoError = document.getElementById('videoError');
+            const videoControls = document.getElementById('videoControls');
+            const startVideo = document.getElementById('startVideo');
+            const skipVideo = document.getElementById('skipVideo');
+
+            // Fonction pour masquer la vidéo et les contrôles
+            const hideVideo = () => {
+                introVideo.style.display = 'none';
+                introVideo.pause();
+                videoControls.style.display = 'none';
+            };
+
+            // Afficher la vidéo et les boutons au chargement
+            introVideo.style.display = 'block';
+            videoControls.style.display = 'flex';
+
+            // Bouton "Démarrer"
+            startVideo.addEventListener('click', () => {
+                introVideo.currentTime = 0;
+                introVideo.play().catch((error) => {
+                    console.error('Erreur lors de la lecture manuelle:', error);
+                    videoError.style.display = 'block';
+                    videoControls.style.display = 'none';
+                });
+                videoControls.style.display = 'none';
+            });
+
+            // Bouton "Passer"
+            skipVideo.addEventListener('click', hideVideo);
+
+            // Masquer la vidéo à la fin
+            introVideo.addEventListener('ended', hideVideo);
+
+            // Gérer les erreurs de chargement
+            introVideo.addEventListener('error', () => {
+                console.error('Erreur de chargement de la vidéo:', introVideo.error);
+                videoError.style.display = 'block';
+                videoControls.style.display = 'none';
+            });
+
+            // Secours : masquer la vidéo après 5 secondes si elle ne se lance pas
+            startVideo.addEventListener('click', () => {
+                setTimeout(() => {
+                    if (introVideo.paused) {
+                        hideVideo();
+                    }
+                }, 5000);
+            });
+
+            const watchButtons = document.querySelectorAll('.watch-button');
+            const alertModal = document.getElementById('alertModal');
+            const showOrderButton = document.getElementById('showOrderButton');
+            const closeAlertButton = document.getElementById('closeAlertButton');
+            const orderModal = document.getElementById('orderModal');
+            const closeOrderButton = document.getElementById('closeOrderButton');
+            const videoModal = document.getElementById('videoModal');
+            const closeModal = document.querySelectorAll('.close-modal');
+            let currentVideoId = null;
+
+            alertModal.style.display = 'none';
+            orderModal.style.display = 'none';
+            videoModal.style.display = 'none';
+
+            watchButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    currentVideoId = button.getAttribute('data-video-id');
+                    alertModal.style.display = 'flex';
+                });
+            });
+
+            showOrderButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                orderModal.style.display = 'flex';
+            });
+
+            closeAlertButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeOrderButton.addEventListener('click', () => {
+                orderModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeModal.forEach(button => {
+                button.addEventListener('click', () => {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                });
+            });
+
+            alertModal.addEventListener('click', (e) => {
+                if (e.target === alertModal) {
+                    alertModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            orderModal.addEventListener('click', (e) => {
+                if (e.target === orderModal) {
+                    orderModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                }
+            });
+
+            document.querySelectorAll('.go-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const url = button.getAttribute('data-url');
+                    window.location.href = url;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
