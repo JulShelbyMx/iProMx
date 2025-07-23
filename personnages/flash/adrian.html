@@ -22,15 +22,15 @@
         }
 
         body {
-                font-family: 'Inter', sans-serif;
-                background-color: rgb(var(--color-background));
-                background-image: url('../../images/adrianbackground.webp');
-                background-repeat: repeat-y; /* Répète uniquement verticalement */
-                background-size: auto;
-                background-position: center; /* Positionne l'image à gauche */
-                color: rgba(var(--color-foreground), 0.75);
-                position: relative;
-}
+            font-family: 'Inter', sans-serif;
+            background-color: rgb(var(--color-background));
+            background-image: url('../../images/adrianbackground.webp');
+            background-repeat: repeat-y; /* Répète uniquement verticalement */
+            background-size: auto;
+            background-position: center; /* Positionne l'image au centre */
+            color: rgba(var(--color-foreground), 0.75);
+            position: relative;
+        }
 
         /* Styles pour la vidéo plein écran */
         #introVideo {
@@ -39,7 +39,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            object-fit: cover;
+            object-fit: cover; /* Comportement par défaut pour PC */
             z-index: 2000;
             background-color: #000000;
         }
@@ -428,6 +428,16 @@
         }
 
         @media (max-width: 768px) {
+            #introVideo {
+                object-fit: contain; /* Ajuste à la largeur sans zoomer */
+                width: 100vw;
+                height: 100vh;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%); /* Centre la vidéo */
+                background-color: #000000; /* Fond noir pour les espaces vides */
+            }
+
             .character-container {
                 padding: 15px;
             }
@@ -528,8 +538,6 @@
                 padding: 20px;
             }
 
-
-
             .order-table-container {
                 max-height: 250px;
             }
@@ -571,7 +579,7 @@
     </video>
     <div id="videoControls">
         <button id="startVideo">Démarrer la vidéo</button>
-        <button id="skipVideo">Passer (conseillé si t'as une mauvais connexion)</button>
+        <button id="skipVideo">Passer (conseillé si t'as une mauvaise connexion)</button>
     </div>
 
     <header class="color-scheme-4">
@@ -598,16 +606,15 @@
                 <p>Fils aîné de David Jr. et Kayla, Adrian fut confié dès sa naissance à sa demi-sœur Kylie par un père rongé par la peur qu’il ne reproduise ses erreurs passées.</p>
                 <p>Élevé en croyant que Kylie était sa véritable mère, il grandit dans un environnement qu’on voulait sain.</p>
                 <p>À 17 ans, il s’engage dans l’armée américaine, où son courage et ses nombreuses missions réussies lui permettent de gravir rapidement les échelons.</p>
-                <p>À 20 ans, il devient sergent instructeur, chargé de réinsérer des prisonniers par une éducation militaire stric Elder stricte, dans le but de les ramener sur le droit chemin.</p>
+                <p>À 20 ans, il devient sergent instructeur, chargé de réinsérer des prisonniers par une éducation militaire stricte, dans le but de les ramener sur le droit chemin.</p>
                 <p>Vivant avec Kylie et la famille Jefferson, il partage son quotidien avec son petit frère adoptif, Dénis, qu’il tente d’éduquer avec des valeurs solides. Cependant, Dénis multiplie les bêtises en son absence, obligeant Adrian à le recadrer régulièrement.</p>
                 <p>Tout bascule lors d’un entraînement, où Adrian tue accidentellement une recrue. Malgré ses états de service et ses décorations, le tribunal le condamne pour homicide involontaire à 5 ans de prison en isolement total.</p>
-                <p>À sa sortie, à 25 ans, brisé mais animé par une soif de vengeance contre l’injustice, he discovers that his powers awakened in detention.</p>
-                <p>Déterminé aihe discovers that his powers awakened in detention.</p>
+                <p>À sa sortie, à 25 ans, brisé mais animé par une soif de vengeance contre l’injustice, il découvre que ses pouvoirs se sont éveillés en détention.</p>
                 <p>Déterminé à se venger du monde, il monte une équipe, orchestre des braquages spectaculaires et amasse une immense fortune.</p>
                 <p>Son véritable objectif, plus sombre, est de soumettre le monde à la haine née de l’injustice qu’il a subie. Mais ses coéquipiers, lassés de ses trahisons, finissent par le capturer et le tuer.</p>
                 <h2>Après</h2>
                 <p><strong>Adrian Jefferson, 32 ans, homme.</strong></p>
-                <p>Bien que tué et enterré, Adrian, tel un basilic, mue et renaît. Il se réveille dans son cercueil, ses yeux noirs à liris orange trahissant sa nouvelle nature de mort-vivant, doté d’une hyper-intelligence et d’une puissance surhumaine.</p>
+                <p>Bien que tué et enterré, Adrian, tel un basilic, mue et renaît. Il se réveille dans son cercueil, ses yeux noirs à l’iris orange trahissant sa nouvelle nature de mort-vivant, doté d’une hyper-intelligence et d’une puissance surhumaine.</p>
                 <p>Se nourrissant de chair humaine, il utilise sa nouvelle forme pour manipuler le monde, inspirant la terreur par son seul souffle.</p>
                 <p>Dans sa quête de vengeance, il élimine son ancienne équipe et anéantit toute la famille Jefferson, ne laissant aucun survivant.</p>
                 <p>Sur la Terre des Flash, il affronte Kayton et Aaron Flash, les tuant tous deux, tout en manipulant Eddy et Ned.</p>
