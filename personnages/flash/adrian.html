@@ -26,8 +26,8 @@
             background-color: rgb(var(--color-background));
             background-image: url('../../images/adrianbackground.webp');
             background-repeat: repeat-y; /* Répète uniquement verticalement */
-            background-size: auto;
-            background-position: center; /* Positionne l'image au centre */
+            background-size: 100% auto; /* Ajuste à la largeur sans zoomer */
+            background-position: center; /* Centre l'image */
             color: rgba(var(--color-foreground), 0.75);
             position: relative;
         }
@@ -428,6 +428,12 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                background-size: 100% auto; /* Ajuste à la largeur sans zoomer */
+                background-position: center; /* Centre l'image */
+                background-repeat: repeat-y; /* Répète verticalement */
+            }
+
             #introVideo {
                 object-fit: contain; /* Ajuste à la largeur sans zoomer */
                 width: 100vw;
