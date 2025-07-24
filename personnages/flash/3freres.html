@@ -687,7 +687,7 @@
     </div>
 
     <div id="videoPlayerContainer">
-        <video id="videoPlayer" controls autoplay loop>
+        <video id="videoPlayer" controls autoplay="true" loop>
             <source src="../../vidéos/3frèresintro.mp4" type="video/mp4; codecs=hev1">
             <source src="../../vidéos/3frèresintro.mp4" type="video/mp4">
             <p>Erreur : Impossible de charger la vidéo. Vérifiez le chemin du fichier ou votre connexion.</p>
@@ -1339,56 +1339,11 @@
             // Gestion du lecteur vidéo
             const videoPlayer = document.getElementById('videoPlayer');
             const videoPlayerContainer = document.getElementById('videoPlayerContainer');
-            const playPauseButton = document.getElementById('playPauseVideo');
-            const rewindButton = document.getElementById('rewindVideo');
-            const forwardButton = document.getElementById('forwardVideo');
-            const volumeControl = document.getElementById('volumeControl');
-            const muteButton = document.getElementById('muteVideo');
 
-            if (!videoPlayer || !videoPlayerContainer || !playPauseButton || !rewindButton || !forwardButton || !volumeControl || !muteButton) {
+            if (!videoPlayer, !videoPlayerContainer) {
                 console.error('Erreur : Un ou plusieurs éléments du lecteur vidéo ne sont pas trouvés.');
                 return;
             }
-
-            // Play/Pause
-            playPauseButton.addEventListener('click', () => {
-                if (videoPlayer.paused) {
-                    videoPlayer.play().catch(error => console.error('Erreur lors de la lecture de la vidéo:', error));
-                    playPauseButton.textContent = 'Pause';
-                } else {
-                    videoPlayer.pause();
-                    playPauseButton.textContent = 'Play';
-                }
-            });
-
-            // Rewind 5s
-            rewindButton.addEventListener('click', () => {
-                videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 5);
-            });
-
-            // Forward 5s
-            forwardButton.addEventListener('click', () => {
-                videoPlayer.currentTime = Math.min(videoPlayer.duration || Infinity, videoPlayer.currentTime + 5);
-            });
-
-            // Volume control
-            volumeControl.addEventListener('input', () => {
-                videoPlayer.volume = volumeControl.value;
-                muteButton.textContent = videoPlayer.volume === 0 ? 'Unmute' : 'Mute';
-            });
-
-            // Mute/Unmute
-            muteButton.addEventListener('click', () => {
-                if (videoPlayer.volume === 0) {
-                    videoPlayer.volume = 1;
-                    volumeControl.value = 1;
-                    muteButton.textContent = 'Mute';
-                } else {
-                    videoPlayer.volume = 0;
-                    volumeControl.value = 0;
-                    muteButton.textContent = 'Unmute';
-                }
-            });
 
             const wordStyles = [
             { words: ['Eden', 'Kayton', 'Aaron', 'Phénix', 'Loup garou'], class: 'highlight-orange' },
