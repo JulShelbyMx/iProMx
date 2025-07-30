@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faites votre choix</title>
+    <link rel="shortcut icon" href="images/logopage.png" />
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+
+        .split {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: filter 0.3s;
+        }
+
+        .split:hover {
+            filter: brightness(1.2);
+        }
+
+        .split.one-piece {
+            background: url('images/one_piece_poster.webp') center/cover no-repeat;
+        }
+
+        .split.peaky-blinders {
+            background: url('images/peaky_blinders_poster.webp') center/cover no-repeat;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .split:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ffb300;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ffb300;
+            color: #000;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 10;
+        }
+
+        .back-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 179, 0, 0.7);
+        }
+
+        /* Tablet (max-width: 1024px) */
+        @media screen and (max-width: 1024px) {
+            .overlay h2 {
+                font-size: 2.5rem;
+            }
+
+            .back-button {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+        }
+
+        /* Medium mobile (max-width: 768px) */
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .split {
+                flex: none;
+                height: 50%;
+            }
+
+            .overlay h2 {
+                font-size: 2rem;
+            }
+
+            .back-button {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+                top: 15px;
+                left: 15px;
+            }
+        }
+
+        /* Small mobile (max-width: 480px) */
+        @media screen and (max-width: 480px) {
+            .overlay h2 {
+                font-size: 1.5rem;
+            }
+
+            .back-button {
+                font-size: 0.7rem;
+                padding: 5px 10px;
+                top: 10px;
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../../index.html" class="back-button">RETOUR</a>
+    <div class="container">
+        <a href="../flashnew/flashnew.html" class="split livre">
+            <div class="overlay">
+                <h2>Accéder au format Livre</h2>
+            </div>
+        </a>
+        <a href="flash.html" class="split normal">
+            <div class="overlay">
+                <h2>Accéder au format "normal"</h2>
+            </div>
+        </a>
+    </div>
+</body>
+</html>

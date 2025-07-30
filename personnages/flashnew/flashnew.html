@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famille FLASH - Le Livre</title>
+    <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            overflow: hidden;
+            min-height: 100vh;
+            overscroll-behavior: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .ambient-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, rgba(255,215,0,0) 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
+        }
+
+        .back-button {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, #ffd700, #f1c40f);
+            color: #000;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: 700;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, #f1c40f, #ffd700);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            max-width: 100px;
+            z-index: 1000;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3); }
+            50% { box-shadow: 0 8px 35px rgba(255, 215, 0, 0.6); }
+        }
+
+        .book-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .book {
+            position: relative;
+            width: 700px;
+            height: 500px;
+            display: flex;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+        }
+
+        .page {
+            position: relative;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #fefefe 0%, #f8f8f8 100%);
+            border: 3px solid #8b4513;
+            border-radius: 12px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            backface-visibility: hidden;
+            overflow: hidden;
+        }
+
+        .page[class*="bg"] {
+            background: none !important;
+        }
+
+        .page.intro-sommaire-bg {
+            background: transparent !important;
+        }
+
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 215, 0, 0.4) 5%, 
+                transparent 10%);
+            pointer-events: none;
+        }
+
+        .page[data-position="left"] {
+            border-right: 1px solid rgba(255, 215, 0, 0.4);
+        }
+
+        .page[data-position="right"] {
+            border-left: 1px solid rgba(255, 215, 0, 0.4);
+        }
+
+        .page[data-position="center"] {
+            width: 50%;
+            margin: 0 auto;
+            border: 3px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
+        }
+
+        .cover-page {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .david-bg .page-content {
+            background: linear-gradient(135deg, #222222 0%, #808080 100%) !important;
+        }
+
+        .john-bg .page-content {
+            background: linear-gradient(135deg, #2c1810 0%, #8b4513 100%) !important;
+        }
+
+        .ken-bg .page-content {
+            background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%) !important;
+        }
+
+        .aaron-bg .page-content {
+            background: linear-gradient(135deg, #ff8c00 0%, #ffd700 100%) !important;
+        }
+
+        .davidjr-bg .page-content {
+            background: linear-gradient(135deg, #006400 0%, #228b22 100%) !important;
+        }
+
+        .damon-bg .page-content {
+            background: linear-gradient(135deg, #ff4500 0%, #ffa500 100%) !important;
+        }
+
+        .kayton-bg .page-content {
+            background: linear-gradient(135deg, #00008b 0%, #1e90ff 100%) !important;
+        }
+
+        .adrian-bg .page-content {
+            background: linear-gradient(135deg, #013220 0%, #000000 100%) !important;
+        }
+
+        .edennededdy-bg .page-content {
+            background: linear-gradient(135deg, #ff0000 0%, #000000 50%, #ffffff 100%) !important;
+        }
+
+        .manda-bg .page-content {
+            background: linear-gradient(135deg, #90ee90 0%, #d3d3d3 100%) !important;
+        }
+
+        .intro-sommaire-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../images/parchment-bg.jpg') !important;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .page-content {
+            padding: 25px 25px 15px 25px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: relative;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.98) 0%, 
+                rgba(248, 248, 248, 0.98) 100%);
+        }
+
+        .david-bg h1, .david-bg h2, .david-bg p,
+        .john-bg h1, .john-bg h2, .john-bg p,
+        .ken-bg h1, .ken-bg h2, .ken-bg p,
+        .aaron-bg h1, .aaron-bg h2, .aaron-bg p,
+        .davidjr-bg h1, .davidjr-bg h2, .davidjr-bg p,
+        .damon-bg h1, .damon-bg h2, .damon-bg p,
+        .kayton-bg h1, .kayton-bg h2, .kayton-bg p,
+        .adrian-bg h1, .adrian-bg h2, .adrian-bg p,
+        .ned-bg h1, .ned-bg h2, .ned-bg p,
+        .manda-bg h1, .manda-bg h2, .manda-bg p {
+            color: #fff;
+        }
+
+        .intro-sommaire-bg h1, .intro-sommaire-bg h2, .intro-sommaire-bg p {
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .david-bg .epic-chapter-title,
+        .john-bg .epic-chapter-title,
+        .ken-bg .epic-chapter-title,
+        .aaron-bg .epic-chapter-title,
+        .davidjr-bg .epic-chapter-title,
+        .damon-bg .epic-chapter-title,
+        .kayton-bg .epic-chapter-title,
+        .adrian-bg .epic-chapter-title,
+        .ned-bg .epic-chapter-title,
+        .manda-bg .epic-chapter-title {
+            color: transparent;
+            background: linear-gradient(135deg, #ffd700, #f39c12);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .chapter-title-page .page-content {
+            overflow-y: hidden;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 8px;
+            right: 15px;
+            font-size: 14px;
+            color: #8b4513;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 8px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ffd700;
+            transition: opacity 0.3s ease;
+        }
+
+        .page-number.hidden {
+            opacity: 0;
+        }
+
+        .scroll-indicator.hidden {
+            opacity: 0;
+        }
+
+        .david-bg .page-number,
+        .john-bg .page-number,
+        .ken-bg .page-number,
+        .aaron-bg .page-number,
+        .davidjr-bg .page-number,
+        .damon-bg .page-number,
+        .kayton-bg .page-number,
+        .adrian-bg .page-number,
+        .ned-bg .page-number,
+        .manda-bg .page-number {
+            background: rgba(255, 215, 0, 0.9);
+            color: #000;
+        }
+
+        .chapter-indicator-main {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(243, 156, 18, 0.95));
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            z-index: 200;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #8b4513;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            border-bottom: 3px solid #ffd700;
+            padding-bottom: 10px;
+        }
+
+        .epic-chapter-title {
+            font-family: 'Cinzel', serif;
+            font-size: 40px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #8b4513;
+            text-shadow: 2px 2px 6px rgba(255, 215, 0, 0.5);
+            position: relative;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            animation: titleEnter 0.8s ease-out;
+        }
+
+        @keyframes titleEnter {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .epic-chapter-title::before,
+        .epic-chapter-title::after {
+            content: '✦';
+            position: absolute;
+            color: #ffd700;
+            font-size: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .epic-chapter-title::before {
+            left: -40px;
+        }
+
+        .epic-chapter-title::after {
+            right: -40px;
+        }
+
+        .chapter-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .intro-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: center;
+            color: #333;
+            text-shadow: 1px 1px 3px rgba(255, 215, 0, 0.3);
+            margin-bottom: 20px;
+            padding: 10px;
+            animation: textEnter 0.6s ease-out;
+        }
+
+        .intro-text-epic {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            color: transparent;
+            background: linear-gradient(135deg, #ffd700, #f39c12);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            animation: textEnter 0.8s ease-out;
+        }
+
+        @keyframes textEnter {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .page-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 12px;
+            margin: 15px auto;
+            display: block;
+            border: 3px solid #ffd700;
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .chapter-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 12px;
+            margin: 5px auto;
+            display: block;
+            border: 3px solid #ffd700;
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .chapter-image[style*="max-width: 100px"] {
+            max-width: 100px;
+        }
+
+        .page-image:hover,
+        .chapter-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 20px;
+            font-size: 24px;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+            cursor: pointer;
+            animation: pulse 1.5s ease-in-out infinite;
+            z-index: 10;
+            display: none;
+        }
+
+        .scrollable .scroll-indicator {
+            display: block;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.2); }
+        }
+
+        .text-content p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: justify;
+            text-indent: 20px;
+        }
+
+        .text-content h2 {
+            font-size: 18px;
+            margin: 20px 0 10px;
+            color: #8b4513;
+            border-left: 4px solid #ffd700;
+            padding-left: 15px;
+        }
+
+        .david-bg .text-content h2,
+        .john-bg .text-content h2,
+        .ken-bg .text-content h2,
+        .aaron-bg .text-content h2,
+        .davidjr-bg .text-content h2,
+        .damon-bg .text-content h2,
+        .kayton-bg .text-content h2,
+        .adrian-bg .text-content h2,
+        .ned-bg .text-content h2,
+        .manda-bg .text-content h2 {
+            color: #ffd700;
+        }
+
+        .text-content {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .sommaire-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sommaire-item {
+            margin-bottom: 15px;
+            cursor: pointer;
+            padding: 15px;
+            border-left: 4px solid #ffd700;
+            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
+            transition: all 0.4s ease;
+            border-radius: 0 12px 12px 0;
+            position: relative;
+            overflow: hidden;
+            font-weight: 600;
+            color: #fff8dc;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .sommaire-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.2) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .sommaire-item:hover {
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.1));
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
+        }
+
+        .sommaire-item:hover::before {
+            transform: translateX(100%);
+        }
+
+        .episodes-list {
+            margin-top: 20px;
+        }
+
+        .episode-item {
+            margin-bottom: 15px;
+            font-size: 13px;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
+            border-radius: 12px;
+            border-left: 4px solid #ffd700;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .episode-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .episode-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
+            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.08));
+        }
+
+        .episode-item:hover::before {
+            transform: translateX(100%);
+        }
+
+        .episode-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .episode-button {
+            background: linear-gradient(135deg, #ffd700, #f39c12);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .episode-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, #f39c12, #ffd700);
+        }
+
+        .episode-button:active {
+            transform: translateY(0);
+        }
+
+        .navigation {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            width: 900px;
+            left: 50%;
+            margin-left: -450px;
+            z-index: 1000;
+        }
+
+        .nav-button#prevBtn {
+            margin-left: -100px;
+        }
+
+        .nav-button#nextBtn {
+            margin-right: -100px;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #ffd700, #f39c12);
+            color: #000;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 16px;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-button:hover:not(:disabled) {
+            background: linear-gradient(135deg, #f39c12, #ffd700);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
+        }
+
+        .nav-button:disabled {
+            background: linear-gradient(135deg, #666, #555);
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .page-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(243, 156, 18, 0.95));
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            z-index: 200;
+            font-weight: 700;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .page-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .page-content::-webkit-scrollbar-track {
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 10px;
+        }
+
+        .page-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ffd700, #f39c12);
+            border-radius: 10px;
+        }
+
+        .page-content::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #f39c12, #ffd700);
+        }
+
+        @media (max-width: 768px) {
+            .book {
+                width: 90vw;
+                height: 60vh;
+                max-width: 500px;
+                max-height: 400px;
+            }
+
+            .navigation {
+                width: 660px;
+                margin-left: -330px;
+            }
+
+            .nav-button#prevBtn {
+                margin-left: -80px;
+            }
+
+            .nav-button#nextBtn {
+                margin-right: -80px;
+            }
+
+            .page-content {
+                padding: 15px 15px 10px 15px;
+            }
+
+            .epic-chapter-title {
+                font-size: 32px;
+            }
+
+            .chapter-subtitle {
+                font-size: 24px;
+            }
+
+            .intro-text {
+                font-size: 16px;
+            }
+
+            .intro-text-epic {
+                font-size: 20px;
+            }
+
+            .chapter-image {
+                margin: 3px auto;
+            }
+
+            .scroll-indicator {
+                font-size: 20px;
+            }
+        }
+
+        @keyframes pageEnter {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page {
+            animation: pageEnter 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-particles" id="particles"></div>
+
+    <a href="../../index.html" class="back-button">RETOUR</a>
+    <img src="../../images/flashballelogo.webp" alt="Logo Flash" class="logo">
+
+    <div class="book-container">
+        <div class="book" id="book"></div>
+    </div>
+
+    <div class="page-indicator" id="pageIndicator">Couverture</div>
+    <div class="chapter-indicator-main" id="chapterIndicator" style="display: none;"></div>
+    <div class="navigation">
+        <button class="nav-button" id="prevBtn" onclick="previousPage()" disabled>← Précédent</button>
+        <button class="nav-button" id="nextBtn" onclick="nextPage()">Suivant →</button>
+    </div>
+
+    <script>
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        let currentPageIndex = 0;
+        const pages = [
+            // Couverture
+            {
+                image: '../../images/flashlivre2.webp',
+                type: 'cover',
+                position: 'center'
+            },
+            // Intro + Sommaire
+            {
+                type: 'intro',
+                position: 'left',
+                title: 'Introduction',
+                backgroundClass: 'intro-sommaire-bg',
+                content: `
+                    <p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p>
+                    <img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">
+                    <p class="intro-text-epic">Mais qui sont-ils réellement ?</p>
+                `
+            },
+            {
+                type: 'sommaire',
+                position: 'right',
+                title: 'Sommaire',
+                backgroundClass: 'intro-sommaire-bg'
+            },
+            // Chapitre 1: David FLASH
+            {
+                type: 'chapter-title',
+                position: 'left',
+                pageNumber: 1,
+                chapter: 1,
+                backgroundClass: 'david-bg',
+                title: 'CHAPITRE 1',
+                subtitle: 'David FLASH',
+                content: `
+                    <img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">
+                    <img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">
+                `
+            },
+            {
+                type: 'text-page',
+                position: 'right',
+                pageNumber: 2,
+                chapter: 1,
+                backgroundClass: 'david-bg',
+                content: `
+                    <h2>Avant</h2>
+                    <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p>
+                    <p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p>
+                    <p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>
+                    <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires blabla</p>
+                `
+            },
+            {
+                type: 'text-page',
+                position: 'left',
+                pageNumber: 3,
+                chapter: 1,
+                backgroundClass: 'david-bg',
+                content: `
+                    <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p>
+                    <p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p>
+                    <p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>
+                    <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires blabla</p>
+                `
+            },
+            {
+                type: 'text-page',
+                position: 'right',
+                pageNumber: 4,
+                chapter: 1,
+                backgroundClass: 'david-bg',
+                content: `
+                    <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p>
+                    <p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p>
+                    <p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>
+                    <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires blabla</p>
+                `
+            },
+            {
+                type: 'episodes',
+                position: 'left',
+                pageNumber: 5,
+                chapter: 1,
+                backgroundClass: 'david-bg',
+                title: 'Épisodes de David FLASH',
+                content: `
+                    <div class="episodes-list">
+                        <h2>Épisodes de David FLASH - Saison 1</h2>
+                        <div class="episode-item">
+                            <div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div>
+                            <button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button>
+                        </div>
+                        <div class="episode-item">
+                            <div class="episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div>
+                            <button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
+                        </div>
+                        <div class="episode-item">
+                            <div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div>
+                            <button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button>
+                        </div>
+                        <div class="episode-item">
+                            <div class="episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div>
+                            <button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
+                        </div>
+                        <div class="episode-item">
+                            <div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div>
+                            <button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button>
+                        </div>
+                        <div class="episode-item">
+                            <div class="episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div>
+                            <button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
+                        </div>
+                    </div>
+                    <div class="scroll-indicator" onclick="toggleScroll(this.parentElement)">↓</div>
+                `
+            },
+            // Chapitre 2: John FLASH
+            {
+                type: 'chapter-title',
+                position: 'right',
+                pageNumber: 6,
+                chapter: 2,
+                backgroundClass: 'john-bg',
+                title: 'CHAPITRE 2',
+                subtitle: 'John FLASH',
+                content: `
+                    <img src="../../images/john_flash.jpg" alt="John FLASH" class="chapter-image">
+                    <img src="../../images/loupjohn.webp" alt="Symbole de John" class="chapter-image" style="max-width: 100px;">
+                `
+            },
+            {
+                type: 'text-page',
+                position: 'left',
+                pageNumber: 7,
+                chapter: 2,
+                backgroundClass: 'john-bg',
+                content: `
+                    <h2>Avant</h2>
+                    <p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p>
+                    <p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p>
+                    <p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>
+                `
+            },
+            {
+                type: 'text-page',
+                position: 'right',
+                pageNumber: 8,
+                chapter: 2,
+                backgroundClass: 'john-bg',
+                content: `
+                    <h2>Avant</h2>
+                    <p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p>
+                    <p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p>
+                    <p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>
+                `
+            }
+        ];
+
+        const totalPages = pages.length;
+
+        function renderPage(pageData, index) {
+            const pageClass = `page ${pageData.backgroundClass || ''} ${pageData.type === 'chapter-title' ? 'chapter-title-page' : ''} ${pageData.type === 'episodes' ? 'episodes-page' : ''}`.trim();
+            const position = pageData.position;
+            
+            console.log(`Rendu page ${index} avec classes: ${pageClass}, position: ${position}`);
+            
+            let content = '';
+            
+            switch(pageData.type) {
+                case 'cover':
+                    return `<div class="${pageClass} cover-page" data-position="${position}" style="display: none; background-image: url('${pageData.image}');"></div>`;
+                
+                case 'intro':
+                    content = `
+                        <div class="page-content ${pageData.backgroundClass || ''}">
+                            <h1 class="page-title">${pageData.title}</h1>
+                            <div class="text-content">${pageData.content}</div>
+                        </div>
+                    `;
+                    break;
+                
+                case 'sommaire':
+                    content = `
+                        <div class="page-content ${pageData.backgroundClass || ''}">
+                            <h1 class="page-title">Sommaire</h1>
+                            <div style="margin-top: 25px;">
+                                <h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif;">📚 Les Chapitres :</h2>
+                                <div class="sommaire-list">
+                                    <div class="sommaire-item" onclick="goToChapter(1)">🔥 Chapitre 1: David FLASH</div>
+                                    <div class="sommaire-item" onclick="goToChapter(2)">🐺 Chapitre 2: John FLASH</div>
+                                    <div class="sommaire-item" onclick="goToChapter(3)">🐉 Chapitre 3: Ken FLASH</div>
+                                    <div class="sommaire-item" onclick="goToChapter(4)">🐦‍🔥 Chapitre 4: Aaron FLASH</div>
+                                    <div class="sommaire-item" onclick="goToChapter(5)">🐍 Chapitre 5: David JR. FLASH</div>
+                                    <div class="sommaire-item" onclick="goToChapter(6)">🦁 Chapitre 6: Damon FLASH</div>
+                                    <div class="sommaire-item" onclick="goToChapter(7)">🐺 Chapitre 7: Kayton FLASH</div>
+                                    <div class="sommaire-item" onclick="goToChapter(8)">🐍 Chapitre 8: Adrian FLASH</div>
+                                    <div class="sommaire-item" onclick="goToChapter(9)">👤👤👤 Chapitre 9: Eden/Ned/Eddy FLASH</div>
+                                    <div class="sommaire-item" onclick="goToChapter(10)">❓Chapitre 10: Manda FLASH</div>
+                                    <div class="sommaire-item" onclick="goToChapter(11)">🌳 Arbre Généalogique</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                
+                case 'chapter-title':
+                    content = `
+                        <div class="page-content">
+                            <h1 class="epic-chapter-title">${pageData.title}</h1>
+                            <h1 class="chapter-subtitle">${pageData.subtitle}</h1>
+                            <div class="text-content">${pageData.content}</div>
+                            <div class="page-number">${pageData.pageNumber}</div>
+                        </div>
+                    `;
+                    break;
+                
+                case 'text-page':
+                    content = `
+                        <div class="page-content">
+                            <div class="text-content">${pageData.content}</div>
+                            <div class="page-number">${pageData.pageNumber}</div>
+                        </div>
+                    `;
+                    break;
+                
+                case 'episodes':
+                    content = `
+                        <div class="page-content episodes-page">
+                            <h1 class="page-title">${pageData.title}</h1>
+                            <div class="text-content">${pageData.content}</div>
+                            <div class="page-number">${pageData.pageNumber}</div>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            return `<div class="${pageClass}" data-position="${position}" style="display: none;">${content}</div>`;
+        }
+
+        function showPage(index) {
+            const book = document.getElementById('book');
+            const pageData = pages[index];
+            
+            console.log(`showPage: index=${index}, rendering page ${pageData.pageNumber || index}${pages[index + 1]?.pageNumber ? ' and ' + pages[index + 1].pageNumber : ''}`);
+            
+            book.innerHTML = '';
+            
+            if (index === 0) {
+                // Page couverture : centrée
+                book.innerHTML = renderPage(pageData, index);
+                book.querySelector('.page').style.display = 'block';
+            } else if (index === 1) {
+                // Intro + Sommaire comme double page
+                book.innerHTML = renderPage(pages[1], 1) + renderPage(pages[2], 2);
+                book.querySelectorAll('.page').forEach(page => page.style.display = 'block');
+            } else {
+                // Pages normales : afficher gauche + droite si possible
+                const leftPage = pageData.position === 'left' ? renderPage(pageData, index) : (index > 0 ? renderPage(pages[index - 1], index - 1) : '');
+                const rightPage = index < totalPages - 1 && pages[index + 1]?.position === 'right' ? renderPage(pages[index + 1], index + 1) : 
+                                 (pageData.position === 'right' ? renderPage(pageData, index) : '');
+                
+                book.innerHTML = leftPage + rightPage;
+                book.querySelectorAll('.page').forEach(page => page.style.display = 'block');
+            }
+            
+            updateIndicators();
+            setTimeout(setupPageNumberScroll, 0); // Vérifier scroll après rendu
+        }
+
+        function toggleScroll(element) {
+            if (element.classList.contains('scroll-down')) {
+                element.scrollTo({ top: element.scrollHeight, behavior: 'smooth' });
+            } else {
+                element.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function setupPageNumberScroll() {
+            const pageContents = document.querySelectorAll('.page-content');
+            pageContents.forEach(content => {
+                const pageNumber = content.querySelector('.page-number');
+                const scrollIndicator = content.querySelector('.scroll-indicator');
+                
+                if (pageNumber || scrollIndicator) {
+                    content.addEventListener('scroll', () => {
+                        if (pageNumber) {
+                            if (content.scrollTop > 0) {
+                                pageNumber.classList.add('hidden');
+                            } else {
+                                pageNumber.classList.remove('hidden');
+                            }
+                        }
+                        if (scrollIndicator) {
+                            if (content.scrollTop > 0) {
+                                scrollIndicator.classList.add('hidden');
+                            } else {
+                                scrollIndicator.classList.remove('hidden');
+                            }
+                            if (content.scrollHeight > content.clientHeight) {
+                                content.classList.add('scrollable');
+                                if (content.scrollTop >= content.scrollHeight - content.clientHeight - 10) {
+                                    scrollIndicator.textContent = '↑';
+                                    content.classList.remove('scroll-down');
+                                } else {
+                                    scrollIndicator.textContent = '↓';
+                                    content.classList.add('scroll-down');
+                                }
+                            } else {
+                                content.classList.remove('scrollable');
+                            }
+                        }
+                    });
+                    // Vérifier initialement
+                    if (scrollIndicator && content.scrollHeight > content.clientHeight) {
+                        content.classList.add('scrollable');
+                        if (content.scrollTop >= content.scrollHeight - content.clientHeight - 10) {
+                            scrollIndicator.textContent = '↑';
+                            content.classList.remove('scroll-down');
+                        } else {
+                            scrollIndicator.textContent = '↓';
+                            content.classList.add('scroll-down');
+                        }
+                        if (content.scrollTop > 0) {
+                            scrollIndicator.classList.add('hidden');
+                        } else {
+                            scrollIndicator.classList.remove('hidden');
+                        }
+                    } else {
+                        content.classList.remove('scrollable');
+                        if (scrollIndicator) {
+                            scrollIndicator.classList.add('hidden');
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateIndicators() {
+            const pageData = pages[currentPageIndex];
+            const pageIndicator = document.getElementById('pageIndicator');
+            const maxPageNumber = pages[pages.length - 1].pageNumber || pages.length - 1;
+            
+            if (currentPageIndex === 0) {
+                pageIndicator.textContent = 'Couverture';
+            } else if (currentPageIndex === 1) {
+                pageIndicator.textContent = 'Intro et Sommaire';
+            } else if (pageData.position === 'left' && pages[currentPageIndex + 1]?.position === 'right') {
+                pageIndicator.textContent = `Page ${pageData.pageNumber} - ${pages[currentPageIndex + 1].pageNumber} / ${maxPageNumber}`;
+            } else if (pageData.position === 'right' && currentPageIndex > 0 && pages[currentPageIndex - 1].position === 'left') {
+                pageIndicator.textContent = `Page ${pages[currentPageIndex - 1].pageNumber} - ${pageData.pageNumber} / ${maxPageNumber}`;
+            } else {
+                pageIndicator.textContent = `Page ${pageData.pageNumber || currentPageIndex} / ${maxPageNumber}`;
+            }
+            
+            const chapterIndicator = document.getElementById('chapterIndicator');
+            if (pageData.chapter) {
+                chapterIndicator.textContent = `📖 Chapitre ${pageData.chapter}`;
+                chapterIndicator.style.display = 'block';
+            } else {
+                chapterIndicator.style.display = 'none';
+            }
+            
+            document.getElementById('prevBtn').disabled = currentPageIndex === 0;
+            document.getElementById('nextBtn').disabled = currentPageIndex >= totalPages - 1 || (currentPageIndex === totalPages - 2 && pages[currentPageIndex].position === 'left' && pages[currentPageIndex + 1]?.position === 'right');
+        }
+
+        function nextPage() {
+            if (currentPageIndex < totalPages - 1) {
+                if (currentPageIndex === 0) {
+                    currentPageIndex = 1; // Couverture à Intro+Sommaire
+                } else if (currentPageIndex === 1) {
+                    currentPageIndex = 3; // Intro+Sommaire à Page 1
+                } else if (pages[currentPageIndex].position === 'left' && currentPageIndex < totalPages - 1 && pages[currentPageIndex + 1].position === 'right') {
+                    currentPageIndex += 2; // Passe à la paire suivante
+                } else {
+                    currentPageIndex += 1; // Passe à la page suivante
+                }
+                if (currentPageIndex > totalPages - 1) {
+                    currentPageIndex = totalPages - 1;
+                }
+                console.log(`nextPage: currentPageIndex=${currentPageIndex}, position=${pages[currentPageIndex]?.position}`);
+                showPage(currentPageIndex);
+            }
+        }
+
+        function previousPage() {
+            if (currentPageIndex > 0) {
+                if (currentPageIndex === 3) {
+                    currentPageIndex = 1; // Page 1 à Intro+Sommaire
+                } else if (currentPageIndex === 1) {
+                    currentPageIndex = 0; // Intro+Sommaire à Couverture
+                } else if (pages[currentPageIndex].position === 'right' && currentPageIndex > 0 && pages[currentPageIndex - 1].position === 'left') {
+                    currentPageIndex -= 2; // Passe à la paire précédente
+                } else {
+                    currentPageIndex -= 1; // Passe à la page précédente
+                }
+                if (currentPageIndex < 0) {
+                    currentPageIndex = 0;
+                }
+                console.log(`previousPage: currentPageIndex=${currentPageIndex}, position=${pages[currentPageIndex]?.position}`);
+                showPage(currentPageIndex);
+            }
+        }
+
+        function goToChapter(chapterNum) {
+            const chapterPages = {
+                1: 3, // Chapitre 1 commence à la page 1 (index 3)
+                2: 8, // Chapitre 2 commence à la page 6 (index 8)
+                3: null // Arbre généalogique (à ajouter plus tard)
+            };
+            
+            if (chapterPages[chapterNum] !== null) {
+                currentPageIndex = chapterPages[chapterNum];
+                showPage(currentPageIndex);
+            } else {
+                console.log(`Chapitre ${chapterNum} non disponible`);
+            }
+        }
+
+        function openVideo(videoId) {
+            if (videoId && videoId !== '#') {
+                window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+            } else {
+                alert('Vidéo non disponible');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            showPage(0);
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextPage();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    previousPage();
+                }
+            });
+            
+            let startX = 0, startY = 0;
+            document.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            });
+            
+            document.addEventListener('touchend', (e) => {
+                if (!startX || !startY) return;
+                
+                const endX = e.changedTouches[0].clientX;
+                const endY = e.changedTouches[0].clientY;
+                const diffX = startX - endX;
+                const diffY = startY - endY;
+                
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        nextPage();
+                    } else {
+                        previousPage();
+                    }
+                }
+                
+                startX = startY = 0;
+            });
+        });
+    </script>
+</body>
+</html>
