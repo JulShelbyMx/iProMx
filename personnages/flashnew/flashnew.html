@@ -699,54 +699,101 @@
         }
 
         @media (max-width: 768px) {
-            .book {
-                width: 90vw;
-                height: 60vh;
-                max-width: 500px;
-                max-height: 400px;
-            }
+    /* Forcer la largeur minimum pour garder l'aspect PC */
+    html, body {
+        min-width: 900px;
+        overflow-x: auto;
+    }
+    
+    /* Garder les dimensions PC pour le livre */
+    .book {
+        width: 700px;
+        height: 500px;
+        min-width: 700px;
+        min-height: 500px;
+    }
 
-            .navigation {
-                width: 660px;
-                margin-left: -330px;
-            }
+    /* Garder la navigation PC */
+    .navigation {
+        width: 900px;
+        margin-left: -450px;
+    }
 
-            .nav-button#prevBtn {
-                margin-left: -80px;
-            }
+    .nav-button#prevBtn {
+        margin-left: -100px;
+    }
 
-            .nav-button#nextBtn {
-                margin-right: -80px;
-            }
+    .nav-button#nextBtn {
+        margin-right: -100px;
+    }
 
-            .page-content {
-                padding: 15px 15px 10px 15px;
-            }
+    /* Garder le padding PC */
+    .page-content {
+        padding: 25px 25px 15px 25px;
+    }
 
-            .epic-chapter-title {
-                font-size: 32px;
-            }
+    /* Garder les tailles de police PC */
+    .epic-chapter-title {
+        font-size: 40px;
+    }
 
-            .chapter-subtitle {
-                font-size: 24px;
-            }
+    .chapter-subtitle {
+        font-size: 28px;
+    }
 
-            .intro-text {
-                font-size: 16px;
-            }
+    .intro-text {
+        font-size: 18px;
+    }
 
-            .intro-text-epic {
-                font-size: 20px;
-            }
+    .intro-text-epic {
+        font-size: 24px;
+    }
 
-            .chapter-image {
-                margin: 3px auto;
-            }
+    /* Garder les marges PC pour les images */
+    .chapter-image {
+        margin: 15px auto;
+    }
 
-            .scroll-indicator {
-                font-size: 20px;
-            }
-        }
+    /* Garder la taille PC pour l'indicateur de scroll */
+    .scroll-indicator {
+        font-size: 24px;
+    }
+    
+    /* Ajuster seulement les éléments UI pour être plus accessibles sur mobile */
+    .back-button {
+        padding: 10px 20px;
+        font-size: 12px;
+        top: 10px;
+        left: 10px;
+    }
+    
+    .logo {
+        max-width: 80px;
+        top: 5px;
+        right: 5px;
+    }
+    
+    .page-indicator,
+    .chapter-indicator-main {
+        font-size: 12px;
+        padding: 8px 16px;
+        bottom: 15px;
+    }
+    
+    .page-indicator {
+        left: 15px;
+    }
+    
+    .chapter-indicator-main {
+        right: 15px;
+    }
+    
+    /* Permettre le scroll horizontal si nécessaire */
+    .book-container {
+        padding: 10px;
+        overflow-x: auto;
+    }
+}
 
         @keyframes pageEnter {
             from {
