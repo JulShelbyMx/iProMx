@@ -699,147 +699,315 @@
         }
 
         @media (max-width: 768px) {
-    /* Transformation globale : tout divisé par ~1.4 pour garder les proportions PC */
+    body {
+        overflow: auto;
+        padding: 0;
+    }
+
+    .book-container {
+        padding: 15px 10px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .book {
-        width: 500px; /* 700px ÷ 1.4 */
-        height: 357px; /* 500px ÷ 1.4 */
-        transform: scale(0.85); /* Réduction supplémentaire pour s'adapter à l'écran */
-        transform-origin: center;
+        width: min(90vw, 600px);
+        height: min(70vh, 430px);
+        min-width: 320px;
+        min-height: 240px;
+        max-width: 600px;
+        max-height: 430px;
+    }
+
+    .page {
+        border-radius: 10px;
+        border-width: 2px;
     }
 
     .page-content {
-        padding: 18px 18px 11px 18px; /* 25px ÷ 1.4 */
+        padding: 20px;
+        font-size: 14px;
     }
 
     .epic-chapter-title {
-        font-size: 29px; /* 40px ÷ 1.4 */
+        font-size: 32px;
+        margin-bottom: 15px;
+        padding: 8px 16px;
     }
 
     .epic-chapter-title::before,
     .epic-chapter-title::after {
-        font-size: 20px; /* 28px ÷ 1.4 */
-        left: -29px; /* -40px ÷ 1.4 */
-        right: -29px;
+        font-size: 24px;
+        left: -30px;
+        right: -30px;
     }
 
     .chapter-subtitle {
-        font-size: 20px; /* 28px ÷ 1.4 */
+        font-size: 24px;
+        margin-bottom: 15px;
     }
 
     .page-title {
-        font-size: 20px; /* 28px ÷ 1.4 */
+        font-size: 24px;
+        margin-bottom: 15px;
     }
 
     .intro-text {
-        font-size: 13px; /* 18px ÷ 1.4 */
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 15px;
     }
 
     .intro-text-epic {
-        font-size: 17px; /* 24px ÷ 1.4 */
+        font-size: 20px;
+        padding: 8px 16px;
+        margin-bottom: 15px;
     }
 
     .page-image,
     .chapter-image {
-        max-width: 143px; /* 200px ÷ 1.4 */
-        margin: 11px auto; /* 15px ÷ 1.4 */
+        max-width: 160px;
+        margin: 12px auto;
+        border-width: 2px;
     }
 
     .chapter-image[style*="max-width: 100px"] {
-        max-width: 71px; /* 100px ÷ 1.4 */
+        max-width: 80px;
     }
 
     .text-content p {
-        font-size: 10px; /* 14px ÷ 1.4 */
-        margin-bottom: 11px; /* 15px ÷ 1.4 */
-        text-indent: 14px; /* 20px ÷ 1.4 */
+        font-size: 13px;
+        line-height: 1.6;
+        margin-bottom: 12px;
+        text-indent: 16px;
     }
 
     .text-content h2 {
-        font-size: 13px; /* 18px ÷ 1.4 */
-        margin: 14px 0 7px; /* 20px ÷ 1.4, 10px ÷ 1.4 */
-        padding-left: 11px; /* 15px ÷ 1.4 */
+        font-size: 16px;
+        margin: 16px 0 8px;
+        padding-left: 12px;
+        border-left-width: 3px;
     }
 
     .sommaire-item {
-        margin-bottom: 11px; /* 15px ÷ 1.4 */
-        padding: 11px; /* 15px ÷ 1.4 */
+        margin-bottom: 12px;
+        padding: 14px;
+        font-size: 14px;
+        border-radius: 0 10px 10px 0;
+    }
+
+    .episodes-list {
+        margin-top: 16px;
     }
 
     .episode-item {
-        margin-bottom: 11px; /* 15px ÷ 1.4 */
-        padding: 11px; /* 15px ÷ 1.4 */
-        font-size: 9px; /* 13px ÷ 1.4 */
+        margin-bottom: 12px;
+        padding: 12px;
+        font-size: 12px;
+        border-radius: 10px;
+        border-left-width: 3px;
+    }
+
+    .episode-title {
+        margin-bottom: 6px;
+        font-size: 12px;
     }
 
     .episode-button {
-        padding: 6px 11px; /* 8px ÷ 1.4, 16px ÷ 1.4 */
-        font-size: 9px; /* 12px ÷ 1.4 */
+        padding: 8px 14px;
+        border-radius: 16px;
+        font-size: 11px;
+        letter-spacing: 0.3px;
     }
 
     .scroll-indicator {
-        font-size: 17px; /* 24px ÷ 1.4 */
-        bottom: 14px; /* 20px ÷ 1.4 */
+        font-size: 22px;
+        bottom: 16px;
     }
 
     .page-number {
-        font-size: 10px; /* 14px ÷ 1.4 */
-        bottom: 6px; /* 8px ÷ 1.4 */
-        right: 11px; /* 15px ÷ 1.4 */
+        font-size: 12px;
+        padding: 4px 8px;
+        bottom: 8px;
+        right: 12px;
+        border-radius: 10px;
     }
 
     .navigation {
-        width: 643px; /* 900px ÷ 1.4 */
-        margin-left: -321px; /* -450px ÷ 1.4 */
-        transform: scale(0.85);
-        transform-origin: center;
-    }
-
-    .nav-button#prevBtn {
-        margin-left: -71px; /* -100px ÷ 1.4 */
-    }
-
-    .nav-button#nextBtn {
-        margin-right: -71px; /* -100px ÷ 1.4 */
+        width: 100%;
+        max-width: 600px;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-left: 0;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        box-sizing: border-box;
     }
 
     .nav-button {
-        padding: 11px 18px; /* 15px ÷ 1.4, 25px ÷ 1.4 */
-        font-size: 11px; /* 16px ÷ 1.4 */
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-size: 14px;
+        margin: 0;
+        min-width: 120px;
+    }
+
+    .nav-button#prevBtn,
+    .nav-button#nextBtn {
+        margin: 0;
     }
 
     .back-button {
-        padding: 9px 17px; /* 12px ÷ 1.4, 24px ÷ 1.4 */
-        font-size: 10px; /* 14px ÷ 1.4 */
+        padding: 10px 18px;
+        font-size: 12px;
+        top: 10px;
+        left: 10px;
+        border-radius: 22px;
+        letter-spacing: 0.8px;
     }
 
     .logo {
-        max-width: 71px; /* 100px ÷ 1.4 */
+        max-width: 80px;
+        top: 8px;
+        right: 8px;
+    }
+
+    .page-indicator {
+        bottom: 15px;
+        left: 15px;
+        font-size: 12px;
+        padding: 8px 16px;
+        border-radius: 22px;
+        letter-spacing: 0.5px;
+    }
+
+    .chapter-indicator-main {
+        bottom: 15px;
+        right: 15px;
+        font-size: 12px;
+        padding: 8px 16px;
+        border-radius: 22px;
+        letter-spacing: 0.5px;
+    }
+
+    /* Améliorer les particules pour mobile */
+    .ambient-particles .particle {
+        animation-duration: 8s;
+        opacity: 0.6;
+    }
+
+    /* Scrollbar amélioré */
+    .page-content::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .page-content::-webkit-scrollbar-track {
+        background: rgba(139, 69, 19, 0.1);
+        border-radius: 10px;
+    }
+
+    .page-content::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #ffd700, #f39c12);
+        border-radius: 10px;
+    }
+
+    /* Transitions fluides */
+    .sommaire-item,
+    .episode-item {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sommaire-item:hover,
+    .episode-item:hover {
+        transform: translateX(8px);
+    }
+}
+
+/* Tablettes en mode portrait */
+@media (max-width: 768px) and (min-width: 481px) {
+    .book {
+        width: min(85vw, 650px);
+        height: min(75vh, 480px);
+    }
+
+    .page-content {
+        padding: 22px;
+        font-size: 15px;
+    }
+
+    .epic-chapter-title {
+        font-size: 36px;
+    }
+
+    .chapter-subtitle {
+        font-size: 26px;
+    }
+
+    .page-title {
+        font-size: 26px;
+    }
+}
+
+/* Petits mobiles */
+@media (max-width: 480px) {
+    .book-container {
+        padding: 10px 5px;
+    }
+
+    .book {
+        width: min(95vw, 400px);
+        height: min(65vh, 300px);
+        min-width: 300px;
+        min-height: 220px;
+    }
+
+    .page-content {
+        padding: 16px;
+        font-size: 13px;
+    }
+
+    .epic-chapter-title {
+        font-size: 26px;
+    }
+
+    .chapter-subtitle {
+        font-size: 20px;
+    }
+
+    .page-title {
+        font-size: 20px;
+    }
+
+    .intro-text {
+        font-size: 14px;
+    }
+
+    .intro-text-epic {
+        font-size: 17px;
+    }
+
+    .navigation {
+        padding: 0 10px;
+    }
+
+    .nav-button {
+        padding: 10px 16px;
+        font-size: 12px;
+        min-width: 100px;
+    }
+
+    .back-button {
+        padding: 8px 14px;
+        font-size: 11px;
     }
 
     .page-indicator,
     .chapter-indicator-main {
-        font-size: 10px; /* 14px ÷ 1.4 */
-        padding: 7px 14px; /* 10px ÷ 1.4, 20px ÷ 1.4 */
-        bottom: 14px; /* 20px ÷ 1.4 */
-    }
-
-    .page-indicator {
-        left: 14px; /* 20px ÷ 1.4 */
-    }
-
-    .chapter-indicator-main {
-        right: 14px; /* 20px ÷ 1.4 */
-    }
-}
-
-/* Pour les très petits écrans, on scale encore plus */
-@media (max-width: 480px) {
-    .book {
-        transform: scale(0.7);
-    }
-    
-    .navigation {
-        transform: scale(0.7);
+        font-size: 11px;
+        padding: 6px 12px;
     }
 }
 
