@@ -699,264 +699,147 @@
         }
 
         @media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-
-    .book-container {
-        padding: 10px;
-        min-height: calc(100vh - 20px);
-    }
-
+    /* Transformation globale : tout divisé par ~1.4 pour garder les proportions PC */
     .book {
-        width: calc(100vw - 40px);
-        height: calc(100vh - 120px);
-        max-width: 600px;
-        max-height: 450px;
-        min-height: 400px;
-    }
-
-    .page {
-        border-radius: 8px;
-        border-width: 2px;
+        width: 500px; /* 700px ÷ 1.4 */
+        height: 357px; /* 500px ÷ 1.4 */
+        transform: scale(0.85); /* Réduction supplémentaire pour s'adapter à l'écran */
+        transform-origin: center;
     }
 
     .page-content {
-        padding: 18px 18px 12px 18px;
-        font-size: 13px;
+        padding: 18px 18px 11px 18px; /* 25px ÷ 1.4 */
     }
 
     .epic-chapter-title {
-        font-size: 28px;
-        padding: 8px 15px;
-        margin-bottom: 15px;
+        font-size: 29px; /* 40px ÷ 1.4 */
     }
 
     .epic-chapter-title::before,
     .epic-chapter-title::after {
-        font-size: 20px;
-        left: -25px;
-        right: -25px;
+        font-size: 20px; /* 28px ÷ 1.4 */
+        left: -29px; /* -40px ÷ 1.4 */
+        right: -29px;
     }
 
     .chapter-subtitle {
-        font-size: 22px;
-        margin-bottom: 15px;
+        font-size: 20px; /* 28px ÷ 1.4 */
     }
 
     .page-title {
-        font-size: 22px;
-        margin-bottom: 15px;
+        font-size: 20px; /* 28px ÷ 1.4 */
     }
 
     .intro-text {
-        font-size: 15px;
-        line-height: 1.6;
-        margin-bottom: 15px;
+        font-size: 13px; /* 18px ÷ 1.4 */
     }
 
     .intro-text-epic {
-        font-size: 18px;
-        padding: 8px 15px;
-        margin-bottom: 15px;
+        font-size: 17px; /* 24px ÷ 1.4 */
     }
 
     .page-image,
     .chapter-image {
-        max-width: 140px;
-        margin: 10px auto;
-        border-width: 2px;
+        max-width: 143px; /* 200px ÷ 1.4 */
+        margin: 11px auto; /* 15px ÷ 1.4 */
     }
 
     .chapter-image[style*="max-width: 100px"] {
-        max-width: 70px;
+        max-width: 71px; /* 100px ÷ 1.4 */
     }
 
     .text-content p {
-        font-size: 12px;
-        line-height: 1.5;
-        margin-bottom: 12px;
-        text-indent: 15px;
+        font-size: 10px; /* 14px ÷ 1.4 */
+        margin-bottom: 11px; /* 15px ÷ 1.4 */
+        text-indent: 14px; /* 20px ÷ 1.4 */
     }
 
     .text-content h2 {
-        font-size: 16px;
-        margin: 15px 0 8px;
-        padding-left: 12px;
-        border-left-width: 3px;
+        font-size: 13px; /* 18px ÷ 1.4 */
+        margin: 14px 0 7px; /* 20px ÷ 1.4, 10px ÷ 1.4 */
+        padding-left: 11px; /* 15px ÷ 1.4 */
     }
 
     .sommaire-item {
-        margin-bottom: 12px;
-        padding: 12px;
-        font-size: 13px;
-        border-radius: 0 8px 8px 0;
-    }
-
-    .episodes-list {
-        margin-top: 15px;
+        margin-bottom: 11px; /* 15px ÷ 1.4 */
+        padding: 11px; /* 15px ÷ 1.4 */
     }
 
     .episode-item {
-        margin-bottom: 12px;
-        font-size: 12px;
-        padding: 12px;
-        border-radius: 8px;
-        border-left-width: 3px;
-    }
-
-    .episode-title {
-        margin-bottom: 6px;
-        font-size: 12px;
+        margin-bottom: 11px; /* 15px ÷ 1.4 */
+        padding: 11px; /* 15px ÷ 1.4 */
+        font-size: 9px; /* 13px ÷ 1.4 */
     }
 
     .episode-button {
-        padding: 6px 12px;
-        border-radius: 15px;
-        font-size: 10px;
-        letter-spacing: 0.3px;
+        padding: 6px 11px; /* 8px ÷ 1.4, 16px ÷ 1.4 */
+        font-size: 9px; /* 12px ÷ 1.4 */
     }
 
     .scroll-indicator {
-        font-size: 20px;
-        bottom: 15px;
+        font-size: 17px; /* 24px ÷ 1.4 */
+        bottom: 14px; /* 20px ÷ 1.4 */
     }
 
     .page-number {
-        font-size: 12px;
-        padding: 3px 6px;
-        bottom: 6px;
-        right: 12px;
-        border-radius: 8px;
+        font-size: 10px; /* 14px ÷ 1.4 */
+        bottom: 6px; /* 8px ÷ 1.4 */
+        right: 11px; /* 15px ÷ 1.4 */
     }
 
     .navigation {
-        width: calc(100vw - 20px);
-        left: 50%;
-        transform: translateX(-50%);
-        margin-left: 0;
-        justify-content: space-between;
-        padding: 0 10px;
+        width: 643px; /* 900px ÷ 1.4 */
+        margin-left: -321px; /* -450px ÷ 1.4 */
+        transform: scale(0.85);
+        transform-origin: center;
+    }
+
+    .nav-button#prevBtn {
+        margin-left: -71px; /* -100px ÷ 1.4 */
+    }
+
+    .nav-button#nextBtn {
+        margin-right: -71px; /* -100px ÷ 1.4 */
     }
 
     .nav-button {
-        padding: 12px 20px;
-        border-radius: 20px;
-        font-size: 14px;
-        margin: 0;
-    }
-
-    .nav-button#prevBtn,
-    .nav-button#nextBtn {
-        margin: 0;
+        padding: 11px 18px; /* 15px ÷ 1.4, 25px ÷ 1.4 */
+        font-size: 11px; /* 16px ÷ 1.4 */
     }
 
     .back-button {
-        padding: 8px 16px;
-        font-size: 12px;
-        top: 10px;
-        left: 10px;
-        border-radius: 20px;
-        letter-spacing: 0.5px;
+        padding: 9px 17px; /* 12px ÷ 1.4, 24px ÷ 1.4 */
+        font-size: 10px; /* 14px ÷ 1.4 */
     }
 
     .logo {
-        max-width: 70px;
-        top: 8px;
-        right: 8px;
+        max-width: 71px; /* 100px ÷ 1.4 */
+    }
+
+    .page-indicator,
+    .chapter-indicator-main {
+        font-size: 10px; /* 14px ÷ 1.4 */
+        padding: 7px 14px; /* 10px ÷ 1.4, 20px ÷ 1.4 */
+        bottom: 14px; /* 20px ÷ 1.4 */
     }
 
     .page-indicator {
-        bottom: 15px;
-        left: 15px;
-        font-size: 11px;
-        padding: 8px 14px;
-        border-radius: 20px;
-        letter-spacing: 0.5px;
+        left: 14px; /* 20px ÷ 1.4 */
     }
 
     .chapter-indicator-main {
-        bottom: 15px;
-        right: 15px;
-        font-size: 11px;
-        padding: 8px 14px;
-        border-radius: 20px;
-        letter-spacing: 0.5px;
-    }
-
-    /* Améliorer le scrollbar sur mobile */
-    .page-content::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .page-content::-webkit-scrollbar-track {
-        background: rgba(139, 69, 19, 0.1);
-        border-radius: 8px;
-    }
-
-    .page-content::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #ffd700, #f39c12);
-        border-radius: 8px;
-    }
-
-    /* Optimiser les particules pour mobile */
-    .particle {
-        animation-duration: 8s;
-    }
-
-    /* Améliorer les transitions sur mobile */
-    .sommaire-item,
-    .episode-item {
-        transition: all 0.3s ease;
-    }
-
-    .sommaire-item:hover,
-    .episode-item:hover {
-        transform: translateX(5px);
+        right: 14px; /* 20px ÷ 1.4 */
     }
 }
 
-/* Pour les très petits écrans */
+/* Pour les très petits écrans, on scale encore plus */
 @media (max-width: 480px) {
     .book {
-        width: calc(100vw - 20px);
-        height: calc(100vh - 100px);
-        max-height: 400px;
-        min-height: 350px;
+        transform: scale(0.7);
     }
-
-    .page-content {
-        padding: 15px 15px 10px 15px;
-        font-size: 12px;
-    }
-
-    .epic-chapter-title {
-        font-size: 24px;
-    }
-
-    .chapter-subtitle {
-        font-size: 18px;
-    }
-
-    .page-title {
-        font-size: 18px;
-    }
-
-    .intro-text {
-        font-size: 14px;
-    }
-
-    .intro-text-epic {
-        font-size: 16px;
-    }
-
+    
     .navigation {
-        padding: 0 5px;
-    }
-
-    .nav-button {
-        padding: 10px 16px;
-        font-size: 12px;
+        transform: scale(0.7);
     }
 }
 
