@@ -736,13 +736,13 @@
 
             .back-button {
                 position: fixed;
-                top: 4px;
-                left: 4px;
-                padding: 5px 10px;
-                font-size: 9px;
-                border-radius: 14px;
-                box-shadow: 0 3px 8px rgba(255, 215, 0, 0.15);
-                letter-spacing: 0.4px;
+                top: 8px;
+                left: 8px;
+                padding: 4px 8px;
+                font-size: 8px;
+                border-radius: 12px;
+                box-shadow: 0 2px 6px rgba(255, 215, 0, 0.15);
+                letter-spacing: 0.3px;
                 transition: all 0.2s ease;
                 background: linear-gradient(135deg, #ffd700, #f1c40f);
                 color: #000;
@@ -752,19 +752,19 @@
 
             .back-button:hover {
                 transform: translateY(-1px);
-                box-shadow: 0 5px 10px rgba(255, 215, 0, 0.25);
+                box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
             }
 
             .logo {
                 position: fixed;
-                max-width: 40px;
-                top: 3px;
-                right: 3px;
+                max-width: 30px;
+                top: 8px;
+                right: 8px;
                 z-index: 1000;
             }
 
             .book-container {
-                padding: 0;
+                padding: 10px;
                 margin: 0;
                 width: 100vw;
                 height: 100vh;
@@ -774,9 +774,9 @@
             }
 
             .book {
-                width: 100vw;
-                height: 100vh;
-                filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3));
+                width: 100%;
+                height: 100%;
+                filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -784,10 +784,10 @@
 
             .page {
                 border: 1px solid rgba(255, 215, 0, 0.2);
-                border-radius: 0;
-                box-shadow: 0 10px 25px rgba(255, 215, 0, 0.15);
-                width: 100vw;
-                height: 100vh;
+                border-radius: 6px;
+                box-shadow: 0 8px 20px rgba(255, 215, 0, 0.1);
+                width: 100%;
+                height: 100%;
                 position: relative;
             }
 
@@ -798,7 +798,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.15) 5%, transparent 10%);
+                background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.1) 5%, transparent 10%);
                 z-index: -1;
             }
 
@@ -808,14 +808,14 @@
             }
 
             .page[data-position="center"] {
-                width: 100vw;
+                width: 100%;
                 margin: 0;
                 border: 1px solid rgba(255, 215, 0, 0.2);
-                box-shadow: 0 10px 25px rgba(255, 215, 0, 0.15);
+                box-shadow: 0 8px 20px rgba(255, 215, 0, 0.1);
             }
 
             .page-content {
-                padding: 10px 6px;
+                padding: 8px 5px;
                 background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.95) 100%);
                 height: 100%;
                 width: 100%;
@@ -871,7 +871,7 @@
             }
 
             .page-number {
-                font-size: 9px;
+                font-size: 8px;
                 padding: 2px 4px;
                 bottom: 4px;
                 right: 5px;
@@ -901,9 +901,9 @@
                 bottom: 8px;
                 right: 8px;
                 padding: 4px 8px;
-                font-size: 9px;
-                border-radius: 14px;
-                box-shadow: 0 3px 8px rgba(255, 215, 0, 0.15);
+                font-size: 8px;
+                border-radius: 12px;
+                box-shadow: 0 2px 6px rgba(255, 215, 0, 0.15);
                 letter-spacing: 0.2px;
                 background: linear-gradient(135deg, rgba(255, 215, 0, 0.85), rgba(243, 156, 18, 0.85));
                 position: fixed;
@@ -911,17 +911,17 @@
             }
 
             .page-title {
-                font-size: 16px;
-                margin-bottom: 8px;
-                padding-bottom: 4px;
+                font-size: 14px;
+                margin-bottom: 6px;
+                padding-bottom: 3px;
                 border-bottom: 1px solid #ffd700;
                 color: #fff;
             }
 
             .epic-chapter-title {
-                font-size: 20px;
-                margin-bottom: 8px;
-                padding: 4px 8px;
+                font-size: 18px;
+                margin-bottom: 6px;
+                padding: 3px 6px;
                 border-radius: 4px;
                 border: 1px solid #ffd700;
                 text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.25);
@@ -930,34 +930,34 @@
 
             .epic-chapter-title::before,
             .epic-chapter-title::after {
-                font-size: 14px;
+                font-size: 12px;
                 top: 50%;
                 transform: translateY(-50%);
-                left: -14px;
-                right: -14px;
+                left: -12px;
+                right: -12px;
                 color: #ffd700;
             }
 
             .chapter-subtitle {
-                font-size: 14px;
-                margin-bottom: 8px;
+                font-size: 12px;
+                margin-bottom: 6px;
                 text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
                 color: #ffd700;
             }
 
             .intro-text {
-                font-size: 12px;
+                font-size: 10px;
                 line-height: 1.4;
-                margin-bottom: 8px;
-                padding: 4px;
+                margin-bottom: 6px;
+                padding: 3px;
                 text-shadow: 1px 1px 1px rgba(255, 215, 0, 0.1);
                 color: #fff;
             }
 
             .intro-text-epic {
-                font-size: 13px;
-                padding: 4px 8px;
-                margin-bottom: 8px;
+                font-size: 11px;
+                padding: 3px 6px;
+                margin-bottom: 6px;
                 border-radius: 4px;
                 text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
                 border: 1px solid #ffd700;
@@ -966,27 +966,27 @@
 
             .page-image,
             .chapter-image {
-                max-width: 90px;
-                margin: 6px auto;
+                max-width: 70px;
+                margin: 4px auto;
                 border: 1px solid #ffd700;
-                border-radius: 6px;
-                box-shadow: 0 3px 6px rgba(255, 215, 0, 0.1);
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(255, 215, 0, 0.1);
             }
 
             .chapter-image[style*="max-width: 100px"] {
-                max-width: 45px;
+                max-width: 35px;
             }
 
             .page-image:hover,
             .chapter-image:hover {
                 transform: scale(1.02);
-                box-shadow: 0 4px 8px rgba(255, 215, 0, 0.15);
+                box-shadow: 0 3px 6px rgba(255, 215, 0, 0.15);
             }
 
             .scroll-indicator {
-                font-size: 14px;
-                bottom: 8px;
-                text-shadow: 0 0 4px rgba(255, 215, 0, 0.3);
+                font-size: 12px;
+                bottom: 6px;
+                text-shadow: 0 0 3px rgba(255, 215, 0, 0.3);
                 position: absolute;
                 left: 50%;
                 transform: translateX(-50%);
@@ -999,17 +999,17 @@
             }
 
             .text-content p {
-                font-size: 10px;
+                font-size: 9px;
                 line-height: 1.4;
-                margin-bottom: 6px;
-                text-indent: 8px;
+                margin-bottom: 5px;
+                text-indent: 6px;
                 color: #fff;
             }
 
             .text-content h2 {
-                font-size: 13px;
-                margin: 8px 0 4px;
-                padding-left: 5px;
+                font-size: 11px;
+                margin: 6px 0 3px;
+                padding-left: 4px;
                 border-left: 1px solid #ffd700;
                 color: #fff;
             }
@@ -1032,16 +1032,16 @@
             }
 
             .sommaire-list h2 {
-                font-size: 14px;
-                margin-bottom: 10px;
+                font-size: 12px;
+                margin-bottom: 8px;
                 color: #ffd700;
                 font-family: 'Playfair Display', serif;
             }
 
             .sommaire-item {
-                margin-bottom: 5px;
-                padding: 6px;
-                font-size: 11px;
+                margin-bottom: 4px;
+                padding: 5px;
+                font-size: 10px;
                 border-radius: 0 4px 4px 0;
                 border-left: 1px solid #ffd700;
                 background: linear-gradient(135deg, rgba(255,215,0,0.05), rgba(255,215,0,0.02));
@@ -1073,9 +1073,9 @@
             }
 
             .episode-item {
-                margin-bottom: 5px;
-                padding: 6px;
-                font-size: 9px;
+                margin-bottom: 4px;
+                padding: 5px;
+                font-size: 8px;
                 border-radius: 4px;
                 border-left: 1px solid #ffd700;
                 background: linear-gradient(135deg, rgba(255,215,0,0.05), rgba(255,215,0,0.02));
@@ -1101,16 +1101,16 @@
             }
 
             .episode-title {
-                font-size: 9px;
-                margin-bottom: 3px;
+                font-size: 8px;
+                margin-bottom: 2px;
                 color: #fff;
             }
 
             .episode-button {
-                padding: 4px 8px;
-                border-radius: 10px;
-                font-size: 8px;
-                box-shadow: 0 2px 4px rgba(255, 215, 0, 0.1);
+                padding: 3px 6px;
+                border-radius: 8px;
+                font-size: 7px;
+                box-shadow: 0 1px 3px rgba(255, 215, 0, 0.1);
                 letter-spacing: 0.2px;
                 background: linear-gradient(135deg, #ffd700, #f39c12);
                 color: #000;
@@ -1118,7 +1118,7 @@
 
             .episode-button:hover {
                 transform: translateY(-1px);
-                box-shadow: 0 3px 6px rgba(255, 215, 0, 0.15);
+                box-shadow: 0 2px 4px rgba(255, 215, 0, 0.15);
             }
 
             .navigation {
@@ -1129,31 +1129,31 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                padding: 10px 0;
+                padding: 8px 0;
                 z-index: 1000;
             }
 
             .nav-button#prevBtn {
                 position: fixed;
-                top: 10px;
+                top: 8px;
                 left: 50%;
                 transform: translateX(-50%);
-                margin-bottom: 10px;
+                margin-bottom: 8px;
             }
 
             .nav-button#nextBtn {
                 position: fixed;
-                bottom: 10px;
+                bottom: 8px;
                 left: 50%;
                 transform: translateX(-50%);
             }
 
             .nav-button {
-                padding: 6px 12px;
-                font-size: 10px;
-                min-width: 80px;
-                border-radius: 16px;
-                box-shadow: 0 3px 8px rgba(255, 215, 0, 0.15);
+                padding: 5px 10px;
+                font-size: 9px;
+                min-width: 70px;
+                border-radius: 14px;
+                box-shadow: 0 2px 6px rgba(255, 215, 0, 0.15);
                 letter-spacing: 0.2px;
                 background: linear-gradient(135deg, #ffd700, #f39c12);
                 color: #000;
@@ -1162,23 +1162,23 @@
 
             .nav-button:hover:not(:disabled) {
                 transform: translateX(-50%) translateY(-1px);
-                box-shadow: 0 5px 10px rgba(255, 215, 0, 0.25);
+                box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
                 background: linear-gradient(135deg, #f39c12, #ffd700);
             }
 
             .nav-button:disabled {
                 background: linear-gradient(135deg, #666, #555);
                 color: #999;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             }
 
             .page-indicator {
                 bottom: 8px;
                 left: 8px;
                 padding: 4px 8px;
-                font-size: 9px;
-                border-radius: 14px;
-                box-shadow: 0 3px 8px rgba(255, 215, 0, 0.15);
+                font-size: 8px;
+                border-radius: 12px;
+                box-shadow: 0 2px 6px rgba(255, 215, 0, 0.15);
                 letter-spacing: 0.2px;
                 background: linear-gradient(135deg, rgba(255, 215, 0, 0.85), rgba(243, 156, 18, 0.85));
                 position: fixed;
@@ -1190,7 +1190,7 @@
             }
 
             .page-content::-webkit-scrollbar-track {
-                background: rgba(139, 69, 19, 0.04);
+                background: rgba(139, 69, 19, 0.05);
                 border-radius: 5px;
             }
 
@@ -1202,105 +1202,104 @@
 
         @media (max-width: 480px) {
             .ambient-particles .particle {
-                width: 1.2px;
-                height: 1.2px;
+                width: 1px;
+                height: 1px;
                 animation-duration: 10s;
                 opacity: 0.2;
             }
 
             .book-container {
-                padding: 0;
+                padding: 8px;
                 margin: 0;
             }
 
             .book {
-                width: 100vw;
-                height: 100vh;
+                width: 100%;
+                height: 100%;
             }
 
             .page {
-                border-radius: 0;
-                box-shadow: 0 10px 20px rgba(255, 215, 0, 0.1);
-                width: 100vw;
-                height: 100vh;
+                border-radius: 5px;
+                box-shadow: 0 6px 15px rgba(255, 215, 0, 0.1);
+                width: 100%;
+                height: 100%;
             }
 
             .page-content {
-                padding: 8px 5px;
+                padding: 6px 4px;
             }
 
             .page-title {
-                font-size: 14px;
-                margin-bottom: 6px;
-                padding-bottom: 3px;
+                font-size: 12px;
+                margin-bottom: 5px;
+                padding-bottom: 2px;
             }
 
             .epic-chapter-title {
                 font-size: 16px;
-                margin-bottom: 6px;
-                padding: 3px 6px;
+                margin-bottom: 5px;
+                padding: 2px 5px;
                 border-radius: 3px;
             }
 
             .epic-chapter-title::before,
             .epic-chapter-title::after {
-                font-size: 12px;
-                left: -12px;
-                right: -12px;
+                font-size: 10px;
+                left: -10px;
+                right: -10px;
             }
 
             .chapter-subtitle {
-                font-size: 12px;
-                margin-bottom: 6px;
+                font-size: 10px;
+                margin-bottom: 5px;
             }
 
             .intro-text {
-                font-size: 10px;
+                font-size: 9px;
                 line-height: 1.3;
-                margin-bottom: 6px;
-                padding: 3px;
+                margin-bottom: 5px;
+                padding: 2px;
             }
 
             .intro-text-epic {
-                font-size: 11px;
-                padding: 3px 6px;
-                margin-bottom: 6px;
+                font-size: 10px;
+                padding: 2px 5px;
+                margin-bottom: 5px;
             }
 
             .page-image,
             .chapter-image {
-                max-width: 70px;
-                margin: 4px auto;
-                border-radius: 5px;
+                max-width: 60px;
+                margin: 3px auto;
+                border-radius: 4px;
             }
 
             .chapter-image[style*="max-width: 100px"] {
-                max-width: 35px;
+                max-width: 30px;
             }
 
             .text-content p {
-                font-size: 9px;
+                font-size: 8px;
                 line-height: 1.3;
-                margin-bottom: 5px;
-                text-indent: 6px;
+                margin-bottom: 4px;
+                text-indent: 5px;
             }
 
             .text-content h2 {
-                font-size: 11px;
-                margin: 6px 0 3px;
-                padding-left: 4px;
-                border-left: 1px solid #ffd700;
+                font-size: 10px;
+                margin: 5px 0 2px;
+                padding-left: 3px;
             }
 
             .sommaire-list h2 {
-                font-size: 12px;
-                margin-bottom: 8px;
+                font-size: 10px;
+                margin-bottom: 6px;
             }
 
             .sommaire-item {
-                margin-bottom: 4px;
-                padding: 5px;
-                font-size: 10px;
+                margin-bottom: 3px;
+                padding: 4px;
+                font-size: 9px;
                 border-radius: 0 3px 3px 0;
                 border-left: 1px solid #ffd700;
             }
@@ -1310,31 +1309,30 @@
             }
 
             .episode-item {
-                margin-bottom: 4px;
-                padding: 5px;
-                font-size: 8px;
+                margin-bottom: 3px;
+                padding: 4px;
+                font-size: 7px;
                 border-radius: 3px;
-                border-left: 1px solid #ffd700;
             }
 
             .episode-title {
-                font-size: 8px;
+                font-size: 7px;
                 margin-bottom: 2px;
             }
 
             .episode-button {
-                padding: 3px 6px;
-                border-radius: 8px;
-                font-size: 7px;
+                padding: 2px 5px;
+                border-radius: 6px;
+                font-size: 6px;
             }
 
             .scroll-indicator {
-                font-size: 12px;
-                bottom: 6px;
+                font-size: 10px;
+                bottom: 5px;
             }
 
             .page-number {
-                font-size: 8px;
+                font-size: 7px;
                 padding: 1px 3px;
                 bottom: 3px;
                 right: 4px;
@@ -1342,43 +1340,43 @@
             }
 
             .navigation {
-                padding: 8px 0;
+                padding: 6px 0;
             }
 
             .nav-button {
-                padding: 5px 10px;
-                font-size: 9px;
-                min-width: 70px;
-                border-radius: 14px;
-            }
-
-            .nav-button#prevBtn {
-                top: 8px;
-            }
-
-            .nav-button#nextBtn {
-                bottom: 8px;
-            }
-
-            .back-button {
                 padding: 4px 8px;
                 font-size: 8px;
-                top: 3px;
-                left: 3px;
+                min-width: 60px;
                 border-radius: 12px;
             }
 
+            .nav-button#prevBtn {
+                top: 6px;
+            }
+
+            .nav-button#nextBtn {
+                bottom: 6px;
+            }
+
+            .back-button {
+                padding: 3px 6px;
+                font-size: 7px;
+                top: 6px;
+                left: 6px;
+                border-radius: 10px;
+            }
+
             .logo {
-                max-width: 35px;
-                top: 2px;
-                right: 2px;
+                max-width: 25px;
+                top: 6px;
+                right: 6px;
             }
 
             .page-indicator,
             .chapter-indicator-main {
-                font-size: 8px;
+                font-size: 7px;
                 padding: 3px 6px;
-                border-radius: 12px;
+                border-radius: 10px;
                 bottom: 6px;
             }
 
@@ -1576,7 +1574,7 @@
                     <p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p>
                     <p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>
                 `
-            }
+            },
         ];
 
         const totalPages = pages.length;
@@ -1853,17 +1851,10 @@
         }
 
         function goToChapter(chapterNum) {
-            const chapterPages = {
-                1: 3,
-                2: 7,
-                3: null
-            };
-            
-            if (chapterPages[chapterNum] !== null && chapterPages[chapterNum] !== undefined) {
-                currentPageIndex = chapterPages[chapterNum];
+            const chapterPages = pages.filter(p => p.chapter === chapterNum);
+            if (chapterPages.length > 0) {
+                currentPageIndex = pages.indexOf(chapterPages[0]);
                 showPage(currentPageIndex);
-            } else {
-                console.log(`Chapitre ${chapterNum} non disponible`);
             }
         }
 
