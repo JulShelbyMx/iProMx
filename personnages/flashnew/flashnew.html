@@ -700,13 +700,15 @@
 
         @media (max-width: 768px) {
     body {
-        overflow: auto;
+        overflow: hidden;
         padding: 0;
+        margin: 0;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
         background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+        height: 100vh;
     }
 
     .ambient-particles {
@@ -729,6 +731,7 @@
     }
 
     .back-button {
+        position: fixed;
         top: 4px;
         left: 4px;
         padding: 5px 10px;
@@ -740,6 +743,7 @@
         background: linear-gradient(135deg, #ffd700, #f1c40f);
         color: #000;
         text-transform: uppercase;
+        z-index: 10;
     }
 
     .back-button:hover {
@@ -748,9 +752,11 @@
     }
 
     .logo {
+        position: fixed;
         max-width: 40px;
         top: 3px;
         right: 3px;
+        z-index: 10;
     }
 
     @keyframes logoGlow {
@@ -759,29 +765,31 @@
     }
 
     .book-container {
-        padding: 6px 4px;
-        flex: 1;
+        padding: 0;
+        width: 100vw;
+        height: calc(100vh - 80px);
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
     .book {
-        width: min(98vw, 400px);
-        height: min(60vh, 300px);
-        min-width: 250px;
-        min-height: 160px;
+        width: 100vw;
+        height: calc(100vh - 80px);
+        min-width: 0;
+        min-height: 0;
         filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3));
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 
     .page {
         border: 1px solid rgba(255, 215, 0, 0.2);
         border-radius: 4px;
         box-shadow: 0 10px 25px rgba(255, 215, 0, 0.15);
-        width: 100%;
-        max-width: min(98vw, 400px);
+        width: 100vw;
+        height: calc(100vh - 80px);
         position: relative;
     }
 
@@ -806,6 +814,7 @@
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.95) 100%);
         height: 100%;
         overflow-y: auto;
+        box-sizing: border-box;
     }
 
     .david-bg .page-content,
@@ -863,6 +872,7 @@
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         border: 1px solid #ffd700;
         background: rgba(255, 255, 255, 0.85);
+        position: absolute;
     }
 
     .david-bg .page-number,
@@ -888,6 +898,7 @@
         box-shadow: 0 3px 8px rgba(255, 215, 0, 0.15);
         letter-spacing: 0.2px;
         background: linear-gradient(135deg, rgba(255, 215, 0, 0.85), rgba(243, 156, 18, 0.85));
+        position: absolute;
     }
 
     .page-title {
@@ -967,6 +978,9 @@
         font-size: 14px;
         bottom: 8px;
         text-shadow: 0 0 4px rgba(255, 215, 0, 0.3);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     @keyframes pulse {
@@ -1023,6 +1037,7 @@
         background: linear-gradient(135deg, rgba(255,215,0,0.05), rgba(255,215,0,0.02));
         text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
         color: #fff8dc;
+        position: relative;
     }
 
     .sommaire-item::before {
@@ -1034,6 +1049,7 @@
         height: 100%;
         background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.08) 50%, transparent 70%);
         transition: transform 0.3s ease;
+        z-index: -1;
     }
 
     .sommaire-item:hover {
@@ -1053,6 +1069,7 @@
         border-radius: 4px;
         border-left: 1px solid #ffd700;
         background: linear-gradient(135deg, rgba(255,215,0,0.05), rgba(255,215,0,0.02));
+        position: relative;
     }
 
     .episode-item::before {
@@ -1064,6 +1081,7 @@
         height: 100%;
         background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.05) 50%, transparent 70%);
         transition: transform 0.3s ease;
+        z-index: -1;
     }
 
     .episode-item:hover {
@@ -1098,17 +1116,17 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: min(98vw, 400px);
-        padding: 8px 0;
-        margin: 8px 0;
+        width: 100vw;
+        padding: 10px 0;
+        margin: 0;
     }
 
     .nav-button#prevBtn {
-        margin-bottom: 8px;
+        margin-bottom: 10px;
     }
 
     .nav-button#nextBtn {
-        margin-top: 8px;
+        margin-top: 10px;
     }
 
     .nav-button {
@@ -1144,6 +1162,7 @@
         box-shadow: 0 3px 8px rgba(255, 215, 0, 0.15);
         letter-spacing: 0.2px;
         background: linear-gradient(135deg, rgba(255, 215, 0, 0.85), rgba(243, 156, 18, 0.85));
+        position: absolute;
     }
 
     .page-content::-webkit-scrollbar {
@@ -1190,20 +1209,21 @@
     }
 
     .book-container {
-        padding: 5px 3px;
+        padding: 0;
     }
 
     .book {
-        width: min(98vw, 320px);
-        height: min(55vh, 260px);
-        min-width: 220px;
-        min-height: 140px;
+        width: 100vw;
+        height: calc(100vh - 80px);
+        min-width: 0;
+        min-height: 0;
     }
 
     .page {
         border-radius: 3px;
         box-shadow: 0 10px 20px rgba(255, 215, 0, 0.1);
-        max-width: min(98vw, 320px);
+        width: 100vw;
+        height: calc(100vh - 80px);
     }
 
     .page-content {
@@ -1328,8 +1348,9 @@
     }
 
     .navigation {
-        width: min(98vw, 320px);
-        margin: 6px 0;
+        width: 100vw;
+        margin: 0;
+        padding: 8px 0;
     }
 
     .nav-button {
