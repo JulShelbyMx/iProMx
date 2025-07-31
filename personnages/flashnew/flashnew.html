@@ -697,317 +697,364 @@
         .page-content::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #f39c12, #ffd700);
         }
-        
+
         @media (max-width: 768px) {
-    body {
-        overflow: auto;
-        padding: 0;
+    .ambient-particles .particle {
+        animation-duration: 12s;
+        opacity: 0.4;
+        width: 2.5px;
+        height: 2.5px;
     }
 
     .book-container {
-        padding: 15px 10px;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        padding: 8px 4px;
     }
 
     .book {
-        width: min(90vw, 600px);
-        height: min(70vh, 430px);
-        min-width: 320px;
-        min-height: 240px;
-        max-width: 600px;
-        max-height: 430px;
+        width: min(95vw, 450px);
+        height: min(60vh, 320px);
+        min-width: 260px;
+        min-height: 180px;
     }
 
     .page {
-        border-radius: 10px;
-        border-width: 2px;
+        border-radius: 5px;
+        border-width: 1px;
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
     }
 
     .page-content {
-        padding: 20px;
-        font-size: 14px;
+        padding: 12px 8px;
+    }
+
+    .page-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
     }
 
     .epic-chapter-title {
-        font-size: 32px;
-        margin-bottom: 15px;
-        padding: 8px 16px;
+        font-size: 22px;
+        margin-bottom: 10px;
+        padding: 5px 10px;
+        border-radius: 4px;
     }
 
     .epic-chapter-title::before,
     .epic-chapter-title::after {
-        font-size: 24px;
-        left: -30px;
-        right: -30px;
+        font-size: 16px;
+        left: -18px;
+        right: -18px;
     }
 
     .chapter-subtitle {
-        font-size: 24px;
-        margin-bottom: 15px;
-    }
-
-    .page-title {
-        font-size: 24px;
-        margin-bottom: 15px;
+        font-size: 16px;
+        margin-bottom: 10px;
     }
 
     .intro-text {
-        font-size: 16px;
-        line-height: 1.7;
-        margin-bottom: 15px;
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+        padding: 5px;
     }
 
     .intro-text-epic {
-        font-size: 20px;
-        padding: 8px 16px;
-        margin-bottom: 15px;
+        font-size: 14px;
+        padding: 5px 10px;
+        margin-bottom: 10px;
     }
 
     .page-image,
     .chapter-image {
-        max-width: 160px;
-        margin: 12px auto;
-        border-width: 2px;
+        max-width: 100px;
+        margin: 6px auto;
+        border-width: 1px;
+        box-shadow: 0 3px 8px rgba(255, 215, 0, 0.2);
     }
 
     .chapter-image[style*="max-width: 100px"] {
-        max-width: 80px;
+        max-width: 50px;
     }
 
     .text-content p {
-        font-size: 13px;
-        line-height: 1.6;
-        margin-bottom: 12px;
-        text-indent: 16px;
+        font-size: 11px;
+        line-height: 1.5;
+        margin-bottom: 8px;
+        text-indent: 10px;
     }
 
     .text-content h2 {
-        font-size: 16px;
-        margin: 16px 0 8px;
-        padding-left: 12px;
-        border-left-width: 3px;
+        font-size: 13px;
+        margin: 10px 0 5px;
+        padding-left: 6px;
+        border-left-width: 2px;
     }
 
     .sommaire-item {
-        margin-bottom: 12px;
-        padding: 14px;
-        font-size: 14px;
-        border-radius: 0 10px 10px 0;
+        margin-bottom: 6px;
+        padding: 8px;
+        font-size: 12px;
+        border-radius: 0 5px 5px 0;
     }
 
     .episodes-list {
-        margin-top: 16px;
+        margin-top: 10px;
     }
 
     .episode-item {
-        margin-bottom: 12px;
-        padding: 12px;
-        font-size: 12px;
-        border-radius: 10px;
-        border-left-width: 3px;
+        margin-bottom: 6px;
+        padding: 8px;
+        font-size: 10px;
+        border-radius: 5px;
+        border-left-width: 2px;
     }
 
     .episode-title {
-        margin-bottom: 6px;
-        font-size: 12px;
+        margin-bottom: 4px;
+        font-size: 10px;
     }
 
     .episode-button {
-        padding: 8px 14px;
-        border-radius: 16px;
-        font-size: 11px;
-        letter-spacing: 0.3px;
+        padding: 5px 10px;
+        border-radius: 12px;
+        font-size: 9px;
+        letter-spacing: 0.2px;
     }
 
     .scroll-indicator {
-        font-size: 22px;
-        bottom: 16px;
+        font-size: 16px;
+        bottom: 10px;
     }
 
     .page-number {
-        font-size: 12px;
-        padding: 4px 8px;
-        bottom: 8px;
-        right: 12px;
-        border-radius: 10px;
+        font-size: 10px;
+        padding: 2px 5px;
+        bottom: 5px;
+        right: 6px;
+        border-radius: 6px;
     }
 
     .navigation {
-        width: 100%;
-        max-width: 600px;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-left: 0;
+        position: static;
         display: flex;
-        justify-content: space-between;
-        padding: 0 20px;
-        box-sizing: border-box;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 10px 0;
+        margin: 10px 0;
+    }
+
+    .nav-button#prevBtn {
+        margin-bottom: 10px;
+    }
+
+    .nav-button#nextBtn {
+        margin-top: 10px;
     }
 
     .nav-button {
-        padding: 12px 20px;
-        border-radius: 25px;
-        font-size: 14px;
-        margin: 0;
-        min-width: 120px;
-    }
-
-    .nav-button#prevBtn,
-    .nav-button#nextBtn {
-        margin: 0;
+        padding: 8px 14px;
+        font-size: 11px;
+        min-width: 90px;
+        border-radius: 18px;
     }
 
     .back-button {
-        padding: 10px 18px;
-        font-size: 12px;
-        top: 10px;
-        left: 10px;
-        border-radius: 22px;
-        letter-spacing: 0.8px;
+        padding: 6px 12px;
+        font-size: 10px;
+        top: 6px;
+        left: 6px;
+        border-radius: 16px;
     }
 
     .logo {
-        max-width: 80px;
-        top: 8px;
-        right: 8px;
-    }
-
-    .page-indicator {
-        bottom: 15px;
-        left: 15px;
-        font-size: 12px;
-        padding: 8px 16px;
-        border-radius: 22px;
-        letter-spacing: 0.5px;
-    }
-
-    .chapter-indicator-main {
-        bottom: 15px;
-        right: 15px;
-        font-size: 12px;
-        padding: 8px 16px;
-        border-radius: 22px;
-        letter-spacing: 0.5px;
-    }
-
-    /* Améliorer les particules pour mobile */
-    .ambient-particles .particle {
-        animation-duration: 8s;
-        opacity: 0.6;
-    }
-
-    /* Scrollbar amélioré */
-    .page-content::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    .page-content::-webkit-scrollbar-track {
-        background: rgba(139, 69, 19, 0.1);
-        border-radius: 10px;
-    }
-
-    .page-content::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #ffd700, #f39c12);
-        border-radius: 10px;
-    }
-
-    /* Transitions fluides */
-    .sommaire-item,
-    .episode-item {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .sommaire-item:hover,
-    .episode-item:hover {
-        transform: translateX(8px);
-    }
-}
-
-/* Tablettes en mode portrait */
-@media (max-width: 768px) and (min-width: 481px) {
-    .book {
-        width: min(85vw, 650px);
-        height: min(75vh, 480px);
-    }
-
-    .page-content {
-        padding: 22px;
-        font-size: 15px;
-    }
-
-    .epic-chapter-title {
-        font-size: 36px;
-    }
-
-    .chapter-subtitle {
-        font-size: 26px;
-    }
-
-    .page-title {
-        font-size: 26px;
-    }
-}
-
-/* Petits mobiles */
-@media (max-width: 480px) {
-    .book-container {
-        padding: 10px 5px;
-    }
-
-    .book {
-        width: min(95vw, 400px);
-        height: min(65vh, 300px);
-        min-width: 300px;
-        min-height: 220px;
-    }
-
-    .page-content {
-        padding: 16px;
-        font-size: 13px;
-    }
-
-    .epic-chapter-title {
-        font-size: 26px;
-    }
-
-    .chapter-subtitle {
-        font-size: 20px;
-    }
-
-    .page-title {
-        font-size: 20px;
-    }
-
-    .intro-text {
-        font-size: 14px;
-    }
-
-    .intro-text-epic {
-        font-size: 17px;
-    }
-
-    .navigation {
-        padding: 0 10px;
-    }
-
-    .nav-button {
-        padding: 10px 16px;
-        font-size: 12px;
-        min-width: 100px;
-    }
-
-    .back-button {
-        padding: 8px 14px;
-        font-size: 11px;
+        max-width: 45px;
+        top: 5px;
+        right: 5px;
     }
 
     .page-indicator,
     .chapter-indicator-main {
+        font-size: 10px;
+        padding: 5px 10px;
+        border-radius: 16px;
+        bottom: 10px;
+    }
+
+    .page-content::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .page-content::-webkit-scrollbar-track {
+        background: rgba(139, 69, 19, 0.06);
+    }
+
+    .page-content::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #ffd700, #f39c12);
+    }
+}
+
+/* Small mobiles (up to 480px) */
+@media (max-width: 480px) {
+    .ambient-particles .particle {
+        width: 2px;
+        height: 2px;
+        animation-duration: 14s;
+        opacity: 0.3;
+    }
+
+    .book-container {
+        padding: 6px 4px;
+    }
+
+    .book {
+        width: min(95vw, 360px);
+        height: min(55vh, 280px);
+        min-width: 240px;
+        min-height: 160px;
+    }
+
+    .page {
+        border-radius: 4px;
+    }
+
+    .page-content {
+        padding: 10px 6px;
+    }
+
+    .page-title {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .epic-chapter-title {
+        font-size: 18px;
+        margin-bottom: 8px;
+        padding: 4px 8px;
+    }
+
+    .epic-chapter-title::before,
+    .epic-chapter-title::after {
+        font-size: 14px;
+        left: -15px;
+        right: -15px;
+    }
+
+    .chapter-subtitle {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .intro-text {
+        font-size: 12px;
+        line-height: 1.4;
+        margin-bottom: 8px;
+        padding: 4px;
+    }
+
+    .intro-text-epic {
+        font-size: 13px;
+        padding: 4px 8px;
+        margin-bottom: 8px;
+    }
+
+    .page-image,
+    .chapter-image {
+        max-width: 80px;
+        margin: 5px auto;
+    }
+
+    .chapter-image[style*="max-width: 100px"] {
+        max-width: 40px;
+    }
+
+    .text-content p {
+        font-size: 10px;
+        line-height: 1.4;
+        margin-bottom: 6px;
+        text-indent: 8px;
+    }
+
+    .text-content h2 {
+        font-size: 12px;
+        margin: 8px 0 4px;
+        padding-left: 5px;
+    }
+
+    .sommaire-item {
+        margin-bottom: 5px;
+        padding: 6px;
         font-size: 11px;
-        padding: 6px 12px;
+        border-radius: 0 4px 4px 0;
+    }
+
+    .episode-item {
+        margin-bottom: 5px;
+        padding: 6px;
+        font-size: 9px;
+        border-radius: 4px;
+    }
+
+    .episode-title {
+        margin-bottom: 3px;
+        font-size: 9px;
+    }
+
+    .episode-button {
+        padding: 4px 8px;
+        border-radius: 10px;
+        font-size: 8px;
+    }
+
+    .scroll-indicator {
+        font-size: 14px;
+        bottom: 8px;
+    }
+
+    .page-number {
+        font-size: 9px;
+        padding: 2px 4px;
+        bottom: 4px;
+        right: 5px;
+        border-radius: 5px;
+    }
+
+    .navigation {
+        margin: 8px 0;
+    }
+
+    .nav-button {
+        padding: 6px 10px;
+        font-size: 10px;
+        min-width: 80px;
+        border-radius: 16px;
+    }
+
+    .back-button {
+        padding: 5px 10px;
+        font-size: 9px;
+        top: 5px;
+        left: 5px;
+        border-radius: 14px;
+    }
+
+    .logo {
+        max-width: 40px;
+        top: 4px;
+        right: 4px;
+    }
+
+    .page-indicator,
+    .chapter-indicator-main {
+        font-size: 9px;
+        padding: 4px 8px;
+        border-radius: 14px;
+        bottom: 8px;
+    }
+
+    .page-content::-webkit-scrollbar {
+        width: 3px;
     }
 }
 
