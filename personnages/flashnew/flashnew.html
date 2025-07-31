@@ -777,11 +777,11 @@
     }
 
     .page {
-        border: 1px solid #8b4513;
+        border: 1px solid rgba(255, 215, 0, 0.2);
         border-radius: 4px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        box-shadow: 0 10px 25px rgba(255, 215, 0, 0.15);
         width: 100%;
+        max-width: min(98vw, 400px);
     }
 
     .page::before {
@@ -791,13 +791,6 @@
     .page[data-position="left"],
     .page[data-position="right"] {
         display: none;
-    }
-
-    .page[data-position="center"] {
-        border: 1px solid rgba(255, 215, 0, 0.2);
-        box-shadow: 0 10px 25px rgba(255, 215, 0, 0.15);
-        width: 100%;
-        max-width: min(98vw, 400px);
     }
 
     .page-content {
@@ -1187,10 +1180,7 @@
 
     .page {
         border-radius: 3px;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    .page[data-position="center"] {
+        box-shadow: 0 10px 20px rgba(255, 215, 0, 0.1);
         max-width: min(98vw, 320px);
     }
 
