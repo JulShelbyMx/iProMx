@@ -699,693 +699,751 @@
         }
 
         @media (max-width: 768px) {
-    body {
-        overflow: hidden;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-        height: 100vh;
-    }
-
-    .ambient-particles {
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-    }
-
-    .particle {
-        animation-duration: 9s;
-        opacity: 0.3;
-        width: 2px;
-        height: 2px;
-        background: radial-gradient(circle, rgba(255,215,0,0.5) 0%, rgba(255,215,0,0) 70%);
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
-        50% { transform: translateY(-8px) rotate(180deg); opacity: 0.4; }
-    }
-
-    .back-button {
-        position: fixed;
-        top: 4px;
-        left: 4px;
-        padding: 5px 10px;
-        font-size: 9px;
-        border-radius: 14px;
-        box-shadow: 0 3px 8px rgba(255, 215, 0, 0.15);
-        letter-spacing: 0.4px;
-        transition: all 0.2s ease;
-        background: linear-gradient(135deg, #ffd700, #f1c40f);
-        color: #000;
-        text-transform: uppercase;
-        z-index: 10;
-    }
-
-    .back-button:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 5px 10px rgba(255, 215, 0, 0.25);
-    }
-
-    .logo {
-        position: fixed;
-        max-width: 40px;
-        top: 3px;
-        right: 3px;
-        z-index: 10;
-    }
-
-    @keyframes logoGlow {
-        0%, 100% { box-shadow: 0 3px 8px rgba(255, 215, 0, 0.1); }
-        50% { box-shadow: 0 3px 12px rgba(255, 215, 0, 0.25); }
-    }
-
-    .book-container {
-        padding: 0;
-        width: 100vw;
-        height: calc(100vh - 80px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .book {
-        width: 100vw;
-        height: calc(100vh - 80px);
-        min-width: 0;
-        min-height: 0;
-        filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3));
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .page {
-        border: 1px solid rgba(255, 215, 0, 0.2);
-        border-radius: 4px;
-        box-shadow: 0 10px 25px rgba(255, 215, 0, 0.15);
-        width: 100vw;
-        height: calc(100vh - 80px);
-        position: relative;
-    }
-
-    .page::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.15) 5%, transparent 10%);
-        z-index: -1;
-    }
-
-    .page[data-position="left"],
-    .page[data-position="right"] {
-        display: none;
-    }
-
-    .page-content {
-        padding: 10px 6px;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.95) 100%);
-        height: 100%;
-        overflow-y: auto;
-        box-sizing: border-box;
-    }
-
-    .david-bg .page-content,
-    .john-bg .page-content,
-    .ken-bg .page-content,
-    .aaron-bg .page-content,
-    .davidjr-bg .page-content,
-    .damon-bg .page-content,
-    .kayton-bg .page-content,
-    .adrian-bg .page-content,
-    .edennededdy-bg .page-content,
-    .manda-bg .page-content,
-    .intro-sommaire-bg {
-        background-size: cover;
-        background-position: center;
-    }
-
-    .david-bg h1, .david-bg h2, .david-bg p,
-    .john-bg h1, .john-bg h2, .john-bg p,
-    .ken-bg h1, .ken-bg h2, .ken-bg p,
-    .aaron-bg h1, .aaron-bg h2, .aaron-bg p,
-    .davidjr-bg h1, .davidjr-bg h2, .davidjr-bg p,
-    .damon-bg h1, .damon-bg h2, .damon-bg p,
-    .kayton-bg h1, .kayton-bg h2, .kayton-bg p,
-    .adrian-bg h1, .adrian-bg h2, .adrian-bg p,
-    .ned-bg h1, .ned-bg h2, .ned-bg p,
-    .manda-bg h1, .manda-bg h2, .manda-bg p,
-    .intro-sommaire-bg h1, .intro-sommaire-bg h2, .intro-sommaire-bg p {
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
-        color: #fff;
-    }
-
-    .david-bg .epic-chapter-title,
-    .john-bg .epic-chapter-title,
-    .ken-bg .epic-chapter-title,
-    .aaron-bg .epic-chapter-title,
-    .davidjr-bg .epic-chapter-title,
-    .damon-bg .epic-chapter-title,
-    .kayton-bg .epic-chapter-title,
-    .adrian-bg .epic-chapter-title,
-    .ned-bg .epic-chapter-title,
-    .manda-bg .epic-chapter-title {
-        background: linear-gradient(135deg, #ffd700, #f39c12);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
-
-    .page-number {
-        font-size: 9px;
-        padding: 2px 4px;
-        bottom: 4px;
-        right: 5px;
-        border-radius: 4px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        border: 1px solid #ffd700;
-        background: rgba(255, 255, 255, 0.85);
-        position: absolute;
-    }
-
-    .david-bg .page-number,
-    .john-bg .page-number,
-    .ken-bg .page-number,
-    .aaron-bg .page-number,
-    .davidjr-bg .page-number,
-    .damon-bg .page-number,
-    .kayton-bg .page-number,
-    .adrian-bg .page-number,
-    .ned-bg .page-number,
-    .manda-bg .page-number {
-        background: rgba(255, 215, 0, 0.65);
-        color: #000;
-    }
-
-    .chapter-indicator-main {
-        bottom: 8px;
-        right: 8px;
-        padding: 4px 8px;
-        font-size: 9px;
-        border-radius: 14px;
-        box-shadow: 0 3px 8px rgba(255, 215, 0, 0.15);
-        letter-spacing: 0.2px;
-        background: linear-gradient(135deg, rgba(255, 215, 0, 0.85), rgba(243, 156, 18, 0.85));
-        position: absolute;
-    }
-
-    .page-title {
-        font-size: 16px;
-        margin-bottom: 8px;
-        padding-bottom: 4px;
-        border-bottom: 1px solid #ffd700;
-        color: #fff;
-    }
-
-    .epic-chapter-title {
-        font-size: 20px;
-        margin-bottom: 8px;
-        padding: 4px 8px;
-        border-radius: 4px;
-        border: 1px solid #ffd700;
-        text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.25);
-        position: relative;
-    }
-
-    .epic-chapter-title::before,
-    .epic-chapter-title::after {
-        font-size: 14px;
-        top: 50%;
-        transform: translateY(-50%);
-        left: -14px;
-        right: -14px;
-        color: #ffd700;
-    }
-
-    .chapter-subtitle {
-        font-size: 14px;
-        margin-bottom: 8px;
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-        color: #ffd700;
-    }
-
-    .intro-text {
-        font-size: 12px;
-        line-height: 1.4;
-        margin-bottom: 8px;
-        padding: 4px;
-        text-shadow: 1px 1px 1px rgba(255, 215, 0, 0.1);
-        color: #fff;
-    }
-
-    .intro-text-epic {
-        font-size: 13px;
-        padding: 4px 8px;
-        margin-bottom: 8px;
-        border-radius: 4px;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
-        border: 1px solid #ffd700;
-        color: #fff;
-    }
-
-    .page-image,
-    .chapter-image {
-        max-width: 90px;
-        margin: 6px auto;
-        border: 1px solid #ffd700;
-        border-radius: 6px;
-        box-shadow: 0 3px 6px rgba(255, 215, 0, 0.1);
-    }
-
-    .chapter-image[style*="max-width: 100px"] {
-        max-width: 45px;
-    }
-
-    .page-image:hover,
-    .chapter-image:hover {
-        transform: scale(1.02);
-        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.15);
-    }
-
-    .scroll-indicator {
-        font-size: 14px;
-        bottom: 8px;
-        text-shadow: 0 0 4px rgba(255, 215, 0, 0.3);
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    @keyframes pulse {
-        0%, 100% { transform: translateX(-50%) scale(1); }
-        50% { transform: translateX(-50%) scale(1.05); }
-    }
-
-    .text-content p {
-        font-size: 10px;
-        line-height: 1.4;
-        margin-bottom: 6px;
-        text-indent: 8px;
-        color: #fff;
-    }
-
-    .text-content h2 {
-        font-size: 13px;
-        margin: 8px 0 4px;
-        padding-left: 5px;
-        border-left: 1px solid #ffd700;
-        color: #fff;
-    }
-
-    .david-bg .text-content h2,
-    .john-bg .text-content h2,
-    .ken-bg .text-content h2,
-    .aaron-bg .text-content h2,
-    .davidjr-bg .text-content h2,
-    .damon-bg .text-content h2,
-    .kayton-bg .text-content h2,
-    .adrian-bg .text-content h2,
-    .ned-bg .text-content h2,
-    .manda-bg .text-content h2 {
-        color: #ffd700;
-    }
-
-    .sommaire-list {
-        padding: 0;
-    }
-
-    .sommaire-list h2 {
-        font-size: 14px;
-        margin-bottom: 10px;
-        color: #ffd700;
-        font-family: 'Playfair Display', serif;
-    }
-
-    .sommaire-item {
-        margin-bottom: 5px;
-        padding: 6px;
-        font-size: 11px;
-        border-radius: 0 4px 4px 0;
-        border-left: 1px solid #ffd700;
-        background: linear-gradient(135deg, rgba(255,215,0,0.05), rgba(255,215,0,0.02));
-        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
-        color: #fff8dc;
-        position: relative;
-    }
-
-    .sommaire-item::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.08) 50%, transparent 70%);
-        transition: transform 0.3s ease;
-        z-index: -1;
-    }
-
-    .sommaire-item:hover {
-        background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
-        transform: translateX(4px);
-        box-shadow: 0 3px 8px rgba(255, 215, 0, 0.1);
-    }
-
-    .episodes-list {
-        margin-top: 8px;
-    }
-
-    .episode-item {
-        margin-bottom: 5px;
-        padding: 6px;
-        font-size: 9px;
-        border-radius: 4px;
-        border-left: 1px solid #ffd700;
-        background: linear-gradient(135deg, rgba(255,215,0,0.05), rgba(255,215,0,0.02));
-        position: relative;
-    }
-
-    .episode-item::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.05) 50%, transparent 70%);
-        transition: transform 0.3s ease;
-        z-index: -1;
-    }
-
-    .episode-item:hover {
-        transform: translateX(2px);
-        box-shadow: 0 3px 8px rgba(255, 215, 0, 0.1);
-        background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,215,0,0.04));
-    }
-
-    .episode-title {
-        font-size: 9px;
-        margin-bottom: 3px;
-        color: #fff;
-    }
-
-    .episode-button {
-        padding: 4px 8px;
-        border-radius: 10px;
-        font-size: 8px;
-        box-shadow: 0 2px 4px rgba(255, 215, 0, 0.1);
-        letter-spacing: 0.2px;
-        background: linear-gradient(135deg, #ffd700, #f39c12);
-        color: #000;
-    }
-
-    .episode-button:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 3px 6px rgba(255, 215, 0, 0.15);
-    }
-
-    .navigation {
-        position: static;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100vw;
-        padding: 10px 0;
-        margin: 0;
-    }
-
-    .nav-button#prevBtn {
-        margin-bottom: 10px;
-    }
-
-    .nav-button#nextBtn {
-        margin-top: 10px;
-    }
-
-    .nav-button {
-        padding: 6px 12px;
-        font-size: 10px;
-        min-width: 80px;
-        border-radius: 16px;
-        box-shadow: 0 3px 8px rgba(255, 215, 0, 0.15);
-        letter-spacing: 0.2px;
-        background: linear-gradient(135deg, #ffd700, #f39c12);
-        color: #000;
-        text-transform: uppercase;
-    }
-
-    .nav-button:hover:not(:disabled) {
-        transform: translateY(-1px);
-        box-shadow: 0 5px 10px rgba(255, 215, 0, 0.25);
-        background: linear-gradient(135deg, #f39c12, #ffd700);
-    }
-
-    .nav-button:disabled {
-        background: linear-gradient(135deg, #666, #555);
-        color: #999;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .page-indicator {
-        bottom: 8px;
-        left: 8px;
-        padding: 4px 8px;
-        font-size: 9px;
-        border-radius: 14px;
-        box-shadow: 0 3px 8px rgba(255, 215, 0, 0.15);
-        letter-spacing: 0.2px;
-        background: linear-gradient(135deg, rgba(255, 215, 0, 0.85), rgba(243, 156, 18, 0.85));
-        position: absolute;
-    }
-
-    .page-content::-webkit-scrollbar {
-        width: 3px;
-    }
-
-    .page-content::-webkit-scrollbar-track {
-        background: rgba(139, 69, 19, 0.04);
-        border-radius: 5px;
-    }
-
-    .page-content::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-        background: linear-gradient(135deg, #ffd700, #f39c12);
-    }
-
-    @keyframes pageEnter {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .page {
-        animation: pageEnter 0.3s ease-out;
-    }
-
-    @keyframes textEnter {
-        from { opacity: 0; transform: translateY(6px) scale(0.95); }
-        to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes titleEnter {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
-    }
-}
-
-/* Small mobiles (up to 480px) */
-@media (max-width: 480px) {
-    .ambient-particles .particle {
-        width: 1.2px;
-        height: 1.2px;
-        animation-duration: 10s;
-        opacity: 0.2;
-    }
-
-    .book-container {
-        padding: 0;
-    }
-
-    .book {
-        width: 100vw;
-        height: calc(100vh - 80px);
-        min-width: 0;
-        min-height: 0;
-    }
-
-    .page {
-        border-radius: 3px;
-        box-shadow: 0 10px 20px rgba(255, 215, 0, 0.1);
-        width: 100vw;
-        height: calc(100vh - 80px);
-    }
-
-    .page-content {
-        padding: 8px 5px;
-    }
-
-    .page-title {
-        font-size: 14px;
-        margin-bottom: 6px;
-        padding-bottom: 3px;
-        color: #fff;
-    }
-
-    .epic-chapter-title {
-        font-size: 16px;
-        margin-bottom: 6px;
-        padding: 3px 6px;
-        border-radius: 3px;
-    }
-
-    .epic-chapter-title::before,
-    .epic-chapter-title::after {
-        font-size: 12px;
-        left: -12px;
-        right: -12px;
-    }
-
-    .chapter-subtitle {
-        font-size: 12px;
-        margin-bottom: 6px;
-    }
-
-    .intro-text {
-        font-size: 10px;
-        line-height: 1.3;
-        margin-bottom: 6px;
-        padding: 3px;
-        color: #fff;
-    }
-
-    .intro-text-epic {
-        font-size: 11px;
-        padding: 3px 6px;
-        margin-bottom: 6px;
-        color: #fff;
-    }
-
-    .page-image,
-    .chapter-image {
-        max-width: 70px;
-        margin: 4px auto;
-        border-radius: 5px;
-    }
-
-    .chapter-image[style*="max-width: 100px"] {
-        max-width: 35px;
-    }
-
-    .text-content p {
-        font-size: 9px;
-        line-height: 1.3;
-        margin-bottom: 5px;
-        text-indent: 6px;
-        color: #fff;
-    }
-
-    .text-content h2 {
-        font-size: 11px;
-        margin: 6px 0 3px;
-        padding-left: 4px;
-        border-left: 1px solid #ffd700;
-        color: #fff;
-    }
-
-    .sommaire-list h2 {
-        font-size: 12px;
-        margin-bottom: 8px;
-    }
-
-    .sommaire-item {
-        margin-bottom: 4px;
-        padding: 5px;
-        font-size: 10px;
-        border-radius: 0 3px 3px 0;
-        border-left: 1px solid #ffd700;
-    }
-
-    .episodes-list {
-        margin-top: 6px;
-    }
-
-    .episode-item {
-        margin-bottom: 4px;
-        padding: 5px;
-        font-size: 8px;
-        border-radius: 3px;
-        border-left: 1px solid #ffd700;
-    }
-
-    .episode-title {
-        font-size: 8px;
-        margin-bottom: 2px;
-    }
-
-    .episode-button {
-        padding: 3px 6px;
-        border-radius: 8px;
-        font-size: 7px;
-    }
-
-    .scroll-indicator {
-        font-size: 12px;
-        bottom: 6px;
-    }
-
-    .page-number {
-        font-size: 8px;
-        padding: 1px 3px;
-        bottom: 3px;
-        right: 4px;
-        border-radius: 3px;
-    }
-
-    .navigation {
-        width: 100vw;
-        margin: 0;
-        padding: 8px 0;
-    }
-
-    .nav-button {
-        padding: 5px 10px;
-        font-size: 9px;
-        min-width: 70px;
-        border-radius: 14px;
-    }
-
-    .back-button {
-        padding: 4px 8px;
-        font-size: 8px;
-        top: 3px;
-        left: 3px;
-        border-radius: 12px;
-    }
-
-    .logo {
-        max-width: 35px;
-        top: 2px;
-        right: 2px;
-    }
-
-    .page-indicator,
-    .chapter-indicator-main {
-        font-size: 8px;
-        padding: 3px 6px;
-        border-radius: 12px;
-        bottom: 6px;
-    }
-
-    .page-content::-webkit-scrollbar {
-        width: 2px;
-    }
-}
+            body {
+                overflow: hidden;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+                height: 100vh;
+            }
+
+            .ambient-particles {
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+            }
+
+            .particle {
+                animation-duration: 9s;
+                opacity: 0.3;
+                width: 2px;
+                height: 2px;
+                background: radial-gradient(circle, rgba(255,215,0,0.5) 0%, rgba(255,215,0,0) 70%);
+            }
+
+            @keyframes float {
+                0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
+                50% { transform: translateY(-8px) rotate(180deg); opacity: 0.4; }
+            }
+
+            .back-button {
+                position: fixed;
+                top: 4px;
+                left: 4px;
+                padding: 5px 10px;
+                font-size: 9px;
+                border-radius: 14px;
+                box-shadow: 0 3px 8px rgba(255, 215, 0, 0.15);
+                letter-spacing: 0.4px;
+                transition: all 0.2s ease;
+                background: linear-gradient(135deg, #ffd700, #f1c40f);
+                color: #000;
+                text-transform: uppercase;
+                z-index: 10;
+            }
+
+            .back-button:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 5px 10px rgba(255, 215, 0, 0.25);
+            }
+
+            .logo {
+                position: fixed;
+                max-width: 40px;
+                top: 3px;
+                right: 3px;
+                z-index: 10;
+            }
+
+            /* Navigation au-dessus du livre sur mobile */
+            .navigation {
+                position: fixed;
+                top: 50px;
+                left: 0;
+                right: 0;
+                width: 100vw;
+                display: flex;
+                justify-content: space-between;
+                padding: 0 20px;
+                margin: 0;
+                z-index: 100;
+                transform: none;
+            }
+
+            .nav-button#prevBtn,
+            .nav-button#nextBtn {
+                margin: 0;
+            }
+
+            .nav-button {
+                padding: 8px 16px;
+                font-size: 12px;
+                border-radius: 20px;
+                box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+                letter-spacing: 0.5px;
+                background: linear-gradient(135deg, #ffd700, #f39c12);
+                color: #000;
+                text-transform: uppercase;
+            }
+
+            .nav-button:hover:not(:disabled) {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(255, 215, 0, 0.3);
+                background: linear-gradient(135deg, #f39c12, #ffd700);
+            }
+
+            .nav-button:disabled {
+                background: linear-gradient(135deg, #666, #555);
+                color: #999;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .book-container {
+                padding: 0;
+                width: 100vw;
+                height: calc(100vh - 100px); /* Espace pour les boutons au-dessus */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 50px; /* Espace pour les boutons */
+            }
+
+            .book {
+                width: 95vw;
+                height: calc(100vh - 150px);
+                min-width: 0;
+                min-height: 0;
+                filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3));
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* Sur mobile, toutes les pages sont centrées comme la couverture */
+            .page {
+                border: 2px solid rgba(255, 215, 0, 0.4);
+                border-radius: 8px;
+                box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+                width: 100% !important; /* Une seule page centrée */
+                height: 100%;
+                position: relative;
+                margin: 0 auto;
+            }
+
+            .page::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, 
+                    rgba(255, 215, 0, 0.1) 0%, 
+                    transparent 20%, 
+                    transparent 80%, 
+                    rgba(255, 215, 0, 0.1) 100%);
+                z-index: 0;
+                pointer-events: none;
+            }
+
+            /* Masquer les positions left/right sur mobile */
+            .page[data-position="left"],
+            .page[data-position="right"] {
+                width: 100% !important;
+                margin: 0 auto;
+            }
+
+            .page-content {
+                padding: 15px 10px;
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.95) 100%);
+                height: 100%;
+                overflow-y: auto;
+                box-sizing: border-box;
+                position: relative;
+                z-index: 1;
+            }
+
+            .david-bg .page-content,
+            .john-bg .page-content,
+            .ken-bg .page-content,
+            .aaron-bg .page-content,
+            .davidjr-bg .page-content,
+            .damon-bg .page-content,
+            .kayton-bg .page-content,
+            .adrian-bg .page-content,
+            .edennededdy-bg .page-content,
+            .manda-bg .page-content,
+            .intro-sommaire-bg {
+                background-size: cover;
+                background-position: center;
+            }
+
+            .david-bg h1, .david-bg h2, .david-bg p,
+            .john-bg h1, .john-bg h2, .john-bg p,
+            .ken-bg h1, .ken-bg h2, .ken-bg p,
+            .aaron-bg h1, .aaron-bg h2, .aaron-bg p,
+            .davidjr-bg h1, .davidjr-bg h2, .davidjr-bg p,
+            .damon-bg h1, .damon-bg h2, .damon-bg p,
+            .kayton-bg h1, .kayton-bg h2, .kayton-bg p,
+            .adrian-bg h1, .adrian-bg h2, .adrian-bg p,
+            .ned-bg h1, .ned-bg h2, .ned-bg p,
+            .manda-bg h1, .manda-bg h2, .manda-bg p,
+            .intro-sommaire-bg h1, .intro-sommaire-bg h2, .intro-sommaire-bg p {
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+                color: #fff;
+            }
+
+            .david-bg .epic-chapter-title,
+            .john-bg .epic-chapter-title,
+            .ken-bg .epic-chapter-title,
+            .aaron-bg .epic-chapter-title,
+            .davidjr-bg .epic-chapter-title,
+            .damon-bg .epic-chapter-title,
+            .kayton-bg .epic-chapter-title,
+            .adrian-bg .epic-chapter-title,
+            .ned-bg .epic-chapter-title,
+            .manda-bg .epic-chapter-title {
+                background: linear-gradient(135deg, #ffd700, #f39c12);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+
+            .page-number {
+                font-size: 10px;
+                padding: 3px 6px;
+                bottom: 5px;
+                right: 8px;
+                border-radius: 6px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                border: 1px solid #ffd700;
+                background: rgba(255, 255, 255, 0.9);
+                position: absolute;
+            }
+
+            .david-bg .page-number,
+            .john-bg .page-number,
+            .ken-bg .page-number,
+            .aaron-bg .page-number,
+            .davidjr-bg .page-number,
+            .damon-bg .page-number,
+            .kayton-bg .page-number,
+            .adrian-bg .page-number,
+            .ned-bg .page-number,
+            .manda-bg .page-number {
+                background: rgba(255, 215, 0, 0.8);
+                color: #000;
+            }
+
+            .chapter-indicator-main {
+                bottom: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 10px;
+                border-radius: 16px;
+                box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+                letter-spacing: 0.3px;
+                background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(243, 156, 18, 0.9));
+                position: fixed;
+            }
+
+            .page-title {
+                font-size: 18px;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+                border-bottom: 2px solid #ffd700;
+                color: #333;
+            }
+
+            .david-bg .page-title,
+            .john-bg .page-title,
+            .ken-bg .page-title,
+            .aaron-bg .page-title,
+            .davidjr-bg .page-title,
+            .damon-bg .page-title,
+            .kayton-bg .page-title,
+            .adrian-bg .page-title,
+            .ned-bg .page-title,
+            .manda-bg .page-title,
+            .intro-sommaire-bg .page-title {
+                color: #fff;
+            }
+
+            .epic-chapter-title {
+                font-size: 22px;
+                margin-bottom: 12px;
+                padding: 8px 12px;
+                border-radius: 6px;
+                border: 2px solid #ffd700;
+                text-shadow: 2px 2px 4px rgba(255, 215, 0, 0.3);
+                position: relative;
+            }
+
+            .epic-chapter-title::before,
+            .epic-chapter-title::after {
+                font-size: 16px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #ffd700;
+            }
+
+            .epic-chapter-title::before {
+                left: -20px;
+            }
+
+            .epic-chapter-title::after {
+                right: -20px;
+            }
+
+            .chapter-subtitle {
+                font-size: 16px;
+                margin-bottom: 12px;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+                color: #ffd700;
+            }
+
+            .intro-text {
+                font-size: 13px;
+                line-height: 1.5;
+                margin-bottom: 10px;
+                padding: 6px;
+                text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.2);
+                color: #333;
+            }
+
+            .david-bg .intro-text,
+            .john-bg .intro-text,
+            .ken-bg .intro-text,
+            .aaron-bg .intro-text,
+            .davidjr-bg .intro-text,
+            .damon-bg .intro-text,
+            .kayton-bg .intro-text,
+            .adrian-bg .intro-text,
+            .ned-bg .intro-text,
+            .manda-bg .intro-text,
+            .intro-sommaire-bg .intro-text {
+                color: #fff;
+            }
+
+            .intro-text-epic {
+                font-size: 14px;
+                padding: 6px 10px;
+                margin-bottom: 10px;
+                border-radius: 6px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+                border: 1px solid #ffd700;
+                color: transparent;
+                background: linear-gradient(135deg, #ffd700, #f39c12);
+                -webkit-background-clip: text;
+                background-clip: text;
+            }
+
+            .page-image,
+            .chapter-image {
+                max-width: 120px;
+                margin: 8px auto;
+                border: 2px solid #ffd700;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+            }
+
+            .chapter-image[style*="max-width: 100px"] {
+                max-width: 60px;
+            }
+
+            .page-image:hover,
+            .chapter-image:hover {
+                transform: scale(1.03);
+                box-shadow: 0 6px 16px rgba(255, 215, 0, 0.3);
+            }
+
+            .scroll-indicator {
+                font-size: 16px;
+                bottom: 10px;
+                text-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            @keyframes pulse {
+                0%, 100% { transform: translateX(-50%) scale(1); }
+                50% { transform: translateX(-50%) scale(1.1); }
+            }
+
+            .text-content p {
+                font-size: 11px;
+                line-height: 1.5;
+                margin-bottom: 8px;
+                text-indent: 10px;
+                color: #333;
+            }
+
+            .david-bg .text-content p,
+            .john-bg .text-content p,
+            .ken-bg .text-content p,
+            .aaron-bg .text-content p,
+            .davidjr-bg .text-content p,
+            .damon-bg .text-content p,
+            .kayton-bg .text-content p,
+            .adrian-bg .text-content p,
+            .ned-bg .text-content p,
+            .manda-bg .text-content p {
+                color: #fff;
+            }
+
+            .text-content h2 {
+                font-size: 14px;
+                margin: 10px 0 6px;
+                padding-left: 8px;
+                border-left: 2px solid #ffd700;
+                color: #8b4513;
+            }
+
+            .david-bg .text-content h2,
+            .john-bg .text-content h2,
+            .ken-bg .text-content h2,
+            .aaron-bg .text-content h2,
+            .davidjr-bg .text-content h2,
+            .damon-bg .text-content h2,
+            .kayton-bg .text-content h2,
+            .adrian-bg .text-content h2,
+            .ned-bg .text-content h2,
+            .manda-bg .text-content h2 {
+                color: #ffd700;
+            }
+
+            .sommaire-list {
+                padding: 0;
+            }
+
+            .sommaire-list h2 {
+                font-size: 16px;
+                margin-bottom: 12px;
+                color: #ffd700;
+                font-family: 'Playfair Display', serif;
+            }
+
+            .sommaire-item {
+                margin-bottom: 8px;
+                padding: 10px;
+                font-size: 12px;
+                border-radius: 0 6px 6px 0;
+                border-left: 2px solid #ffd700;
+                background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,215,0,0.04));
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+                color: #fff8dc;
+                position: relative;
+            }
+
+            .sommaire-item::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.1) 50%, transparent 70%);
+                transform: translateX(-100%);
+                transition: transform 0.4s ease;
+                z-index: -1;
+            }
+
+            .sommaire-item:hover {
+                background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.08));
+                transform: translateX(6px);
+                box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
+            }
+
+            .sommaire-item:hover::before {
+                transform: translateX(100%);
+            }
+
+            .episodes-list {
+                margin-top: 10px;
+            }
+
+            .episode-item {
+                margin-bottom: 8px;
+                padding: 8px;
+                font-size: 10px;
+                border-radius: 6px;
+                border-left: 2px solid #ffd700;
+                background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,215,0,0.04));
+                position: relative;
+            }
+
+            .episode-item::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.08) 50%, transparent 70%);
+                transform: translateX(-100%);
+                transition: transform 0.4s ease;
+                z-index: -1;
+            }
+
+            .episode-item:hover {
+                transform: translateX(4px);
+                box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
+                background: linear-gradient(135deg, rgba(255,215,0,0.12), rgba(255,215,0,0.06));
+            }
+
+            .episode-item:hover::before {
+                transform: translateX(100%);
+            }
+
+            .episode-title {
+                font-size: 10px;
+                margin-bottom: 4px;
+                color: #fff;
+            }
+
+            .episode-button {
+                padding: 5px 10px;
+                border-radius: 12px;
+                font-size: 9px;
+                box-shadow: 0 3px 8px rgba(255, 215, 0, 0.2);
+                letter-spacing: 0.3px;
+                background: linear-gradient(135deg, #ffd700, #f39c12);
+                color: #000;
+            }
+
+            .episode-button:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 10px rgba(255, 215, 0, 0.25);
+            }
+
+            .page-indicator {
+                bottom: 10px;
+                left: 10px;
+                padding: 6px 12px;
+                font-size: 10px;
+                border-radius: 16px;
+                box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+                letter-spacing: 0.3px;
+                background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(243, 156, 18, 0.9));
+                position: fixed;
+            }
+
+            .page-content::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            .page-content::-webkit-scrollbar-track {
+                background: rgba(139, 69, 19, 0.05);
+                border-radius: 8px;
+            }
+
+            .page-content::-webkit-scrollbar-thumb {
+                border-radius: 8px;
+                background: linear-gradient(135deg, #ffd700, #f39c12);
+            }
+
+            @keyframes pageEnter {
+                from { opacity: 0; transform: translateY(15px) scale(0.98); }
+                to { opacity: 1; transform: translateY(0) scale(1); }
+            }
+
+            .page {
+                animation: pageEnter 0.4s ease-out;
+            }
+
+            @keyframes textEnter {
+                from { opacity: 0; transform: translateY(8px) scale(0.98); }
+                to { opacity: 1; transform: translateY(0) scale(1); }
+            }
+
+            @keyframes titleEnter {
+                from { opacity: 0; transform: scale(0.98); }
+                to { opacity: 1; transform: scale(1); }
+            }
+        }
+
+        /* Très petits mobiles (jusqu'à 480px) */
+        @media (max-width: 480px) {
+            .ambient-particles .particle {
+                width: 1.5px;
+                height: 1.5px;
+                animation-duration: 12s;
+                opacity: 0.2;
+            }
+
+            .navigation {
+                top: 45px;
+                padding: 0 15px;
+            }
+
+            .nav-button {
+                padding: 6px 12px;
+                font-size: 10px;
+                border-radius: 16px;
+            }
+
+            .book-container {
+                height: calc(100vh - 95px);
+                margin-top: 45px;
+            }
+
+            .book {
+                width: 98vw;
+                height: calc(100vh - 140px);
+            }
+
+            .page {
+                border-radius: 6px;
+                box-shadow: 0 12px 25px rgba(255, 215, 0, 0.15);
+            }
+
+            .page-content {
+                padding: 12px 8px;
+            }
+
+            .page-title {
+                font-size: 16px;
+                margin-bottom: 8px;
+                padding-bottom: 4px;
+            }
+
+            .epic-chapter-title {
+                font-size: 18px;
+                margin-bottom: 8px;
+                padding: 6px 8px;
+                border-radius: 4px;
+            }
+
+            .epic-chapter-title::before,
+            .epic-chapter-title::after {
+                font-size: 14px;
+                left: -16px;
+                right: -16px;
+            }
+
+            .chapter-subtitle {
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+
+            .intro-text {
+                font-size: 11px;
+                line-height: 1.4;
+                margin-bottom: 8px;
+                padding: 4px;
+            }
+
+            .intro-text-epic {
+                font-size: 12px;
+                padding: 4px 8px;
+                margin-bottom: 8px;
+            }
+
+            .page-image,
+            .chapter-image {
+                max-width: 90px;
+                margin: 6px auto;
+                border-radius: 6px;
+            }
+
+            .chapter-image[style*="max-width: 100px"] {
+                max-width: 45px;
+            }
+
+            .text-content p {
+                font-size: 10px;
+                line-height: 1.4;
+                margin-bottom: 6px;
+                text-indent: 8px;
+            }
+
+            .text-content h2 {
+                font-size: 12px;
+                margin: 8px 0 4px;
+                padding-left: 6px;
+                border-left: 2px solid #ffd700;
+            }
+
+            .sommaire-list h2 {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .sommaire-item {
+                margin-bottom: 6px;
+                padding: 8px;
+                font-size: 11px;
+                border-radius: 0 4px 4px 0;
+                border-left: 2px solid #ffd700;
+            }
+
+            .episodes-list {
+                margin-top: 8px;
+            }
+
+            .episode-item {
+                margin-bottom: 6px;
+                padding: 6px;
+                font-size: 9px;
+                border-radius: 4px;
+                border-left: 2px solid #ffd700;
+            }
+
+            .episode-title {
+                font-size: 9px;
+                margin-bottom: 3px;
+            }
+
+            .episode-button {
+                padding: 4px 8px;
+                border-radius: 10px;
+                font-size: 8px;
+            }
+
+            .scroll-indicator {
+                font-size: 14px;
+                bottom: 8px;
+            }
+
+            .page-number {
+                font-size: 9px;
+                padding: 2px 4px;
+                bottom: 4px;
+                right: 6px;
+                border-radius: 4px;
+            }
+
+            .back-button {
+                padding: 4px 8px;
+                font-size: 8px;
+                top: 3px;
+                left: 3px;
+                border-radius: 12px;
+            }
+
+            .logo {
+                max-width: 35px;
+                top: 2px;
+                right: 2px;
+            }
+
+            .page-indicator,
+            .chapter-indicator-main {
+                font-size: 9px;
+                padding: 4px 8px;
+                border-radius: 14px;
+                bottom: 8px;
+            }
+
+            .page-content::-webkit-scrollbar {
+                width: 3px;
+            }
+        }
 
         @keyframes pageEnter {
             from {
@@ -1409,16 +1467,17 @@
     <a href="../flash/choix.html" class="back-button">RETOUR</a>
     <img src="../../images/flashballelogo.webp" alt="Logo Flash" class="logo">
 
+    <div class="navigation">
+        <button class="nav-button" id="prevBtn" onclick="previousPage()" disabled>← Précédent</button>
+        <button class="nav-button" id="nextBtn" onclick="nextPage()">Suivant →</button>
+    </div>
+
     <div class="book-container">
         <div class="book" id="book"></div>
     </div>
 
     <div class="page-indicator" id="pageIndicator">Couverture</div>
     <div class="chapter-indicator-main" id="chapterIndicator" style="display: none;"></div>
-    <div class="navigation">
-        <button class="nav-button" id="prevBtn" onclick="previousPage()" disabled>← Précédent</button>
-        <button class="nav-button" id="nextBtn" onclick="nextPage()">Suivant →</button>
-    </div>
 
     <script>
         function createParticles() {
@@ -1443,10 +1502,10 @@
                 type: 'cover',
                 position: 'center'
             },
-            // Intro + Sommaire
+            // Intro
             {
                 type: 'intro',
-                position: 'left',
+                position: 'center',
                 title: 'Introduction',
                 backgroundClass: 'intro-sommaire-bg',
                 content: `
@@ -1455,16 +1514,17 @@
                     <p class="intro-text-epic">Mais qui sont-ils réellement ?</p>
                 `
             },
+            // Sommaire
             {
                 type: 'sommaire',
-                position: 'right',
+                position: 'center',
                 title: 'Sommaire',
                 backgroundClass: 'intro-sommaire-bg'
             },
             // Chapitre 1: David FLASH
             {
                 type: 'chapter-title',
-                position: 'left',
+                position: 'center',
                 pageNumber: 1,
                 chapter: 1,
                 backgroundClass: 'david-bg',
@@ -1477,34 +1537,7 @@
             },
             {
                 type: 'text-page',
-                position: 'right',
-                pageNumber: 2,
-                chapter: 1,
-                backgroundClass: 'david-bg',
-                content: `
-                    <h2>Avant</h2>
-                    <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p>
-                    <p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p>
-                    <p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>
-                    <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires blabla</p>
-                `
-            },
-            {
-                type: 'text-page',
-                position: 'left',
-                pageNumber: 3,
-                chapter: 1,
-                backgroundClass: 'david-bg',
-                content: `
-                    <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p>
-                    <p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p>
-                    <p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>
-                    <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires blabla</p>
-                `
-            },
-            {
-                type: 'text-page',
-                position: 'right',
+                position: 'center',
                 pageNumber: 4,
                 chapter: 1,
                 backgroundClass: 'david-bg',
@@ -1517,7 +1550,7 @@
             },
             {
                 type: 'episodes',
-                position: 'left',
+                position: 'center',
                 pageNumber: 5,
                 chapter: 1,
                 backgroundClass: 'david-bg',
@@ -1534,19 +1567,19 @@
                             <button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
                         </div>
                         <div class="episode-item">
-                            <div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div>
+                            <div class="episode-title">Épisode 3: MA PREMIÈRE BRAQUAGE</div>
                             <button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button>
                         </div>
                         <div class="episode-item">
-                            <div class="episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div>
+                            <div class="episode-title">Épisode 4: RENCONTRE AVEC LE GÉANT FREDDY</div>
                             <button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
                         </div>
                         <div class="episode-item">
-                            <div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div>
+                            <div class="episode-title">Épisode 5: L'EMPIRE COMMENCE</div>
                             <button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button>
                         </div>
                         <div class="episode-item">
-                            <div class="episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div>
+                            <div class="episode-title">Épisode 6: LA LÉGENDE NAÎT</div>
                             <button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
                         </div>
                     </div>
@@ -1556,7 +1589,7 @@
             // Chapitre 2: John FLASH
             {
                 type: 'chapter-title',
-                position: 'right',
+                position: 'center',
                 pageNumber: 6,
                 chapter: 2,
                 backgroundClass: 'john-bg',
@@ -1569,7 +1602,7 @@
             },
             {
                 type: 'text-page',
-                position: 'left',
+                position: 'center',
                 pageNumber: 7,
                 chapter: 2,
                 backgroundClass: 'john-bg',
@@ -1582,12 +1615,12 @@
             },
             {
                 type: 'text-page',
-                position: 'right',
+                position: 'center',
                 pageNumber: 8,
                 chapter: 2,
                 backgroundClass: 'john-bg',
                 content: `
-                    <h2>Avant</h2>
+                    <h2>L'héritage</h2>
                     <p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p>
                     <p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p>
                     <p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>
@@ -1599,7 +1632,7 @@
 
         function renderPage(pageData, index) {
             const pageClass = `page ${pageData.backgroundClass || ''} ${pageData.type === 'chapter-title' ? 'chapter-title-page' : ''} ${pageData.type === 'episodes' ? 'episodes-page' : ''}`.trim();
-            const position = pageData.position;
+            const position = pageData.position || 'center';
             
             console.log(`Rendu page ${index} avec classes: ${pageClass}, position: ${position}`);
             
@@ -1680,26 +1713,34 @@
             const book = document.getElementById('book');
             const pageData = pages[index];
             
-            console.log(`showPage: index=${index}, rendering page ${pageData.pageNumber || index}${pages[index + 1]?.pageNumber ? ' and ' + pages[index + 1].pageNumber : ''}`);
+            console.log(`showPage: index=${index}, rendering page ${pageData.pageNumber || index}`);
             
             book.innerHTML = '';
             
-            if (index === 0) {
-                // Page couverture : centrée
+            // Sur mobile et desktop, toujours afficher une seule page centrée
+            if (window.innerWidth <= 768) {
+                // Mobile: une seule page centrée
                 book.innerHTML = renderPage(pageData, index);
                 book.querySelector('.page').style.display = 'block';
-            } else if (index === 1) {
-                // Intro + Sommaire comme double page
-                book.innerHTML = renderPage(pages[1], 1) + renderPage(pages[2], 2);
-                book.querySelectorAll('.page').forEach(page => page.style.display = 'block');
             } else {
-                // Pages normales : afficher gauche + droite si possible
-                const leftPage = pageData.position === 'left' ? renderPage(pageData, index) : (index > 0 ? renderPage(pages[index - 1], index - 1) : '');
-                const rightPage = index < totalPages - 1 && pages[index + 1]?.position === 'right' ? renderPage(pages[index + 1], index + 1) : 
-                                 (pageData.position === 'right' ? renderPage(pageData, index) : '');
-                
-                book.innerHTML = leftPage + rightPage;
-                book.querySelectorAll('.page').forEach(page => page.style.display = 'block');
+                // Desktop: logique originale avec doubles pages
+                if (index === 0) {
+                    // Page couverture : centrée
+                    book.innerHTML = renderPage(pageData, index);
+                    book.querySelector('.page').style.display = 'block';
+                } else if (index === 1) {
+                    // Intro + Sommaire comme double page
+                    book.innerHTML = renderPage(pages[1], 1) + renderPage(pages[2], 2);
+                    book.querySelectorAll('.page').forEach(page => page.style.display = 'block');
+                } else {
+                    // Pages normales : afficher gauche + droite si possible
+                    const leftPage = pageData.position === 'left' ? renderPage(pageData, index) : (index > 0 ? renderPage(pages[index - 1], index - 1) : '');
+                    const rightPage = index < totalPages - 1 && pages[index + 1]?.position === 'right' ? renderPage(pages[index + 1], index + 1) : 
+                                     (pageData.position === 'right' ? renderPage(pageData, index) : '');
+                    
+                    book.innerHTML = leftPage + rightPage;
+                    book.querySelectorAll('.page').forEach(page => page.style.display = 'block');
+                }
             }
             
             updateIndicators();
@@ -1777,18 +1818,18 @@
         function updateIndicators() {
             const pageData = pages[currentPageIndex];
             const pageIndicator = document.getElementById('pageIndicator');
-            const maxPageNumber = pages[pages.length - 1].pageNumber || pages.length - 1;
+            const maxPageNumber = Math.max(...pages.filter(p => p.pageNumber).map(p => p.pageNumber));
             
             if (currentPageIndex === 0) {
                 pageIndicator.textContent = 'Couverture';
             } else if (currentPageIndex === 1) {
-                pageIndicator.textContent = 'Intro et Sommaire';
-            } else if (pageData.position === 'left' && pages[currentPageIndex + 1]?.position === 'right') {
-                pageIndicator.textContent = `Page ${pageData.pageNumber} - ${pages[currentPageIndex + 1].pageNumber} / ${maxPageNumber}`;
-            } else if (pageData.position === 'right' && currentPageIndex > 0 && pages[currentPageIndex - 1].position === 'left') {
-                pageIndicator.textContent = `Page ${pages[currentPageIndex - 1].pageNumber} - ${pageData.pageNumber} / ${maxPageNumber}`;
+                pageIndicator.textContent = 'Introduction';
+            } else if (currentPageIndex === 2) {
+                pageIndicator.textContent = 'Sommaire';
+            } else if (pageData.pageNumber) {
+                pageIndicator.textContent = `Page ${pageData.pageNumber} / ${maxPageNumber}`;
             } else {
-                pageIndicator.textContent = `Page ${pageData.pageNumber || currentPageIndex} / ${maxPageNumber}`;
+                pageIndicator.textContent = `Page ${currentPageIndex} / ${totalPages}`;
             }
             
             const chapterIndicator = document.getElementById('chapterIndicator');
@@ -1800,20 +1841,27 @@
             }
             
             document.getElementById('prevBtn').disabled = currentPageIndex === 0;
-            document.getElementById('nextBtn').disabled = currentPageIndex >= totalPages - 1 || (currentPageIndex === totalPages - 2 && pages[currentPageIndex].position === 'left' && pages[currentPageIndex + 1]?.position === 'right');
+            document.getElementById('nextBtn').disabled = currentPageIndex >= totalPages - 1;
         }
 
         function nextPage() {
             if (currentPageIndex < totalPages - 1) {
-                if (currentPageIndex === 0) {
-                    currentPageIndex = 1; // Couverture à Intro+Sommaire
-                } else if (currentPageIndex === 1) {
-                    currentPageIndex = 3; // Intro+Sommaire à Page 1
-                } else if (pages[currentPageIndex].position === 'left' && currentPageIndex < totalPages - 1 && pages[currentPageIndex + 1].position === 'right') {
-                    currentPageIndex += 2; // Passe à la paire suivante
+                if (window.innerWidth <= 768) {
+                    // Mobile: navigation simple page par page
+                    currentPageIndex++;
                 } else {
-                    currentPageIndex += 1; // Passe à la page suivante
+                    // Desktop: logique originale
+                    if (currentPageIndex === 0) {
+                        currentPageIndex = 1; // Couverture à Intro+Sommaire
+                    } else if (currentPageIndex === 1) {
+                        currentPageIndex = 3; // Intro+Sommaire à Page 1
+                    } else if (pages[currentPageIndex].position === 'left' && currentPageIndex < totalPages - 1 && pages[currentPageIndex + 1].position === 'right') {
+                        currentPageIndex += 2; // Passe à la paire suivante
+                    } else {
+                        currentPageIndex += 1; // Passe à la page suivante
+                    }
                 }
+                
                 if (currentPageIndex > totalPages - 1) {
                     currentPageIndex = totalPages - 1;
                 }
@@ -1824,15 +1872,22 @@
 
         function previousPage() {
             if (currentPageIndex > 0) {
-                if (currentPageIndex === 3) {
-                    currentPageIndex = 1; // Page 1 à Intro+Sommaire
-                } else if (currentPageIndex === 1) {
-                    currentPageIndex = 0; // Intro+Sommaire à Couverture
-                } else if (pages[currentPageIndex].position === 'right' && currentPageIndex > 0 && pages[currentPageIndex - 1].position === 'left') {
-                    currentPageIndex -= 2; // Passe à la paire précédente
+                if (window.innerWidth <= 768) {
+                    // Mobile: navigation simple page par page
+                    currentPageIndex--;
                 } else {
-                    currentPageIndex -= 1; // Passe à la page précédente
+                    // Desktop: logique originale
+                    if (currentPageIndex === 3) {
+                        currentPageIndex = 1; // Page 1 à Intro+Sommaire
+                    } else if (currentPageIndex === 1) {
+                        currentPageIndex = 0; // Intro+Sommaire à Couverture
+                    } else if (pages[currentPageIndex].position === 'right' && currentPageIndex > 0 && pages[currentPageIndex - 1].position === 'left') {
+                        currentPageIndex -= 2; // Passe à la paire précédente
+                    } else {
+                        currentPageIndex -= 1; // Passe à la page précédente
+                    }
                 }
+                
                 if (currentPageIndex < 0) {
                     currentPageIndex = 0;
                 }
@@ -1844,11 +1899,11 @@
         function goToChapter(chapterNum) {
             const chapterPages = {
                 1: 3, // Chapitre 1 commence à la page 1 (index 3)
-                2: 8, // Chapitre 2 commence à la page 6 (index 8)
+                2: 7, // Chapitre 2 commence à la page 6 (index 7)
                 3: null // Arbre généalogique (à ajouter plus tard)
             };
             
-            if (chapterPages[chapterNum] !== null) {
+            if (chapterPages[chapterNum] !== null && chapterPages[chapterNum] !== undefined) {
                 currentPageIndex = chapterPages[chapterNum];
                 showPage(currentPageIndex);
             } else {
@@ -1901,6 +1956,11 @@
                 }
                 
                 startX = startY = 0;
+            });
+
+            // Réajuster lors du redimensionnement
+            window.addEventListener('resize', () => {
+                showPage(currentPageIndex);
             });
         });
     </script>
