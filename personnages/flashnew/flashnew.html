@@ -699,239 +699,196 @@
         }
 
         @media (max-width: 768px) {
-    .ambient-particles .particle {
-        animation-duration: 12s;
-        opacity: 0.4;
-        width: 2.5px;
-        height: 2.5px;
-    }
-
-    .book-container {
-        padding: 8px 4px;
-    }
-
-    .book {
-        width: min(95vw, 450px);
-        height: min(60vh, 320px);
-        min-width: 260px;
-        min-height: 180px;
-    }
-
-    .page {
-        border-radius: 5px;
-        border-width: 1px;
-        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .page-content {
-        padding: 12px 8px;
-    }
-
-    .page-title {
-        font-size: 18px;
-        margin-bottom: 10px;
-        padding-bottom: 5px;
-    }
-
-    .epic-chapter-title {
-        font-size: 22px;
-        margin-bottom: 10px;
-        padding: 5px 10px;
-        border-radius: 4px;
-    }
-
-    .epic-chapter-title::before,
-    .epic-chapter-title::after {
-        font-size: 16px;
-        left: -18px;
-        right: -18px;
-    }
-
-    .chapter-subtitle {
-        font-size: 16px;
-        margin-bottom: 10px;
-    }
-
-    .intro-text {
-        font-size: 13px;
-        line-height: 1.5;
-        margin-bottom: 10px;
-        padding: 5px;
-    }
-
-    .intro-text-epic {
-        font-size: 14px;
-        padding: 5px 10px;
-        margin-bottom: 10px;
-    }
-
-    .page-image,
-    .chapter-image {
-        max-width: 100px;
-        margin: 6px auto;
-        border-width: 1px;
-        box-shadow: 0 3px 8px rgba(255, 215, 0, 0.2);
-    }
-
-    .chapter-image[style*="max-width: 100px"] {
-        max-width: 50px;
-    }
-
-    .text-content p {
-        font-size: 11px;
-        line-height: 1.5;
-        margin-bottom: 8px;
-        text-indent: 10px;
-    }
-
-    .text-content h2 {
-        font-size: 13px;
-        margin: 10px 0 5px;
-        padding-left: 6px;
-        border-left-width: 2px;
-    }
-
-    .sommaire-item {
-        margin-bottom: 6px;
-        padding: 8px;
-        font-size: 12px;
-        border-radius: 0 5px 5px 0;
-    }
-
-    .episodes-list {
-        margin-top: 10px;
-    }
-
-    .episode-item {
-        margin-bottom: 6px;
-        padding: 8px;
-        font-size: 10px;
-        border-radius: 5px;
-        border-left-width: 2px;
-    }
-
-    .episode-title {
-        margin-bottom: 4px;
-        font-size: 10px;
-    }
-
-    .episode-button {
-        padding: 5px 10px;
-        border-radius: 12px;
-        font-size: 9px;
-        letter-spacing: 0.2px;
-    }
-
-    .scroll-indicator {
-        font-size: 16px;
-        bottom: 10px;
-    }
-
-    .page-number {
-        font-size: 10px;
-        padding: 2px 5px;
-        bottom: 5px;
-        right: 6px;
-        border-radius: 6px;
-    }
-
-    .navigation {
-        position: static;
+    body {
+        overflow: auto;
+        padding: 0;
         display: flex;
         flex-direction: column;
+        justify-content: flex-start;
         align-items: center;
+    }
+
+    .ambient-particles {
         width: 100%;
-        padding: 10px 0;
-        margin: 10px 0;
+        height: 100%;
     }
 
-    .nav-button#prevBtn {
-        margin-bottom: 10px;
+    .particle {
+        animation-duration: 10s;
+        opacity: 0.35;
+        width: 2px;
+        height: 2px;
+        background: radial-gradient(circle, rgba(255,215,0,0.5) 0%, rgba(255,215,0,0) 70%);
     }
 
-    .nav-button#nextBtn {
-        margin-top: 10px;
-    }
-
-    .nav-button {
-        padding: 8px 14px;
-        font-size: 11px;
-        min-width: 90px;
-        border-radius: 18px;
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.15; }
+        50% { transform: translateY(-10px) rotate(180deg); opacity: 0.5; }
     }
 
     .back-button {
-        padding: 6px 12px;
-        font-size: 10px;
-        top: 6px;
-        left: 6px;
+        top: 5px;
+        left: 5px;
+        padding: 5px 10px;
+        font-size: 9px;
         border-radius: 16px;
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
+        letter-spacing: 0.5px;
+        transition: all 0.2s ease;
+    }
+
+    .back-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 12px rgba(255, 215, 0, 0.3);
     }
 
     .logo {
-        max-width: 45px;
-        top: 5px;
-        right: 5px;
+        max-width: 40px;
+        top: 4px;
+        right: 4px;
     }
 
-    .page-indicator,
-    .chapter-indicator-main {
-        font-size: 10px;
-        padding: 5px 10px;
-        border-radius: 16px;
-        bottom: 10px;
-    }
-
-    .page-content::-webkit-scrollbar {
-        width: 4px;
-    }
-
-    .page-content::-webkit-scrollbar-track {
-        background: rgba(139, 69, 19, 0.06);
-    }
-
-    .page-content::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #ffd700, #f39c12);
-    }
-}
-
-/* Small mobiles (up to 480px) */
-@media (max-width: 480px) {
-    .ambient-particles .particle {
-        width: 2px;
-        height: 2px;
-        animation-duration: 14s;
-        opacity: 0.3;
+    @keyframes logoGlow {
+        0%, 100% { box-shadow: 0 4px 10px rgba(255, 215, 0, 0.15); }
+        50% { box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
     }
 
     .book-container {
         padding: 6px 4px;
+        min-height: auto;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .book {
-        width: min(95vw, 360px);
-        height: min(55vh, 280px);
+        width: min(95vw, 400px);
+        height: min(60vh, 300px);
         min-width: 240px;
         min-height: 160px;
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
     }
 
     .page {
+        border: 1px solid #8b4513;
         border-radius: 4px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .page::before {
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.2) 5%, transparent 10%);
+    }
+
+    .page[data-position="left"] {
+        border-right: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .page[data-position="right"] {
+        border-left: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .page[data-position="center"] {
+        border: 1px solid rgba(255, 215, 0, 0.2);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
     }
 
     .page-content {
         padding: 10px 6px;
     }
 
+    .david-bg .page-content,
+    .john-bg .page-content,
+    .ken-bg .page-content,
+    .aaron-bg .page-content,
+    .davidjr-bg .page-content,
+    .damon-bg .page-content,
+    .kayton-bg .page-content,
+    .adrian-bg .page-content,
+    .edennededdy-bg .page-content,
+    .manda-bg .page-content,
+    .intro-sommaire-bg {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .david-bg h1, .david-bg h2, .david-bg p,
+    .john-bg h1, .john-bg h2, .john-bg p,
+    .ken-bg h1, .ken-bg h2, .ken-bg p,
+    .aaron-bg h1, .aaron-bg h2, .aaron-bg p,
+    .davidjr-bg h1, .davidjr-bg h2, .davidjr-bg p,
+    .damon-bg h1, .damon-bg h2, .damon-bg p,
+    .kayton-bg h1, .kayton-bg h2, .kayton-bg p,
+    .adrian-bg h1, .adrian-bg h2, .adrian-bg p,
+    .ned-bg h1, .ned-bg h2, .ned-bg p,
+    .manda-bg h1, .manda-bg h2, .manda-bg p,
+    .intro-sommaire-bg h1, .intro-sommaire-bg h2, .intro-sommaire-bg p {
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .david-bg .epic-chapter-title,
+    .john-bg .epic-chapter-title,
+    .ken-bg .epic-chapter-title,
+    .aaron-bg .epic-chapter-title,
+    .davidjr-bg .epic-chapter-title,
+    .damon-bg .epic-chapter-title,
+    .kayton-bg .epic-chapter-title,
+    .adrian-bg .epic-chapter-title,
+    .ned-bg .epic-chapter-title,
+    .manda-bg .epic-chapter-title {
+        background: linear-gradient(135deg, #ffd700, #f39c12);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+
+    .page-number {
+        font-size: 9px;
+        padding: 2px 4px;
+        bottom: 4px;
+        right: 5px;
+        border-radius: 5px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ffd700;
+    }
+
+    .david-bg .page-number,
+    .john-bg .page-number,
+    .ken-bg .page-number,
+    .aaron-bg .page-number,
+    .davidjr-bg .page-number,
+    .damon-bg .page-number,
+    .kayton-bg .page-number,
+    .adrian-bg .page-number,
+    .ned-bg .page-number,
+    .manda-bg .page-number {
+        background: rgba(255, 215, 0, 0.7);
+    }
+
+    .chapter-indicator-main {
+        bottom: 8px;
+        right: 8px;
+        padding: 4px 8px;
+        font-size: 9px;
+        border-radius: 16px;
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
+        letter-spacing: 0.3px;
+    }
+
     .page-title {
         font-size: 16px;
         margin-bottom: 8px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ffd700;
     }
 
     .epic-chapter-title {
-        font-size: 18px;
+        font-size: 20px;
         margin-bottom: 8px;
         padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid #ffd700;
+        text-shadow: 1px 1px 3px rgba(255, 215, 0, 0.3);
     }
 
     .epic-chapter-title::before,
@@ -944,6 +901,7 @@
     .chapter-subtitle {
         font-size: 14px;
         margin-bottom: 8px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     }
 
     .intro-text {
@@ -951,22 +909,44 @@
         line-height: 1.4;
         margin-bottom: 8px;
         padding: 4px;
+        text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.15);
     }
 
     .intro-text-epic {
         font-size: 13px;
         padding: 4px 8px;
         margin-bottom: 8px;
+        border-radius: 4px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .page-image,
     .chapter-image {
-        max-width: 80px;
+        max-width: 90px;
         margin: 5px auto;
+        border: 1px solid #ffd700;
+        border-radius: 6px;
+        box-shadow: 0 3px 6px rgba(255, 215, 0, 0.15);
     }
 
     .chapter-image[style*="max-width: 100px"] {
-        max-width: 40px;
+        max-width: 45px;
+    }
+
+    .page-image:hover,
+    .chapter-image:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
+    }
+
+    .scroll-indicator {
+        font-size: 14px;
+        bottom: 8px;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: translateX(-50%) scale(1); }
+        50% { transform: translateX(-50%) scale(1.1); }
     }
 
     .text-content p {
@@ -980,6 +960,20 @@
         font-size: 12px;
         margin: 8px 0 4px;
         padding-left: 5px;
+        border-left: 2px solid #ffd700;
+    }
+
+    .david-bg .text-content h2,
+    .john-bg .text-content h2,
+    .ken-bg .text-content h2,
+    .aaron-bg .text-content h2,
+    .davidjr-bg .text-content h2,
+    .damon-bg .text-content h2,
+    .kayton-bg .text-content h2,
+    .adrian-bg .text-content h2,
+    .ned-bg .text-content h2,
+    .manda-bg .text-content h2 {
+        color: #ffd700;
     }
 
     .sommaire-item {
@@ -987,6 +981,24 @@
         padding: 6px;
         font-size: 11px;
         border-radius: 0 4px 4px 0;
+        border-left: 2px solid #ffd700;
+        background: linear-gradient(135deg, rgba(255,215,0,0.06), rgba(255,215,0,0.03));
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .sommaire-item::before {
+        background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.1) 50%, transparent 70%);
+        transition: transform 0.4s ease;
+    }
+
+    .sommaire-item:hover {
+        background: linear-gradient(135deg, rgba(255,215,0,0.12), rgba(255,215,0,0.06));
+        transform: translateX(5px);
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.15);
+    }
+
+    .episodes-list {
+        margin-top: 8px;
     }
 
     .episode-item {
@@ -994,67 +1006,280 @@
         padding: 6px;
         font-size: 9px;
         border-radius: 4px;
+        border-left: 2px solid #ffd700;
+        background: linear-gradient(135deg, rgba(255,215,0,0.06), rgba(255,215,0,0.03));
+    }
+
+    .episode-item::before {
+        background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.06) 50%, transparent 70%);
+        transition: transform 0.4s ease;
+    }
+
+    .episode-item:hover {
+        transform: translateX(3px);
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.15);
+        background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
     }
 
     .episode-title {
-        margin-bottom: 3px;
         font-size: 9px;
+        margin-bottom: 3px;
     }
 
     .episode-button {
         padding: 4px 8px;
         border-radius: 10px;
         font-size: 8px;
+        box-shadow: 0 3px 6px rgba(255, 215, 0, 0.15);
+        letter-spacing: 0.2px;
     }
 
-    .scroll-indicator {
-        font-size: 14px;
-        bottom: 8px;
-    }
-
-    .page-number {
-        font-size: 9px;
-        padding: 2px 4px;
-        bottom: 4px;
-        right: 5px;
-        border-radius: 5px;
+    .episode-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
     }
 
     .navigation {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: min(95vw, 400px);
+        padding: 8px 0;
         margin: 8px 0;
     }
 
+    .nav-button#prevBtn {
+        margin-bottom: 8px;
+    }
+
+    .nav-button#nextBtn {
+        margin-top: 8px;
+    }
+
     .nav-button {
-        padding: 6px 10px;
+        padding: 6px 12px;
         font-size: 10px;
         min-width: 80px;
         border-radius: 16px;
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
+        letter-spacing: 0.3px;
     }
 
-    .back-button {
-        padding: 5px 10px;
-        font-size: 9px;
-        top: 5px;
-        left: 5px;
-        border-radius: 14px;
+    .nav-button:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 12px rgba(255, 215, 0, 0.3);
     }
 
-    .logo {
-        max-width: 40px;
-        top: 4px;
-        right: 4px;
+    .nav-button:disabled {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
     }
 
-    .page-indicator,
-    .chapter-indicator-main {
-        font-size: 9px;
-        padding: 4px 8px;
-        border-radius: 14px;
+    .page-indicator {
         bottom: 8px;
+        left: 8px;
+        padding: 4px 8px;
+        font-size: 9px;
+        border-radius: 16px;
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
+        letter-spacing: 0.3px;
     }
 
     .page-content::-webkit-scrollbar {
         width: 3px;
+    }
+
+    .page-content::-webkit-scrollbar-track {
+        background: rgba(139, 69, 19, 0.05);
+        border-radius: 6px;
+    }
+
+    .page-content::-webkit-scrollbar-thumb {
+        border-radius: 6px;
+    }
+
+    @keyframes pageEnter {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page {
+        animation: pageEnter 0.4s ease-out;
+    }
+}
+
+/* Small mobiles (up to 480px) */
+@media (max-width: 480px) {
+    .ambient-particles .particle {
+        width: 1.5px;
+        height: 1.5px;
+        animation-duration: 12s;
+        opacity: 0.25;
+    }
+
+    .book-container {
+        padding: 5px 3px;
+    }
+
+    .book {
+        width: min(95vw, 320px);
+        height: min(55vh, 260px);
+        min-width: 220px;
+        min-height: 140px;
+    }
+
+    .page {
+        border-radius: 3px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-content {
+        padding: 8px 5px;
+    }
+
+    .page-title {
+        font-size: 14px;
+        margin-bottom: 6px;
+        padding-bottom: 3px;
+    }
+
+    .epic-chapter-title {
+        font-size: 16px;
+        margin-bottom: 6px;
+        padding: 3px 6px;
+        border-radius: 3px;
+    }
+
+    .epic-chapter-title::before,
+    .epic-chapter-title::after {
+        font-size: 12px;
+        left: -12px;
+        right: -12px;
+    }
+
+    .chapter-subtitle {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .intro-text {
+        font-size: 10px;
+        line-height: 1.3;
+        margin-bottom: 6px;
+        padding: 3px;
+    }
+
+    .intro-text-epic {
+        font-size: 11px;
+        padding: 3px 6px;
+        margin-bottom: 6px;
+    }
+
+    .page-image,
+    .chapter-image {
+        max-width: 70px;
+        margin: 4px auto;
+        border-radius: 4px;
+    }
+
+    .chapter-image[style*="max-width: 100px"] {
+        max-width: 35px;
+    }
+
+    .text-content p {
+        font-size: 9px;
+        line-height: 1.3;
+        margin-bottom: 5px;
+        text-indent: 6px;
+    }
+
+    .text-content h2 {
+        font-size: 11px;
+        margin: 6px 0 3px;
+        padding-left: 4px;
+        border-left: 1px solid #ffd700;
+    }
+
+    .sommaire-item {
+        margin-bottom: 4px;
+        padding: 5px;
+        font-size: 10px;
+        border-radius: 0 3px 3px 0;
+        border-left: 1px solid #ffd700;
+    }
+
+    .episodes-list {
+        margin-top: 6px;
+    }
+
+    .episode-item {
+        margin-bottom: 4px;
+        padding: 5px;
+        font-size: 8px;
+        border-radius: 3px;
+        border-left: 1px solid #ffd700;
+    }
+
+    .episode-title {
+        font-size: 8px;
+        margin-bottom: 2px;
+    }
+
+    .episode-button {
+        padding: 3px 6px;
+        border-radius: 8px;
+        font-size: 7px;
+    }
+
+    .scroll-indicator {
+        font-size: 12px;
+        bottom: 6px;
+    }
+
+    .page-number {
+        font-size: 8px;
+        padding: 1px 3px;
+        bottom: 3px;
+        right: 4px;
+        border-radius: 4px;
+    }
+
+    .navigation {
+        width: min(95vw, 320px);
+        margin: 6px 0;
+    }
+
+    .nav-button {
+        padding: 5px 10px;
+        font-size: 9px;
+        min-width: 70px;
+        border-radius: 14px;
+    }
+
+    .back-button {
+        padding: 4px 8px;
+        font-size: 8px;
+        top: 4px;
+        left: 4px;
+        border-radius: 12px;
+    }
+
+    .logo {
+        max-width: 35px;
+        top: 3px;
+        right: 3px;
+    }
+
+    .page-indicator,
+    .chapter-indicator-main {
+        font-size: 8px;
+        padding: 3px 6px;
+        border-radius: 12px;
+        bottom: 6px;
+    }
+
+    .page-content::-webkit-scrollbar {
+        width: 2px;
     }
 }
 
