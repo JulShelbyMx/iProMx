@@ -152,14 +152,14 @@
         .page-content.scrollable {
             overflow-y: auto;
         }
-        .david-bg h1, .david-bg h2, .david-bg p, .john-bg h1, .john-bg h2, .john-bg p, .ken-bg h1, .ken-bg h2, .ken-bg p, .aaron-bg h1, .aaron-bg h2, .aaron-bg p, .davidjr-bg h1, .davidjr-bg h2, .davidjr-bg p, .damon-bg h1, .damon-bg h2, .damon-bg p, .kayton-bg h1, .kayton-bg h2, .kayton-bg p, .adrian-bg h1, .adrian-bg h2, .adrian-bg p, .ned-bg h1, .ned-bg h2, .ned-bg p, .manda-bg h1, .manda-bg h2, .manda-bg p {
+        .david-bg h1, .david-bg h2, .david-bg p, .john-bg h1, .john-bg h2, .john-bg p, .ken-bg h1, .ken-bg h2, .ken-bg p, .aaron-bg h1, .aaron-bg h2, .aaron-bg p, .davidjr-bg h1, .davidjr-bg h2, .davidjr-bg p, .damon-bg h1, .damon-bg h2, .damon-bg p, .kayton-bg h1, .kayton-bg h2, .kayton-bg p, .adrian-bg h1, .adrian-bg h2, .adrian-bg p, .edennededdy-bg h1, .edennededdy-bg h2, .edennededdy-bg p, .manda-bg h1, .manda-bg h2, .manda-bg p {
             color: #fff;
         }
         .intro-sommaire-bg h1, .intro-sommaire-bg h2, .intro-sommaire-bg p {
             color: #fff;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
-        .david-bg .epic-chapter-title, .john-bg .epic-chapter-title, .ken-bg .epic-chapter-title, .aaron-bg .epic-chapter-title, .davidjr-bg .epic-chapter-title, .damon-bg .epic-chapter-title, .kayton-bg .epic-chapter-title, .adrian-bg .epic-chapter-title, .ned-bg .epic-chapter-title, .manda-bg .epic-chapter-title {
+        .david-bg .epic-chapter-title, .john-bg .epic-chapter-title, .ken-bg .epic-chapter-title, .aaron-bg .epic-chapter-title, .davidjr-bg .epic-chapter-title, .damon-bg .epic-chapter-title, .kayton-bg .epic-chapter-title, .adrian-bg .epic-chapter-title, .edennededdy-bg .epic-chapter-title, .manda-bg .epic-chapter-title {
             color: transparent;
             background: linear-gradient(135deg, #ffd700, #f39c12);
             -webkit-background-clip: text;
@@ -188,7 +188,7 @@
         .scroll-indicator.hidden {
             opacity: 0;
         }
-        .david-bg .page-number, .john-bg .page-number, .ken-bg .page-number, .aaron-bg .page-number, .davidjr-bg .page-number, .damon-bg .page-number, .kayton-bg .page-number, .adrian-bg .page-number, .ned-bg .page-number, .manda-bg .page-number {
+        .david-bg .page-number, .john-bg .page-number, .ken-bg .page-number, .aaron-bg .page-number, .davidjr-bg .page-number, .damon-bg .page-number, .kayton-bg .page-number, .adrian-bg .page-number, .edennededdy-bg .page-number, .manda-bg .page-number {
             background: rgba(255, 215, 0, 0.9);
             color: #000;
         }
@@ -337,7 +337,7 @@
             border-left: 4px solid #ffd700;
             padding-left: 10px;
         }
-        .david-bg .text-content h2, .john-bg .text-content h2, .ken-bg .text-content h2, .aaron-bg .text-content h2, .davidjr-bg .text-content h2, .damon-bg .text-content h2, .kayton-bg .text-content h2, .adrian-bg .text-content h2, .ned-bg .text-content h2, .manda-bg .text-content h2 {
+        .david-bg .text-content h2, .john-bg .text-content h2, .ken-bg .text-content h2, .aaron-bg .text-content h2, .davidjr-bg .text-content h2, .damon-bg .text-content h2, .kayton-bg .text-content h2, .adrian-bg .text-content h2, .edennededdy-bg .text-content h2, .manda-bg .text-content h2 {
             color: #ffd700;
         }
         .sommaire-list {
@@ -546,12 +546,6 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
-        .manga-viewer .left-half {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M22 6 L10 16 L22 26 L18 16 Z" fill="black" stroke="black" stroke-width="2"/></svg>'), auto;
-        }
-        .manga-viewer .right-half {
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M10 6 L22 16 L10 26 L14 16 Z" fill="black" stroke="black" stroke-width="2"/></svg>'), auto;
-        }
         .page-indicator {
             display: block;
             text-align: center;
@@ -730,21 +724,16 @@
                 padding: 6px 12px;
             }
             .page-image, .chapter-image {
-                max-width: 10px;
+                max-width: 15px;
                 height: auto;
-                margin: 6px auto;
-                padding: 6px;
+                margin: 8px auto;
+                padding: 8px;
                 border: 2px solid #ffd700;
                 box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
                 object-fit: contain;
             }
             .chapter-image[style*="max-width: 100px"] {
-                max-width: 5px;
-                height: fit-content;
-            }
-
-            .chapter-title img {
-                max-width: 10px;
+                max-width: 8px;
                 height: auto;
             }
             .text-content p {
@@ -875,7 +864,7 @@
             { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture', selectLabel: 'Couverture' },
             { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><p class="intro-text-epic">Mais qui sont-ils réellement ?</p>`, alt: 'Introduction', selectLabel: 'Intro' },
             { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 24px; text-align: center;">Les Chapitres :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToPage(3)"><span>🐯</span> Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToPage(7)"><span>🐺</span> Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToPage(11)"><span>🐉</span> Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToPage(12)"><span>🐦‍🔥</span> Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToPage(13)"><span>🐍</span> Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToPage(14)"><span>🦁</span> Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToPage(15)"><span>🐺</span> Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToPage(16)"><span>🐍</span> Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToPage(17)"><span>👤👤👤</span> Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToPage(18)"><span>❓</span> Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToPage(19)"><span>🌳</span> Arbre Généalogique</div></div></div>`, alt: 'Sommaire', selectLabel: 'Sommaire' },
-            { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image";"><img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'PAGE 1 / 8' },
+            { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'PAGE 1 / 8' },
             { type: 'text-page', position: 'right', pageNumber: 2, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 1', selectLabel: 'PAGE 2 / 8' },
             { type: 'text-page', position: 'left', pageNumber: 3, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires blabla</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 2', selectLabel: 'PAGE 3 / 8' },
             { type: 'episodes', position: 'right', pageNumber: 4, chapter: 1, backgroundClass: 'david-bg', title: 'Épisodes de David FLASH', content: `<div class="episodes-list"><h2>Épisodes de David FLASH - Saison 1</h2><div class="episode-item"><div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: MA PREMIÈRE BRAQUAGE</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 4: RENCONTRE AVEC LE GÉANT FREDDY</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 5: L'EMPIRE COMMENCE</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 6: LA LÉGENDE NAÎT</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="scroll-indicator" onclick="toggleScroll(this.parentElement)">↓</div></div>`, alt: 'David FLASH - Épisodes', selectLabel: 'PAGE 4 / 8' },
@@ -961,8 +950,6 @@
                 img.onload = () => {
                     mangaViewer.innerHTML = `<img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image">`;
                     loadingSpinner.classList.remove('active');
-                    attachImageClickListener();
-                    attachCursorListener();
                 };
                 img.onerror = () => {
                     mangaViewer.innerHTML = `<p style="color: #ff4444; font-size: 18px; text-align: center;">Erreur lors du chargement de l'image (page ${index + 1}). Veuillez réessayer.</p>`;
@@ -994,7 +981,6 @@
                     }
                 }
                 loadingSpinner.classList.remove('active');
-                attachContentClickListener();
                 setupPageNumberScroll();
                 if (pageData.type === 'sommaire') {
                     attachSommaireClickListeners();
@@ -1025,81 +1011,6 @@
             e.stopPropagation();
             const pageIndex = parseInt(this.getAttribute('onclick').match(/\d+/)[0]);
             goToPage(pageIndex);
-        }
-
-        function attachImageClickListener() {
-            const img = document.querySelector('.manga-viewer .manga-image');
-            if (img) {
-                img.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const rect = img.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const width = rect.width;
-                    const halfWidth = width / 2;
-                    if (x < halfWidth) {
-                        if (currentPageIndex > 0) {
-                            currentPageIndex--;
-                            renderMobilePage(currentPageIndex);
-                        }
-                    } else {
-                        if (currentPageIndex < totalPages - 1) {
-                            currentPageIndex++;
-                            renderMobilePage(currentPageIndex);
-                        }
-                    }
-                });
-            }
-        }
-
-        function attachContentClickListener() {
-            const content = document.querySelector('.manga-viewer .page');
-            if (content && pages[currentPageIndex].type !== 'sommaire') {
-                content.removeEventListener('click', handleContentClick);
-                content.addEventListener('click', handleContentClick);
-            }
-        }
-
-        function handleContentClick(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const width = rect.width;
-            const halfWidth = width / 2;
-            if (x < halfWidth) {
-                if (currentPageIndex > 0) {
-                    currentPageIndex--;
-                    renderMobilePage(currentPageIndex);
-                }
-            } else {
-                if (currentPageIndex < totalPages - 1) {
-                    currentPageIndex++;
-                    renderMobilePage(currentPageIndex);
-                }
-            }
-        }
-
-        function attachCursorListener() {
-            const img = document.querySelector('.manga-viewer .manga-image');
-            if (img) {
-                img.addEventListener('mousemove', (e) => {
-                    const rect = img.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const width = rect.width;
-                    const halfWidth = width / 2;
-                    if (x < halfWidth) {
-                        img.classList.remove('right-half');
-                        img.classList.add('left-half');
-                    } else {
-                        img.classList.remove('left-half');
-                        img.classList.add('right-half');
-                    }
-                });
-                img.addEventListener('mouseleave', () => {
-                    img.classList.remove('left-half', 'right-half');
-                });
-            }
         }
 
         function toggleScroll(element) {
