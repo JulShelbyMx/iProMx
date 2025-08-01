@@ -480,14 +480,10 @@
             right: 20px;
         }
         .chapter-selector {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #111;
-            padding: 10px;
             text-align: center;
+            padding: 10px;
             z-index: 1000;
+            margin-top: 60px;
         }
         .chapter-selector select {
             padding: 10px;
@@ -497,12 +493,21 @@
             border: 2px solid #ffb300;
             border-radius: 8px;
             font-family: 'Cinzel', serif;
+            width: 300px;
+            max-width: 80%;
         }
-        /* Mobile View Styles (Inspired by Scans) */
+        /* Mobile View Styles */
         .manga-viewer img {
             width: 100%;
             max-width: 600px;
             height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .manga-viewer .page {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
@@ -620,7 +625,7 @@
                 right: 8px;
                 z-index: 1000;
             }
-            .book-container, .book, .page {
+            .book-container, .book, .page:not(.manga-viewer .page) {
                 display: none;
             }
             .manga-viewer {
@@ -667,15 +672,19 @@
     <img src="../../images/flashballelogo.webp" alt="Logo Flash" class="logo">
 
     <!-- Desktop View -->
-    <div class="hidden md:block">
+    <div class="hidden md:flex md:flex-col md:items-center">
         <div class="chapter-selector">
             <select id="chapter-select-desktop">
-                <option value="0">Couverture</option>
-                <option value="1">Introduction</option>
-                <option value="2">Sommaire</option>
-                <option value="3">Chapitre 1: David FLASH</option>
-                <option value="7">Chapitre 2: John FLASH</option>
-                <!-- Add more chapters as needed -->
+                <option value="0">Page couverture</option>
+                <option value="1">Sommaire + Intro</option>
+                <option value="3">Chapitre 1 - David FLASH</option>
+                <option value="4">David FLASH - Page 1</option>
+                <option value="5">David FLASH - Page 2</option>
+                <option value="6">David FLASH - Épisodes</option>
+                <option value="7">Chapitre 2 - John FLASH</option>
+                <option value="8">John FLASH - Page 1</option>
+                <option value="9">John FLASH - Page 2</option>
+                <option value="10">John FLASH - Page 3</option>
             </select>
         </div>
         <div class="navigation">
@@ -685,7 +694,7 @@
         <div class="book-container">
             <div class="book" id="book"></div>
         </div>
-        <div class="page-indicator" id="pageIndicator">Couverture</div>
+        <div class="page-indicator" id="pageIndicator">Page couverture</div>
         <div class="chapter-indicator-main" id="chapterIndicator" style="display: none;"></div>
     </div>
 
@@ -693,16 +702,21 @@
     <div class="md:hidden flex flex-col h-screen">
         <div class="chapter-selector">
             <select id="chapter-select">
-                <option value="0">Couverture</option>
+                <option value="0">Page couverture</option>
                 <option value="1">Introduction</option>
                 <option value="2">Sommaire</option>
-                <option value="3">Chapitre 1: David FLASH</option>
-                <option value="7">Chapitre 2: John FLASH</option>
-                <!-- Add more chapters as needed -->
+                <option value="3">Chapitre 1 - David FLASH</option>
+                <option value="4">David FLASH - Page 1</option>
+                <option value="5">David FLASH - Page 2</option>
+                <option value="6">David FLASH - Épisodes</option>
+                <option value="7">Chapitre 2 - John FLASH</option>
+                <option value="8">John FLASH - Page 1</option>
+                <option value="9">John FLASH - Page 2</option>
+                <option value="10">John FLASH - Page 3</option>
             </select>
         </div>
         <div class="manga-viewer" id="manga-viewer"></div>
-        <div class="page-indicator" id="mobile-page-indicator">Page 1/8</div>
+        <div class="page-indicator" id="mobile-page-indicator">Page couverture</div>
         <div class="chapter-navigation-buttons">
             <button id="prev" class="disabled:opacity-50">Précédent</button>
             <button id="next">Suivant</button>
@@ -726,17 +740,17 @@
         }
 
         const pages = [
-            { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture' },
-            { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><p class="intro-text-epic">Mais qui sont-ils réellement ?</p>`, alt: 'Introduction' },
-            { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif;">📚 Les Chapitres :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToChapter(1)">🔥 Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToChapter(2)">🐺 Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToChapter(3)">🐉 Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToChapter(4)">🐦‍🔥 Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToChapter(5)">🐍 Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToChapter(6)">🦁 Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToChapter(7)">🐺 Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToChapter(8)">🐍 Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToChapter(9)">👤👤👤 Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToChapter(10)">❓Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToChapter(11)">🌳 Arbre Généalogique</div></div></div>`, alt: 'Sommaire' },
-            { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 1: David FLASH' },
-            { type: 'text-page', position: 'right', pageNumber: 2, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'Chapitre 1: Page 2' },
-            { type: 'text-page', position: 'left', pageNumber: 3, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires blabla</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'Chapitre 1: Page 3' },
-            { type: 'episodes', position: 'right', pageNumber: 4, chapter: 1, backgroundClass: 'david-bg', title: 'Épisodes de David FLASH', content: `<div class="episodes-list"><h2>Épisodes de David FLASH - Saison 1</h2><div class="episode-item"><div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: MA PREMIÈRE BRAQUAGE</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 4: RENCONTRE AVEC LE GÉANT FREDDY</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 5: L'EMPIRE COMMENCE</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 6: LA LÉGENDE NAÎT</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="scroll-indicator" onclick="toggleScroll(this.parentElement)">↓</div></div>`, alt: 'Chapitre 1: Épisodes' },
-            { type: 'chapter-title', position: 'left', pageNumber: 5, chapter: 2, backgroundClass: 'john-bg', title: 'CHAPITRE 2', subtitle: 'John FLASH', content: `<img src="../../images/john_flash.jpg" alt="John FLASH" class="chapter-image"><img src="../../images/loupjohn.webp" alt="Symbole de John" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 2: John FLASH' },
-            { type: 'text-page', position: 'right', pageNumber: 6, chapter: 2, backgroundClass: 'john-bg', content: `<h2>Avant</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'Chapitre 2: Page 6' },
-            { type: 'text-page', position: 'left', pageNumber: 7, chapter: 2, backgroundClass: 'john-bg', content: `<h2>L'héritage</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'Chapitre 2: Page 7' },
-            { type: 'text-page', position: 'right', pageNumber: 8, chapter: 2, backgroundClass: 'john-bg', content: `<h2>L'héritage</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'Chapitre 2: Page 8' }
+            { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture', selectLabel: 'Page couverture' },
+            { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><p class="intro-text-epic">Mais qui sont-ils réellement ?</p>`, alt: 'Introduction', selectLabel: 'Introduction' },
+            { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif;">📚 Les Chapitres :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToPage(3)">🔥 Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToPage(7)">🐺 Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToPage(11)">🐉 Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToPage(12)">🐦‍🔥 Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToPage(13)">🐍 Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToPage(14)">🦁 Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToPage(15)">🐺 Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToPage(16)">🐍 Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToPage(17)">👤👤👤 Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToPage(18)">❓Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToPage(19)">🌳 Arbre Généalogique</div></div></div>`, alt: 'Sommaire', selectLabel: 'Sommaire' },
+            { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'Chapitre 1 - David FLASH' },
+            { type: 'text-page', position: 'right', pageNumber: 2, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 1', selectLabel: 'David FLASH - Page 1' },
+            { type: 'text-page', position: 'left', pageNumber: 3, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires blabla</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 2', selectLabel: 'David FLASH - Page 2' },
+            { type: 'episodes', position: 'right', pageNumber: 4, chapter: 1, backgroundClass: 'david-bg', title: 'Épisodes de David FLASH', content: `<div class="episodes-list"><h2>Épisodes de David FLASH - Saison 1</h2><div class="episode-item"><div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: MA PREMIÈRE BRAQUAGE</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 4: RENCONTRE AVEC LE GÉANT FREDDY</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 5: L'EMPIRE COMMENCE</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 6: LA LÉGENDE NAÎT</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="scroll-indicator" onclick="toggleScroll(this.parentElement)">↓</div></div>`, alt: 'David FLASH - Épisodes', selectLabel: 'David FLASH - Épisodes' },
+            { type: 'chapter-title', position: 'left', pageNumber: 5, chapter: 2, backgroundClass: 'john-bg', title: 'CHAPITRE 2', subtitle: 'John FLASH', content: `<img src="../../images/john_flash.jpg" alt="John FLASH" class="chapter-image"><img src="../../images/loupjohn.webp" alt="Symbole de John" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 2: John FLASH', selectLabel: 'Chapitre 2 - John FLASH' },
+            { type: 'text-page', position: 'right', pageNumber: 6, chapter: 2, backgroundClass: 'john-bg', content: `<h2>Avant</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'John FLASH - Page 1', selectLabel: 'John FLASH - Page 1' },
+            { type: 'text-page', position: 'left', pageNumber: 7, chapter: 2, backgroundClass: 'john-bg', content: `<h2>L'héritage</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'John FLASH - Page 2', selectLabel: 'John FLASH - Page 2' },
+            { type: 'text-page', position: 'right', pageNumber: 8, chapter: 2, backgroundClass: 'john-bg', content: `<h2>L'héritage</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'John FLASH - Page 3', selectLabel: 'John FLASH - Page 3' }
         ];
         const totalPages = pages.length;
 
@@ -808,6 +822,7 @@
                 const img = new Image();
                 img.src = pageData.image;
                 img.alt = pageData.alt;
+                img.className = 'manga-image';
                 img.onload = () => {
                     mangaViewer.innerHTML = `<img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image">`;
                     loadingSpinner.classList.remove('active');
@@ -819,7 +834,17 @@
                     loadingSpinner.classList.remove('active');
                 };
             } else {
-                mangaViewer.innerHTML = renderPage(pageData, index).replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"').replace('style="display: none;"', 'style="width: 100%; max-width: 600px; margin: 0 auto; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);"');
+                const pageElement = renderPage(pageData, index);
+                mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
+                const pageDiv = mangaViewer.querySelector('.page');
+                if (pageDiv) {
+                    pageDiv.style.width = '100%';
+                    pageDiv.style.maxWidth = '600px';
+                    pageDiv.style.margin = '0 auto';
+                    pageDiv.style.borderRadius = '10px';
+                    pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
+                    pageDiv.style.display = 'block';
+                }
                 loadingSpinner.classList.remove('active');
                 attachContentClickListener();
             }
@@ -964,17 +989,10 @@
         function updateIndicators() {
             const pageData = pages[currentPageIndex];
             const pageIndicator = document.getElementById('pageIndicator');
-            const maxPageNumber = Math.max(...pages.filter(p => p.pageNumber).map(p => p.pageNumber));
-            if (currentPageIndex === 0) {
-                pageIndicator.textContent = 'Couverture';
-            } else if (currentPageIndex === 1) {
-                pageIndicator.textContent = 'Introduction';
-            } else if (currentPageIndex === 2) {
-                pageIndicator.textContent = 'Sommaire';
-            } else if (pageData.pageNumber) {
-                pageIndicator.textContent = `Page ${pageData.pageNumber} / ${maxPageNumber}`;
+            if (pageData.selectLabel) {
+                pageIndicator.textContent = pageData.selectLabel;
             } else {
-                pageIndicator.textContent = `Page ${currentPageIndex} / ${totalPages}`;
+                pageIndicator.textContent = `Page ${currentPageIndex + 1} / ${totalPages}`;
             }
             const chapterIndicator = document.getElementById('chapterIndicator');
             if (pageData.chapter) {
@@ -990,17 +1008,10 @@
         function updateMobileIndicators() {
             const pageData = pages[currentPageIndex];
             const pageIndicator = document.getElementById('mobile-page-indicator');
-            const maxPageNumber = Math.max(...pages.filter(p => p.pageNumber).map(p => p.pageNumber));
-            if (currentPageIndex === 0) {
-                pageIndicator.textContent = 'Couverture';
-            } else if (currentPageIndex === 1) {
-                pageIndicator.textContent = 'Introduction';
-            } else if (currentPageIndex === 2) {
-                pageIndicator.textContent = 'Sommaire';
-            } else if (pageData.pageNumber) {
-                pageIndicator.textContent = `Page ${pageData.pageNumber} / ${maxPageNumber}`;
+            if (pageData.selectLabel) {
+                pageIndicator.textContent = pageData.selectLabel;
             } else {
-                pageIndicator.textContent = `Page ${currentPageIndex} / ${totalPages}`;
+                pageIndicator.textContent = `Page ${currentPageIndex + 1} / ${totalPages}`;
             }
             document.getElementById('prev').disabled = currentPageIndex === 0;
             document.getElementById('next').disabled = currentPageIndex >= totalPages - 1;
@@ -1009,23 +1020,16 @@
         function updateChapterSelect() {
             const chapterSelect = document.getElementById('chapter-select');
             const chapterSelectDesktop = document.getElementById('chapter-select-desktop');
-            const pageData = pages[currentPageIndex];
-            let value = currentPageIndex;
-            if (currentPageIndex === 0) value = 0;
-            else if (currentPageIndex === 1) value = 1;
-            else if (currentPageIndex === 2) value = 2;
-            else if (pageData.chapter === 1) value = 3;
-            else if (pageData.chapter === 2) value = 7;
-            chapterSelect.value = value;
-            if (chapterSelectDesktop) chapterSelectDesktop.value = value;
+            chapterSelect.value = currentPageIndex;
+            if (chapterSelectDesktop) chapterSelectDesktop.value = currentPageIndex;
         }
 
         let currentPageIndex = 0;
 
         function nextPage() {
             if (currentPageIndex < totalPages - 1) {
+                currentPageIndex++;
                 if (window.innerWidth <= 768) {
-                    currentPageIndex++;
                     renderMobilePage(currentPageIndex);
                 } else {
                     if (currentPageIndex === 0) {
@@ -1047,8 +1051,8 @@
 
         function previousPage() {
             if (currentPageIndex > 0) {
+                currentPageIndex--;
                 if (window.innerWidth <= 768) {
-                    currentPageIndex--;
                     renderMobilePage(currentPageIndex);
                 } else {
                     if (currentPageIndex === 3) {
@@ -1068,17 +1072,8 @@
             }
         }
 
-        function goToChapter(chapterNum) {
-            const chapterPages = pages.filter(p => p.chapter === chapterNum);
-            if (chapterPages.length > 0) {
-                currentPageIndex = pages.indexOf(chapterPages[0]);
-            } else if (chapterNum === 0) {
-                currentPageIndex = 0;
-            } else if (chapterNum === 1) {
-                currentPageIndex = 1;
-            } else if (chapterNum === 2) {
-                currentPageIndex = 2;
-            }
+        function goToPage(pageIndex) {
+            currentPageIndex = parseInt(pageIndex);
             if (window.innerWidth <= 768) {
                 renderMobilePage(currentPageIndex);
             } else {
@@ -1105,15 +1100,11 @@
             const chapterSelect = document.getElementById('chapter-select');
             const chapterSelectDesktop = document.getElementById('chapter-select-desktop');
             chapterSelect.addEventListener('change', (e) => {
-                const chapterNum = parseInt(e.target.value);
-                goToChapter(chapterNum);
+                goToPage(e.target.value);
             });
-            if (chapterSelectDesktop) {
-                chapterSelectDesktop.addEventListener('change', (e) => {
-                    const chapterNum = parseInt(e.target.value);
-                    goToChapter(chapterNum);
-                });
-            }
+            chapterSelectDesktop.addEventListener('change', (e) => {
+                goToPage(e.target.value);
+            });
             document.getElementById('next').addEventListener('click', nextPage);
             document.getElementById('prev').addEventListener('click', previousPage);
             document.addEventListener('keydown', (e) => {
