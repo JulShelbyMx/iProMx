@@ -19,7 +19,6 @@
             color: #fff;
             overflow: hidden;
             min-height: 100vh;
-            overscroll-behavior: none;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -77,6 +76,7 @@
             right: 10px;
             max-width: 100px;
             z-index: 1000;
+            animation: logoGlow 2s ease-in-out infinite;
         }
 
         @keyframes logoGlow {
@@ -95,8 +95,8 @@
 
         .book {
             position: relative;
-            width: 700px;
-            height: 500px;
+            width: 800px;
+            height: 600px;
             display: flex;
             filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
         }
@@ -117,10 +117,6 @@
             background: none !important;
         }
 
-        .page.intro-sommaire-bg {
-            background: transparent !important;
-        }
-
         .page::before {
             content: '';
             position: absolute;
@@ -130,6 +126,7 @@
             bottom: 0;
             background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.4) 5%, transparent 10%);
             pointer-events: none;
+            z-index: 2;
         }
 
         .page[data-position="left"] {
@@ -155,6 +152,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            display: block !important;
         }
 
         .david-bg .page-content {
@@ -165,38 +163,6 @@
             background: linear-gradient(135deg, #2c1810 0%, #8b4513 100%) !important;
         }
 
-        .ken-bg .page-content {
-            background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%) !important;
-        }
-
-        .aaron-bg .page-content {
-            background: linear-gradient(135deg, #ff8c00 0%, #ffd700 100%) !important;
-        }
-
-        .davidjr-bg .page-content {
-            background: linear-gradient(135deg, #006400 0%, #228b22 100%) !important;
-        }
-
-        .damon-bg .page-content {
-            background: linear-gradient(135deg, #ff4500 0%, #ffa500 100%) !important;
-        }
-
-        .kayton-bg .page-content {
-            background: linear-gradient(135deg, #00008b 0%, #1e90ff 100%) !important;
-        }
-
-        .adrian-bg .page-content {
-            background: linear-gradient(135deg, #013220 0%, #000000 100%) !important;
-        }
-
-        .edennededdy-bg .page-content {
-            background: linear-gradient(135deg, #ff0000 0%, #000000 50%, #ffffff 100%) !important;
-        }
-
-        .manda-bg .page-content {
-            background: linear-gradient(135deg, #90ee90 0%, #d3d3d3 100%) !important;
-        }
-
         .intro-sommaire-bg {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../images/parchment-bg.jpg') !important;
             background-size: cover;
@@ -204,7 +170,7 @@
         }
 
         .page-content {
-            padding: 25px 25px 15px 25px;
+            padding: 25px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -213,18 +179,11 @@
             overflow-x: hidden;
             position: relative;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 248, 248, 0.98) 100%);
+            z-index: 3;
         }
 
         .david-bg h1, .david-bg h2, .david-bg p,
-        .john-bg h1, .john-bg h2, .john-bg p,
-        .ken-bg h1, .ken-bg h2, .ken-bg p,
-        .aaron-bg h1, .aaron-bg h2, .aaron-bg p,
-        .davidjr-bg h1, .davidjr-bg h2, .davidjr-bg p,
-        .damon-bg h1, .damon-bg h2, .damon-bg p,
-        .kayton-bg h1, .kayton-bg h2, .kayton-bg p,
-        .adrian-bg h1, .adrian-bg h2, .adrian-bg p,
-        .ned-bg h1, .ned-bg h2, .ned-bg p,
-        .manda-bg h1, .manda-bg h2, .manda-bg p {
+        .john-bg h1, .john-bg h2, .john-bg p {
             color: #fff;
         }
 
@@ -236,15 +195,7 @@
         }
 
         .david-bg .epic-chapter-title,
-        .john-bg .epic-chapter-title,
-        .ken-bg .epic-chapter-title,
-        .aaron-bg .epic-chapter-title,
-        .davidjr-bg .epic-chapter-title,
-        .damon-bg .epic-chapter-title,
-        .kayton-bg .epic-chapter-title,
-        .adrian-bg .epic-chapter-title,
-        .ned-bg .epic-chapter-title,
-        .manda-bg .epic-chapter-title {
+        .john-bg .epic-chapter-title {
             color: transparent;
             background: linear-gradient(135deg, #ffd700, #f39c12);
             -webkit-background-clip: text;
@@ -268,6 +219,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             border: 1px solid #ffd700;
             transition: opacity 0.3s ease;
+            z-index: 4;
         }
 
         .page-number.hidden {
@@ -279,15 +231,7 @@
         }
 
         .david-bg .page-number,
-        .john-bg .page-number,
-        .ken-bg .page-number,
-        .aaron-bg .page-number,
-        .davidjr-bg .page-number,
-        .damon-bg .page-number,
-        .kayton-bg .page-number,
-        .adrian-bg .page-number,
-        .ned-bg .page-number,
-        .manda-bg .page-number {
+        .john-bg .page-number {
             background: rgba(255, 215, 0, 0.9);
             color: #000;
         }
@@ -314,7 +258,6 @@
             color: #8b4513;
             margin-bottom: 20px;
             text-align: center;
-            position: relative;
             border-bottom: 3px solid #ffd700;
             padding-bottom: 10px;
         }
@@ -327,7 +270,6 @@
             margin-bottom: 20px;
             color: #8b4513;
             text-shadow: 2px 2px 6px rgba(255, 215, 0, 0.5);
-            position: relative;
             padding: 10px 20px;
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
             border: 2px solid #ffd700;
@@ -474,15 +416,7 @@
         }
 
         .david-bg .text-content h2,
-        .john-bg .text-content h2,
-        .ken-bg .text-content h2,
-        .aaron-bg .text-content h2,
-        .davidjr-bg .text-content h2,
-        .damon-bg .text-content h2,
-        .kayton-bg .text-content h2,
-        .adrian-bg .text-content h2,
-        .ned-bg .text-content h2,
-        .manda-bg .text-content h2 {
+        .john-bg .text-content h2 {
             color: #ffd700;
         }
 
@@ -598,12 +532,8 @@
             background: linear-gradient(135deg, #f39c12, #ffd700);
         }
 
-        .episode-button:active {
-            transform: translateY(0);
-        }
-
         .navigation {
-            position: absolute;
+            position: fixed;
             top: 50%;
             transform: translateY(-50%);
             display: flex;
@@ -635,6 +565,7 @@
             box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
+            z-index: 1000;
         }
 
         .nav-button:hover:not(:disabled) {
@@ -681,15 +612,10 @@
             border-radius: 10px;
         }
 
-        .page-content::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #f39c12, #ffd700);
-        }
-
         @media (max-width: 768px) {
             body {
                 overflow: auto;
                 padding: 0;
-                margin: 0;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-start;
@@ -709,37 +635,19 @@
                 opacity: 0.3;
                 width: 2px;
                 height: 2px;
-                background: radial-gradient(circle, rgba(255,215,0,0.5) 0%, rgba(255,215,0,0) 70%);
-            }
-
-            @keyframes float {
-                0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
-                50% { transform: translateY(-8px) rotate(180deg); opacity: 0.4; }
             }
 
             .back-button {
-                position: fixed;
                 top: 8px;
                 left: 8px;
                 padding: 8px 16px;
                 font-size: 12px;
                 border-radius: 15px;
                 box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
-                letter-spacing: 0.5px;
-                transition: all 0.2s ease;
-                background: linear-gradient(135deg, #ffd700, #f1c40f);
-                color: #000;
-                text-transform: uppercase;
                 z-index: 1100;
             }
 
-            .back-button:hover {
-                transform: translateY(-1px);
-                box-shadow: 0 6px 12px rgba(255, 215, 0, 0.3);
-            }
-
             .logo {
-                position: fixed;
                 max-width: 50px;
                 top: 8px;
                 right: 8px;
@@ -748,45 +656,26 @@
 
             .book-container {
                 padding: 10px;
-                margin: 0;
-                width: 100vw;
-                min-height: calc(100vh - 80px);
-                display: flex;
-                justify-content: center;
-                align-items: center;
                 margin-top: 70px;
+                width: 100%;
+                min-height: calc(100vh - 80px);
             }
 
             .book {
                 width: 100%;
                 max-width: 350px;
                 height: auto;
-                min-height: 400px;
-                filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
-                display: flex;
-                justify-content: center;
-                align-items: center;
+                min-height: 500px;
+                display: block;
             }
 
             .page {
-                border: 2px solid rgba(255, 215, 0, 0.3);
-                border-radius: 8px;
-                box-shadow: 0 6px 15px rgba(255, 215, 0, 0.2);
                 width: 100%;
                 height: auto;
-                min-height: 400px;
-                position: relative;
-            }
-
-            .page::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.2) 5%, transparent 10%);
-                z-index: 0;
+                min-height: 500px;
+                border: 2px solid #8b4513;
+                border-radius: 8px;
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
             }
 
             .page[data-position="left"],
@@ -797,31 +686,24 @@
             .page[data-position="center"] {
                 width: 100%;
                 margin: 0;
-                border: 2px solid rgba(255, 215, 0, 0.3);
-                box-shadow: 0 6px 15px rgba(255, 215, 0, 0.2);
+            }
+
+            .cover-page {
+                background-size: cover;
+                background-position: center;
+                width: 100%;
+                height: 100%;
+                display: block !important;
             }
 
             .page-content {
-                padding: 15px 10px;
-                background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 248, 248, 0.95) 100%);
-                height: 100%;
-                width: 100%;
-                overflow-y: auto;
-                box-sizing: border-box;
-                z-index: 1;
-                position: relative;
+                padding: 15px;
+                min-height: 500px;
+                z-index: 3;
             }
 
             .david-bg .page-content,
             .john-bg .page-content,
-            .ken-bg .page-content,
-            .aaron-bg .page-content,
-            .davidjr-bg .page-content,
-            .damon-bg .page-content,
-            .kayton-bg .page-content,
-            .adrian-bg .page-content,
-            .edennededdy-bg .page-content,
-            .manda-bg .page-content,
             .intro-sommaire-bg {
                 background-size: cover;
                 background-position: center;
@@ -829,534 +711,226 @@
 
             .david-bg h1, .david-bg h2, .david-bg p,
             .john-bg h1, .john-bg h2, .john-bg p,
-            .ken-bg h1, .ken-bg h2, .ken-bg p,
-            .aaron-bg h1, .aaron-bg h2, .aaron-bg p,
-            .davidjr-bg h1, .davidjr-bg h2, .davidjr-bg p,
-            .damon-bg h1, .damon-bg h2, .damon-bg p,
-            .kayton-bg h1, .kayton-bg h2, .kayton-bg p,
-            .adrian-bg h1, .adrian-bg h2, .adrian-bg p,
-            .ned-bg h1, .ned-bg h2, .ned-bg p,
-            .manda-bg h1, .manda-bg h2, .manda-bg p,
             .intro-sommaire-bg h1,
             .intro-sommaire-bg h2,
             .intro-sommaire-bg p {
-                text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
                 color: #fff;
-            }
-
-            .david-bg .epic-chapter-title,
-            .john-bg .epic-chapter-title,
-            .ken-bg .epic-chapter-title,
-            .aaron-bg .epic-chapter-title,
-            .davidjr-bg .epic-chapter-title,
-            .damon-bg .epic-chapter-title,
-            .kayton-bg .epic-chapter-title,
-            .adrian-bg .epic-chapter-title,
-            .ned-bg .epic-chapter-title,
-            .manda-bg .epic-chapter-title {
-                background: linear-gradient(135deg, #ffd700, #f39c12);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
             }
 
             .page-number {
-                font-size: 10px;
+                font-size: 12px;
                 padding: 4px 8px;
-                bottom: 8px;
-                right: 8px;
-                border-radius: 6px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                border: 1px solid #ffd700;
-                background: rgba(255, 255, 255, 0.85);
-                position: absolute;
-                z-index: 10;
-            }
-
-            .david-bg .page-number,
-            .john-bg .page-number,
-            .ken-bg .page-number,
-            .aaron-bg .page-number,
-            .davidjr-bg .page-number,
-            .damon-bg .page-number,
-            .kayton-bg .page-number,
-            .adrian-bg .page-number,
-            .ned-bg .page-number,
-            .manda-bg .page-number {
-                background: rgba(255, 215, 0, 0.75);
-                color: #000;
+                bottom: 10px;
+                right: 10px;
+                z-index: 4;
             }
 
             .chapter-indicator-main {
-                bottom: 70px;
-                right: 8px;
-                padding: 6px 12px;
-                font-size: 10px;
+                bottom: 80px;
+                right: 10px;
+                padding: 8px 16px;
+                font-size: 12px;
                 border-radius: 15px;
-                box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
-                letter-spacing: 0.3px;
-                background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(243, 156, 18, 0.9));
-                position: fixed;
-                z-index: 1000;
+                z-index: 1100;
             }
 
             .page-title {
-                font-size: 18px;
-                margin-bottom: 10px;
-                padding-bottom: 5px;
-                border-bottom: 2px solid #ffd700;
-                color: #fff;
+                font-size: 24px;
+                margin-bottom: 15px;
             }
 
             .epic-chapter-title {
-                font-size: 22px;
-                margin-bottom: 10px;
-                padding: 6px 12px;
-                border-radius: 6px;
-                border: 1px solid #ffd700;
-                text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.3);
-                position: relative;
-            }
-
-            .epic-chapter-title::before,
-            .epic-chapter-title::after {
-                font-size: 16px;
-                top: 50%;
-                transform: translateY(-50%);
-                left: -20px;
-                right: -20px;
-                color: #ffd700;
+                font-size: 32px;
+                margin-bottom: 15px;
+                padding: 8px 15px;
             }
 
             .chapter-subtitle {
-                font-size: 16px;
-                margin-bottom: 10px;
-                text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-                color: #ffd700;
+                font-size: 24px;
+                margin-bottom: 15px;
             }
 
             .intro-text {
-                font-size: 12px;
-                line-height: 1.5;
-                margin-bottom: 10px;
-                padding: 5px;
-                text-shadow: 1px 1px 1px rgba(255, 215, 0, 0.15);
-                color: #fff;
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 15px;
             }
 
             .intro-text-epic {
-                font-size: 14px;
-                padding: 5px 10px;
+                font-size: 20px;
+                padding: 8px 15px;
+                margin-bottom: 15px;
+            }
+
+            .page-image,
+            .chapter-image {
+                max-width: 150px;
+                margin: 10px auto;
+                border: 2px solid #ffd700;
+                border-radius: 8px;
+            }
+
+            .chapter-image[style*="max-width: 100px"] {
+                max-width: 80px;
+            }
+
+            .scroll-indicator {
+                font-size: 20px;
+                bottom: 15px;
+            }
+
+            .text-content p {
+                font-size: 13px;
+                line-height: 1.5;
                 margin-bottom: 10px;
-                border-radius: 5px;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-                border: 1px solid #ffd700;
-                color: #fff;
+            }
+
+            .text-content h2 {
+                font-size: 16px;
+                margin: 15px 0 8px;
+            }
+
+            .sommaire-item {
+                padding: 10px;
+                font-size: 13px;
+                margin-bottom: 10px;
+            }
+
+            .episode-item {
+                padding: 10px;
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+
+            .episode-title {
+                font-size: 12px;
+            }
+
+            .episode-button {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+
+            .navigation {
+                position: fixed;
+                top: auto;
+                bottom: 10px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                transform: none;
+                z-index: 1100;
+            }
+
+            .nav-button {
+                padding: 10px 20px;
+                font-size: 14px;
+                border-radius: 20px;
+                z-index: 1100;
+            }
+
+            .nav-button#prevBtn,
+            .nav-button#nextBtn {
+                margin: 0;
+            }
+
+            .page-indicator {
+                bottom: 60px;
+                left: 10px;
+                padding: 8px 16px;
+                font-size: 12px;
+                z-index: 1100;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .book {
+                max-width: 300px;
+                min-height: 400px;
+            }
+
+            .page {
+                min-height: 400px;
+            }
+
+            .page-content {
+                padding: 10px;
+                min-height: 400px;
+            }
+
+            .page-title {
+                font-size: 20px;
+            }
+
+            .epic-chapter-title {
+                font-size: 28px;
+                padding: 6px 12px;
+            }
+
+            .chapter-subtitle {
+                font-size: 20px;
+            }
+
+            .intro-text {
+                font-size: 14px;
+            }
+
+            .intro-text-epic {
+                font-size: 18px;
+                padding: 6px 12px;
             }
 
             .page-image,
             .chapter-image {
                 max-width: 120px;
-                margin: 8px auto;
-                border: 2px solid #ffd700;
-                border-radius: 6px;
-                box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
             }
 
             .chapter-image[style*="max-width: 100px"] {
                 max-width: 60px;
             }
 
-            .page-image:hover,
-            .chapter-image:hover {
-                transform: scale(1.03);
-                box-shadow: 0 6px 12px rgba(255, 215, 0, 0.3);
-            }
-
-            .scroll-indicator {
-                font-size: 16px;
-                bottom: 10px;
-                text-shadow: 0 0 4px rgba(255, 215, 0, 0.3);
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 10;
-            }
-
-            @keyframes pulse {
-                0%, 100% { transform: translateX(-50%) scale(1); }
-                50% { transform: translateX(-50%) scale(1.1); }
-            }
-
             .text-content p {
+                font-size: 12px;
+            }
+
+            .text-content h2 {
+                font-size: 14px;
+            }
+
+            .sommaire-item {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .episode-item {
                 font-size: 11px;
-                line-height: 1.5;
-                margin-bottom: 8px;
-                text-indent: 10px;
-                color: #fff;
-            }
-
-            .text-content h2 {
-                font-size: 13px;
-                margin: 8px 0 4px;
-                padding-left: 6px;
-                border-left: 2px solid #ffd700;
-                color: #ffd700;
-            }
-
-            .sommaire-list {
-                padding: 0;
-            }
-
-            .sommaire-list h2 {
-                font-size: 14px;
-                margin-bottom: 10px;
-                color: #ffd700;
-                font-family: 'Playfair Display', serif;
-            }
-
-            .sommaire-item {
-                margin-bottom: 8px;
                 padding: 8px;
-                font-size: 12px;
-                border-radius: 0 6px 6px 0;
-                border-left: 2px solid #ffd700;
-                background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
-                text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
-                color: #fff8dc;
-                position: relative;
-            }
-
-            .sommaire-item::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.1) 50%, transparent 70%);
-                transition: transform 0.3s ease;
-                z-index: -1;
-            }
-
-            .sommaire-item:hover {
-                background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.08));
-                transform: translateX(5px);
-                box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
-            }
-
-            .episodes-list {
-                margin-top: 10px;
-            }
-
-            .episode-item {
-                margin-bottom: 8px;
-                padding: 8px;
-                font-size: 10px;
-                border-radius: 6px;
-                border-left: 2px solid #ffd700;
-                background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
-                position: relative;
-            }
-
-            .episode-item::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.08) 50%, transparent 70%);
-                transition: transform 0.3s ease;
-                z-index: -1;
-            }
-
-            .episode-item:hover {
-                transform: translateX(3px);
-                box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
-                background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.08));
             }
 
             .episode-title {
-                font-size: 10px;
-                margin-bottom: 4px;
-                color: #fff;
+                font-size: 11px;
             }
 
             .episode-button {
+                font-size: 10px;
                 padding: 5px 10px;
-                border-radius: 10px;
-                font-size: 9px;
-                box-shadow: 0 2px 4px rgba(255, 215, 0, 0.2);
-                letter-spacing: 0.3px;
-                background: linear-gradient(135deg, #ffd700, #f39c12);
-                color: #000;
-            }
-
-            .episode-button:hover {
-                transform: translateY(-1px);
-                box-shadow: 0 3px 6px rgba(255, 215, 0, 0.3);
-            }
-
-            .navigation {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 10px 0;
-                z-index: 1000;
-            }
-
-            .nav-button#prevBtn {
-                position: fixed;
-                top: 10px;
-                left: 50%;
-                transform: translateX(-50%);
-                margin-bottom: 10px;
-            }
-
-            .nav-button#nextBtn {
-                position: fixed;
-                bottom: 10px;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .nav-button {
-                padding: 8px 15px;
-                font-size: 12px;
-                min-width: 80px;
-                border-radius: 15px;
-                box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
-                letter-spacing: 0.5px;
-                background: linear-gradient(135deg, #ffd700, #f39c12);
-                color: #000;
-                text-transform: uppercase;
-            }
-
-            .nav-button:hover:not(:disabled) {
-                transform: translateX(-50%) translateY(-1px);
-                box-shadow: 0 6px 12px rgba(255, 215, 0, 0.3);
-                background: linear-gradient(135deg, #f39c12, #ffd700);
-            }
-
-            .nav-button:disabled {
-                background: linear-gradient(135deg, #666, #555);
-                color: #999;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            .page-indicator {
-                bottom: 10px;
-                left: 8px;
-                padding: 6px 12px;
-                font-size: 10px;
-                border-radius: 15px;
-                box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
-                letter-spacing: 0.3px;
-                background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(243, 156, 18, 0.9));
-                position: fixed;
-                z-index: 1000;
-            }
-
-            .page-content::-webkit-scrollbar {
-                width: 4px;
-            }
-
-            .page-content::-webkit-scrollbar-track {
-                background: rgba(139, 69, 19, 0.05);
-                border-radius: 5px;
-            }
-
-            .page-content::-webkit-scrollbar-thumb {
-                border-radius: 5px;
-                background: linear-gradient(135deg, #ffd700, #f39c12);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .ambient-particles .particle {
-                width: 1px;
-                height: 1px;
-                animation-duration: 10s;
-                opacity: 0.2;
-            }
-
-            .book-container {
-                padding: 8px;
-                margin: 0;
-            }
-
-            .book {
-                max-width: 300px;
-                min-height: 350px;
-            }
-
-            .page {
-                border-radius: 6px;
-                box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
-            }
-
-            .page-content {
-                padding: 10px 6px;
-            }
-
-            .page-title {
-                font-size: 16px;
-                margin-bottom: 8px;
-                padding-bottom: 4px;
-            }
-
-            .epic-chapter-title {
-                font-size: 18px;
-                margin-bottom: 8px;
-                padding: 4px 10px;
-                border-radius: 5px;
-            }
-
-            .epic-chapter-title::before,
-            .epic-chapter-title::after {
-                font-size: 14px;
-                left: -16px;
-                right: -16px;
-            }
-
-            .chapter-subtitle {
-                font-size: 14px;
-                margin-bottom: 8px;
-            }
-
-            .intro-text {
-                font-size: 10px;
-                line-height: 1.4;
-                margin-bottom: 8px;
-                padding: 4px;
-            }
-
-            .intro-text-epic {
-                font-size: 12px;
-                padding: 4px 8px;
-                margin-bottom: 8px;
-            }
-
-            .page-image,
-            .chapter-image {
-                max-width: 100px;
-                margin: 6px auto;
-                border-radius: 5px;
-            }
-
-            .chapter-image[style*="max-width: 100px"] {
-                max-width: 50px;
-            }
-
-            .text-content p {
-                font-size: 10px;
-                line-height: 1.4;
-                margin-bottom: 6px;
-                text-indent: 8px;
-            }
-
-            .text-content h2 {
-                font-size: 12px;
-                margin: 6px 0 3px;
-                padding-left: 4px;
-            }
-
-            .sommaire-list h2 {
-                font-size: 12px;
-                margin-bottom: 8px;
-            }
-
-            .sommaire-item {
-                margin-bottom: 6px;
-                padding: 6px;
-                font-size: 10px;
-                border-radius: 0 5px 5px 0;
-                border-left: 1px solid #ffd700;
-            }
-
-            .episodes-list {
-                margin-top: 8px;
-            }
-
-            .episode-item {
-                margin-bottom: 6px;
-                padding: 6px;
-                font-size: 9px;
-                border-radius: 5px;
-            }
-
-            .episode-title {
-                font-size: 9px;
-                margin-bottom: 3px;
-            }
-
-            .episode-button {
-                padding: 4px 8px;
-                border-radius: 8px;
-                font-size: 8px;
-            }
-
-            .scroll-indicator {
-                font-size: 14px;
-                bottom: 8px;
             }
 
             .page-number {
-                font-size: 9px;
+                font-size: 10px;
                 padding: 3px 6px;
-                bottom: 6px;
-                right: 6px;
-                border-radius: 5px;
             }
 
-            .navigation {
-                padding: 8px 0;
-            }
-
-            .nav-button {
-                padding: 6px 12px;
-                font-size: 10px;
-                min-width: 70px;
-                border-radius: 12px;
-            }
-
-            .nav-button#prevBtn {
-                top: 8px;
-            }
-
-            .nav-button#nextBtn {
-                bottom: 8px;
-            }
-
-            .back-button {
-                padding: 6px 12px;
-                font-size: 10px;
-                top: 6px;
-                left: 6px;
-                border-radius: 12px;
-            }
-
-            .logo {
-                max-width: 40px;
-                top: 6px;
-                right: 6px;
-            }
-
-            .page-indicator,
             .chapter-indicator-main {
-                font-size: 9px;
-                padding: 4px 8px;
-                border-radius: 12px;
-                bottom: 8px;
+                font-size: 10px;
+                padding: 6px 12px;
             }
 
-            .page-content::-webkit-scrollbar {
-                width: 3px;
+            .page-indicator {
+                font-size: 10px;
+                padding: 6px 12px;
             }
         }
     </style>
@@ -1392,13 +966,11 @@
 
         let currentPageIndex = 0;
         const pages = [
-            // Couverture
             {
                 image: '../../images/flashlivre2.webp',
                 type: 'cover',
                 position: 'center'
             },
-            // Intro
             {
                 type: 'intro',
                 position: 'left',
@@ -1410,14 +982,12 @@
                     <p class="intro-text-epic">Mais qui sont-ils réellement ?</p>
                 `
             },
-            // Sommaire
             {
                 type: 'sommaire',
                 position: 'right',
                 title: 'Sommaire',
                 backgroundClass: 'intro-sommaire-bg'
             },
-            // Chapitre 1: David FLASH
             {
                 type: 'chapter-title',
                 position: 'left',
@@ -1558,7 +1128,7 @@
 
             switch(pageData.type) {
                 case 'cover':
-                    return `<div class="${pageClass} cover-page" data-position="${position}" style="display: none; background-image: url('${pageData.image}');"></div>`;
+                    return `<div class="${pageClass} cover-page" data-position="${position}" style="background-image: url('${pageData.image}');"></div>`;
                 case 'intro':
                     content = `
                         <div class="page-content ${pageData.backgroundClass || ''}">
@@ -1576,15 +1146,6 @@
                                 <div class="sommaire-list">
                                     <div class="sommaire-item" onclick="goToChapter(1)">🔥 Chapitre 1: David FLASH</div>
                                     <div class="sommaire-item" onclick="goToChapter(2)">🐺 Chapitre 2: John FLASH</div>
-                                    <div class="sommaire-item" onclick="goToChapter(3)">🐉 Chapitre 3: Ken FLASH</div>
-                                    <div class="sommaire-item" onclick="goToChapter(4)">🐦‍🔥 Chapitre 4: Aaron FLASH</div>
-                                    <div class="sommaire-item" onclick="goToChapter(5)">🐍 Chapitre 5: David JR. FLASH</div>
-                                    <div class="sommaire-item" onclick="goToChapter(6)">🦁 Chapitre 6: Damon FLASH</div>
-                                    <div class="sommaire-item" onclick="goToChapter(7)">🐺 Chapitre 7: Kayton FLASH</div>
-                                    <div class="sommaire-item" onclick="goToChapter(8)">🐍 Chapitre 8: Adrian FLASH</div>
-                                    <div class="sommaire-item" onclick="goToChapter(9)">👤👤👤 Chapitre 9: Eden/Ned/Eddy FLASH</div>
-                                    <div class="sommaire-item" onclick="goToChapter(10)">❓Chapitre 10: Manda FLASH</div>
-                                    <div class="sommaire-item" onclick="goToChapter(11)">🌳 Arbre Généalogique</div>
                                 </div>
                             </div>
                         </div>
@@ -1619,7 +1180,7 @@
                     break;
             }
 
-            return `<div class="${pageClass}" data-position="${position}" style="display: none;">${content}</div>`;
+            return `<div class="${pageClass}" data-position="${position}">${content}</div>`;
         }
 
         function showPage(index) {
@@ -1680,27 +1241,14 @@
                 if (pageNumber || scrollIndicator) {
                     content.addEventListener('scroll', () => {
                         if (pageNumber) {
-                            if (content.scrollTop > 0) {
-                                pageNumber.classList.add('hidden');
-                            } else {
-                                pageNumber.classList.remove('hidden');
-                            }
+                            pageNumber.classList.toggle('hidden', content.scrollTop > 0);
                         }
                         if (scrollIndicator) {
-                            if (content.scrollTop > 0) {
-                                scrollIndicator.classList.add('hidden');
-                            } else {
-                                scrollIndicator.classList.remove('hidden');
-                            }
+                            scrollIndicator.classList.toggle('hidden', content.scrollTop > 0);
                             if (content.scrollHeight > content.clientHeight) {
                                 content.classList.add('scrollable');
-                                if (content.scrollTop >= content.scrollHeight - content.clientHeight - 10) {
-                                    scrollIndicator.textContent = '↑';
-                                    content.classList.remove('scroll-down');
-                                } else {
-                                    scrollIndicator.textContent = '↓';
-                                    content.classList.add('scroll-down');
-                                }
+                                scrollIndicator.textContent = content.scrollTop >= content.scrollHeight - content.clientHeight - 10 ? '↑' : '↓';
+                                content.classList.toggle('scroll-down', content.scrollTop < content.scrollHeight - content.clientHeight - 10);
                             } else {
                                 content.classList.remove('scrollable');
                             }
@@ -1708,23 +1256,11 @@
                     });
                     if (scrollIndicator && content.scrollHeight > content.clientHeight) {
                         content.classList.add('scrollable');
-                        if (content.scrollTop >= content.scrollHeight - content.clientHeight - 10) {
-                            scrollIndicator.textContent = '↑';
-                            content.classList.remove('scroll-down');
-                        } else {
-                            scrollIndicator.textContent = '↓';
-                            content.classList.add('scroll-down');
-                        }
-                        if (content.scrollTop > 0) {
-                            scrollIndicator.classList.add('hidden');
-                        } else {
-                            scrollIndicator.classList.remove('hidden');
-                        }
+                        scrollIndicator.textContent = content.scrollTop >= content.scrollHeight - content.clientHeight - 10 ? '↑' : '↓';
+                        content.classList.toggle('scroll-down', content.scrollTop < content.scrollHeight - content.clientHeight - 10);
                     } else {
                         content.classList.remove('scrollable');
-                        if (scrollIndicator) {
-                            scrollIndicator.classList.add('hidden');
-                        }
+                        if (scrollIndicator) scrollIndicator.classList.add('hidden');
                     }
                 }
             });
@@ -1742,15 +1278,11 @@
                 pageIndicator.textContent = 'Sommaire';
             } else if (pageData.pageNumber) {
                 pageIndicator.textContent = `Page ${pageData.pageNumber} / ${maxPageNumber}`;
-            } else {
-                pageIndicator.textContent = `Page ${currentPageIndex} / ${totalPages}`;
             }
             const chapterIndicator = document.getElementById('chapterIndicator');
+            chapterIndicator.style.display = pageData.chapter ? 'block' : 'none';
             if (pageData.chapter) {
                 chapterIndicator.textContent = `📖 Chapitre ${pageData.chapter}`;
-                chapterIndicator.style.display = 'block';
-            } else {
-                chapterIndicator.style.display = 'none';
             }
             document.getElementById('prevBtn').disabled = currentPageIndex === 0;
             document.getElementById('nextBtn').disabled = currentPageIndex >= totalPages - 1;
@@ -1809,23 +1341,14 @@
         }
 
         function openVideo(videoId) {
-            window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
-        }
-
-        function populatePageSelector() {
-            const pageSelect = document.getElementById('pageSelect');
-            pages.forEach((page, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = page.title || `Page ${index + 1}`;
-                pageSelect.appendChild(option);
-            });
+            if (videoId) {
+                window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+            }
         }
 
         window.onload = () => {
-            populatePageSelector();
-            updatePage();
-            updateMangaPage();
+            createParticles();
+            showPage(currentPageIndex);
         };
     </script>
 </body>
