@@ -19,7 +19,6 @@
             color: #fff;
             overflow: hidden;
             min-height: 100vh;
-            overscroll-behavior: none;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -59,7 +58,7 @@
             border-radius: 25px;
             font-weight: 700;
             z-index: 1000;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -90,8 +89,8 @@
 
         .book {
             position: relative;
-            width: 700px;
-            height: 500px;
+            width: 800px;
+            height: 550px;
             display: flex;
             filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
         }
@@ -103,10 +102,8 @@
             background: linear-gradient(135deg, #fefefe 0%, #f8f8f8 100%);
             border: 3px solid #8b4513;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-            backface-visibility: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             overflow: hidden;
-            display: block !important;
         }
 
         .page[class*="bg"] {
@@ -137,17 +134,16 @@
         }
 
         .page[data-position="center"] {
-            width: 50%;
-            margin: 0 auto;
+            width: 100%;
             border: 3px solid rgba(255, 215, 0, 0.4);
             box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
+            border-radius: 12px;
         }
 
         .cover-page {
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            display: block !important;
         }
 
         .david-bg .page-content {
@@ -158,38 +154,6 @@
             background: linear-gradient(135deg, #2c1810 0%, #8b4513 100%) !important;
         }
 
-        .ken-bg .page-content {
-            background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%) !important;
-        }
-
-        .aaron-bg .page-content {
-            background: linear-gradient(135deg, #ff8c00 0%, #ffd700 100%) !important;
-        }
-
-        .davidjr-bg .page-content {
-            background: linear-gradient(135deg, #006400 0%, #228b22 100%) !important;
-        }
-
-        .damon-bg .page-content {
-            background: linear-gradient(135deg, #ff4500 0%, #ffa500 100%) !important;
-        }
-
-        .kayton-bg .page-content {
-            background: linear-gradient(135deg, #00008b 0%, #1e90ff 100%) !important;
-        }
-
-        .adrian-bg .page-content {
-            background: linear-gradient(135deg, #013220 0%, #000000 100%) !important;
-        }
-
-        .edennededdy-bg .page-content {
-            background: linear-gradient(135deg, #ff0000 0%, #000000 50%, #ffffff 100%) !important;
-        }
-
-        .manda-bg .page-content {
-            background: linear-gradient(135deg, #90ee90 0%, #d3d3d3 100%) !important;
-        }
-
         .intro-sommaire-bg {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../images/parchment-bg.jpg') !important;
             background-size: cover;
@@ -197,27 +161,18 @@
         }
 
         .page-content {
-            padding: 25px 25px 15px 25px;
+            padding: 25px;
             height: 100%;
             display: flex;
             flex-direction: column;
             color: #333;
             overflow-y: auto;
-            overflow-x: hidden;
             position: relative;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 248, 248, 0.98) 100%);
         }
 
         .david-bg h1, .david-bg h2, .david-bg p,
-        .john-bg h1, .john-bg h2, .john-bg p,
-        .ken-bg h1, .ken-bg h2, .ken-bg p,
-        .aaron-bg h1, .aaron-bg h2, .aaron-bg p,
-        .davidjr-bg h1, .davidjr-bg h2, .davidjr-bg p,
-        .damon-bg h1, .damon-bg h2, .damon-bg p,
-        .kayton-bg h1, .kayton-bg h2, .kayton-bg p,
-        .adrian-bg h1, .adrian-bg h2, .adrian-bg p,
-        .edennededdy-bg h1, .edennededdy-bg h2, .edennededdy-bg p,
-        .manda-bg h1, .manda-bg h2, .manda-bg p {
+        .john-bg h1, .john-bg h2, .john-bg p {
             color: #fff;
         }
 
@@ -227,15 +182,7 @@
         }
 
         .david-bg .epic-chapter-title,
-        .john-bg .epic-chapter-title,
-        .ken-bg .epic-chapter-title,
-        .aaron-bg .epic-chapter-title,
-        .davidjr-bg .epic-chapter-title,
-        .damon-bg .epic-chapter-title,
-        .kayton-bg .epic-chapter-title,
-        .adrian-bg .epic-chapter-title,
-        .edennededdy-bg .epic-chapter-title,
-        .manda-bg .epic-chapter-title {
+        .john-bg .epic-chapter-title {
             color: transparent;
             background: linear-gradient(135deg, #ffd700, #f39c12);
             -webkit-background-clip: text;
@@ -248,56 +195,19 @@
 
         .page-number {
             position: absolute;
-            bottom: 8px;
+            bottom: 10px;
             right: 15px;
             font-size: 14px;
             color: #8b4513;
             font-weight: 700;
             background: rgba(255, 255, 255, 0.9);
-            padding: 4px 8px;
+            padding: 5px 10px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             border: 1px solid #ffd700;
-            transition: opacity 0.3s ease;
-        }
-
-        .page-number.hidden {
-            opacity: 0;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 20px;
-            font-size: 24px;
-            color: #ffd700;
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
-            cursor: pointer;
-            animation: pulse 1.5s ease-in-out infinite;
-            z-index: 10;
-            display: none;
-        }
-
-        .scrollable .scroll-indicator {
-            display: block;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.2); }
         }
 
         .david-bg .page-number,
-        .john-bg .page-number,
-        .ken-bg .page-number,
-        .aaron-bg .page-number,
-        .davidjr-bg .page-number,
-        .damon-bg .page-number,
-        .kayton-bg .page-number,
-        .adrian-bg .page-number,
-        .edennededdy-bg .page-number,
-        .manda-bg .page-number {
+        .john-bg .page-number {
             background: rgba(255, 215, 0, 0.9);
             color: #000;
         }
@@ -324,7 +234,6 @@
             color: #8b4513;
             margin-bottom: 20px;
             text-align: center;
-            position: relative;
             border-bottom: 3px solid #ffd700;
             padding-bottom: 10px;
         }
@@ -375,7 +284,6 @@
             text-align: center;
             margin-bottom: 20px;
             color: #ffd700;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
         }
 
         .intro-text {
@@ -384,10 +292,8 @@
             line-height: 1.8;
             text-align: center;
             color: #333;
-            text-shadow: 1px 1px 3px rgba(255, 215, 0, 0.3);
             margin-bottom: 20px;
             padding: 10px;
-            animation: textEnter 0.6s ease-out;
         }
 
         .intro-text-epic {
@@ -399,17 +305,10 @@
             background: linear-gradient(135deg, #ffd700, #f39c12);
             -webkit-background-clip: text;
             background-clip: text;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
             padding: 10px 20px;
             border: 1px solid #ffd700;
             border-radius: 8px;
-            animation: textEnter 0.8s ease-out;
-        }
-
-        @keyframes textEnter {
-            from { opacity: 0; transform: translateY(10px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .page-image {
@@ -420,7 +319,7 @@
             display: block;
             border: 3px solid #ffd700;
             box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .chapter-image {
@@ -431,7 +330,7 @@
             display: block;
             border: 3px solid #ffd700;
             box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .chapter-image[style*="max-width: 100px"] {
@@ -441,7 +340,6 @@
         .page-image:hover,
         .chapter-image:hover {
             transform: scale(1.05);
-            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.5);
         }
 
         .text-content p {
@@ -461,21 +359,8 @@
         }
 
         .david-bg .text-content h2,
-        .john-bg .text-content h2,
-        .ken-bg .text-content h2,
-        .aaron-bg .text-content h2,
-        .davidjr-bg .text-content h2,
-        .damon-bg .text-content h2,
-        .kayton-bg .text-content h2,
-        .adrian-bg .text-content h2,
-        .edennededdy-bg .text-content h2,
-        .manda-bg .text-content h2 {
+        .john-bg .text-content h2 {
             color: #ffd700;
-        }
-
-        .text-content {
-            font-size: 14px;
-            line-height: 1.6;
         }
 
         .sommaire-list {
@@ -489,35 +374,16 @@
             padding: 15px;
             border-left: 4px solid #ffd700;
             background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
-            transition: all 0.4s ease;
             border-radius: 0 12px 12px 0;
-            position: relative;
-            overflow: hidden;
             font-weight: 600;
             color: #fff8dc;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-        }
-
-        .sommaire-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.2) 50%, transparent 70%);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
+            transition: all 0.3s ease;
         }
 
         .sommaire-item:hover {
             background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.1));
-            transform: translateX(10px);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
-        }
-
-        .sommaire-item:hover::before {
-            transform: translateX(100%);
+            transform: translateX(5px);
         }
 
         .episodes-list {
@@ -532,30 +398,11 @@
             border-radius: 12px;
             border-left: 4px solid #ffd700;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .episode-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.1) 50%, transparent 70%);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
         }
 
         .episode-item:hover {
             transform: translateX(5px);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
             background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.08));
-        }
-
-        .episode-item:hover::before {
-            transform: translateX(100%);
         }
 
         .episode-title {
@@ -574,19 +421,13 @@
             font-weight: 700;
             color: #000;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .episode-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
             background: linear-gradient(135deg, #f39c12, #ffd700);
-        }
-
-        .episode-button:active {
-            transform: translateY(0);
+            transform: translateY(-2px);
         }
 
         .navigation {
@@ -595,33 +436,25 @@
             transform: translateY(-50%);
             display: flex;
             justify-content: space-between;
-            width: 900px;
+            width: 1000px;
             left: 50%;
-            margin-left: -450px;
+            margin-left: -500px;
             z-index: 1000;
-        }
-
-        .nav-button#prevBtn {
-            margin-left: -100px;
-        }
-
-        .nav-button#nextBtn {
-            margin-right: -100px;
         }
 
         .nav-button {
             background: linear-gradient(135deg, #ffd700, #f39c12);
             color: #000;
             border: none;
-            padding: 15px 25px;
+            padding: 15px 30px;
             border-radius: 30px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 16px;
             box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
 
         .nav-button:hover:not(:disabled) {
@@ -634,8 +467,6 @@
             background: linear-gradient(135deg, #666, #555);
             color: #999;
             cursor: not-allowed;
-            transform: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .page-indicator {
@@ -672,7 +503,7 @@
             background: linear-gradient(135deg, #f39c12, #ffd700);
         }
 
-        /* Mobile Manga Reader Styles */
+        /* Mobile Manga Reader Styles (Inspired by scans.html) */
         @media (max-width: 768px) {
             body {
                 background-color: #111;
@@ -689,18 +520,18 @@
 
             .back-button {
                 position: fixed;
-                top: 15px;
-                left: 15px;
-                padding: 10px 20px;
+                top: 10px;
+                left: 10px;
+                padding: 8px 16px;
                 background: linear-gradient(135deg, #ffd700, #f39c12);
-                color: #0a0a0a;
+                color: #000;
                 text-decoration: none;
                 border-radius: 10px;
-                font-size: 16px;
+                font-size: 14px;
                 font-family: 'Pirata One', sans-serif;
                 font-weight: bold;
-                transition: background-color 0.3s ease, transform 0.3s ease;
-                border: 2px solid #0a0a0a;
+                transition: all 0.3s ease;
+                border: 2px solid #000;
                 z-index: 1000;
             }
 
@@ -711,8 +542,8 @@
 
             .logo {
                 position: fixed;
-                top: 15px;
-                right: 15px;
+                top: 10px;
+                right: 10px;
                 max-width: 40px;
                 z-index: 1000;
             }
@@ -728,39 +559,39 @@
                 right: 0;
                 background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
                 border-bottom: 2px solid #ffd700;
-                padding: 10px 20px;
+                padding: 10px;
                 z-index: 1000;
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
             }
 
             .manga-title {
                 font-family: 'Cinzel', serif;
-                font-size: 18px;
+                font-size: 20px;
                 font-weight: 700;
                 color: #ffd700;
                 text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+                text-align: center;
             }
 
             .manga-reader {
-                margin-top: 70px;
+                margin-top: 60px;
                 margin-bottom: 80px;
                 padding: 10px;
-                min-height: calc(100vh - 150px);
+                min-height: calc(100vh - 140px);
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
                 align-items: center;
             }
 
             .page-selector {
                 position: fixed;
-                top: 70px;
+                top: 60px;
                 left: 50%;
                 transform: translateX(-50%);
                 background: rgba(0, 0, 0, 0.8);
-                padding: 10px;
+                padding: 8px;
                 border-radius: 20px;
                 z-index: 999;
                 border: 2px solid #ffd700;
@@ -792,6 +623,15 @@
                 color: #333;
             }
 
+            .current-page-content.cover-bg {
+                background: url('../../images/flashlivre2.webp') no-repeat center center fixed !important;
+                background-size: cover;
+                min-height: 70vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
             .current-page-content.david-bg {
                 background: linear-gradient(135deg, #222222 0%, #808080 100%);
                 color: #fff;
@@ -802,46 +642,6 @@
                 color: #fff;
             }
 
-            .current-page-content.ken-bg {
-                background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%);
-                color: #fff;
-            }
-
-            .current-page-content.aaron-bg {
-                background: linear-gradient(135deg, #ff8c00 0%, #ffd700 100%);
-                color: #000;
-            }
-
-            .current-page-content.davidjr-bg {
-                background: linear-gradient(135deg, #006400 0%, #228b22 100%);
-                color: #fff;
-            }
-
-            .current-page-content.damon-bg {
-                background: linear-gradient(135deg, #ff4500 0%, #ffa500 100%);
-                color: #000;
-            }
-
-            .current-page-content.kayton-bg {
-                background: linear-gradient(135deg, #00008b 0%, #1e90ff 100%);
-                color: #fff;
-            }
-
-            .current-page-content.adrian-bg {
-                background: linear-gradient(135deg, #013220 0%, #000000 100%);
-                color: #fff;
-            }
-
-            .current-page-content.edennededdy-bg {
-                background: linear-gradient(135deg, #ff0000 0%, #000000 50%, #ffffff 100%);
-                color: #fff;
-            }
-
-            .current-page-content.manda-bg {
-                background: linear-gradient(135deg, #90ee90 0%, #d3d3d3 100%);
-                color: #000;
-            }
-
             .current-page-content.intro-sommaire-bg {
                 background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../images/parchment-bg.jpg');
                 background-size: cover;
@@ -849,19 +649,9 @@
                 color: #fff;
             }
 
-            .current-page-content.cover-bg {
-                background: url('../../images/flashlivre2.webp') !important;
-                background-size: cover;
-                background-position: center;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                min-height: 70vh;
-            }
-
             .page-indicator-manga {
                 position: fixed;
-                top: 120px;
+                top: 110px;
                 left: 50%;
                 transform: translateX(-50%);
                 background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(243, 156, 18, 0.95));
@@ -882,7 +672,7 @@
                 right: 0;
                 background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
                 border-top: 2px solid #ffd700;
-                padding: 15px 20px;
+                padding: 10px 20px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -893,16 +683,16 @@
                 background: linear-gradient(135deg, #ffd700, #f39c12);
                 color: #000;
                 border: none;
-                padding: 12px 20px;
+                padding: 10px 20px;
                 border-radius: 25px;
                 font-weight: 700;
                 cursor: pointer;
-                transition: all 0.3s ease;
                 font-size: 14px;
                 box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 min-width: 80px;
+                transition: all 0.3s ease;
             }
 
             .manga-nav-button:hover:not(:disabled) {
@@ -915,8 +705,6 @@
                 background: linear-gradient(135deg, #666, #555);
                 color: #999;
                 cursor: not-allowed;
-                transform: none;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             }
 
             .chapter-info-manga {
@@ -937,6 +725,7 @@
                 text-align: center;
                 border-bottom: 2px solid #ffd700;
                 padding-bottom: 8px;
+                color: #333;
             }
 
             .mobile-epic-title {
@@ -945,30 +734,14 @@
                 font-weight: 700;
                 text-align: center;
                 margin-bottom: 15px;
+                color: transparent;
+                background: linear-gradient(135deg, #ffd700, #f39c12);
+                -webkit-background-clip: text;
+                background-clip: text;
                 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-                position: relative;
                 padding: 10px 15px;
-                background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
                 border: 2px solid #ffd700;
                 border-radius: 8px;
-            }
-
-            .mobile-epic-title::before,
-            .mobile-epic-title::after {
-                content: '✦';
-                position: absolute;
-                color: #ffd700;
-                font-size: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-
-            .mobile-epic-title::before {
-                left: -25px;
-            }
-
-            .mobile-epic-title::after {
-                right: -25px;
             }
 
             .mobile-chapter-subtitle {
@@ -978,12 +751,11 @@
                 text-align: center;
                 margin-bottom: 15px;
                 color: #ffd700;
-                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
             }
 
             .mobile-intro-text {
                 font-family: 'Playfair Display', serif;
-                font-size: 14px;
+                font-size: 16px;
                 line-height: 1.6;
                 text-align: center;
                 margin-bottom: 15px;
@@ -992,11 +764,10 @@
 
             .mobile-intro-text-epic {
                 font-family: 'Cinzel', serif;
-                font-size: 16px;
+                font-size: 18px;
                 font-weight: 700;
                 text-align: center;
                 color: #ffd700;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
                 margin-bottom: 15px;
                 padding: 10px 15px;
                 border: 1px solid #ffd700;
@@ -1019,7 +790,7 @@
             }
 
             .mobile-text-content {
-                font-size: 13px;
+                font-size: 14px;
                 line-height: 1.5;
             }
 
@@ -1034,6 +805,7 @@
                 margin: 15px 0 8px;
                 border-left: 3px solid #ffd700;
                 padding-left: 10px;
+                color: #ffd700;
             }
 
             .mobile-sommaire-list {
@@ -1048,16 +820,16 @@
                 padding: 12px;
                 border-left: 3px solid #ffd700;
                 background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
-                transition: all 0.3s ease;
                 border-radius: 0 8px 8px 0;
                 font-weight: 600;
                 font-size: 14px;
+                color: #fff;
+                transition: all 0.3s ease;
             }
 
             .mobile-sommaire-item:hover {
                 background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.1));
                 transform: translateX(5px);
-                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
             }
 
             .mobile-episodes-list {
@@ -1076,13 +848,13 @@
 
             .mobile-episode-item:hover {
                 transform: translateX(3px);
-                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
                 background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.08));
             }
 
             .mobile-episode-title {
                 font-weight: 600;
                 margin-bottom: 6px;
+                color: #fff;
             }
 
             .mobile-episode-button {
@@ -1095,25 +867,17 @@
                 font-weight: 700;
                 color: #000;
                 transition: all 0.3s ease;
-                box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
             }
 
             .mobile-episode-button:hover {
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(255, 215, 0, 0.5);
                 background: linear-gradient(135deg, #f39c12, #ffd700);
+                transform: translateY(-1px);
             }
 
-            .navigation {
-                display: none;
-            }
-
-            .page-indicator {
-                display: none;
-            }
-
+            .navigation,
+            .page-indicator,
             .chapter-indicator-main {
                 display: none;
             }
@@ -1358,62 +1122,6 @@
             }
         ];
 
-        function renderPage(pageData, index) {
-            const pageClass = `page ${pageData.backgroundClass || ''} ${pageData.type === 'chapter-title' ? 'chapter-title-page' : ''} ${pageData.type === 'episodes' ? 'episodes-page' : ''}`.trim();
-            const position = pageData.position || 'center';
-            let content = '';
-
-            switch(pageData.type) {
-                case 'cover':
-                    return `<div class="${pageClass} cover-page" data-position="${position}" style="background-image: url('${pageData.image}');"></div>`;
-                case 'intro':
-                    content = `
-                        <div class="page-content ${pageData.backgroundClass || ''}">
-                            <h1 class="page-title">${pageData.title}</h1>
-                            <div class="text-content">${pageData.content}</div>
-                        </div>
-                    `;
-                    break;
-                case 'sommaire':
-                    content = `
-                        <div class="page-content ${pageData.backgroundClass || ''}">
-                            <h1 class="page-title">Sommaire</h1>
-                            <div class="text-content">${pageData.content}</div>
-                        </div>
-                    `;
-                    break;
-                case 'chapter-title':
-                    content = `
-                        <div class="page-content">
-                            <h1 class="epic-chapter-title">${pageData.title}</h1>
-                            <h1 class="chapter-subtitle">${pageData.subtitle}</h1>
-                            <div class="text-content">${pageData.content}</div>
-                            <div class="page-number">${pageData.pageNumber}</div>
-                        </div>
-                    `;
-                    break;
-                case 'text-page':
-                    content = `
-                        <div class="page-content">
-                            <div class="text-content">${pageData.content}</div>
-                            <div class="page-number">${pageData.pageNumber}</div>
-                        </div>
-                    `;
-                    break;
-                case 'episodes':
-                    content = `
-                        <div class="page-content episodes-page">
-                            <h1 class="page-title">${pageData.title}</h1>
-                            <div class="text-content">${pageData.content}</div>
-                            <div class="page-number">${pageData.pageNumber}</div>
-                        </div>
-                    `;
-                    break;
-            }
-
-            return `<div class="${pageClass}" data-position="${position}">${content}</div>`;
-        }
-
         function updatePage() {
             const book = document.getElementById('book');
             const pageIndicator = document.getElementById('pageIndicator');
@@ -1426,19 +1134,76 @@
             const nextPage = pages[currentPageIndex + 1];
 
             if (currentPage.position === 'center') {
-                book.innerHTML = renderPage(currentPage, currentPageIndex);
+                const pageDiv = document.createElement('div');
+                pageDiv.className = `page cover-page ${currentPage.backgroundClass || ''}`;
+                pageDiv.setAttribute('data-position', 'center');
+                pageDiv.style.backgroundImage = `url(${currentPage.image})`;
+                book.appendChild(pageDiv);
             } else {
-                let leftPage = currentPage.position === 'left' ? currentPage : pages[currentPageIndex - 1];
-                let rightPage = currentPage.position === 'right' ? currentPage : nextPage;
+                const leftPage = currentPage.position === 'left' ? currentPage : pages[currentPageIndex - 1];
+                const rightPage = currentPage.position === 'right' ? currentPage : nextPage;
 
-                let html = '';
                 if (leftPage) {
-                    html += renderPage(leftPage, currentPageIndex - 1);
+                    const pageDiv = document.createElement('div');
+                    pageDiv.className = `page ${leftPage.backgroundClass || ''}`;
+                    pageDiv.setAttribute('data-position', 'left');
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = `page-content ${leftPage.type === 'chapter-title' ? 'chapter-title-page' : ''}`;
+                    if (leftPage.title) {
+                        const title = document.createElement('h1');
+                        title.className = leftPage.type === 'chapter-title' ? 'epic-chapter-title' : 'page-title';
+                        title.textContent = leftPage.title;
+                        contentDiv.appendChild(title);
+                    }
+                    if (leftPage.subtitle) {
+                        const subtitle = document.createElement('h2');
+                        subtitle.className = 'chapter-subtitle';
+                        subtitle.textContent = leftPage.subtitle;
+                        contentDiv.appendChild(subtitle);
+                    }
+                    if (leftPage.content) {
+                        contentDiv.innerHTML += leftPage.content;
+                    }
+                    if (leftPage.pageNumber) {
+                        const pageNumber = document.createElement('div');
+                        pageNumber.className = 'page-number';
+                        pageNumber.textContent = `Page ${leftPage.pageNumber}`;
+                        contentDiv.appendChild(pageNumber);
+                    }
+                    pageDiv.appendChild(contentDiv);
+                    book.appendChild(pageDiv);
                 }
+
                 if (rightPage) {
-                    html += renderPage(rightPage, currentPageIndex);
+                    const pageDiv = document.createElement('div');
+                    pageDiv.className = `page ${rightPage.backgroundClass || ''}`;
+                    pageDiv.setAttribute('data-position', 'right');
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = `page-content ${rightPage.type === 'chapter-title' ? 'chapter-title-page' : ''}`;
+                    if (rightPage.title) {
+                        const title = document.createElement('h1');
+                        title.className = rightPage.type === 'chapter-title' ? 'epic-chapter-title' : 'page-title';
+                        title.textContent = rightPage.title;
+                        contentDiv.appendChild(title);
+                    }
+                    if (rightPage.subtitle) {
+                        const subtitle = document.createElement('h2');
+                        subtitle.className = 'chapter-subtitle';
+                        subtitle.textContent = rightPage.subtitle;
+                        contentDiv.appendChild(subtitle);
+                    }
+                    if (rightPage.content) {
+                        contentDiv.innerHTML += rightPage.content;
+                    }
+                    if (rightPage.pageNumber) {
+                        const pageNumber = document.createElement('div');
+                        pageNumber.className = 'page-number';
+                        pageNumber.textContent = `Page ${rightPage.pageNumber}`;
+                        contentDiv.appendChild(pageNumber);
+                    }
+                    pageDiv.appendChild(contentDiv);
+                    book.appendChild(pageDiv);
                 }
-                book.innerHTML = html;
             }
 
             pageIndicator.textContent = currentPage.title || `Page ${currentPage.pageNumber || currentPageIndex + 1}`;
@@ -1449,27 +1214,18 @@
 
             prevBtn.disabled = currentPageIndex === 0;
             nextBtn.disabled = currentPageIndex >= pages.length - 1 || (currentPage.position === 'left' && !nextPage);
-            setupPageNumberScroll();
         }
 
         function previousPage() {
             if (currentPageIndex > 0) {
-                if (window.innerWidth > 768 && pages[currentPageIndex].position === 'right' && pages[currentPageIndex - 1].position === 'left') {
-                    currentPageIndex -= 2;
-                } else {
-                    currentPageIndex--;
-                }
+                currentPageIndex--;
                 updatePage();
             }
         }
 
         function nextPage() {
             if (currentPageIndex < pages.length - 1) {
-                if (window.innerWidth > 768 && pages[currentPageIndex].position === 'left' && pages[currentPageIndex + 1].position === 'right') {
-                    currentPageIndex += 2;
-                } else {
-                    currentPageIndex++;
-                }
+                currentPageIndex++;
                 updatePage();
             }
         }
@@ -1535,47 +1291,6 @@
 
         function openVideo(videoId) {
             window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
-        }
-
-        function toggleScroll(element) {
-            element.scrollTop = element.scrollHeight;
-            const indicator = element.querySelector('.scroll-indicator');
-            if (indicator) {
-                indicator.classList.toggle('hidden');
-            }
-        }
-
-        function setupPageNumberScroll() {
-            const pageContents = document.querySelectorAll('.page-content');
-            pageContents.forEach(content => {
-                const pageNumber = content.querySelector('.page-number');
-                const scrollIndicator = content.querySelector('.scroll-indicator');
-                if (pageNumber || scrollIndicator) {
-                    content.addEventListener('scroll', () => {
-                        if (pageNumber) {
-                            pageNumber.classList.toggle('hidden', content.scrollTop > 0);
-                        }
-                        if (scrollIndicator) {
-                            scrollIndicator.classList.toggle('hidden', content.scrollTop > 0);
-                            if (content.scrollHeight > content.clientHeight) {
-                                content.classList.add('scrollable');
-                                scrollIndicator.textContent = content.scrollTop >= content.scrollHeight - content.clientHeight - 10 ? '↑' : '↓';
-                                content.classList.toggle('scroll-down', content.scrollTop < content.scrollHeight - content.clientHeight - 10);
-                            } else {
-                                content.classList.remove('scrollable');
-                            }
-                        }
-                    });
-                    if (scrollIndicator && content.scrollHeight > content.clientHeight) {
-                        content.classList.add('scrollable');
-                        scrollIndicator.textContent = content.scrollTop >= content.scrollHeight - content.clientHeight - 10 ? '↑' : '↓';
-                        content.classList.toggle('scroll-down', content.scrollTop < content.scrollHeight - content.clientHeight - 10);
-                    } else {
-                        content.classList.remove('scrollable');
-                        if (scrollIndicator) scrollIndicator.classList.add('hidden');
-                    }
-                }
-            });
         }
 
         function populatePageSelector() {
