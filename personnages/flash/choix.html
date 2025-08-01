@@ -5,138 +5,162 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Faites votre choix</title>
     <link rel="shortcut icon" href="../../images/flashballelogo.webp" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Montserrat', Arial, sans-serif;
+        * {
             margin: 0;
-            height: 100vh;
-            overflow: hidden;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
             position: relative;
         }
 
         .container {
             display: flex;
-            height: 100vh;
-            width: 100%;
-            position: relative;
-        }
-
-        .split {
-            flex: 1;
-            height: 100%;
-            position: relative;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
+            gap: 30px;
             justify-content: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            flex-wrap: wrap;
+            padding: 20px;
+            max-width: 1200px;
+            width: 100%;
         }
 
-        .split.livre {
-            background-color: #4a3c00; /* Jaune très sombre */
-            border-right: 3px solid #fff; /* Bordure blanche */
+        .card {
+            background: #333;
+            border-radius: 15px;
+            width: 300px;
+            padding: 40px 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        .split.normal {
-            background-color: #4a2c00; /* Orange très sombre */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 179, 0, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .split:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        .card:hover::before {
+            opacity: 1;
         }
 
-        .split h2 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 179, 0, 0.4);
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            font-weight: 600;
             color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.5);
-            letter-spacing: 2px;
-            margin: 0;
-            transition: color 0.3s;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .split:hover h2 {
-            color: #ffb300; /* Jaune vif au hover pour contraste */
+        .card p {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ffb300;
+            color: #000;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .card-button:hover {
+            background: #e0a000;
+            transform: scale(1.05);
         }
 
         .back-button {
             position: absolute;
             top: 20px;
             left: 20px;
-            background-color: #fff;
+            background: #fff;
             color: #000;
             font-size: 1rem;
-            font-weight: bold;
-            padding: 12px 24px;
+            font-weight: 600;
+            padding: 10px 20px;
             border: 2px solid #ffb300;
             border-radius: 8px;
-            cursor: pointer;
             text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
-            z-index: 10;
+            transition: background 0.2s, transform 0.2s;
         }
 
         .back-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 12px rgba(255, 179, 0, 0.7);
-            background-color: #ffb300;
+            background: #ffb300;
             color: #000;
+            transform: scale(1.05);
         }
 
-        /* Tablet (max-width: 1024px) */
-        @media screen and (max-width: 1024px) {
-            .split h2 {
-                font-size: 2.8rem;
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .card {
+                width: 80%;
+                max-width: 400px;
+            }
+
+            .card h2 {
+                font-size: 1.8rem;
             }
 
             .back-button {
                 font-size: 0.9rem;
-                padding: 10px 20px;
+                padding: 8px 16px;
             }
         }
 
-        /* Medium mobile (max-width: 768px) */
-        @media screen and (max-width: 768px) {
-            .container {
-                flex-direction: column;
+        @media screen and (max-width: 480px) {
+            .card {
+                width: 90%;
+                padding: 30px 15px;
             }
 
-            .split {
-                flex: none;
-                height: 50%;
+            .card h2 {
+                font-size: 1.5rem;
             }
 
-            .split.livre {
-                border-right: none;
-                border-bottom: 3px solid #fff; /* Bordure en bas pour mobile */
-            }
-
-            .split h2 {
-                font-size: 2.2rem;
+            .card p {
+                font-size: 0.9rem;
             }
 
             .back-button {
                 font-size: 0.8rem;
-                padding: 8px 16px;
-                top: 15px;
-                left: 15px;
-            }
-        }
-
-        /* Small mobile (max-width: 480px) */
-        @media screen and (max-width: 480px) {
-            .split h2 {
-                font-size: 1.6rem;
-                letter-spacing: 1px;
-            }
-
-            .back-button {
-                font-size: 0.7rem;
                 padding: 6px 12px;
                 top: 10px;
                 left: 10px;
@@ -147,11 +171,15 @@
 <body>
     <a href="../../index.html" class="back-button">RETOUR</a>
     <div class="container">
-        <a href="flash.html" class="split livre">
-            <h2>Format "normal"</h2>
+        <a href="flash.html" class="card">
+            <h2>Format Normal</h2>
+            <p>Mise en page classique.</p>
+            <span class="card-button">Découvrir</span>
         </a>
-        <a href="../flashnew/flashnew.html" class="split normal">
-            <h2>Format livre</h2>
+        <a href="../flashnew/flashnew.html" class="card">
+            <h2>Format Livre</h2>
+            <p>Mise en page sous forme de livre, pour une expérience immersive.</p>
+            <span class="card-button">Découvrir</span>
         </a>
     </div>
 </body>
