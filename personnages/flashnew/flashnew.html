@@ -50,14 +50,14 @@
             border-radius: 25px;
             font-weight: 700;
             z-index: 1000;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .back-button:hover {
             background: linear-gradient(135deg, #f1c40f, #ffd700);
-            transform: translateY(-3px);
+            transform: scale(1.05);
             box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
         }
         .logo {
@@ -427,12 +427,12 @@
             letter-spacing: 0.5px;
         }
         .episode-button:hover {
-            transform: translateY(-2px);
+            transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
             background: linear-gradient(135deg, #f39c12, #ffd700);
         }
         .episode-button:active {
-            transform: translateY(0);
+            transform: scale(1);
         }
         .page-content::-webkit-scrollbar {
             width: 8px;
@@ -458,7 +458,7 @@
             border-radius: 25px;
             font-weight: 700;
             z-index: 1000;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -466,7 +466,7 @@
         }
         .nav-button:hover {
             background: linear-gradient(135deg, #f1c40f, #ffd700);
-            transform: translateY(-3px);
+            transform: translateY(-50%) scale(1.05);
             box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
         }
         .nav-button:disabled {
@@ -496,18 +496,37 @@
             width: 300px;
             max-width: 80%;
         }
+        .navigation {
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+        }
         /* Mobile View Styles */
-        .manga-viewer img {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        .manga-viewer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: transparent;
+            min-height: calc(100vh - 150px);
         }
         .manga-viewer .page {
             width: 100%;
-            max-width: 600px;
+            max-width: 350px;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             margin: 0 auto;
+        }
+        .manga-viewer .page-content {
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .manga-viewer img {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
@@ -528,8 +547,13 @@
             border: 2px solid #ffb300;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            margin: 0 auto 10px auto;
+            margin: 10px auto;
             width: fit-content;
+        }
+        .chapter-navigation-buttons {
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
         }
         .chapter-navigation-buttons button {
             padding: 10px 20px;
@@ -541,7 +565,7 @@
             font-family: 'Cinzel', serif;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s ease;
         }
         .chapter-navigation-buttons button:hover {
             background-color: #e0a800;
@@ -575,13 +599,12 @@
         @media (max-width: 768px) {
             body {
                 background: #111;
-                overflow: hidden;
+                overflow-y: auto;
                 padding: 0;
                 margin: 0;
                 display: flex;
                 flex-direction: column;
-                height: 100vh;
-                width: 100vw;
+                min-height: 100vh;
             }
             .ambient-particles {
                 width: 100%;
@@ -615,7 +638,7 @@
                 z-index: 1000;
             }
             .back-button:hover {
-                transform: translateY(-1px);
+                transform: scale(1.05);
                 box-shadow: 0 4px 8px rgba(255, 215, 0, 0.2);
             }
             .logo {
@@ -628,39 +651,18 @@
             .book-container, .book, .page:not(.manga-viewer .page) {
                 display: none;
             }
-            .manga-viewer {
-                flex-grow: 1;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background: #000;
-            }
-            .page-indicator {
-                position: fixed;
-                bottom: 80px;
-                left: 50%;
-                transform: translateX(-50%);
+            .chapter-selector {
+                position: static;
+                padding: 10px;
+                text-align: center;
                 z-index: 1000;
             }
             .chapter-navigation-buttons {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: #111;
+                position: static;
+                background: transparent;
                 padding: 10px;
                 display: flex;
-                justify-content: space-between;
-                z-index: 1000;
-            }
-            .chapter-selector {
-                position: fixed;
-                top: 50px;
-                left: 0;
-                right: 0;
-                background: #111;
-                padding: 10px;
-                text-align: center;
+                justify-content: center;
                 z-index: 1000;
             }
         }
@@ -699,7 +701,7 @@
     </div>
 
     <!-- Mobile View -->
-    <div class="md:hidden flex flex-col h-screen">
+    <div class="md:hidden flex flex-col">
         <div class="chapter-selector">
             <select id="chapter-select">
                 <option value="0">Page couverture</option>
@@ -715,12 +717,12 @@
                 <option value="10">John FLASH - Page 3</option>
             </select>
         </div>
-        <div class="manga-viewer" id="manga-viewer"></div>
-        <div class="page-indicator" id="mobile-page-indicator">Page couverture</div>
         <div class="chapter-navigation-buttons">
             <button id="prev" class="disabled:opacity-50">Précédent</button>
             <button id="next">Suivant</button>
         </div>
+        <div class="manga-viewer" id="manga-viewer"></div>
+        <div class="page-indicator" id="mobile-page-indicator">Page couverture</div>
         <div class="loading-spinner" id="loading-spinner"></div>
     </div>
 
@@ -839,14 +841,21 @@
                 const pageDiv = mangaViewer.querySelector('.page');
                 if (pageDiv) {
                     pageDiv.style.width = '100%';
-                    pageDiv.style.maxWidth = '600px';
+                    pageDiv.style.maxWidth = '350px';
+                    pageDiv.style.height = '500px';
                     pageDiv.style.margin = '0 auto';
                     pageDiv.style.borderRadius = '10px';
                     pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
                     pageDiv.style.display = 'block';
+                    const pageContent = pageDiv.querySelector('.page-content');
+                    if (pageContent) {
+                        pageContent.style.height = '100%';
+                        pageContent.style.overflowY = 'auto';
+                    }
                 }
                 loadingSpinner.classList.remove('active');
                 attachContentClickListener();
+                setupPageNumberScroll();
             }
             updateMobileIndicators();
             updateChapterSelect();
