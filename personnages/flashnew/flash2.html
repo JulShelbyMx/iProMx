@@ -723,7 +723,7 @@
                 margin-bottom: 10px;
                 padding: 6px 12px;
             }
-            .page-image, .chapter-image {
+            .page-image {
                 max-width: 60px;
                 height: auto;
                 margin: 8px auto;
@@ -732,9 +732,21 @@
                 box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
                 object-fit: contain;
             }
-            .chapter-image[style*="max-width: 100px"] {
-                max-width: 40px;
+            .chapter-image {
+                max-width: 50px;
+                width: auto;
                 height: auto;
+                margin: 8px auto;
+                padding: 4px;
+                border: 2px solid #ffd700;
+                box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+                object-fit: contain;
+            }
+            .chapter-image[style*="max-width: 100px"] {
+                max-width: 30px;
+                width: auto;
+                height: auto;
+                padding: 4px;
             }
             .text-content p {
                 font-size: 11px;
