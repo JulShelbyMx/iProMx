@@ -557,13 +557,13 @@
             text-align: center;
             padding: 5px 10px;
             font-family: 'Cinzel', serif;
-            font-size: 14px;
+            font-size: 12px;
             color: #ffb300;
             background-color: rgba(0, 0, 0, 0.7);
             border: 2px solid #ffb300;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            margin: 10px auto;
+            margin: 5px auto;
             width: fit-content;
         }
         .chapter-navigation-buttons {
@@ -730,7 +730,7 @@
                 padding: 6px 12px;
             }
             .page-image, .chapter-image {
-                max-width: 30px;
+                max-width: 20px;
                 height: auto;
                 margin: 8px auto;
                 padding: 8px;
@@ -739,7 +739,7 @@
                 object-fit: contain;
             }
             .chapter-image[style*="max-width: 100px"] {
-                max-width: 15px;
+                max-width: 10px;
                 height: auto;
             }
             .text-content p {
@@ -784,9 +784,6 @@
             .scroll-indicator {
                 font-size: 18px;
                 bottom: 15px;
-            }
-            .page-content::-webkit-scrollbar {
-                width: 5px;
             }
             .page-indicator {
                 font-size: 12px;
@@ -872,7 +869,7 @@
         const pages = [
             { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture', selectLabel: 'Couverture' },
             { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><p class="intro-text-epic">Mais qui sont-ils réellement ?</p>`, alt: 'Introduction', selectLabel: 'Intro' },
-             { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 24px; text-align: center;">Les Chapitres :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToPage(3)"><span>🐯</span>Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToPage(7)"><span>🐺</span>Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToPage(11)"><span>🐉</span>Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToPage(12)"><span>🐦‍🔥</span>Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToPage(13)"><span>🐍</span>Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToPage(14)"><span>🦁</span>Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToPage(15)"><span>🐺</span>Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToPage(16)"><span>🐍</span>Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToPage(17)"><span>👤👤👤</span>Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToPage(18)"><span>❓</span>Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToPage(19)"><span>🌳</span>Arbre Généalogique</div></div></div>`, alt: 'Sommaire', selectLabel: 'Sommaire' },
+            { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 24px; text-align: center;">Les Chapitres :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToPage(3)"><span>🐯</span> Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToPage(7)"><span>🐺</span> Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToPage(11)"><span>🐉</span> Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToPage(12)"><span>🐦‍🔥</span> Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToPage(13)"><span>🐍</span> Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToPage(14)"><span>🦁</span> Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToPage(15)"><span>🐺</span> Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToPage(16)"><span>🐍</span> Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToPage(17)"><span>👤👤👤</span> Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToPage(18)"><span>❓</span> Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToPage(19)"><span>🌳</span> Arbre Généalogique</div></div></div>`, alt: 'Sommaire', selectLabel: 'Sommaire' },
             { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'PAGE 1 / 8' },
             { type: 'text-page', position: 'right', pageNumber: 2, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 1', selectLabel: 'PAGE 2 / 8' },
             { type: 'text-page', position: 'left', pageNumber: 3, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires blabla</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 2', selectLabel: 'PAGE 3 / 8' },
@@ -1279,64 +1276,35 @@
         function openVideo(videoId) {
             if (videoId && videoId !== '#') {
                 window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
-            } else {
-                alert('Vidéo non disponible');
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
+        // Initialize
+        createParticles();
+        if (window.innerWidth <= 768) {
+            renderMobilePage(currentPageIndex);
+        } else {
+            showPage(currentPageIndex);
+        }
+
+        // Event Listeners
+        document.getElementById('chapter-select').addEventListener('change', (e) => {
+            goToPage(e.target.value);
+        });
+
+        document.getElementById('chapter-select-desktop').addEventListener('change', (e) => {
+            goToPage(e.target.value);
+        });
+
+        document.getElementById('prev').addEventListener('click', previousPage);
+        document.getElementById('next').addEventListener('click', nextPage);
+
+        window.addEventListener('resize', () => {
             if (window.innerWidth <= 768) {
-                renderMobilePage(0);
+                renderMobilePage(currentPageIndex);
             } else {
-                showPage(0);
+                showPage(currentPageIndex);
             }
-            const chapterSelect = document.getElementById('chapter-select');
-            const chapterSelectDesktop = document.getElementById('chapter-select-desktop');
-            chapterSelect.addEventListener('change', (e) => {
-                goToPage(e.target.value);
-            });
-            chapterSelectDesktop.addEventListener('change', (e) => {
-                goToPage(e.target.value);
-            });
-            document.getElementById('next').addEventListener('click', nextPage);
-            document.getElementById('prev').addEventListener('click', previousPage);
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
-                    nextPage();
-                } else if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    previousPage();
-                }
-            });
-            let startX = 0, startY = 0;
-            document.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-                startY = e.touches[0].clientY;
-            });
-            document.addEventListener('touchend', (e) => {
-                if (!startX || !startY) return;
-                const endX = e.changedTouches[0].clientX;
-                const endY = e.changedTouches[0].clientY;
-                const diffX = startX - endX;
-                const diffY = startY - endY;
-                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-                    if (diffX > 0) {
-                        nextPage();
-                    } else {
-                        previousPage();
-                    }
-                }
-                startX = startY = 0;
-            });
-            window.addEventListener('resize', () => {
-                if (window.innerWidth <= 768) {
-                    renderMobilePage(currentPageIndex);
-                } else {
-                    showPage(currentPageIndex);
-                }
-            });
         });
     </script>
 </body>
