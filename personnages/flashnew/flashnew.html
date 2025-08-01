@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Famille FLASH - Le Livre</title>
     <link rel="icon" type="image/png" href="//ipromx.store/cdn/shop/files/grismarque.png?crop=center&height=32&v=1731915247&width=32">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=Pirata+One&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,6 +19,7 @@
             color: #fff;
             overflow: hidden;
             min-height: 100vh;
+            overscroll-behavior: none;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -51,7 +52,7 @@
             position: fixed;
             top: 15px;
             left: 15px;
-            background: linear-gradient(135deg, #ffd700, #f1c40f);
+            background: linear-gradient(135deg, #ffd700, #f39c12);
             color: #000;
             text-decoration: none;
             padding: 12px 24px;
@@ -65,7 +66,7 @@
         }
 
         .back-button:hover {
-            background: linear-gradient(135deg, #f1c40f, #ffd700);
+            background: linear-gradient(135deg, #f39c12, #ffd700);
             transform: translateY(-3px);
             box-shadow: 0 12px 35px rgba(255, 215, 0, 0.5);
         }
@@ -76,12 +77,6 @@
             right: 10px;
             max-width: 100px;
             z-index: 1000;
-            animation: logoGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes logoGlow {
-            0%, 100% { box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3); }
-            50% { box-shadow: 0 8px 35px rgba(255, 215, 0, 0.6); }
         }
 
         .book-container {
@@ -95,8 +90,8 @@
 
         .book {
             position: relative;
-            width: 800px;
-            height: 600px;
+            width: 700px;
+            height: 500px;
             display: flex;
             filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
         }
@@ -111,6 +106,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5);
             backface-visibility: hidden;
             overflow: hidden;
+            display: block !important;
         }
 
         .page[class*="bg"] {
@@ -126,7 +122,6 @@
             bottom: 0;
             background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.4) 5%, transparent 10%);
             pointer-events: none;
-            z-index: 2;
         }
 
         .page[data-position="left"] {
@@ -163,6 +158,38 @@
             background: linear-gradient(135deg, #2c1810 0%, #8b4513 100%) !important;
         }
 
+        .ken-bg .page-content {
+            background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%) !important;
+        }
+
+        .aaron-bg .page-content {
+            background: linear-gradient(135deg, #ff8c00 0%, #ffd700 100%) !important;
+        }
+
+        .davidjr-bg .page-content {
+            background: linear-gradient(135deg, #006400 0%, #228b22 100%) !important;
+        }
+
+        .damon-bg .page-content {
+            background: linear-gradient(135deg, #ff4500 0%, #ffa500 100%) !important;
+        }
+
+        .kayton-bg .page-content {
+            background: linear-gradient(135deg, #00008b 0%, #1e90ff 100%) !important;
+        }
+
+        .adrian-bg .page-content {
+            background: linear-gradient(135deg, #013220 0%, #000000 100%) !important;
+        }
+
+        .edennededdy-bg .page-content {
+            background: linear-gradient(135deg, #ff0000 0%, #000000 50%, #ffffff 100%) !important;
+        }
+
+        .manda-bg .page-content {
+            background: linear-gradient(135deg, #90ee90 0%, #d3d3d3 100%) !important;
+        }
+
         .intro-sommaire-bg {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../images/parchment-bg.jpg') !important;
             background-size: cover;
@@ -170,7 +197,7 @@
         }
 
         .page-content {
-            padding: 25px;
+            padding: 25px 25px 15px 25px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -179,23 +206,36 @@
             overflow-x: hidden;
             position: relative;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 248, 248, 0.98) 100%);
-            z-index: 3;
         }
 
         .david-bg h1, .david-bg h2, .david-bg p,
-        .john-bg h1, .john-bg h2, .john-bg p {
+        .john-bg h1, .john-bg h2, .john-bg p,
+        .ken-bg h1, .ken-bg h2, .ken-bg p,
+        .aaron-bg h1, .aaron-bg h2, .aaron-bg p,
+        .davidjr-bg h1, .davidjr-bg h2, .davidjr-bg p,
+        .damon-bg h1, .damon-bg h2, .damon-bg p,
+        .kayton-bg h1, .kayton-bg h2, .kayton-bg p,
+        .adrian-bg h1, .adrian-bg h2, .adrian-bg p,
+        .edennededdy-bg h1, .edennededdy-bg h2, .edennededdy-bg p,
+        .manda-bg h1, .manda-bg h2, .manda-bg p {
             color: #fff;
         }
 
-        .intro-sommaire-bg h1,
-        .intro-sommaire-bg h2,
-        .intro-sommaire-bg p {
+        .intro-sommaire-bg h1, .intro-sommaire-bg h2, .intro-sommaire-bg p {
             color: #fff;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         .david-bg .epic-chapter-title,
-        .john-bg .epic-chapter-title {
+        .john-bg .epic-chapter-title,
+        .ken-bg .epic-chapter-title,
+        .aaron-bg .epic-chapter-title,
+        .davidjr-bg .epic-chapter-title,
+        .damon-bg .epic-chapter-title,
+        .kayton-bg .epic-chapter-title,
+        .adrian-bg .epic-chapter-title,
+        .edennededdy-bg .epic-chapter-title,
+        .manda-bg .epic-chapter-title {
             color: transparent;
             background: linear-gradient(135deg, #ffd700, #f39c12);
             -webkit-background-clip: text;
@@ -219,19 +259,45 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             border: 1px solid #ffd700;
             transition: opacity 0.3s ease;
-            z-index: 4;
         }
 
         .page-number.hidden {
             opacity: 0;
         }
 
-        .scroll-indicator.hidden {
-            opacity: 0;
+        .scroll-indicator {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 20px;
+            font-size: 24px;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+            cursor: pointer;
+            animation: pulse 1.5s ease-in-out infinite;
+            z-index: 10;
+            display: none;
+        }
+
+        .scrollable .scroll-indicator {
+            display: block;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.2); }
         }
 
         .david-bg .page-number,
-        .john-bg .page-number {
+        .john-bg .page-number,
+        .ken-bg .page-number,
+        .aaron-bg .page-number,
+        .davidjr-bg .page-number,
+        .damon-bg .page-number,
+        .kayton-bg .page-number,
+        .adrian-bg .page-number,
+        .edennededdy-bg .page-number,
+        .manda-bg .page-number {
             background: rgba(255, 215, 0, 0.9);
             color: #000;
         }
@@ -258,6 +324,7 @@
             color: #8b4513;
             margin-bottom: 20px;
             text-align: center;
+            position: relative;
             border-bottom: 3px solid #ffd700;
             padding-bottom: 10px;
         }
@@ -270,6 +337,7 @@
             margin-bottom: 20px;
             color: #8b4513;
             text-shadow: 2px 2px 6px rgba(255, 215, 0, 0.5);
+            position: relative;
             padding: 10px 20px;
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
             border: 2px solid #ffd700;
@@ -376,29 +444,6 @@
             box-shadow: 0 12px 30px rgba(255, 215, 0, 0.5);
         }
 
-        .scroll-indicator {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 20px;
-            font-size: 24px;
-            color: #ffd700;
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
-            cursor: pointer;
-            animation: pulse 1.5s ease-in-out infinite;
-            z-index: 10;
-            display: none;
-        }
-
-        .scrollable .scroll-indicator {
-            display: block;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.2); }
-        }
-
         .text-content p {
             font-size: 14px;
             line-height: 1.6;
@@ -416,7 +461,15 @@
         }
 
         .david-bg .text-content h2,
-        .john-bg .text-content h2 {
+        .john-bg .text-content h2,
+        .ken-bg .text-content h2,
+        .aaron-bg .text-content h2,
+        .davidjr-bg .text-content h2,
+        .damon-bg .text-content h2,
+        .kayton-bg .text-content h2,
+        .adrian-bg .text-content h2,
+        .edennededdy-bg .text-content h2,
+        .manda-bg .text-content h2 {
             color: #ffd700;
         }
 
@@ -532,8 +585,12 @@
             background: linear-gradient(135deg, #f39c12, #ffd700);
         }
 
+        .episode-button:active {
+            transform: translateY(0);
+        }
+
         .navigation {
-            position: fixed;
+            position: absolute;
             top: 50%;
             transform: translateY(-50%);
             display: flex;
@@ -565,7 +622,6 @@
             box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
-            z-index: 1000;
         }
 
         .nav-button:hover:not(:disabled) {
@@ -612,325 +668,482 @@
             border-radius: 10px;
         }
 
+        .page-content::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #f39c12, #ffd700);
+        }
+
+        /* Mobile Manga Reader Styles */
         @media (max-width: 768px) {
             body {
+                background-color: #111;
                 overflow: auto;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: center;
-                height: 100vh;
-                width: 100vw;
-            }
-
-            .ambient-particles {
-                width: 100%;
-                height: 100%;
-                z-index: 1;
-            }
-
-            .particle {
-                animation-duration: 9s;
-                opacity: 0.3;
-                width: 2px;
-                height: 2px;
-            }
-
-            .back-button {
-                top: 8px;
-                left: 8px;
-                padding: 8px 16px;
-                font-size: 12px;
-                border-radius: 15px;
-                box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
-                z-index: 1100;
-            }
-
-            .logo {
-                max-width: 50px;
-                top: 8px;
-                right: 8px;
-                z-index: 1100;
-            }
-
-            .book-container {
-                padding: 10px;
-                margin-top: 70px;
-                width: 100%;
-                min-height: calc(100vh - 80px);
-            }
-
-            .book {
-                width: 100%;
-                max-width: 350px;
-                height: auto;
-                min-height: 500px;
                 display: block;
-            }
-
-            .page {
-                width: 100%;
-                height: auto;
-                min-height: 500px;
-                border: 2px solid #8b4513;
-                border-radius: 8px;
-                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-            }
-
-            .page[data-position="left"],
-            .page[data-position="right"] {
-                display: none;
-            }
-
-            .page[data-position="center"] {
-                width: 100%;
+                min-height: 100vh;
+                padding: 0;
                 margin: 0;
             }
 
-            .cover-page {
-                background-size: cover;
-                background-position: center;
-                width: 100%;
-                height: 100%;
-                display: block !important;
+            .ambient-particles {
+                display: none;
             }
 
-            .page-content {
-                padding: 15px;
-                min-height: 500px;
-                z-index: 3;
-            }
-
-            .david-bg .page-content,
-            .john-bg .page-content,
-            .intro-sommaire-bg {
-                background-size: cover;
-                background-position: center;
-            }
-
-            .david-bg h1, .david-bg h2, .david-bg p,
-            .john-bg h1, .john-bg h2, .john-bg p,
-            .intro-sommaire-bg h1,
-            .intro-sommaire-bg h2,
-            .intro-sommaire-bg p {
-                color: #fff;
-                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            }
-
-            .page-number {
-                font-size: 12px;
-                padding: 4px 8px;
-                bottom: 10px;
-                right: 10px;
-                z-index: 4;
-            }
-
-            .chapter-indicator-main {
-                bottom: 80px;
-                right: 10px;
-                padding: 8px 16px;
-                font-size: 12px;
-                border-radius: 15px;
-                z-index: 1100;
-            }
-
-            .page-title {
-                font-size: 24px;
-                margin-bottom: 15px;
-            }
-
-            .epic-chapter-title {
-                font-size: 32px;
-                margin-bottom: 15px;
-                padding: 8px 15px;
-            }
-
-            .chapter-subtitle {
-                font-size: 24px;
-                margin-bottom: 15px;
-            }
-
-            .intro-text {
+            .back-button {
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                padding: 10px 20px;
+                background: linear-gradient(135deg, #ffd700, #f39c12);
+                color: #0a0a0a;
+                text-decoration: none;
+                border-radius: 10px;
                 font-size: 16px;
-                line-height: 1.6;
-                margin-bottom: 15px;
+                font-family: 'Pirata One', sans-serif;
+                font-weight: bold;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+                border: 2px solid #0a0a0a;
+                z-index: 1000;
             }
 
-            .intro-text-epic {
-                font-size: 20px;
-                padding: 8px 15px;
-                margin-bottom: 15px;
+            .back-button:hover {
+                background: linear-gradient(135deg, #f39c12, #ffd700);
+                transform: scale(1.05);
             }
 
-            .page-image,
-            .chapter-image {
-                max-width: 150px;
-                margin: 10px auto;
+            .logo {
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                max-width: 40px;
+                z-index: 1000;
+            }
+
+            .book-container {
+                display: none;
+            }
+
+            .manga-header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+                border-bottom: 2px solid #ffd700;
+                padding: 10px 20px;
+                z-index: 1000;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .manga-title {
+                font-family: 'Cinzel', serif;
+                font-size: 18px;
+                font-weight: 700;
+                color: #ffd700;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            }
+
+            .manga-reader {
+                margin-top: 70px;
+                margin-bottom: 80px;
+                padding: 10px;
+                min-height: calc(100vh - 150px);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .page-selector {
+                position: fixed;
+                top: 70px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0, 0, 0, 0.8);
+                padding: 10px;
+                border-radius: 20px;
+                z-index: 999;
+                border: 2px solid #ffd700;
+            }
+
+            .page-selector select {
+                padding: 8px 12px;
+                font-size: 14px;
+                background-color: #222;
+                color: white;
+                border: 2px solid #ffd700;
+                border-radius: 8px;
+                font-family: 'Cinzel', serif;
+                font-weight: 600;
+            }
+
+            .current-page-content {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                background: linear-gradient(135deg, #fefefe 0%, #f8f8f8 100%);
+                border-radius: 12px;
+                box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+                border: 2px solid #ffd700;
+                min-height: 60vh;
+                position: relative;
+                overflow-y: auto;
+                color: #333;
+            }
+
+            .current-page-content.david-bg {
+                background: linear-gradient(135deg, #222222 0%, #808080 100%);
+                color: #fff;
+            }
+
+            .current-page-content.john-bg {
+                background: linear-gradient(135deg, #2c1810 0%, #8b4513 100%);
+                color: #fff;
+            }
+
+            .current-page-content.ken-bg {
+                background: linear-gradient(135deg, #8b0000 0%, #ff0000 100%);
+                color: #fff;
+            }
+
+            .current-page-content.aaron-bg {
+                background: linear-gradient(135deg, #ff8c00 0%, #ffd700 100%);
+                color: #000;
+            }
+
+            .current-page-content.davidjr-bg {
+                background: linear-gradient(135deg, #006400 0%, #228b22 100%);
+                color: #fff;
+            }
+
+            .current-page-content.damon-bg {
+                background: linear-gradient(135deg, #ff4500 0%, #ffa500 100%);
+                color: #000;
+            }
+
+            .current-page-content.kayton-bg {
+                background: linear-gradient(135deg, #00008b 0%, #1e90ff 100%);
+                color: #fff;
+            }
+
+            .current-page-content.adrian-bg {
+                background: linear-gradient(135deg, #013220 0%, #000000 100%);
+                color: #fff;
+            }
+
+            .current-page-content.edennededdy-bg {
+                background: linear-gradient(135deg, #ff0000 0%, #000000 50%, #ffffff 100%);
+                color: #fff;
+            }
+
+            .current-page-content.manda-bg {
+                background: linear-gradient(135deg, #90ee90 0%, #d3d3d3 100%);
+                color: #000;
+            }
+
+            .current-page-content.intro-sommaire-bg {
+                background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../images/parchment-bg.jpg');
+                background-size: cover;
+                background-position: center;
+                color: #fff;
+            }
+
+            .current-page-content.cover-bg {
+                background: url('../../images/flashlivre2.webp') !important;
+                background-size: cover;
+                background-position: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 70vh;
+            }
+
+            .page-indicator-manga {
+                position: fixed;
+                top: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(243, 156, 18, 0.95));
+                color: #000;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 700;
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+                z-index: 998;
+                border: 1px solid #ffd700;
+            }
+
+            .manga-navigation {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+                border-top: 2px solid #ffd700;
+                padding: 15px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .manga-nav-button {
+                background: linear-gradient(135deg, #ffd700, #f39c12);
+                color: #000;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 25px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 14px;
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                min-width: 80px;
+            }
+
+            .manga-nav-button:hover:not(:disabled) {
+                background: linear-gradient(135deg, #f39c12, #ffd700);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+            }
+
+            .manga-nav-button:disabled {
+                background: linear-gradient(135deg, #666, #555);
+                color: #999;
+                cursor: not-allowed;
+                transform: none;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .chapter-info-manga {
+                background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(243, 156, 18, 0.1));
+                color: #ffd700;
+                padding: 8px 16px;
+                border-radius: 15px;
+                font-size: 12px;
+                font-weight: 600;
+                border: 1px solid rgba(255, 215, 0, 0.3);
+                text-align: center;
+            }
+
+            .mobile-page-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 24px;
+                margin-bottom: 15px;
+                text-align: center;
+                border-bottom: 2px solid #ffd700;
+                padding-bottom: 8px;
+            }
+
+            .mobile-epic-title {
+                font-family: 'Cinzel', serif;
+                font-size: 28px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 15px;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                position: relative;
+                padding: 10px 15px;
+                background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
                 border: 2px solid #ffd700;
                 border-radius: 8px;
             }
 
-            .chapter-image[style*="max-width: 100px"] {
+            .mobile-epic-title::before,
+            .mobile-epic-title::after {
+                content: '✦';
+                position: absolute;
+                color: #ffd700;
+                font-size: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .mobile-epic-title::before {
+                left: -25px;
+            }
+
+            .mobile-epic-title::after {
+                right: -25px;
+            }
+
+            .mobile-chapter-subtitle {
+                font-family: 'Cinzel', serif;
+                font-size: 20px;
+                font-weight: 600;
+                text-align: center;
+                margin-bottom: 15px;
+                color: #ffd700;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            }
+
+            .mobile-intro-text {
+                font-family: 'Playfair Display', serif;
+                font-size: 14px;
+                line-height: 1.6;
+                text-align: center;
+                margin-bottom: 15px;
+                padding: 10px;
+            }
+
+            .mobile-intro-text-epic {
+                font-family: 'Cinzel', serif;
+                font-size: 16px;
+                font-weight: 700;
+                text-align: center;
+                color: #ffd700;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                margin-bottom: 15px;
+                padding: 10px 15px;
+                border: 1px solid #ffd700;
+                border-radius: 8px;
+            }
+
+            .mobile-page-image,
+            .mobile-chapter-image {
+                width: 100%;
+                max-width: 150px;
+                border-radius: 8px;
+                margin: 10px auto;
+                display: block;
+                border: 2px solid #ffd700;
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            }
+
+            .mobile-chapter-image[style*="max-width: 100px"] {
                 max-width: 80px;
             }
 
-            .scroll-indicator {
-                font-size: 20px;
-                bottom: 15px;
-            }
-
-            .text-content p {
+            .mobile-text-content {
                 font-size: 13px;
                 line-height: 1.5;
-                margin-bottom: 10px;
             }
 
-            .text-content h2 {
+            .mobile-text-content p {
+                margin-bottom: 12px;
+                text-align: justify;
+                text-indent: 15px;
+            }
+
+            .mobile-text-content h2 {
                 font-size: 16px;
                 margin: 15px 0 8px;
+                border-left: 3px solid #ffd700;
+                padding-left: 10px;
             }
 
-            .sommaire-item {
-                padding: 10px;
-                font-size: 13px;
+            .mobile-sommaire-list {
+                list-style: none;
+                padding: 0;
+                margin-top: 20px;
+            }
+
+            .mobile-sommaire-item {
                 margin-bottom: 10px;
+                cursor: pointer;
+                padding: 12px;
+                border-left: 3px solid #ffd700;
+                background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
+                transition: all 0.3s ease;
+                border-radius: 0 8px 8px 0;
+                font-weight: 600;
+                font-size: 14px;
             }
 
-            .episode-item {
-                padding: 10px;
-                font-size: 12px;
+            .mobile-sommaire-item:hover {
+                background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.1));
+                transform: translateX(5px);
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+            }
+
+            .mobile-episodes-list {
+                margin-top: 15px;
+            }
+
+            .mobile-episode-item {
                 margin-bottom: 10px;
-            }
-
-            .episode-title {
                 font-size: 12px;
+                padding: 10px;
+                background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
+                border-radius: 8px;
+                border-left: 3px solid #ffd700;
+                transition: all 0.3s ease;
             }
 
-            .episode-button {
+            .mobile-episode-item:hover {
+                transform: translateX(3px);
+                box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+                background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.08));
+            }
+
+            .mobile-episode-title {
+                font-weight: 600;
+                margin-bottom: 6px;
+            }
+
+            .mobile-episode-button {
+                background: linear-gradient(135deg, #ffd700, #f39c12);
+                border: none;
                 padding: 6px 12px;
+                border-radius: 15px;
                 font-size: 11px;
+                cursor: pointer;
+                font-weight: 700;
+                color: #000;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .mobile-episode-button:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(255, 215, 0, 0.5);
+                background: linear-gradient(135deg, #f39c12, #ffd700);
             }
 
             .navigation {
-                position: fixed;
-                top: auto;
-                bottom: 10px;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                gap: 10px;
-                transform: none;
-                z-index: 1100;
-            }
-
-            .nav-button {
-                padding: 10px 20px;
-                font-size: 14px;
-                border-radius: 20px;
-                z-index: 1100;
-            }
-
-            .nav-button#prevBtn,
-            .nav-button#nextBtn {
-                margin: 0;
+                display: none;
             }
 
             .page-indicator {
-                bottom: 60px;
-                left: 10px;
-                padding: 8px 16px;
-                font-size: 12px;
-                z-index: 1100;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .book {
-                max-width: 300px;
-                min-height: 400px;
-            }
-
-            .page {
-                min-height: 400px;
-            }
-
-            .page-content {
-                padding: 10px;
-                min-height: 400px;
-            }
-
-            .page-title {
-                font-size: 20px;
-            }
-
-            .epic-chapter-title {
-                font-size: 28px;
-                padding: 6px 12px;
-            }
-
-            .chapter-subtitle {
-                font-size: 20px;
-            }
-
-            .intro-text {
-                font-size: 14px;
-            }
-
-            .intro-text-epic {
-                font-size: 18px;
-                padding: 6px 12px;
-            }
-
-            .page-image,
-            .chapter-image {
-                max-width: 120px;
-            }
-
-            .chapter-image[style*="max-width: 100px"] {
-                max-width: 60px;
-            }
-
-            .text-content p {
-                font-size: 12px;
-            }
-
-            .text-content h2 {
-                font-size: 14px;
-            }
-
-            .sommaire-item {
-                font-size: 12px;
-                padding: 8px;
-            }
-
-            .episode-item {
-                font-size: 11px;
-                padding: 8px;
-            }
-
-            .episode-title {
-                font-size: 11px;
-            }
-
-            .episode-button {
-                font-size: 10px;
-                padding: 5px 10px;
-            }
-
-            .page-number {
-                font-size: 10px;
-                padding: 3px 6px;
+                display: none;
             }
 
             .chapter-indicator-main {
-                font-size: 10px;
-                padding: 6px 12px;
+                display: none;
             }
 
-            .page-indicator {
-                font-size: 10px;
-                padding: 6px 12px;
+            .current-page-content::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            .current-page-content::-webkit-scrollbar-track {
+                background: rgba(255, 215, 0, 0.1);
+                border-radius: 5px;
+            }
+
+            .current-page-content::-webkit-scrollbar-thumb {
+                background: linear-gradient(135deg, #ffd700, #f39c12);
+                border-radius: 5px;
+            }
+
+            .current-page-content::-webkit-scrollbar-thumb:hover {
+                background: linear-gradient(135deg, #f39c12, #ffd700);
+            }
+        }
+
+        @media (min-width: 769px) {
+            .manga-header,
+            .manga-reader,
+            .page-selector,
+            .page-indicator-manga,
+            .manga-navigation {
+                display: none;
             }
         }
     </style>
@@ -939,6 +1152,8 @@
     <div class="ambient-particles" id="particles"></div>
     <a href="../flash/choix.html" class="back-button">RETOUR</a>
     <img src="../../images/flashballelogo.webp" alt="Logo Flash" class="logo">
+
+    <!-- Desktop Version -->
     <div class="navigation">
         <button class="nav-button" id="prevBtn" onclick="previousPage()" disabled>← Précédent</button>
         <button class="nav-button" id="nextBtn" onclick="nextPage()">Suivant →</button>
@@ -949,9 +1164,27 @@
     <div class="page-indicator" id="pageIndicator">Couverture</div>
     <div class="chapter-indicator-main" id="chapterIndicator" style="display: none;"></div>
 
+    <!-- Mobile Manga Reader Version -->
+    <div class="manga-header">
+        <div class="manga-title">Famille FLASH - Le Livre</div>
+    </div>
+    <div class="page-selector">
+        <select id="pageSelect" onchange="goToMangaPage(this.value)"></select>
+    </div>
+    <div class="page-indicator-manga" id="pageIndicatorManga">Page 1/10</div>
+    <div class="manga-reader">
+        <div class="current-page-content" id="currentPageContent"></div>
+    </div>
+    <div class="manga-navigation">
+        <button class="manga-nav-button" id="prevMangaBtn" onclick="previousMangaPage()" disabled>← Précédent</button>
+        <div class="chapter-info-manga" id="chapterInfoManga">Couverture</div>
+        <button class="manga-nav-button" id="nextMangaBtn" onclick="nextMangaPage()">Suivant →</button>
+    </div>
+
     <script>
         function createParticles() {
             const container = document.getElementById('particles');
+            if (!container) return;
             for (let i = 0; i < 20; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
@@ -965,11 +1198,14 @@
         }
 
         let currentPageIndex = 0;
+
         const pages = [
             {
                 image: '../../images/flashlivre2.webp',
                 type: 'cover',
-                position: 'center'
+                position: 'center',
+                title: 'Famille FLASH - Le Livre',
+                backgroundClass: 'cover-bg'
             },
             {
                 type: 'intro',
@@ -977,16 +1213,22 @@
                 title: 'Introduction',
                 backgroundClass: 'intro-sommaire-bg',
                 content: `
-                    <p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p>
-                    <img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">
-                    <p class="intro-text-epic">Mais qui sont-ils réellement ?</p>
+                    <p class="mobile-intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p>
+                    <img src="../../images/flash.jpg" alt="Famille FLASH" class="mobile-page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">
+                    <p class="mobile-intro-text-epic">Mais qui sont-ils réellement ?</p>
                 `
             },
             {
                 type: 'sommaire',
                 position: 'right',
                 title: 'Sommaire',
-                backgroundClass: 'intro-sommaire-bg'
+                backgroundClass: 'intro-sommaire-bg',
+                content: `
+                    <ul class="mobile-sommaire-list">
+                        <li class="mobile-sommaire-item" onclick="goToMangaPage(3)">Chapitre 1: David FLASH</li>
+                        <li class="mobile-sommaire-item" onclick="goToMangaPage(7)">Chapitre 2: John FLASH</li>
+                    </ul>
+                `
             },
             {
                 type: 'chapter-title',
@@ -997,8 +1239,10 @@
                 title: 'CHAPITRE 1',
                 subtitle: 'David FLASH',
                 content: `
-                    <img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">
-                    <img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">
+                    <h1 class="mobile-epic-title">CHAPITRE 1</h1>
+                    <h2 class="mobile-chapter-subtitle">David FLASH</h2>
+                    <img src="../../images/david_flash.jpg" alt="David FLASH" class="mobile-chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">
+                    <img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="mobile-chapter-image" style="max-width: 100px;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlPC90ZXh0Pjwvc3ZnPg==';">
                 `
             },
             {
@@ -1008,9 +1252,11 @@
                 chapter: 1,
                 backgroundClass: 'david-bg',
                 content: `
-                    <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p>
-                    <p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p>
-                    <p>David était reconnu pour sa sagesse et sa capacité à anticiper les mouvements de ses adversaires. Il établit les fondations de ce qui deviendrait l'empire FLASH, basé sur le respect, la loyauté et une connexion unique avec des forces surnaturelles.</p>
+                    <div class="mobile-text-content">
+                        <p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p>
+                        <p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p>
+                        <p>David était reconnu pour sa sagesse et sa capacité à anticiper les mouvements de ses adversaires. Il établit les fondations de ce qui deviendrait l'empire FLASH, basé sur le respect, la loyauté et une connexion unique avec des forces surnaturelles.</p>
+                    </div>
                 `
             },
             {
@@ -1020,10 +1266,12 @@
                 chapter: 1,
                 backgroundClass: 'david-bg',
                 content: `
-                    <h2>L’Héritage du Tigre Blanc</h2>
-                    <p>Le symbole du Tigre Blanc devint l'emblème personnel de David FLASH après sa première rencontre avec le Géant Freddy. Cette créature mystique représentait la sagesse, la force et la protection spirituelle.</p>
-                    <p>Sous la guidance du Tigre Blanc, David développa des capacités exceptionnelles de leadership et une intuition remarquable pour les affaires. Il savait quand frapper et quand se retirer, toujours un coup d'avance sur ses concurrents.</p>
-                    <p>Cette connexion spirituelle se transmettrait plus tard à ses descendants, chacun développant sa propre relation unique avec une créature totémique.</p>
+                    <div class="mobile-text-content">
+                        <h2>L'héritage du Tigre Blanc</h2>
+                        <p>Le symbole du Tigre Blanc devint l'emblème personnel de David FLASH après sa première rencontre avec le Géant Freddy. Cette créature mystique représentait la sagesse, la force et la protection spirituelle.</p>
+                        <p>Sous la guidance du Tigre Blanc, David développa des capacités exceptionnelles de leadership et une intuition remarquable pour les affaires. Il savait quand frapper et quand se retirer, toujours un coup d'avance sur ses concurrents.</p>
+                        <p>Cette connexion spirituelle se transmettrait plus tard à ses descendants, chacun développant sa propre relation unique avec une créature totémique.</p>
+                    </div>
                 `
             },
             {
@@ -1034,37 +1282,35 @@
                 backgroundClass: 'david-bg',
                 title: 'Épisodes de David FLASH',
                 content: `
-                    <div class="episodes-list">
-                        <h2>Épisodes de David FLASH - Saison 1</h2>
-                        <div class="episode-item">
-                            <div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div>
-                            <button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button>
+                    <div class="mobile-episodes-list">
+                        <h2 class="mobile-text-content">Épisodes de David FLASH - Saison 1</h2>
+                        <div class="mobile-episode-item">
+                            <div class="mobile-episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div>
+                            <button class="mobile-episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button>
                         </div>
-                        <div class="episode-item">
-                            <div class="episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div>
-                            <button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
+                        <div class="mobile-episode-item">
+                            <div class="mobile-episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div>
+                            <button class="mobile-episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
                         </div>
-                        <div class="episode-item">
-                            <div class="episode-title">Épisode 3: MA PREMIÈRE BRAQUAGE</div>
-                            <button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button>
+                        <div class="mobile-episode-item">
+                            <div class="mobile-episode-title">Épisode 3: MA PREMIÈRE BRAQUAGE</div>
+                            <button class="mobile-episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button>
                         </div>
-                        <div class="episode-item">
-                            <div class="episode-title">Épisode 4: RENCONTRE AVEC LE GÉANT FREDDY</div>
-                            <button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
+                        <div class="mobile-episode-item">
+                            <div class="mobile-episode-title">Épisode 4: RENCONTRE AVEC LE GÉANT FREDDY</div>
+                            <button class="mobile-episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
                         </div>
-                        <div class="episode-item">
-                            <div class="episode-title">Épisode 5: L'EMPIRE COMMENCE</div>
-                            <button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button>
+                        <div class="mobile-episode-item">
+                            <div class="mobile-episode-title">Épisode 5: L'EMPIRE COMMENCE</div>
+                            <button class="mobile-episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button>
                         </div>
-                        <div class="episode-item">
-                            <div class="episode-title">Épisode 6: LA LÉGENDE NAÎT</div>
-                            <button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
+                        <div class="mobile-episode-item">
+                            <div class="mobile-episode-title">Épisode 6: LA LÉGENDE NAÎT</div>
+                            <button class="mobile-episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button>
                         </div>
                     </div>
-                    <div class="scroll-indicator" onclick="toggleScroll(this.parentElement)">↓</div>
                 `
             },
-            // Chapitre 2: John FLASH
             {
                 type: 'chapter-title',
                 position: 'left',
@@ -1074,8 +1320,10 @@
                 title: 'CHAPITRE 2',
                 subtitle: 'John FLASH',
                 content: `
-                    <img src="../../images/john_flash.jpg" alt="John FLASH" class="chapter-image">
-                    <img src="../../images/loupjohn.webp" alt="Symbole de John" class="chapter-image" style="max-width: 100px;">
+                    <h1 class="mobile-epic-title">CHAPITRE 2</h1>
+                    <h2 class="mobile-chapter-subtitle">John FLASH</h2>
+                    <img src="../../images/john_flash.jpg" alt="John FLASH" class="mobile-chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">
+                    <img src="../../images/loupjohn.webp" alt="Symbole de John" class="mobile-chapter-image" style="max-width: 100px;" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlPC90ZXh0Pjwvc3ZnPg==';">
                 `
             },
             {
@@ -1085,10 +1333,12 @@
                 chapter: 2,
                 backgroundClass: 'john-bg',
                 content: `
-                    <h2>L’Héritier</h2>
-                    <p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle et moderne.</p>
-                    <p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, notamment une connexion profonde avec l'esprit du Loup, symbolisant la loyauté, l'instinct de meute et la protection féroce de la famille.</p>
-                    <p>Contrairement à son père qui privilégiait la stratégie, John était un homme d'action, n'hésitant jamais à se jeter dans la bataille pour protéger les siens.</p>
+                    <div class="mobile-text-content">
+                        <h2>L'Héritier</h2>
+                        <p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle et moderne.</p>
+                        <p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, notamment une connexion profonde avec l'esprit du Loup, symbolisant la loyauté, l'instinct de meute et la protection féroce de la famille.</p>
+                        <p>Contrairement à son père qui privilégiait la stratégie, John était un homme d'action, n'hésitant jamais à se jeter dans la bataille pour protéger les siens.</p>
+                    </div>
                 `
             },
             {
@@ -1098,28 +1348,15 @@
                 chapter: 2,
                 backgroundClass: 'john-bg',
                 content: `
-                    <h2>L’Esprit du Loup</h2>
-                    <p>Le Loup devint le guide spirituel de John FLASH, lui enseignant l'importance de la meute et de la hiérarchie familiale. Sous cette influence, John développa un sens aigu de la justice et une loyauté inébranlable envers sa famille.</p>
-                    <p>Il établit de nouvelles règles pour l'empire FLASH, créant une structure plus organisée et disciplinée. Chaque membre de la famille avait un rôle précis à jouer, et John s'assurait que personne ne soit laissé pour compte.</p>
-                    <p>Son leadership transforma l'empire familial en une véritable dynastie, respectée et crainte à travers tout Los Santos.</p>
-                `
-            },
-            {
-                type: 'text-page',
-                position: 'right',
-                pageNumber: 8,
-                chapter: 2,
-                backgroundClass: 'john-bg',
-                content: `
-                    <h2>L’Esprit du Loup</h2>
-                    <p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p>
-                    <p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p>
-                    <p>Il établit de nouvelles règles pour l'empire FLASH, créant une structure plus organisée et disciplinée.</p>
+                    <div class="mobile-text-content">
+                        <h2>L'Esprit du Loup</h2>
+                        <p>Le Loup devint le guide spirituel de John FLASH, lui enseignant l'importance de la meute et de la hiérarchie familiale. Sous cette influence, John développa un sens aigu de la justice et une loyauté inébranlable envers sa famille.</p>
+                        <p>Il établit de nouvelles règles pour l'empire FLASH, créant une structure plus organisée et disciplinée. Chaque membre de la famille avait un rôle précis à jouer, et John s'assurait que personne ne soit laissé pour compte.</p>
+                        <p>Son leadership transforma l'empire familial en une véritable dynastie, respectée et crainte à travers tout Los Santos.</p>
+                    </div>
                 `
             }
         ];
-
-        const totalPages = pages.length;
 
         function renderPage(pageData, index) {
             const pageClass = `page ${pageData.backgroundClass || ''} ${pageData.type === 'chapter-title' ? 'chapter-title-page' : ''} ${pageData.type === 'episodes' ? 'episodes-page' : ''}`.trim();
@@ -1141,13 +1378,7 @@
                     content = `
                         <div class="page-content ${pageData.backgroundClass || ''}">
                             <h1 class="page-title">Sommaire</h1>
-                            <div style="margin-top: 25px;">
-                                <h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif;">📚 Les Chapitres :</h2>
-                                <div class="sommaire-list">
-                                    <div class="sommaire-item" onclick="goToChapter(1)">🔥 Chapitre 1: David FLASH</div>
-                                    <div class="sommaire-item" onclick="goToChapter(2)">🐺 Chapitre 2: John FLASH</div>
-                                </div>
-                            </div>
+                            <div class="text-content">${pageData.content}</div>
                         </div>
                     `;
                     break;
@@ -1183,53 +1414,134 @@
             return `<div class="${pageClass}" data-position="${position}">${content}</div>`;
         }
 
-        function showPage(index) {
+        function updatePage() {
             const book = document.getElementById('book');
-            const pageData = pages[index];
+            const pageIndicator = document.getElementById('pageIndicator');
+            const chapterIndicator = document.getElementById('chapterIndicator');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
 
             book.innerHTML = '';
-            if (window.innerWidth <= 768) {
-                // Mobile: une seule page en plein écran
-                book.innerHTML = renderPage(pageData, index);
-                book.querySelector('.page').style.display = 'block';
+            const currentPage = pages[currentPageIndex];
+            const nextPage = pages[currentPageIndex + 1];
+
+            if (currentPage.position === 'center') {
+                book.innerHTML = renderPage(currentPage, currentPageIndex);
             } else {
-                // Desktop: logique double page
-                if (index === 0) {
-                    // Couverture : centrée
-                    book.innerHTML = renderPage(pageData, index);
-                    book.querySelector('.page').style.display = 'block';
-                } else if (index === 1) {
-                    // Intro (gauche) + Sommaire (droite)
-                    book.innerHTML = renderPage(pages[1], 1) + renderPage(pages[2], 2);
-                    book.querySelectorAll('.page').forEach(page => page.style.display = 'block');
+                let leftPage = currentPage.position === 'left' ? currentPage : pages[currentPageIndex - 1];
+                let rightPage = currentPage.position === 'right' ? currentPage : nextPage;
+
+                let html = '';
+                if (leftPage) {
+                    html += renderPage(leftPage, currentPageIndex - 1);
+                }
+                if (rightPage) {
+                    html += renderPage(rightPage, currentPageIndex);
+                }
+                book.innerHTML = html;
+            }
+
+            pageIndicator.textContent = currentPage.title || `Page ${currentPage.pageNumber || currentPageIndex + 1}`;
+            chapterIndicator.style.display = currentPage.chapter ? 'block' : 'none';
+            if (currentPage.chapter) {
+                chapterIndicator.textContent = `Chapitre ${currentPage.chapter}`;
+            }
+
+            prevBtn.disabled = currentPageIndex === 0;
+            nextBtn.disabled = currentPageIndex >= pages.length - 1 || (currentPage.position === 'left' && !nextPage);
+            setupPageNumberScroll();
+        }
+
+        function previousPage() {
+            if (currentPageIndex > 0) {
+                if (window.innerWidth > 768 && pages[currentPageIndex].position === 'right' && pages[currentPageIndex - 1].position === 'left') {
+                    currentPageIndex -= 2;
                 } else {
-                    // Pages normales : gauche et droite si possible
-                    let leftPage = '';
-                    let rightPage = '';
-                    if (pageData.position === 'left') {
-                        leftPage = renderPage(pageData, index);
-                        if (index + 1 < totalPages && pages[index + 1].position === 'right') {
-                            rightPage = renderPage(pages[index + 1], index + 1);
-                        }
-                    } else if (pageData.position === 'right') {
-                        if (index > 0 && pages[index - 1].position === 'left') {
-                            leftPage = renderPage(pages[index - 1], index - 1);
-                        }
-                        rightPage = renderPage(pageData, index);
-                    }
-                    book.innerHTML = leftPage + rightPage;
-                    book.querySelectorAll('.page').forEach(page => page.style.display = 'block');
+                    currentPageIndex--;
+                }
+                updatePage();
+            }
+        }
+
+        function nextPage() {
+            if (currentPageIndex < pages.length - 1) {
+                if (window.innerWidth > 768 && pages[currentPageIndex].position === 'left' && pages[currentPageIndex + 1].position === 'right') {
+                    currentPageIndex += 2;
+                } else {
+                    currentPageIndex++;
+                }
+                updatePage();
+            }
+        }
+
+        function updateMangaPage() {
+            const pageSelect = document.getElementById('pageSelect');
+            const currentPageContent = document.getElementById('currentPageContent');
+            const pageIndicatorManga = document.getElementById('pageIndicatorManga');
+            const chapterInfoManga = document.getElementById('chapterInfoManga');
+            const prevMangaBtn = document.getElementById('prevMangaBtn');
+            const nextMangaBtn = document.getElementById('nextMangaBtn');
+
+            const currentPage = pages[currentPageIndex];
+            currentPageContent.className = `current-page-content ${currentPage.backgroundClass || ''}`;
+            currentPageContent.innerHTML = '';
+
+            if (currentPage.type === 'cover') {
+                currentPageContent.style.backgroundImage = `url(${currentPage.image})`;
+            } else {
+                if (currentPage.title) {
+                    const title = document.createElement('h1');
+                    title.className = currentPage.type === 'chapter-title' ? 'mobile-epic-title' : 'mobile-page-title';
+                    title.textContent = currentPage.title;
+                    currentPageContent.appendChild(title);
+                }
+                if (currentPage.subtitle) {
+                    const subtitle = document.createElement('h2');
+                    subtitle.className = 'mobile-chapter-subtitle';
+                    subtitle.textContent = currentPage.subtitle;
+                    currentPageContent.appendChild(subtitle);
+                }
+                if (currentPage.content) {
+                    currentPageContent.innerHTML += currentPage.content;
                 }
             }
-            updateIndicators();
-            setTimeout(setupPageNumberScroll, 0);
+
+            pageIndicatorManga.textContent = `Page ${currentPageIndex + 1}/${pages.length}`;
+            chapterInfoManga.textContent = currentPage.title || `Page ${currentPage.pageNumber || currentPageIndex + 1}`;
+            prevMangaBtn.disabled = currentPageIndex === 0;
+            nextMangaBtn.disabled = currentPageIndex >= pages.length - 1;
+
+            pageSelect.value = currentPageIndex;
+        }
+
+        function previousMangaPage() {
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                updateMangaPage();
+            }
+        }
+
+        function nextMangaPage() {
+            if (currentPageIndex < pages.length - 1) {
+                currentPageIndex++;
+                updateMangaPage();
+            }
+        }
+
+        function goToMangaPage(index) {
+            currentPageIndex = parseInt(index);
+            updateMangaPage();
+        }
+
+        function openVideo(videoId) {
+            window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
         }
 
         function toggleScroll(element) {
-            if (element.classList.contains('scroll-down')) {
-                element.scrollTo({ top: element.scrollHeight, behavior: 'smooth' });
-            } else {
-                element.scrollTo({ top: 0, behavior: 'smooth' });
+            element.scrollTop = element.scrollHeight;
+            const indicator = element.querySelector('.scroll-indicator');
+            if (indicator) {
+                indicator.classList.toggle('hidden');
             }
         }
 
@@ -1266,89 +1578,21 @@
             });
         }
 
-        function updateIndicators() {
-            const pageData = pages[currentPageIndex];
-            const pageIndicator = document.getElementById('pageIndicator');
-            const maxPageNumber = Math.max(...pages.filter(p => p.pageNumber).map(p => p.pageNumber));
-            if (currentPageIndex === 0) {
-                pageIndicator.textContent = 'Couverture';
-            } else if (currentPageIndex === 1) {
-                pageIndicator.textContent = 'Introduction';
-            } else if (currentPageIndex === 2) {
-                pageIndicator.textContent = 'Sommaire';
-            } else if (pageData.pageNumber) {
-                pageIndicator.textContent = `Page ${pageData.pageNumber} / ${maxPageNumber}`;
-            }
-            const chapterIndicator = document.getElementById('chapterIndicator');
-            chapterIndicator.style.display = pageData.chapter ? 'block' : 'none';
-            if (pageData.chapter) {
-                chapterIndicator.textContent = `📖 Chapitre ${pageData.chapter}`;
-            }
-            document.getElementById('prevBtn').disabled = currentPageIndex === 0;
-            document.getElementById('nextBtn').disabled = currentPageIndex >= totalPages - 1;
-        }
-
-        function nextPage() {
-            if (currentPageIndex < totalPages - 1) {
-                if (window.innerWidth <= 768) {
-                    currentPageIndex++;
-                } else {
-                    if (currentPageIndex === 0) {
-                        currentPageIndex = 1;
-                    } else if (currentPageIndex === 1) {
-                        currentPageIndex = 3;
-                    } else if (pages[currentPageIndex].position === 'left' && currentPageIndex < totalPages - 1 && pages[currentPageIndex + 1].position === 'right') {
-                        currentPageIndex += 2;
-                    } else {
-                        currentPageIndex += 1;
-                    }
-                }
-                if (currentPageIndex > totalPages - 1) {
-                    currentPageIndex = totalPages - 1;
-                }
-                showPage(currentPageIndex);
-            }
-        }
-
-        function previousPage() {
-            if (currentPageIndex > 0) {
-                if (window.innerWidth <= 768) {
-                    currentPageIndex--;
-                } else {
-                    if (currentPageIndex === 3) {
-                        currentPageIndex = 1;
-                    } else if (currentPageIndex === 1) {
-                        currentPageIndex = 0;
-                    } else if (pages[currentPageIndex].position === 'right' && currentPageIndex > 0 && pages[currentPageIndex - 1].position === 'left') {
-                        currentPageIndex -= 2;
-                    } else {
-                        currentPageIndex -= 1;
-                    }
-                }
-                if (currentPageIndex < 0) {
-                    currentPageIndex = 0;
-                }
-                showPage(currentPageIndex);
-            }
-        }
-
-        function goToChapter(chapterNum) {
-            const chapterPages = pages.filter(p => p.chapter === chapterNum);
-            if (chapterPages.length > 0) {
-                currentPageIndex = pages.indexOf(chapterPages[0]);
-                showPage(currentPageIndex);
-            }
-        }
-
-        function openVideo(videoId) {
-            if (videoId) {
-                window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
-            }
+        function populatePageSelector() {
+            const pageSelect = document.getElementById('pageSelect');
+            pages.forEach((page, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = page.title || `Page ${page.pageNumber || index + 1}`;
+                pageSelect.appendChild(option);
+            });
         }
 
         window.onload = () => {
             createParticles();
-            showPage(currentPageIndex);
+            populatePageSelector();
+            updatePage();
+            updateMangaPage();
         };
     </script>
 </body>
