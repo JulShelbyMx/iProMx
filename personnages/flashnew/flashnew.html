@@ -343,21 +343,25 @@
         .sommaire-list {
             list-style: none;
             padding: 0;
+            margin: 0 10px;
         }
         .sommaire-item {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             cursor: pointer;
-            padding: 10px;
-            border-left: 4px solid #ffd700;
-            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,215,0,0.05));
+            padding: 12px 15px;
+            border-left: 5px solid #ffd700;
+            background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.05));
             transition: all 0.4s ease;
-            border-radius: 0 10px 10px 0;
+            border-radius: 0 12px 12px 0;
             position: relative;
             overflow: hidden;
-            font-weight: 600;
-            color: #fff8dc;
+            font-weight: 700;
+            color: #fff;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-            font-size: 14px;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .sommaire-item::before {
             content: '';
@@ -366,17 +370,20 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.2) 50%, transparent 70%);
+            background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.3) 50%, transparent 70%);
             transform: translateX(-100%);
-            transition: transform 0.6s ease;
+            transition: transform 0.5s ease;
         }
         .sommaire-item:hover {
-            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.1));
-            transform: translateX(8px);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.2);
+            background: linear-gradient(135deg, rgba(255,215,0,0.25), rgba(255,215,0,0.1));
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
         }
         .sommaire-item:hover::before {
             transform: translateX(100%);
+        }
+        .sommaire-item:active {
+            transform: scale(0.98);
         }
         .episodes-list {
             margin-top: 15px;
@@ -717,14 +724,15 @@
                 padding: 6px 12px;
             }
             .page-image, .chapter-image {
-                max-width: 60px;
-                margin: 5px auto;
+                max-width: 50px;
+                margin: 8px auto;
+                padding: 4px;
                 border: 2px solid #ffd700;
                 box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
                 object-fit: contain;
             }
             .chapter-image[style*="max-width: 100px"] {
-                max-width: 30px;
+                max-width: 25px;
             }
             .text-content p {
                 font-size: 11px;
@@ -738,10 +746,19 @@
                 padding-left: 8px;
             }
             .sommaire-item {
-                font-size: 11px;
-                padding: 8px;
-                margin-bottom: 8px;
-                border-radius: 0 8px 8px 0;
+                font-size: 12px;
+                padding: 10px 12px;
+                margin-bottom: 10px;
+                border-radius: 0 10px 10px 0;
+                background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,215,0,0.05));
+            }
+            .sommaire-item:hover {
+                background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,215,0,0.1));
+                transform: translateX(8px);
+                box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+            }
+            .sommaire-item:active {
+                transform: scale(0.98);
             }
             .episode-item {
                 font-size: 10px;
@@ -849,7 +866,7 @@
         const pages = [
             { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture', selectLabel: 'Couverture' },
             { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><p class="intro-text-epic">Mais qui sont-ils réellement ?</p>`, alt: 'Introduction', selectLabel: 'Introduction' },
-            { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif;">📚 Les Chapitres :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToPage(3)">🔥 Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToPage(7)">🐺 Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToPage(11)">🐉 Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToPage(12)">🐦‍🔥 Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToPage(13)">🐍 Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToPage(14)">🦁 Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToPage(15)">🐺 Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToPage(16)">🐍 Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToPage(17)">👤👤👤 Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToPage(18)">❓Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToPage(19)">🌳 Arbre Généalogique</div></div></div>`, alt: 'Sommaire', selectLabel: 'Sommaire' },
+            { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 24px; text-align: center;">📜 Les Chapitres Épiques :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToPage(3)"><span>🔥</span>Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToPage(7)"><span>🐺</span>Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToPage(11)"><span>🐉</span>Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToPage(12)"><span>🐦‍🔥</span>Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToPage(13)"><span>🐍</span>Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToPage(14)"><span>🦁</span>Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToPage(15)"><span>🐺</span>Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToPage(16)"><span>🐍</span>Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToPage(17)"><span>👤👤👤</span>Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToPage(18)"><span>❓</span>Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToPage(19)"><span>🌳</span>Arbre Généalogique</div></div></div>`, alt: 'Sommaire', selectLabel: 'Sommaire' },
             { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'Chapitre 1 - David FLASH' },
             { type: 'text-page', position: 'right', pageNumber: 2, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 1', selectLabel: 'David FLASH - Page 1' },
             { type: 'text-page', position: 'left', pageNumber: 3, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires blabla</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 2', selectLabel: 'David FLASH - Page 2' },
@@ -1203,17 +1220,16 @@
         }
 
         function goToPage(pageIndex) {
-            currentPageIndex = parseInt(pageIndex);
-            if (window.innerWidth <= 768) {
-                renderMobilePage(currentPageIndex);
-            } else {
-                if (currentPageIndex === 1 || currentPageIndex === 2) {
-                    showPage(1); // Show intro and sommaire together
+            pageIndex = parseInt(pageIndex);
+            if (pageIndex >= 0 && pageIndex < totalPages) {
+                currentPageIndex = pageIndex;
+                if (window.innerWidth <= 768) {
+                    renderMobilePage(currentPageIndex);
                 } else {
                     showPage(currentPageIndex);
                 }
+                updateChapterSelect();
             }
-            updateChapterSelect();
         }
 
         function openVideo(videoId) {
@@ -1274,11 +1290,7 @@
                 if (window.innerWidth <= 768) {
                     renderMobilePage(currentPageIndex);
                 } else {
-                    if (currentPageIndex === 1 || currentPageIndex === 2) {
-                        showPage(1);
-                    } else {
-                        showPage(currentPageIndex);
-                    }
+                    showPage(currentPageIndex);
                 }
             });
         });
