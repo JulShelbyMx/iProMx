@@ -520,10 +520,10 @@
             min-height: calc(100vh - 150px);
             margin: 0 auto 10px;
         }
-         .manga-viewer .page {
+        .manga-viewer .page {
             width: 100%;
-            max-width: 360px;
-            height: 540px;
+            max-width: 300px;
+            height: 450px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             margin: 0 auto;
@@ -732,21 +732,23 @@
                 box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
                 object-fit: contain;
             }
+            /* Images des chapitres réduites pour mobile */
             .chapter-image {
-                max-width: 50px;
+                max-width: 40px !important;
                 width: auto;
                 height: auto;
-                margin: 8px auto;
-                padding: 4px;
+                margin: 5px auto;
+                padding: 3px;
                 border: 2px solid #ffd700;
-                box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+                box-shadow: 0 3px 8px rgba(255, 215, 0, 0.3);
                 object-fit: contain;
             }
             .chapter-image[style*="max-width: 100px"] {
-                max-width: 30px;
+                max-width: 25px !important;
                 width: auto;
                 height: auto;
-                padding: 4px;
+                padding: 2px;
+                margin: 3px auto;
             }
             .text-content p {
                 font-size: 11px;
