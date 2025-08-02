@@ -997,17 +997,32 @@
                     pageDiv.style.borderRadius = '10px';
                     pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
                     pageDiv.style.display = 'block';
-                    const pageContent = pageDiv.querySelector('.page-content');
-                    if (pageContent) {
-                        pageContent.style.height = '100%';
-                        if (isScrollable) {
-                            pageContent.classList.add('scrollable');
-                            pageContent.style.overflowY = 'auto';
-                        } else {
-                            pageContent.classList.remove('scrollable');
-                            pageContent.style.overflowY = 'hidden';
-                        }
-                    }
+                    // Formatage uniforme pour mobile inspiré du PC
+const pageContent = pageDiv.querySelector('.page-content');
+if (pageContent) {
+    pageContent.style.height = '100%';
+    pageContent.style.padding = '15px';
+    if (isScrollable) {
+        pageContent.classList.add('scrollable');
+        pageContent.style.overflowY = 'auto';
+    } else {
+        pageContent.classList.remove('scrollable');
+        pageContent.style.overflowY = 'hidden';
+    }
+}
+
+// Uniformiser toutes les images à la même taille
+const images = pageDiv.querySelectorAll('.page-image, .chapter-image');
+images.forEach(img => {
+    img.style.maxWidth = '80px';
+    img.style.width = 'auto';
+    img.style.height = 'auto';
+    img.style.margin = '8px auto';
+    img.style.display = 'block';
+    img.style.borderRadius = '8px';
+    img.style.border = '2px solid #ffd700';
+    img.style.boxShadow = '0 4px 10px rgba(255, 215, 0, 0.3)';
+});
                     
                 }
                 loadingSpinner.classList.remove('active');
