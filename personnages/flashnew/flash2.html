@@ -541,7 +541,7 @@
         }
         .manga-viewer img {
             width: 100%;
-            max-width: 300px;
+            max-width: 100%;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -896,7 +896,8 @@
             let content = '';
             switch(pageData.type) {
                 case 'cover':
-                    return `<div class="${pageClass} cover-page" data-position="${position}" style="background-image: url('${pageData.image}');"></div>`;
+                    content = `<div class="page-content"><img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="page-image"></div>`;
+                    break;
                 case 'intro':
                     content = `<div class="page-content ${pageData.backgroundClass || ''}"><h1 class="page-title">${pageData.title}</h1><div class="text-content">${pageData.content}</div></div>`;
                     break;
@@ -954,49 +955,47 @@
             const loadingSpinner = document.getElementById('loading-spinner');
             loadingSpinner.classList.add('active');
             mangaViewer.innerHTML = '';
-            if (pageData.type === 'cover') {
-                const img = new Image();
-                img.src = pageData.image;
-                img.alt = pageData.alt;
-                img.className = 'manga-image';
-                img.onload = () => {
-                    mangaViewer.innerHTML = `<img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image">`;
-                    loadingSpinner.classList.remove('active');
-                };
-                img.onerror = () => {
-                    mangaViewer.innerHTML = `<p style="color: #ff4444; font-size: 18px; text-align: center;">Erreur lors du chargement de l'image (page ${index + 1}). Veuillez réessayer.</p>`;
-                    loadingSpinner.classList.remove('active');
-                };
-            } else {
-                const isScrollable = pageData.type === 'sommaire' || pageData.type === 'episodes';
-                const pageElement = renderPage(pageData, index);
-                mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
-                const pageDiv = mangaViewer.querySelector('.page');
-                if (pageDiv) {
-                    pageDiv.style.width = '100%';
-                    pageDiv.style.maxWidth = '320px';
-                    pageDiv.style.height = '500px';
-                    pageDiv.style.margin = '0 auto';
-                    pageDiv.style.borderRadius = '10px';
-                    pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
-                    pageDiv.style.display = 'block';
-                    const pageContent = pageDiv.querySelector('.page-content');
-                    if (pageContent) {
-                        pageContent.style.height = '100%';
-                        if (isScrollable) {
-                            pageContent.classList.add('scrollable');
-                            pageContent.style.overflowY = 'auto';
-                        } else {
-                            pageContent.classList.remove('scrollable');
-                            pageContent.style.overflowY = 'hidden';
+            const isScrollable = pageData.type === 'sommaire' || pageData.type === 'episodes';
+            const pageElement = renderPage(pageData, index);
+            mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
+            const pageDiv = mangaViewer.querySelector('.page');
+            if (pageDiv) {
+                pageDiv.style.width = '100%';
+                pageDiv.style.maxWidth = '320px';
+                pageDiv.style.height = '500px';
+                pageDiv.style.margin = '0 auto';
+                pageDiv.style.borderRadius = '10px';
+                pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
+                pageDiv.style.display = 'block';
+                const pageContent = pageDiv.querySelector('.page-content');
+                if (pageContent) {
+                    pageContent.style.height = '100%';
+                    if (isScrollable) {
+                        pageContent.classList.add('scrollable');
+                        pageContent.style.overflowY = 'auto';
+                    } else {
+                        pageContent.classList.remove('scrollable');
+                        pageContent.style.overflowY = 'hidden';
+                    }
+                    if (pageData.type === 'cover') {
+                        const img = pageContent.querySelector('img');
+                        if (img) {
+                            img.onload = () => {
+                                loadingSpinner.classList.remove('active');
+                            };
+                            img.onerror = () => {
+                                mangaViewer.innerHTML = `<p style="color: #ff4444; font-size: 18px; text-align: center;">Erreur lors du chargement de l'image (page ${index + 1}). Veuillez réessayer.</p>`;
+                                loadingSpinner.classList.remove('active');
+                            };
                         }
+                    } else {
+                        loadingSpinner.classList.remove('active');
                     }
                 }
-                loadingSpinner.classList.remove('active');
-                setupPageNumberScroll();
-                if (pageData.type === 'sommaire') {
-                    attachSommaireClickListeners();
-                }
+            }
+            setupPageNumberScroll();
+            if (pageData.type === 'sommaire') {
+                attachSommaireClickListeners();
             }
             updateMobileIndicators();
             updateChapterSelect();
