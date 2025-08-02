@@ -522,7 +522,7 @@
         }
         .manga-viewer .page {
             width: 100%;
-            max-width: 320px;
+            max-width: 340px;
             height: 550px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -539,12 +539,14 @@
         .manga-viewer .page-content.scrollable {
             overflow-y: auto;
         }
-        .manga-viewer img {
+        .manga-viewer img.manga-image {
             width: 100%;
-            max-width: 300px;
-            height: auto;
+            max-width: 340px;
+            height: 550px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+            border: 3px solid #8b4513;
         }
         .page-indicator {
             display: block;
@@ -959,8 +961,15 @@
                 img.src = pageData.image;
                 img.alt = pageData.alt;
                 img.className = 'manga-image';
+                img.style.width = '100%';
+                img.style.maxWidth = '340px';
+                img.style.height = '550px';
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '10px';
+                img.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
+                img.style.border = '3px solid #8b4513';
                 img.onload = () => {
-                    mangaViewer.innerHTML = `<img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image">`;
+                    mangaViewer.innerHTML = `<div class="page cover-page" data-position="center"><img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image" style="width: 100%; max-width: 340px; height: 550px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); border: 3px solid #8b4513;"></div>`;
                     loadingSpinner.classList.remove('active');
                 };
                 img.onerror = () => {
@@ -974,7 +983,7 @@
                 const pageDiv = mangaViewer.querySelector('.page');
                 if (pageDiv) {
                     pageDiv.style.width = '100%';
-                    pageDiv.style.maxWidth = '320px';
+                    pageDiv.style.maxWidth = '340px';
                     pageDiv.style.height = '550px';
                     pageDiv.style.margin = '0 auto';
                     pageDiv.style.borderRadius = '10px';
