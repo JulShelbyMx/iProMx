@@ -521,9 +521,9 @@
             margin: 0 auto 10px;
         }
         .manga-viewer .page {
-            width: 100%;
-            max-width: 340px;
-            height: 550px;
+            width: 100% !important;
+            max-width: 340px !important;
+            height: 550px !important;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             margin: 0 auto;
@@ -532,17 +532,20 @@
             background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.2) 5%, transparent 10%);
         }
         .manga-viewer .page-content {
-            height: 100%;
+            width: 100% !important;
+            max-width: 340px !important;
+            height: 100% !important;
             overflow-y: hidden;
             padding: 15px;
+            box-sizing: border-box;
         }
         .manga-viewer .page-content.scrollable {
             overflow-y: auto;
         }
         .manga-viewer img.manga-image {
-            width: 100%;
-            max-width: 340px;
-            height: 550px;
+            width: 100% !important;
+            max-width: 340px !important;
+            height: 550px !important;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             object-fit: cover;
@@ -915,7 +918,7 @@
                     content = `<div class="page-content episodes-page scrollable"><h1 class="page-title">${pageData.title}</h1><div class="text-content">${pageData.content}</div><div class="page-number">${pageData.pageNumber}</div></div>`;
                     break;
             }
-            return `<div class="${pageClass}" data-position="${position}">${content}</div>`;
+            return `<div class="${pageClass}" data-position="${position}" style="width: 100%; max-width: 340px; height: 550px; margin: 0 auto;">${content}</div>`;
         }
 
         function showPage(index) {
@@ -969,7 +972,7 @@
                 img.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
                 img.style.border = '3px solid #8b4513';
                 img.onload = () => {
-                    mangaViewer.innerHTML = `<div class="page cover-page" data-position="center"><img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image" style="width: 100%; max-width: 340px; height: 550px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); border: 3px solid #8b4513;"></div>`;
+                    mangaViewer.innerHTML = `<div class="page cover-page" data-position="center" style="width: 100%; max-width: 340px; height: 550px; margin: 0 auto;"><img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image" style="width: 100%; max-width: 340px; height: 550px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); border: 3px solid #8b4513;"></div>`;
                     loadingSpinner.classList.remove('active');
                 };
                 img.onerror = () => {
@@ -989,10 +992,13 @@
                     pageDiv.style.borderRadius = '10px';
                     pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
                     pageDiv.style.display = 'block';
+                    pageDiv.style.boxSizing = 'border-box';
                     const pageContent = pageDiv.querySelector('.page-content');
                     if (pageContent) {
-                        pageContent.style.height = '100%';
+                        pageContent.style.width = '100%';
                         pageContent.style.maxWidth = '340px';
+                        pageContent.style.height = '100%';
+                        pageContent.style.boxSizing = 'border-box';
                         if (isScrollable) {
                             pageContent.classList.add('scrollable');
                             pageContent.style.overflowY = 'auto';
