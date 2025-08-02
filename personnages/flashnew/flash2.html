@@ -724,31 +724,29 @@
                 padding: 6px 12px;
             }
             .page-image {
-                max-width: 60px;
+                max-width: 40px;
                 height: auto;
-                margin: 8px auto;
-                padding: 8px;
+                margin: 6px auto;
+                padding: 4px;
                 border: 2px solid #ffd700;
                 box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
                 object-fit: contain;
             }
-            /* Images des chapitres réduites pour mobile */
             .chapter-image {
-                max-width: 40px !important;
+                max-width: 35px;
                 width: auto;
                 height: auto;
-                margin: 5px auto;
+                margin: 6px auto;
                 padding: 3px;
                 border: 2px solid #ffd700;
-                box-shadow: 0 3px 8px rgba(255, 215, 0, 0.3);
+                box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
                 object-fit: contain;
             }
             .chapter-image[style*="max-width: 100px"] {
-                max-width: 25px !important;
+                max-width: 25px;
                 width: auto;
                 height: auto;
-                padding: 2px;
-                margin: 3px auto;
+                padding: 3px;
             }
             .text-content p {
                 font-size: 11px;
@@ -956,35 +954,17 @@
             const loadingSpinner = document.getElementById('loading-spinner');
             loadingSpinner.classList.add('active');
             mangaViewer.innerHTML = '';
-            
             if (pageData.type === 'cover') {
-                // Pour la couverture, on crée une div avec les mêmes dimensions que les autres pages
-                const coverDiv = document.createElement('div');
-                coverDiv.className = 'page cover-page';
-                coverDiv.style.cssText = `
-                    width: 100%;
-                    max-width: 300px;
-                    height: 450px;
-                    margin: 0 auto;
-                    border-radius: 10px;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-                    display: block;
-                    background-image: url('${pageData.image}');
-                    background-size: cover;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    border: 3px solid #8b4513;
-                `;
-                
                 const img = new Image();
                 img.src = pageData.image;
+                img.alt = pageData.alt;
+                img.className = 'manga-image';
                 img.onload = () => {
-                    mangaViewer.appendChild(coverDiv);
+                    mangaViewer.innerHTML = `<img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image">`;
                     loadingSpinner.classList.remove('active');
                 };
                 img.onerror = () => {
-                    coverDiv.innerHTML = `<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #ff4444; font-size: 14px; text-align: center; padding: 20px;">Erreur lors du chargement de l'image</div>`;
-                    mangaViewer.appendChild(coverDiv);
+                    mangaViewer.innerHTML = `<p style="color: #ff4444; font-size: 18px; text-align: center;">Erreur lors du chargement de l'image (page ${index + 1}). Veuillez réessayer.</p>`;
                     loadingSpinner.classList.remove('active');
                 };
             } else {
@@ -993,22 +973,16 @@
                 mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
                 const pageDiv = mangaViewer.querySelector('.page');
                 if (pageDiv) {
-                    // Uniformiser toutes les pages avec les mêmes dimensions
-                    pageDiv.style.cssText = `
-                        width: 100%;
-                        max-width: 300px;
-                        height: 450px;
-                        margin: 0 auto;
-                        border-radius: 10px;
-                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-                        display: block;
-                        border: 3px solid #8b4513;
-                    `;
-                    
+                    pageDiv.style.width = '100%';
+                    pageDiv.style.maxWidth = '300px';
+                    pageDiv.style.height = '450px';
+                    pageDiv.style.margin = '0 auto';
+                    pageDiv.style.borderRadius = '10px';
+                    pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
+                    pageDiv.style.display = 'block';
                     const pageContent = pageDiv.querySelector('.page-content');
                     if (pageContent) {
                         pageContent.style.height = '100%';
-                        pageContent.style.padding = '15px';
                         if (isScrollable) {
                             pageContent.classList.add('scrollable');
                             pageContent.style.overflowY = 'auto';
