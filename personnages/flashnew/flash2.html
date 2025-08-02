@@ -84,22 +84,14 @@
         }
         .page {
             position: relative;
-            width: 350px;
-            height: 500px;
+            width: 50%;
+            height: 100%;
             background: linear-gradient(135deg, #fefefe 0%, #f8f8f8 100%);
             border: 3px solid #8b4513;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5);
             backface-visibility: hidden;
             overflow: hidden;
-        }
-        .page.cover-page {
-            width: 700px;
-            height: 500px;
-            background: url('../../images/flashlivre2.webp') no-repeat center;
-            background-size: cover;
-            border-radius: 12px;
-            border: 3px solid #8b4513;
         }
         .page[class*="bg"] {
             background: none !important;
@@ -125,10 +117,15 @@
             border-bottom-left-radius: 0;
         }
         .page[data-position="center"] {
-            width: 700px;
+            width: 50%;
             margin: 0 auto;
             border: 3px solid rgba(255, 215, 0, 0.4);
             box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
+        }
+        .cover-page {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         .david-bg .page-content { background: linear-gradient(135deg, #222222 0%, #808080 100%) !important; }
         .john-bg .page-content { background: linear-gradient(135deg, #2c1810 0%, #8b4513 100%) !important; }
@@ -140,7 +137,7 @@
         .adrian-bg .page-content { background: linear-gradient(135deg, #013220 0%, #000000 100%) !important; }
         .edennededdy-bg .page-content { background: linear-gradient(135deg, #ff0000 0%, #000000 50%, #ffffff 100%) !important; }
         .manda-bg .page-content { background: linear-gradient(135deg, #90ee90 0%, #d3d3d3 100%) !important; }
-        .intro-sommaire-bg .page-content { background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../images/parchment-bg.jpg') center/cover no-repeat !important; }
+        .intro-sommaire-bg { background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../images/parchment-bg.jpg') !important; background-size: cover; background-position: center; }
         .page-content {
             padding: 20px 20px 10px 20px;
             height: 100%;
@@ -148,6 +145,7 @@
             flex-direction: column;
             color: #333;
             overflow-y: hidden;
+            overflow-x: hidden;
             position: relative;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 248, 248, 0.98) 100%);
         }
@@ -523,9 +521,9 @@
             margin: 0 auto 10px;
         }
         .manga-viewer .page {
-            width: 100% !important;
-            max-width: 320px !important;
-            height: 500px !important;
+            width: 100%;
+            max-width: 300px;
+            height: 450px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             margin: 0 auto;
@@ -534,7 +532,7 @@
             background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.2) 5%, transparent 10%);
         }
         .manga-viewer .page-content {
-            height: 100% !important;
+            height: 100%;
             overflow-y: hidden;
             padding: 15px;
         }
@@ -543,12 +541,10 @@
         }
         .manga-viewer img {
             width: 100%;
-            max-width: 320px;
+            max-width: 300px;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            display: block;
-            margin: 0 auto;
         }
         .page-indicator {
             display: block;
@@ -728,7 +724,7 @@
                 padding: 6px 12px;
             }
             .page-image {
-                max-width: 100%;
+                max-width: 60px;
                 height: auto;
                 margin: 8px auto;
                 padding: 8px;
@@ -799,6 +795,12 @@
                 font-size: 12px;
                 margin: 5px auto;
             }
+
+              .page {
+    height: 1000px; /* Ajuste la hauteur selon ton besoin */
+    width: 90%;     /* Si tu veux également augmenter la largeur ou la fixer */
+    max-width: 350px; /* Limite la largeur maximale pour que ça reste cohérent */
+  }
         }
     </style>
 </head>
@@ -900,12 +902,7 @@
             let content = '';
             switch(pageData.type) {
                 case 'cover':
-                    if (window.innerWidth > 768) {
-                        return `<div class="${pageClass} cover-page" data-position="center"></div>`;
-                    } else {
-                        content = `<div class="page-content"><img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="page-image"></div>`;
-                    }
-                    break;
+                    return `<div class="${pageClass} cover-page" data-position="${position}" style="background-image: url('${pageData.image}');"></div>`;
                 case 'intro':
                     content = `<div class="page-content ${pageData.backgroundClass || ''}"><h1 class="page-title">${pageData.title}</h1><div class="text-content">${pageData.content}</div></div>`;
                     break;
@@ -963,48 +960,49 @@
             const loadingSpinner = document.getElementById('loading-spinner');
             loadingSpinner.classList.add('active');
             mangaViewer.innerHTML = '';
-            const isScrollable = pageData.type === 'sommaire' || pageData.type === 'episodes';
-            const pageElement = renderPage(pageData, index);
-            mangaViewer.innerHTML = pageElement.replace(/data-position="[^"]*"/, 'data-position="center"');
-            const pageDiv = mangaViewer.querySelector('.page');
-            if (pageDiv) {
-                pageDiv.style.width = '100%';
-                pageDiv.style.maxWidth = '320px';
-                pageDiv.style.height = '500px';
-                pageDiv.style.margin = '0 auto';
-                pageDiv.style.borderRadius = '10px';
-                pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
-                pageDiv.style.display = 'block';
-                const pageContent = pageDiv.querySelector('.page-content');
-                if (pageContent) {
-                    pageContent.style.height = '100%';
-                    pageContent.style.maxWidth = '320px';
-                    if (isScrollable) {
-                        pageContent.classList.add('scrollable');
-                        pageContent.style.overflowY = 'auto';
-                    } else {
-                        pageContent.classList.remove('scrollable');
-                        pageContent.style.overflowY = 'hidden';
-                    }
-                    if (pageData.type === 'cover') {
-                        const img = pageContent.querySelector('img');
-                        if (img) {
-                            img.onload = () => {
-                                loadingSpinner.classList.remove('active');
-                            };
-                            img.onerror = () => {
-                                mangaViewer.innerHTML = `<p style="color: #ff4444; font-size: 18px; text-align: center;">Erreur lors du chargement de l'image (page ${index + 1}). Veuillez réessayer.</p>`;
-                                loadingSpinner.classList.remove('active');
-                            };
+            if (pageData.type === 'cover') {
+                const img = new Image();
+                img.src = pageData.image;
+                img.alt = pageData.alt;
+                img.className = 'manga-image';
+                img.onload = () => {
+                    mangaViewer.innerHTML = `<img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image">`;
+                    loadingSpinner.classList.remove('active');
+                };
+                img.onerror = () => {
+                    mangaViewer.innerHTML = `<p style="color: #ff4444; font-size: 18px; text-align: center;">Erreur lors du chargement de l'image (page ${index + 1}). Veuillez réessayer.</p>`;
+                    loadingSpinner.classList.remove('active');
+                };
+            } else {
+                const isScrollable = pageData.type === 'sommaire' || pageData.type === 'episodes';
+                const pageElement = renderPage(pageData, index);
+                mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
+                const pageDiv = mangaViewer.querySelector('.page');
+                if (pageDiv) {
+                    pageDiv.style.width = '100%';
+                    pageDiv.style.maxWidth = '300px';
+                    pageDiv.style.height = '450px';
+                    pageDiv.style.margin = '0 auto';
+                    pageDiv.style.borderRadius = '10px';
+                    pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
+                    pageDiv.style.display = 'block';
+                    const pageContent = pageDiv.querySelector('.page-content');
+                    if (pageContent) {
+                        pageContent.style.height = '100%';
+                        if (isScrollable) {
+                            pageContent.classList.add('scrollable');
+                            pageContent.style.overflowY = 'auto';
+                        } else {
+                            pageContent.classList.remove('scrollable');
+                            pageContent.style.overflowY = 'hidden';
                         }
-                    } else {
-                        loadingSpinner.classList.remove('active');
                     }
                 }
-            }
-            setupPageNumberScroll();
-            if (pageData.type === 'sommaire') {
-                attachSommaireClickListeners();
+                loadingSpinner.classList.remove('active');
+                setupPageNumberScroll();
+                if (pageData.type === 'sommaire') {
+                    attachSommaireClickListeners();
+                }
             }
             updateMobileIndicators();
             updateChapterSelect();
