@@ -696,12 +696,12 @@
                 z-index: 1000;
             }
             .page-title {
-                font-size: 20px;
+                font-size: 22px;
                 margin-bottom: 10px;
                 padding-bottom: 6px;
             }
             .epic-chapter-title {
-                font-size: 28px;
+                font-size: 32px;
                 margin-bottom: 10px;
                 padding: 6px 12px;
             }
@@ -711,17 +711,17 @@
             .epic-chapter-title::before { left: -25px; }
             .epic-chapter-title::after { right: -25px; }
             .chapter-subtitle {
-                font-size: 20px;
+                font-size: 24px;
                 margin-bottom: 10px;
             }
             .intro-text {
-                font-size: 14px;
+                font-size: 16px;
                 line-height: 1.5;
                 margin-bottom: 10px;
                 padding: 6px;
             }
             .intro-text-epic {
-                font-size: 18px;
+                font-size: 20px;
                 margin-bottom: 10px;
                 padding: 6px 12px;
             }
@@ -735,7 +735,7 @@
                 object-fit: contain;
             }
             .chapter-image {
-                max-width: 50px;
+                max-width: 80px;
                 width: auto;
                 height: auto;
                 margin: 8px auto;
@@ -745,24 +745,24 @@
                 object-fit: contain;
             }
             .chapter-image[style*="max-width: 100px"] {
-                max-width: 30px;
+                max-width: 50px;
                 width: auto;
                 height: auto;
                 padding: 4px;
             }
             .text-content p {
-                font-size: 11px;
+                font-size: 12px;
                 line-height: 1.4;
                 margin-bottom: 8px;
                 text-indent: 10px;
             }
             .text-content h2 {
-                font-size: 14px;
+                font-size: 16px;
                 margin: 10px 0 6px;
                 padding-left: 8px;
             }
             .sommaire-item {
-                font-size: 11px;
+                font-size: 12px;
                 padding: 8px;
                 margin-bottom: 8px;
                 border-radius: 0 8px 8px 0;
@@ -771,18 +771,18 @@
                 transform: translateX(5px);
             }
             .episode-item {
-                font-size: 10px;
+                font-size: 11px;
                 padding: 8px;
                 margin-bottom: 8px;
                 border-radius: 8px;
             }
             .episode-title {
-                font-size: 10px;
+                font-size: 11px;
                 margin-bottom: 5px;
             }
             .episode-button {
                 padding: 5px 10px;
-                font-size: 9px;
+                font-size: 10px;
                 box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
             }
             .page-number {
@@ -876,7 +876,7 @@
 
         const pages = [
             { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture', selectLabel: 'Couverture' },
-            { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><p class="intro-text-epic">Mais qui sont-ils réellement ?</p>`, alt: 'Introduction', selectLabel: 'Intro' },
+            { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><p class="intro-text-epic">Mais qui sont-ils réellement ?</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">`, alt: 'Introduction', selectLabel: 'Intro' },
             { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 24px; text-align: center;">Les Chapitres :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToPage(3)"><span>🐯</span> Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToPage(7)"><span>🐺</span> Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToPage(11)"><span>🐉</span> Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToPage(12)"><span>🐦‍🔥</span> Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToPage(13)"><span>🐍</span> Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToPage(14)"><span>🦁</span> Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToPage(15)"><span>🐺</span> Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToPage(16)"><span>🐍</span> Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToPage(17)"><span>👤👤👤</span> Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToPage(18)"><span>❓</span> Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToPage(19)"><span>🌳</span> Arbre Généalogique</div></div></div>`, alt: 'Sommaire', selectLabel: 'Sommaire' },
             { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'PAGE 1 / 8' },
             { type: 'text-page', position: 'right', pageNumber: 2, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 1', selectLabel: 'PAGE 2 / 8' },
@@ -992,6 +992,7 @@
                     const pageContent = pageDiv.querySelector('.page-content');
                     if (pageContent) {
                         pageContent.style.height = '100%';
+                        pageContent.style.maxWidth = '340px';
                         if (isScrollable) {
                             pageContent.classList.add('scrollable');
                             pageContent.style.overflowY = 'auto';
