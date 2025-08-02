@@ -972,6 +972,23 @@
                 const pageElement = renderPage(pageData, index);
                 mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
                 const pageDiv = mangaViewer.querySelector('.page');
+                // Redimensionner les images pour mobile après rendu
+                const images = pageDiv.querySelectorAll('.page-image, .chapter-image');
+                images.forEach(img => {
+                    if (img.classList.contains('page-image')) {
+                        img.style.maxWidth = '40px';
+                        img.style.width = 'auto';
+                        img.style.height = 'auto';
+                    } else if (img.classList.contains('chapter-image')) {
+                        if (img.style.maxWidth === '100px') {
+                            img.style.maxWidth = '25px';
+                        } else {
+                            img.style.maxWidth = '35px';
+                        }
+                        img.style.width = 'auto';
+                        img.style.height = 'auto';
+                    }
+                });
                 if (pageDiv) {
                     pageDiv.style.width = '100%';
                     pageDiv.style.maxWidth = '300px';
@@ -991,6 +1008,7 @@
                             pageContent.style.overflowY = 'hidden';
                         }
                     }
+                    
                 }
                 loadingSpinner.classList.remove('active');
                 setupPageNumberScroll();
