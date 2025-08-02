@@ -873,7 +873,7 @@
         }
 
         const pages = [
-            { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture', selectLabel: 'Couverture', content: `<img src="../../images/flashlivre2.webp" alt="Couverture" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">` },
+            { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture', selectLabel: 'Couverture' },
             { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><p class="intro-text-epic">Mais qui sont-ils réellement ?</p>`, alt: 'Introduction', selectLabel: 'Intro' },
             { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 24px; text-align: center;">Les Chapitres :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToPage(3)"><span>🐯</span> Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToPage(7)"><span>🐺</span> Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToPage(11)"><span>🐉</span> Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToPage(12)"><span>🐦‍🔥</span> Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToPage(13)"><span>🐍</span> Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToPage(14)"><span>🦁</span> Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToPage(15)"><span>🐺</span> Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToPage(16)"><span>🐍</span> Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToPage(17)"><span>👤👤👤</span> Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToPage(18)"><span>❓</span> Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToPage(19)"><span>🌳</span> Arbre Généalogique</div></div></div>`, alt: 'Sommaire', selectLabel: 'Sommaire' },
             { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'PAGE 1 / 8' },
@@ -896,8 +896,7 @@
             let content = '';
             switch(pageData.type) {
                 case 'cover':
-                    content = `<div class="page-content"><h1 class="page-title">Famille FLASH</h1><div class="text-content">${pageData.content}</div></div>`;
-                    break;
+                    return `<div class="${pageClass} cover-page" data-position="${position}" style="background-image: url('${pageData.image}');"></div>`;
                 case 'intro':
                     content = `<div class="page-content ${pageData.backgroundClass || ''}"><h1 class="page-title">${pageData.title}</h1><div class="text-content">${pageData.content}</div></div>`;
                     break;
@@ -955,34 +954,49 @@
             const loadingSpinner = document.getElementById('loading-spinner');
             loadingSpinner.classList.add('active');
             mangaViewer.innerHTML = '';
-            const isScrollable = pageData.type === 'sommaire' || pageData.type === 'episodes';
-            const pageElement = renderPage(pageData, index);
-            mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
-            const pageDiv = mangaViewer.querySelector('.page');
-            if (pageDiv) {
-                pageDiv.style.width = '100%';
-                pageDiv.style.maxWidth = '340px';
-                pageDiv.style.height = '550px';
-                pageDiv.style.margin = '0 auto';
-                pageDiv.style.borderRadius = '10px';
-                pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
-                pageDiv.style.display = 'block';
-                const pageContent = pageDiv.querySelector('.page-content');
-                if (pageContent) {
-                    pageContent.style.height = '100%';
-                    if (isScrollable) {
-                        pageContent.classList.add('scrollable');
-                        pageContent.style.overflowY = 'auto';
-                    } else {
-                        pageContent.classList.remove('scrollable');
-                        pageContent.style.overflowY = 'hidden';
+            if (pageData.type === 'cover') {
+                const img = new Image();
+                img.src = pageData.image;
+                img.alt = pageData.alt;
+                img.className = 'manga-image';
+                img.onload = () => {
+                    mangaViewer.innerHTML = `<img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image">`;
+                    loadingSpinner.classList.remove('active');
+                };
+                img.onerror = () => {
+                    mangaViewer.innerHTML = `<p style="color: #ff4444; font-size: 18px; text-align: center;">Erreur lors du chargement de l'image (page ${index + 1}). Veuillez réessayer.</p>`;
+                    loadingSpinner.classList.remove('active');
+                };
+            } else {
+                const isScrollable = pageData.type === 'sommaire' || pageData.type === 'episodes';
+                const pageElement = renderPage(pageData, index);
+                mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
+                const pageDiv = mangaViewer.querySelector('.page');
+                if (pageDiv) {
+                    pageDiv.style.width = '100%';
+                    pageDiv.style.maxWidth = '340px';
+                    pageDiv.style.height = '550px';
+                    pageDiv.style.margin = '0 auto';
+                    pageDiv.style.borderRadius = '10px';
+                    pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
+                    pageDiv.style.display = 'block';
+                    const pageContent = pageDiv.querySelector('.page-content');
+                    if (pageContent) {
+                        pageContent.style.height = '100%';
+                        if (isScrollable) {
+                            pageContent.classList.add('scrollable');
+                            pageContent.style.overflowY = 'auto';
+                        } else {
+                            pageContent.classList.remove('scrollable');
+                            pageContent.style.overflowY = 'hidden';
+                        }
                     }
                 }
-            }
-            loadingSpinner.classList.remove('active');
-            setupPageNumberScroll();
-            if (pageData.type === 'sommaire') {
-                attachSommaireClickListeners();
+                loadingSpinner.classList.remove('active');
+                setupPageNumberScroll();
+                if (pageData.type === 'sommaire') {
+                    attachSommaireClickListeners();
+                }
             }
             updateMobileIndicators();
             updateChapterSelect();
