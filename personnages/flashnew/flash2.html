@@ -522,8 +522,8 @@
         }
         .manga-viewer .page {
             width: 100%;
-            max-width: 340px;
-            height: 550px;
+            max-width: 320px;
+            height: 500px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             margin: 0 auto;
@@ -536,17 +536,12 @@
             overflow-y: hidden;
             padding: 15px;
         }
-        .manga-viewer .page-content.cover {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
         .manga-viewer .page-content.scrollable {
             overflow-y: auto;
         }
-        .manga-viewer img.manga-image {
+        .manga-viewer img {
             width: 100%;
-            max-width: 340px;
+            max-width: 300px;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
@@ -901,7 +896,7 @@
             let content = '';
             switch(pageData.type) {
                 case 'cover':
-                    return `<div class="${pageClass} cover-page" data-position="${position}"><div class="page-content cover" style="background-image: url('${pageData.image}');"></div></div>`;
+                    return `<div class="${pageClass} cover-page" data-position="${position}" style="background-image: url('${pageData.image}');"></div>`;
                 case 'intro':
                     content = `<div class="page-content ${pageData.backgroundClass || ''}"><h1 class="page-title">${pageData.title}</h1><div class="text-content">${pageData.content}</div></div>`;
                     break;
@@ -959,38 +954,49 @@
             const loadingSpinner = document.getElementById('loading-spinner');
             loadingSpinner.classList.add('active');
             mangaViewer.innerHTML = '';
-            const isScrollable = pageData.type === 'sommaire' || pageData.type === 'episodes';
-            const pageElement = renderPage(pageData, index);
-            mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
-            const pageDiv = mangaViewer.querySelector('.page');
-            if (pageDiv) {
-                pageDiv.style.width = '100%';
-                pageDiv.style.maxWidth = '340px';
-                pageDiv.style.height = '550px';
-                pageDiv.style.margin = '0 auto';
-                pageDiv.style.borderRadius = '10px';
-                pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
-                pageDiv.style.display = 'block';
-                const pageContent = pageDiv.querySelector('.page-content');
-                if (pageContent) {
-                    pageContent.style.height = '100%';
-                    if (isScrollable) {
-                        pageContent.classList.add('scrollable');
-                        pageContent.style.overflowY = 'auto';
-                    } else {
-                        pageContent.classList.remove('scrollable');
-                        pageContent.style.overflowY = 'hidden';
-                    }
-                    if (pageData.type === 'cover') {
-                        pageContent.classList.add('cover');
-                        pageContent.style.backgroundImage = `url('${pageData.image}')`;
+            if (pageData.type === 'cover') {
+                const img = new Image();
+                img.src = pageData.image;
+                img.alt = pageData.alt;
+                img.className = 'manga-image';
+                img.onload = () => {
+                    mangaViewer.innerHTML = `<img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image">`;
+                    loadingSpinner.classList.remove('active');
+                };
+                img.onerror = () => {
+                    mangaViewer.innerHTML = `<p style="color: #ff4444; font-size: 18px; text-align: center;">Erreur lors du chargement de l'image (page ${index + 1}). Veuillez réessayer.</p>`;
+                    loadingSpinner.classList.remove('active');
+                };
+            } else {
+                const isScrollable = pageData.type === 'sommaire' || pageData.type === 'episodes';
+                const pageElement = renderPage(pageData, index);
+                mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
+                const pageDiv = mangaViewer.querySelector('.page');
+                if (pageDiv) {
+                    pageDiv.style.width = '100%';
+                    pageDiv.style.maxWidth = '320px';
+                    pageDiv.style.height = '500px';
+                    pageDiv.style.margin = '0 auto';
+                    pageDiv.style.borderRadius = '10px';
+                    pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
+                    pageDiv.style.display = 'block';
+                    const pageContent = pageDiv.querySelector('.page-content');
+                    if (pageContent) {
+                        pageContent.style.height = '100%';
+                        if (isScrollable) {
+                            pageContent.classList.add('scrollable');
+                            pageContent.style.overflowY = 'auto';
+                        } else {
+                            pageContent.classList.remove('scrollable');
+                            pageContent.style.overflowY = 'hidden';
+                        }
                     }
                 }
-            }
-            loadingSpinner.classList.remove('active');
-            setupPageNumberScroll();
-            if (pageData.type === 'sommaire') {
-                attachSommaireClickListeners();
+                loadingSpinner.classList.remove('active');
+                setupPageNumberScroll();
+                if (pageData.type === 'sommaire') {
+                    attachSommaireClickListeners();
+                }
             }
             updateMobileIndicators();
             updateChapterSelect();
