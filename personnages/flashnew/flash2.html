@@ -139,12 +139,13 @@
         .manda-bg .page-content { background: linear-gradient(135deg, #90ee90 0%, #d3d3d3 100%) !important; }
         .intro-sommaire-bg { background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../images/parchment-bg.jpg') !important; background-size: cover; background-position: center; }
         .page-content {
-            padding: 20px;
+            padding: 20px 20px 10px 20px;
             height: 100%;
             display: flex;
             flex-direction: column;
             color: #333;
             overflow-y: hidden;
+            overflow-x: hidden;
             position: relative;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 248, 248, 0.98) 100%);
         }
@@ -165,11 +166,6 @@
             background-clip: text;
         }
         .chapter-title-page .page-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
             overflow-y: hidden;
         }
         .page-number {
@@ -292,16 +288,16 @@
         }
         .page-image, .chapter-image {
             width: 100%;
-            max-width: 150px;
+            max-width: 180px;
             border-radius: 10px;
-            margin: 15px auto;
+            margin: 10px auto;
             display: block;
             border: 3px solid #ffd700;
             box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3);
             transition: all 0.3s ease;
         }
         .chapter-image[style*="max-width: 100px"] {
-            max-width: 120px;
+            max-width: 100px;
         }
         .page-image:hover, .chapter-image:hover {
             transform: scale(1.05);
@@ -539,14 +535,9 @@
             height: 100%;
             overflow-y: hidden;
             padding: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
         .manga-viewer .page-content.scrollable {
             overflow-y: auto;
-            justify-content: flex-start;
         }
         .manga-viewer img {
             width: 100%;
@@ -733,7 +724,7 @@
                 padding: 6px 12px;
             }
             .page-image {
-                max-width: 80px;
+                max-width: 60px;
                 height: auto;
                 margin: 8px auto;
                 padding: 8px;
@@ -741,18 +732,19 @@
                 box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
                 object-fit: contain;
             }
+            /* Images des chapitres réduites pour mobile */
             .chapter-image {
-                max-width: 80px !important;
+                max-width: 40px !important;
                 width: auto;
                 height: auto;
-                margin: 8px auto;
+                margin: 5px auto;
                 padding: 3px;
                 border: 2px solid #ffd700;
                 box-shadow: 0 3px 8px rgba(255, 215, 0, 0.3);
                 object-fit: contain;
             }
             .chapter-image[style*="max-width: 100px"] {
-                max-width: 60px !important;
+                max-width: 25px !important;
                 width: auto;
                 height: auto;
                 padding: 2px;
@@ -886,11 +878,11 @@
             { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture', selectLabel: 'Couverture' },
             { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><p class="intro-text-epic">Mais qui sont-ils réellement ?</p>`, alt: 'Introduction', selectLabel: 'Intro' },
             { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 24px; text-align: center;">Les Chapitres :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToPage(3)"><span>🐯</span> Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToPage(7)"><span>🐺</span> Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToPage(11)"><span>🐉</span> Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToPage(12)"><span>🐦‍🔥</span> Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToPage(13)"><span>🐍</span> Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToPage(14)"><span>🦁</span> Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToPage(15)"><span>🐺</span> Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToPage(16)"><span>🐍</span> Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToPage(17)"><span>👤👤👤</span> Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToPage(18)"><span>❓</span> Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToPage(19)"><span>🌳</span> Arbre Généalogique</div></div></div>`, alt: 'Sommaire', selectLabel: 'Sommaire' },
-            { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 120px;">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'PAGE 1 / 8' },
+            { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'PAGE 1 / 8' },
             { type: 'text-page', position: 'right', pageNumber: 2, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 1', selectLabel: 'PAGE 2 / 8' },
             { type: 'text-page', position: 'left', pageNumber: 3, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires blabla</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 2', selectLabel: 'PAGE 3 / 8' },
             { type: 'episodes', position: 'right', pageNumber: 4, chapter: 1, backgroundClass: 'david-bg', title: 'Épisodes de David FLASH', content: `<div class="episodes-list"><h2>Épisodes de David FLASH - Saison 1</h2><div class="episode-item"><div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: MA PREMIÈRE BRAQUAGE</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 4: RENCONTRE AVEC LE GÉANT FREDDY</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 5: L'EMPIRE COMMENCE</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 6: LA LÉGENDE NAÎT</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="scroll-indicator" onclick="toggleScroll(this.parentElement)">↓</div></div>`, alt: 'David FLASH - Épisodes', selectLabel: 'PAGE 4 / 8' },
-            { type: 'chapter-title', position: 'left', pageNumber: 5, chapter: 2, backgroundClass: 'john-bg', title: 'CHAPITRE 2', subtitle: 'John FLASH', content: `<img src="../../images/john_flash.jpg" alt="John FLASH" class="chapter-image"><img src="../../images/loupjohn.webp" alt="Symbole de John" class="chapter-image" style="max-width: 120px;">`, alt: 'Chapitre 2: John FLASH', selectLabel: 'PAGE 5 / 8' },
+            { type: 'chapter-title', position: 'left', pageNumber: 5, chapter: 2, backgroundClass: 'john-bg', title: 'CHAPITRE 2', subtitle: 'John FLASH', content: `<img src="../../images/john_flash.jpg" alt="John FLASH" class="chapter-image"><img src="../../images/loupjohn.webp" alt="Symbole de John" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 2: John FLASH', selectLabel: 'PAGE 5 / 8' },
             { type: 'text-page', position: 'right', pageNumber: 6, chapter: 2, backgroundClass: 'john-bg', content: `<h2>Avant</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'John FLASH - Page 1', selectLabel: 'PAGE 6 / 8' },
             { type: 'text-page', position: 'left', pageNumber: 7, chapter: 2, backgroundClass: 'john-bg', content: `<h2>L'héritage</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'John FLASH - Page 2', selectLabel: 'PAGE 7 / 8' },
             { type: 'text-page', position: 'right', pageNumber: 8, chapter: 2, backgroundClass: 'john-bg', content: `<h2>L'héritage</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'John FLASH - Page 3', selectLabel: 'PAGE 8 / 8' }
@@ -964,17 +956,35 @@
             const loadingSpinner = document.getElementById('loading-spinner');
             loadingSpinner.classList.add('active');
             mangaViewer.innerHTML = '';
+            
             if (pageData.type === 'cover') {
+                // Pour la couverture, on crée une div avec les mêmes dimensions que les autres pages
+                const coverDiv = document.createElement('div');
+                coverDiv.className = 'page cover-page';
+                coverDiv.style.cssText = `
+                    width: 100%;
+                    max-width: 300px;
+                    height: 450px;
+                    margin: 0 auto;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+                    display: block;
+                    background-image: url('${pageData.image}');
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    border: 3px solid #8b4513;
+                `;
+                
                 const img = new Image();
                 img.src = pageData.image;
-                img.alt = pageData.alt;
-                img.className = 'manga-image';
                 img.onload = () => {
-                    mangaViewer.innerHTML = `<img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image">`;
+                    mangaViewer.appendChild(coverDiv);
                     loadingSpinner.classList.remove('active');
                 };
                 img.onerror = () => {
-                    mangaViewer.innerHTML = `<p style="color: #ff4444; font-size: 18px; text-align: center;">Erreur lors du chargement de l'image (page ${index + 1}). Veuillez réessayer.</p>`;
+                    coverDiv.innerHTML = `<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #ff4444; font-size: 14px; text-align: center; padding: 20px;">Erreur lors du chargement de l'image</div>`;
+                    mangaViewer.appendChild(coverDiv);
                     loadingSpinner.classList.remove('active');
                 };
             } else {
@@ -983,16 +993,22 @@
                 mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
                 const pageDiv = mangaViewer.querySelector('.page');
                 if (pageDiv) {
-                    pageDiv.style.width = '100%';
-                    pageDiv.style.maxWidth = '300px';
-                    pageDiv.style.height = '450px';
-                    pageDiv.style.margin = '0 auto';
-                    pageDiv.style.borderRadius = '10px';
-                    pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
-                    pageDiv.style.display = 'block';
+                    // Uniformiser toutes les pages avec les mêmes dimensions
+                    pageDiv.style.cssText = `
+                        width: 100%;
+                        max-width: 300px;
+                        height: 450px;
+                        margin: 0 auto;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+                        display: block;
+                        border: 3px solid #8b4513;
+                    `;
+                    
                     const pageContent = pageDiv.querySelector('.page-content');
                     if (pageContent) {
                         pageContent.style.height = '100%';
+                        pageContent.style.padding = '15px';
                         if (isScrollable) {
                             pageContent.classList.add('scrollable');
                             pageContent.style.overflowY = 'auto';
