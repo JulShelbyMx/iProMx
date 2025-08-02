@@ -521,9 +521,9 @@
             margin: 0 auto 10px;
         }
         .manga-viewer .page {
-            width: 100% !important;
-            max-width: 340px !important;
-            height: 550px !important;
+            width: 100%;
+            max-width: 340px;
+            height: 550px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             margin: 0 auto;
@@ -532,24 +532,19 @@
             background: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.2) 5%, transparent 10%);
         }
         .manga-viewer .page-content {
-            width: 100% !important;
-            max-width: 340px !important;
-            height: 100% !important;
+            height: 100%;
             overflow-y: hidden;
             padding: 15px;
-            box-sizing: border-box;
         }
         .manga-viewer .page-content.scrollable {
             overflow-y: auto;
         }
-        .manga-viewer img.manga-image {
-            width: 100% !important;
-            max-width: 340px !important;
-            height: 550px !important;
+        .manga-viewer img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            object-fit: cover;
-            border: 3px solid #8b4513;
         }
         .page-indicator {
             display: block;
@@ -699,12 +694,12 @@
                 z-index: 1000;
             }
             .page-title {
-                font-size: 22px;
+                font-size: 20px;
                 margin-bottom: 10px;
                 padding-bottom: 6px;
             }
             .epic-chapter-title {
-                font-size: 32px;
+                font-size: 28px;
                 margin-bottom: 10px;
                 padding: 6px 12px;
             }
@@ -714,17 +709,17 @@
             .epic-chapter-title::before { left: -25px; }
             .epic-chapter-title::after { right: -25px; }
             .chapter-subtitle {
-                font-size: 24px;
+                font-size: 20px;
                 margin-bottom: 10px;
             }
             .intro-text {
-                font-size: 16px;
+                font-size: 14px;
                 line-height: 1.5;
                 margin-bottom: 10px;
                 padding: 6px;
             }
             .intro-text-epic {
-                font-size: 20px;
+                font-size: 18px;
                 margin-bottom: 10px;
                 padding: 6px 12px;
             }
@@ -738,7 +733,7 @@
                 object-fit: contain;
             }
             .chapter-image {
-                max-width: 80px;
+                max-width: 50px;
                 width: auto;
                 height: auto;
                 margin: 8px auto;
@@ -748,24 +743,24 @@
                 object-fit: contain;
             }
             .chapter-image[style*="max-width: 100px"] {
-                max-width: 50px;
+                max-width: 30px;
                 width: auto;
                 height: auto;
                 padding: 4px;
             }
             .text-content p {
-                font-size: 12px;
+                font-size: 11px;
                 line-height: 1.4;
                 margin-bottom: 8px;
                 text-indent: 10px;
             }
             .text-content h2 {
-                font-size: 16px;
+                font-size: 14px;
                 margin: 10px 0 6px;
                 padding-left: 8px;
             }
             .sommaire-item {
-                font-size: 12px;
+                font-size: 11px;
                 padding: 8px;
                 margin-bottom: 8px;
                 border-radius: 0 8px 8px 0;
@@ -774,18 +769,18 @@
                 transform: translateX(5px);
             }
             .episode-item {
-                font-size: 11px;
+                font-size: 10px;
                 padding: 8px;
                 margin-bottom: 8px;
                 border-radius: 8px;
             }
             .episode-title {
-                font-size: 11px;
+                font-size: 10px;
                 margin-bottom: 5px;
             }
             .episode-button {
                 padding: 5px 10px;
-                font-size: 10px;
+                font-size: 9px;
                 box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
             }
             .page-number {
@@ -878,8 +873,8 @@
         }
 
         const pages = [
-            { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture', selectLabel: 'Couverture' },
-            { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><p class="intro-text-epic">Mais qui sont-ils réellement ?</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">`, alt: 'Introduction', selectLabel: 'Intro' },
+            { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture', selectLabel: 'Couverture', content: `<img src="../../images/flashlivre2.webp" alt="Couverture" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">` },
+            { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><p class="intro-text-epic">Mais qui sont-ils réellement ?</p>`, alt: 'Introduction', selectLabel: 'Intro' },
             { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 24px; text-align: center;">Les Chapitres :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToPage(3)"><span>🐯</span> Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToPage(7)"><span>🐺</span> Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToPage(11)"><span>🐉</span> Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToPage(12)"><span>🐦‍🔥</span> Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToPage(13)"><span>🐍</span> Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToPage(14)"><span>🦁</span> Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToPage(15)"><span>🐺</span> Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToPage(16)"><span>🐍</span> Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToPage(17)"><span>👤👤👤</span> Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToPage(18)"><span>❓</span> Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToPage(19)"><span>🌳</span> Arbre Généalogique</div></div></div>`, alt: 'Sommaire', selectLabel: 'Sommaire' },
             { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><img src="../../images/tigreblancdavid.webp" alt="Symbole de David" class="chapter-image" style="max-width: 100px;">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'PAGE 1 / 8' },
             { type: 'text-page', position: 'right', pageNumber: 2, chapter: 1, backgroundClass: 'david-bg', content: `<p>David FLASH, le patriarche de cette illustre lignée, est arrivé à Los Santos dans les années 1980. Homme d'affaires visionnaire et stratège hors pair, il a su bâtir un empire à partir de rien.</p><p>Sa rencontre avec le Géant Freddy marqua un tournant décisif dans l'histoire de la famille. Cette alliance mystique conféra aux FLASH des pouvoirs et une influence qui dépassaient l'entendement.</p><p>[Vous pouvez continuer à écrire ici l'histoire de David FLASH...]</p>`, alt: 'David FLASH - Page 1', selectLabel: 'PAGE 2 / 8' },
@@ -901,7 +896,8 @@
             let content = '';
             switch(pageData.type) {
                 case 'cover':
-                    return `<div class="${pageClass} cover-page" data-position="${position}" style="background-image: url('${pageData.image}');"></div>`;
+                    content = `<div class="page-content"><h1 class="page-title">Famille FLASH</h1><div class="text-content">${pageData.content}</div></div>`;
+                    break;
                 case 'intro':
                     content = `<div class="page-content ${pageData.backgroundClass || ''}"><h1 class="page-title">${pageData.title}</h1><div class="text-content">${pageData.content}</div></div>`;
                     break;
@@ -918,7 +914,7 @@
                     content = `<div class="page-content episodes-page scrollable"><h1 class="page-title">${pageData.title}</h1><div class="text-content">${pageData.content}</div><div class="page-number">${pageData.pageNumber}</div></div>`;
                     break;
             }
-            return `<div class="${pageClass}" data-position="${position}" style="width: 100%; max-width: 340px; height: 550px; margin: 0 auto;">${content}</div>`;
+            return `<div class="${pageClass}" data-position="${position}">${content}</div>`;
         }
 
         function showPage(index) {
@@ -959,60 +955,34 @@
             const loadingSpinner = document.getElementById('loading-spinner');
             loadingSpinner.classList.add('active');
             mangaViewer.innerHTML = '';
-            if (pageData.type === 'cover') {
-                const img = new Image();
-                img.src = pageData.image;
-                img.alt = pageData.alt;
-                img.className = 'manga-image';
-                img.style.width = '100%';
-                img.style.maxWidth = '340px';
-                img.style.height = '550px';
-                img.style.objectFit = 'cover';
-                img.style.borderRadius = '10px';
-                img.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
-                img.style.border = '3px solid #8b4513';
-                img.onload = () => {
-                    mangaViewer.innerHTML = `<div class="page cover-page" data-position="center" style="width: 100%; max-width: 340px; height: 550px; margin: 0 auto;"><img src="${pageData.image}" loading="lazy" alt="${pageData.alt}" class="manga-image" style="width: 100%; max-width: 340px; height: 550px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); border: 3px solid #8b4513;"></div>`;
-                    loadingSpinner.classList.remove('active');
-                };
-                img.onerror = () => {
-                    mangaViewer.innerHTML = `<p style="color: #ff4444; font-size: 18px; text-align: center;">Erreur lors du chargement de l'image (page ${index + 1}). Veuillez réessayer.</p>`;
-                    loadingSpinner.classList.remove('active');
-                };
-            } else {
-                const isScrollable = pageData.type === 'sommaire' || pageData.type === 'episodes';
-                const pageElement = renderPage(pageData, index);
-                mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
-                const pageDiv = mangaViewer.querySelector('.page');
-                if (pageDiv) {
-                    pageDiv.style.width = '100%';
-                    pageDiv.style.maxWidth = '340px';
-                    pageDiv.style.height = '550px';
-                    pageDiv.style.margin = '0 auto';
-                    pageDiv.style.borderRadius = '10px';
-                    pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
-                    pageDiv.style.display = 'block';
-                    pageDiv.style.boxSizing = 'border-box';
-                    const pageContent = pageDiv.querySelector('.page-content');
-                    if (pageContent) {
-                        pageContent.style.width = '100%';
-                        pageContent.style.maxWidth = '340px';
-                        pageContent.style.height = '100%';
-                        pageContent.style.boxSizing = 'border-box';
-                        if (isScrollable) {
-                            pageContent.classList.add('scrollable');
-                            pageContent.style.overflowY = 'auto';
-                        } else {
-                            pageContent.classList.remove('scrollable');
-                            pageContent.style.overflowY = 'hidden';
-                        }
+            const isScrollable = pageData.type === 'sommaire' || pageData.type === 'episodes';
+            const pageElement = renderPage(pageData, index);
+            mangaViewer.innerHTML = pageElement.replace('data-position="left"', 'data-position="center"').replace('data-position="right"', 'data-position="center"');
+            const pageDiv = mangaViewer.querySelector('.page');
+            if (pageDiv) {
+                pageDiv.style.width = '100%';
+                pageDiv.style.maxWidth = '340px';
+                pageDiv.style.height = '550px';
+                pageDiv.style.margin = '0 auto';
+                pageDiv.style.borderRadius = '10px';
+                pageDiv.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.5)';
+                pageDiv.style.display = 'block';
+                const pageContent = pageDiv.querySelector('.page-content');
+                if (pageContent) {
+                    pageContent.style.height = '100%';
+                    if (isScrollable) {
+                        pageContent.classList.add('scrollable');
+                        pageContent.style.overflowY = 'auto';
+                    } else {
+                        pageContent.classList.remove('scrollable');
+                        pageContent.style.overflowY = 'hidden';
                     }
                 }
-                loadingSpinner.classList.remove('active');
-                setupPageNumberScroll();
-                if (pageData.type === 'sommaire') {
-                    attachSommaireClickListeners();
-                }
+            }
+            loadingSpinner.classList.remove('active');
+            setupPageNumberScroll();
+            if (pageData.type === 'sommaire') {
+                attachSommaireClickListeners();
             }
             updateMobileIndicators();
             updateChapterSelect();
