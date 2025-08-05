@@ -604,6 +604,135 @@
             60% { content: "Chargement....."; }
             80%, 100% { content: "Chargement......"; }
         }
+        /* Modal Styles */
+        .alert-modal, .order-modal, .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            margin: auto;
+            background-color: #121212;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            padding: 20px 20px 10px;
+            text-align: center;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        .modal-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            font-family: 'Playfair Display', serif;
+        }
+        .modal-content h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        .order-table-container {
+            max-height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .order-table-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .order-table-container::-webkit-scrollbar-track {
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 10px;
+        }
+        .order-table-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ffd700, #f39c12);
+            border-radius: 10px;
+        }
+        .order-table-container::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #f39c12, #ffd700);
+        }
+        .order-table-container {
+            scrollbar-width: auto;
+            scrollbar-color: #ffd700 #333333;
+        }
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        .order-table tr {
+            border: 2px solid #ffd700;
+            background-color: #222222;
+            border-radius: 8px;
+        }
+        .order-table tr:hover {
+            border-color: #f39c12;
+        }
+        .order-table td {
+            padding: 10px;
+            font-size: 14px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+        .order-table td span {
+            margin-right: 5px;
+        }
+        .alert-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .alert-button, .go-button, .close-button {
+            background: linear-gradient(135deg, #ffd700, #f39c12);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #000;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Inter', sans-serif;
+        }
+        .alert-button:hover, .go-button:hover, .close-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.5);
+            background: linear-gradient(135deg, #f39c12, #ffd700);
+        }
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ffd700;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .close-modal:hover {
+            color: #f39c12;
+        }
+        .close-button {
+            margin-top: 10px;
+            min-width: 100px;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
         @media (max-width: 768px) {
             body {
                 background: #111;
@@ -788,6 +917,27 @@
                 font-size: 12px;
                 margin: 2px auto;
             }
+            .modal-content {
+                max-height: 70vh;
+                padding: 15px;
+            }
+            .order-table-container {
+                max-height: 250px;
+            }
+            .order-table-container::-webkit-scrollbar {
+                width: 4px;
+            }
+            .order-table-container::-webkit-scrollbar-thumb {
+                background: linear-gradient(135deg, #ffd700, #f39c12);
+                border-radius: 8px;
+            }
+            .order-table-container::-webkit-scrollbar-track {
+                background: rgba(139, 69, 19, 0.1);
+            }
+            .close-button {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -850,6 +1000,93 @@
         <div class="loading-spinner" id="loading-spinner"></div>
     </div>
 
+    <!-- Modals -->
+    <div class="alert-modal" id="alertModal">
+        <div class="modal-content">
+            <p>Attention, souhaitez-vous avoir un rappel de l'ordre de visionnage de la série "Flash" ?</p>
+            <div class="alert-buttons">
+                <button class="alert-button" id="showOrderButton">Oui</button>
+                <button class="alert-button" id="closeAlertButton">Non</button>
+            </div>
+        </div>
+    </div>
+    <div class="order-modal" id="orderModal">
+        <div class="modal-content">
+            <span class="close-modal">×</span>
+            <h3>Ordre de visionnage de la famille FLASH</h3>
+            <div class="order-table-container">
+                <table class="order-table">
+                    <tbody>
+                        <tr>
+                            <td><span>David Flash:</span> <button class="go-button" data-page-index="3">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>John Flash:</span> <button class="go-button" data-page-index="7">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Ken Flash (Saison 1):</span> <button class="go-button" data-page-index="11">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Aaron Flash (Saison 1):</span> <button class="go-button" data-page-index="12">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Ken Flash (Saison 2):</span> <button class="go-button" data-page-index="11">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Aaron Flash (Saison 2):</span> <button class="go-button" data-page-index="12">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Damon Flash (Saison 1):</span> <button class="go-button" data-page-index="14">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Damon Flash (Saison 2):</span> <button class="go-button" data-page-index="14">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>David Jr Flash (vieux):</span> <button class="go-button" data-page-index="13">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Damon Flash (Saison 3):</span> <button class="go-button" data-page-index="14">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Kayton Flash (Saison 1):</span> <button class="go-button" data-page-index="15">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Kayton Flash (Saison 2):</span> <button class="go-button" data-page-index="15">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Kayton Flash (Saison 3):</span> <button class="go-button" data-page-index="15">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Adrian Flash:</span> <button class="go-button" data-page-index="16">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Eden et Aaron vs Adrian:</span> <button class="go-button" data-page-index="17">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Eden Flash:</span> <button class="go-button" data-page-index="17">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Ned Flash:</span> <button class="go-button" data-page-index="17">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Manda Flash:</span> <button class="go-button" data-page-index="18">Y ALLER</button></td>
+                        </tr>
+                        <tr>
+                            <td><span>Cody Hunters (Ned Flash):</span> <button class="go-button" data-page-index="17">Y ALLER</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="close-button" id="closeOrderButton">Fermer</button>
+        </div>
+    </div>
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <span class="close-modal">×</span>
+            <iframe id="modalVideo" width="100%" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
     <script>
         function createParticles() {
             const container = document.getElementById('particles');
@@ -869,30 +1106,66 @@
             { image: '../../images/flashlivre2.webp', type: 'cover', position: 'center', alt: 'Couverture', selectLabel: 'Couverture' },
             { type: 'intro', position: 'left', title: 'Introduction', backgroundClass: 'intro-sommaire-bg', content: `<p class="intro-text">La famille FLASH est une lignée légendaire, choisie comme privilégiée par le Géant Freddy. Elle marque l'histoire de Los Santos depuis son commencement, en bien comme en mal.</p><img src="../../images/flash.jpg" alt="Famille FLASH" class="page-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';"><p class="intro-text-epic">Mais qui sont-ils réellement ?</p>`, alt: 'Introduction', selectLabel: 'Intro' },
             { type: 'sommaire', position: 'right', title: 'Sommaire', backgroundClass: 'intro-sommaire-bg', content: `<div style="margin-top: 25px;"><h2 style="color: #ffd700; margin-bottom: 20px; font-family: 'Playfair Display', serif; font-size: 24px; text-align: center;">Les Chapitres :</h2><div class="sommaire-list"><div class="sommaire-item" onclick="goToPage(3)"><span>🐯</span> Chapitre 1: David FLASH</div><div class="sommaire-item" onclick="goToPage(7)"><span>🐺</span> Chapitre 2: John FLASH</div><div class="sommaire-item" onclick="goToPage(11)"><span>🐉</span> Chapitre 3: Ken FLASH</div><div class="sommaire-item" onclick="goToPage(12)"><span>🐦‍🔥</span> Chapitre 4: Aaron FLASH</div><div class="sommaire-item" onclick="goToPage(13)"><span>🐍</span> Chapitre 5: David JR. FLASH</div><div class="sommaire-item" onclick="goToPage(14)"><span>🦁</span> Chapitre 6: Damon FLASH</div><div class="sommaire-item" onclick="goToPage(15)"><span>🐺</span> Chapitre 7: Kayton FLASH</div><div class="sommaire-item" onclick="goToPage(16)"><span>🐍</span> Chapitre 8: Adrian FLASH</div><div class="sommaire-item" onclick="goToPage(17)"><span>👤👤👤</span> Chapitre 9: Eden/Ned/Eddy FLASH</div><div class="sommaire-item" onclick="goToPage(18)"><span>❓</span> Chapitre 10: Manda FLASH</div><div class="sommaire-item" onclick="goToPage(19)"><span>🌳</span> Arbre Généalogique</div></div></div>`, alt: 'Sommaire', selectLabel: 'Sommaire' },
-            { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'PAGE 1 / 9' },
+            { type: 'chapter-title', position: 'left', pageNumber: 1, chapter: 1, backgroundClass: 'david-bg', title: 'CHAPITRE 1', subtitle: 'David FLASH', content: `<img src="../../images/david_flash.jpg" alt="David FLASH" class="chapter-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vbiBkaXNwb25pYmxlPC90ZXh0Pjwvc3ZnPg==';">`, alt: 'Chapitre 1: David FLASH', selectLabel: 'PAGE 1 / 12' },
             { type: 'text-page', position: 'right', pageNumber: 2, chapter: 1, backgroundClass: 'david-bg', content: `
                 <p>Source : Xi-ling</p>
                 <h2>Avant</h2>
                 <p><strong>David Flash, 21 ans, homme.</strong></p>
                 <p>À 21 ans, David fonde un gang qui deviendra célèbre à travers plusieurs générations.</p>
                 <p>Leurs ennemis furent nombreux : le FBI, une mafia, un gang rival, le LSPD et l'armée américaine.</p>
-                <p>À l'âge de 22 ans, il fait la rencontre d'Alexandra, pour qui ce fut le coup de foudre immédiat. À la fin de la saison 2, ils se marient, et elle tombe enceinte de leur unique fils : John Flash. Plus tard, pendant une guerre de gang, Alexandra meurt, et les médecins, sur ordre de la LSPD, font croire à David que le bébé est mort dans le ventre.</p>`, alt: 'David FLASH - Page 1', selectLabel: 'PAGE 2 / 9' },
+                <p>À l'âge de 22 ans, il fait la rencontre d'Alexandra, pour qui ce fut le coup de foudre immédiat. À la fin de la saison 2, ils se marient, et elle tombe enceinte de leur unique fils : John Flash. Plus tard, pendant une guerre de gang, Alexandra meurt, et les médecins, sur ordre de la LSPD, font croire à David que le bébé est mort dans le ventre.</p>`, alt: 'David FLASH - Page 1', selectLabel: 'PAGE 2 / 12' },
             { type: 'text-page', position: 'left', pageNumber: 3, chapter: 1, backgroundClass: 'david-bg', content: `
                 <h2>Après</h2>
                 <p><strong>David Flash, 74 ans, homme.</strong></p>
                 <p>Après un long périple de 18 ans en prison, David s'évade et simule sa propre mort afin de protéger son fils John à distance.</p>
                 <p>Après l'arc centré sur John, l'histoire se répète avec son petit-fils Ken. Cette fois-ci, David entre directement en contact avec lui pour l'aider à retrouver John, et lui transmettre les clés de la nouvelle version du gang : la version 2.0.</p>
-                <p>À l'âge de 74 ans, David retrouve enfin John et lui demande de l'aide pour sauver Ken. C'est alors que David, John et Ken fusionnent, ne formant plus qu'une seule entité dotée de trois voix et trois consciences distinctes.</p>`, alt: 'David FLASH - Page 1', selectLabel: 'PAGE 3 / 10' },
-                { type: 'text-page', position: 'right', pageNumber: 4, chapter: 1, backgroundClass: 'david-bg', content: `
+                <p>À l'âge de 74 ans, David retrouve enfin John et lui demande de l'aide pour sauver Ken. C'est alors que David, John et Ken fusionnent, ne formant plus qu'une seule entité dotée de trois voix et trois consciences distinctes.</p>`, alt: 'David FLASH - Page 2', selectLabel: 'PAGE 3 / 12' },
+            { type: 'text-page', position: 'right', pageNumber: 4, chapter: 1, backgroundClass: 'david-bg', content: `
                 <p>À 92 ans, David meurt dans le corps de son petit-fils Ken, se sacrifiant pour les générations futures en aidant son arrière-petit-fils Aaron à combattre David Jr., son second arrière-petit-fils.</p>
                 <h2>Symbole</h2>
-                <p>L'animal spirituel de David était le tigre blanc, symbole de sagesse et de protection envers les siens.</p> <img src="../../images/tigreblancdavid.webp" alt="Animal de David" class="chapter-image" style="max-width: 200px;">`, alt: 'David FLASH - Page 1', selectLabel: 'PAGE 4 / 9' },
-            { type: 'episodes', position: 'left', pageNumber: 5, chapter: 1, backgroundClass: 'david-bg', title: 'Épisodes de David FLASH', content: `<div class="episodes-list"><h2>Épisodes de David FLASH - Saison 1</h2><div class="episode-item"><div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: JE FAIS DE L'ILLÉGAL</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: MA PREMIÈRE BRAQUAGE</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 4: RENCONTRE AVEC LE GÉANT FREDDY</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 5: L'EMPIRE COMMENCE</div><button class="episode-button" onclick="openVideo('z_H0tafxHAc')">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 6: LA LÉGENDE NAÎT</div><button class="episode-button" onclick="openVideo('_fABb3_UqlI')">📺 Regarder</button></div><div class="scroll-indicator" onclick="toggleScroll(this.parentElement)">↓</div></div>`, alt: 'David FLASH - Épisodes', selectLabel: 'PAGE 5 / 8' },
+                <p>L'animal spirituel de David était le tigre blanc, symbole de sagesse et de protection envers les siens.</p> <img src="../../images/tigreblancdavid.webp" alt="Animal de David" class="chapter-image" style="max-width: 200px;">`, alt: 'David FLASH - Page 3', selectLabel: 'PAGE 4 / 12' },
+            { type: 'episodes', position: 'left', pageNumber: 5, chapter: 1, backgroundClass: 'david-bg', title: 'Épisodes de David FLASH', content: `<div class="episodes-list"><h2>Saison 1</h2><div class="episode-item"><div class="episode-title">Épisode 1: POUR LA PREMIÈRE FOIS JE TESTE GTAV RP - UN TROLLEUR SUR UN JEU ROLEPLAY ?</div><button class="episode-button" data-video-id="z_H0tafxHAc">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: GTAV RP #2 - JE FAIS DE L'ILLÉGAL POUR LA PREMIÈRE FOIS !</div><button class="episode-button" data-video-id="_fABb3_UqlI">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: ON MENACE DE ME TUER - GTAV RP #3</div><button class="episode-button" data-video-id="rnlPQz_yZkk">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 4: GTAV RP #4 - ON KIDNAPPE UN MEC ET L'OBLIGE À TRAVAILLER POUR NOUS DANS L'ILLÉGAL !</div><button class="episode-button" data-video-id="1RT89ZnoIFc">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 5: GTAV RP #5 - ON CRÉE NOTRE GANG ET ESSAYE DE NOUS FAIRE RESPECTER ! FIVELIFE</div><button class="episode-button" data-video-id="bAL5YrzkmPI">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 6: JE SUIS DEVENU UNE VRAIE RACAILLE + ON RECRUTE 2 MECS DANS NOTRE GANG - GTAV RP #6</div><button class="episode-button" data-video-id="uJx1Z2AQHnA">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 7: ON PRÉPARE NOTRE PLUS GROS COUP QUI PEUT NOUS RENDRE MILLIONNAIRE ! GTAV RP #7</div><button class="episode-button" data-video-id="c02txsFw56U">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 8: ON VOLE UN TANK ET DEMANDE UNE RANÇON DE 1 MILLION AUX POLICIERS ! GTAV RP #8</div><button class="episode-button" data-video-id="CJl7bC9cfxc">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 9: LE GRAND JOUR, NÉGOCIATION AVEC LA POLICE POUR ÉCHANGE TANK CONTRE 1 MILLION DOLLARS - GTAV RP #9</div><button class="episode-button" data-video-id="Dhy2Uz0CkA8">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 10: COURSE-POURSUITE AVEC LA POLICE AVEC 600 000$ DANS LA POCHE - GTAV RP #10</div><button class="episode-button" data-video-id="2zrMMtsB1r0">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 11: LES AGENTS SECRETS NOUS ONT RETROUVÉ, JE PERDS MON MEILLEUR AMI GUY TRAGIQUEMENT :'( - GTAV RP #11</div><button class="episode-button" data-video-id="kGu8Bqy8Q50">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 12: JE VAIS ME VENGER DE LA MORT DE GUY MAUD ! - GTAV RP #12</div><button class="episode-button" data-video-id="r1qBzNm5aHY">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 13: ACHETER DES ARMES ILLÉGALES ET S’INFILTRER DANS LE FBI POUR SE VENGER DE GUY ! GTAV RP #13</div><button class="episode-button" data-video-id="OjNnC83AaM4">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 14: LA FIN DU GANG DOUBLE ? :( GTAV RP #14</div><button class="episode-button" data-video-id="s-wSTU9i1Lw">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 15: LE GANG DOUBLE REVIENT EN FORCE ! GTAV RP #15</div><button class="episode-button" data-video-id="B608R75HNfE">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 16: C’ÉTAIT TROP BEAU POUR ÊTRE VRAI ! RETOURNEMENT DE SITUATION ! GTAV RP #16</div><button class="episode-button" data-video-id="Rb0XbQdD31g">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 17: PERDU SEUL DANS LA FORÊT ENTOURÉ D’ANIMAUX SAUVAGES ! GTAV RP #17</div><button class="episode-button" data-video-id="vy_Ci-ctl-U">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 18: TRAILER ÉPISODE FINAL DU GANG DOUBLE ! GTAV RP</div><button class="episode-button" data-video-id="b8OeooNJ2lk">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 19: LE PLUS GROS COUP DU GANG DOUBLE ! VENGEANCE ULTIME - GTAV RP ÉPISODE FINAL</div><button class="episode-button" data-video-id="cxtl5GTsmhE">📺 Regarder</button></div></div>
+                    <div class="episodes-list"><h2>Saison 2</h2><div class="episode-item"><div class="episode-title">Épisode 1: JE DOIS CHOISIR ENTRE LA FEMME DE MA VIE OU LE GANG DOUBLE ? GTAV RP SAISON 2 #1</div><button class="episode-button" data-video-id="Eoo3Vpelub4">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: JE RECONSTRUIS LE GANG DOUBLE DANS LE DOS DE MA FEMME - GTAV RP S2 #2</div><button class="episode-button" data-video-id="u-c7OsaY62M">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: LE GRAND JOUR, VOLER DES VOITURES QUI VALENT DES MILLIONS À DES HOMMES RICHES - GTAV RP S2 #3</div><button class="episode-button" data-video-id="wbw-dOzIe7Q">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 4: MA FEMME APPREND QUE J’AI REFORMÉ LE GANG DOUBLE, VA-T-ELLE ME QUITTER ? GTAV RP S2 #4</div><button class="episode-button" data-video-id="gyc2K4p3KG4">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 5: LE JOUR DE LA PAYE, QUE LES CHOSES SÉRIEUSES COMMENCENT ! GTAV RP S2 #5</div><button class="episode-button" data-video-id="7p01OcCJ62Y">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 6: ON ME FAIT QUITTER LE GANG DOUBLE DE FORCE :'( - GTAV RP S2 #6</div><button class="episode-button" data-video-id="KiUrxBgYMRI">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 7: DOUBLE C’EST FINI ?! NON ! JAMAIS DE LA VIE ! EXPLICATION</div><button class="episode-button" data-video-id="E02ICk8dnJc">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 8: COMMENT ALEXANDRA S’EST FAIT KIDNAPPER ? - GTAV RP S2</div><button class="episode-button" data-video-id="AoKd1OPhb7I">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 9: DAVID FLASH VA-T-IL RÉINTÉGRER LE GANG DOUBLE ET SAUVER SA FEMME ? GTAV RP S2 #7</div><button class="episode-button" data-video-id="VSlcPS0yUgY">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 10: ALEXANDRA EST-ELLE MORTE ? DES GENS VEULENT DÉTRUIRE LE GANG DOUBLE ! GTAV RP S2 #8</div><button class="episode-button" data-video-id="vGKQWWrEn5E">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 11: ON SE FAIT PASSER POUR DES POLICIERS POUR S’INFILTRER DANS LE COMMISSARIAT ! GTAV RP S2 #9</div><button class="episode-button" data-video-id="48d6rARuXcc">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 12: TRAILER ÉPISODE 10 ASSAUT DE LA PRISON FÉDÉRALE ! GTAV RP</div><button class="episode-button" data-video-id="op4u7AXMijM">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 13: ON ATTAQUE LA PRISON FÉDÉRALE ! GTAV RP #10</div><button class="episode-button" data-video-id="zBLrb3oA5kY">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 14: LE GRAND JOUR ! ÉVASION DE RAY DEFESSE ET DE BOUNDRIL ! GTAV S2 #11</div><button class="episode-button" data-video-id="vWqf1P05D4k">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 15: LE PLUS GRAND ÉVÉNEMENT DE LA VIE DE DAVID FLASH ! DOUBLE A ACCOMPLI L’IMPOSSIBLE ! GTAV RP FINAL S2</div><button class="episode-button" data-video-id="5OAmyfAAbu4">📺 Regarder</button></div></div>
+                    <div class="episodes-list"><h2>Hors-Série</h2><div class="episode-item"><div class="episode-title">Épisode 1: J’OUVRE MON ENTREPRISE D’ARMES ILLÉGALES - GTAV RP HS #1</div><button class="episode-button" data-video-id="-28O2WxPClI">📺 Regarder</button></div></div>
+                    <div class="episodes-list"><h2>Saison 3</h2><div class="episode-item"><div class="episode-title">Épisode 1: NOTRE MEILLEUR COUP ? LE GANG DOUBLE MILLIONNAIRE ? GTAV RP SAISON 3 #1</div><button class="episode-button" data-video-id="FDsqTZf8eg4">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: ALEXANDRA ET MON FILS MORTS ? UN NOUVEAU GANG NOUS MENACE ! GTAV RP S3 #2</div><button class="episode-button" data-video-id="vDm9BvzsuAQ">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: LE GANG SPINNER A ENCORE FRAPPÉ ! GTAV RP S3 #3</div><button class="episode-button" data-video-id="VRDxUyr7vgI">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 4: J’AI PERDU TOUS LES MEMBRES DU GANG DOUBLE ! LE GANG SPINNER VEUT NOUS DÉTRUIRE ! GTAV S3 #4</div><button class="episode-button" data-video-id="c1CqiTsd9tA">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 5: JE PRÉPARE UN GROS PIÈGE AU GANG SPINNER ! GTAV RP S3 #5</div><button class="episode-button" data-video-id="sYAB_akUuV8">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode Spécial: J’ARRÊTE LA SÉRIE DU GANG DOUBLE ! LES ABONNÉS PÈTENT UN CÂBLE !</div><button class="episode-button" data-video-id="NUBlOdmIGg0">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 6: LE GANG DOUBLE EN PRISON ? GTAV RP S3 #6</div><button class="episode-button" data-video-id="molx0yNEUNM">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 7: ON S’INFILTRE DANS LE QG DU GANG SPINNER - GTAV RP S3 #7</div><button class="episode-button" data-video-id="R6V_icHGkvc">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 8: ON SE DÉGUISE EN GANG SPINNER POUR RETROUVER LE BOSS ! GTAV RP S3 #8</div><button class="episode-button" data-video-id="sbhbMxMIvMI">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 9: LE GRAND JOUR, LE FACE-À-FACE AVEC LE CHEF SPINNER ! GTAV RP S3 #9</div><button class="episode-button" data-video-id="2RRBgXB2aDQ">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 10: LE CHEF SPINNER NOUS DEMANDE DE FAIRE L’IMPOSSIBLE POUR SURVIVRE ! GTAV RP S3 #10</div><button class="episode-button" data-video-id="Gf2Zbia3Dps">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 11: RETOURNEMENT DE SITUATION, LE CHEF SPINNER VA LE REGRETTER ! GTAV RP S3 #11</div><button class="episode-button" data-video-id="WbfH4Al6AeY">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 12: LA FIN DU GANG SPINNER OU DU GANG DOUBLE ? ÉPISODE FINAL SAISON 3 ! GTAV RP #12</div><button class="episode-button" data-video-id="djbhlQxN4RE">📺 Regarder</button></div></div>
+                    <div class="episodes-list"><h2>Lives</h2><div class="episode-item"><div class="episode-title">Épisode Spécial: DAVID FLASH SE LANCE DANS DU TRAFIC ILLÉGAL DANS UNE NOUVELLE VILLE ! GTAV RP</div><button class="episode-button" data-video-id="urOab280d00">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 1: DAVID FLASH DANS LE CAMP DES FLICS ? GTAV RP LIVE #1</div><button class="episode-button" data-video-id="BoAs8IN83xs">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: J’OUVRE ENFIN MON ENTREPRISE D’ARMES ILLÉGAUX ! GTAV RP LIVE #2</div><button class="episode-button" data-video-id="78TonPlT0dk">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: À LA RECHERCHE DE PABLO KEY POUR RÈGLEMENT DE COMPTE ! GTAV RP LIVE #2</div><button class="episode-button" data-video-id="W02l-9kobMY">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 4: GROS CONVOI DE CARGAISONS D’ARMES ILLÉGALES PLUS DE 5 MILLIONS $ ! GTAV RP LIVE #4</div><button class="episode-button" data-video-id="PYV2PNYudn8">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 5: DAVID FLASH DEVIENT UN TUEUR À GAGES ! GTAV RP LIVE #5</div><button class="episode-button" data-video-id="WLYvqz1wzK4">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 6: MON PREMIER CONTRAT DE TUEUR À GAGES ! GTAV RP LIVE #6</div><button class="episode-button" data-video-id="_knXty9Cv-A">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 7: JE PRÉPARE UNE SURPRISE À MON AMI DOUME PAOLI POUR LES RETROUVAILLES ! GTAV RP LIVE #7</div><button class="episode-button" data-video-id="MJOIpkzlIOc">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 8 Partie 1: LE GRAND JOUR, DAVID FLASH TRAVAILLE AVEC D’AUTRES GANGS ! GTAV RP LIVE #8</div><button class="episode-button" data-video-id="__8J5xGuEdE">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 8 Partie 2: LE GRAND JOUR, DAVID FLASH TRAVAILLE AVEC D’AUTRES GANGS ! GTAV RP LIVE #8</div><button class="episode-button" data-video-id="PCy6ACpY0XE">📺 Regarder</button></div></div>
+                    <div class="episodes-list"><h2>Saison 4</h2><div class="episode-item"><div class="episode-title">Épisode 1: GANG DOUBLE SAISON 4 #1 - LA VÉRITÉ ! GTAV RP [COURT-MÉTRAGE]</div><button class="episode-button" data-video-id="aqqLKLpwgUg">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: GANG DOUBLE #2 S4 - LA FEMME MYSTÉRIEUSE - GTAV RP [COURT-MÉTRAGE]</div><button class="episode-button" data-video-id="nNPojO9fZFc">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: DAVID FLASH VA REFORMER LE GANG DOUBLE ! GTAV RP #3 SAISON 4</div><button class="episode-button" data-video-id="OGhPP6Fb_Us">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 4: OPÉRATION BRAQUAGE DE BANQUE SOUS-TERRAIN - GTAV RP #4 [GANG DOUBLE]</div><button class="episode-button" data-video-id="UKT4XRH0ZmU">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 5: LES CHOSES SÉRIEUSES COMMENCENT ! PIRATAGE SYSTÈME CAMÉRA ! GTAV RP #5</div><button class="episode-button" data-video-id="FOd15vE2u7c">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 6: GROS BRAQUAGE DE LA BANQUE CENTRALE PAR SOUS-TERRAIN ! GTAV RP #6</div><button class="episode-button" data-video-id="cSkKh59QQAU">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 7: DAVID FLASH A FAIT L’IMPOSSIBLE MAIS SA MALADIE LE MENACE ! GTAV RP #7</div><button class="episode-button" data-video-id="iK5E34WF5uI">📺 Regarder</button></div></div><div class="scroll-indicator" onclick="toggleScroll(this.parentElement)">↓</div></div>`, alt: 'David FLASH - Épisodes', selectLabel: 'PAGE 5 / 12' },
+            
+            
+
             { type: 'chapter-title', position: 'right', pageNumber: 6, chapter: 2, backgroundClass: 'john-bg', title: 'CHAPITRE 2', subtitle: 'John FLASH', content: `<img src="../../images/john_flash.jpg" alt="John FLASH" class="chapter-image">`, alt: 'Chapitre 2: John FLASH', selectLabel: 'PAGE 5 / 9' },
-            { type: 'text-page', position: 'left', pageNumber: 7, chapter: 2, backgroundClass: 'john-bg', content: `<h2>Avant</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'John FLASH - Page 1', selectLabel: 'PAGE 6 / 9' },
-            { type: 'text-page', position: 'right', pageNumber: 8, chapter: 2, backgroundClass: 'john-bg', content: `<h2>L'héritage</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'John FLASH - Page 2', selectLabel: 'PAGE 7 / 9' },
-            { type: 'text-page', position: 'left', pageNumber: 9, chapter: 2, backgroundClass: 'john-bg', content: `<h2>L'héritage</h2><p>John FLASH, héritier de la lignée, a grandi dans l'ombre de son père David. Charismatique et audacieux, il a repris les rênes de l'empire familial avec une vision nouvelle.</p><p>Son lien avec le Géant Freddy lui a conféré des aptitudes uniques, renforçant la légende des FLASH à Los Santos.</p><p>[Vous pouvez continuer à écrire ici l'histoire de John FLASH...]</p>`, alt: 'John FLASH - Page 3', selectLabel: 'PAGE 8 / 9' }
-        ];
+            { type: 'text-page', position: 'left', pageNumber: 7, chapter: 2, backgroundClass: 'john-bg', content: `
+                <p>Source : Xi-ling</p>
+                <h2>Avant</h2>
+                <p><strong>John Flash, 18 ans, homme.</strong></p>
+                <p>Élevé par son oncle Franck, capitaine du LSPD, John Flash a grandi en menant une double vie. Discret en apparence, il se passionnait pour les voitures et participait à des courses de rue illégales à l’insu de son oncle.</p>
+                <p>Un jour, il se fait arrêter. Son oncle l’emmène visiter une prison et lui montre un homme seul assis sur un muret : <em>« Tu vois cet homme là-bas ? C’est le criminel le plus dangereux de Los Santos... Tu veux finir comme lui ? »</em></p>
+                <p>Peu après, John est envoyé dans un camp de redressement militaire. Il s’en évade, mais </p>
+                `, alt: 'John FLASH - Page 1', selectLabel: 'PAGE 6 / 12' },
+            { type: 'text-page', position: 'right', pageNumber: 8, chapter: 2, backgroundClass: 'john-bg', content: `<p>est victime d’un grave accident. À l’hôpital, il découvre la vérité : cet homme sur le muret était son père, David Flash.</p> 
+                <p>À 23 ans, après avoir accepté ses origines, John ouvre un concessionnaire automobile tout en organisant des braquages. Il rencontre Angel, une agente du LSPD, dont il tombe amoureux. Leur couple devient solide.</p>
+                <p>Malheureusement, un ami d’enfance jaloux le drogue. Sous influence, John trompe Angel avec Emy, vice-présidente de Los Santos. Emy tombe enceinte et meurt en accouchant de leur fille, Raven. David Flash choisit d’élever Raven en secret jusqu’à sa majorité, sans en parler à John.</p> 
+                <h2>Après</h2>
+                <p><strong>John Flash, 51 ans, homme.</strong></p>
+                <p>Après avoir épousé Angel, John relance</p>
+                `, alt: 'John FLASH - Page 2', selectLabel: 'PAGE 7 / 12' },
+            { type: 'text-page', position: 'left', pageNumber: 9, chapter: 2, backgroundClass: 'john-bg', content: `<p>son concessionnaire tout en continuant ses activités criminelles. Son ami d’enfance Garry refait surface. Malgré leur passé conflictuel, John se remémore leurs souvenirs communs : courses de rue, ouverture de leur premier concessionnaire et braquages ensemble. Il lui donne une dernière chance.</p>
+                <p>Mais Angel, enceinte, est victime d’un accident et perd la mémoire. Garry profite de cette faiblesse pour lui mentir, se faisant passer pour son mari et le père de son enfant, tout en décrivant John comme un fou dangereux. Il l’isole sous prétexte de la protéger.</p>
+                <p>En prison, John est grièvement blessé à la gorge lors d’une rixe. Considéré comme mort, il est recousu et envoyé à la morgue, mais se réveille et s’évade. À 51 ans, il devient le plus grand criminel du continent, dirigeant une </p>
+                `, alt: 'John FLASH - Page 3', selectLabel: 'PAGE 8 / 12' },
+            { type: 'text-page', position: 'right', pageNumber: 10, chapter: 2, backgroundClass: 'john-bg', content: `<p>son concessionnaire tout en continuant ses activités criminelles. Son ami d’enfance Garry refait surface. Malgré leur passé conflictuel, John se remémore leurs souvenirs communs : courses de rue, ouverture de leur premier concessionnaire et braquages ensemble. Il lui donne une dernière chance.</p>
+                <p>mafia de plus de 5 000 hommes, avec des tanks, des avions de chasse et un porte-avions.</p>
+                <p>Plus tard, il apprend que son fils Ken a volé les ingrédients de la drogue Mouk4 qu’il avait créée. John ordonne à son bras droit de transmettre son empire à Ken. À 70 ans, John meurt dans le corps de son fils Ken, lors d’un combat final entre ses arrière-petits-fils, Aaron et David Jr.
+                `, alt: 'John FLASH - Page 3', selectLabel: 'PAGE 10 / 12' },
+            { type: 'text-page', position: 'left', pageNumber: 11, chapter: 2, backgroundClass: 'john-bg', content: `
+                <h2>Animal spirituel</h2>
+                <p>L’animal spirituel de John est le loup, symbole de son chemin solitaire et de son rôle de chef d’une organisation puissante.</p><img src="../../images/loupjohn.webp" alt="Animal de John" class="chapter-image" style="max-width: 200px;">
+                `, alt: 'John FLASH - Page 4', selectLabel: 'PAGE 11 / 12' },
+                { type: 'episodes', position: 'right', pageNumber: 12, chapter: 2, backgroundClass: 'john-bg', title: 'Épisodes de John FLASH', content: `<div class="episodes-list"><h2>Saison 1</h2><div class="episode-item"><div class="episode-title">Épisode 1: LES BOSS DES RUES ! GTAV RP #1</div><button class="episode-button" data-video-id="NGjgos92uSU">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: MA PREMIERE COURSE DE RUE AVEC MA NOUVELLE VOITURE ! GTAV RP #2</div><button class="episode-button" data-video-id="5u8ihEBUOP8">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: LE FACE A FACE AVEC DAVID FLASH ! GTAV RP #3</div><button class="episode-button" data-video-id="gtGflOqqt6c">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 4: LE PIRE CAUCHEMAR DE JOHN LEWIS  ! GTAV RP #4</div><button class="episode-button" data-video-id="x9rM5-rIFgE">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 5: L'EVASION DE JOHN LEWIS ! LA FIN DE DAVID FLASH ? GTAV RP #5</div><button class="episode-button" data-video-id="PltSSkJoBQY">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 6: JE SUIS AU BOUT DE MA VIE ! GTA V RP #6</div><button class="episode-button" data-video-id="rD_7_5fj-tM">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 7: SUIVRE LES PAS DE SON PERE ! GTAV RP #7</div><button class="episode-button" data-video-id="fnUvrpOg85U">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 8: JOHN FLASH EST ENFIN PRET POUR SE VENGER ! GTAV RP #8</div><button class="episode-button" data-video-id="bxwYVN3Ypy4">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 9: JOHN FLASH VS THE KING OF STREET DUEL EPISODE FINAL SAISON 1 - GTAV RP #9</div><button class="episode-button" data-video-id="sA4ZOLRI6wQ">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 10: LES BOSS DES RUES ! GTAV RP #1 SAISON 2</div><button class="episode-button" data-video-id="CCXaXnwWPFA">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 11: LE RETOUR DE JOHN FLASH ! GTAV RP #1</div><button class="episode-button" data-video-id="nbpTl-8ElhA">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 12: ON A REÇUS DU LOURRDD ! GTAV RP #2</div><button class="episode-button" data-video-id="90a3VGU3Tmk">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 13: ON A LA FOULE AU CONCESSIONNAIRE ! :o GTAV RP LIVE FR</div><button class="episode-button" data-video-id="giNlhqB3QMI">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 14: OMG ON PASSE AU CHOSE SÉRIEUSE AU CONCESSIONNAIRE :o GTAV RP LIVE FR</div><button class="episode-button" data-video-id="cASimC-eWwo">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 15: ON EST DÉBORDÉ :O GTAV RP LIVE FR</div><button class="episode-button" data-video-id="rkOn4HBiL8s">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 16: OMG REGARDEZ NOTRE TOUT NOUVEAU VÉHICULE DE FONCTION :O GTAV RP LIVE FR</div><button class="episode-button" data-video-id="dnvHQnoBEH4">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 17: CE SOIR ON ORGANISE NOTRE PLUS GRAND EVÉNEMENT ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="I-N9H34oqVM">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 18: ON CONTINUE LE BUSINESS ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="e-MtFqChIVY">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 19: J'AI DROGUE UNE FEMME + GARRY A VOLE TOUT L'ARGENT DE L'ENTREPRISE ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="nq4mg6SQtUA">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 20: JOHN FLASH A LA RECHERCHE DE L'AMOUR + NOUVELLE VOITURE  ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="tzjjR7vUrQU">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 21: JOHN FLASH - UN AMOUR IMPOSSIBLE ?! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="HQrb853E2ZQ">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 22: LA VILLE EST OUVERTE POUR TOUT LE MONDE :O ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="BEhRxdWcNAs">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 23: ANGEL M'A TROMPE :'( ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="YCNXVxQv1RA">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 24: QU'EST-CE QUI SE CACHE DANS CETTE MINE ? GARRY TRAUMATISE ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="QtcppzPyYvA">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 25: ON DOIT RETROUVER ANGEL ! ON PASSE AU CHOSE SÉRIEUSES  ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="aA_nMNRhVDI">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 26: JE VAIS CHERCHER DE LA COKE POUR LA VICE PRÉSIDENTE ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="PEAtvzOUFMA">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 27: JE RISQUE DE PERDRE ANGEL :S ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="OKr_qeGR2f8">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 28: LA VICE PRÉSIDENTE DANS MON LIT :O !!!! WTF !!!! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="edx_TGlbkhY">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 29: LA VICE PRÉSIDENTE ENCEINTE DE MOI , ANGEL SE DOUTE DE QUELQUE CHOSE ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="r47yf3T2qE8">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 30: ANGEL VEUT TUER MON FILS ET LA VICE PRÉSIDENTE ! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="23WTYkv6Hho">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 31: LA MORT DE JOHN FLASH ?</div><button class="episode-button" data-video-id="YJPf8vjD20k">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 32: LA FIN DE JOHN FLASH ?! GTAV RP LIVE FR</div><button class="episode-button" data-video-id="FBhW9KNyTyU">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 33 Partue 1: LE FACE A FLASH ! GTA V RP ! EXCLU !</div><button class="episode-button" data-video-id="1uftSWQ73-0">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 33 Partie 2: LE FACE A FACE ? GTAV RP EXCLU</div><button class="episode-button" data-video-id="tOOXC0Bthkw">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 34: SA VA PARTIR EN CACAHUÈTE ? GTAV RP EXCLU</div><button class="episode-button" data-video-id="NWpRrc2kZYU">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 35: A LA RECHERCHE DE ANGEL POUR LUI DIRE LA VÉRITÉ SUR GARRY ! GTAV RP EXCLU</div><button class="episode-button" data-video-id="1ztTH5xkN4o">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 36: DAVID FLASH VS HENRIC PEPITO !</div><button class="episode-button" data-video-id="UnVzdySCGqQ">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 37: L'ETAPE LA PLUS DURE POUR JOHN FLASH ! GTAV RP LE FILM !</div><button class="episode-button" data-video-id="U3Ri989csgQ">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 38: LE GRAND JOUR , LE MARIAGE DE JOHN ET ANGEL + NOUVEAU DÉPART ! GTAV RP FR</div><button class="episode-button" data-video-id="Rzp_pvHW2tE">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 39: LE GRAND JOUR , LE MARIAGE DE JOHN ET ANGEL + NOUVEAU DÉPART ! GTAV RP FR</div><button class="episode-button" data-video-id="kTPMvBA0WMI">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 40: NOUVELLE VIE POUR JOHN ET ANGEL ! GTAV RP FR</div><button class="episode-button" data-video-id="JV6rFr94SgE">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 41: JE SUIS L'HOMME LE PLUS RECHERCHE DE LA VILLE ! GTAV RP FR</div><button class="episode-button" data-video-id="9ibAfbEmuOk">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 42: ANGEL EN PRISON A CAUSE DE MOI ! GTAV RP FR</div><button class="episode-button" data-video-id="ik33GFgcNnc">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 43: FAIRE DU PROPRE ET EN MÊME TEMPS DU SALE ! GTAV RP ! FR</div><button class="episode-button" data-video-id="u7X8Y7nifdI">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 44: ANGEL ENCEINTE OU PAS !?? GTAV RP FR</div><button class="episode-button" data-video-id="LDqKxks9s5Q">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 45: ENJOY LIFE VA ETRE DÉTRUIT PAR UNE MÉTÉORITE ! GTAV RP FR</div><button class="episode-button" data-video-id="5SHFBQsHHa8">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 46: ANGEL M'A T'ELLE VRAIMENT TRAHI ET TROMPE ? JE MÈNE MON ENQUÊTE ! GTAV RP FR</div><button class="episode-button" data-video-id="YXAuNZnDCmI">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 47: JOHN FLASH TRAVAILLE AVEC LE GANG DOUBLE ?! GTAV RP FR</div><button class="episode-button" data-video-id="MuojJf0T3rA">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 48: ON VA FAIRE DU SALE ! GTAV RP FR</div><button class="episode-button" data-video-id="qywY-FFFaK4">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 49: JE LANCE MA DROGUE MOUKATE ! ! GTAV RP FR</div><button class="episode-button" data-video-id="RTE2VHCEZ7w">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 50: ON VA FAIRE LE PLUS GROS BRAQUAGE DU SIÈCLE ! LA CASA DE PAPEL ! GTAV RP FR</div><button class="episode-button" data-video-id="IWG6SuyCsf0">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 51: J'INSTALLE UN TRACEUR SUR ANGEL POUR L'ESPIONNER ET SAVOIR LA VÉRITÉ ! GTAV RP FR</div><button class="episode-button" data-video-id="xwI3qnGVgeY">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 52: MA VILLE A ÉTÉ DETRUITE ! ON VA LA RÉPARER ! GTAV RP FR</div><button class="episode-button" data-video-id="o5LuP-Ur50A">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 53: ANGEL A DISPARU ! GTAV RP FR</div><button class="episode-button" data-video-id="c_VhhL0qCYc">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 54: ON COMMENCE LES GROS TRAVAUX + ANGEL TOUJOURS PORTÉE DISPARUE  ! GTAV RP FR</div><button class="episode-button" data-video-id="0mk1Nyvxpl8">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 55: GROSSE ANNONCE + RETOUR DE LA SAISON 2 JOHN FLASH ! GTAV RP FR</div><button class="episode-button" data-video-id="6DbUdI8_uAI">📺 Regarder</button></div></div>
+                <div class="episodes-list"><h2>Saison 2</h2><div class="episode-item"><div class="episode-title">Épisode Spécial: JOHN FLASH SAISON 2 TRAILER OFFICIEL !</div><button class="episode-button" data-video-id="oui8-7oH-Y8">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 1: LA MORT D'ANGEL ?! GTAV RP SAISON 2 #1</div><button class="episode-button" data-video-id="P04hXwK0YzM">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 2: GARRY A T'IL TUE JOHN FLASH ?</div><button class="episode-button" data-video-id="lUnQHvJy-jM">📺 Regarder</button></div><div class="episode-item"><div class="episode-title">Épisode 3: ENFERME DANS UN CONTENEUR ! ANGEL MORTE ? GTAV RP SAISON 2 #2</div><button class="episode-button" data-video-id="bmIJqQi96yQ">📺 Regarder</button></div></div><div class="scroll-indicator" onclick="toggleScroll(this.parentElement)">↓</div></div>`, alt: 'John FLASH - Épisodes', selectLabel: 'PAGE 12 / 12' },
+        
+                ]
+    
         const totalPages = pages.length;
         const contentPages = pages.slice(3); // Pages 3 to 10 (8 pages)
         const totalContentPagePairs = Math.ceil(contentPages.length / 2); // 4 pairs
@@ -954,6 +1227,9 @@
             updateIndicators();
             updateChapterSelect();
             setTimeout(setupPageNumberScroll, 0);
+            if (pageData.type === 'episodes') {
+                attachEpisodeButtonListeners();
+            }
         }
 
         function renderMobilePage(index) {
@@ -1005,9 +1281,19 @@
                 if (pageData.type === 'sommaire') {
                     attachSommaireClickListeners();
                 }
+                if (pageData.type === 'episodes') {
+                    attachEpisodeButtonListeners();
+                }
             }
             updateMobileIndicators();
             updateChapterSelect();
+        }
+
+        function goToPage(index) {
+            currentPage = Math.max(0, Math.min(index, totalPages - 1));
+            showPage(currentPage);
+            renderMobilePage(currentPage);
+            updateNavigation();
         }
 
         function attachSommaireClickListeners() {
@@ -1033,6 +1319,80 @@
             goToPage(pageIndex);
         }
 
+        function attachEpisodeButtonListeners() {
+            const episodeButtons = document.querySelectorAll('.episode-button');
+            const alertModal = document.getElementById('alertModal');
+            const showOrderButton = document.getElementById('showOrderButton');
+            const closeAlertButton = document.getElementById('closeAlertButton');
+            const orderModal = document.getElementById('orderModal');
+            const closeOrderButton = document.getElementById('closeOrderButton');
+            const videoModal = document.getElementById('videoModal');
+            const closeModal = document.querySelectorAll('.close-modal');
+            let currentVideoId = null;
+
+            episodeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    currentVideoId = button.getAttribute('data-video-id');
+                    alertModal.style.display = 'flex';
+                });
+            });
+
+            showOrderButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                orderModal.style.display = 'flex';
+            });
+
+            closeAlertButton.addEventListener('click', () => {
+                alertModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeOrderButton.addEventListener('click', () => {
+                orderModal.style.display = 'none';
+                videoModal.style.display = 'flex';
+                document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+            });
+
+            closeModal.forEach(button => {
+                button.addEventListener('click', () => {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                });
+            });
+
+            alertModal.addEventListener('click', (e) => {
+                if (e.target === alertModal) {
+                    alertModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            orderModal.addEventListener('click', (e) => {
+                if (e.target === orderModal) {
+                    orderModal.style.display = 'none';
+                    videoModal.style.display = 'flex';
+                    document.getElementById('modalVideo').src = `https://www.youtube-nocookie.com/embed/${currentVideoId}?autoplay=1`;
+                }
+            });
+
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    videoModal.style.display = 'none';
+                    document.getElementById('modalVideo').src = '';
+                }
+            });
+
+            document.querySelectorAll('.go-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const pageIndex = parseInt(button.getAttribute('data-page-index'));
+                    goToPage(pageIndex);
+                    orderModal.style.display = 'none';
+                });
+            });
+        }
+
         function toggleScroll(element) {
             if (element.classList.contains('scroll-down')) {
                 element.scrollTo({ top: element.scrollHeight, behavior: 'smooth' });
@@ -1056,11 +1416,6 @@
                             }
                         }
                         if (scrollIndicator) {
-                            if (content.scrollTop > 0) {
-                                scrollIndicator.classList.add('hidden');
-                            } else {
-                                scrollIndicator.classList.remove('hidden');
-                            }
                             if (content.scrollHeight > content.clientHeight) {
                                 content.classList.add('scrollable');
                                 if (content.scrollTop >= content.scrollHeight - content.clientHeight - 10) {
@@ -1072,6 +1427,7 @@
                                 }
                             } else {
                                 content.classList.remove('scrollable');
+                                scrollIndicator.classList.add('hidden');
                             }
                         }
                     });
@@ -1110,8 +1466,8 @@
             } else if (currentPageIndex === 1 || currentPageIndex === 2) {
                 pageIndicator.textContent = 'Intro & Sommaire';
             } else {
-                const contentPageIndex = currentPageIndex - 2; // Adjust for cover (0) and intro/sommaire (1-2)
-                const pairIndex = Math.floor((contentPageIndex - 1) / 2) + 1; // Pair number (1-based)
+                const contentPageIndex = currentPageIndex - 2;
+                const pairIndex = Math.floor((contentPageIndex - 1) / 2) + 1;
                 const leftPageNum = pages[currentPageIndex].position === 'left' ? pages[currentPageIndex].pageNumber : pages[currentPageIndex - 1].pageNumber;
                 const rightPageNum = pages[currentPageIndex].position === 'right' && currentPageIndex < totalPages - 1 ? pages[currentPageIndex].pageNumber : leftPageNum + 1;
                 pageIndicator.textContent = `Pages ${leftPageNum}-${rightPageNum} / ${contentPages.length}`;
@@ -1140,7 +1496,7 @@
             } else if (currentPageIndex === 2) {
                 pageIndicator.textContent = 'Sommaire';
             } else {
-                const contentPageIndex = currentPageIndex - 2; // Adjust for cover (0), intro (1), sommaire (2)
+                const contentPageIndex = currentPageIndex - 2;
                 pageIndicator.textContent = `PAGE ${contentPageIndex} / 8`;
             }
             document.getElementById('prev').disabled = currentPageIndex === 0;
@@ -1163,13 +1519,13 @@
                     renderMobilePage(currentPageIndex);
                 } else {
                     if (currentPageIndex === 0) {
-                        currentPageIndex = 1; // Go to Intro & Sommaire
+                        currentPageIndex = 1;
                     } else if (currentPageIndex === 1 || currentPageIndex === 2) {
-                        currentPageIndex = 3; // Go to first chapter pair
+                        currentPageIndex = 3;
                     } else {
-                        currentPageIndex += 2; // Move to next pair
+                        currentPageIndex += 2;
                         if (currentPageIndex >= totalPages) {
-                            currentPageIndex = totalPages - 1; // Stay on last page if overshot
+                            currentPageIndex = totalPages - 1;
                         }
                     }
                     showPage(currentPageIndex);
@@ -1184,11 +1540,11 @@
                     renderMobilePage(currentPageIndex);
                 } else {
                     if (currentPageIndex === 1 || currentPageIndex === 2) {
-                        currentPageIndex = 0; // Go to cover
+                        currentPageIndex = 0;
                     } else if (currentPageIndex > 2) {
-                        currentPageIndex -= 2; // Move to previous pair
+                        currentPageIndex -= 2;
                         if (pages[currentPageIndex].position === 'right' && currentPageIndex > 0) {
-                            currentPageIndex--; // Adjust to show left page of pair
+                            currentPageIndex--;
                         }
                     }
                     showPage(currentPageIndex);
@@ -1206,6 +1562,8 @@
                     showPage(currentPageIndex);
                 }
                 updateChapterSelect();
+                updateIndicators();
+                updateMobileIndicators();
             }
         }
 
