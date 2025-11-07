@@ -81,18 +81,15 @@
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // === CONNEXION DISCORD ===
-        async function loginWithDiscord() {
-            const { error } = await supabaseClient.auth.signInWithOAuth({
-                provider: 'discord',
-                options: {
-                    redirectTo: 'https://ipromxsite.netlify.app'  // ← RACINE UNIQUEMENT
-                }
-            });
-            if (error) {
-                console.error('Erreur OAuth:', error);
-                alert('Erreur de connexion : ' + error.message);
-            }
+       async function loginWithDiscord() {
+    const { error } = await supabaseClient.auth.signInWithOAuth({
+        provider: 'discord',
+        options: { 
+            redirectTo: 'https://ipromxsite.netlify.app/indexv3.html'  // ← Ton site final
         }
+    });
+    if (error) alert('Erreur : ' + error.message);
+}
 
         // === MODE INVITÉ ===
         function continueAsGuest() {
