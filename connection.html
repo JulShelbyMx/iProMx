@@ -79,26 +79,27 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indpam9kZmt5Zndkb2R3c3FubXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5MzY1MjgsImV4cCI6MjA3NzUxMjUyOH0.2ontW2JrSq1udQL9heCwErTb3e2fwZbejYYpfJYDyss';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        async function loginWithDiscord() {
-            const { error } = await supabaseClient.auth.signInWithOAuth({
-                provider: 'discord',
-                options: { redirectTo: window.location.origin + '/indexv3.html' }
-            });
-            if (error) alert('Erreur : ' + error.message);
-        }
-
-        function continueAsGuest() {
-            localStorage.setItem('ipromx_guest', 'true');
-            window.location.href = 'indexv3.html';
-        }
-
-        // Si déjà connecté → va sur indexv3.html
-        document.addEventListener('DOMContentLoaded', async () => {
-            const { data: { user } } = await supabaseClient.auth.getUser();
-            if (user || localStorage.getItem('ipromx_guest') === 'true') {
-                window.location.href = 'indexv3.html';
+    async function loginWithDiscord() {
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+            provider: 'discord',
+            options: { 
+                redirectTo: window.location.origin  // → Supabase gère tout
             }
         });
-    </script>
+        if (error) alert('Erreur : ' + error.message);
+    }
+
+    function continueAsGuest() {
+        localStorage.setItem('ipromx_guest', 'true');
+        window.location.href = 'indexv3.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (user || localStorage.getItem('ipromx_guest') === 'true') {
+            window.location.href = 'indexv3.html';
+        }
+    });
+</script>
 </body>
 </html>
