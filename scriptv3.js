@@ -1,13 +1,20 @@
 // ==========================================
-// SUPABASE
+// SUPABASE CONFIG
 // ==========================================
 const SUPABASE_URL = 'https://wijodfkyfwdodwsqnmrw.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indpam9kZmt5Zndkb2R3c3FubXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5MzY1MjgsImV4cCI6MjA3NzUxMjUyOH0.2ontW2JrSq1udQL9heCwErTb3e2fwZbejYYpfJYDyss';
-
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // ==========================================
-// DONNÉES
+// VARIABLES GLOBALES
+// ==========================================
+let currentUser = null;
+let isGuest = false;
+window.userHistory = [];
+window.userMyList = [];
+
+// ==========================================
+// DONNÉES STATIQUES
 // ==========================================
 const universesData = {
     flash: {
@@ -47,79 +54,45 @@ const socialNetworks = [
 ];
 
 // ==========================================
-// VARIABLES GLOBALES
-// ==========================================
-let currentUser = null;
-let isGuest = false;
-window.userHistory = [];
-window.userMyList = [];
-
-// ==========================================
-// INITIALISATION
+// INITIALISATION SÉCURISÉE
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
-    // Vérifier si déjà connecté
     const { data: { user } } = await supabaseClient.auth.getUser();
-    if (user) {
-        await loadUserData(user);
-        showMainContent(user);
-    } else {
-        showLoginScreen();
+
+    // SI PAS CONNECTÉ NI INVITÉ → REDIRECTION VERS connection.html
+    if (!user && localStorage.getItem('ipromx_guest') !== 'true') {
+        window.location.href = 'connection.html';
+        return;
     }
 
-    // Écouteurs
-    document.getElementById('discordLoginBtn')?.addEventListener('click', loginWithDiscord);
+    // MODE INVITÉ
+    if (localStorage.getItem('ipromx_guest') === 'true') {
+        isGuest = true;
+        currentUser = { id: 'guest', user_metadata: { full_name: 'Invité' } };
+        loadLocalData();
+    }
+    // MODE DISCORD
+    else if (user) {
+        currentUser = user;
+        await loadUserData(user);
+    }
+
+    // CHARGER LE SITE
+    showMainContent();
     setupEventListeners();
     displayUniverses();
     displayPopularCarousel();
     displaySocialNetworks();
     checkLiveStatus();
     setupScrollEffects();
+    displayHistory();
+    displayMyList();
 });
 
 // ==========================================
-// ÉCRAN DE CONNEXION
-// ==========================================
-function showLoginScreen() {
-    document.getElementById('loginScreen').style.display = 'flex';
-    document.getElementById('mainContent').style.display = 'none';
-}
-
-// ==========================================
-// CONNEXION DISCORD (SIMULATION LOCAL)
-// ==========================================
-async function loginWithDiscord() {
-    // MODE LOCAL : utilisateur fictif
-    const fakeUser = {
-        id: '123456789',
-        user_metadata: { full_name: 'Utilisateur Test', avatar: 'a_abc123' }
-    };
-    await loadUserData(fakeUser);
-    showMainContent(fakeUser);
-}
-
-// ==========================================
-// MODE INVITÉ
-// ==========================================
-function continueAsGuest() {
-    isGuest = true;
-    currentUser = { id: 'guest', user_metadata: { full_name: 'Invité' } };
-    loadLocalData();
-    showMainContent(currentUser);
-}
-
-// ==========================================
-// CHARGEMENT DONNÉES
+// CHARGEMENT DES DONNÉES
 // ==========================================
 async function loadUserData(user) {
-    currentUser = user;
-    isGuest = false;
-
-    if (user.id === 'guest') {
-        loadLocalData();
-        return;
-    }
-
     const { data } = await supabaseClient
         .from('users_data')
         .select('history, my_list')
@@ -141,11 +114,8 @@ function loadLocalData() {
     window.userMyList = JSON.parse(localStorage.getItem('ipromxMyList') || '[]');
 }
 
-// ==========================================
-// SAUVEGARDE
-// ==========================================
 async function saveData() {
-    if (isGuest || !currentUser) {
+    if (isGuest) {
         localStorage.setItem('ipromxHistory', JSON.stringify(window.userHistory));
         localStorage.setItem('ipromxMyList', JSON.stringify(window.userMyList));
     } else {
@@ -157,12 +127,9 @@ async function saveData() {
 }
 
 // ==========================================
-// AFFICHAGE PRINCIPAL
+// AFFICHAGE UTILISATEUR
 // ==========================================
-function showMainContent(user) {
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('mainContent').style.display = 'block';
-
+function showMainContent() {
     const userInfo = document.getElementById('userInfo');
     const userName = document.getElementById('userName');
     const userAvatar = document.getElementById('userAvatar');
@@ -173,14 +140,12 @@ function showMainContent(user) {
         userAvatar.src = 'images/guest-avatar.png';
         logoutBtn.style.display = 'none';
     } else {
-        userName.textContent = user.user_metadata.full_name || 'Utilisateur';
-        userAvatar.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.user_metadata.avatar}.png`;
+        userName.textContent = currentUser.user_metadata.full_name || 'Utilisateur';
+        userAvatar.src = `https://cdn.discordapp.com/avatars/${currentUser.id}/${currentUser.user_metadata.avatar}.png`;
         logoutBtn.style.display = 'block';
     }
 
     userInfo.style.display = 'flex';
-    displayHistory();
-    displayMyList();
 }
 
 // ==========================================
@@ -188,7 +153,8 @@ function showMainContent(user) {
 // ==========================================
 document.getElementById('btnLogout').onclick = async () => {
     await supabaseClient.auth.signOut();
-    location.reload();
+    localStorage.removeItem('ipromx_guest');
+    window.location.href = 'connection.html';
 };
 
 // ==========================================
@@ -375,7 +341,7 @@ async function checkLiveStatus() {
     const indicator = document.getElementById('liveIndicatorNav');
 
     try {
-        // Simulation pour test local
+        // Simulation locale
         const isLive = Math.random() > 0.5;
         if (isLive) {
             statusEl.textContent = 'EN DIRECT';

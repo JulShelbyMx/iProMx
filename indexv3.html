@@ -10,26 +10,8 @@
 </head>
 <body>
 
-    <!-- ÉCRAN DE CONNEXION -->
-    <div id="loginScreen" class="login-screen">
-        <div class="login-container">
-            <div class="login-header">
-                <i class="fas fa-bolt logo-icon"></i>
-                <h1 class="logo-text">iPROMX</h1>
-            </div>
-            <p class="login-desc">Connectez-vous pour sauvegarder sur tous vos appareils.</p>
-            <button class="btn-discord-login" id="discordLoginBtn">
-                <i class="fab fa-discord"></i> Se connecter avec Discord
-            </button>
-            <button class="btn-skip-login" onclick="continueAsGuest()">
-                Continuer sans connexion
-            </button>
-            <p class="login-footer">Pas de compte ? <a href="https://discord.com/register" target="_blank">Créez-en un</a></p>
-        </div>
-    </div>
-
-    <!-- CONTENU PRINCIPAL -->
-    <div id="mainContent" style="display: none;">
+    <!-- CONTENU PRINCIPAL (tout le site) -->
+    <div id="mainContent">
 
         <!-- NAVBAR -->
         <nav class="navbar" id="navbar">
@@ -235,7 +217,6 @@
         </footer>
     </div>
 
-    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="scriptv3.js"></script>
 </body>
