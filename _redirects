@@ -1,1 +1,5 @@
+# Redirige tout vers indexv3.html (SPA)
 /*    /indexv3.html   200
+
+# Callback Supabase vers indexv3.html
+/auth/v1/callback    /indexv3.html   301

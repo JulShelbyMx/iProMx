@@ -73,33 +73,40 @@
         <p class="login-footer">Pas de compte ? <a href="https://discord.com/register" target="_blank">Créez-en un</a></p>
     </div>
 
+    <!-- Supabase JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://wijodfkyfwdodwsqnmrw.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indpam9kZmt5Zndkb2R3c3FubXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5MzY1MjgsImV4cCI6MjA3NzUxMjUyOH0.2ontW2JrSq1udQL9heCwErTb3e2fwZbejYYpfJYDyss';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    async function loginWithDiscord() {
-        const { error } = await supabaseClient.auth.signInWithOAuth({
-            provider: 'discord',
-            options: { 
-                redirectTo: window.location.origin  // → Supabase gère tout
+        // === CONNEXION DISCORD ===
+        async function loginWithDiscord() {
+            const { error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'discord',
+                options: {
+                    redirectTo: 'https://ipromxsite.netlify.app'  // ← RACINE UNIQUEMENT
+                }
+            });
+            if (error) {
+                console.error('Erreur OAuth:', error);
+                alert('Erreur de connexion : ' + error.message);
             }
-        });
-        if (error) alert('Erreur : ' + error.message);
-    }
+        }
 
-    function continueAsGuest() {
-        localStorage.setItem('ipromx_guest', 'true');
-        window.location.href = 'indexv3.html';
-    }
-
-    document.addEventListener('DOMContentLoaded', async () => {
-        const { data: { user } } = await supabaseClient.auth.getUser();
-        if (user || localStorage.getItem('ipromx_guest') === 'true') {
+        // === MODE INVITÉ ===
+        function continueAsGuest() {
+            localStorage.setItem('ipromx_guest', 'true');
             window.location.href = 'indexv3.html';
         }
-    });
-</script>
+
+        // === REDIRECTION SI DÉJÀ CONNECTÉ ===
+        document.addEventListener('DOMContentLoaded', async () => {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (user || localStorage.getItem('ipromx_guest') === 'true') {
+                window.location.href = 'indexv3.html';
+            }
+        });
+    </script>
 </body>
 </html>
