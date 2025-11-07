@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Série Flash - Univers Interactif</title>
+    <style>
+        /* Styles globaux pour un design moderne, responsive et professionnel */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffcc00;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .character-profile {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .character-bio {
+            flex: 1 1 60%;
+        }
+        .character-bio h2 {
+            color: #cc0000;
+            border-bottom: 2px solid #cc0000;
+            padding-bottom: 10px;
+        }
+        .character-episodes {
+            flex: 1 1 35%;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .character-episodes h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        .episode-list {
+            list-style: none;
+            padding: 0;
+        }
+        .episode-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .episode-list li:hover {
+            background-color: #f0f0f0;
+        }
+        .episode-list a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .episode-list a:hover {
+            text-decoration: underline;
+        }
+        .spirit-animal {
+            text-align: center;
+            margin: 20px 0;
+            font-style: italic;
+            color: #666;
+        }
+        .order-viewing {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #e6f7ff;
+            border-radius: 8px;
+        }
+        .order-viewing h2 {
+            color: #0056b3;
+        }
+        .order-list {
+            list-style: decimal;
+            padding-left: 20px;
+        }
+        .order-list li {
+            margin-bottom: 5px;
+        }
+        .order-list a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        .order-list a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #1a1a1a;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 40px;
+        }
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .character-profile {
+                flex-direction: column;
+            }
+            nav a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Univers de la Série Flash</h1>
+    </header>
+    <nav>
+        <a href="#intro">Introduction</a>
+        <a href="#characters">Personnages</a>
+        <a href="#order">Ordre de Visionnage</a>
+        <a href="#episodes">Épisodes</a>
+    </nav>
+    <div class="container">
+        <!-- Section Introduction from flash2.html -->
+        <section id="intro">
+            <h2>Introduction à la Série Flash</h2>
+            <p>Bienvenue dans l'univers de la série Flash, inspirée de GTA RP. Explorez les histoires interconnectées des personnages comme David, John, Ken et bien d'autres. Naviguez à travers les biographies, épisodes et l'ordre recommandé de visionnage.</p>
+        </section>
+
+        <!-- Exemple pour John Flash from john.html - Format profil interactif -->
+        <section id="characters">
+            <h2>Profils des Personnages</h2>
+            <div class="character-profile">
+                <div class="character-bio">
+                    <h2>John Flash</h2>
+                    <p><strong>Source :</strong> Xi-ling</p>
+                    <h3>Avant</h3>
+                    <p>John Flash, 18 ans, homme.</p>
+                    <p>Élevé par son oncle Franck, capitaine du LSPD, John Flash a grandi en menant une double vie. Discret en apparence, il se passionnait pour les voitures et participait à des courses de rue illégales à l'insu de son oncle.</p>
+                    <p>Un jour, il se fait arrêter. Son oncle l’emmène visiter une prison et lui montre un homme seul assis sur un muret : « Tu vois cet homme là-bas ? C’est le criminel le plus dangereux de Los Santos... Tu veux finir comme lui ? »</p>
+                    <p>Peu après, John est envoyé dans un camp de redressement militaire. Il s’en évade, mais est victime d’un grave accident. À l’hôpital, il découvre la vérité : cet homme sur le muret était son père, David Flash.</p>
+                    <p>À 23 ans, après avoir accepté ses origines, John ouvre un concessionnaire automobile tout en organisant des braquages. Il rencontre Angel, une agente du LSPD, dont il tombe amoureux. Leur couple devient solide.</p>
+                    <p>Malheureusement, un ami d’enfance jaloux le drogue. Sous influence, John trompe Angel avec Emy, vice-présidente de Los Santos. Emy tombe enceinte et meurt en accouchant de leur fille, Raven. David Flash choisit d’élever Raven en secret jusqu’à sa majorité, sans en parler à John.</p>
+                    <h3>Après</h3>
+                    <p>John Flash, 51 ans, homme.</p>
+                    <p>Après avoir épousé Angel, John relance son concessionnaire tout en continuant ses activités criminelles. Son ami d’enfance Garry refait surface. Malgré leur passé conflictuel, John se remémore leurs souvenirs communs : courses de rue, ouverture de leur premier concessionnaire et braquages ensemble. Il lui donne une dernière chance.</p>
+                    <p>Mais Angel, enceinte, est victime d’un accident et perd la mémoire. Garry profite de cette faiblesse pour lui mentir, se faisant passer pour son mari et le père de son enfant, tout en décrivant John comme un fou dangereux. Il l’isole sous prétexte de la protéger.</p>
+                    <p>Quand John découvre le complot, il tue Garry sous les yeux d’Angel dans un accès de rage. Horrifiée, elle appelle la police, et John est emprisonné. Assis sur un muret en prison, he repense aux mots de son oncle : « Cet homme là-bas est le criminel le plus dangereux de Los Santos... Tu veux finir comme lui ? » Cette fois, John se promet : « Oui... je serai comme mon père. Pire encore. »</p>
+                    <p>En prison, John est grièvement blessé à la gorge lors d’une rixe. Considéré comme mort, il est recousu et envoyé à la morgue, mais se réveille et s’évade. À 51 ans, il devient le plus grand criminel du continent, dirigeant une mafia de plus de 5 000 hommes, avec des tanks, des avions de chasse et un porte-avions.</p>
+                    <p>Plus tard, il apprend que son fils Ken a volé les ingrédients de la drogue Mouk4 qu’il avait créée. John ordonne à son bras droit de transmettre son empire à Ken. À 70 ans, John meurt dans le corps de son fils Ken, lors d’un combat final entre ses arrière-petits-fils, Aaron et David Jr.</p>
+                </div>
+                <div class="character-episodes">
+                    <h3>Épisodes de John Flash</h3>
+                    <h4>Saison 1</h4>
+                    <ul class="episode-list">
+                        <li>Épisode 1: LES BOSS DES RUES ! GTAV RP #1 - <a href="#">Regarder</a></li>
+                        <li>Épisode 2: MA PREMIERE COURSE DE RUE AVEC MA NOUVELLE VOITURE ! GTAV RP #2 - <a href="#">Regarder</a></li>
+                        <li>Épisode 3: LE FACE A FACE AVEC DAVID FLASH ! GTAV RP #3 - <a href="#">Regarder</a></li>
+                        <li>Épisode 4: LE PIRE CAUCHEMAR DE JOHN LEWIS  ! GTAV RP #4 - <a href="#">Regarder</a></li>
+                        <li>Épisode 5: L'EVASION DE JOHN LEWIS ! LA FIN DE DAVID FLASH ? GTAV RP #5 - <a href="#">Regarder</a></li>
+                        <li>Épisode 6: JE SUIS AU BOUT DE MA VIE ! GTA V RP #6 - <a href="#">Regarder</a></li>
+                        <li>Épisode 7: SUIVRE LES PAS DE SON PERE ! GTAV RP #7 - <a href="#">Regarder</a></li>
+                        <li>Épisode 8: JOHN FLASH EST ENFIN PRET POUR SE VENGER ! GTAV RP #8 - <a href="#">Regarder</a></li>
+                        <li>Épisode 9: JOHN FLASH VS THE KING OF STREET DUEL EPISODE FINAL SAISON 1 - GTAV RP #9 - <a href="#">Regarder</a></li>
+                        <li>Épisode 10: LES BOSS DES RUES ! GTAV RP #1 SAISON 2 - <a href="#">Regarder</a></li>
+                        <li>Épisode 11: LE RETOUR DE JOHN FLASH ! GTAV RP #1 - <a href="#">Regarder</a></li>
+                        <li>Épisode 12: ON A REÇUS DU LOURRDD ! GTAV RP #2 - <a href="#">Regarder</a></li>
+                        <li>Épisode 13: ON A LA FOULE AU CONCESSIONNAIRE ! :o GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 14: OMG ON PASSE AU CHOSE SÉRIEUSE AU CONCESSIONNAIRE :o GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 15: ON EST DÉBORDÉ :O GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 16: OMG REGARDEZ NOTRE TOUT NOUVEAU VÉHICULE DE FONCTION :O GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 17: CE SOIR ON ORGANISE NOTRE PLUS GRAND EVÉNEMENT ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 18: ON CONTINUE LE BUSINESS ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 19: J'AI DROGUE UNE FEMME + GARRY A VOLE TOUT L'ARGENT DE L'ENTREPRISE ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 20: JOHN FLASH A LA RECHERCHE DE L'AMOUR + NOUVELLE VOITURE  ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 21: JOHN FLASH - UN AMOUR IMPOSSIBLE ?! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 22: LA VILLE EST OUVERTE POUR TOUT LE MONDE :O ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 23: ANGEL M'A TROMPE :'( ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 24: QU'EST-CE QUI SE CACHE DANS CETTE MINE ? GARRY TRAUMATISE ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 25: ON DOIT RETROUVER ANGEL ! ON PASSE AU CHOSE SÉRIEUSES  ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 26: JE VAIS CHERCHER DE LA COKE POUR LA VICE PRÉSIDENTE ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 27: JE RISQUE DE PERDRE ANGEL :S ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 28: LA VICE PRÉSIDENTE DANS MON LIT :O !!!! WTF !!!! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 29: LA VICE PRÉSIDENTE ENCEINTE DE MOI , ANGEL SE DOUTE DE QUELQUE CHOSE ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 30: ANGEL VEUT TUER MON FILS ET LA VICE PRÉSIDENTE ! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 31: LA MORT DE JOHN FLASH ? - <a href="#">Regarder</a></li>
+                        <li>Épisode 32: LA FIN DE JOHN FLASH ?! GTAV RP LIVE FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 33 Partie 1: LE FACE A FLASH ! GTA V RP ! EXCLU ! - <a href="#">Regarder</a></li>
+                        <li>Épisode 33 Partie 2: LE FACE A FACE ? GTAV RP EXCLU - <a href="#">Regarder</a></li>
+                        <li>Épisode 34: SA VA PARTIR EN CACAHUÈTE ? GTAV RP EXCLU - <a href="#">Regarder</a></li>
+                        <li>Épisode 35: A LA RECHERCHE DE ANGEL POUR LUI DIRE LA VÉRITÉ SUR GARRY ! GTAV RP EXCLU - <a href="#">Regarder</a></li>
+                        <li>Épisode 36: DAVID FLASH VS HENRIC PEPITO ! - <a href="#">Regarder</a></li>
+                        <li>Épisode 37: L'ETAPE LA PLUS DURE POUR JOHN FLASH ! GTAV RP LE FILM ! - <a href="#">Regarder</a></li>
+                        <li>Épisode 38: LE GRAND JOUR , LE MARIAGE DE JOHN ET ANGEL + NOUVEAU DÉPART ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 39: LE GRAND JOUR , LE MARIAGE DE JOHN ET ANGEL + NOUVEAU DÉPART ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 40: NOUVELLE VIE POUR JOHN ET ANGEL ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 41: JE SUIS L'HOMME LE PLUS RECHERCHE DE LA VILLE ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 42: ANGEL EN PRISON A CAUSE DE MOI ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 43: FAIRE DU PROPRE ET EN MÊME TEMPS DU SALE ! GTAV RP ! FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 44: ANGEL ENCEINTE OU PAS !?? GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 45: ENJOY LIFE VA ETRE DÉTRUIT PAR UNE MÉTÉORITE ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 46: ANGEL M'A T'ELLE VRAIMENT TRAHI ET TROMPE ? JE MÈNE MON ENQUÊTE ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 47: JOHN FLASH TRAVAILLE AVEC LE GANG DOUBLE ?! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 48: ON VA FAIRE DU SALE ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 49: JE LANCE MA DROGUE MOUKATE ! ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 50: ON VA FAIRE LE PLUS GROS BRAQUAGE DU SIÈCLE ! LA CASA DE PAPEL ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 51: J'INSTALLE UN TRACEUR SUR ANGEL POUR L'ESPIONNER ET SAVOIR LA VÉRITÉ ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 52: MA VILLE A ÉTÉ DETRUITE ! ON VA LA RÉPARER ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 53: ANGEL A DISPARU ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 54: ON COMMENCE LES GROS TRAVAUX + ANGEL TOUJOURS PORTÉE DISPARUE  ! GTAV RP FR - <a href="#">Regarder</a></li>
+                        <li>Épisode 55: GROSSE ANNONCE + RETOUR DE LA SAISON 2 JOHN FLASH ! GTAV RP FR - <a href="#">Regarder</a></li>
+                    </ul>
+                    <h4>Saison 2</h4>
+                    <ul class="episode-list">
+                        <li>Épisode Spécial: JOHN FLASH SAISON 2 TRAILER OFFICIEL ! - <a href="#">Regarder</a></li>
+                        <li>Épisode 1: LA MORT D'ANGEL ?! GTAV RP SAISON 2 #1 - <a href="#">Regarder</a></li>
+                        <li>Épisode 2: GARRY A T'IL TUE JOHN FLASH ? - <a href="#">Regarder</a></li>
+                        <li>Épisode 3: ENFERME DANS UN CONTENEUR ! ANGEL MORTE ? GTAV RP SAISON 2 #2 - <a href="#">Regarder</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="spirit-animal">
+                <p><strong>Animal spirituel :</strong> L’animal spirituel de John est le loup, symbole de son chemin solitaire et de son rôle de chef d’une organisation puissante.</p>
+            </div>
+            <!-- Ajoutez d'autres personnages ici de manière similaire, un par div.character-profile -->
+            <!-- Par exemple pour David, Ken, etc., basés sur les autres fichiers que vous mentionnez -->
+        </section>
+
+        <!-- Ordre de visionnage from both files -->
+        <section id="order" class="order-viewing">
+            <h2>Ordre de Visionnage Recommandé</h2>
+            <ol class="order-list">
+                <li>David Flash: <a href="#">Y ALLER</a></li>
+                <li>John Flash: <a href="#">Y ALLER</a></li>
+                <li>Ken Flash (Saison 1): <a href="#">Y ALLER</a></li>
+                <li>Aaron Flash (Saison 1): <a href="#">Y ALLER</a></li>
+                <li>Ken Flash (Saison 2): <a href="#">Y ALLER</a></li>
+                <li>Aaron Flash (Saison 2): <a href="#">Y ALLER</a></li>
+                <li>Damon Flash (Saison 1): <a href="#">Y ALLER</a></li>
+                <li>Damon Flash (Saison 2): <a href="#">Y ALLER</a></li>
+                <li>David Jr Flash (vieux): <a href="#">Y ALLER</a></li>
+                <li>Damon Flash (Saison 3): <a href="#">Y ALLER</a></li>
+                <li>Kayton Flash (Saison 1): <a href="#">Y ALLER</a></li>
+                <li>Kayton Flash (Saison 2): <a href="#">Y ALLER</a></li>
+                <li>Kayton Flash (Saison 3): <a href="#">Y ALLER</a></li>
+                <li>Adrian Flash: <a href="#">Y ALLER</a></li>
+                <li>Eden et Aaron vs Adrian: <a href="#">Y ALLER</a></li>
+                <li>Eden Flash: <a href="#">Y ALLER</a></li>
+                <li>Ned Flash: <a href="#">Y ALLER</a></li>
+                <li>Manda Flash: <a href="#">Y ALLER</a></li>
+                <li>Cody Hunters (Ned Flash): <a href="#">Y ALLER</a></li>
+            </ol>
+        </section>
+
+        <!-- Section épisodes globale si besoin, mais déjà intégrée par personnage -->
+        <section id="episodes">
+            <h2>Tous les Épisodes</h2>
+            <p>Consultez les profils des personnages pour voir leurs épisodes spécifiques.</p>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2025 Série Flash - Tous droits réservés. Designé pour un format interactif moderne.</p>
+    </footer>
+</body>
+</html>

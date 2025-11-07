@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Œil du Faucon - iProMx Interface</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap');
+        
+        :root {
+            --primary-green: #00ff88;
+            --secondary-cyan: #00d4ff;
+            --accent-orange: #ff7700;
+            --bg-dark: #0a0a0a;
+            --bg-darker: #050505;
+            --text-light: #e0e0e0;
+            --text-dim: #888;
+            --grid-color: rgba(0, 255, 136, 0.1);
+            --glow: 0 0 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', monospace;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+        /* Boot Sequence */
+        .boot-sequence {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-darker);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 2s;
+        }
+
+        .boot-sequence.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .boot-logo {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--primary-green);
+            text-shadow: var(--glow) var(--primary-green);
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .boot-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .boot-progress {
+            width: 300px;
+            height: 2px;
+            background: rgba(0, 255, 136, 0.2);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .boot-progress::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary-green), transparent);
+            animation: bootLoad 3s ease-in-out forwards;
+        }
+
+        /* Background Elements */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        .code-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.3;
+        }
+
+        .code-char {
+            position: absolute;
+            color: var(--primary-green);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            animation: fall linear infinite;
+        }
+
+        /* Main Interface */
+        .main-interface {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        .main-interface.active {
+            opacity: 1;
+        }
+
+        /* Falcon Eye */
+        .falcon-eye {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            z-index: 100;
+            transition: transform 0.1s ease-out;
+        }
+
+        .eye-outer {
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--primary-green);
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(0, 255, 136, 0.1), transparent);
+            box-shadow: 
+                inset var(--glow) var(--primary-green),
+                var(--glow) var(--primary-green);
+            animation: eyePulse 3s infinite;
+        }
+
+        .eye-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            border: 2px solid var(--secondary-cyan);
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, var(--secondary-cyan), rgba(0, 212, 255, 0.3), transparent);
+            transition: all 0.3s ease;
+        }
+
+        .eye-pupil {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: var(--accent-orange);
+            border-radius: 50%;
+            box-shadow: var(--glow) var(--accent-orange);
+            transition: all 0.1s ease;
+        }
+
+        /* Radial Menu */
+        .radial-menu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            z-index: 99;
+        }
+
+        .menu-item {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border: 2px solid rgba(0, 255, 136, 0.5);
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .menu-item:hover {
+            border-color: var(--primary-green);
+            background: rgba(0, 255, 136, 0.1);
+            box-shadow: var(--glow) var(--primary-green);
+            transform: scale(1.1);
+        }
+
+        .menu-item[data-angle="0"] { top: 20px; left: 50%; transform: translateX(-50%); }
+        .menu-item[data-angle="72"] { top: 35px; right: 85px; }
+        .menu-item[data-angle="144"] { bottom: 35px; right: 85px; }
+        .menu-item[data-angle="216"] { bottom: 35px; left: 85px; }
+        .menu-item[data-angle="288"] { top: 35px; left: 85px; }
+
+        /* Live Status Badge */
+        .live-badge {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #ff0040, #ff4040);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            animation: livePulse 2s infinite;
+            box-shadow: 0 0 20px rgba(255, 0, 64, 0.5);
+            display: none;
+        }
+
+        .live-badge.active {
+            display: block;
+        }
+
+        /* Dossier Overlay */
+        .dossier-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .dossier-content {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(5, 5, 5, 0.9);
+            border: 2px solid var(--primary-green);
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .dossier-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            color: var(--accent-orange);
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 119, 0, 0.1);
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .dossier-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .dossier-close:hover {
+            background: var(--primary-green);
+            color: var(--bg-dark);
+        }
+
+        .classified-text {
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .redacted {
+            background: var(--text-light);
+            color: var(--text-light);
+            animation: unredact 2s ease forwards;
+        }
+
+        /* HUD Console */
+        .hud-console {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid var(--primary-green);
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .console-header {
+            padding: 10px 20px;
+            background: rgba(0, 255, 136, 0.1);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--primary-green);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .console-filters {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--text-dim);
+            color: var(--text-dim);
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+
+        .console-logs {
+            flex: 1;
+            padding: 10px 20px;
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .log-entry:hover {
+            color: var(--primary-green);
+        }
+
+        .log-timestamp {
+            color: var(--text-dim);
+            margin-right: 10px;
+        }
+
+        .log-type-info { color: var(--secondary-cyan); }
+        .log-type-warning { color: var(--accent-orange); }
+        .log-type-classified { color: var(--primary-green); }
+
+        /* Mod Menu */
+        .mod-menu {
+            position: fixed;
+            top: 50%;
+            right: -300px;
+            transform: translateY(-50%);
+            width: 280px;
+            height: 500px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--primary-green);
+            border-right: none;
+            border-radius: 15px 0 0 15px;
+            z-index: 1500;
+            transition: right 0.5s ease;
+            overflow: hidden;
+        }
+
+        .mod-menu.open {
+            right: 0;
+        }
+
+        .mod-menu-toggle {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 1600;
+        }
+
+        .mod-menu-content {
+            padding: 20px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .mod-section {
+            margin-bottom: 25px;
+        }
+
+        .mod-section h3 {
+            color: var(--accent-orange);
+            margin-bottom: 10px;
+            font-size: 1rem;
+            border-bottom: 1px solid rgba(255, 119, 0, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .mod-option {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mod-button {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--primary-green);
+            color: var(--text-light);
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .mod-button:hover {
+            background: rgba(0, 255, 136, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .toggle-switch {
+            width: 40px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.on {
+            background: var(--primary-green);
+        }
+
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-switch.on::before {
+            transform: translateX(20px);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes bootLoad {
+            to { left: 100%; }
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
+
+        @keyframes eyePulse {
+            0%, 100% { box-shadow: inset var(--glow) var(--primary-green), var(--glow) var(--primary-green); }
+            50% { box-shadow: inset 0 0 30px var(--primary-green), 0 0 30px var(--primary-green); }
+        }
+
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes unredact {
+            0% { background: var(--text-light); color: var(--text-light); }
+            50% { background: var(--accent-orange); color: var(--text-light); }
+            100% { background: transparent; color: var(--text-light); }
+        }
+
+        @keyframes typeWriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .radial-menu {
+                width: 350px;
+                height: 350px;
+            }
+
+            .menu-item {
+                width: 60px;
+                height: 60px;
+                font-size: 0.7rem;
+            }
+
+            .falcon-eye {
+                width: 150px;
+                height: 150px;
+            }
+
+            .hud-console {
+                height: 150px;
+            }
+
+            .mod-menu {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Boot Sequence -->
+    <div class="boot-sequence" id="bootSequence">
+        <div class="boot-logo">ŒIL DU FAUCON</div>
+        <div class="boot-progress"></div>
+        <div class="boot-text">
+            INITIALISATION SYSTÈME SÉCURISÉ...<br>
+            CONNEXION AUX SERVEURS IPROMX...<br>
+            AUTHENTIFICATION BIOMÉTRIQUE...<br>
+            ACCÈS AUTORISÉ
+        </div>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="background">
+        <div class="grid-overlay"></div>
+        <div class="code-rain" id="codeRain"></div>
+    </div>
+
+    <!-- Main Interface -->
+    <div class="main-interface" id="mainInterface">
+        <!-- Live Status Badge -->
+        <div class="live-badge" id="liveBadge">
+            🔴 LIVE
+        </div>
+
+        <!-- Falcon Eye -->
+        <div class="falcon-eye" id="falconEye">
+            <div class="eye-outer">
+                <div class="eye-inner" id="eyeInner">
+                    <div class="eye-pupil" id="eyePupil"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Radial Menu -->
+        <div class="radial-menu">
+            <div class="menu-item" data-angle="0" data-section="accueil">
+                ACCUEIL
+            </div>
+            <div class="menu-item" data-angle="72" data-section="who">
+                QUI EST<br>IPROMX?
+            </div>
+            <div class="menu-item" data-angle="144" data-section="status">
+                STATUT
+            </div>
+            <div class="menu-item" data-angle="216" data-section="networks">
+                RÉSEAUX
+            </div>
+            <div class="menu-item" data-angle="288" data-section="characters">
+                PERSONNAGES
+            </div>
+        </div>
+
+        <!-- Mod Menu Toggle -->
+        <div class="mod-menu-toggle" id="modMenuToggle">⚙</div>
+
+        <!-- Mod Menu -->
+        <div class="mod-menu" id="modMenu">
+            <div class="mod-menu-content">
+                <div class="mod-section">
+                    <h3>THÈMES</h3>
+                    <div class="mod-option">
+                        <button class="mod-button" onclick="changeTheme('dedsec')">DedSec Clean</button>
+                    </div>
+                    <div class="mod-option">
+                        <button class="mod-button" onclick="changeTheme('military')">Military HUD</button>
+                    </div>
+                    <div class="mod-option">
+                        <button class="mod-button" onclick="changeTheme('cyberpunk')">Cyberpunk UI</button>
+                    </div>
+                </div>
+
+                <div class="mod-section">
+                    <h3>EFFETS VISUELS</h3>
+                    <div class="mod-option">
+                        <span>Scanlines</span>
+                        <div class="toggle-switch" id="scanlinesToggle" onclick="toggleScanlines()"></div>
+                    </div>
+                    <div class="mod-option">
+                        <span>Code Rain</span>
+                        <div class="toggle-switch on" id="codeRainToggle" onclick="toggleCodeRain()"></div>
+                    </div>
+                    <div class="mod-option">
+                        <span>Son Ambiant</span>
+                        <div class="toggle-switch" id="soundToggle" onclick="toggleSound()"></div>
+                    </div>
+                </div>
+
+                <div class="mod-section">
+                    <h3>RACCOURCIS</h3>
+                    <div class="mod-option">
+                        <button class="mod-button" onclick="openLastDossier()">Dernier Dossier</button>
+                    </div>
+                    <div class="mod-option">
+                        <button class="mod-button" onclick="goToFamilleFlash()">Famille Flash</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HUD Console -->
+    <div class="hud-console">
+        <div class="console-header">
+            <span>CONSOLE DE SURVEILLANCE - ŒIL DU FAUCON</span>
+            <div class="console-filters">
+                <button class="filter-btn active" data-filter="all">ALL</button>
+                <button class="filter-btn" data-filter="info">INFO</button>
+                <button class="filter-btn" data-filter="warning">WARNING</button>
+                <button class="filter-btn" data-filter="classified">CLASSIFIED</button>
+            </div>
+        </div>
+        <div class="console-logs" id="consoleLogs"></div>
+    </div>
+
+    <!-- Dossier Overlay -->
+    <div class="dossier-overlay" id="dossierOverlay">
+        <div class="dossier-content">
+            <button class="dossier-close" onclick="closeDossier()">×</button>
+            <div class="dossier-header" id="dossierHeader"></div>
+            <div class="classified-text" id="dossierText"></div>
+        </div>
+    </div>
+
+    <script>
+        // Global Variables
+        let currentTheme = 'dedsec';
+        let effectsEnabled = {
+            scanlines: false,
+            codeRain: true,
+            sound: false
+        };
+        let lastOpenedDossier = null;
+        
+        // Boot Sequence
+        setTimeout(() => {
+            document.getElementById('bootSequence').classList.add('hidden');
+            setTimeout(() => {
+                document.getElementById('mainInterface').classList.add('active');
+                initializeCodeRain();
+                startConsoleLogging();
+                checkTwitchStatus();
+            }, 2000);
+        }, 4000);
+
+        // Mouse Tracking for Eye
+        document.addEventListener('mousemove', (e) => {
+            const eye = document.getElementById('falconEye');
+            const eyeRect = eye.getBoundingClientRect();
+            const eyeX = eyeRect.left + eyeRect.width / 2;
+            const eyeY = eyeRect.top + eyeRect.height / 2;
+            
+            const deltaX = e.clientX - eyeX;
+            const deltaY = e.clientY - eyeY;
+            const angle = Math.atan2(deltaY, deltaX);
+            const distance = Math.min(Math.sqrt(deltaX*deltaX + deltaY*deltaY) / 10, 15);
+            
+            const pupil = document.getElementById('eyePupil');
+            const moveX = Math.cos(angle) * distance;
+            const moveY = Math.sin(angle) * distance;
+            
+            pupil.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
+        });
+
+        // Code Rain Effect
+        function initializeCodeRain() {
+            if (!effectsEnabled.codeRain) return;
+            
+            const container = document.getElementById('codeRain');
+            const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+            
+            setInterval(() => {
+                if (!effectsEnabled.codeRain) return;
+                
+                const char = document.createElement('div');
+                char.className = 'code-char';
+                char.textContent = chars[Math.floor(Math.random() * chars.length)];
+                char.style.left = Math.random() * 100 + '%';
+                char.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                char.style.opacity = Math.random() * 0.7 + 0.3;
+                
+                container.appendChild(char);
+                
+                setTimeout(() => {
+                    char.remove();
+                }, 5000);
+            }, 200);
+        }
+
+        // Menu Item Interactions
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const section = item.dataset.section;
+                playClickSound();
+                openDossier(section);
+            });
+        });
+
+        // Dossier System
+        const dossierData = {
+            accueil: {
+                title: '[DOSSIER] - ACCUEIL SÉCURISÉ',
+                metadata: 'SOURCE: SERVEUR IPROMX | NIVEAU: PUBLIC | DATE: 25.09.2025',
+                content: `BIENVENUE DANS L'INTERFACE ŒIL DU FAUCON
+
+Cette interface sécurisée vous donne accès à tous les systèmes iProMx. 
+Naviguez à l'aide du menu radial central ou utilisez les commandes de la console.
+
+FONCTIONNALITÉS DISPONIBLES:
+• Surveillance en temps réel
+• Accès aux dossiers classifiés
+• Monitoring des réseaux sociaux
+• Suivi des personnages
+• Interface modulaire personnalisable
+
+Pour une expérience optimale, utilisez le mod menu (⚙) pour ajuster les paramètres visuels.`
+            },
+            who: {
+                title: '[DOSSIER] - PROFIL AGENT IPROMX',
+                metadata: 'SOURCE: RH DÉPARTEMENT | NIVEAU: RESTREINT | DATE: 15.08.2025',
+                content: `IDENTIFICATION: iProMx
+CODE D'AGENT: [CLASSIFIÉ]
+STATUT: ACTIF
+
+iProMx est un créateur de contenu multimédia spécialisé dans l'univers gaming et tech.
+Expert en streaming, développement communautaire et création de contenu interactif.
+
+COMPÉTENCES VALIDÉES:
+• Streaming en direct (Twitch/YouTube)
+• Développement communautaire
+• Gaming compétitif
+• Création de contenu original
+• Interface utilisateur avancée
+
+DERNIÈRE MISSION: Développement interface Œil du Faucon
+STATUT MISSION: EN COURS`
+            },
+            status: {
+                title: '[DOSSIER] - STATUT OPÉRATIONNEL',
+                metadata: 'SOURCE: MONITORING AUTO | NIVEAU: TEMPS RÉEL | DATE: 25.09.2025',
+                content: `STATUT SYSTÈME: OPÉRATIONNEL
+DERNIÈRE VÉRIFICATION: Il y a 2 minutes
+
+SERVICES ACTIFS:
+✅ Interface Œil du Faucon
+✅ Monitoring réseaux sociaux
+✅ Console de surveillance
+✅ Système de dossiers
+⚠️ Vérification Twitch en cours...
+
+PERFORMANCES:
+• CPU: 15%
+• RAM: 340MB
+• Réseau: Stable
+• Sécurité: Niveau Maximum
+
+Tous les systèmes fonctionnent dans les paramètres normaux.`
+            },
+            networks: {
+                title: '[DOSSIER] - RÉSEAUX SOCIAUX',
+                metadata: 'SOURCE: SOCIAL MONITOR | NIVEAU: PUBLIC | DATE: 25.09.2025',
+                content: `AUDIT DES CONNEXIONS SOCIALES
+
+🎮 TWITCH: twitch.tv/ipromx
+Status: Connexion en cours...
+Followers: [SCANNING...]
+
+🎵 TIKTOK: @ipromx_gaming  
+Status: Connexion établie
+Engagement: Élevé
+
+📱 INSTAGRAM: @ipromx.gaming
+Status: Actif
+Dernière publication: Il y a 3 jours
+
+🐦 TWITTER: @iProMxGaming
+Status: Surveillance active
+Tweets récents: Gaming content
+
+SÉCURITÉ RÉSEAU: VERTE
+Aucune menace détectée sur les canaux sociaux.`
+            },
+            characters: {
+                title: '[DOSSIER] - PERSONNAGES CLASSIFIÉS',
+                metadata: 'SOURCE: BASE DE DONNÉES | NIVEAU: CONFIDENTIEL | DATE: 20.09.2025',
+                content: `BASE DE DONNÉES PERSONNAGES
+
+FAMILLE FLASH - DOSSIERS SECRETS
+
+FLASH - LEADER
+• Statut: Actif
+• Compétences: Leadership, Stratégie
+• Dernière localisation: [CLASSIFIÉ]
+
+BARRY ALLEN - SCIENTIFIQUE
+• Statut: En mission
+• Compétences: Analyse forensique, Vitesse
+• Spécialité: Investigation
+
+IRIS WEST - JOURNALISTE
+• Statut: Actif  
+• Compétences: Investigation, Communication
+• Couverture: Central City Picture News
+
+CISCO RAMON - TECH SUPPORT
+• Statut: Opérationnel
+• Compétences: Engineering, Meta-tech
+• Équipement: Vibe gear
+
+CAITLIN SNOW - MÉDECIN
+• Statut: Double identité
+• Compétences: Médecine, Cryogénie
+• Alias: Killer Frost
+
+[ACCÈS COMPLET REQUIS POUR PLUS DE DÉTAILS]`
+            }
+        };
+
+        function openDossier(section) {
+            const overlay = document.getElementById('dossierOverlay');
+            const header = document.getElementById('dossierHeader');
+            const content = document.getElementById('dossierText');
+            
+            const data = dossierData[section];
+            if (!data) return;
+            
+            lastOpenedDossier = section;
+            addConsoleLog('classified', `Ouverture dossier: ${data.title}`);
+            
+            header.innerHTML = `${data.title}<br><small style="color: var(--text-dim); font-size: 0.8rem;">${data.metadata}</small>`;
+            content.innerHTML = '';
+            
+            overlay.style.display = 'block';
+            
+            // Typewriter effect
+            setTimeout(() => {
+                typeWriter(content, data.content, 30);
+            }, 500);
+        }
+
+        function closeDossier() {
+            document.getElementById('dossierOverlay').style.display = 'none';
+            addConsoleLog('info', 'Dossier fermé');
+        }
+
+        function typeWriter(element, text, speed) {
+            element.innerHTML = '';
+            let i = 0;
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                    // Apply redacted effect to some words
+                    applyRedactedEffect(element);
+                }
+            }, speed);
+        }
+
+        function applyRedactedEffect(element) {
+            const text = element.innerHTML;
+            const words = ['CLASSIFIÉ', 'SECRET', 'CONFIDENTIEL', '[SCANNING...]'];
+            let newText = text;
+            
+            words.forEach(word => {
+                const regex = new RegExp(word, 'g');
+                newText = newText.replace(regex, `<span class="redacted">${word}</span>`);
+            });
+            
+            element.innerHTML = newText;
+        }
+
+        // Console Logging System
+        function startConsoleLogging() {
+            const logs = [
+                { type: 'info', message: 'Système initialisé avec succès' },
+                { type: 'info', message: 'Connexion établie avec serveur principal' },
+                { type: 'classified', message: 'Authentification biométrique validée' },
+                { type: 'warning', message: 'Vérification Twitch en attente...' },
+                { type: 'info', message: 'Interface Œil du Faucon - Version 2.1' },
+                { type: 'classified', message: 'Accès base de données personnages autorisé' }
+            ];
+            
+            logs.forEach((log, index) => {
+                setTimeout(() => {
+                    addConsoleLog(log.type, log.message);
+                }, index * 1000);
+            });
+            
+            // Continue adding random logs
+            setInterval(() => {
+                const randomLogs = [
+                    { type: 'info', message: 'Surveillance réseau - Status OK' },
+                    { type: 'info', message: 'Mise à jour métadonnées utilisateur' },
+                    { type: 'warning', message: 'Tentative de connexion détectée' },
+                    { type: 'classified', message: 'Scan sécuritaire - Aucune menace' }
+                ];
+                const randomLog = randomLogs[Math.floor(Math.random() * randomLogs.length)];
+                addConsoleLog(randomLog.type, randomLog.message);
+            }, 15000);
+        }
+
+        function addConsoleLog(type, message) {
+            const container = document.getElementById('consoleLogs');
+            const timestamp = new Date().toLocaleTimeString('fr-FR', { 
+                hour12: false, 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry log-type-${type}`;
+            logEntry.innerHTML = `<span class="log-timestamp">[${timestamp}]</span><span class="log-type-${type}">[${type.toUpperCase()}]</span> ${message}`;
+            
+            logEntry.addEventListener('click', () => {
+                if (message.includes('dossier')) {
+                    playClickSound();
+                    // Extract section from message and open it
+                    const sections = Object.keys(dossierData);
+                    const matchedSection = sections.find(section => message.toLowerCase().includes(section));
+                    if (matchedSection) {
+                        openDossier(matchedSection);
+                    }
+                }
+            });
+            
+            container.appendChild(logEntry);
+            container.scrollTop = container.scrollHeight;
+            
+            // Keep max 50 logs
+            while (container.children.length > 50) {
+                container.removeChild(container.firstChild);
+            }
+        }
+
+        // Console Filters
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                const logs = document.querySelectorAll('.log-entry');
+                
+                logs.forEach(log => {
+                    if (filter === 'all' || log.classList.contains(`log-type-${filter}`)) {
+                        log.style.display = 'block';
+                    } else {
+                        log.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Mod Menu
+        document.getElementById('modMenuToggle').addEventListener('click', () => {
+            const menu = document.getElementById('modMenu');
+            menu.classList.toggle('open');
+            playClickSound();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                document.getElementById('modMenu').classList.toggle('open');
+                playClickSound();
+            }
+            if (e.key === 'Escape') {
+                document.getElementById('modMenu').classList.remove('open');
+                closeDossier();
+            }
+        });
+
+        // Theme System
+        function changeTheme(theme) {
+            currentTheme = theme;
+            const root = document.documentElement;
+            
+            switch(theme) {
+                case 'dedsec':
+                    root.style.setProperty('--primary-green', '#00ff88');
+                    root.style.setProperty('--secondary-cyan', '#00d4ff');
+                    root.style.setProperty('--accent-orange', '#ff7700');
+                    break;
+                case 'military':
+                    root.style.setProperty('--primary-green', '#4a5c2a');
+                    root.style.setProperty('--secondary-cyan', '#7d8471');
+                    root.style.setProperty('--accent-orange', '#d4af37');
+                    break;
+                case 'cyberpunk':
+                    root.style.setProperty('--primary-green', '#ff0080');
+                    root.style.setProperty('--secondary-cyan', '#00ffff');
+                    root.style.setProperty('--accent-orange', '#ffff00');
+                    break;
+            }
+            
+            addConsoleLog('info', `Thème changé vers: ${theme.toUpperCase()}`);
+            playClickSound();
+        }
+
+        // Visual Effects Toggles
+        function toggleScanlines() {
+            effectsEnabled.scanlines = !effectsEnabled.scanlines;
+            const toggle = document.getElementById('scanlinesToggle');
+            toggle.classList.toggle('on');
+            
+            if (effectsEnabled.scanlines) {
+                document.body.style.backgroundImage = 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,136,0.03) 2px, rgba(0,255,136,0.03) 4px)';
+            } else {
+                document.body.style.backgroundImage = 'none';
+            }
+            
+            addConsoleLog('info', `Scanlines: ${effectsEnabled.scanlines ? 'ON' : 'OFF'}`);
+        }
+
+        function toggleCodeRain() {
+            effectsEnabled.codeRain = !effectsEnabled.codeRain;
+            const toggle = document.getElementById('codeRainToggle');
+            toggle.classList.toggle('on');
+            
+            if (!effectsEnabled.codeRain) {
+                document.getElementById('codeRain').innerHTML = '';
+            } else {
+                initializeCodeRain();
+            }
+            
+            addConsoleLog('info', `Code Rain: ${effectsEnabled.codeRain ? 'ON' : 'OFF'}`);
+        }
+
+        function toggleSound() {
+            effectsEnabled.sound = !effectsEnabled.sound;
+            const toggle = document.getElementById('soundToggle');
+            toggle.classList.toggle('on');
+            
+            addConsoleLog('info', `Son ambiant: ${effectsEnabled.sound ? 'ON' : 'OFF'}`);
+        }
+
+        // Shortcut Functions
+        function openLastDossier() {
+            if (lastOpenedDossier) {
+                openDossier(lastOpenedDossier);
+                addConsoleLog('info', 'Réouverture du dernier dossier');
+            } else {
+                addConsoleLog('warning', 'Aucun dossier précédent trouvé');
+            }
+            playClickSound();
+        }
+
+        function goToFamilleFlash() {
+            openDossier('characters');
+            addConsoleLog('classified', 'Accès direct: Famille Flash');
+            playClickSound();
+        }
+
+        // Twitch Status Check
+        function checkTwitchStatus() {
+            // Simulate Twitch API check
+            setTimeout(() => {
+                const isLive = Math.random() > 0.7; // 30% chance of being live
+                const badge = document.getElementById('liveBadge');
+                
+                if (isLive) {
+                    badge.classList.add('active');
+                    addConsoleLog('info', 'TWITCH: Diffusion en direct détectée');
+                    
+                    badge.addEventListener('click', () => {
+                        window.open('https://twitch.tv/ipromx', '_blank');
+                        addConsoleLog('info', 'Redirection vers Twitch');
+                    });
+                } else {
+                    addConsoleLog('info', 'TWITCH: Aucune diffusion active');
+                }
+            }, 3000);
+        }
+
+        // Sound System
+        function playClickSound() {
+            if (!effectsEnabled.sound) return;
+            
+            // Create a subtle click sound using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.1);
+            
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        // Social Networks Integration
+        function initSocialNetworks() {
+            const networks = [
+                { name: 'Twitch', url: 'https://twitch.tv/ipromx', icon: '🎮' },
+                { name: 'TikTok', url: 'https://tiktok.com/@ipromx_gaming', icon: '🎵' },
+                { name: 'Instagram', url: 'https://instagram.com/ipromx.gaming', icon: '📱' },
+                { name: 'Twitter', url: 'https://twitter.com/iProMxGaming', icon: '🐦' }
+            ];
+            
+            // Add social network interactions to the networks dossier
+            // This would be expanded in a full implementation
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            initSocialNetworks();
+            
+            // Add some initial interactivity
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = item.style.transform + ' scale(1.05)';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = item.style.transform.replace(' scale(1.05)', '');
+                });
+            });
+        });
+
+        // Eye hover effects
+        document.getElementById('falconEye').addEventListener('mouseenter', () => {
+            document.getElementById('eyeInner').style.borderColor = '#ff7700';
+            document.getElementById('eyeInner').style.boxShadow = '0 0 30px rgba(255, 119, 0, 0.5)';
+        });
+
+        document.getElementById('falconEye').addEventListener('mouseleave', () => {
+            document.getElementById('eyeInner').style.borderColor = 'var(--secondary-cyan)';
+            document.getElementById('eyeInner').style.boxShadow = 'none';
+        });
+    </script>
+</body>
+</html>
