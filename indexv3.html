@@ -10,53 +10,69 @@
 </head>
 <body>
 
-    <!-- CONTENU PRINCIPAL (tout le site) -->
-    <div id="mainContent">
+    <!-- ENTRÉE MAGIQUE FLUIDE -->
+    <div id="entranceMagic">
+        <div class="magic-circle">
+            <div class="magic-glow"></div>
+            <div class="magic-core"></div>
+            <div class="magic-runes"></div>
+            <div class="magic-text">RENTREZ DANS L'UNIVERS D'iPROMX</div>
+        </div>
+    </div>
 
-        <!-- NAVBAR -->
-        <nav class="navbar" id="navbar">
-            <div class="navbar-container">
-                <div class="navbar-left">
-                    <div class="logo" onclick="window.location.reload()">
-                        <i class="fas fa-bolt logo-icon"></i>
-                        <span class="logo-text">iPROMX</span>
-                    </div>
-                    <div class="nav-links">
-                        <a href="#browse" class="nav-link">Parcourir</a>
-                        <a href="#historique" class="nav-link">Historique</a>
-                        <a href="#maliste" class="nav-link">Ma Liste</a>
-                    </div>
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <div class="logo" onclick="window.location.reload()">
+                    <span class="logo-icon">Lightning</span>
+                    <span class="logo-text">iPROMX</span>
                 </div>
-                <div class="navbar-right">
-                    <div class="search-btn" id="searchTrigger">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="live-indicator-nav" id="liveIndicatorNav" class="offline">
-                        <i class="fas fa-circle live-dot"></i>
-                        <span class="live-text">LIVE</span>
-                    </div>
-                    <div class="user-info" id="userInfo" style="display: none;">
-                        <img id="userAvatar" class="user-avatar" src="" alt="">
-                        <span id="userName"></span>
-                    </div>
-                    <button class="btn-logout" id="btnLogout">
+                <div class="nav-links">
+                    <a href="#browse" class="nav-link">Parcourir</a>
+                    <a href="#historique" class="nav-link">Historique</a>
+                    <a href="#maliste" class="nav-link">Ma Liste</a>
+                </div>
+            </div>
+            <div class="navbar-right">
+                <div class="search-btn" id="searchTrigger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </div>
+                <div class="live-indicator-nav" id="liveIndicatorNav">
+                    <span class="live-dot"></span>
+                    <span class="live-text">LIVE</span>
+                </div>
+                <!-- PROFIL DISCORD -->
+                <div id="userInfo" style="display: none; align-items: center; gap: 12px; margin-left: 20px;">
+                    <img id="userAvatar" src="" alt="Avatar" class="user-avatar">
+                    <span id="userName" class="user-name"></span>
+                    <button id="btnLogout" class="btn-logout">
                         <i class="fas fa-sign-out-alt"></i>
                     </button>
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- HERO -->
-        <div class="hero-banner-large">
-            <div class="hero-background" style="background-image: url('images/ipromx-hero.jpg');"></div>
-            <div class="hero-content-large">
-                <h1 class="hero-title-large">L'UNIVERS D'iPROMX</h1>
-                <p class="hero-description-large">Sagas criminelles, alliances, trahisons, légendes.</p>
-                <button class="btn-hero btn-play" onclick="scrollToSection('univers')">
-                    <i class="fas fa-play"></i> EXPLORER
+    <!-- HERO -->
+    <div class="hero-banner-large" id="heroBanner">
+        <div class="hero-background" style="background-image: url('images/ipromx-hero.jpg');"></div>
+        <div class="hero-content-large">
+            <h1 class="hero-title-large">L'UNIVERS D'iPROMX</h1>
+            <p class="hero-description-large">Découvrez les sagas criminelles, les alliances, les trahisons et les légendes qui traversent les générations.</p>
+            <div class="hero-buttons-large">
+                <button class="btn-hero btn-play" onclick="document.getElementById('univers').scrollIntoView({behavior: 'smooth'})">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    EXPLORER
                 </button>
             </div>
         </div>
+    </div>
 
         <!-- RECHERCHE -->
         <div class="search-overlay" id="searchOverlay">
@@ -212,7 +228,7 @@
         <!-- FOOTER -->
         <footer class="footer-cr">
             <div class="footer-container">
-                <p>© 2025 iProMx. Propulsé par Supabase.</p>
+                <p>© 2025 iProMx.</p>
             </div>
         </footer>
     </div>
