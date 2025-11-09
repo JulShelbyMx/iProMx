@@ -19,7 +19,7 @@ window.userMyList = [];
 window.allWatchedEpisodes = []; // Historique complet
 
 // Bannière commune Flash
-const FLASH_BANNER = 'images/flash-family-banner.jpg';
+const FLASH_BANNER = 'images/flash.jpg';
 
 // ==========================================
 // DONNÉES UNIVERS
