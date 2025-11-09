@@ -10,13 +10,23 @@
 </head>
 <body>
 
-    <!-- ENTRÉE MAGIQUE FLUIDE -->
-    <div id="entranceMagic">
-        <div class="magic-circle">
-            <div class="magic-glow"></div>
-            <div class="magic-core"></div>
-            <div class="magic-runes"></div>
-            <div class="magic-text">RENTREZ DANS L'UNIVERS D'iPROMX</div>
+    <!-- MODAL ALERTE MODE INVITÉ -->
+    <div class="guest-modal" id="guestModal">
+        <div class="guest-modal-content">
+            <div class="guest-modal-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h2>Mode Invité</h2>
+            <p>Vous naviguez en mode invité. Vos données (historique, ma liste, progression des vidéos) ne seront pas sauvegardées de manière permanente.</p>
+            <p class="guest-modal-tip">Pour une expérience optimale et sauvegarder votre progression, connectez-vous avec Discord.</p>
+            <div class="guest-modal-actions">
+                <button class="btn-guest-primary" onclick="closeGuestModal()">
+                    <i class="fas fa-check"></i> J'ai compris
+                </button>
+                <button class="btn-guest-secondary" onclick="window.location.href='connection.html'">
+                    <i class="fas fa-arrow-left"></i> Je me connecte
+                </button>
+            </div>
         </div>
     </div>
 
@@ -25,7 +35,7 @@
         <div class="navbar-container">
             <div class="navbar-left">
                 <div class="logo" onclick="window.location.reload()">
-                    <span class="logo-icon">Lightning</span>
+                    <img src="images/logo-ipromx.png" alt="iPROMX" class="logo-image">
                     <span class="logo-text">iPROMX</span>
                 </div>
                 <div class="nav-links">
@@ -35,17 +45,13 @@
                 </div>
             </div>
             <div class="navbar-right">
-                <div class="search-btn" id="searchTrigger">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                </div>
+                <button class="search-btn" id="searchTrigger">
+                    <i class="fas fa-search"></i>
+                </button>
                 <div class="live-indicator-nav" id="liveIndicatorNav">
                     <span class="live-dot"></span>
                     <span class="live-text">LIVE</span>
                 </div>
-                <!-- PROFIL DISCORD -->
                 <div id="userInfo" style="display: none; align-items: center; gap: 12px; margin-left: 20px;">
                     <img id="userAvatar" src="" alt="Avatar" class="user-avatar">
                     <span id="userName" class="user-name"></span>
@@ -57,183 +63,276 @@
         </div>
     </nav>
 
-    <!-- HERO -->
+    <!-- HERO BANNER -->
     <div class="hero-banner-large" id="heroBanner">
         <div class="hero-background" style="background-image: url('images/ipromx-hero.jpg');"></div>
         <div class="hero-content-large">
             <h1 class="hero-title-large">L'UNIVERS D'iPROMX</h1>
-            <p class="hero-description-large">Découvrez les sagas criminelles, les alliances, les trahisons et les légendes qui traversent les générations.</p>
+            <p class="hero-description-large">Découvrez les sagas criminelles, les alliances, les trahisons et les légendes qui traversent les générations. Une expérience immersive unique dans l'univers du RP.</p>
             <div class="hero-buttons-large">
                 <button class="btn-hero btn-play" onclick="document.getElementById('univers').scrollIntoView({behavior: 'smooth'})">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z"/>
-                    </svg>
-                    EXPLORER
+                    <i class="fas fa-play"></i>
+                    EXPLORER L'UNIVERS
                 </button>
             </div>
         </div>
     </div>
 
-        <!-- RECHERCHE -->
-        <div class="search-overlay" id="searchOverlay">
-            <div class="search-container">
-                <div class="search-input-wrapper">
-                    <input type="text" class="search-input-large" id="searchInput" placeholder="Rechercher...">
-                    <button class="search-close" id="searchClose">×</button>
-                </div>
-                <div class="search-results-grid" id="searchResults"></div>
-            </div>
-        </div>
-
-        <!-- LIVE -->
-        <div class="section-crunchyroll" id="statut">
-            <div class="section-header-cr">
-                <h2 class="section-title-cr">
-                    <i class="fas fa-circle live-icon"></i> EN DIRECT
-                </h2>
-            </div>
-            <div class="live-card-featured">
-                <div class="live-thumbnail" style="background-image: url('images/twitch-live.jpg');"></div>
-                <div class="live-content">
-                    <div class="live-badge" id="liveBadge">
-                        <i class="fas fa-circle live-dot-large"></i>
-                        <span id="liveStatus">VÉRIFICATION...</span>
-                    </div>
-                    <h3>iProMx en direct</h3>
-                    <p id="liveDescription">Vérification du statut...</p>
-                    <div class="live-stats">
-                        <span>271K followers</span>
-                        <span id="viewerCount">En attente...</span>
-                    </div>
-                    <button class="btn-watch-live" onclick="window.open('https://twitch.tv/ipromx', '_blank')">
-                        <i class="fas fa-play"></i> REGARDER
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- HISTORIQUE -->
-        <div class="section-crunchyroll" id="historique" style="display: none;">
-            <div class="section-header-cr">
-                <h2 class="section-title-cr"><i class="fas fa-history"></i> Continuer</h2>
-                <button class="clear-btn" onclick="clearHistory()">Effacer</button>
-            </div>
-            <div class="carousel-container">
-                <button class="carousel-btn carousel-prev" onclick="scrollCarousel('history', -1)">Left Arrow</button>
-                <div class="carousel-track" id="historyCards"></div>
-                <button class="carousel-btn carousel-next" onclick="scrollCarousel('history', 1)">Right Arrow</button>
-            </div>
-        </div>
-
-        <!-- MA LISTE -->
-        <div class="section-crunchyroll" id="maliste" style="display: none;">
-            <div class="section-header-cr">
-                <h2 class="section-title-cr"><i class="fas fa-star"></i> Ma Liste</h2>
-                <button class="clear-btn" onclick="clearMyList()">Effacer</button>
-            </div>
-            <div class="carousel-container">
-                <button class="carousel-btn carousel-prev" onclick="scrollCarousel('mylist', -1)">Left Arrow</button>
-                <div class="carousel-track" id="mylistCards"></div>
-                <button class="carousel-btn carousel-next" onclick="scrollCarousel('mylist', 1)">Right Arrow</button>
-            </div>
-        </div>
-
-        <!-- UNIVERS -->
-        <div class="section-crunchyroll" id="univers">
-            <div class="section-header-cr">
-                <h2 class="section-title-cr"><i class="fas fa-film"></i> Tous les Univers</h2>
-                <div class="filter-tabs">
-                    <button class="filter-tab active" onclick="filterFamily('all')">Tous</button>
-                    <button class="filter-tab" onclick="filterFamily('flash')">Flash</button>
-                    <button class="filter-tab" onclick="filterFamily('shade')">Shade</button>
-                    <button class="filter-tab" onclick="filterFamily('winters')">Winters</button>
-                    <button class="filter-tab" onclick="filterFamily('escobar')">Escobar</button>
-                    <button class="filter-tab" onclick="filterFamily('kingsley')">Kingsley</button>
-                </div>
-            </div>
-            <div class="carousel-container">
-                <button class="carousel-btn carousel-prev" onclick="scrollCarousel('univers', -1)">Left Arrow</button>
-                <div class="carousel-track" id="universesGrid"></div>
-                <button class="carousel-btn carousel-next" onclick="scrollCarousel('univers', 1)">Right Arrow</button>
-            </div>
-        </div>
-
-        <!-- POPULAIRE -->
-        <div class="section-crunchyroll" id="browse">
-            <div class="section-header-cr">
-                <h2 class="section-title-cr"><i class="fas fa-fire"></i> Populaire</h2>
-            </div>
-            <div class="carousel-container">
-                <button class="carousel-btn carousel-prev" onclick="scrollCarousel('popular', -1)">Left Arrow</button>
-                <div class="carousel-track" id="popularCarousel"></div>
-                <button class="carousel-btn carousel-next" onclick="scrollCarousel('popular', 1)">Right Arrow</button>
-            </div>
-        </div>
-
-        <!-- RÉSEAUX -->
-        <div class="section-crunchyroll" id="reseaux">
-            <div class="section-header-cr">
-                <h2 class="section-title-cr"><i class="fas fa-globe"></i> Communauté</h2>
-            </div>
-            <div class="social-grid-cr" id="socialGrid"></div>
-        </div>
-
-        <!-- MODAL LECTEUR -->
-        <div class="player-modal" id="playerModal">
-            <div class="player-container">
-                <button class="player-close" onclick="closePlayer()">×</button>
-                <div class="player-header">
-                    <h3 id="playerTitle"></h3>
-                    <p id="playerEpisode"></p>
-                </div>
-                <div class="player-video">
-                    <div class="video-placeholder">
-                        <i class="fas fa-play"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODAL SÉRIE -->
-        <div class="series-modal" id="seriesModal">
-            <div class="series-modal-content">
-                <button class="modal-close-btn" onclick="closeSeriesModal()">×</button>
-                <div class="series-hero" id="seriesHero"></div>
-                <div class="series-body">
-                    <div class="series-info-section">
-                        <h2 id="seriesTitle"></h2>
-                        <p id="seriesDescription"></p>
-                        <div class="series-actions">
-                            <button class="btn-series-action btn-primary" onclick="playFirstEpisode()">
-                                <i class="fas fa-play"></i> Commencer
-                            </button>
-                            <button class="btn-series-action btn-secondary" id="addToListBtn">
-                                <i class="fas fa-plus"></i> Ma Liste
-                            </button>
+    <!-- RECHERCHE OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <div class="search-eye-large">
+                    <div class="eye-outer-large">
+                        <div class="eye-inner-large">
+                            <div class="pupil-large"></div>
+                            <div class="eye-shine"></div>
                         </div>
                     </div>
-                    <div class="series-seasons">
-                        <div class="season-tabs" id="seasonTabs"></div>
-                        <div class="episodes-list-detailed" id="episodesListDetailed"></div>
+                </div>
+                <h2>L'ŒIL DU FAUCON</h2>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input-large" id="searchInput" placeholder="Rechercher un personnage, une famille...">
+                <button class="search-close" id="searchClose">×</button>
+            </div>
+            <div class="search-results-grid" id="searchResults"></div>
+        </div>
+    </div>
+
+    <!-- SECTION LIVE -->
+    <div class="section-crunchyroll" id="statut">
+        <div class="section-header-cr">
+            <h2 class="section-title-cr">
+                <i class="fas fa-circle live-icon"></i>
+                EN DIRECT MAINTENANT
+            </h2>
+        </div>
+        <div class="live-card-compact">
+            <div class="live-thumbnail-compact" style="background-image: url('images/twitch-live.jpg');">
+                <div class="live-badge-overlay" id="liveBadge">
+                    <i class="fas fa-circle"></i>
+                    <span id="liveStatus">VÉRIFICATION...</span>
+                </div>
+            </div>
+            <div class="live-info-compact">
+                <h3>iProMx en direct sur Twitch</h3>
+                <p id="liveDescription">Vérification du statut du stream...</p>
+                <div class="live-stats-compact">
+                    <span><i class="fas fa-users"></i> 271K</span>
+                    <span id="viewerCount"><i class="fas fa-eye"></i> --</span>
+                </div>
+            </div>
+            <button class="btn-watch-live-compact" onclick="window.open('https://www.twitch.tv/ipromx', '_blank')">
+                <i class="fab fa-twitch"></i>
+                REGARDER
+            </button>
+        </div>
+    </div>
+
+    <!-- HISTORIQUE -->
+    <div class="section-crunchyroll" id="historique" style="display: none;">
+        <div class="section-header-cr">
+            <h2 class="section-title-cr">
+                <i class="fas fa-history"></i>
+                Continuer à regarder
+            </h2>
+            <button class="clear-btn" onclick="clearHistory()">
+                <i class="fas fa-trash"></i> Tout effacer
+            </button>
+        </div>
+        <div class="carousel-container">
+            <button class="carousel-btn carousel-prev" onclick="scrollCarousel('history', -1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-track" id="historyCards"></div>
+            <button class="carousel-btn carousel-next" onclick="scrollCarousel('history', 1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- MA LISTE -->
+    <div class="section-crunchyroll" id="maliste" style="display: none;">
+        <div class="section-header-cr">
+            <h2 class="section-title-cr">
+                <i class="fas fa-star"></i>
+                Ma Liste
+            </h2>
+            <button class="clear-btn" onclick="clearMyList()">
+                <i class="fas fa-trash"></i> Tout effacer
+            </button>
+        </div>
+        <div class="carousel-container">
+            <button class="carousel-btn carousel-prev" onclick="scrollCarousel('mylist', -1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-track" id="mylistCards"></div>
+            <button class="carousel-btn carousel-next" onclick="scrollCarousel('mylist', 1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- TOUS LES UNIVERS -->
+    <div class="section-crunchyroll" id="univers">
+        <div class="section-header-cr">
+            <h2 class="section-title-cr">
+                <i class="fas fa-film"></i>
+                Tous les Univers
+            </h2>
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterFamily('all')">Tous</button>
+                <button class="filter-tab" onclick="filterFamily('flash')">Flash</button>
+                <button class="filter-tab" onclick="filterFamily('shade')">Shade</button>
+                <button class="filter-tab" onclick="filterFamily('winters')">Winters</button>
+                <button class="filter-tab" onclick="filterFamily('escobar')">Escobar</button>
+                <button class="filter-tab" onclick="filterFamily('kingsley')">Kingsley</button>
+            </div>
+        </div>
+        <div class="carousel-container">
+            <button class="carousel-btn carousel-prev" onclick="scrollCarousel('univers', -1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-track" id="universesGrid"></div>
+            <button class="carousel-btn carousel-next" onclick="scrollCarousel('univers', 1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- POPULAIRE -->
+    <div class="section-crunchyroll" id="browse">
+        <div class="section-header-cr">
+            <h2 class="section-title-cr">
+                <i class="fas fa-fire"></i>
+                Les plus populaires
+            </h2>
+        </div>
+        <div class="carousel-container">
+            <button class="carousel-btn carousel-prev" onclick="scrollCarousel('popular', -1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-track" id="popularCarousel"></div>
+            <button class="carousel-btn carousel-next" onclick="scrollCarousel('popular', 1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- RÉSEAUX SOCIAUX -->
+    <div class="section-crunchyroll" id="reseaux">
+        <div class="section-header-cr">
+            <h2 class="section-title-cr">
+                <i class="fas fa-globe"></i>
+                Rejoignez la Communauté
+            </h2>
+        </div>
+        <div class="social-grid-cr" id="socialGrid"></div>
+    </div>
+
+    <!-- MODAL LECTEUR VIDÉO -->
+    <div class="player-modal-youtube" id="playerModal">
+        <div class="youtube-layout">
+            <button class="player-close" onclick="closePlayer()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="youtube-main">
+                <div class="player-video-enhanced">
+                    <div id="youtubePlayerContainer"></div>
+                </div>
+                
+                <div class="video-info-section">
+                    <h2 id="playerTitle"></h2>
+                    <div class="video-meta">
+                        <span id="playerEpisode"></span>
+                    </div>
+                    <div class="video-actions">
+                        <button class="action-btn" id="addListBtnPlayer" onclick="toggleMyListFromPlayer()">
+                            <i class="fas fa-plus"></i>
+                            <span>Ma Liste</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="video-description">
+                    <div class="description-header">
+                        <img id="characterAvatar" src="" alt="" class="character-avatar-small">
+                        <div>
+                            <h4 id="characterName"></h4>
+                            <p id="characterShortDesc"></p>
+                        </div>
+                    </div>
+                    <div class="description-content">
+                        <p id="characterFullDesc"></p>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- SCROLL TOP -->
-        <div class="scroll-top-cr" id="scrollTop">
-            <i class="fas fa-arrow-up"></i>
-        </div>
-
-        <!-- FOOTER -->
-        <footer class="footer-cr">
-            <div class="footer-container">
-                <p>© 2025 iProMx.</p>
+            
+            <div class="youtube-sidebar">
+                <h3 class="sidebar-title">Épisodes suggérés</h3>
+                <div class="suggestions-list" id="suggestionsList"></div>
             </div>
-        </footer>
+        </div>
     </div>
 
+    <!-- MODAL SÉRIE -->
+    <div class="series-modal" id="seriesModal">
+        <div class="series-modal-content">
+            <button class="modal-close-btn" onclick="closeSeriesModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="series-hero" id="seriesHero"></div>
+            <div class="series-body">
+                <div class="series-info-section">
+                    <h2 id="seriesTitle"></h2>
+                    <p id="seriesDescription"></p>
+                    <div class="series-actions">
+                        <button class="btn-series-action btn-primary" id="startBtn">
+                            <i class="fas fa-play"></i> Commencer
+                        </button>
+                        <button class="btn-series-action btn-secondary" id="addToListBtn">
+                            <i class="fas fa-plus"></i> Ajouter à Ma Liste
+                        </button>
+                    </div>
+                </div>
+                <div class="series-seasons">
+                    <div class="season-tabs" id="seasonTabs"></div>
+                    <div class="episodes-list-detailed" id="episodesListDetailed"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOUTON SCROLL TOP -->
+    <div class="scroll-top-cr" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-cr">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <img src="images/logo-ipromx.png" alt="iPROMX" class="logo-image-footer">
+                    <span class="logo-text-footer">iPROMX</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#univers">Parcourir</a>
+                    <a href="#browse">Populaire</a>
+                    <a href="#reseaux">Communauté</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 L'Univers d'iProMx. Tous droits réservés.</p>
+                <p>Propulsé par l'Œil du Faucon - Technologie de streaming avancée</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script src="scriptv3.js"></script>
 </body>
 </html>
