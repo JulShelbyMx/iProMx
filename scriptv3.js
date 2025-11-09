@@ -12,8 +12,14 @@ let currentUser = null;
 let isGuest = false;
 let player = null;
 let currentVideoData = null;
+let selectedHistoryItems = new Set();
+let selectedListItems = new Set();
 window.userHistory = [];
 window.userMyList = [];
+window.allWatchedEpisodes = []; // Historique complet
+
+// Bannière commune Flash
+const FLASH_BANNER = 'images/flash-family-banner.jpg';
 
 // ==========================================
 // DONNÉES UNIVERS
@@ -22,38 +28,68 @@ const universesData = {
     flash: {
         name: 'Famille Flash',
         description: 'La saga légendaire qui traverse les générations',
-        image: 'images/flash-universe.jpg',
+        image: 'images/flash.jpg',
         characters: [
             { 
                 id: 'david-flash', 
                 name: 'David Flash', 
-                description: 'Le fondateur légendaire de la famille Flash. Un homme au passé trouble qui a bâti un empire dans l\'ombre de Los Santos. Sa détermination et son charisme en ont fait une figure respectée et crainte du milieu criminel.', 
-                image: 'images/david_flash.jpg', 
+                description: 'Le fondateur légendaire de la famille Flash. Un homme au passé trouble qui a bâti un empire dans l\'ombre de Los Santos.', 
+                image: 'images/david_flash.jpg',
+                banner: FLASH_BANNER,
                 seasons: { 
                     'Saison 1': [
                         { num: 1, title: 'POUR LA PREMIÈRE FOIS JE TESTE GTAV RP', videoId: 'z_H0tafxHAc' },
-                        { num: 2, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' }
+                        { num: 2, title: 'Les Débuts', videoId: 'z_H0tafxHAc' }
                     ], 
                     'Saison 2': [
                         { num: 1, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' }
                     ] 
                 } 
             },
-            { id: 'john-flash', name: 'John Flash', description: 'Le successeur ambitieux, prêt à tout pour faire honneur au nom des Flash et poursuivre l\'héritage familial.', image: 'images/john_flash.jpg', seasons: {} },
-            { id: 'ken-flash', name: 'Ken Flash', description: 'Le stratège de la famille, celui qui pense toujours trois coups à l\'avance et anticipe chaque mouvement des adversaires.', image: 'images/ken_flash.jpg', seasons: {} },
-            { id: 'aaron-flash', name: 'Aaron Flash', description: 'Le combattant, le muscle de la famille Flash. Sa force brute et son courage en font un allié précieux.', image: 'images/aaron_flash.jpg', seasons: {} },
-            { id: 'david-jr-flash', name: 'David Jr Flash', description: 'La nouvelle génération qui doit prouver sa valeur et montrer qu\'il est digne du nom qu\'il porte.', image: 'images/david_jr_flash.jpg', seasons: {} },
-            { id: 'damon-flash', name: 'Damon Flash', description: 'Le mystérieux membre dont personne ne connaît vraiment les intentions. Toujours dans l\'ombre, il tire les ficelles.', image: 'images/damon_flash.jpg', seasons: {} },
-            { id: 'kayton-flash', name: 'Kayton Flash', description: 'Le tacticien qui planifie chaque opération dans les moindres détails. Rien n\'est laissé au hasard.', image: 'images/kayton_flash.jpg', seasons: {} },
-            { id: 'adrian-flash', name: 'Adrian Flash', description: 'Le loyal, celui sur qui on peut toujours compter. Sa fidélité à la famille est sans faille.', image: 'images/adrian_flash.jpg', seasons: {} },
-            { id: 'ned-flash', name: 'Ned/Eden/Eddy Flash', description: 'Les multiples facettes d\'une même personne. Chaque identité a sa propre personnalité et ses propres objectifs.', image: 'images/ned_flash.jpg', seasons: {} },
-            { id: 'manda-flash', name: 'Manda Flash', description: 'La protectrice de la famille, celle qui veille sur tous. Son dévouement est sans limite.', image: 'images/manda_flash.jpg', seasons: {} }
+            { id: 'john-flash', name: 'John Flash', description: 'Le successeur ambitieux', image: 'images/john_flash.jpg', banner: FLASH_BANNER, seasons: {} },
+            { id: 'ken-flash', name: 'Ken Flash', description: 'Le stratège', image: 'images/ken_flash.jpg', banner: FLASH_BANNER, seasons: {} },
+            { id: 'aaron-flash', name: 'Aaron Flash', description: 'Le combattant', image: 'images/aaron_flash.jpg', banner: FLASH_BANNER, hasVideo: true, videoUrl: 'videos/aaron-flash.mp4', seasons: {} },
+            { id: 'david-jr-flash', name: 'David Jr Flash', description: 'La nouvelle génération', image: 'images/david_jr_flash.jpg', banner: FLASH_BANNER, seasons: {} },
+            { id: 'damon-flash', name: 'Damon Flash', description: 'Le mystérieux', image: 'images/damon_flash.jpg', banner: FLASH_BANNER, seasons: {} },
+            { id: 'kayton-flash', name: 'Kayton Flash', description: 'Le tacticien', image: 'images/kayton_flash.jpg', banner: FLASH_BANNER, seasons: {} },
+            { id: 'adrian-flash', name: 'Adrian Flash', description: 'Le loyal', image: 'images/adrian_flash.jpg', banner: FLASH_BANNER, seasons: {} },
+            { id: 'ned-flash', name: 'Ned/Eden/Eddy Flash', description: 'Les multiples facettes', image: 'images/ned_flash.jpg', banner: FLASH_BANNER, hasVideo: true, videoUrl: 'videos/ned-flash.mp4', subtitlesUrl: 'videos/ned-flash.srt', seasons: {} },
+            { id: 'manda-flash', name: 'Manda Flash', description: 'La protectrice', image: 'images/manda_flash.jpg', banner: FLASH_BANNER, seasons: {} }
         ]
     },
-    shade: { name: 'Famille Shade', description: 'Mystère et ombres', image: 'images/shade-universe.jpg', characters: [{ id: 'sylvester-shade', name: 'Sylvester (Silver) Shade', description: 'L\'ombre insaisissable qui opère dans le noir le plus total. Personne ne connaît son vrai visage.', image: 'images/sylvester_shade.jpg', seasons: {} }] },
-    winters: { name: 'Famille Winters', description: 'Froid comme l\'hiver', image: 'images/winters-universe.jpg', characters: [{ id: 'oliver-winters', name: 'Oliver Winters', description: 'Le leader froid et calculateur de la famille Winters. Son sang-froid légendaire fait trembler ses ennemis.', image: 'images/oliver_winters.jpg', seasons: {} }, { id: 'jake-winters', name: 'Jake Winters', description: 'Le second, toujours prêt à prendre la relève. Loyal et dévoué à son frère Oliver.', image: 'images/jake_winters.jpg', seasons: {} }] },
-    escobar: { name: 'Famille Escobar', description: 'Danger incarné', image: 'images/escobar-universe.jpg', characters: [{ id: 'tom-escobar', name: 'Tom Escobar', description: 'Le chef impitoyable qui règne par la peur. Sa réputation le précède partout où il va.', image: 'images/tom_escobar.jpg', seasons: {} }] },
-    kingsley: { name: 'Famille Kingsley', description: 'La royauté criminelle', image: 'images/kingsley-universe.jpg', characters: [{ id: 'zack-kingsley', name: 'Zack Kingsley', description: 'Le roi autoproclamé du crime organisé. Son empire s\'étend sur tout Los Santos.', image: 'images/zack_kingsley.jpg', seasons: {} }] }
+    shade: { 
+        name: 'Famille Shade', 
+        description: 'Mystère et ombres', 
+        image: 'images/shade-universe.jpg', 
+        characters: [
+            { id: 'sylvester-shade', name: 'Sylvester (Silver) Shade', description: 'L\'ombre insaisissable', image: 'images/sylvester_shade.jpg', banner: 'images/shade-banner.jpg', seasons: {} }
+        ] 
+    },
+    winters: { 
+        name: 'Famille Winters', 
+        description: 'Froid comme l\'hiver', 
+        image: 'images/winters-universe.jpg', 
+        characters: [
+            { id: 'oliver-winters', name: 'Oliver Winters', description: 'Le leader froid', image: 'images/oliver_winters.jpg', banner: 'images/winters-banner.jpg', seasons: {} }, 
+            { id: 'jake-winters', name: 'Jake Winters', description: 'Le second', image: 'images/jake_winters.jpg', banner: 'images/winters-banner.jpg', seasons: {} }
+        ] 
+    },
+    escobar: { 
+        name: 'Famille Escobar', 
+        description: 'Danger incarné', 
+        image: 'images/escobar-universe.jpg', 
+        characters: [
+            { id: 'tom-escobar', name: 'Tom Escobar', description: 'Le chef impitoyable', image: 'images/tom_escobar.jpg', banner: 'images/escobar-banner.jpg', seasons: {} }
+        ] 
+    },
+    kingsley: { 
+        name: 'Famille Kingsley', 
+        description: 'La royauté criminelle', 
+        image: 'images/kingsley-universe.jpg', 
+        characters: [
+            { id: 'zack-kingsley', name: 'Zack Kingsley', description: 'Le roi', image: 'images/zack_kingsley.jpg', banner: 'images/kingsley-banner.jpg', seasons: {} }
+        ] 
+    }
 };
 
 const socialNetworks = [
@@ -65,6 +101,12 @@ const socialNetworks = [
     { name: 'Twitter/X', icon: 'fab fa-twitter', info: 'Updates', url: 'https://x.com/ipromx', image: 'images/twitter.jpg' },
     { name: 'Boutique', icon: 'fas fa-shopping-bag', info: 'Merch', url: 'https://shop.ipromx.com', image: 'images/shop.jpg' },
     { name: 'Tebex', icon: 'fas fa-map-marked-alt', info: 'FiveM', url: 'https://tebex.ipromx.com', image: 'images/tebex.jpg' }
+];
+
+const legendesVideos = [
+    { id: 'leg1', title: 'iProMx IRL - La rencontre', thumbnail: 'images/leg1.jpg', videoId: 'dQw4w9WgXcQ', type: 'irl' },
+    { id: 'leg2', title: 'Les coulisses du RP', thumbnail: 'images/leg2.jpg', videoId: 'dQw4w9WgXcQ', type: 'bonus' },
+    { id: 'leg3', title: 'Best Of Moments', thumbnail: 'images/leg3.jpg', videoId: 'dQw4w9WgXcQ', type: 'bestof' }
 ];
 
 // ==========================================
@@ -82,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         isGuest = true;
         currentUser = { id: 'guest', user_metadata: { full_name: 'Invité' } };
         loadLocalData();
-        showGuestModal();
+        setTimeout(() => showGuestModal(), 1000);
     } else if (user) {
         currentUser = user;
         await loadUserData(user);
@@ -92,6 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupEventListeners();
     displayUniverses();
     displayPopularCarousel();
+    displayLegendesCarousel();
     displaySocialNetworks();
     checkLiveStatus();
     setupScrollEffects();
@@ -113,39 +156,52 @@ function closeGuestModal() {
     modal.classList.remove('active');
 }
 
+function redirectToConnection() {
+    localStorage.setItem('ipromx_redirect_from_guest', 'true');
+    window.location.href = 'connection.html';
+}
+
 // ==========================================
 // DONNÉES
 // ==========================================
 async function loadUserData(user) {
     const { data } = await supabaseClient
         .from('users_data')
-        .select('history, my_list')
+        .select('history, my_list, all_watched')
         .eq('discord_id', user.id)
         .single();
 
     if (data) {
         window.userHistory = data.history || [];
         window.userMyList = data.my_list || [];
+        window.allWatchedEpisodes = data.all_watched || [];
     } else {
         await supabaseClient.from('users_data').insert({ discord_id: user.id });
         window.userHistory = [];
         window.userMyList = [];
+        window.allWatchedEpisodes = [];
     }
 }
 
 function loadLocalData() {
     window.userHistory = JSON.parse(localStorage.getItem('ipromxHistory') || '[]');
     window.userMyList = JSON.parse(localStorage.getItem('ipromxMyList') || '[]');
+    window.allWatchedEpisodes = JSON.parse(localStorage.getItem('ipromxAllWatched') || '[]');
 }
 
 async function saveData() {
     if (isGuest) {
         localStorage.setItem('ipromxHistory', JSON.stringify(window.userHistory));
         localStorage.setItem('ipromxMyList', JSON.stringify(window.userMyList));
+        localStorage.setItem('ipromxAllWatched', JSON.stringify(window.allWatchedEpisodes));
     } else {
         await supabaseClient
             .from('users_data')
-            .update({ history: window.userHistory, my_list: window.userMyList })
+            .update({ 
+                history: window.userHistory, 
+                my_list: window.userMyList,
+                all_watched: window.allWatchedEpisodes
+            })
             .eq('discord_id', currentUser.id);
     }
 }
@@ -162,21 +218,27 @@ function showMainContent() {
     if (isGuest) {
         userName.textContent = 'Invité';
         userAvatar.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM4QjAwMDAiLz4KPHBhdGggZD0iTTIwIDIwQzIyLjc2MTQgMjAgMjUgMTcuNzYxNCAyNSAxNUMyNSAxMi4yMzg2IDIyLjc2MTQgMTAgMjAgMTBDMTcuMjM4NiAxMCAxNSAxMi4yMzg2IDE1IDE1QzE1IDE3Ljc2MTQgMTcuMjM4NiAyMCAyMCAyMFpNMjAgMjJDMTYuMzM1OCAyMiAxMyAyMy4zNDMxIDEzIDI1VjI4SDI3VjI1QzI3IDIzLjM0MzEgMjMuNjY0MiAyMiAyMCAyMloiIGZpbGw9IiNGRkQ3MDAiLz4KPC9zdmc+';
-        logoutBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline-flex';
+        logoutBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i>';
+        logoutBtn.onclick = () => {
+            localStorage.setItem('ipromx_redirect_from_guest', 'true');
+            window.location.href = 'connection.html';
+        };
     } else {
         userName.textContent = currentUser.user_metadata.full_name || 'Utilisateur';
-        userAvatar.src = `https://cdn.discordapp.com/avatars/${currentUser.id}/${currentUser.user_metadata.avatar}.png`;
-        logoutBtn.style.display = 'block';
+        userAvatar.src = currentUser.user_metadata.avatar_url || 
+                         `https://cdn.discordapp.com/avatars/${currentUser.id}/${currentUser.user_metadata.avatar}.png`;
+        logoutBtn.style.display = 'inline-flex';
+        logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
+        logoutBtn.onclick = async () => {
+            await supabaseClient.auth.signOut();
+            localStorage.removeItem('ipromx_guest');
+            window.location.href = 'connection.html';
+        };
     }
 
     userInfo.style.display = 'flex';
 }
-
-document.getElementById('btnLogout')?.addEventListener('click', async () => {
-    await supabaseClient.auth.signOut();
-    localStorage.removeItem('ipromx_guest');
-    window.location.href = 'connection.html';
-});
 
 // ==========================================
 // ŒIL DU FAUCON
@@ -238,7 +300,31 @@ function openUniverse(familyId, charId = null) {
     const family = universesData[familyId];
     const character = family.characters.find(c => c.id === charId) || family.characters[0];
 
-    document.getElementById('seriesHero').style.backgroundImage = `url('${character.image}')`;
+    const seriesHero = document.getElementById('seriesHero');
+    const heroVideo = document.getElementById('heroVideo');
+    const videoControls = document.getElementById('videoControlsHero');
+
+    if (character.hasVideo) {
+        seriesHero.style.backgroundImage = 'none';
+        heroVideo.src = character.videoUrl;
+        heroVideo.style.display = 'block';
+        videoControls.style.display = 'flex';
+        
+        if (character.subtitlesUrl) {
+            document.getElementById('videoSubtitles').src = character.subtitlesUrl;
+            document.getElementById('subtitlesHero').style.display = 'inline-flex';
+        } else {
+            document.getElementById('subtitlesHero').style.display = 'none';
+        }
+        
+        setupVideoControls(heroVideo);
+        heroVideo.play();
+    } else {
+        heroVideo.style.display = 'none';
+        videoControls.style.display = 'none';
+        seriesHero.style.backgroundImage = `url('${character.banner || character.image}')`;
+    }
+
     document.getElementById('seriesTitle').textContent = character.name;
     document.getElementById('seriesDescription').textContent = character.description;
 
@@ -277,11 +363,47 @@ function openUniverse(familyId, charId = null) {
         showSeason(familyId, character.id, seasons[0]);
     } else {
         seasonTabs.innerHTML = '';
-        episodesList.innerHTML = '<p class="no-episodes">Aucun épisode disponible pour le moment.</p>';
+        episodesList.innerHTML = '<p class="no-episodes">Aucun épisode disponible.</p>';
     }
 
     document.getElementById('seriesModal').classList.add('active');
     document.body.style.overflow = 'hidden';
+}
+
+function setupVideoControls(video) {
+    const playPauseBtn = document.getElementById('playPauseHero');
+    const muteBtn = document.getElementById('muteHero');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const subtitlesBtn = document.getElementById('subtitlesHero');
+
+    playPauseBtn.onclick = () => {
+        if (video.paused) {
+            video.play();
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            video.pause();
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+    };
+
+    muteBtn.onclick = () => {
+        video.muted = !video.muted;
+        muteBtn.innerHTML = video.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+    };
+
+    volumeSlider.oninput = (e) => {
+        video.volume = e.target.value / 100;
+    };
+
+    let subtitlesEnabled = false;
+    subtitlesBtn.onclick = () => {
+        const track = video.textTracks[0];
+        if (track) {
+            subtitlesEnabled = !subtitlesEnabled;
+            track.mode = subtitlesEnabled ? 'showing' : 'hidden';
+            subtitlesBtn.style.color = subtitlesEnabled ? 'var(--hp-gold)' : '#fff';
+        }
+    };
 }
 
 function showSeason(familyId, charId, season, btn = null) {
@@ -323,8 +445,6 @@ function playEpisode(videoId, character, familyId, season, episodeIndex) {
     document.getElementById('characterName').textContent = character.name;
     document.getElementById('characterShortDesc').textContent = universesData[familyId].name;
     document.getElementById('characterFullDesc').textContent = character.description;
-
-    const savedTime = getSavedTime(videoId);
     
     if (player) {
         player.destroy();
@@ -336,7 +456,6 @@ function playEpisode(videoId, character, familyId, season, episodeIndex) {
         videoId: videoId,
         playerVars: {
             autoplay: 1,
-            start: savedTime,
             controls: 1,
             rel: 0,
             modestbranding: 1,
@@ -350,13 +469,6 @@ function playEpisode(videoId, character, familyId, season, episodeIndex) {
         }
     });
 
-    setInterval(() => {
-        if (player && player.getCurrentTime) {
-            const currentTime = Math.floor(player.getCurrentTime());
-            saveProgressTime(videoId, currentTime);
-        }
-    }, 5000);
-
     displaySuggestions(character, season, episodeIndex, familyId);
 
     const inList = window.userMyList.some(i => i.charId === character.id);
@@ -368,7 +480,7 @@ function playEpisode(videoId, character, familyId, season, episodeIndex) {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    addToHistory(character.name, `${season} - Ép. ${currentEp.num}`, videoId, character.image);
+    addToHistory(character.name, `${season} - Ép. ${currentEp.num}`, videoId, character.image, familyId, character.id, season, episodeIndex);
 }
 
 function onPlayerStateChange(event) {
@@ -419,14 +531,6 @@ function toggleMyListFromPlayer() {
             ? '<i class="fas fa-check"></i><span>Dans Ma Liste</span>' 
             : '<i class="fas fa-plus"></i><span>Ma Liste</span>';
     }
-}
-
-function saveProgressTime(videoId, time) {
-    localStorage.setItem(`progress_${videoId}`, time.toString());
-}
-
-function getSavedTime(videoId) {
-    return parseInt(localStorage.getItem(`progress_${videoId}`) || '0');
 }
 
 function closePlayer() {
@@ -496,7 +600,8 @@ function handleSearch(e) {
 async function checkLiveStatus() {
     const statusEl = document.getElementById('liveStatus');
     const descEl = document.getElementById('liveDescription');
-    const viewerEl = document.getElementById('viewerCount');
+    const lastLiveDateEl = document.getElementById('lastLiveDate');
+    const titleEl = document.getElementById('liveTitle');
     const badge = document.getElementById('liveBadge');
     const indicator = document.getElementById('liveIndicatorNav');
 
@@ -506,28 +611,44 @@ async function checkLiveStatus() {
         
         if (data.status === 'online') {
             statusEl.textContent = 'EN DIRECT';
-            descEl.textContent = 'GTA RP - Action intense dans les rues de Los Santos !';
-            viewerEl.innerHTML = '<i class="fas fa-eye"></i> En ligne';
+            titleEl.textContent = data.title || 'iProMx en direct';
+            descEl.textContent = 'GTA RP - Action intense !';
+            lastLiveDateEl.innerHTML = '<i class="fas fa-calendar"></i> Maintenant';
             badge.classList.add('online');
-            indicator.classList.remove('offline');
+            indicator.classList.remove('offline', 'error');
+            indicator.innerHTML = '<span class="live-dot"></span><span class="live-text">EN LIVE</span>';
         } else {
             statusEl.textContent = 'HORS LIGNE';
-            if (data.lastLive) {
-                descEl.textContent = `Dernier live : ${data.lastLive}`;
+            titleEl.textContent = 'iProMx sur Twitch';
+            
+            const lastLiveResponse = await fetch('/.netlify/functions/live-on-twitch', {
+                headers: { 'x-last-live': 'true' }
+            });
+            const lastLiveData = await lastLiveResponse.json();
+            
+            if (lastLiveData.lastLive) {
+                descEl.textContent = lastLiveData.title || 'Dernier live';
+                lastLiveDateEl.innerHTML = `<i class="fas fa-calendar"></i> ${lastLiveData.lastLive}`;
             } else {
-                descEl.textContent = 'Le stream reprendra bientôt !';
+                descEl.textContent = 'Le stream reprendra bientôt';
+                lastLiveDateEl.innerHTML = '<i class="fas fa-calendar"></i> --';
             }
-            viewerEl.innerHTML = '<i class="fas fa-eye"></i> --';
+            
             badge.classList.remove('online');
             indicator.classList.add('offline');
+            indicator.classList.remove('error');
+            indicator.innerHTML = '<span class="live-dot"></span><span class="live-text">PAS EN LIVE</span>';
         }
     } catch (err) {
         console.error('Erreur live:', err);
-        statusEl.textContent = 'HORS LIGNE';
+        statusEl.textContent = 'ERREUR';
+        titleEl.textContent = 'iProMx sur Twitch';
         descEl.textContent = 'Impossible de vérifier le statut';
-        viewerEl.innerHTML = '<i class="fas fa-eye"></i> --';
+        lastLiveDateEl.innerHTML = '<i class="fas fa-calendar"></i> --';
         badge.classList.remove('online');
-        indicator.classList.add('offline');
+        indicator.classList.add('error');
+        indicator.classList.remove('offline');
+        indicator.innerHTML = '<span class="live-dot"></span><span class="live-text">ERREUR</span>';
     }
 }
 
@@ -535,9 +656,15 @@ async function checkLiveStatus() {
 // CAROUSELS
 // ==========================================
 function scrollCarousel(type, direction) {
-    const ids = { history: 'historyCards', mylist: 'mylistCards', univers: 'universesGrid', popular: 'popularCarousel' };
+    const ids = { 
+        history: 'historyCards', 
+        mylist: 'mylistCards', 
+        univers: 'universesGrid', 
+        popular: 'popularCarousel',
+        legendes: 'legendesCarousel'
+    };
     const track = document.getElementById(ids[type]);
-    const cardWidth = track.querySelector('.card-cr')?.offsetWidth || 240;
+    const cardWidth = track.querySelector('.card-cr, .history-item')?.offsetWidth || 240;
     track.scrollBy({ left: direction * (cardWidth + 25), behavior: 'smooth' });
 }
 
@@ -563,6 +690,63 @@ function displayPopularCarousel() {
     }).join('');
 }
 
+function displayLegendesCarousel() {
+    const track = document.getElementById('legendesCarousel');
+    track.innerHTML = legendesVideos.map(video => `
+        <div class="card-cr" onclick="playLegendVideo('${video.videoId}', '${video.title}')">
+            <div class="card-image-cr" style="background-image: url('${video.thumbnail}')">
+                <div class="play-icon-overlay"><i class="fas fa-play-circle"></i></div>
+            </div>
+            <div class="card-content-cr">
+                <h3 class="card-title-cr">${video.title}</h3>
+                <p class="card-meta-cr">${video.type === 'irl' ? 'IRL' : video.type === 'bonus' ? 'Bonus' : 'Best Of'}</p>
+            </div>
+        </div>
+    `).join('');
+}
+
+function playLegendVideo(videoId, title) {
+    const fakeCharacter = {
+        id: 'legend',
+        name: 'iProMx',
+        description: 'Moments légendaires et contenus exclusifs d\'iProMx',
+        image: 'images/logo-ipromx.png'
+    };
+    
+    currentVideoData = { videoId, character: fakeCharacter, familyId: 'legend', season: 'Légendes', episodeIndex: 0 };
+    
+    const modal = document.getElementById('playerModal');
+    document.getElementById('playerTitle').textContent = 'iProMx Légendes';
+    document.getElementById('playerEpisode').textContent = title;
+    document.getElementById('characterAvatar').src = 'images/logo-ipromx.png';
+    document.getElementById('characterName').textContent = 'iProMx';
+    document.getElementById('characterShortDesc').textContent = 'Contenu Exclusif';
+    document.getElementById('characterFullDesc').textContent = 'Découvrez les moments légendaires, contenus IRL et bonus exclusifs d\'iProMx.';
+    
+    if (player) player.destroy();
+    
+    player = new YT.Player('youtubePlayerContainer', {
+        height: '100%',
+        width: '100%',
+        videoId: videoId,
+        playerVars: {
+            autoplay: 1,
+            controls: 1,
+            rel: 0,
+            modestbranding: 1,
+            fs: 1
+        }
+    });
+
+    document.getElementById('suggestionsList').innerHTML = '';
+    
+    const addListBtn = document.getElementById('addListBtnPlayer');
+    addListBtn.style.display = 'none';
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
 function displaySocialNetworks() {
     document.getElementById('socialGrid').innerHTML = socialNetworks.map(net => `
         <a href="${net.url}" target="_blank" class="social-card-cr">
@@ -578,9 +762,31 @@ function displaySocialNetworks() {
 // ==========================================
 // HISTORIQUE
 // ==========================================
-function addToHistory(title, episode, videoId, image) {
-    const entry = { title, episode, videoId, image, timestamp: Date.now() };
-    window.userHistory = [entry, ...window.userHistory.filter(h => h.videoId !== videoId)].slice(0, 50);
+function addToHistory(title, episode, videoId, image, familyId, charId, season, episodeIndex) {
+    const entry = { 
+        title, 
+        episode, 
+        videoId, 
+        image, 
+        familyId,
+        charId,
+        season,
+        episodeIndex,
+        timestamp: Date.now() 
+    };
+    
+    // Ajouter à l'historique complet
+    window.allWatchedEpisodes = [entry, ...window.allWatchedEpisodes.filter(h => h.videoId !== videoId)].slice(0, 100);
+    
+    // Pour l'affichage, garder seulement le dernier épisode par personnage
+    const existingIndex = window.userHistory.findIndex(h => h.charId === charId);
+    if (existingIndex > -1) {
+        window.userHistory.splice(existingIndex, 1);
+    }
+    
+    window.userHistory.unshift(entry);
+    window.userHistory = window.userHistory.slice(0, 20);
+    
     displayHistory();
     saveData();
 }
@@ -595,45 +801,92 @@ function displayHistory() {
     }
     
     section.style.display = 'block';
-    track.innerHTML = window.userHistory.map(h => {
-        const progress = getSavedTime(h.videoId);
-        const progressPercent = progress > 0 ? Math.min((progress / 1800) * 100, 100) : 0;
-        
-        return `
-            <div class="card-cr history-card" onclick="resumeVideo('${h.videoId}')">
-                <div class="card-image-cr" style="background-image: url('https://i.ytimg.com/vi/${h.videoId}/hqdefault.jpg')">
-                    <i class="fas fa-play-circle play-icon-small"></i>
-                    ${progressPercent > 0 ? `<div class="progress-bar-history" style="width: ${progressPercent}%"></div>` : ''}
-                </div>
-                <div class="card-content-cr">
-                    <h3 class="card-title-cr">${h.title}</h3>
-                    <p class="card-meta-cr">${h.episode}</p>
-                </div>
+    track.innerHTML = window.userHistory.map(h => `
+        <div class="history-item" onclick="resumeVideo('${h.videoId}', '${h.familyId}', '${h.charId}', '${h.season}', ${h.episodeIndex})">
+            <div class="history-thumb" style="background-image: url('https://i.ytimg.com/vi/${h.videoId}/hqdefault.jpg')">
+                <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
             </div>
-        `;
-    }).join('');
+            <div class="history-info">
+                <h4>${h.title}</h4>
+                <p>${h.episode}</p>
+            </div>
+        </div>
+    `).join('');
 }
 
-function resumeVideo(videoId) {
-    for (const [familyId, family] of Object.entries(universesData)) {
-        for (const char of family.characters) {
-            for (const [season, episodes] of Object.entries(char.seasons)) {
-                const epIndex = episodes.findIndex(ep => ep.videoId === videoId);
-                if (epIndex !== -1) {
-                    playEpisode(videoId, char, familyId, season, epIndex);
-                    return;
-                }
-            }
-        }
+function resumeVideo(videoId, familyId, charId, season, episodeIndex) {
+    const family = universesData[familyId];
+    if (!family) return;
+    
+    const character = family.characters.find(c => c.id === charId);
+    if (!character) return;
+    
+    playEpisode(videoId, character, familyId, season, episodeIndex);
+}
+
+function openManageHistory() {
+    const modal = document.getElementById('manageHistoryModal');
+    const list = document.getElementById('manageHistoryList');
+    selectedHistoryItems.clear();
+    
+    list.innerHTML = window.allWatchedEpisodes.map((h, index) => `
+        <div class="manage-item">
+            <input type="checkbox" id="hist-${index}" onchange="toggleHistorySelection(${index})">
+            <label for="hist-${index}">
+                <img src="https://i.ytimg.com/vi/${h.videoId}/default.jpg" alt="">
+                <div class="manage-item-info">
+                    <h4>${h.title}</h4>
+                    <p>${h.episode}</p>
+                    <span class="manage-date">${new Date(h.timestamp).toLocaleDateString('fr-FR')}</span>
+                </div>
+            </label>
+        </div>
+    `).join('');
+    
+    modal.classList.add('active');
+}
+
+function toggleHistorySelection(index) {
+    if (selectedHistoryItems.has(index)) {
+        selectedHistoryItems.delete(index);
+    } else {
+        selectedHistoryItems.add(index);
     }
 }
 
-function clearHistory() {
-    if (confirm('Voulez-vous vraiment effacer tout votre historique ?')) {
+function deleteSelectedHistory() {
+    if (selectedHistoryItems.size === 0) {
+        alert('Veuillez sélectionner au moins un élément');
+        return;
+    }
+    
+    if (confirm(`Supprimer ${selectedHistoryItems.size} élément(s) ?`)) {
+        const indices = Array.from(selectedHistoryItems).sort((a, b) => b - a);
+        indices.forEach(i => {
+            const item = window.allWatchedEpisodes[i];
+            window.allWatchedEpisodes.splice(i, 1);
+            window.userHistory = window.userHistory.filter(h => h.videoId !== item.videoId);
+        });
+        
+        displayHistory();
+        saveData();
+        closeManageHistory();
+    }
+}
+
+function deleteAllHistory() {
+    if (confirm('Supprimer tout l\'historique ?')) {
+        window.allWatchedEpisodes = [];
         window.userHistory = [];
         displayHistory();
         saveData();
+        closeManageHistory();
     }
+}
+
+function closeManageHistory() {
+    document.getElementById('manageHistoryModal').classList.remove('active');
+    selectedHistoryItems.clear();
 }
 
 // ==========================================
@@ -687,12 +940,69 @@ function displayMyList() {
     `).join('');
 }
 
-function clearMyList() {
-    if (confirm('Voulez-vous vraiment vider votre liste ?')) {
+function openManageList() {
+    const modal = document.getElementById('manageListModal');
+    const list = document.getElementById('manageListList');
+    selectedListItems.clear();
+    
+    const items = window.userMyList.map(item => {
+        const family = universesData[item.familyId];
+        const char = family.characters.find(c => c.id === item.charId);
+        return { ...char, ...item };
+    });
+    
+    list.innerHTML = items.map((item, index) => `
+        <div class="manage-item">
+            <input type="checkbox" id="list-${index}" onchange="toggleListSelection(${index})">
+            <label for="list-${index}">
+                <img src="${item.image}" alt="">
+                <div class="manage-item-info">
+                    <h4>${item.name}</h4>
+                    <p>${universesData[item.familyId].name}</p>
+                </div>
+            </label>
+        </div>
+    `).join('');
+    
+    modal.classList.add('active');
+}
+
+function toggleListSelection(index) {
+    if (selectedListItems.has(index)) {
+        selectedListItems.delete(index);
+    } else {
+        selectedListItems.add(index);
+    }
+}
+
+function deleteSelectedList() {
+    if (selectedListItems.size === 0) {
+        alert('Veuillez sélectionner au moins un élément');
+        return;
+    }
+    
+    if (confirm(`Supprimer ${selectedListItems.size} élément(s) ?`)) {
+        const indices = Array.from(selectedListItems).sort((a, b) => b - a);
+        indices.forEach(i => window.userMyList.splice(i, 1));
+        
+        displayMyList();
+        saveData();
+        closeManageList();
+    }
+}
+
+function deleteAllList() {
+    if (confirm('Supprimer toute la liste ?')) {
         window.userMyList = [];
         displayMyList();
         saveData();
+        closeManageList();
     }
+}
+
+function closeManageList() {
+    document.getElementById('manageListModal').classList.remove('active');
+    selectedListItems.clear();
 }
 
 // ==========================================
@@ -726,7 +1036,15 @@ function filterFamily(family) {
 // FERMETURE MODALS
 // ==========================================
 function closeSeriesModal() {
-    document.getElementById('seriesModal').classList.remove('active');
+    const modal = document.getElementById('seriesModal');
+    const heroVideo = document.getElementById('heroVideo');
+    
+    if (heroVideo) {
+        heroVideo.pause();
+        heroVideo.currentTime = 0;
+    }
+    
+    modal.classList.remove('active');
     document.body.style.overflow = '';
 }
 
@@ -734,8 +1052,12 @@ window.onclick = function(e) {
     const seriesModal = document.getElementById('seriesModal');
     const playerModal = document.getElementById('playerModal');
     const guestModal = document.getElementById('guestModal');
+    const manageHistoryModal = document.getElementById('manageHistoryModal');
+    const manageListModal = document.getElementById('manageListModal');
     
     if (e.target === seriesModal) closeSeriesModal();
     if (e.target === playerModal) closePlayer();
     if (e.target === guestModal) closeGuestModal();
+    if (e.target === manageHistoryModal) closeManageHistory();
+    if (e.target === manageListModal) closeManageList();
 };

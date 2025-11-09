@@ -17,14 +17,52 @@
                 <i class="fas fa-exclamation-triangle"></i>
             </div>
             <h2>Mode Invité</h2>
-            <p>Vous naviguez en mode invité. Vos données (historique, ma liste, progression des vidéos) ne seront pas sauvegardées de manière permanente.</p>
-            <p class="guest-modal-tip">Pour une expérience optimale et sauvegarder votre progression, connectez-vous avec Discord.</p>
+            <p>Vous naviguez en mode invité. Vos données (historique, ma liste) ne seront pas sauvegardées de manière permanente.</p>
+            <p class="guest-modal-tip">Pour une expérience optimale et sauvegarder vos données, connectez-vous avec Discord.</p>
             <div class="guest-modal-actions">
                 <button class="btn-guest-primary" onclick="closeGuestModal()">
                     <i class="fas fa-check"></i> J'ai compris
                 </button>
-                <button class="btn-guest-secondary" onclick="window.location.href='connection.html'">
-                    <i class="fas fa-arrow-left"></i> Je me connecte
+                <button class="btn-guest-secondary" onclick="redirectToConnection()">
+                    <i class="fas fa-sign-in-alt"></i> Je me connecte
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GESTION HISTORIQUE -->
+    <div class="manage-modal" id="manageHistoryModal">
+        <div class="manage-modal-content">
+            <button class="modal-close-btn" onclick="closeManageHistory()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2><i class="fas fa-history"></i> Gérer l'historique</h2>
+            <div class="manage-list" id="manageHistoryList"></div>
+            <div class="manage-actions">
+                <button class="btn-delete-selected" onclick="deleteSelectedHistory()">
+                    <i class="fas fa-trash"></i> Supprimer la sélection
+                </button>
+                <button class="btn-delete-all" onclick="deleteAllHistory()">
+                    <i class="fas fa-trash-alt"></i> Tout supprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GESTION MA LISTE -->
+    <div class="manage-modal" id="manageListModal">
+        <div class="manage-modal-content">
+            <button class="modal-close-btn" onclick="closeManageList()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2><i class="fas fa-star"></i> Gérer Ma Liste</h2>
+            <div class="manage-list" id="manageListList"></div>
+            <div class="manage-actions">
+                <button class="btn-delete-selected" onclick="deleteSelectedList()">
+                    <i class="fas fa-trash"></i> Supprimer la sélection
+                </button>
+                <button class="btn-delete-all" onclick="deleteAllList()">
+                    <i class="fas fa-trash-alt"></i> Tout supprimer
                 </button>
             </div>
         </div>
@@ -35,7 +73,7 @@
         <div class="navbar-container">
             <div class="navbar-left">
                 <div class="logo" onclick="window.location.reload()">
-                    <img src="images/logo-ipromx.png" alt="iPROMX" class="logo-image">
+                    <img src="images/logo.webp" alt="iPROMX" class="logo-image">
                     <span class="logo-text">iPROMX</span>
                 </div>
                 <div class="nav-links">
@@ -48,10 +86,10 @@
                 <button class="search-btn" id="searchTrigger">
                     <i class="fas fa-search"></i>
                 </button>
-                <div class="live-indicator-nav" id="liveIndicatorNav">
+                <a href="https://www.twitch.tv/ipromx" target="_blank" class="live-indicator-nav" id="liveIndicatorNav">
                     <span class="live-dot"></span>
-                    <span class="live-text">LIVE</span>
-                </div>
+                    <span class="live-text">VÉRIFICATION...</span>
+                </a>
                 <div id="userInfo" style="display: none; align-items: center; gap: 12px; margin-left: 20px;">
                     <img id="userAvatar" src="" alt="Avatar" class="user-avatar">
                     <span id="userName" class="user-name"></span>
@@ -65,7 +103,7 @@
 
     <!-- HERO BANNER -->
     <div class="hero-banner-large" id="heroBanner">
-        <div class="hero-background" style="background-image: url('images/ipromx-hero.jpg');"></div>
+        <div class="hero-background" style="background-image: url('images/ipromxbackground.png');"></div>
         <div class="hero-content-large">
             <h1 class="hero-title-large">L'UNIVERS D'iPROMX</h1>
             <p class="hero-description-large">Découvrez les sagas criminelles, les alliances, les trahisons et les légendes qui traversent les générations. Une expérience immersive unique dans l'univers du RP.</p>
@@ -105,22 +143,22 @@
         <div class="section-header-cr">
             <h2 class="section-title-cr">
                 <i class="fas fa-circle live-icon"></i>
-                EN DIRECT MAINTENANT
+                STATUT TWITCH
             </h2>
         </div>
         <div class="live-card-compact">
-            <div class="live-thumbnail-compact" style="background-image: url('images/twitch-live.jpg');">
+            <div class="live-thumbnail-compact" style="background-image: url('images/ipromxgrrrrrr.jpg');">
                 <div class="live-badge-overlay" id="liveBadge">
                     <i class="fas fa-circle"></i>
                     <span id="liveStatus">VÉRIFICATION...</span>
                 </div>
             </div>
             <div class="live-info-compact">
-                <h3>iProMx en direct sur Twitch</h3>
-                <p id="liveDescription">Vérification du statut du stream...</p>
+                <h3 id="liveTitle">iProMx sur Twitch</h3>
+                <p id="liveDescription">Vérification du statut...</p>
                 <div class="live-stats-compact">
-                    <span><i class="fas fa-users"></i> 271K</span>
-                    <span id="viewerCount"><i class="fas fa-eye"></i> --</span>
+                    <span><i class="fas fa-users"></i> 271K followers</span>
+                    <span id="lastLiveDate"><i class="fas fa-calendar"></i> --</span>
                 </div>
             </div>
             <button class="btn-watch-live-compact" onclick="window.open('https://www.twitch.tv/ipromx', '_blank')">
@@ -137,19 +175,11 @@
                 <i class="fas fa-history"></i>
                 Continuer à regarder
             </h2>
-            <button class="clear-btn" onclick="clearHistory()">
-                <i class="fas fa-trash"></i> Tout effacer
+            <button class="clear-btn" onclick="openManageHistory()">
+                <i class="fas fa-cog"></i> Gérer
             </button>
         </div>
-        <div class="carousel-container">
-            <button class="carousel-btn carousel-prev" onclick="scrollCarousel('history', -1)">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <div class="carousel-track" id="historyCards"></div>
-            <button class="carousel-btn carousel-next" onclick="scrollCarousel('history', 1)">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
+        <div class="history-horizontal-list" id="historyCards"></div>
     </div>
 
     <!-- MA LISTE -->
@@ -159,8 +189,8 @@
                 <i class="fas fa-star"></i>
                 Ma Liste
             </h2>
-            <button class="clear-btn" onclick="clearMyList()">
-                <i class="fas fa-trash"></i> Tout effacer
+            <button class="clear-btn" onclick="openManageList()">
+                <i class="fas fa-cog"></i> Gérer
             </button>
         </div>
         <div class="carousel-container">
@@ -215,6 +245,25 @@
             </button>
             <div class="carousel-track" id="popularCarousel"></div>
             <button class="carousel-btn carousel-next" onclick="scrollCarousel('popular', 1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- LÉGENDES -->
+    <div class="section-crunchyroll" id="legendes">
+        <div class="section-header-cr">
+            <h2 class="section-title-cr">
+                <i class="fas fa-crown"></i>
+                Légendes
+            </h2>
+        </div>
+        <div class="carousel-container">
+            <button class="carousel-btn carousel-prev" onclick="scrollCarousel('legendes', -1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-track" id="legendesCarousel"></div>
+            <button class="carousel-btn carousel-next" onclick="scrollCarousel('legendes', 1)">
                 <i class="fas fa-chevron-right"></i>
             </button>
         </div>
@@ -283,7 +332,19 @@
             <button class="modal-close-btn" onclick="closeSeriesModal()">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="series-hero" id="seriesHero"></div>
+            <div class="series-hero" id="seriesHero">
+                <!-- Vidéo pour Ned et Aaron -->
+                <video id="heroVideo" class="hero-video" loop muted style="display:none;">
+                    <source src="" type="video/mp4">
+                    <track id="videoSubtitles" kind="subtitles" srclang="fr" label="Français" style="display:none;">
+                </video>
+                <div class="video-controls-hero" id="videoControlsHero" style="display:none;">
+                    <button class="hero-control-btn" id="playPauseHero"><i class="fas fa-pause"></i></button>
+                    <button class="hero-control-btn" id="muteHero"><i class="fas fa-volume-up"></i></button>
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+                    <button class="hero-control-btn" id="subtitlesHero" style="display:none;"><i class="fas fa-closed-captioning"></i></button>
+                </div>
+            </div>
             <div class="series-body">
                 <div class="series-info-section">
                     <h2 id="seriesTitle"></h2>
@@ -315,7 +376,7 @@
         <div class="footer-container">
             <div class="footer-top">
                 <div class="footer-logo">
-                    <img src="images/logo-ipromx.png" alt="iPROMX" class="logo-image-footer">
+                    <img src="images/logo.webp" alt="iPROMX" class="logo-image-footer">
                     <span class="logo-text-footer">iPROMX</span>
                 </div>
                 <div class="footer-links">
