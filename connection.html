@@ -25,14 +25,39 @@
             overflow: hidden;
         }
         .login-container {
-            text-align: center; padding: 60px; background: rgba(26,26,26,0.95);
-            border-radius: 25px; box-shadow: 0 0 80px rgba(255,215,0,0.3);
-            max-width: 420px; width: 90%; backdrop-filter: blur(15px);
+            text-align: center; 
+            padding: 50px 40px; /* Réduit */
+            background: rgba(26,26,26,0.95);
+            border-radius: 25px; 
+            box-shadow: 0 0 70px rgba(255,215,0,0.3);
+            max-width: 380px; /* Réduit de 420px à 380px */
+            width: 90%; 
+            backdrop-filter: blur(15px);
             border: 1px solid rgba(255,215,0,0.2);
+            animation: fadeIn 0.8s ease-out;
         }
-        .logo-icon { font-size: 4.5rem; color: #FFD700; margin-bottom: 20px; filter: drop-shadow(0 0 20px rgba(255,215,0,0.5)); }
-        .logo-text { font-family: 'Cinzel', serif; font-size: 3.2rem; font-weight: 900; color: var(--hp-gold); letter-spacing: 4px; text-shadow: 0 0 15px rgba(255,215,0,0.6); margin-bottom: 15px; }
-        .login-desc { font-size: 1.1rem; color: var(--hp-text-secondary); margin-bottom: 35px; line-height: 1.6; }
+        .logo-img {
+            width: 6rem; /* Même taille que l'icône */
+            height: 6rem;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(255,215,0,0.5));
+            object-fit: contain;
+        }
+        .logo-text { 
+            font-family: 'Cinzel', serif; 
+            font-size: 3.2rem; 
+            font-weight: 900; 
+            color: var(--hp-gold); 
+            letter-spacing: 4px; 
+            text-shadow: 0 0 15px rgba(255,215,0,0.6); 
+            margin-bottom: 15px; 
+        }
+        .login-desc { 
+            font-size: 1.1rem; 
+            color: var(--hp-text-secondary); 
+            margin-bottom: 35px; 
+            line-height: 1.6; 
+        }
         .btn-discord-login {
             background: #5865F2; color: white; border: none; padding: 16px 36px;
             border-radius: 50px; font-weight: bold; font-size: 1.15rem;
@@ -40,25 +65,46 @@
             cursor: pointer; transition: all 0.3s ease;
             box-shadow: 0 6px 20px rgba(88, 101, 242, 0.4);
         }
-        .btn-discord-login:hover { background: #4752c4; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(88, 101, 242, 0.6); }
+        .btn-discord-login:hover { 
+            background: #4752c4; 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.6); 
+        }
         .btn-skip-login {
             background: transparent; color: var(--hp-text-secondary);
             border: 1.5px solid var(--hp-gold); padding: 14px 32px;
             border-radius: 50px; font-size: 1rem; cursor: pointer;
             transition: all 0.3s ease; margin-bottom: 25px;
         }
-        .btn-skip-login:hover { background: rgba(255,215,0,0.1); color: var(--hp-gold); border-color: var(--hp-gold); transform: translateY(-2px); }
-        .login-footer { font-size: 0.9rem; color: #888; }
-        .login-footer a { color: var(--hp-gold); text-decoration: none; }
-        .login-footer a:hover { text-decoration: underline; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .login-container { animation: fadeIn 0.8s ease-out; }
+        .btn-skip-login:hover { 
+            background: rgba(255,215,0,0.1); 
+            color: var(--hp-gold); 
+            border-color: var(--hp-gold); 
+            transform: translateY(-2px); 
+        }
+        .login-footer { 
+            font-size: 0.9rem; 
+            color: #888; 
+        }
+        .login-footer a { 
+            color: var(--hp-gold); 
+            text-decoration: none; 
+        }
+        .login-footer a:hover { 
+            text-decoration: underline; 
+        }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
     </style>
 </head>
 <body>
 
     <div class="login-container">
-        <i class="fas fa-bolt logo-icon"></i>
+        <!-- Remplace cette URL par ton image (même taille recommandée : ~120x120px) -->
+        <img src="images/logoblanc.webp" alt="Logo iProMx" class="logo-img">
+        
         <h1 class="logo-text">iPROMX</h1>
         <p class="login-desc">Connectez-vous pour sauvegarder votre historique et liste sur tous vos appareils.</p>
         
@@ -81,15 +127,15 @@
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // === CONNEXION DISCORD ===
-       async function loginWithDiscord() {
-    const { error } = await supabaseClient.auth.signInWithOAuth({
-        provider: 'discord',
-        options: { 
-            redirectTo: 'https://ipromxsite.netlify.app/indexv3.html'  // ← Ton site final
+        async function loginWithDiscord() {
+            const { error } = await supabaseClient.auth.signInWithOAuth({
+                provider: 'discord',
+                options: { 
+                    redirectTo: 'https://ipromxsite.netlify.app/indexv3.html'
+                }
+            });
+            if (error) alert('Erreur : ' + error.message);
         }
-    });
-    if (error) alert('Erreur : ' + error.message);
-}
 
         // === MODE INVITÉ ===
         function continueAsGuest() {

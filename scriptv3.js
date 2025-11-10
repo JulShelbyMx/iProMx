@@ -28,7 +28,7 @@ const universesData = {
     flash: {
         name: 'Famille Flash',
         description: 'La saga légendaire qui traverse les générations',
-        image: 'images/flash.jpg',
+        image: 'images/flashlogo.webp',
         characters: [
             { 
                 id: 'david-flash', 
@@ -39,6 +39,22 @@ const universesData = {
                 seasons: { 
                     'Saison 1': [
                         { num: 1, title: 'POUR LA PREMIÈRE FOIS JE TESTE GTAV RP', videoId: 'z_H0tafxHAc' },
+                        { num: 2, title: 'Les Débuts', videoId: 'z_H0tafxHAc' }
+                    ], 
+                    'Saison 2': [
+                        { num: 1, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' }
+                    ] 
+                } 
+            },
+            { 
+                id: 'john-flash', 
+                name: 'John', 
+                description: 'Le fondateur légendaire de la famille Flash. Un homme au passé trouble qui a bâti un empire dans l\'ombre de Los Santos.', 
+                image: 'images/john_flash.jpg',
+                banner: FLASH_BANNER,
+                seasons: { 
+                    'Saison 1': [
+                        { num: 1, title: 'Je suis gay ! ', videoId: 'z_H0tafxHAc' },
                         { num: 2, title: 'Les Débuts', videoId: 'z_H0tafxHAc' }
                     ], 
                     'Saison 2': [
@@ -93,14 +109,14 @@ const universesData = {
 };
 
 const socialNetworks = [
-    { name: 'YouTube Principal', icon: 'fab fa-youtube', info: '~1.4M abonnés', url: 'https://www.youtube.com/@iProMx', image: 'images/youtube.jpg' },
-    { name: 'YouTube Secondaire', icon: 'fab fa-youtube', info: 'Bonus', url: 'https://www.youtube.com/@iProMx2', image: 'images/youtube.jpg' },
-    { name: 'Twitch', icon: 'fab fa-twitch', info: '~271K followers', url: 'https://www.twitch.tv/ipromx', image: 'images/twitch.webp' },
-    { name: 'Discord', icon: 'fab fa-discord', info: 'Communauté', url: 'https://discord.gg/ipromx', image: 'images/discord.webp' },
-    { name: 'TikTok', icon: 'fab fa-tiktok', info: 'Viral', url: 'https://www.tiktok.com/@ipromx__', image: 'images/tiktok.webp' },
-    { name: 'Twitter/X', icon: 'fab fa-twitter', info: 'Updates', url: 'https://x.com/ipromx', image: 'images/x.webp' },
-    { name: 'Boutique', icon: 'fas fa-shopping-bag', info: 'Merch', url: 'https://shop.ipromx.com', image: 'images/store.webp' },
-    { name: 'Tebex', icon: 'fas fa-map-marked-alt', info: 'FiveM', url: 'https://tebex.ipromx.com', image: 'images/tebex.webp' }
+    { name: 'YouTube Principal', icon: 'fab fa-youtube', info: '~1.4M abonnés', url: 'https://www.youtube.com/@iProMx', image: 'images/youtube-main.jpg' },
+    { name: 'YouTube Secondaire', icon: 'fab fa-youtube', info: 'Bonus', url: 'https://www.youtube.com/@iProMx2', image: 'images/youtube-second.jpg' },
+    { name: 'Twitch', icon: 'fab fa-twitch', info: '~271K followers', url: 'https://www.twitch.tv/ipromx', image: 'images/twitch.jpg' },
+    { name: 'Discord', icon: 'fab fa-discord', info: 'Communauté', url: 'https://discord.gg/ipromx', image: 'images/discord.jpg' },
+    { name: 'TikTok', icon: 'fab fa-tiktok', info: 'Viral', url: 'https://www.tiktok.com/@ipromx__', image: 'images/tiktok.jpg' },
+    { name: 'Twitter/X', icon: 'fab fa-twitter', info: 'Updates', url: 'https://x.com/ipromx', image: 'images/twitter.jpg' },
+    { name: 'Boutique', icon: 'fas fa-shopping-bag', info: 'Merch', url: 'https://shop.ipromx.com', image: 'images/shop.jpg' },
+    { name: 'Tebex', icon: 'fas fa-map-marked-alt', info: 'FiveM', url: 'https://tebex.ipromx.com', image: 'images/tebex.jpg' }
 ];
 
 const legendesVideos = [
@@ -113,19 +129,32 @@ const legendesVideos = [
 // INITIALISATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
+    // Vérifier si redirection depuis mode invité
+    const fromGuest = localStorage.getItem('ipromx_redirect_from_guest');
+    if (fromGuest === 'true') {
+        localStorage.removeItem('ipromx_redirect_from_guest');
+        localStorage.removeItem('ipromx_guest');
+        // Ne pas continuer l'init, laisser connection.html gérer
+        return;
+    }
+
     const { data: { user } } = await supabaseClient.auth.getUser();
 
+    // Si pas connecté ET pas en mode invité → redirection
     if (!user && localStorage.getItem('ipromx_guest') !== 'true') {
         window.location.href = 'connection.html';
         return;
     }
 
+    // MODE INVITÉ
     if (localStorage.getItem('ipromx_guest') === 'true') {
         isGuest = true;
         currentUser = { id: 'guest', user_metadata: { full_name: 'Invité' } };
         loadLocalData();
         setTimeout(() => showGuestModal(), 1000);
-    } else if (user) {
+    } 
+    // MODE DISCORD
+    else if (user) {
         currentUser = user;
         await loadUserData(user);
     }
