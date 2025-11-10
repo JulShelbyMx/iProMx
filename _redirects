@@ -1,5 +1,8 @@
-# Redirige tout vers indexv3.html (SPA)
-/*    /indexv3.html   200
+# Page d'accueil → connection.html
+/       /connection.html   200
 
-# Callback Supabase vers indexv3.html
-/auth/v1/callback    /indexv3.html   301
+# SPA : toutes les autres routes → indexv3.html
+/*      /indexv3.html      200
+
+# Callback Supabase (auth) → indexv3.html
+/auth/v1/callback         /indexv3.html   301
