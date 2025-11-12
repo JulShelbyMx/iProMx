@@ -16,9 +16,8 @@ let selectedHistoryItems = new Set();
 let selectedListItems = new Set();
 window.userHistory = [];
 window.userMyList = [];
-window.allWatchedEpisodes = []; // Historique complet
+window.allWatchedEpisodes = [];
 
-// Bannière commune Flash
 const FLASH_BANNER = 'images/flash.jpg';
 
 // ==========================================
@@ -48,13 +47,13 @@ const universesData = {
             },
             { 
                 id: 'john-flash', 
-                name: 'John', 
-                description: 'Le fondateur légendaire de la famille Flash. Un homme au passé trouble qui a bâti un empire dans l\'ombre de Los Santos.', 
+                name: 'John Flash', 
+                description: 'Le successeur ambitieux', 
                 image: 'images/john_flash.jpg',
                 banner: FLASH_BANNER,
                 seasons: { 
                     'Saison 1': [
-                        { num: 1, title: 'Je suis gay ! ', videoId: 'z_H0tafxHAc' },
+                        { num: 1, title: 'Je suis gay !', videoId: 'z_H0tafxHAc' },
                         { num: 2, title: 'Les Débuts', videoId: 'z_H0tafxHAc' }
                     ], 
                     'Saison 2': [
@@ -62,14 +61,32 @@ const universesData = {
                     ] 
                 } 
             },
-            { id: 'john-flash', name: 'John Flash', description: 'Le successeur ambitieux', image: 'images/john_flash.jpg', banner: FLASH_BANNER, seasons: {} },
             { id: 'ken-flash', name: 'Ken Flash', description: 'Le stratège', image: 'images/ken_flash.jpg', banner: FLASH_BANNER, seasons: {} },
-            { id: 'aaron-flash', name: 'Aaron Flash', description: 'Le combattant', image: 'images/aaron_flash.jpg', banner: FLASH_BANNER, hasVideo: true, videoUrl: 'videos/aaron-flash.mp4', seasons: {} },
+            { 
+                id: 'aaron-flash', 
+                name: 'Aaron Flash', 
+                description: 'Le combattant', 
+                image: 'images/aaron_flash.jpg', 
+                banner: FLASH_BANNER, 
+                hasVideo: true, 
+                videoUrl: 'vidéos/phénixanimation1.mp4',
+                seasons: {} 
+            },
             { id: 'david-jr-flash', name: 'David Jr Flash', description: 'La nouvelle génération', image: 'images/david_jr_flash.jpg', banner: FLASH_BANNER, seasons: {} },
             { id: 'damon-flash', name: 'Damon Flash', description: 'Le mystérieux', image: 'images/damon_flash.jpg', banner: FLASH_BANNER, seasons: {} },
             { id: 'kayton-flash', name: 'Kayton Flash', description: 'Le tacticien', image: 'images/kayton_flash.jpg', banner: FLASH_BANNER, seasons: {} },
             { id: 'adrian-flash', name: 'Adrian Flash', description: 'Le loyal', image: 'images/adrian_flash.jpg', banner: FLASH_BANNER, seasons: {} },
-            { id: 'ned-flash', name: 'Ned/Eden/Eddy Flash', description: 'Les multiples facettes', image: 'images/ned_flash.jpg', banner: FLASH_BANNER, hasVideo: true, videoUrl: 'videos/ned-flash.mp4', subtitlesUrl: 'videos/ned-flash.srt', seasons: {} },
+            { 
+                id: 'ned-flash', 
+                name: 'Ned/Eden/Eddy Flash', 
+                description: 'Les multiples facettes', 
+                image: 'images/ned_flash.jpg', 
+                banner: FLASH_BANNER, 
+                hasVideo: true, 
+                videoUrl: 'vidéos/3frèresintro.mp4',
+                subtitlesUrl: 'vidéos/3frèresintro.vtt',
+                seasons: {} 
+            },
             { id: 'manda-flash', name: 'Manda Flash', description: 'La protectrice', image: 'images/manda_flash.jpg', banner: FLASH_BANNER, seasons: {} }
         ]
     },
@@ -78,7 +95,16 @@ const universesData = {
         description: 'Mystère et ombres', 
         image: 'images/shade-universe.jpg', 
         characters: [
-            { id: 'sylvester-shade', name: 'Sylvester (Silver) Shade', description: 'L\'ombre insaisissable', image: 'images/sylvester_shade.jpg', banner: 'images/shade-banner.jpg', seasons: {} }
+            { 
+                id: 'sylvester-shade', 
+                name: 'Sylvester (Silver) Shade', 
+                description: 'L\'ombre insaisissable', 
+                image: 'images/sylvester_shade.jpg', 
+                banner: 'images/shade-banner.jpg',
+                hasLawBook: true,
+                lawBookImages: ['images/shade-law-1.webp', 'images/shade-law-2.webp', 'images/shade-law-3.webp'],
+                seasons: {} 
+            }
         ] 
     },
     winters: { 
@@ -125,38 +151,48 @@ const legendesVideos = [
     { id: 'leg3', title: 'Best Of Moments', thumbnail: 'images/leg3.jpg', videoId: 'dQw4w9WgXcQ', type: 'bestof' }
 ];
 
+function checkAuthAccess() {
+    const hasAuthSession = localStorage.getItem('ipromx_auth_session');
+    const isGuestMode = localStorage.getItem('ipromx_guest') === 'true';
+    const fromGuest = localStorage.getItem('ipromx_redirect_from_guest');
+    
+    if (!hasAuthSession && !isGuestMode && fromGuest !== 'true') {
+        window.location.href = 'connection.html';
+        return false;
+    }
+    
+    return true;
+}
+
 // ==========================================
 // INITIALISATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
-    // Vérifier si redirection depuis mode invité
+    if (!checkAuthAccess()) return;
+    
     const fromGuest = localStorage.getItem('ipromx_redirect_from_guest');
     if (fromGuest === 'true') {
         localStorage.removeItem('ipromx_redirect_from_guest');
         localStorage.removeItem('ipromx_guest');
-        // Ne pas continuer l'init, laisser connection.html gérer
         return;
     }
 
     const { data: { user } } = await supabaseClient.auth.getUser();
 
-    // Si pas connecté ET pas en mode invité → redirection
     if (!user && localStorage.getItem('ipromx_guest') !== 'true') {
         window.location.href = 'connection.html';
         return;
     }
 
-    // MODE INVITÉ
     if (localStorage.getItem('ipromx_guest') === 'true') {
         isGuest = true;
         currentUser = { id: 'guest', user_metadata: { full_name: 'Invité' } };
         loadLocalData();
         setTimeout(() => showGuestModal(), 1000);
-    } 
-    // MODE DISCORD
-    else if (user) {
+    } else if (user) {
         currentUser = user;
         await loadUserData(user);
+        localStorage.setItem('ipromx_auth_session', 'true');
     }
 
     showMainContent();
@@ -172,17 +208,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     initFalconEye();
 });
 
-// ==========================================
-// MODAL INVITÉ
-// ==========================================
 function showGuestModal() {
-    const modal = document.getElementById('guestModal');
-    modal.classList.add('active');
+    document.getElementById('guestModal').classList.add('active');
 }
 
 function closeGuestModal() {
-    const modal = document.getElementById('guestModal');
-    modal.classList.remove('active');
+    document.getElementById('guestModal').classList.remove('active');
 }
 
 function redirectToConnection() {
@@ -190,9 +221,45 @@ function redirectToConnection() {
     window.location.href = 'connection.html';
 }
 
-// ==========================================
-// DONNÉES
-// ==========================================
+function toggleUserDropdown() {
+    const dropdown = document.getElementById('userDropdownMenu');
+    if (!dropdown) {
+        const userInfo = document.getElementById('userInfo');
+        const dropdownHTML = `
+            <div class="user-dropdown-menu" id="userDropdownMenu">
+                <span class="user-name">${currentUser.user_metadata.full_name || 'Utilisateur'}</span>
+                <button class="btn-logout" onclick="handleLogout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    ${isGuest ? 'Se connecter' : 'Déconnexion'}
+                </button>
+            </div>
+        `;
+        userInfo.insertAdjacentHTML('beforeend', dropdownHTML);
+    }
+    
+    document.getElementById('userDropdownMenu').classList.toggle('active');
+}
+
+document.addEventListener('click', (e) => {
+    const userInfo = document.getElementById('userInfo');
+    const dropdown = document.getElementById('userDropdownMenu');
+    if (dropdown && !userInfo.contains(e.target)) {
+        dropdown.classList.remove('active');
+    }
+});
+
+async function handleLogout() {
+    if (isGuest) {
+        localStorage.setItem('ipromx_redirect_from_guest', 'true');
+        window.location.href = 'connection.html';
+    } else {
+        await supabaseClient.auth.signOut();
+        localStorage.removeItem('ipromx_guest');
+        localStorage.removeItem('ipromx_auth_session');
+        window.location.href = 'connection.html';
+    }
+}
+
 async function loadUserData(user) {
     const { data } = await supabaseClient
         .from('users_data')
@@ -235,9 +302,6 @@ async function saveData() {
     }
 }
 
-// ==========================================
-// AFFICHAGE UTILISATEUR
-// ==========================================
 function showMainContent() {
     const userInfo = document.getElementById('userInfo');
     const userName = document.getElementById('userName');
@@ -247,31 +311,25 @@ function showMainContent() {
     if (isGuest) {
         userName.textContent = 'Invité';
         userAvatar.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM4QjAwMDAiLz4KPHBhdGggZD0iTTIwIDIwQzIyLjc2MTQgMjAgMjUgMTcuNzYxNCAyNSAxNUMyNSAxMi4yMzg2IDIyLjc2MTQgMTAgMjAgMTBDMTcuMjM4NiAxMCAxNSAxMi4yMzg2IDE1IDE1QzE1IDE3Ljc2MTQgMTcuMjM4NiAyMCAyMCAyMFpNMjAgMjJDMTYuMzM1OCAyMiAxMyAyMy4zNDMxIDEzIDI1VjI4SDI3VjI1QzI3IDIzLjM0MzEgMjMuNjY0MiAyMiAyMCAyMloiIGZpbGw9IiNGRkQ3MDAiLz4KPC9zdmc+';
-        logoutBtn.style.display = 'inline-flex';
-        logoutBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i>';
-        logoutBtn.onclick = () => {
-            localStorage.setItem('ipromx_redirect_from_guest', 'true');
-            window.location.href = 'connection.html';
-        };
+        logoutBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Se connecter';
+        logoutBtn.onclick = handleLogout;
     } else {
         userName.textContent = currentUser.user_metadata.full_name || 'Utilisateur';
         userAvatar.src = currentUser.user_metadata.avatar_url || 
                          `https://cdn.discordapp.com/avatars/${currentUser.id}/${currentUser.user_metadata.avatar}.png`;
-        logoutBtn.style.display = 'inline-flex';
-        logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
-        logoutBtn.onclick = async () => {
-            await supabaseClient.auth.signOut();
-            localStorage.removeItem('ipromx_guest');
-            window.location.href = 'connection.html';
-        };
+        logoutBtn.onclick = handleLogout;
     }
 
+    userAvatar.onclick = () => {
+        if (window.innerWidth <= 768) {
+            toggleUserDropdown();
+        }
+    };
+
+    logoutBtn.style.display = 'inline-flex';
     userInfo.style.display = 'flex';
 }
 
-// ==========================================
-// ŒIL DU FAUCON
-// ==========================================
 function initFalconEye() {
     const pupils = document.querySelectorAll('.pupil-large');
     
@@ -295,9 +353,6 @@ function initFalconEye() {
     });
 }
 
-// ==========================================
-// AFFICHAGE UNIVERS
-// ==========================================
 function displayUniverses() {
     const grid = document.getElementById('universesGrid');
     const order = ['zack-kingsley', 'jake-winters', 'ned-flash', 'manda-flash', 'adrian-flash', 'oliver-winters'];
@@ -323,34 +378,48 @@ function displayUniverses() {
 }
 
 // ==========================================
-// MODAL PERSONNAGE
+// MODAL PERSONNAGE - CORRIGÉ POUR VIDÉO
 // ==========================================
 function openUniverse(familyId, charId = null) {
     const family = universesData[familyId];
     const character = family.characters.find(c => c.id === charId) || family.characters[0];
 
     const seriesHero = document.getElementById('seriesHero');
+    const heroVideoContainer = document.getElementById('heroVideoContainer');
     const heroVideo = document.getElementById('heroVideo');
-    const videoControls = document.getElementById('videoControlsHero');
+    const shadeLawsBtn = document.getElementById('shadeLawsBtn');
+
+    shadeLawsBtn.style.display = 'none';
 
     if (character.hasVideo) {
+        // IMPORTANT: Masquer l'image de fond
         seriesHero.style.backgroundImage = 'none';
-        heroVideo.src = character.videoUrl;
-        heroVideo.style.display = 'block';
-        videoControls.style.display = 'flex';
-        
+        // IMPORTANT: Afficher le container vidéo
+        heroVideoContainer.style.display = 'block';
+        // Charger la source vidéo
+        heroVideo.querySelector('source').src = character.videoUrl;
+        // Gérer les sous-titres
+        const subtitlesTrack = document.getElementById('videoSubtitles');
+        const subtitlesBtn = document.getElementById('subtitlesHero');
         if (character.subtitlesUrl) {
-            document.getElementById('videoSubtitles').src = character.subtitlesUrl;
-            document.getElementById('subtitlesHero').style.display = 'inline-flex';
+            subtitlesTrack.src = character.subtitlesUrl;
+            subtitlesBtn.style.display = 'inline-flex';
         } else {
-            document.getElementById('subtitlesHero').style.display = 'none';
+            subtitlesBtn.style.display = 'none';
         }
-        
+        // Recharger la vidéo
+        heroVideo.load();
+        // Setup des contrôles
         setupVideoControls(heroVideo);
-        heroVideo.play();
+        // Lancer la vidéo
+        heroVideo.play().catch(err => console.log('Autoplay bloqué:', err));
+    } else if (character.hasLawBook) {
+        heroVideoContainer.style.display = 'none';
+        seriesHero.style.backgroundImage = `url('${character.banner || character.image}')`;
+        shadeLawsBtn.style.display = 'block';
     } else {
-        heroVideo.style.display = 'none';
-        videoControls.style.display = 'none';
+        // Image normale - MASQUER le container vidéo
+        heroVideoContainer.style.display = 'none';
         seriesHero.style.backgroundImage = `url('${character.banner || character.image}')`;
     }
 
@@ -359,9 +428,7 @@ function openUniverse(familyId, charId = null) {
 
     const addBtn = document.getElementById('addToListBtn');
     const inList = window.userMyList.some(i => i.charId === character.id);
-    addBtn.innerHTML = inList 
-        ? '<i class="fas fa-check"></i> Dans Ma Liste' 
-        : '<i class="fas fa-plus"></i> Ajouter à Ma Liste';
+    addBtn.innerHTML = inList ? '<i class="fas fa-check"></i> Dans Ma Liste' : '<i class="fas fa-plus"></i> Ajouter à Ma Liste';
     addBtn.onclick = () => toggleMyList(familyId, character.id);
 
     const startBtn = document.getElementById('startBtn');
@@ -382,7 +449,6 @@ function openUniverse(familyId, charId = null) {
 
     const seasonTabs = document.getElementById('seasonTabs');
     const episodesList = document.getElementById('episodesListDetailed');
-
     if (seasons.length > 0) {
         seasonTabs.innerHTML = seasons.map((s, i) => `
             <button class="season-tab ${i === 0 ? 'active' : ''}" onclick="showSeason('${familyId}', '${character.id}', '${s}', this)">
@@ -400,10 +466,32 @@ function openUniverse(familyId, charId = null) {
 }
 
 function setupVideoControls(video) {
+    const container = document.getElementById('heroVideoContainer');
     const playPauseBtn = document.getElementById('playPauseHero');
+    const skipBackwardBtn = document.getElementById('skipBackwardHero');
+    const skipForwardBtn = document.getElementById('skipForwardHero');
     const muteBtn = document.getElementById('muteHero');
     const volumeSlider = document.getElementById('volumeSlider');
     const subtitlesBtn = document.getElementById('subtitlesHero');
+    const pipBtn = document.getElementById('pipHero');
+    const fullscreenBtn = document.getElementById('fullscreenHero');
+    const exitFullscreenBtn = document.getElementById('exitFullscreenBtn');
+    const progressBar = document.getElementById('videoProgressBar');
+    const progressFilled = document.getElementById('videoProgressFilled');
+    const videoTime = document.getElementById('videoTime');
+    const videoLoading = document.getElementById('videoLoading');
+
+    video.muted = false;
+    video.volume = 0.5;
+    volumeSlider.value = 50;
+
+    video.addEventListener('waiting', () => {
+        videoLoading.style.display = 'block';
+    });
+
+    video.addEventListener('playing', () => {
+        videoLoading.style.display = 'none';
+    });
 
     playPauseBtn.onclick = () => {
         if (video.paused) {
@@ -415,6 +503,16 @@ function setupVideoControls(video) {
         }
     };
 
+    video.onclick = () => playPauseBtn.click();
+
+    skipBackwardBtn.onclick = () => {
+        video.currentTime = Math.max(0, video.currentTime - 5);
+    };
+
+    skipForwardBtn.onclick = () => {
+        video.currentTime = Math.min(video.duration, video.currentTime + 5);
+    };
+
     muteBtn.onclick = () => {
         video.muted = !video.muted;
         muteBtn.innerHTML = video.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
@@ -422,17 +520,157 @@ function setupVideoControls(video) {
 
     volumeSlider.oninput = (e) => {
         video.volume = e.target.value / 100;
-    };
-
-    let subtitlesEnabled = false;
-    subtitlesBtn.onclick = () => {
-        const track = video.textTracks[0];
-        if (track) {
-            subtitlesEnabled = !subtitlesEnabled;
-            track.mode = subtitlesEnabled ? 'showing' : 'hidden';
-            subtitlesBtn.style.color = subtitlesEnabled ? 'var(--hp-gold)' : '#fff';
+        if (video.muted) {
+            video.muted = false;
+            muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        }
+        if (e.target.value == 0) {
+            muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        } else if (e.target.value < 50) {
+            muteBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+        } else {
+            muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
         }
     };
+
+    video.addEventListener('timeupdate', () => {
+        const percent = (video.currentTime / video.duration) * 100;
+        progressFilled.style.width = percent + '%';
+        const current = formatTime(video.currentTime);
+        const total = formatTime(video.duration);
+        videoTime.textContent = `${current} / ${total}`;
+    });
+
+    progressBar.onclick = (e) => {
+        const rect = progressBar.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        video.currentTime = percent * video.duration;
+    };
+
+    if (subtitlesBtn.style.display !== 'none') {
+        let subtitlesEnabled = false;
+        video.addEventListener('loadedmetadata', () => {
+            if (video.textTracks.length > 0) {
+                const track = video.textTracks[0];
+                track.mode = 'hidden';
+                subtitlesBtn.onclick = () => {
+                    subtitlesEnabled = !subtitlesEnabled;
+                    track.mode = subtitlesEnabled ? 'showing' : 'hidden';
+                    subtitlesBtn.classList.toggle('active', subtitlesEnabled);
+                };
+            }
+        });
+    }
+
+    if (document.pictureInPictureEnabled) {
+        pipBtn.onclick = async () => {
+            try {
+                if (document.pictureInPictureElement) {
+                    await document.exitPictureInPicture();
+                } else {
+                    await video.requestPictureInPicture();
+                }
+            } catch (err) {
+                console.error('PiP error:', err);
+            }
+        };
+    } else {
+        pipBtn.style.display = 'none';
+    }
+
+    fullscreenBtn.onclick = () => {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement) {
+            if (container.requestFullscreen) container.requestFullscreen();
+            else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen();
+            else if (container.mozRequestFullScreen) container.mozRequestFullScreen();
+        } else {
+            if (document.exitFullscreen) document.exitFullscreen();
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+            else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+        }
+    };
+
+    exitFullscreenBtn.onclick = () => {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+    };
+
+    function handleFullscreenChange() {
+        const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement;
+        if (isFullscreen) {
+            exitFullscreenBtn.classList.add('show');
+            fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+            container.classList.add('show-controls');
+        } else {
+            exitFullscreenBtn.classList.remove('show');
+            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            container.classList.remove('show-controls');
+        }
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+
+    // Afficher les contrôles au mouvement de la souris
+    let hideControlsTimeout;
+    container.addEventListener('mousemove', () => {
+        container.classList.add('show-controls');
+        clearTimeout(hideControlsTimeout);
+        hideControlsTimeout = setTimeout(() => {
+            if (!video.paused) {
+                container.classList.remove('show-controls');
+            }
+        }, 3000);
+    });
+
+    // Garder les contrôles visibles si la vidéo est en pause
+    video.addEventListener('pause', () => {
+        container.classList.add('show-controls');
+    });
+
+    // Touches clavier
+    document.addEventListener('keydown', (e) => {
+        if (container.style.display === 'none') return;
+        switch(e.key) {
+            case ' ':
+            case 'k':
+                e.preventDefault();
+                playPauseBtn.click();
+                break;
+            case 'ArrowLeft':
+                e.preventDefault();
+                skipBackwardBtn.click();
+                break;
+            case 'ArrowRight':
+                e.preventDefault();
+                skipForwardBtn.click();
+                break;
+            case 'f':
+                e.preventDefault();
+                fullscreenBtn.click();
+                break;
+            case 'm':
+                e.preventDefault();
+                muteBtn.click();
+                break;
+            case 'c':
+                if (subtitlesBtn.style.display !== 'none') {
+                    e.preventDefault();
+                    subtitlesBtn.click();
+                }
+                break;
+        }
+    });
+}
+
+// Fonction helper pour formater le temps
+function formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
 function showSeason(familyId, charId, season, btn = null) {
@@ -462,23 +700,22 @@ function onYouTubeIframeAPIReady() {
 
 function playEpisode(videoId, character, familyId, season, episodeIndex) {
     currentVideoData = { videoId, character, familyId, season, episodeIndex };
-    
+
     const modal = document.getElementById('playerModal');
     const episodes = character.seasons[season];
     const currentEp = episodes[episodeIndex];
-    
+
     document.getElementById('playerTitle').textContent = character.name;
     document.getElementById('playerEpisode').textContent = `${season} - Épisode ${currentEp.num} : ${currentEp.title}`;
-    
     document.getElementById('characterAvatar').src = character.image;
     document.getElementById('characterName').textContent = character.name;
     document.getElementById('characterShortDesc').textContent = universesData[familyId].name;
     document.getElementById('characterFullDesc').textContent = character.description;
-    
+
     if (player) {
         player.destroy();
     }
-    
+
     player = new YT.Player('youtubePlayerContainer', {
         height: '100%',
         width: '100%',
@@ -502,9 +739,7 @@ function playEpisode(videoId, character, familyId, season, episodeIndex) {
 
     const inList = window.userMyList.some(i => i.charId === character.id);
     const addListBtn = document.getElementById('addListBtnPlayer');
-    addListBtn.innerHTML = inList 
-        ? '<i class="fas fa-check"></i><span>Dans Ma Liste</span>' 
-        : '<i class="fas fa-plus"></i><span>Ma Liste</span>';
+    addListBtn.innerHTML = inList ? '<i class="fas fa-check"></i><span>Dans Ma Liste</span>' : '<i class="fas fa-plus"></i><span>Ma Liste</span>';
 
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -526,13 +761,12 @@ function onPlayerStateChange(event) {
 function displaySuggestions(character, season, currentIndex, familyId) {
     const episodes = character.seasons[season] || [];
     const suggestionsList = document.getElementById('suggestionsList');
-    
     const suggestions = [];
-    
+
     if (currentIndex > 0) {
         suggestions.push({ ...episodes[currentIndex - 1], index: currentIndex - 1 });
     }
-    
+
     for (let i = currentIndex + 1; i < Math.min(currentIndex + 6, episodes.length); i++) {
         suggestions.push({ ...episodes[i], index: i });
     }
@@ -553,12 +787,9 @@ function toggleMyListFromPlayer() {
     if (currentVideoData) {
         const { familyId, character } = currentVideoData;
         toggleMyList(familyId, character.id);
-        
         const inList = window.userMyList.some(i => i.charId === character.id);
         const addListBtn = document.getElementById('addListBtnPlayer');
-        addListBtn.innerHTML = inList 
-            ? '<i class="fas fa-check"></i><span>Dans Ma Liste</span>' 
-            : '<i class="fas fa-plus"></i><span>Ma Liste</span>';
+        addListBtn.innerHTML = inList ? '<i class="fas fa-check"></i><span>Dans Ma Liste</span>' : '<i class="fas fa-plus"></i><span>Ma Liste</span>';
     }
 }
 
@@ -592,12 +823,16 @@ function setupEventListeners() {
             closePlayer();
         }
     });
+
+    document.getElementById('mobileMenuBtn').onclick = () => {
+        document.getElementById('mobileMenuModal').classList.add('active');
+    };
 }
 
 function handleSearch(e) {
     const query = e.target.value.toLowerCase().trim();
     const results = document.getElementById('searchResults');
-    
+
     if (!query) {
         results.innerHTML = '';
         return;
@@ -637,7 +872,7 @@ async function checkLiveStatus() {
     try {
         const response = await fetch('/.netlify/functions/live-on-twitch');
         const data = await response.json();
-        
+
         if (data.status === 'online') {
             statusEl.textContent = 'EN DIRECT';
             titleEl.textContent = data.title || 'iProMx en direct';
@@ -649,12 +884,12 @@ async function checkLiveStatus() {
         } else {
             statusEl.textContent = 'HORS LIGNE';
             titleEl.textContent = 'iProMx sur Twitch';
-            
+
             const lastLiveResponse = await fetch('/.netlify/functions/live-on-twitch', {
                 headers: { 'x-last-live': 'true' }
             });
             const lastLiveData = await lastLiveResponse.json();
-            
+
             if (lastLiveData.lastLive) {
                 descEl.textContent = lastLiveData.title || 'Dernier live';
                 lastLiveDateEl.innerHTML = `<i class="fas fa-calendar"></i> ${lastLiveData.lastLive}`;
@@ -662,7 +897,7 @@ async function checkLiveStatus() {
                 descEl.textContent = 'Le stream reprendra bientôt';
                 lastLiveDateEl.innerHTML = '<i class="fas fa-calendar"></i> --';
             }
-            
+
             badge.classList.remove('online');
             indicator.classList.add('offline');
             indicator.classList.remove('error');
@@ -741,9 +976,9 @@ function playLegendVideo(videoId, title) {
         description: 'Moments légendaires et contenus exclusifs d\'iProMx',
         image: 'images/logo-ipromx.png'
     };
-    
+
     currentVideoData = { videoId, character: fakeCharacter, familyId: 'legend', season: 'Légendes', episodeIndex: 0 };
-    
+
     const modal = document.getElementById('playerModal');
     document.getElementById('playerTitle').textContent = 'iProMx Légendes';
     document.getElementById('playerEpisode').textContent = title;
@@ -751,9 +986,9 @@ function playLegendVideo(videoId, title) {
     document.getElementById('characterName').textContent = 'iProMx';
     document.getElementById('characterShortDesc').textContent = 'Contenu Exclusif';
     document.getElementById('characterFullDesc').textContent = 'Découvrez les moments légendaires, contenus IRL et bonus exclusifs d\'iProMx.';
-    
+
     if (player) player.destroy();
-    
+
     player = new YT.Player('youtubePlayerContainer', {
         height: '100%',
         width: '100%',
@@ -768,7 +1003,7 @@ function playLegendVideo(videoId, title) {
     });
 
     document.getElementById('suggestionsList').innerHTML = '';
-    
+
     const addListBtn = document.getElementById('addListBtnPlayer');
     addListBtn.style.display = 'none';
 
@@ -822,7 +1057,7 @@ function addToHistory(title, episode, videoId, image, familyId, charId, season, 
 
 function displayHistory() {
     const section = document.getElementById('historique');
-    const track = document.getElementById('historyCards');
+    const container = document.getElementById('historyCards');
     
     if (!window.userHistory || window.userHistory.length === 0) {
         section.style.display = 'none';
@@ -830,7 +1065,12 @@ function displayHistory() {
     }
     
     section.style.display = 'block';
-    track.innerHTML = window.userHistory.map(h => `
+    
+    // Afficher seulement les 3 premiers par défaut
+    const displayLimit = container.classList.contains('show-all') ? window.userHistory.length : 3;
+    const itemsToShow = window.userHistory.slice(0, displayLimit);
+    
+    container.innerHTML = itemsToShow.map(h => `
         <div class="history-item" onclick="resumeVideo('${h.videoId}', '${h.familyId}', '${h.charId}', '${h.season}', ${h.episodeIndex})">
             <div class="history-thumb" style="background-image: url('https://i.ytimg.com/vi/${h.videoId}/hqdefault.jpg')">
                 <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
@@ -841,6 +1081,31 @@ function displayHistory() {
             </div>
         </div>
     `).join('');
+    
+    // Ajouter le bouton "Voir plus/moins" si plus de 3 éléments
+    if (window.userHistory.length > 3) {
+        const isShowingAll = container.classList.contains('show-all');
+        const buttonHTML = `
+            <button class="history-toggle-btn" onclick="toggleHistoryView()">
+                <i class="fas fa-chevron-${isShowingAll ? 'up' : 'down'}"></i>
+                ${isShowingAll ? 'Voir moins' : 'Voir plus'}
+            </button>
+        `;
+        container.insertAdjacentHTML('afterend', buttonHTML);
+    }
+}
+
+function toggleHistoryView() {
+    const container = document.getElementById('historyCards');
+    const existingBtn = document.querySelector('.history-toggle-btn');
+    
+    container.classList.toggle('show-all');
+    
+    if (existingBtn) {
+        existingBtn.remove();
+    }
+    
+    displayHistory();
 }
 
 function resumeVideo(videoId, familyId, charId, season, episodeIndex) {
@@ -936,9 +1201,7 @@ function toggleMyList(familyId, charId) {
     const btn = document.getElementById('addToListBtn');
     if (btn) {
         const inList = window.userMyList.some(i => i.charId === charId);
-        btn.innerHTML = inList 
-            ? '<i class="fas fa-check"></i> Dans Ma Liste' 
-            : '<i class="fas fa-plus"></i> Ajouter à Ma Liste';
+        btn.innerHTML = inList ? '<i class="fas fa-check"></i> Dans Ma Liste' : '<i class="fas fa-plus"></i> Ajouter à Ma Liste';
     }
 }
 
@@ -1067,12 +1330,12 @@ function filterFamily(family) {
 function closeSeriesModal() {
     const modal = document.getElementById('seriesModal');
     const heroVideo = document.getElementById('heroVideo');
-    
+
     if (heroVideo) {
         heroVideo.pause();
         heroVideo.currentTime = 0;
     }
-    
+
     modal.classList.remove('active');
     document.body.style.overflow = '';
 }
@@ -1083,10 +1346,72 @@ window.onclick = function(e) {
     const guestModal = document.getElementById('guestModal');
     const manageHistoryModal = document.getElementById('manageHistoryModal');
     const manageListModal = document.getElementById('manageListModal');
-    
+    const shadeLawsModal = document.getElementById('shadeLawsModal');
+
     if (e.target === seriesModal) closeSeriesModal();
     if (e.target === playerModal) closePlayer();
     if (e.target === guestModal) closeGuestModal();
     if (e.target === manageHistoryModal) closeManageHistory();
     if (e.target === manageListModal) closeManageList();
+    if (e.target === shadeLawsModal) closeShadeLaws();
 };
+
+function closeMobileMenu() {
+    document.getElementById('mobileMenuModal').classList.remove('active');
+}
+
+// NEW: Functions for Shade Law Book
+let currentLawPage = 0;
+let lawBookImages = [];
+
+function openShadeLaws() {
+    const modal = document.getElementById('shadeLawsModal');
+    const image = document.getElementById('shadeLawsImage');
+    const pageIndicator = document.getElementById('shadePageIndicator');
+    const prevBtn = document.getElementById('shadePrevBtn');
+    const nextBtn = document.getElementById('shadeNextBtn');
+
+    // Get images from current character (assumes Shade has only one character)
+    const currentChar = universesData.shade.characters[0];
+    lawBookImages = currentChar.lawBookImages || [];
+    currentLawPage = 0;
+
+    image.src = lawBookImages[0];
+    pageIndicator.textContent = `${currentLawPage + 1} / ${lawBookImages.length}`;
+    prevBtn.disabled = true;
+    nextBtn.disabled = lawBookImages.length <= 1;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeShadeLaws() {
+    document.getElementById('shadeLawsModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function shadePrevPage() {
+    if (currentLawPage > 0) {
+        currentLawPage--;
+        updateLawPage();
+    }
+}
+
+function shadeNextPage() {
+    if (currentLawPage < lawBookImages.length - 1) {
+        currentLawPage++;
+        updateLawPage();
+    }
+}
+
+function updateLawPage() {
+    const image = document.getElementById('shadeLawsImage');
+    const pageIndicator = document.getElementById('shadePageIndicator');
+    const prevBtn = document.getElementById('shadePrevBtn');
+    const nextBtn = document.getElementById('shadeNextBtn');
+
+    image.src = lawBookImages[currentLawPage];
+    pageIndicator.textContent = `${currentLawPage + 1} / ${lawBookImages.length}`;
+    prevBtn.disabled = currentLawPage === 0;
+    nextBtn.disabled = currentLawPage === lawBookImages.length - 1;
+}
