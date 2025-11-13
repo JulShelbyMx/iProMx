@@ -167,23 +167,35 @@ const legendesVideos = [
 ];
 
 function checkAuthAccess() {
-    const hasAuthSession = localStorage.getItem('ipromx_auth_session');
-    const isGuestMode = localStorage.getItem('ipromx_guest') === 'true';
-    const fromGuest = localStorage.getItem('ipromx_redirect_from_guest');
-    
-    if (!hasAuthSession && !isGuestMode && fromGuest !== 'true') {
-        window.location.href = 'connection.html';
-        return false;
-    }
-    
-    return true;
+  const hasAuthSession = localStorage.getItem('ipromx_auth_session');
+  const isGuestMode = localStorage.getItem('ipromx_guest') === 'true';
+  const fromGuest = localStorage.getItem('ipromx_redirect_from_guest');
+  
+  // FIX: Si callback OAuth (?code= dans URL), skip redirect et laisse onAuthStateChange gérer
+  if (window.location.search.includes('code=')) {
+    console.log('Callback OAuth détecté, attente de session Supabase...');
+    return true;  // Passe, session sera set via listener
+  }
+  
+  if (!hasAuthSession && !isGuestMode && fromGuest !== 'true') {
+    window.location.href = 'connection.html';
+    return false;
+  }
+  
+  return true;
 }
 
 // ==========================================
 // INITIALISATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
+    // FIX: Check session async avant tout
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  if (session) {
+    localStorage.setItem('ipromx_auth_session', 'true');
+  }
     if (!checkAuthAccess()) return;
+    
     
     const fromGuest = localStorage.getItem('ipromx_redirect_from_guest');
     if (fromGuest === 'true') {
