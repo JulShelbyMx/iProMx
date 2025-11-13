@@ -129,6 +129,9 @@
 
     // === CONNEXION DISCORD ===
     async function loginWithDiscord() {
+        // Nettoyer tout état invité avant connexion
+        localStorage.removeItem('ipromx_guest');
+        
         const { error } = await supabaseClient.auth.signInWithOAuth({
             provider: 'discord',
             options: { 
@@ -140,8 +143,11 @@
 
     // === MODE INVITÉ ===
     function continueAsGuest() {
+        // Définir le mode invité
         localStorage.setItem('ipromx_guest', 'true');
-        localStorage.removeItem('ipromx_auth_session'); // Nettoyage
+        // Nettoyer toute session Discord
+        localStorage.removeItem('ipromx_auth_session');
+        // Redirection
         window.location.href = 'indexv3.html';
     }
 
@@ -150,6 +156,7 @@
         const { data: { user } } = await supabaseClient.auth.getUser();
         const isGuest = localStorage.getItem('ipromx_guest') === 'true';
 
+        // Si déjà connecté (Discord ou invité), rediriger vers index
         if (user || isGuest) {
             window.location.href = 'indexv3.html';
         }

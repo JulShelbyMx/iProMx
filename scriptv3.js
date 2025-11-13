@@ -5,16 +5,11 @@ const SUPABASE_URL = 'https://wijodfkyfwdodwsqnmrw.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indpam9kZmt5Zndkb2R3c3FubXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5MzY1MjgsImV4cCI6MjA3NzUxMjUyOH0.2ontW2JrSq1udQL9heCwErTb3e2fwZbejYYpfJYDyss';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Au début du script, après const supabaseClient = ...
 supabaseClient.auth.onAuthStateChange((event, session) => {
     if (event === 'SIGNED_IN') {
         localStorage.setItem('ipromx_auth_session', 'true');
         localStorage.removeItem('ipromx_guest');
         console.log('Session détectée, auth set');
-        // Si on est sur index et en loop, reload
-        if (window.location.pathname.includes('indexv3.html')) {
-            window.location.reload();
-        }
     } else if (event === 'SIGNED_OUT') {
         localStorage.removeItem('ipromx_auth_session');
     }
