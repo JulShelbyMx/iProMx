@@ -162,49 +162,82 @@ const legendesVideos = [
 ];
 
 function checkAuthAccess() {
-    const hasAuthSession = localStorage.getItem('ipromx_auth_session');
+    // Vérifier si on a une vraie session Discord
+    const hasAuthSession = localStorage.getItem('ipromx_auth_session') === 'true';
+    // Vérifier si on est en mode invité
     const isGuestMode = localStorage.getItem('ipromx_guest') === 'true';
-    const fromGuest = localStorage.getItem('ipromx_redirect_from_guest');
     
-    if (!hasAuthSession && !isGuestMode && fromGuest !== 'true') {
-        window.location.href = 'connection.html';
-        return false;
+    console.log('checkAuthAccess:', { hasAuthSession, isGuestMode });
+    
+    // Si on a l'un des deux, c'est OK
+    if (hasAuthSession || isGuestMode) {
+        return true;
     }
     
-    return true;
+    // Sinon, redirection vers connection (avec un petit délai pour éviter les race conditions)
+    console.log('Pas d\'auth, redirection...');
+    setTimeout(() => {
+        window.location.href = 'connection.html';
+    }, 100);
+    return false;
 }
 
 // ==========================================
 // INITIALISATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
-    if (!checkAuthAccess()) return;
+    console.log('=== DÉBUT INITIALISATION ===');
     
-    const fromGuest = localStorage.getItem('ipromx_redirect_from_guest');
-    if (fromGuest === 'true') {
-        localStorage.removeItem('ipromx_redirect_from_guest');
-        localStorage.removeItem('ipromx_guest');
+    // 1. Vérifier l'accès (redirige si besoin)
+    if (!checkAuthAccess()) {
+        console.log('checkAuthAccess a échoué, arrêt');
         return;
     }
+    
+    // 2. Récupérer l'utilisateur Discord (avec timeout pour éviter les blocages)
+    let user = null;
+    try {
+        const { data } = await Promise.race([
+            supabaseClient.auth.getUser(),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 3000))
+        ]);
+        user = data?.user;
+        console.log('User Discord:', user ? 'Trouvé' : 'Non trouvé');
+    } catch (err) {
+        console.log('Erreur ou timeout getUser:', err.message);
+    }
 
-    const { data: { user } } = await supabaseClient.auth.getUser();
-
-    if (!user && localStorage.getItem('ipromx_guest') !== 'true') {
+    // 3. Déterminer le mode
+    const guestFlag = localStorage.getItem('ipromx_guest') === 'true';
+    console.log('Guest flag:', guestFlag);
+    
+    if (user) {
+        // Mode authentifié Discord
+        console.log('→ Mode Discord authentifié');
+        currentUser = user;
+        isGuest = false;
+        await loadUserData(user);
+        localStorage.setItem('ipromx_auth_session', 'true');
+        localStorage.removeItem('ipromx_guest');
+    } else if (guestFlag) {
+        // Mode invité
+        console.log('→ Mode Invité');
+        isGuest = true;
+        currentUser = { id: 'guest', user_metadata: { full_name: 'Invité' } };
+        loadLocalData();
+        localStorage.removeItem('ipromx_auth_session');
+        // Afficher la modal d'avertissement après un court délai
+        setTimeout(() => showGuestModal(), 1000);
+    } else {
+        // Aucun mode valide, retour à connection
+        console.log('→ Aucun mode valide, redirection');
         window.location.href = 'connection.html';
         return;
     }
 
-    if (localStorage.getItem('ipromx_guest') === 'true') {
-        isGuest = true;
-        currentUser = { id: 'guest', user_metadata: { full_name: 'Invité' } };
-        loadLocalData();
-        setTimeout(() => showGuestModal(), 1000);
-    } else if (user) {
-        currentUser = user;
-        await loadUserData(user);
-        localStorage.setItem('ipromx_auth_session', 'true');
-    }
+    console.log('=== MODE FINAL:', isGuest ? 'INVITÉ' : 'DISCORD', '===');
 
+    // 4. Initialiser l'interface
     showMainContent();
     setupEventListeners();
     displayUniverses();
@@ -227,8 +260,16 @@ function closeGuestModal() {
 }
 
 function redirectToConnection() {
-    localStorage.setItem('ipromx_redirect_from_guest', 'true');
-    window.location.href = 'connection.html';
+    console.log('redirectToConnection appelé');
+    // Supprimer le mode invité
+    localStorage.removeItem('ipromx_guest');
+    localStorage.removeItem('ipromx_auth_session');
+    // Marquer qu'on veut se connecter (pas juste visiter)
+    localStorage.setItem('ipromx_want_to_login', 'true');
+    // Rediriger vers la page de connexion
+    setTimeout(() => {
+        window.location.href = 'connection.html';
+    }, 100);
 }
 
 function toggleUserDropdown() {
@@ -259,14 +300,23 @@ document.addEventListener('click', (e) => {
 });
 
 async function handleLogout() {
+    console.log('handleLogout appelé, isGuest:', isGuest);
     if (isGuest) {
-        localStorage.setItem('ipromx_redirect_from_guest', 'true');
-        window.location.href = 'connection.html';
-    } else {
-        await supabaseClient.auth.signOut();
+        // Si on est invité et on veut se connecter
         localStorage.removeItem('ipromx_guest');
         localStorage.removeItem('ipromx_auth_session');
-        window.location.href = 'connection.html';
+        localStorage.setItem('ipromx_want_to_login', 'true');
+        setTimeout(() => {
+            window.location.href = 'connection.html';
+        }, 100);
+    } else {
+        // Si on est authentifié, on déconnecte Discord
+        await supabaseClient.auth.signOut();
+        localStorage.removeItem('ipromx_auth_session');
+        localStorage.removeItem('ipromx_guest');
+        setTimeout(() => {
+            window.location.href = 'connection.html';
+        }, 100);
     }
 }
 
