@@ -17,91 +17,195 @@
             --hp-text: #f0f0f0;
             --hp-text-secondary: #bbbbbb;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
         body {
             font-family: 'Lato', sans-serif;
-            background: linear-gradient(135deg, #0a0a0a, #1a0f00);
+            background: radial-gradient(ellipse at bottom, #1a0f00 0%, #0a0a0a 100%);
             color: var(--hp-text);
             height: 100vh;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
             overflow: hidden;
+            position: relative;
         }
+        
+        /* Étoiles filantes en arrière-plan */
+        .shooting-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.8);
+            opacity: 0;
+        }
+        
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%);
+            transform: translateX(0) rotateZ(-45deg);
+        }
+        
+        @keyframes shootingStar {
+            0% {
+                opacity: 0;
+                transform: translateX(0) translateY(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-300px) translateY(300px);
+            }
+        }
+        
+        /* Conteneur principal */
         .login-container {
-            text-align: center; 
-            padding: 50px 40px; /* Réduit */
-            background: rgba(26,26,26,0.95);
-            border-radius: 25px; 
-            box-shadow: 0 0 70px rgba(255,215,0,0.3);
-            max-width: 380px; /* Réduit de 420px à 380px */
-            width: 90%; 
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 50px 40px;
+            background: rgba(26, 26, 26, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 0 70px rgba(255, 215, 0, 0.3);
+            max-width: 380px;
+            width: 90%;
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,215,0,0.2);
+            border: 1px solid rgba(255, 215, 0, 0.2);
             animation: fadeIn 0.8s ease-out;
         }
+        
         .logo-img {
-            width: 6rem; /* Même taille que l'icône */
+            width: 6rem;
             height: 6rem;
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 20px rgba(255,215,0,0.5));
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
             object-fit: contain;
         }
-        .logo-text { 
-            font-family: 'Cinzel', serif; 
-            font-size: 3.2rem; 
-            font-weight: 900; 
-            color: var(--hp-gold); 
-            letter-spacing: 4px; 
-            text-shadow: 0 0 15px rgba(255,215,0,0.6); 
-            margin-bottom: 15px; 
+        
+        .logo-text {
+            font-family: 'Cinzel', serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: var(--hp-gold);
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            margin-bottom: 15px;
         }
-        .login-desc { 
-            font-size: 1.1rem; 
-            color: var(--hp-text-secondary); 
-            margin-bottom: 35px; 
-            line-height: 1.6; 
+        
+        .login-desc {
+            font-size: 1.1rem;
+            color: var(--hp-text-secondary);
+            margin-bottom: 35px;
+            line-height: 1.6;
         }
+        
         .btn-discord-login {
-            background: #5865F2; color: white; border: none; padding: 16px 36px;
-            border-radius: 50px; font-weight: bold; font-size: 1.15rem;
-            display: flex; align-items: center; gap: 14px; margin: 0 auto 20px;
-            cursor: pointer; transition: all 0.3s ease;
+            background: #5865F2;
+            color: white;
+            border: none;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 0 auto 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             box-shadow: 0 6px 20px rgba(88, 101, 242, 0.4);
         }
-        .btn-discord-login:hover { 
-            background: #4752c4; 
-            transform: translateY(-3px); 
-            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.6); 
+        
+        .btn-discord-login:hover {
+            background: #4752c4;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.6);
         }
+        
         .btn-skip-login {
-            background: transparent; color: var(--hp-text-secondary);
-            border: 1.5px solid var(--hp-gold); padding: 14px 32px;
-            border-radius: 50px; font-size: 1rem; cursor: pointer;
-            transition: all 0.3s ease; margin-bottom: 25px;
+            background: transparent;
+            color: var(--hp-text-secondary);
+            border: 1.5px solid var(--hp-gold);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
         }
-        .btn-skip-login:hover { 
-            background: rgba(255,215,0,0.1); 
-            color: var(--hp-gold); 
-            border-color: var(--hp-gold); 
-            transform: translateY(-2px); 
+        
+        .btn-skip-login:hover {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--hp-gold);
+            border-color: var(--hp-gold);
+            transform: translateY(-2px);
         }
-        .login-footer { 
-            font-size: 0.9rem; 
-            color: #888; 
+        
+        .login-footer {
+            font-size: 0.9rem;
+            color: #888;
         }
-        .login-footer a { 
-            color: var(--hp-gold); 
-            text-decoration: none; 
+        
+        .login-footer a {
+            color: var(--hp-gold);
+            text-decoration: none;
         }
-        .login-footer a:hover { 
-            text-decoration: underline; 
+        
+        .login-footer a:hover {
+            text-decoration: underline;
         }
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(30px); } 
-            to { opacity: 1; transform: translateY(0); } 
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 40px 30px;
+                max-width: 90%;
+            }
+            
+            .logo-text {
+                font-size: 2.5rem;
+            }
+            
+            .login-desc {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Étoiles filantes -->
+    <div class="shooting-stars" id="shootingStars"></div>
 
     <div class="login-container">
         <img src="images/logoblanc.webp" alt="Logo iProMx" class="logo-img">
@@ -127,10 +231,58 @@
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indpam9kZmt5Zndkb2R3c3FubXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5MzY1MjgsImV4cCI6MjA3NzUxMjUyOH0.2ontW2JrSq1udQL9heCwErTb3e2fwZbejYYpfJYDyss';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    // Créer des étoiles filantes aléatoires
+    function createShootingStar() {
+        const star = document.createElement('div');
+        star.className = 'shooting-star';
+        
+        // Position aléatoire sur toute la largeur
+        star.style.top = Math.random() * 60 + '%';
+        star.style.left = 50 + Math.random() * 50 + '%';
+        
+        // Durée d'animation aléatoire
+        const duration = 0.8 + Math.random() * 1.5; // entre 0.8 et 2.3 secondes
+        star.style.animation = `shootingStar ${duration}s linear`;
+        
+        document.getElementById('shootingStars').appendChild(star);
+        
+        // Supprimer l'étoile après l'animation
+        setTimeout(() => {
+            star.remove();
+        }, duration * 1000);
+    }
+    
+    // Créer plusieurs étoiles filantes en rafale
+    function createShootingStarBurst() {
+        // Nombre aléatoire d'étoiles (entre 2 et 5)
+        const starCount = 2 + Math.floor(Math.random() * 4);
+        
+        for (let i = 0; i < starCount; i++) {
+            // Délai aléatoire pour chaque étoile de la rafale
+            setTimeout(() => {
+                createShootingStar();
+            }, Math.random() * 500); // étalées sur 500ms
+        }
+    }
+    
+    // Créer des rafales d'étoiles filantes fréquemment
+    function startShootingStars() {
+        // Première rafale immédiate
+        createShootingStarBurst();
+        
+        // Rafales régulières
+        setInterval(() => {
+            createShootingStarBurst();
+        }, 1500); // Toutes les 1.5 secondes
+    }
+    
+    startShootingStars();
+
     // === CONNEXION DISCORD ===
     async function loginWithDiscord() {
-        // Nettoyer tout état invité avant connexion
+        console.log('loginWithDiscord appelé');
         localStorage.removeItem('ipromx_guest');
+        localStorage.removeItem('ipromx_want_to_login');
         
         const { error } = await supabaseClient.auth.signInWithOAuth({
             provider: 'discord',
@@ -138,29 +290,63 @@
                 redirectTo: 'https://ipromxsite.netlify.app/indexv3.html'
             }
         });
-        if (error) alert('Erreur : ' + error.message);
+        if (error) {
+            console.error('Erreur OAuth:', error);
+            alert('Erreur : ' + error.message);
+        }
     }
 
     // === MODE INVITÉ ===
     function continueAsGuest() {
-        // Définir le mode invité
+        console.log('continueAsGuest appelé');
         localStorage.setItem('ipromx_guest', 'true');
-        // Nettoyer toute session Discord
         localStorage.removeItem('ipromx_auth_session');
-        // Redirection
-        window.location.href = 'indexv3.html';
+        localStorage.removeItem('ipromx_want_to_login');
+        setTimeout(() => {
+            window.location.href = 'indexv3.html';
+        }, 100);
     }
 
     // === VÉRIF AU CHARGEMENT ===
     document.addEventListener('DOMContentLoaded', async () => {
-        const { data: { user } } = await supabaseClient.auth.getUser();
-        const isGuest = localStorage.getItem('ipromx_guest') === 'true';
+        console.log('=== CONNECTION.HTML CHARGÉ ===');
+        
+        const wantToLogin = localStorage.getItem('ipromx_want_to_login') === 'true';
+        console.log('wantToLogin:', wantToLogin);
 
-        // Si déjà connecté (Discord ou invité), rediriger vers index
+        if (wantToLogin) {
+            console.log('→ Lancement auto de la connexion Discord');
+            localStorage.removeItem('ipromx_want_to_login');
+            setTimeout(() => {
+                loginWithDiscord();
+            }, 500);
+            return;
+        }
+
+        let user = null;
+        try {
+            const { data } = await Promise.race([
+                supabaseClient.auth.getUser(),
+                new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 3000))
+            ]);
+            user = data?.user;
+            console.log('User existant:', user ? 'Oui' : 'Non');
+        } catch (err) {
+            console.log('Erreur getUser:', err.message);
+        }
+        
+        const isGuest = localStorage.getItem('ipromx_guest') === 'true';
+        console.log('isGuest:', isGuest);
+
         if (user || isGuest) {
-            window.location.href = 'indexv3.html';
+            console.log('→ Déjà connecté, redirection vers index');
+            setTimeout(() => {
+                window.location.href = 'indexv3.html';
+            }, 100);
+        } else {
+            console.log('→ Affichage de la page de connexion');
         }
     });
-</script>
+    </script>
 </body>
 </html>
