@@ -123,34 +123,37 @@
     <!-- Supabase JS -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = 'https://wijodfkyfwdodwsqnmrw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indpam9kZmt5Zndkb2R3c3FubXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5MzY1MjgsImV4cCI6MjA3NzUxMjUyOH0.2ontW2JrSq1udQL9heCwErTb3e2fwZbejYYpfJYDyss';
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const SUPABASE_URL = 'https://wijodfkyfwdodwsqnmrw.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indpam9kZmt5Zndkb2R3c3FubXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5MzY1MjgsImV4cCI6MjA3NzUxMjUyOH0.2ontW2JrSq1udQL9heCwErTb3e2fwZbejYYpfJYDyss';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // === CONNEXION DISCORD ===
-        async function loginWithDiscord() {
-            const { error } = await supabaseClient.auth.signInWithOAuth({
-                provider: 'discord',
-                options: { 
-                    redirectTo: 'https://ipromxsite.netlify.app/indexv3.html'
-                }
-            });
-            if (error) alert('Erreur : ' + error.message);
-        }
-
-        // === MODE INVITÉ ===
-        function continueAsGuest() {
-            localStorage.setItem('ipromx_guest', 'true');
-            window.location.href = 'indexv3.html';
-        }
-
-        // === REDIRECTION SI DÉJÀ CONNECTÉ ===
-        document.addEventListener('DOMContentLoaded', async () => {
-            const { data: { user } } = await supabaseClient.auth.getUser();
-            if (user || localStorage.getItem('ipromx_guest') === 'true') {
-                window.location.href = 'indexv3.html';
+    // === CONNEXION DISCORD ===
+    async function loginWithDiscord() {
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+            provider: 'discord',
+            options: { 
+                redirectTo: 'https://ipromxsite.netlify.app/indexv3.html'
             }
         });
-    </script>
+        if (error) alert('Erreur : ' + error.message);
+    }
+
+    // === MODE INVITÉ ===
+    function continueAsGuest() {
+        localStorage.setItem('ipromx_guest', 'true');
+        localStorage.removeItem('ipromx_auth_session'); // Nettoyage
+        window.location.href = 'indexv3.html';
+    }
+
+    // === VÉRIF AU CHARGEMENT ===
+    document.addEventListener('DOMContentLoaded', async () => {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        const isGuest = localStorage.getItem('ipromx_guest') === 'true';
+
+        if (user || isGuest) {
+            window.location.href = 'indexv3.html';
+        }
+    });
+</script>
 </body>
 </html>
