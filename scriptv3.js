@@ -5,13 +5,28 @@ const SUPABASE_URL = 'https://wijodfkyfwdodwsqnmrw.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indpam9kZmt5Zndkb2R3c3FubXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5MzY1MjgsImV4cCI6MjA3NzUxMjUyOH0.2ontW2JrSq1udQL9heCwErTb3e2fwZbejYYpfJYDyss';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-supabaseClient.auth.onAuthStateChange((event, session) => {
-    if (event === 'SIGNED_IN') {
+let authInitialized = false;
+
+supabaseClient.auth.onAuthStateChange(async (event, session) => {
+    console.log('Auth state change:', event, session ? 'Session présente' : 'Pas de session');
+    
+    if (event === 'SIGNED_IN' && session) {
         localStorage.setItem('ipromx_auth_session', 'true');
         localStorage.removeItem('ipromx_guest');
         console.log('Session détectée, auth set');
+        
+        // Si on est déjà sur index et initialisé, charger les données
+        if (authInitialized && window.location.pathname.includes('indexv3.html')) {
+            console.log('Rechargement des données après connexion');
+            currentUser = session.user;
+            isGuest = false;
+            await loadUserData(session.user);
+            displayHistory();
+            displayMyList();
+        }
     } else if (event === 'SIGNED_OUT') {
         localStorage.removeItem('ipromx_auth_session');
+        console.log('Déconnexion détectée');
     }
 });
 
