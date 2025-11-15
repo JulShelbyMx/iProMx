@@ -203,6 +203,14 @@ function checkAuthAccess() {
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('=== DÉBUT INITIALISATION ===');
+
+    // FORCER la redirection vers loading si on arrive direct avec hash OAuth
+const hasHash = window.location.hash && window.location.hash.includes('access_token');
+if (hasHash) {
+    console.log('⚠️ Arrivée directe depuis Discord → redirection vers loading');
+    window.location.href = 'loading.html' + window.location.hash;
+    return;
+}
     
     // 1. Vérifier l'accès (redirige si besoin)
     if (!checkAuthAccess()) {
