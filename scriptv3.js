@@ -9,15 +9,15 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let authInitialized = false;
 
 supabaseClient.auth.onAuthStateChange(async (event, session) => {
-    console.log('Auth state change:', event, session ? 'Session présente' : 'Pas de session');
+    console.log('🔔 Auth event:', event);
     
     if (event === 'SIGNED_IN' && session) {
+        console.log('✅ SIGNED_IN détecté');
         localStorage.setItem('ipromx_auth_session', 'true');
         localStorage.removeItem('ipromx_guest');
-        console.log('Session détectée, auth set');
         
-        // Si on est déjà sur index et initialisé, charger les données
-        if (authInitialized && window.location.pathname.includes('indexv3.html')) {
+        // Si on est déjà initialisé, recharger les données
+        if (authInitialized && currentUser) {
             console.log('Rechargement des données après connexion');
             currentUser = session.user;
             isGuest = false;
@@ -26,8 +26,8 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
             displayMyList();
         }
     } else if (event === 'SIGNED_OUT') {
+        console.log('🚪 SIGNED_OUT détecté');
         localStorage.removeItem('ipromx_auth_session');
-        console.log('Déconnexion détectée');
     }
 });
 
