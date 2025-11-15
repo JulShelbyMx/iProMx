@@ -25,12 +25,14 @@
             font-family: 'Lato', sans-serif;
             background: radial-gradient(ellipse at bottom, #1a0f00 0%, #0a0a0a 100%);
             color: #f0f0f0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            margin: 0;
+            padding: 20px;
         }
         
         /* Étoiles filantes */
@@ -87,6 +89,9 @@
             z-index: 10;
             text-align: center;
             animation: fadeIn 0.5s ease-out;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px 20px;
         }
         
         @keyframes fadeIn {
@@ -95,9 +100,10 @@
         }
         
         .logo-img {
-            width: 8rem;
-            height: 8rem;
-            margin-bottom: 30px;
+            width: 10rem;
+            height: 10rem;
+            margin: 0 auto 40px;
+            display: block;
             filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
             animation: logoFloat 2s ease-in-out infinite;
         }
@@ -109,12 +115,12 @@
         
         .loading-title {
             font-family: 'Cinzel', serif;
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 900;
             color: var(--hp-gold);
-            letter-spacing: 4px;
+            letter-spacing: 6px;
             text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .loading-text {

@@ -67,7 +67,8 @@ const universesData = {
                         { num: 2, title: 'Les Débuts', videoId: 'z_H0tafxHAc' }
                     ], 
                     'Saison 2': [
-                        { num: 1, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' }
+                        { num: 1, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' },
+                        { num: 1, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' },
                     ] 
                 } 
             },
