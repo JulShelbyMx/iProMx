@@ -266,7 +266,7 @@ if (hasHash) {
     showMainContent();
     setupEventListeners();
     displayUniverses();
-    displayPopularCarousel();
+    displayCinematicsCarousel();
     displayLegendesCarousel();
     displaySocialNetworks();
     checkLiveStatus();
@@ -439,114 +439,128 @@ function initFalconEye() {
 }
 
 function displayUniverses() {
-    const grid = document.getElementById('universesGrid');
-    const order = ['zack-kingsley', 'jake-winters', 'ned-flash', 'manda-flash', 'adrian-flash', 'oliver-winters'];
-    const allCharacters = [];
-    
-    for (const [familyId, family] of Object.entries(universesData)) {
-        family.characters.forEach(char => allCharacters.push({ ...char, familyId, family }));
-    }
-    
-    const ordered = order.map(id => allCharacters.find(c => c.id === id)).filter(Boolean);
-    const remaining = allCharacters.filter(c => !order.includes(c.id));
-    const finalList = [...ordered, ...remaining];
+    const track = document.getElementById('universesGrid');
 
-    grid.innerHTML = finalList.map(char => `
-        <div class="card-cr" data-family="${char.familyId}" onclick="openUniverse('${char.familyId}', '${char.id}')">
-            <div class="card-image-cr" style="background-image: url('${char.image}')"></div>
-            <div class="card-content-cr">
-                <h3 class="card-title-cr">${char.name}</h3>
-                <p class="card-meta-cr">${char.family.name}</p>
+    const fixedOrder = [
+        'zack-kingsley', 'jake-winters', 'sylvester-shade', 'ned-flash', 'manda-flash',
+        'oliver-winters', 'adrian-flash', 'damon-flash', 'aaron-flash', 'david-jr-flash',
+        'kayton-flash', 'tom-escobar', 'ken-flash', 'john-flash', 'david-flash'
+    ];
+
+    const allCharacters = Object.values(universesData).flatMap(f => f.characters);
+    const sortedCharacters = fixedOrder
+        .map(id => allCharacters.find(c => c.id === id))
+        .filter(Boolean);
+
+    track.innerHTML = sortedCharacters.map(char => {
+        const family = Object.values(universesData).find(f => f.characters.includes(char));
+        const familyId = Object.keys(universesData).find(k => universesData[k] === family);
+        char.dataset = { family: familyId }; // pour le filtre
+        return `
+            <div class="card-cr" data-family="${familyId}" onclick="openUniverse('${familyId}', '${char.id}')">
+                <div class="card-image-cr" style="background-image: url('${char.image}')"></div>
+                <div class="card-content-cr">
+                    <h3 class="card-title-cr">${char.name}</h3>
+                    <p class="card-meta-cr">${family.name}</p>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 // ==========================================
 // MODAL PERSONNAGE - CORRIGÉ POUR VIDÉO
 // ==========================================
-function openUniverse(familyId, charId = null) {
+function openUniverse(familyId, charId) {
     const family = universesData[familyId];
-    const character = family.characters.find(c => c.id === charId) || family.characters[0];
+    if (!family) return;
 
-    const seriesHero = document.getElementById('seriesHero');
+    const character = family.characters.find(c => c.id === charId);
+    if (!character) return;
+
+    currentVideoData = { character, familyId };
+
+    const modal = document.getElementById('seriesModal');
+    document.getElementById('seriesTitle').textContent = character.name;
+    document.getElementById('seriesDescription').textContent = character.description || 'Aucune description disponible.';
+
+    // Hero background
+    document.getElementById('seriesHero').style.backgroundImage = `url('${character.banner || FLASH_BANNER}')`;
+
+    // Vidéo intro (Aaron / Ned)
     const heroVideoContainer = document.getElementById('heroVideoContainer');
     const heroVideo = document.getElementById('heroVideo');
-    const shadeLawsBtn = document.getElementById('shadeLawsBtn');
-
-    shadeLawsBtn.style.display = 'none';
-
     if (character.hasVideo) {
-        // IMPORTANT: Masquer l'image de fond
-        seriesHero.style.backgroundImage = 'none';
-        // IMPORTANT: Afficher le container vidéo
         heroVideoContainer.style.display = 'block';
-        // Charger la source vidéo
-        heroVideo.querySelector('source').src = character.videoUrl;
-        // Gérer les sous-titres
-        const subtitlesTrack = document.getElementById('videoSubtitles');
-        const subtitlesBtn = document.getElementById('subtitlesHero');
+        heroVideo.src = character.videoUrl;
         if (character.subtitlesUrl) {
-            subtitlesTrack.src = character.subtitlesUrl;
-            subtitlesBtn.style.display = 'inline-flex';
-        } else {
-            subtitlesBtn.style.display = 'none';
+            document.getElementById('videoSubtitles').src = character.subtitlesUrl;
+            document.getElementById('videoSubtitles').default = true;
         }
-        // Recharger la vidéo
         heroVideo.load();
-        // Setup des contrôles
-        setupVideoControls(heroVideo);
-        // Lancer la vidéo
-        heroVideo.play().catch(err => console.log('Autoplay bloqué:', err));
-    } else if (character.hasLawBook) {
-        heroVideoContainer.style.display = 'none';
-        seriesHero.style.backgroundImage = `url('${character.banner || character.image}')`;
-        shadeLawsBtn.style.display = 'block';
+        heroVideo.play().catch(() => {});
     } else {
-        // Image normale - MASQUER le container vidéo
         heroVideoContainer.style.display = 'none';
-        seriesHero.style.backgroundImage = `url('${character.banner || character.image}')`;
+        heroVideo.pause();
+        heroVideo.src = '';
     }
 
-    document.getElementById('seriesTitle').textContent = character.name;
-    document.getElementById('seriesDescription').textContent = character.description;
+    // Bouton Livre des Lois (Shade)
+    document.getElementById('shadeLawsBtn').style.display = 
+        character.hasLawBook ? 'block' : 'none';
 
+    // Bouton Ma Liste
     const addBtn = document.getElementById('addToListBtn');
-    const inList = window.userMyList.some(i => i.charId === character.id);
+    const inList = window.userMyList.some(i => i.charId === charId);
     addBtn.innerHTML = inList ? '<i class="fas fa-check"></i> Dans Ma Liste' : '<i class="fas fa-plus"></i> Ajouter à Ma Liste';
-    addBtn.onclick = () => toggleMyList(familyId, character.id);
+    addBtn.onclick = () => toggleMyList(familyId, charId);
 
-    const startBtn = document.getElementById('startBtn');
-    const seasons = Object.keys(character.seasons);
-    if (seasons.length > 0 && character.seasons[seasons[0]].length > 0) {
-        const firstEpisode = character.seasons[seasons[0]][0];
-        startBtn.onclick = () => {
-            closeSeriesModal();
-            playEpisode(firstEpisode.videoId, character, familyId, seasons[0], 0);
-        };
-        startBtn.disabled = false;
-        startBtn.style.opacity = '1';
-    } else {
-        startBtn.onclick = null;
-        startBtn.disabled = true;
-        startBtn.style.opacity = '0.5';
-    }
-
+    // Saisons et épisodes
     const seasonTabs = document.getElementById('seasonTabs');
     const episodesList = document.getElementById('episodesListDetailed');
-    if (seasons.length > 0) {
-        seasonTabs.innerHTML = seasons.map((s, i) => `
-            <button class="season-tab ${i === 0 ? 'active' : ''}" onclick="showSeason('${familyId}', '${character.id}', '${s}', this)">
-                ${s}
-            </button>
-        `).join('');
-        showSeason(familyId, character.id, seasons[0]);
-    } else {
+
+    if (!character.seasons || Object.keys(character.seasons).length === 0) {
         seasonTabs.innerHTML = '';
-        episodesList.innerHTML = '<p class="no-episodes">Aucun épisode disponible.</p>';
+        episodesList.innerHTML = '<p class="no-episodes">Aucun épisode disponible pour le moment.</p>';
+        document.getElementById('startBtn').style.display = 'none';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        return;
     }
 
-    document.getElementById('seriesModal').classList.add('active');
+    document.getElementById('startBtn').style.display = 'block';
+
+    // Créer les onglets de saison
+    seasonTabs.innerHTML = Object.keys(character.seasons).map((season, index) => `
+        <div class="season-tab ${index === 0 ? 'active' : ''}" onclick="switchSeason(this, '${season}')">
+            ${season}
+        </div>
+    `).join('');
+
+    // Fonction pour changer de saison
+    window.switchSeason = function(tab, seasonName) {
+        document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const episodes = character.seasons[seasonName];
+        episodesList.innerHTML = episodes.map((ep, idx) => {
+            const thumb = `https://i.ytimg.com/vi/${ep.videoId}/hqdefault.jpg`;
+            return `
+                <div class="episode-item-cr" onclick="playEpisode('${ep.videoId}', '${character.id}', '${familyId}', '${seasonName}', ${idx})">
+                    <div class="episode-thumb" style="background-image: url('${thumb}')"></div>
+                    <div class="episode-info">
+                        <h4>${ep.num}. ${ep.title}</h4>
+                        <p>${seasonName} • Épisode ${ep.num}</p>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    };
+
+    // Afficher la première saison au chargement
+    switchSeason(seasonTabs.querySelector('.season-tab'), Object.keys(character.seasons)[0]);
+
+    modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
@@ -1017,88 +1031,45 @@ function scrollCarousel(type, direction) {
     track.scrollBy({ left: direction * (cardWidth + 25), behavior: 'smooth' });
 }
 
-function displayPopularCarousel() {
-    const track = document.getElementById('popularCarousel');
-    const popular = Object.values(universesData)
-        .flatMap(f => f.characters.slice(0, 3))
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 8);
+function displayCinematicsCarousel() {
+    const track = document.getElementById('cinematiquesCarousel');
+    const cinematiques = [
+        { title: "L'arrivée de David Flash", thumbnail: "images/cine1.jpg", videoId: "z_H0tafxHAc" },
+        { title: "Le règne des Shade", thumbnail: "images/cine2.jpg", videoId: "Eoo3Vpelub4" },
+        { title: "La chute des Winters", thumbnail: "images/cine3.jpg", videoId: "dQw4w9WgXcQ" },
+        // Ajoute d'autres vidéos ici si besoin, avec des thumbnails et videoId réels
+    ];
 
-    track.innerHTML = popular.map(char => {
-        const family = Object.values(universesData).find(f => f.characters.includes(char));
-        const familyId = Object.keys(universesData).find(k => universesData[k] === family);
-        return `
-            <div class="card-cr" onclick="openUniverse('${familyId}', '${char.id}')">
-                <div class="card-image-cr" style="background-image: url('${char.image}')"></div>
-                <div class="card-content-cr">
-                    <h3 class="card-title-cr">${char.name}</h3>
-                    <p class="card-meta-cr">Populaire</p>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-function displayLegendesCarousel() {
-    const track = document.getElementById('legendesCarousel');
-    track.innerHTML = legendesVideos.map(video => `
-        <div class="card-cr" onclick="playLegendVideo('${video.videoId}', '${video.title}')">
-            <div class="card-image-cr" style="background-image: url('${video.thumbnail}')">
-                <div class="play-icon-overlay"><i class="fas fa-play-circle"></i></div>
-            </div>
+    track.innerHTML = cinematiques.map(video => `
+        <div class="card-cr" onclick="playGeneralVideo('${video.videoId}', '${video.title}')">
+            <div class="card-image-cr" style="background-image: url('${video.thumbnail}')"></div>
             <div class="card-content-cr">
                 <h3 class="card-title-cr">${video.title}</h3>
-                <p class="card-meta-cr">${video.type === 'irl' ? 'IRL' : video.type === 'bonus' ? 'Bonus' : 'Best Of'}</p>
+                <p class="card-meta-cr">Cinématique</p>
             </div>
         </div>
     `).join('');
 }
 
-function playLegendVideo(videoId, title) {
-    const fakeCharacter = {
-        id: 'legend',
-        name: 'iProMx',
-        description: 'Moments légendaires et contenus exclusifs d\'iProMx',
-        image: 'images/logo-ipromx.png'
-    };
+function displayLegendesCarousel() {
+    const track = document.getElementById('legendesCarousel');
 
-    currentVideoData = { videoId, character: fakeCharacter, familyId: 'legend', season: 'Légendes', episodeIndex: 0 };
-
-    const modal = document.getElementById('playerModal');
-    document.getElementById('playerTitle').textContent = 'iProMx Légendes';
-    document.getElementById('playerEpisode').textContent = title;
-    document.getElementById('characterAvatar').src = 'images/logo-ipromx.png';
-    document.getElementById('characterName').textContent = 'iProMx';
-    document.getElementById('characterShortDesc').textContent = 'Contenu Exclusif';
-    document.getElementById('characterFullDesc').textContent = 'Découvrez les moments légendaires, contenus IRL et bonus exclusifs d\'iProMx.';
-
-    if (player) player.destroy();
-
-    player = new YT.Player('youtubePlayerContainer', {
-        height: '100%',
-        width: '100%',
-        videoId: videoId,
-        playerVars: {
-            autoplay: 1,
-            controls: 1,
-            rel: 0,
-            modestbranding: 1,
-            fs: 1
-        }
-    });
-
-    document.getElementById('suggestionsList').innerHTML = '';
-
-    const addListBtn = document.getElementById('addListBtnPlayer');
-    addListBtn.style.display = 'none';
-
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    track.innerHTML = legendesVideos.map(video => `
+        <div class="card-cr" onclick="playGeneralVideo('${video.videoId}', '${video.title}')">
+            <div class="card-image-cr" style="background-image: url('${video.thumbnail}')"></div>
+            <div class="card-content-cr">
+                <h3 class="card-title-cr">${video.title}</h3>
+                <p class="card-meta-cr">${video.type.toUpperCase()}</p>
+            </div>
+        </div>
+    `).join('');
 }
 
 function displaySocialNetworks() {
-    document.getElementById('socialGrid').innerHTML = socialNetworks.map(net => `
-        <a href="${net.url}" target="_blank" class="social-card-cr">
+    const grid = document.getElementById('socialGrid');
+
+    grid.innerHTML = socialNetworks.map(net => `
+        <a class="social-card-cr" href="${net.url}" target="_blank">
             <div class="social-image" style="background-image: url('${net.image}')"></div>
             <div class="social-info">
                 <h3><i class="${net.icon}"></i> ${net.name}</h3>
@@ -1106,6 +1077,36 @@ function displaySocialNetworks() {
             </div>
         </a>
     `).join('');
+}
+
+// Fonction helper pour jouer une vidéo générale (non liée à un personnage/saison)
+function playGeneralVideo(videoId, title) {
+    // Ouvre le modal player avec la vidéo
+    document.getElementById('playerTitle').textContent = title;
+    document.getElementById('playerEpisode').textContent = ''; // Pas d'épisode ici
+    document.getElementById('characterName').textContent = title; // Réutilise pour le titre
+    document.getElementById('characterShortDesc').textContent = '';
+    document.getElementById('characterFullDesc').textContent = '';
+
+    if (player) {
+        player.loadVideoById(videoId);
+        player.playVideo();
+    } else {
+        // Si player pas initialisé, initialise-le (assume que tu as une init pour YT player)
+        player = new YT.Player('youtubePlayerContainer', {
+            height: '100%',
+            width: '100%',
+            videoId: videoId,
+            events: {
+                'onReady': function(event) {
+                    event.target.playVideo();
+                }
+            }
+        });
+    }
+
+    document.getElementById('playerModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
 }
 
 // ==========================================
@@ -1207,21 +1208,24 @@ function openManageHistory() {
     const modal = document.getElementById('manageHistoryModal');
     const list = document.getElementById('manageHistoryList');
     selectedHistoryItems.clear();
-    
-    list.innerHTML = window.allWatchedEpisodes.map((h, index) => `
+
+    // Trier du plus récent au plus ancien
+    const sortedHistory = [...window.allWatchedEpisodes].sort((a, b) => b.timestamp - a.timestamp);
+
+    list.innerHTML = sortedHistory.map((h, index) => `
         <div class="manage-item">
             <input type="checkbox" id="hist-${index}" onchange="toggleHistorySelection(${index})">
             <label for="hist-${index}">
                 <img src="https://i.ytimg.com/vi/${h.videoId}/default.jpg" alt="">
                 <div class="manage-item-info">
-                    <h4>${h.title}</h4>
+                    <h4>${h.title || 'Épisode inconnu'}</h4>
                     <p>${h.episode}</p>
                     <span class="manage-date">${new Date(h.timestamp).toLocaleDateString('fr-FR')}</span>
                 </div>
             </label>
         </div>
     `).join('');
-    
+
     modal.classList.add('active');
 }
 
@@ -1234,23 +1238,29 @@ function toggleHistorySelection(index) {
 }
 
 function deleteSelectedHistory() {
-    if (selectedHistoryItems.size === 0) {
-        alert('Veuillez sélectionner au moins un élément');
-        return;
-    }
-    
-    if (confirm(`Supprimer ${selectedHistoryItems.size} élément(s) ?`)) {
-        const indices = Array.from(selectedHistoryItems).sort((a, b) => b - a);
-        indices.forEach(i => {
-            const item = window.allWatchedEpisodes[i];
-            window.allWatchedEpisodes.splice(i, 1);
-            window.userHistory = window.userHistory.filter(h => h.videoId !== item.videoId);
-        });
-        
-        displayHistory();
-        saveData();
-        closeManageHistory();
-    }
+    if (selectedHistoryItems.size === 0) return alert('Sélectionnez au moins un élément');
+
+    if (!confirm(`Supprimer ${selectedHistoryItems.size} élément(s) ?`)) return;
+
+    const sortedIndices = Array.from(selectedHistoryItems).sort((a, b) => b - a);
+    sortedIndices.forEach(i => {
+        const realIndex = [...window.allWatchedEpisodes].sort((a, b) => b.timestamp - a.timestamp)[i];
+        if (realIndex) {
+            window.allWatchedEpisodes.splice(window.allWatchedEpisodes.indexOf(realIndex), 1);
+        }
+    });
+
+    // Mettre à jour l'affichage réduit (userHistory)
+    window.userHistory = window.allWatchedEpisodes
+        .reduce((acc, ep) => {
+            if (!acc.find(x => x.charId === ep.charId)) acc.push(ep);
+            return acc;
+        }, [])
+        .slice(0, 20);
+
+    displayHistory();
+    saveData();
+    closeManageHistory();
 }
 
 function deleteAllHistory() {

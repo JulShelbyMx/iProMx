@@ -1,3 +1,10 @@
 [build]
   functions = "netlify/functions"
   publish = "."
+
+[functions]
+  node_bundler = "esbuild"
+
+[[scheduled.functions]]
+  name = "keepalive"
+  schedule = "0 0 */2 * *"  # Tous les 2 jours à minuit UTC
