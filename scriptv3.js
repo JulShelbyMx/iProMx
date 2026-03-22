@@ -5,20 +5,20 @@ const SUPABASE_URL = 'https://wijodfkyfwdodwsqnmrw.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indpam9kZmt5Zndkb2R3c3FubXJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE5MzY1MjgsImV4cCI6MjA3NzUxMjUyOH0.2ontW2JrSq1udQL9heCwErTb3e2fwZbejYYpfJYDyss';
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Au début du script, après const supabaseClient = ...
+// Au dÃƒÂ©but du script, aprÃƒÂ¨s const supabaseClient = ...
 let authInitialized = false;
 
 supabaseClient.auth.onAuthStateChange(async (event, session) => {
-    console.log('🔔 Auth event:', event);
+    console.log('Ã°Å¸â€â€ Auth event:', event);
     
     if (event === 'SIGNED_IN' && session) {
-        console.log('✅ SIGNED_IN détecté');
+        console.log('Ã¢Å“â€¦ SIGNED_IN dÃƒÂ©tectÃƒÂ©');
         localStorage.setItem('ipromx_auth_session', 'true');
         localStorage.removeItem('ipromx_guest');
         
-        // Si on est déjà initialisé, recharger les données
+        // Si on est dÃƒÂ©jÃƒ  initialisÃƒÂ©, recharger les donnÃƒÂ©es
         if (authInitialized && currentUser) {
-            console.log('Rechargement des données après connexion');
+            console.log('Rechargement des donnÃƒÂ©es aprÃƒÂ¨s connexion');
             currentUser = session.user;
             isGuest = false;
             await loadUserData(session.user);
@@ -26,7 +26,7 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
             displayMyList();
         }
     } else if (event === 'SIGNED_OUT') {
-        console.log('🚪 SIGNED_OUT détecté');
+        console.log('Ã°Å¸Å¡Âª SIGNED_OUT dÃƒÂ©tectÃƒÂ©');
         localStorage.removeItem('ipromx_auth_session');
     }
 });
@@ -47,125 +47,196 @@ window.allWatchedEpisodes = [];
 const FLASH_BANNER = 'images/flash.jpg';
 
 // ==========================================
-// DONNÉES UNIVERS
+// DONNÃƒâ€°ES UNIVERS
 // ==========================================
 const universesData = {
     flash: {
-        name: 'Famille Flash',
-        description: 'La saga légendaire qui traverse les générations',
-        image: 'images/flashlogo.webp',
-        characters: [
-            { 
-                id: 'david-flash', 
-                name: 'David Flash', 
-                description: 'Le fondateur légendaire de la famille Flash. Un homme au passé trouble qui a bâti un empire dans l\'ombre de Los Santos.', 
-                image: 'images/david_flash.jpg',
-                banner: FLASH_BANNER,
-                seasons: { 
-                    'Saison 1': [
-                        { num: 1, title: 'POUR LA PREMIÈRE FOIS JE TESTE GTAV RP', videoId: 'z_H0tafxHAc' },
-                        { num: 2, title: 'Les Débuts', videoId: 'z_H0tafxHAc' }
-                    ], 
-                    'Saison 2': [
-                        { num: 1, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' },
-                        { num: 1, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' },
-                    ] 
-                } 
-            },
-            { 
-                id: 'john-flash', 
-                name: 'John Flash', 
-                description: 'Le successeur ambitieux', 
-                image: 'images/john_flash.jpg',
-                banner: FLASH_BANNER,
-                seasons: { 
-                    'Saison 1': [
-                        { num: 1, title: 'Je suis gay !', videoId: 'z_H0tafxHAc' },
-                        { num: 2, title: 'Les Débuts', videoId: 'z_H0tafxHAc' }
-                    ], 
-                    'Saison 2': [
-                        { num: 1, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' }
-                    ] 
-                } 
-            },
-            { id: 'ken-flash', name: 'Ken Flash', description: 'Le stratège', image: 'images/ken_flash.jpg', banner: FLASH_BANNER, seasons: {} },
-            { 
-                id: 'aaron-flash', 
-                name: 'Aaron Flash', 
-                description: 'Le combattant', 
-                image: 'images/aaron_flash.jpg', 
-                banner: FLASH_BANNER, 
-                hasVideo: true, 
-                videoUrl: 'vidéos/phénixanimation1.mp4',
-                seasons: {} 
-            },
-            { id: 'david-jr-flash', name: 'David Jr Flash', description: 'La nouvelle génération', image: 'images/david_jr_flash.jpg', banner: FLASH_BANNER, seasons: {} },
-            { id: 'damon-flash', name: 'Damon Flash', description: 'Le mystérieux', image: 'images/damon_flash.jpg', banner: FLASH_BANNER, seasons: {} },
-            { id: 'kayton-flash', name: 'Kayton Flash', description: 'Le tacticien', image: 'images/kayton_flash.jpg', banner: FLASH_BANNER, seasons: {} },
-            { id: 'adrian-flash', name: 'Adrian Flash', description: 'Le loyal', image: 'images/adrian_flash.jpg', banner: FLASH_BANNER, seasons: {} },
-            { 
-                id: 'ned-flash', 
-                name: 'Ned/Eden/Eddy Flash', 
-                description: 'Les multiples facettes', 
-                image: 'images/ned_flash.jpg', 
-                banner: FLASH_BANNER, 
-                hasVideo: true, 
-                videoUrl: 'vidéos/3frèresintro.mp4',
-                subtitlesUrl: 'vidéos/3frèresintro.vtt',
-                seasons: {} 
-            },
-            { id: 'manda-flash', name: 'Manda Flash', description: 'La protectrice', image: 'images/manda_flash.jpg', banner: FLASH_BANNER, seasons: {} }
-        ]
-    },
-    shade: { 
-        name: 'Famille Shade', 
-        description: 'Mystère et ombres', 
-        image: 'images/shade-universe.jpg', 
-        characters: [
-            { 
-                id: 'sylvester-shade', 
-                name: 'Sylvester (Silver) Shade', 
-                description: 'L\'ombre insaisissable', 
-                image: 'images/sylvester_shade.jpg', 
-                banner: 'images/shade-banner.jpg',
-                hasLawBook: true,
-                lawBookImages: ['images/shade-law-1.webp', 'images/shade-law-2.webp', 'images/shade-law-3.webp'],
-                seasons: {} 
-            }
-        ] 
-    },
-    winters: { 
-        name: 'Famille Winters', 
-        description: 'Froid comme l\'hiver', 
-        image: 'images/winters-universe.jpg', 
-        characters: [
-            { id: 'oliver-winters', name: 'Oliver Winters', description: 'Le leader froid', image: 'images/oliver_winters.jpg', banner: 'images/winters-banner.jpg', seasons: {} }, 
-            { id: 'jake-winters', name: 'Jake Winters', description: 'Le second', image: 'images/jake_winters.jpg', banner: 'images/winters-banner.jpg', seasons: {} }
-        ] 
-    },
-    escobar: { 
-        name: 'Famille Escobar', 
-        description: 'Danger incarné', 
-        image: 'images/escobar-universe.jpg', 
-        characters: [
-            { id: 'tom-escobar', name: 'Tom Escobar', description: 'Le chef impitoyable', image: 'images/tom_escobar.jpg', banner: 'images/escobar-banner.jpg', seasons: {} }
-        ] 
-    },
-    kingsley: { 
-        name: 'Famille Kingsley', 
-        description: 'La royauté criminelle', 
-        image: 'images/kingsley-universe.jpg', 
-        characters: [
-            { id: 'zack-kingsley', name: 'Zack Kingsley', description: 'Le roi', image: 'images/zack_kingsley.jpg', banner: 'images/kingsley-banner.jpg', seasons: {} }
-        ] 
-    }
+    name: 'Famille Flash',
+    description: 'La saga lÃƒÂ©gendaire qui traverse les gÃƒÂ©nÃƒÂ©rations',
+    image: 'images/flashlogo.webp',
+    characters: [
+        { 
+            id: 'david-flash', 
+            name: 'David Flash', 
+            description: 'Le fondateur lÃƒÂ©gendaire de la famille Flash. Un homme au passÃƒÂ© trouble qui a bÃƒÂ¢ti un empire dans l\'ombre de Los Santos.', 
+            image: 'images/david_flash.jpg',
+            banner: FLASH_BANNER,
+            seasons: { 
+                'Saison 1': [
+                    { num: 1, title: 'POUR LA PREMIÃƒË†RE FOIS JE TESTE GTAV RP', videoId: 'z_H0tafxHAc' },
+                    { num: 2, title: 'Les DÃƒÂ©buts', videoId: 'z_H0tafxHAc' }
+                ], 
+                'Saison 2': [
+                    { num: 1, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' },
+                    { num: 2, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' }
+                ] 
+            } 
+        },
+        { 
+            id: 'john-flash', 
+            name: 'John Flash', 
+            description: 'Le successeur ambitieux de David Flash. Charismatique, dÃƒÂ©terminÃƒÂ©, il modernise l\'empire familial tout en affrontant ses propres dÃƒÂ©mons et les trahisons internes.', 
+            image: 'images/john_flash.jpg',
+            banner: FLASH_BANNER,
+            seasons: { 
+                'Saison 1': [
+                    { num: 1, title: 'Je suis gay !', videoId: 'z_H0tafxHAc' },
+                    { num: 2, title: 'Les DÃƒÂ©buts', videoId: 'z_H0tafxHAc' }
+                ], 
+                'Saison 2': [
+                    { num: 1, title: 'LA FEMME DE MA VIE OU LE GANG', videoId: 'Eoo3Vpelub4' }
+                ] 
+            } 
+        },
+        { 
+            id: 'ken-flash', 
+            name: 'Ken Flash', 
+            description: 'Le stratÃƒÂ¨ge froid et calculateur de la famille. MaÃƒÂ®tre des plans complexes, des alliances secrÃƒÂ¨tes et des coups bas, il prÃƒÂ©fÃƒÂ¨re l\'ombre Ãƒ  la lumiÃƒÂ¨re.', 
+            image: 'images/ken_flash.jpg', 
+            banner: FLASH_BANNER, 
+            seasons: {} 
+        },
+        { 
+            id: 'aaron-flash', 
+            name: 'Aaron Flash', 
+            description: 'Le combattant impitoyable et loyal. Ancien militaire reconverti dans le crime organisÃƒÂ©, il est le bras armÃƒÂ© de la famille, prÃƒÂªt Ãƒ  tout pour protÃƒÂ©ger les siens.', 
+            image: 'images/aaron_flash.webp', 
+            banner: FLASH_BANNER, 
+            hasVideo: true, 
+            videoUrl: 'vidÃƒÂ©os/phÃƒÂ©nixanimation1.mp4',
+            subtitlesUrl: 'vidÃƒÂ©os/phÃƒÂ©nixanimation1.vtt',
+            seasons: {} 
+        },
+        { 
+            id: 'david-jr-flash', 
+            name: 'David Jr Flash', 
+            description: 'La nouvelle gÃƒÂ©nÃƒÂ©ration montante. Fils de David Flash, il grandit dans l\'ombre du mythe familial, entre admiration et rÃƒÂ©bellion face Ãƒ  l\'hÃƒÂ©ritage criminel.', 
+            image: 'images/davidjr_flash.webp', 
+            banner: FLASH_BANNER, 
+            seasons: {} 
+        },
+        { 
+            id: 'damon-flash', 
+            name: 'Damon Flash', 
+            description: 'Le mystÃƒÂ©rieux et imprÃƒÂ©visible. Disparu pendant des annÃƒÂ©es, son retour soulÃƒÂ¨ve des questions : alliÃƒÂ© ou menace pour la famille ?', 
+            image: 'images/damon_flash2.jpg', 
+            banner: FLASH_BANNER, 
+            seasons: {} 
+        },
+        { 
+            id: 'kayton-flash', 
+            name: 'Kayton Flash', 
+            description: 'Le tacticien discret mais redoutable. SpÃƒÂ©cialiste des opÃƒÂ©rations clandestines, il gÃƒÂ¨re les rÃƒÂ©seaux souterrains et les informations sensibles.', 
+            image: 'images/kayton_flash.webp', 
+            banner: FLASH_BANNER, 
+            seasons: {} 
+        },
+        { 
+            id: 'adrian-flash', 
+            name: 'Adrian Flash', 
+            description: 'Le loyal absolu. Bras droit de confiance, il exÃƒÂ©cute sans poser de questions. Sa fidÃƒÂ©litÃƒÂ© est Ãƒ  toute ÃƒÂ©preuve, mais son passÃƒÂ© reste flou.', 
+            image: 'images/adrian_flash3.webp', 
+            banner: FLASH_BANNER, 
+            seasons: {} 
+        },
+        { 
+            id: 'ned-flash', 
+            name: 'Ned / Eden / Eddy Flash', 
+            description: "Fils de l'ancien roi de la terre des Flash, le capitaine Ned s'est battu au pÃƒÂ©ril de sa vie au cÃƒÂ´tÃƒÂ© de son ÃƒÂ©quipage pour venir Ãƒ  bout de la plus grande menace qu'a connu cette terre. Ce hÃƒÂ©ros a libÃƒÂ©rÃƒÂ© le monde de la destruction qui l'attendait.", 
+            image: 'images/ned_flash.webp', 
+            banner: FLASH_BANNER, 
+            hasVideo: true, 
+            videoUrl: 'vidÃƒÂ©os/3frÃƒÂ¨resintro.mp4',
+            subtitlesUrl: 'vidÃƒÂ©os/3frÃƒÂ¨resintro.vtt',
+            seasons: {} 
+        },
+        { 
+            id: 'manda-flash', 
+            name: 'Manda Flash', 
+            description: 'La protectrice fÃƒÂ©roce de la famille. MÃƒÂ¨re, sÃ…â€œur, guerriÃƒÂ¨re : elle veille sur les siens avec une tendresse dissimulÃƒÂ©e sous une armure d\'acier.', 
+            image: 'images/manda_flash.webp', 
+            banner: FLASH_BANNER, 
+            seasons: {} 
+        }
+    ]
+},
+shade: { 
+    name: 'Famille Shade', 
+    description: 'MystÃƒÂ¨re et ombres', 
+    image: 'images/shade-universe.jpg', 
+    characters: [
+        { 
+            id: 'sylvester-shade', 
+            name: 'Sylvester (Silver) Shade', 
+            description: 'L\'ombre insaisissable. MaÃƒÂ®tre du mystÃƒÂ¨re, il rÃƒÂ¨gne sur un empire de secrets. Ses lois sont gravÃƒÂ©es dans le sang, et personne ne les transgresse impunÃƒÂ©ment.', 
+            image: 'images/sylvester_shade.jpg', 
+            banner: 'images/shade-banner.jpg',
+            hasLawBook: true,
+            lawBookImages: ['images/shade-law-1.webp', 'images/shade-law-2.webp', 'images/shade-law-3.webp'],
+            seasons: {} 
+        }
+    ] 
+},
+winters: { 
+    name: 'Famille Winters', 
+    description: 'Froid comme l\'hiver', 
+    image: 'images/winters-universe.jpg', 
+    characters: [
+        { 
+            id: 'oliver-winters', 
+            name: 'Oliver Winters', 
+            description: 'Le leader froid et calculateur. Impitoyable en affaires, il dirige son clan d\'une main de fer, sans ÃƒÂ©motion ni pitiÃƒÂ©.', 
+            image: 'images/oliver_winters.jpg', 
+            banner: 'images/winters-banner.jpg', 
+            seasons: {} 
+        }, 
+        { 
+            id: 'jake-winters', 
+            name: 'Jake Winters', 
+            description: 'Le second fidÃƒÂ¨le et brutal. ExÃƒÂ©cuteur des basses Ã…â€œuvres, il est le bras droit d\'Oliver, redoutÃƒÂ© pour sa violence contenue.', 
+            image: 'images/jake_winters.jpg', 
+            banner: 'images/winters-banner.jpg', 
+            seasons: {} 
+        }
+    ] 
+},
+escobar: { 
+    name: 'Famille Escobar', 
+    description: 'Danger incarnÃƒÂ©', 
+    image: 'images/escobar-universe.jpg', 
+    characters: [
+        { 
+            id: 'tom-escobar', 
+            name: 'Tom Escobar', 
+            description: 'Le chef impitoyable au tempÃƒÂ©rament explosif. HÃƒÂ©ritier d\'une lignÃƒÂ©e de trafiquants, il ne connaÃƒÂ®t que la loi du plus fort.', 
+            image: 'images/tom_escobar.jpg', 
+            banner: 'images/escobar-banner.jpg', 
+            seasons: {} 
+        }
+    ] 
+},
+kingsley: { 
+    name: 'Famille Kingsley', 
+    description: 'La royautÃƒÂ© criminelle', 
+    image: 'images/kingsley-universe.jpg', 
+    characters: [
+        { 
+            id: 'zack-kingsley', 
+            name: 'Zack Kingsley', 
+            description: 'Le roi autoproclamÃƒÂ© du crime organisÃƒÂ©. Charismatique, arrogant, il traite ses ennemis comme des pions sur son ÃƒÂ©chiquier.', 
+            image: 'images/zack_kingsley.jpg', 
+            banner: 'images/kingsley-banner.jpg', 
+            seasons: {} 
+        }
+    ] 
+}
 };
 
 const socialNetworks = [
-    { name: 'YouTube Principal', icon: 'fab fa-youtube', info: '~1.4M abonnés', url: 'https://www.youtube.com/@iProMx', image: 'images/youtube-main.jpg' },
+    { name: 'YouTube Principal', icon: 'fab fa-youtube', info: '~1.4M abonnÃƒÂ©s', url: 'https://www.youtube.com/@iProMx', image: 'images/youtube-main.jpg' },
     { name: 'YouTube Secondaire', icon: 'fab fa-youtube', info: 'Bonus', url: 'https://www.youtube.com/@iProMx2', image: 'images/youtube-second.jpg' },
     { name: 'Twitch', icon: 'fab fa-twitch', info: '~271K followers', url: 'https://www.twitch.tv/ipromx', image: 'images/twitch.jpg' },
-    { name: 'Discord', icon: 'fab fa-discord', info: 'Communauté', url: 'https://discord.gg/ipromx', image: 'images/discord.jpg' },
+    { name: 'Discord', icon: 'fab fa-discord', info: 'CommunautÃƒÂ©', url: 'https://discord.gg/ipromx', image: 'images/discord.jpg' },
     { name: 'TikTok', icon: 'fab fa-tiktok', info: 'Viral', url: 'https://www.tiktok.com/@ipromx__', image: 'images/tiktok.jpg' },
     { name: 'Twitter/X', icon: 'fab fa-twitter', info: 'Updates', url: 'https://x.com/ipromx', image: 'images/twitter.jpg' },
     { name: 'Boutique', icon: 'fas fa-shopping-bag', info: 'Merch', url: 'https://shop.ipromx.com', image: 'images/shop.jpg' },
@@ -179,9 +250,9 @@ const legendesVideos = [
 ];
 
 function checkAuthAccess() {
-    // Vérifier si on a une vraie session Discord
+    // VÃƒÂ©rifier si on a une vraie session Discord
     const hasAuthSession = localStorage.getItem('ipromx_auth_session') === 'true';
-    // Vérifier si on est en mode invité
+    // VÃƒÂ©rifier si on est en mode invitÃƒÂ©
     const isGuestMode = localStorage.getItem('ipromx_guest') === 'true';
     
     console.log('checkAuthAccess:', { hasAuthSession, isGuestMode });
@@ -191,7 +262,7 @@ function checkAuthAccess() {
         return true;
     }
     
-    // Sinon, redirection vers connection (avec un petit délai pour éviter les race conditions)
+    // Sinon, redirection vers connection (avec un petit dÃƒÂ©lai pour ÃƒÂ©viter les race conditions)
     console.log('Pas d\'auth, redirection...');
     setTimeout(() => {
         window.location.href = 'connection.html';
@@ -203,23 +274,23 @@ function checkAuthAccess() {
 // INITIALISATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('=== DÉBUT INITIALISATION ===');
+    console.log('=== DÃƒâ€°BUT INITIALISATION ===');
 
     // FORCER la redirection vers loading si on arrive direct avec hash OAuth
 const hasHash = window.location.hash && window.location.hash.includes('access_token');
 if (hasHash) {
-    console.log('⚠️ Arrivée directe depuis Discord → redirection vers loading');
+    console.log('Ã¢Å¡ Ã¯Â¸Â ArrivÃƒÂ©e directe depuis Discord Ã¢â€ â€™ redirection vers loading');
     window.location.href = 'loading.html' + window.location.hash;
     return;
 }
     
-    // 1. Vérifier l'accès (redirige si besoin)
+    // 1. VÃƒÂ©rifier l'accÃƒÂ¨s (redirige si besoin)
     if (!checkAuthAccess()) {
-        console.log('checkAuthAccess a échoué, arrêt');
+        console.log('checkAuthAccess a ÃƒÂ©chouÃƒÂ©, arrÃƒÂªt');
         return;
     }
     
-    // 2. Récupérer l'utilisateur Discord (avec timeout pour éviter les blocages)
+    // 2. RÃƒÂ©cupÃƒÂ©rer l'utilisateur Discord (avec timeout pour ÃƒÂ©viter les blocages)
     let user = null;
     try {
         const { data } = await Promise.race([
@@ -227,46 +298,46 @@ if (hasHash) {
             new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 3000))
         ]);
         user = data?.user;
-        console.log('User Discord:', user ? 'Trouvé' : 'Non trouvé');
+        console.log('User Discord:', user ? 'TrouvÃƒÂ©' : 'Non trouvÃƒÂ©');
     } catch (err) {
         console.log('Erreur ou timeout getUser:', err.message);
     }
 
-    // 3. Déterminer le mode
+    // 3. DÃƒÂ©terminer le mode
     const guestFlag = localStorage.getItem('ipromx_guest') === 'true';
     console.log('Guest flag:', guestFlag);
     
     if (user) {
-        // Mode authentifié Discord
-        console.log('→ Mode Discord authentifié');
+        // Mode authentifiÃƒÂ© Discord
+        console.log('Ã¢â€ â€™ Mode Discord authentifiÃƒÂ©');
         currentUser = user;
         isGuest = false;
         await loadUserData(user);
         localStorage.setItem('ipromx_auth_session', 'true');
         localStorage.removeItem('ipromx_guest');
     } else if (guestFlag) {
-        // Mode invité
-        console.log('→ Mode Invité');
+        // Mode invitÃƒÂ©
+        console.log('Ã¢â€ â€™ Mode InvitÃƒÂ©');
         isGuest = true;
-        currentUser = { id: 'guest', user_metadata: { full_name: 'Invité' } };
+        currentUser = { id: 'guest', user_metadata: { full_name: 'InvitÃƒÂ©' } };
         loadLocalData();
         localStorage.removeItem('ipromx_auth_session');
-        // Afficher la modal d'avertissement après un court délai
+        // Afficher la modal d'avertissement aprÃƒÂ¨s un court dÃƒÂ©lai
         setTimeout(() => showGuestModal(), 1000);
     } else {
-        // Aucun mode valide, retour à connection
-        console.log('→ Aucun mode valide, redirection');
+        // Aucun mode valide, retour Ãƒ  connection
+        console.log('Ã¢â€ â€™ Aucun mode valide, redirection');
         window.location.href = 'connection.html';
         return;
     }
 
-    console.log('=== MODE FINAL:', isGuest ? 'INVITÉ' : 'DISCORD', '===');
+    console.log('=== MODE FINAL:', isGuest ? 'INVITÃƒâ€°' : 'DISCORD', '===');
 
     // 4. Initialiser l'interface
     showMainContent();
     setupEventListeners();
     displayUniverses();
-    displayCinematicsCarousel();
+    displayPopularCarousel();
     displayLegendesCarousel();
     displaySocialNetworks();
     checkLiveStatus();
@@ -285,8 +356,8 @@ function closeGuestModal() {
 }
 
 function redirectToConnection() {
-    console.log('redirectToConnection appelé');
-    // Supprimer le mode invité
+    console.log('redirectToConnection appelÃƒÂ©');
+    // Supprimer le mode invitÃƒÂ©
     localStorage.removeItem('ipromx_guest');
     localStorage.removeItem('ipromx_auth_session');
     // Marquer qu'on veut se connecter (pas juste visiter)
@@ -306,7 +377,7 @@ function toggleUserDropdown() {
                 <span class="user-name">${currentUser.user_metadata.full_name || 'Utilisateur'}</span>
                 <button class="btn-logout" onclick="handleLogout()">
                     <i class="fas fa-sign-out-alt"></i>
-                    ${isGuest ? 'Se connecter' : 'Déconnexion'}
+                    ${isGuest ? 'Se connecter' : 'DÃƒÂ©connexion'}
                 </button>
             </div>
         `;
@@ -325,9 +396,9 @@ document.addEventListener('click', (e) => {
 });
 
 async function handleLogout() {
-    console.log('handleLogout appelé, isGuest:', isGuest);
+    console.log('handleLogout appelÃƒÂ©, isGuest:', isGuest);
     if (isGuest) {
-        // Si on est invité et on veut se connecter
+        // Si on est invitÃƒÂ© et on veut se connecter
         localStorage.removeItem('ipromx_guest');
         localStorage.removeItem('ipromx_auth_session');
         localStorage.setItem('ipromx_want_to_login', 'true');
@@ -335,7 +406,7 @@ async function handleLogout() {
             window.location.href = 'connection.html';
         }, 100);
     } else {
-        // Si on est authentifié, on déconnecte Discord
+        // Si on est authentifiÃƒÂ©, on dÃƒÂ©connecte Discord
         await supabaseClient.auth.signOut();
         localStorage.removeItem('ipromx_auth_session');
         localStorage.removeItem('ipromx_guest');
@@ -394,7 +465,7 @@ function showMainContent() {
     const logoutBtn = document.getElementById('btnLogout');
 
     if (isGuest) {
-        userName.textContent = 'Invité';
+        userName.textContent = 'InvitÃƒÂ©';
         userAvatar.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM4QjAwMDAiLz4KPHBhdGggZD0iTTIwIDIwQzIyLjc2MTQgMjAgMjUgMTcuNzYxNCAyNSAxNUMyNSAxMi4yMzg2IDIyLjc2MTQgMTAgMjAgMTBDMTcuMjM4NiAxMCAxNSAxMi4yMzg2IDE1IDE1QzE1IDE3Ljc2MTQgMTcuMjM4NiAyMCAyMCAyMFpNMjAgMjJDMTYuMzM1OCAyMiAxMyAyMy4zNDMxIDEzIDI1VjI4SDI3VjI1QzI3IDIzLjM0MzEgMjMuNjY0MiAyMiAyMCAyMloiIGZpbGw9IiNGRkQ3MDAiLz4KPC9zdmc+';
         logoutBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Se connecter';
         logoutBtn.onclick = handleLogout;
@@ -439,128 +510,114 @@ function initFalconEye() {
 }
 
 function displayUniverses() {
-    const track = document.getElementById('universesGrid');
+    const grid = document.getElementById('universesGrid');
+    const order = ['zack-kingsley', 'jake-winters', 'ned-flash', 'manda-flash', 'adrian-flash', 'oliver-winters'];
+    const allCharacters = [];
+    
+    for (const [familyId, family] of Object.entries(universesData)) {
+        family.characters.forEach(char => allCharacters.push({ ...char, familyId, family }));
+    }
+    
+    const ordered = order.map(id => allCharacters.find(c => c.id === id)).filter(Boolean);
+    const remaining = allCharacters.filter(c => !order.includes(c.id));
+    const finalList = [...ordered, ...remaining];
 
-    const fixedOrder = [
-        'zack-kingsley', 'jake-winters', 'sylvester-shade', 'ned-flash', 'manda-flash',
-        'oliver-winters', 'adrian-flash', 'damon-flash', 'aaron-flash', 'david-jr-flash',
-        'kayton-flash', 'tom-escobar', 'ken-flash', 'john-flash', 'david-flash'
-    ];
-
-    const allCharacters = Object.values(universesData).flatMap(f => f.characters);
-    const sortedCharacters = fixedOrder
-        .map(id => allCharacters.find(c => c.id === id))
-        .filter(Boolean);
-
-    track.innerHTML = sortedCharacters.map(char => {
-        const family = Object.values(universesData).find(f => f.characters.includes(char));
-        const familyId = Object.keys(universesData).find(k => universesData[k] === family);
-        char.dataset = { family: familyId }; // pour le filtre
-        return `
-            <div class="card-cr" data-family="${familyId}" onclick="openUniverse('${familyId}', '${char.id}')">
-                <div class="card-image-cr" style="background-image: url('${char.image}')"></div>
-                <div class="card-content-cr">
-                    <h3 class="card-title-cr">${char.name}</h3>
-                    <p class="card-meta-cr">${family.name}</p>
-                </div>
+    grid.innerHTML = finalList.map(char => `
+        <div class="card-cr" data-family="${char.familyId}" onclick="openUniverse('${char.familyId}', '${char.id}')">
+            <div class="card-image-cr" style="background-image: url('${char.image}')"></div>
+            <div class="card-content-cr">
+                <h3 class="card-title-cr">${char.name}</h3>
+                <p class="card-meta-cr">${char.family.name}</p>
             </div>
-        `;
-    }).join('');
+        </div>
+    `).join('');
 }
 
 // ==========================================
-// MODAL PERSONNAGE - CORRIGÉ POUR VIDÉO
+// MODAL PERSONNAGE - CORRIGÃƒâ€° POUR VIDÃƒâ€°O
 // ==========================================
-function openUniverse(familyId, charId) {
+function openUniverse(familyId, charId = null) {
     const family = universesData[familyId];
-    if (!family) return;
+    const character = family.characters.find(c => c.id === charId) || family.characters[0];
 
-    const character = family.characters.find(c => c.id === charId);
-    if (!character) return;
-
-    currentVideoData = { character, familyId };
-
-    const modal = document.getElementById('seriesModal');
-    document.getElementById('seriesTitle').textContent = character.name;
-    document.getElementById('seriesDescription').textContent = character.description || 'Aucune description disponible.';
-
-    // Hero background
-    document.getElementById('seriesHero').style.backgroundImage = `url('${character.banner || FLASH_BANNER}')`;
-
-    // Vidéo intro (Aaron / Ned)
+    const seriesHero = document.getElementById('seriesHero');
     const heroVideoContainer = document.getElementById('heroVideoContainer');
     const heroVideo = document.getElementById('heroVideo');
+    const shadeLawsBtn = document.getElementById('shadeLawsBtn');
+
+    shadeLawsBtn.style.display = 'none';
+
     if (character.hasVideo) {
+        // IMPORTANT: Masquer l'image de fond
+        seriesHero.style.backgroundImage = 'none';
+        // IMPORTANT: Afficher le container vidÃƒÂ©o
         heroVideoContainer.style.display = 'block';
-        heroVideo.src = character.videoUrl;
+        // Charger la source vidÃƒÂ©o
+        heroVideo.querySelector('source').src = character.videoUrl;
+        // GÃƒÂ©rer les sous-titres
+        const subtitlesTrack = document.getElementById('videoSubtitles');
+        const subtitlesBtn = document.getElementById('subtitlesHero');
         if (character.subtitlesUrl) {
-            document.getElementById('videoSubtitles').src = character.subtitlesUrl;
-            document.getElementById('videoSubtitles').default = true;
+            subtitlesTrack.src = character.subtitlesUrl;
+            subtitlesBtn.style.display = 'inline-flex';
+        } else {
+            subtitlesBtn.style.display = 'none';
         }
+        // Recharger la vidÃƒÂ©o
         heroVideo.load();
-        heroVideo.play().catch(() => {});
-    } else {
+        // Setup des contrÃƒÂ´les
+        setupVideoControls(heroVideo);
+        // Lancer la vidÃƒÂ©o
+        heroVideo.play().catch(err => console.log('Autoplay bloquÃƒÂ©:', err));
+    } else if (character.hasLawBook) {
         heroVideoContainer.style.display = 'none';
-        heroVideo.pause();
-        heroVideo.src = '';
+        seriesHero.style.backgroundImage = `url('${character.banner || character.image}')`;
+        shadeLawsBtn.style.display = 'block';
+    } else {
+        // Image normale - MASQUER le container vidÃƒÂ©o
+        heroVideoContainer.style.display = 'none';
+        seriesHero.style.backgroundImage = `url('${character.banner || character.image}')`;
     }
 
-    // Bouton Livre des Lois (Shade)
-    document.getElementById('shadeLawsBtn').style.display = 
-        character.hasLawBook ? 'block' : 'none';
+    document.getElementById('seriesTitle').textContent = character.name;
+    document.getElementById('seriesDescription').textContent = character.description;
 
-    // Bouton Ma Liste
     const addBtn = document.getElementById('addToListBtn');
-    const inList = window.userMyList.some(i => i.charId === charId);
-    addBtn.innerHTML = inList ? '<i class="fas fa-check"></i> Dans Ma Liste' : '<i class="fas fa-plus"></i> Ajouter à Ma Liste';
-    addBtn.onclick = () => toggleMyList(familyId, charId);
+    const inList = window.userMyList.some(i => i.charId === character.id);
+    addBtn.innerHTML = inList ? '<i class="fas fa-check"></i> Dans Ma Liste' : '<i class="fas fa-plus"></i> Ajouter Ãƒ  Ma Liste';
+    addBtn.onclick = () => toggleMyList(familyId, character.id);
 
-    // Saisons et épisodes
+    const startBtn = document.getElementById('startBtn');
+    const seasons = Object.keys(character.seasons);
+    if (seasons.length > 0 && character.seasons[seasons[0]].length > 0) {
+        const firstEpisode = character.seasons[seasons[0]][0];
+        startBtn.onclick = () => {
+            closeSeriesModal();
+            playEpisode(firstEpisode.videoId, character, familyId, seasons[0], 0);
+        };
+        startBtn.disabled = false;
+        startBtn.style.opacity = '1';
+    } else {
+        startBtn.onclick = null;
+        startBtn.disabled = true;
+        startBtn.style.opacity = '0.5';
+    }
+
     const seasonTabs = document.getElementById('seasonTabs');
     const episodesList = document.getElementById('episodesListDetailed');
-
-    if (!character.seasons || Object.keys(character.seasons).length === 0) {
+    if (seasons.length > 0) {
+        seasonTabs.innerHTML = seasons.map((s, i) => `
+            <button class="season-tab ${i === 0 ? 'active' : ''}" onclick="showSeason('${familyId}', '${character.id}', '${s}', this)">
+                ${s}
+            </button>
+        `).join('');
+        showSeason(familyId, character.id, seasons[0]);
+    } else {
         seasonTabs.innerHTML = '';
-        episodesList.innerHTML = '<p class="no-episodes">Aucun épisode disponible pour le moment.</p>';
-        document.getElementById('startBtn').style.display = 'none';
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        return;
+        episodesList.innerHTML = '<p class="no-episodes">Aucun ÃƒÂ©pisode disponible.</p>';
     }
 
-    document.getElementById('startBtn').style.display = 'block';
-
-    // Créer les onglets de saison
-    seasonTabs.innerHTML = Object.keys(character.seasons).map((season, index) => `
-        <div class="season-tab ${index === 0 ? 'active' : ''}" onclick="switchSeason(this, '${season}')">
-            ${season}
-        </div>
-    `).join('');
-
-    // Fonction pour changer de saison
-    window.switchSeason = function(tab, seasonName) {
-        document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-
-        const episodes = character.seasons[seasonName];
-        episodesList.innerHTML = episodes.map((ep, idx) => {
-            const thumb = `https://i.ytimg.com/vi/${ep.videoId}/hqdefault.jpg`;
-            return `
-                <div class="episode-item-cr" onclick="playEpisode('${ep.videoId}', '${character.id}', '${familyId}', '${seasonName}', ${idx})">
-                    <div class="episode-thumb" style="background-image: url('${thumb}')"></div>
-                    <div class="episode-info">
-                        <h4>${ep.num}. ${ep.title}</h4>
-                        <p>${seasonName} • Épisode ${ep.num}</p>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    };
-
-    // Afficher la première saison au chargement
-    switchSeason(seasonTabs.querySelector('.season-tab'), Object.keys(character.seasons)[0]);
-
-    modal.classList.add('active');
+    document.getElementById('seriesModal').classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
@@ -712,7 +769,7 @@ function setupVideoControls(video) {
     document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
     document.addEventListener('mozfullscreenchange', handleFullscreenChange);
 
-    // Afficher les contrôles au mouvement de la souris
+    // Afficher les contrÃƒÂ´les au mouvement de la souris
     let hideControlsTimeout;
     container.addEventListener('mousemove', () => {
         container.classList.add('show-controls');
@@ -724,7 +781,7 @@ function setupVideoControls(video) {
         }, 3000);
     });
 
-    // Garder les contrôles visibles si la vidéo est en pause
+    // Garder les contrÃƒÂ´les visibles si la vidÃƒÂ©o est en pause
     video.addEventListener('pause', () => {
         container.classList.add('show-controls');
     });
@@ -783,7 +840,7 @@ function showSeason(familyId, charId, season, btn = null) {
         <div class="episode-item-cr" onclick="playEpisode('${ep.videoId}', ${JSON.stringify(character).replace(/"/g, '&quot;')}, '${familyId}', '${season}', ${index}); closeSeriesModal();">
             <div class="episode-thumb" style="background-image: url('https://i.ytimg.com/vi/${ep.videoId}/hqdefault.jpg')"></div>
             <div class="episode-info">
-                <h4>Épisode ${ep.num}</h4>
+                <h4>Ãƒâ€°pisode ${ep.num}</h4>
                 <p>${ep.title}</p>
             </div>
         </div>
@@ -805,7 +862,7 @@ function playEpisode(videoId, character, familyId, season, episodeIndex) {
     const currentEp = episodes[episodeIndex];
 
     document.getElementById('playerTitle').textContent = character.name;
-    document.getElementById('playerEpisode').textContent = `${season} - Épisode ${currentEp.num} : ${currentEp.title}`;
+    document.getElementById('playerEpisode').textContent = `${season} - Ãƒâ€°pisode ${currentEp.num} : ${currentEp.title}`;
     document.getElementById('characterAvatar').src = character.image;
     document.getElementById('characterName').textContent = character.name;
     document.getElementById('characterShortDesc').textContent = universesData[familyId].name;
@@ -843,7 +900,7 @@ function playEpisode(videoId, character, familyId, season, episodeIndex) {
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    addToHistory(character.name, `${season} - Ép. ${currentEp.num}`, videoId, character.image, familyId, character.id, season, episodeIndex);
+    addToHistory(character.name, `${season} - Ãƒâ€°p. ${currentEp.num}`, videoId, character.image, familyId, character.id, season, episodeIndex);
 }
 
 function onPlayerStateChange(event) {
@@ -876,7 +933,7 @@ function displaySuggestions(character, season, currentIndex, familyId) {
             <div class="suggestion-info">
                 <h4>${ep.title}</h4>
                 <p>${character.name}</p>
-                <p class="suggestion-meta">Épisode ${ep.num}</p>
+                <p class="suggestion-meta">Ãƒâ€°pisode ${ep.num}</p>
             </div>
         </div>
     `).join('');
@@ -993,7 +1050,7 @@ async function checkLiveStatus() {
                 descEl.textContent = lastLiveData.title || 'Dernier live';
                 lastLiveDateEl.innerHTML = `<i class="fas fa-calendar"></i> ${lastLiveData.lastLive}`;
             } else {
-                descEl.textContent = 'Le stream reprendra bientôt';
+                descEl.textContent = 'Le stream reprendra bientÃƒÂ´t';
                 lastLiveDateEl.innerHTML = '<i class="fas fa-calendar"></i> --';
             }
 
@@ -1006,7 +1063,7 @@ async function checkLiveStatus() {
         console.error('Erreur live:', err);
         statusEl.textContent = 'ERREUR';
         titleEl.textContent = 'iProMx sur Twitch';
-        descEl.textContent = 'Impossible de vérifier le statut';
+        descEl.textContent = 'Impossible de vÃƒÂ©rifier le statut';
         lastLiveDateEl.innerHTML = '<i class="fas fa-calendar"></i> --';
         badge.classList.remove('online');
         indicator.classList.add('error');
@@ -1031,45 +1088,88 @@ function scrollCarousel(type, direction) {
     track.scrollBy({ left: direction * (cardWidth + 25), behavior: 'smooth' });
 }
 
-function displayCinematicsCarousel() {
-    const track = document.getElementById('cinematiquesCarousel');
-    const cinematiques = [
-        { title: "L'arrivée de David Flash", thumbnail: "images/cine1.jpg", videoId: "z_H0tafxHAc" },
-        { title: "Le règne des Shade", thumbnail: "images/cine2.jpg", videoId: "Eoo3Vpelub4" },
-        { title: "La chute des Winters", thumbnail: "images/cine3.jpg", videoId: "dQw4w9WgXcQ" },
-        // Ajoute d'autres vidéos ici si besoin, avec des thumbnails et videoId réels
-    ];
+function displayPopularCarousel() {
+    const track = document.getElementById('popularCarousel');
+    const popular = Object.values(universesData)
+        .flatMap(f => f.characters.slice(0, 3))
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 8);
 
-    track.innerHTML = cinematiques.map(video => `
-        <div class="card-cr" onclick="playGeneralVideo('${video.videoId}', '${video.title}')">
-            <div class="card-image-cr" style="background-image: url('${video.thumbnail}')"></div>
-            <div class="card-content-cr">
-                <h3 class="card-title-cr">${video.title}</h3>
-                <p class="card-meta-cr">Cinématique</p>
+    track.innerHTML = popular.map(char => {
+        const family = Object.values(universesData).find(f => f.characters.includes(char));
+        const familyId = Object.keys(universesData).find(k => universesData[k] === family);
+        return `
+            <div class="card-cr" onclick="openUniverse('${familyId}', '${char.id}')">
+                <div class="card-image-cr" style="background-image: url('${char.image}')"></div>
+                <div class="card-content-cr">
+                    <h3 class="card-title-cr">${char.name}</h3>
+                    <p class="card-meta-cr">Populaire</p>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 function displayLegendesCarousel() {
     const track = document.getElementById('legendesCarousel');
-
     track.innerHTML = legendesVideos.map(video => `
-        <div class="card-cr" onclick="playGeneralVideo('${video.videoId}', '${video.title}')">
-            <div class="card-image-cr" style="background-image: url('${video.thumbnail}')"></div>
+        <div class="card-cr" onclick="playLegendVideo('${video.videoId}', '${video.title}')">
+            <div class="card-image-cr" style="background-image: url('${video.thumbnail}')">
+                <div class="play-icon-overlay"><i class="fas fa-play-circle"></i></div>
+            </div>
             <div class="card-content-cr">
                 <h3 class="card-title-cr">${video.title}</h3>
-                <p class="card-meta-cr">${video.type.toUpperCase()}</p>
+                <p class="card-meta-cr">${video.type === 'irl' ? 'IRL' : video.type === 'bonus' ? 'Bonus' : 'Best Of'}</p>
             </div>
         </div>
     `).join('');
 }
 
-function displaySocialNetworks() {
-    const grid = document.getElementById('socialGrid');
+function playLegendVideo(videoId, title) {
+    const fakeCharacter = {
+        id: 'legend',
+        name: 'iProMx',
+        description: 'Moments lÃƒÂ©gendaires et contenus exclusifs d\'iProMx',
+        image: 'images/logo-ipromx.png'
+    };
 
-    grid.innerHTML = socialNetworks.map(net => `
-        <a class="social-card-cr" href="${net.url}" target="_blank">
+    currentVideoData = { videoId, character: fakeCharacter, familyId: 'legend', season: 'LÃƒÂ©gendes', episodeIndex: 0 };
+
+    const modal = document.getElementById('playerModal');
+    document.getElementById('playerTitle').textContent = 'iProMx LÃƒÂ©gendes';
+    document.getElementById('playerEpisode').textContent = title;
+    document.getElementById('characterAvatar').src = 'images/logo-ipromx.png';
+    document.getElementById('characterName').textContent = 'iProMx';
+    document.getElementById('characterShortDesc').textContent = 'Contenu Exclusif';
+    document.getElementById('characterFullDesc').textContent = 'DÃƒÂ©couvrez les moments lÃƒÂ©gendaires, contenus IRL et bonus exclusifs d\'iProMx.';
+
+    if (player) player.destroy();
+
+    player = new YT.Player('youtubePlayerContainer', {
+        height: '100%',
+        width: '100%',
+        videoId: videoId,
+        playerVars: {
+            autoplay: 1,
+            controls: 1,
+            rel: 0,
+            modestbranding: 1,
+            fs: 1
+        }
+    });
+
+    document.getElementById('suggestionsList').innerHTML = '';
+
+    const addListBtn = document.getElementById('addListBtnPlayer');
+    addListBtn.style.display = 'none';
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function displaySocialNetworks() {
+    document.getElementById('socialGrid').innerHTML = socialNetworks.map(net => `
+        <a href="${net.url}" target="_blank" class="social-card-cr">
             <div class="social-image" style="background-image: url('${net.image}')"></div>
             <div class="social-info">
                 <h3><i class="${net.icon}"></i> ${net.name}</h3>
@@ -1077,36 +1177,6 @@ function displaySocialNetworks() {
             </div>
         </a>
     `).join('');
-}
-
-// Fonction helper pour jouer une vidéo générale (non liée à un personnage/saison)
-function playGeneralVideo(videoId, title) {
-    // Ouvre le modal player avec la vidéo
-    document.getElementById('playerTitle').textContent = title;
-    document.getElementById('playerEpisode').textContent = ''; // Pas d'épisode ici
-    document.getElementById('characterName').textContent = title; // Réutilise pour le titre
-    document.getElementById('characterShortDesc').textContent = '';
-    document.getElementById('characterFullDesc').textContent = '';
-
-    if (player) {
-        player.loadVideoById(videoId);
-        player.playVideo();
-    } else {
-        // Si player pas initialisé, initialise-le (assume que tu as une init pour YT player)
-        player = new YT.Player('youtubePlayerContainer', {
-            height: '100%',
-            width: '100%',
-            videoId: videoId,
-            events: {
-                'onReady': function(event) {
-                    event.target.playVideo();
-                }
-            }
-        });
-    }
-
-    document.getElementById('playerModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
 }
 
 // ==========================================
@@ -1125,10 +1195,10 @@ function addToHistory(title, episode, videoId, image, familyId, charId, season, 
         timestamp: Date.now() 
     };
     
-    // Ajouter à l'historique complet
+    // Ajouter Ãƒ  l'historique complet
     window.allWatchedEpisodes = [entry, ...window.allWatchedEpisodes.filter(h => h.videoId !== videoId)].slice(0, 100);
     
-    // Pour l'affichage, garder seulement le dernier épisode par personnage
+    // Pour l'affichage, garder seulement le dernier ÃƒÂ©pisode par personnage
     const existingIndex = window.userHistory.findIndex(h => h.charId === charId);
     if (existingIndex > -1) {
         window.userHistory.splice(existingIndex, 1);
@@ -1152,7 +1222,7 @@ function displayHistory() {
     
     section.style.display = 'block';
     
-    // Afficher seulement les 3 premiers par défaut
+    // Afficher seulement les 3 premiers par dÃƒÂ©faut
     const displayLimit = container.classList.contains('show-all') ? window.userHistory.length : 3;
     const itemsToShow = window.userHistory.slice(0, displayLimit);
     
@@ -1168,7 +1238,7 @@ function displayHistory() {
         </div>
     `).join('');
     
-    // Ajouter le bouton "Voir plus/moins" si plus de 3 éléments
+    // Ajouter le bouton "Voir plus/moins" si plus de 3 ÃƒÂ©lÃƒÂ©ments
     if (window.userHistory.length > 3) {
         const isShowingAll = container.classList.contains('show-all');
         const buttonHTML = `
@@ -1208,24 +1278,21 @@ function openManageHistory() {
     const modal = document.getElementById('manageHistoryModal');
     const list = document.getElementById('manageHistoryList');
     selectedHistoryItems.clear();
-
-    // Trier du plus récent au plus ancien
-    const sortedHistory = [...window.allWatchedEpisodes].sort((a, b) => b.timestamp - a.timestamp);
-
-    list.innerHTML = sortedHistory.map((h, index) => `
+    
+    list.innerHTML = window.allWatchedEpisodes.map((h, index) => `
         <div class="manage-item">
             <input type="checkbox" id="hist-${index}" onchange="toggleHistorySelection(${index})">
             <label for="hist-${index}">
                 <img src="https://i.ytimg.com/vi/${h.videoId}/default.jpg" alt="">
                 <div class="manage-item-info">
-                    <h4>${h.title || 'Épisode inconnu'}</h4>
+                    <h4>${h.title}</h4>
                     <p>${h.episode}</p>
                     <span class="manage-date">${new Date(h.timestamp).toLocaleDateString('fr-FR')}</span>
                 </div>
             </label>
         </div>
     `).join('');
-
+    
     modal.classList.add('active');
 }
 
@@ -1238,29 +1305,23 @@ function toggleHistorySelection(index) {
 }
 
 function deleteSelectedHistory() {
-    if (selectedHistoryItems.size === 0) return alert('Sélectionnez au moins un élément');
-
-    if (!confirm(`Supprimer ${selectedHistoryItems.size} élément(s) ?`)) return;
-
-    const sortedIndices = Array.from(selectedHistoryItems).sort((a, b) => b - a);
-    sortedIndices.forEach(i => {
-        const realIndex = [...window.allWatchedEpisodes].sort((a, b) => b.timestamp - a.timestamp)[i];
-        if (realIndex) {
-            window.allWatchedEpisodes.splice(window.allWatchedEpisodes.indexOf(realIndex), 1);
-        }
-    });
-
-    // Mettre à jour l'affichage réduit (userHistory)
-    window.userHistory = window.allWatchedEpisodes
-        .reduce((acc, ep) => {
-            if (!acc.find(x => x.charId === ep.charId)) acc.push(ep);
-            return acc;
-        }, [])
-        .slice(0, 20);
-
-    displayHistory();
-    saveData();
-    closeManageHistory();
+    if (selectedHistoryItems.size === 0) {
+        alert('Veuillez sÃƒÂ©lectionner au moins un ÃƒÂ©lÃƒÂ©ment');
+        return;
+    }
+    
+    if (confirm(`Supprimer ${selectedHistoryItems.size} ÃƒÂ©lÃƒÂ©ment(s) ?`)) {
+        const indices = Array.from(selectedHistoryItems).sort((a, b) => b - a);
+        indices.forEach(i => {
+            const item = window.allWatchedEpisodes[i];
+            window.allWatchedEpisodes.splice(i, 1);
+            window.userHistory = window.userHistory.filter(h => h.videoId !== item.videoId);
+        });
+        
+        displayHistory();
+        saveData();
+        closeManageHistory();
+    }
 }
 
 function deleteAllHistory() {
@@ -1296,7 +1357,7 @@ function toggleMyList(familyId, charId) {
     const btn = document.getElementById('addToListBtn');
     if (btn) {
         const inList = window.userMyList.some(i => i.charId === charId);
-        btn.innerHTML = inList ? '<i class="fas fa-check"></i> Dans Ma Liste' : '<i class="fas fa-plus"></i> Ajouter à Ma Liste';
+        btn.innerHTML = inList ? '<i class="fas fa-check"></i> Dans Ma Liste' : '<i class="fas fa-plus"></i> Ajouter Ãƒ  Ma Liste';
     }
 }
 
@@ -1364,11 +1425,11 @@ function toggleListSelection(index) {
 
 function deleteSelectedList() {
     if (selectedListItems.size === 0) {
-        alert('Veuillez sélectionner au moins un élément');
+        alert('Veuillez sÃƒÂ©lectionner au moins un ÃƒÂ©lÃƒÂ©ment');
         return;
     }
     
-    if (confirm(`Supprimer ${selectedListItems.size} élément(s) ?`)) {
+    if (confirm(`Supprimer ${selectedListItems.size} ÃƒÂ©lÃƒÂ©ment(s) ?`)) {
         const indices = Array.from(selectedListItems).sort((a, b) => b - a);
         indices.forEach(i => window.userMyList.splice(i, 1));
         

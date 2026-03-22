@@ -17,7 +17,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ===== MODALS GÉNÉRIQUES ===== */
+/* ===== MODALS GÃ‰NÃ‰RIQUES ===== */
 .guest-modal, .manage-modal {
     position: fixed;
     top: 0;
@@ -331,7 +331,7 @@ body {
     transform: scale(1.1);
 }
 
-/* LIVE INDICATOR - 3 ÉTATS */
+/* LIVE INDICATOR - 3 Ã‰TATS */
 .live-indicator-nav {
     display: flex;
     align-items: center;
@@ -633,20 +633,21 @@ body {
 
 /* ===== HERO BANNER ===== */
 .hero-banner-large {
-    height: 100vh;
-    min-height: 600px;
     position: relative;
+    height: 650px;
     overflow: hidden;
     margin-top: 70px;
 }
 .hero-background {
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    filter: brightness(0.6);
-    z-index: 1;
+    background-position: center;
+    filter: brightness(0.5) contrast(1.2);
+    transition: transform 8s ease;
 }
 .hero-banner-large:hover .hero-background {
     transform: scale(1.1);
@@ -1218,7 +1219,7 @@ body {
     font-size: 0.95rem;
 }
 
-/* ===== LECTEUR VIDÉO YOUTUBE ===== */
+/* ===== LECTEUR VIDÃ‰O YOUTUBE ===== */
 .player-modal-youtube {
     position: fixed;
     top: 0;
@@ -1431,7 +1432,7 @@ body {
     font-size: 0.8rem !important;
 }
 
-/* ===== MODAL SÉRIE ===== */
+/* ===== MODAL SÃ‰RIE ===== */
 .series-modal {
     position: fixed;
     top: 0;
@@ -2007,9 +2008,6 @@ body {
     .navbar-right .btn-logout { display: none; }
     .navbar-right { gap: 15px; }
     .hero-banner-large { height: 500px; margin-top: 60px; }
-    .hero-background {
-        background-position: 65% center !important; /* Ajuste selon ton image */
-    }
     .hero-title-large { font-size: 3rem; }
     .hero-description-large { font-size: 1.1rem; }
     .btn-hero { padding: 14px 30px; font-size: 1rem; }

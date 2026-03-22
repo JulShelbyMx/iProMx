@@ -11,15 +11,15 @@
 </head>
 <body>
 
-    <!-- MODAL ALERTE MODE INVITÉ -->
+    <!-- MODAL ALERTE MODE INVITÃƒâ€° -->
     <div class="guest-modal" id="guestModal">
         <div class="guest-modal-content">
             <div class="guest-modal-icon">
                 <i class="fas fa-exclamation-triangle"></i>
             </div>
-            <h2>Mode Invité</h2>
-            <p>Vous naviguez en mode invité. Vos données (historique, ma liste) ne seront pas sauvegardées de manière permanente.</p>
-            <p class="guest-modal-tip">Pour une expérience optimale et sauvegarder vos données, connectez-vous avec Discord.</p>
+            <h2>Mode InvitÃƒÂ©</h2>
+            <p>Vous naviguez en mode invitÃƒÂ©. Vos donnÃƒÂ©es (historique, ma liste) ne seront pas sauvegardÃƒÂ©es de maniÃƒÂ¨re permanente.</p>
+            <p class="guest-modal-tip">Pour une expÃƒÂ©rience optimale et sauvegarder vos donnÃƒÂ©es, connectez-vous avec Discord.</p>
             <div class="guest-modal-actions">
                 <button class="btn-guest-primary" onclick="closeGuestModal()">
                     <i class="fas fa-check"></i> J'ai compris
@@ -37,11 +37,11 @@
             <button class="modal-close-btn" onclick="closeManageHistory()">
                 <i class="fas fa-times"></i>
             </button>
-            <h2><i class="fas fa-history"></i> Gérer l'historique</h2>
+            <h2><i class="fas fa-history"></i> GÃƒÂ©rer l'historique</h2>
             <div class="manage-list" id="manageHistoryList"></div>
             <div class="manage-actions">
                 <button class="btn-delete-selected" onclick="deleteSelectedHistory()">
-                    <i class="fas fa-trash"></i> Supprimer la sélection
+                    <i class="fas fa-trash"></i> Supprimer la sÃƒÂ©lection
                 </button>
                 <button class="btn-delete-all" onclick="deleteAllHistory()">
                     <i class="fas fa-trash-alt"></i> Tout supprimer
@@ -56,11 +56,11 @@
             <button class="modal-close-btn" onclick="closeManageList()">
                 <i class="fas fa-times"></i>
             </button>
-            <h2><i class="fas fa-star"></i> Gérer Ma Liste</h2>
+            <h2><i class="fas fa-star"></i> GÃƒÂ©rer Ma Liste</h2>
             <div class="manage-list" id="manageListList"></div>
             <div class="manage-actions">
                 <button class="btn-delete-selected" onclick="deleteSelectedList()">
-                    <i class="fas fa-trash"></i> Supprimer la sélection
+                    <i class="fas fa-trash"></i> Supprimer la sÃƒÂ©lection
                 </button>
                 <button class="btn-delete-all" onclick="deleteAllList()">
                     <i class="fas fa-trash-alt"></i> Tout supprimer
@@ -93,7 +93,7 @@
                 </button>
                 <a href="https://www.twitch.tv/ipromx" target="_blank" class="live-indicator-nav" id="liveIndicatorNav">
                     <span class="live-dot"></span>
-                    <span class="live-text">VÉRIFICATION...</span>
+                    <span class="live-text">VÃƒâ€°RIFICATION...</span>
                 </a>
                 <div id="userInfo" style="display: none; align-items: center; gap: 12px; margin-left: 20px;">
                     <img id="userAvatar" src="" alt="Avatar" class="user-avatar">
@@ -135,7 +135,7 @@
         <div class="hero-background" style="background-image: url('images/ipromxbackground.png');"></div>
         <div class="hero-content-large">
             <h1 class="hero-title-large">L'UNIVERS D'iPROMX</h1>
-            <p class="hero-description-large">Découvrez les sagas criminelles, les alliances, les trahisons et les légendes qui traversent les générations. Une expérience immersive unique dans l'univers du RP.</p>
+            <p class="hero-description-large">DÃƒÂ©couvrez les sagas criminelles, les alliances, les trahisons et les lÃƒÂ©gendes qui traversent les gÃƒÂ©nÃƒÂ©rations. Une expÃƒÂ©rience immersive unique dans l'univers du RP.</p>
             <div class="hero-buttons-large">
                 <button class="btn-hero btn-play" onclick="document.getElementById('univers').scrollIntoView({behavior: 'smooth'})">
                     <i class="fas fa-play"></i>
@@ -157,11 +157,11 @@
                         </div>
                     </div>
                 </div>
-                <h2>L'ŒIL DU FAUCON</h2>
+                <h2>L'Ã…â€™IL DU FAUCON</h2>
             </div>
             <div class="search-input-wrapper">
                 <input type="text" class="search-input-large" id="searchInput" placeholder="Rechercher un personnage, une famille...">
-                <button class="search-close" id="searchClose">×</button>
+                <button class="search-close" id="searchClose">Ãƒâ€”</button>
             </div>
             <div class="search-results-grid" id="searchResults"></div>
         </div>
@@ -179,12 +179,12 @@
             <div class="live-thumbnail-compact" style="background-image: url('images/ipromxgrrrrrr.jpg');">
                 <div class="live-badge-overlay" id="liveBadge">
                     <i class="fas fa-circle"></i>
-                    <span id="liveStatus">VÉRIFICATION...</span>
+                    <span id="liveStatus">VÃƒâ€°RIFICATION...</span>
                 </div>
             </div>
             <div class="live-info-compact">
                 <h3 id="liveTitle">iProMx sur Twitch</h3>
-                <p id="liveDescription">Vérification du statut...</p>
+                <p id="liveDescription">VÃƒÂ©rification du statut...</p>
                 <div class="live-stats-compact">
                     <span><i class="fas fa-users"></i> 271K followers</span>
                     <span id="lastLiveDate"><i class="fas fa-calendar"></i> --</span>
@@ -202,10 +202,10 @@
         <div class="section-header-cr">
             <h2 class="section-title-cr">
                 <i class="fas fa-history"></i>
-                Continuer à regarder
+                Continuer Ãƒ  regarder
             </h2>
             <button class="clear-btn" onclick="openManageHistory()">
-                <i class="fas fa-cog"></i> Gérer
+                <i class="fas fa-cog"></i> GÃƒÂ©rer
             </button>
         </div>
         <div class="history-horizontal-list" id="historyCards"></div>
@@ -219,7 +219,7 @@
                 Ma Liste
             </h2>
             <button class="clear-btn" onclick="openManageList()">
-                <i class="fas fa-cog"></i> Gérer
+                <i class="fas fa-cog"></i> GÃƒÂ©rer
             </button>
         </div>
         <div class="carousel-container">
@@ -260,31 +260,31 @@
         </div>
     </div>
 
-<!-- CINÉMATIQUES -->
-<div class="section-crunchyroll" id="cinematiques">
-    <div class="section-header-cr">
-        <h2 class="section-title-cr">
-            <i class="fas fa-video"></i>
-            Cinématiques
-        </h2>
+    <!-- POPULAIRE -->
+    <div class="section-crunchyroll" id="browse">
+        <div class="section-header-cr">
+            <h2 class="section-title-cr">
+                <i class="fas fa-fire"></i>
+                Les plus populaires
+            </h2>
+        </div>
+        <div class="carousel-container">
+            <button class="carousel-btn carousel-prev" onclick="scrollCarousel('popular', -1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="carousel-track" id="popularCarousel"></div>
+            <button class="carousel-btn carousel-next" onclick="scrollCarousel('popular', 1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
     </div>
-    <div class="carousel-container">
-        <button class="carousel-btn carousel-prev" onclick="scrollCarousel('cinematiques', -1)">
-            <i class="fas fa-chevron-left"></i>
-        </button>
-        <div class="carousel-track" id="cinematiquesCarousel"></div>
-        <button class="carousel-btn carousel-next" onclick="scrollCarousel('cinematiques', 1)">
-            <i class="fas fa-chevron-right"></i>
-        </button>
-    </div>
-</div>
 
-    <!-- LÉGENDES -->
+    <!-- LÃƒâ€°GENDES -->
     <div class="section-crunchyroll" id="legendes">
         <div class="section-header-cr">
             <h2 class="section-title-cr">
                 <i class="fas fa-crown"></i>
-                Légendes
+                LÃƒÂ©gendes
             </h2>
         </div>
         <div class="carousel-container">
@@ -298,18 +298,18 @@
         </div>
     </div>
 
-    <!-- RÉSEAUX SOCIAUX -->
+    <!-- RÃƒâ€°SEAUX SOCIAUX -->
     <div class="section-crunchyroll" id="reseaux">
         <div class="section-header-cr">
             <h2 class="section-title-cr">
                 <i class="fas fa-globe"></i>
-                Rejoignez la Communauté
+                Rejoignez la CommunautÃƒÂ©
             </h2>
         </div>
         <div class="social-grid-cr" id="socialGrid"></div>
     </div>
 
-    <!-- MODAL LECTEUR VIDÉO -->
+    <!-- MODAL LECTEUR VIDÃƒâ€°O -->
     <div class="player-modal-youtube" id="playerModal">
         <div class="youtube-layout">
             <button class="player-close" onclick="closePlayer()">
@@ -349,24 +349,24 @@
             </div>
             
             <div class="youtube-sidebar">
-                <h3 class="sidebar-title">Épisodes suggérés</h3>
+                <h3 class="sidebar-title">Ãƒâ€°pisodes suggÃƒÂ©rÃƒÂ©s</h3>
                 <div class="suggestions-list" id="suggestionsList"></div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL SÉRIE -->
+    <!-- MODAL SÃƒâ€°RIE -->
     <div class="series-modal" id="seriesModal">
         <div class="series-modal-content">
             <button class="modal-close-btn" onclick="closeSeriesModal()">
                 <i class="fas fa-times"></i>
             </button>
             <div class="series-hero" id="seriesHero">
-                <!-- Vidéo pour Ned et Aaron -->
+                <!-- VidÃƒÂ©o pour Ned et Aaron -->
                 <div class="hero-video-container" id="heroVideoContainer" style="display:none;">
                     <video id="heroVideo" class="hero-video" loop crossorigin="anonymous">
                         <source src="" type="video/mp4">
-                        <track id="videoSubtitles" kind="subtitles" srclang="fr" label="Français">
+                        <track id="videoSubtitles" kind="subtitles" srclang="fr" label="FranÃƒÂ§ais">
                     </video>
                     <div class="video-loading" id="videoLoading" style="display:none;">
                         <i class="fas fa-spinner"></i>
@@ -401,7 +401,7 @@
                                 <button class="hero-control-btn" id="pipHero" title="Picture-in-Picture">
                                     <i class="fas fa-external-link-alt"></i>
                                 </button>
-                                <button class="hero-control-btn" id="fullscreenHero" title="Plein écran">
+                                <button class="hero-control-btn" id="fullscreenHero" title="Plein ÃƒÂ©cran">
                                     <i class="fas fa-expand"></i>
                                 </button>
                             </div>
@@ -439,10 +439,10 @@
                 </div>
             </div>
 
-            <!-- Bouton sortie plein écran (APRÈS series-hero) -->
+            <!-- Bouton sortie plein ÃƒÂ©cran (APRÃƒË†S series-hero) -->
             <button class="exit-fullscreen-btn" id="exitFullscreenBtn">
                 <i class="fas fa-compress"></i>
-                Quitter le plein écran
+                Quitter le plein ÃƒÂ©cran
             </button>
             <div class="series-body">
                 <div class="series-info-section">
@@ -453,7 +453,7 @@
                             <i class="fas fa-play"></i> Commencer
                         </button>
                         <button class="btn-series-action btn-secondary" id="addToListBtn">
-                            <i class="fas fa-plus"></i> Ajouter à Ma Liste
+                            <i class="fas fa-plus"></i> Ajouter Ãƒ  Ma Liste
                         </button>
                     </div>
                 </div>
@@ -481,12 +481,12 @@
                 <div class="footer-links">
                     <a href="#univers">Parcourir</a>
                     <a href="#browse">Populaire</a>
-                    <a href="#reseaux">Communauté</a>
+                    <a href="#reseaux">CommunautÃƒÂ©</a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 L'Univers d'iProMx. Tous droits réservés.</p>
-                <p>Site créé pour la communauté.</p>
+                <p>Ã‚Â© 2025 L'Univers d'iProMx. Tous droits rÃƒÂ©servÃƒÂ©s.</p>
+                <p>Site crÃƒÂ©ÃƒÂ© pour la communautÃƒÂ©.</p>
             </div>
         </div>
     </footer>
