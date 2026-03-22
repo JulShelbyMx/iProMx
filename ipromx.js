@@ -313,23 +313,23 @@ function _setLiveBadge(status) {
   badge.style.cssText = '';
 
   if(status === 'online') {
-    badge.innerHTML = `<span class="live-dot"></span><span class="live-text">EN LIVE</span>`;
-    badge.style.background    = 'rgba(39,174,96,0.15)';
-    badge.style.borderColor   = '#27ae60';
-    badge.style.color         = '#2ecc71';
+    badge.innerHTML = `<span class="live-dot" style="background:#2ecc71;box-shadow:0 0 8px #2ecc71;"></span><span class="live-text">EN LIVE</span>`;
+    badge.style.background  = 'rgba(39,174,96,0.15)';
+    badge.style.borderColor = '#27ae60';
+    badge.style.color       = '#2ecc71';
   } else if(status === 'offline') {
-    badge.innerHTML = `<span class="live-dot" style="background:#e74c3c;animation:none;box-shadow:none;"></span><span class="live-text">HORS LIGNE</span>`;
-    badge.style.background    = 'rgba(231,76,60,0.12)';
-    badge.style.borderColor   = 'rgba(231,76,60,0.5)';
-    badge.style.color         = '#e74c3c';
-    badge.style.opacity       = '0.85';
+    badge.innerHTML = `<span class="live-dot" style="background:#e74c3c;animation:none;box-shadow:none;"></span><span class="live-text">HORS-LIVE</span>`;
+    badge.style.background  = 'rgba(231,76,60,0.12)';
+    badge.style.borderColor = 'rgba(231,76,60,0.5)';
+    badge.style.color       = '#e74c3c';
+    badge.style.opacity     = '0.85';
   } else {
     // error / local
-    badge.innerHTML = `<span class="live-dot" style="background:#e67e22;animation:none;box-shadow:none;"></span><span class="live-text">TWITCH</span>`;
-    badge.style.background    = 'rgba(230,126,34,0.12)';
-    badge.style.borderColor   = 'rgba(230,126,34,0.45)';
-    badge.style.color         = '#e67e22';
-    badge.style.opacity       = '0.8';
+    badge.innerHTML = `<span class="live-dot" style="background:#e67e22;animation:none;box-shadow:none;"></span><span class="live-text">ERREUR</span>`;
+    badge.style.background  = 'rgba(230,126,34,0.12)';
+    badge.style.borderColor = 'rgba(230,126,34,0.45)';
+    badge.style.color       = '#e67e22';
+    badge.style.opacity     = '0.8';
   }
 }
 
@@ -371,7 +371,7 @@ function _setLiveSection(status, data) {
     // Titre channel même hors live (iProMx peut avoir changé son titre)
     const chanTitle = data?.title || '';
     if(subtitle) subtitle.innerHTML = chanTitle
-      ? `Prochain live : <strong>${chanTitle}</strong>`
+      ? `Dernier titre de live : <strong>${chanTitle}</strong>`
       : `Retrouvez iProMx sur <strong>Twitch</strong> pour les prochains lives.`;
     if(statVal) statVal.textContent    = '🔴 HORS LIGNE';
     if(statLabel) statLabel.textContent = '';
@@ -401,12 +401,15 @@ function _setLiveSection(status, data) {
 // ── NAVBAR ────────────────────────────────────────────────────
 function renderNavUser() {
   const user=AUTH.getCurrentUser(), area=$('navUserArea'); if(!area) return;
-  const initial=user?user.username[0].toUpperCase():'G';
+  const initial=(user?.username||'G')[0].toUpperCase();
   const name=user?user.username:'Invité';
   const email=user?user.email:'';
+  const avatarHtml = user?.photoURL
+    ? `<img src="${user.photoURL}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--arc);cursor:pointer;box-shadow:0 0 10px var(--arc-dim);" id="uAvatarBtn">`
+    : `<div class="user-avatar-placeholder" id="uAvatarBtn">${initial}</div>`;
   area.innerHTML=`
     <div style="position:relative;" id="uMenu">
-      <div class="user-avatar-placeholder" id="uAvatarBtn">${initial}</div>
+      ${avatarHtml}
       <div class="user-dropdown" id="uDD">
         <div class="dropdown-header">
           <div class="dropdown-username">${name}</div>
@@ -962,20 +965,237 @@ async function sendPasswordReset() {
   toast(`E-mail envoyé à ${user.email} !`,'success');
 }
 
-async function handleAvatarUpload(input) {
-  const file=input.files?.[0]; if(!file) return;
-  if(file.size > 2*1024*1024) return toast('Image trop lourde (max 2 Mo).','warning');
-  // Convertir en base64 DataURL pour stocker dans le profil Firebase
-  const reader=new FileReader();
-  reader.onload=async(e)=>{
-    const dataUrl=e.target.result;
-    const res=await AUTH.updateProfile({photoURL:dataUrl});
-    if(!res.ok) return toast(res.error||'Erreur.','error');
-    toast('Photo de profil mise à jour !','success');
-    renderNavUser();
-    renderSettings();
-  };
+// ── CROP AVATAR ───────────────────────────────────────────────
+let _cropImg = null, _cropScale = 1, _cropX = 0, _cropY = 0,
+    _cropDragStart = null, _cropCanvas = null, _cropCtx = null;
+const CROP_SIZE = 320; // carré de prévisualisation
+
+function handleAvatarUpload(input) {
+  const file = input.files?.[0];
+  if(!file) return;
+  // Accepter tout type image sans limite de taille
+  if(!file.type.startsWith('image/')) return toast('Fichier non supporté.','warning');
+
+  const reader = new FileReader();
+  reader.onload = e => openCropModal(e.target.result, file.type === 'image/gif');
   reader.readAsDataURL(file);
+  // Reset input pour permettre re-upload du même fichier
+  input.value = '';
+}
+
+function openCropModal(src, isGif) {
+  // Si GIF : on ne crop pas, on utilise directement
+  if(isGif) {
+    _saveAvatarDataUrl(src);
+    return;
+  }
+
+  // Créer le modal de crop
+  let modal = $('cropModal');
+  if(!modal) {
+    modal = document.createElement('div');
+    modal.id = 'cropModal';
+    modal.style.cssText = `
+      position:fixed;inset:0;z-index:99999;
+      background:rgba(2,4,8,0.97);backdrop-filter:blur(16px);
+      display:flex;align-items:center;justify-content:center;padding:20px;
+    `;
+    document.body.appendChild(modal);
+  }
+  modal.style.display = 'flex';
+  modal.innerHTML = `
+    <div style="
+      background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);
+      padding:28px;max-width:420px;width:100%;position:relative;
+      box-shadow:var(--shadow-arc);
+    ">
+      <div style="
+        font-family:var(--font-display);font-size:.8rem;font-weight:700;letter-spacing:3px;
+        color:var(--arc);margin-bottom:20px;text-transform:uppercase;
+      ">Recadrer la photo</div>
+
+      <!-- Zone de crop -->
+      <div style="position:relative;margin-bottom:16px;">
+        <canvas id="cropCanvas" width="${CROP_SIZE}" height="${CROP_SIZE}"
+          style="
+            width:100%;aspect-ratio:1;border-radius:50%;cursor:grab;display:block;
+            border:2px solid var(--arc);box-shadow:0 0 20px var(--arc-glow);
+            touch-action:none;
+          ">
+        </canvas>
+        <!-- Masque circulaire visuel -->
+        <div style="
+          position:absolute;inset:0;border-radius:50%;
+          box-shadow:0 0 0 9999px rgba(2,4,8,0.7);
+          pointer-events:none;
+        "></div>
+      </div>
+
+      <!-- Zoom slider -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+        <i class="fas fa-search-minus" style="color:var(--text-muted);font-size:.9rem;"></i>
+        <input type="range" id="cropZoom" min="1" max="4" step="0.01" value="1"
+          style="flex:1;-webkit-appearance:none;height:3px;background:var(--edge);border-radius:2px;cursor:pointer;outline:none;">
+        <i class="fas fa-search-plus" style="color:var(--text-muted);font-size:.9rem;"></i>
+      </div>
+
+      <!-- Actions -->
+      <div style="display:flex;gap:10px;">
+        <button onclick="closeCropModal()"
+          style="flex:1;padding:11px;background:transparent;border:1px solid var(--edge);
+                 border-radius:var(--radius);color:var(--text-dim);font-family:var(--font-display);
+                 font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">
+          Annuler
+        </button>
+        <button onclick="applyCrop()"
+          style="flex:1;padding:11px;background:linear-gradient(135deg,var(--iron),var(--iron-bright));
+                 border:none;border-radius:var(--radius);color:white;font-family:var(--font-display);
+                 font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+                 cursor:pointer;box-shadow:0 4px 14px var(--iron-glow);">
+          <i class="fas fa-check"></i> Appliquer
+        </button>
+      </div>
+    </div>
+  `;
+
+  // Init canvas crop
+  const canvas = $('cropCanvas');
+  _cropCanvas = canvas;
+  _cropCtx    = canvas.getContext('2d');
+  _cropImg    = new Image();
+  _cropX      = 0;
+  _cropY      = 0;
+  _cropScale  = 1;
+
+  _cropImg.onload = () => {
+    // Ajuster pour que l'image remplisse le carré par défaut
+    const ratio = Math.max(CROP_SIZE / _cropImg.naturalWidth, CROP_SIZE / _cropImg.naturalHeight);
+    _cropScale = ratio;
+    $('cropZoom').min = ratio;
+    $('cropZoom').value = ratio;
+    // Centrer
+    _cropX = (CROP_SIZE - _cropImg.naturalWidth  * _cropScale) / 2;
+    _cropY = (CROP_SIZE - _cropImg.naturalHeight * _cropScale) / 2;
+    _drawCrop();
+  };
+  _cropImg.src = src;
+
+  // Zoom
+  $('cropZoom').oninput = e => {
+    const oldScale = _cropScale;
+    _cropScale = parseFloat(e.target.value);
+    // Zoom centré sur le canvas
+    const cx = CROP_SIZE / 2, cy = CROP_SIZE / 2;
+    _cropX = cx - (_cropScale / oldScale) * (cx - _cropX);
+    _cropY = cy - (_cropScale / oldScale) * (cy - _cropY);
+    _clampCrop();
+    _drawCrop();
+  };
+
+  // Drag (souris)
+  canvas.onmousedown  = e => { _cropDragStart = {x:e.clientX-_cropX, y:e.clientY-_cropY}; canvas.style.cursor='grabbing'; };
+  canvas.onmousemove  = e => {
+    if(!_cropDragStart) return;
+    _cropX = e.clientX - _cropDragStart.x;
+    _cropY = e.clientY - _cropDragStart.y;
+    _clampCrop(); _drawCrop();
+  };
+  canvas.onmouseup    = () => { _cropDragStart=null; canvas.style.cursor='grab'; };
+  canvas.onmouseleave = () => { _cropDragStart=null; canvas.style.cursor='grab'; };
+
+  // Touch
+  canvas.ontouchstart = e => {
+    const t = e.touches[0];
+    _cropDragStart = {x:t.clientX-_cropX, y:t.clientY-_cropY};
+    e.preventDefault();
+  };
+  canvas.ontouchmove = e => {
+    if(!_cropDragStart) return;
+    const t = e.touches[0];
+    _cropX = t.clientX - _cropDragStart.x;
+    _cropY = t.clientY - _cropDragStart.y;
+    _clampCrop(); _drawCrop(); e.preventDefault();
+  };
+  canvas.ontouchend = () => { _cropDragStart = null; };
+
+  // Pinch zoom (touch)
+  let _lastPinchDist = 0;
+  canvas.ontouchstart = e => {
+    if(e.touches.length === 2) {
+      _lastPinchDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    } else {
+      const t = e.touches[0];
+      _cropDragStart = {x:t.clientX-_cropX, y:t.clientY-_cropY};
+    }
+    e.preventDefault();
+  };
+  canvas.ontouchmove = e => {
+    if(e.touches.length === 2) {
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const delta = dist / _lastPinchDist;
+      const zoom = $('cropZoom');
+      const newScale = Math.min(parseFloat(zoom.max), Math.max(parseFloat(zoom.min), _cropScale * delta));
+      const oldScale = _cropScale;
+      _cropScale = newScale;
+      zoom.value = newScale;
+      const cx = CROP_SIZE/2, cy = CROP_SIZE/2;
+      _cropX = cx - (_cropScale/oldScale)*(cx-_cropX);
+      _cropY = cy - (_cropScale/oldScale)*(cy-_cropY);
+      _clampCrop(); _drawCrop();
+      _lastPinchDist = dist;
+    } else if(_cropDragStart) {
+      const t = e.touches[0];
+      _cropX = t.clientX - _cropDragStart.x;
+      _cropY = t.clientY - _cropDragStart.y;
+      _clampCrop(); _drawCrop();
+    }
+    e.preventDefault();
+  };
+}
+
+function _clampCrop() {
+  const w = _cropImg.naturalWidth  * _cropScale;
+  const h = _cropImg.naturalHeight * _cropScale;
+  _cropX = Math.min(0, Math.max(CROP_SIZE - w, _cropX));
+  _cropY = Math.min(0, Math.max(CROP_SIZE - h, _cropY));
+}
+
+function _drawCrop() {
+  if(!_cropCtx || !_cropImg) return;
+  _cropCtx.clearRect(0, 0, CROP_SIZE, CROP_SIZE);
+  _cropCtx.drawImage(
+    _cropImg,
+    _cropX, _cropY,
+    _cropImg.naturalWidth  * _cropScale,
+    _cropImg.naturalHeight * _cropScale
+  );
+}
+
+function closeCropModal() {
+  const m = $('cropModal'); if(m) m.style.display = 'none';
+  _cropDragStart = null;
+}
+
+async function applyCrop() {
+  if(!_cropCanvas) return;
+  // Exporter le canvas en dataURL (carré, sera affiché en cercle via CSS)
+  const dataUrl = _cropCanvas.toDataURL('image/jpeg', 0.9);
+  closeCropModal();
+  await _saveAvatarDataUrl(dataUrl);
+}
+
+async function _saveAvatarDataUrl(dataUrl) {
+  const res = await AUTH.updateProfile({ photoURL: dataUrl });
+  if(!res.ok) return toast(res.error || 'Erreur lors de la mise à jour.', 'error');
+  toast('Photo de profil mise à jour !', 'success');
+  renderNavUser();
+  renderSettings();
 }
 
 // ── SEARCH ────────────────────────────────────────────────────

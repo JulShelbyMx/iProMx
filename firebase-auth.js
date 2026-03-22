@@ -13,13 +13,12 @@
 // ── CONFIG FIREBASE ─────────────────────────────────────────
 // Remplace ces valeurs par celles de ton projet Firebase
 const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyABsp0Hq_awsAEyWU2WyKxgaIbAH_DII-I",
-  authDomain: "ipromx-site.firebaseapp.com",
-  projectId: "ipromx-site",
-  storageBucket: "ipromx-site.firebasestorage.app",
-  messagingSenderId: "1062621859736",
-  appId: "1:1062621859736:web:cf9172ce0196aca00b65ed",
-  measurementId: "G-98GVB7ETDW"
+  apiKey:            "VOTRE_API_KEY",
+  authDomain:        "VOTRE_PROJECT.firebaseapp.com",
+  projectId:         "VOTRE_PROJECT_ID",
+  storageBucket:     "VOTRE_PROJECT.appspot.com",
+  messagingSenderId: "VOTRE_SENDER_ID",
+  appId:             "VOTRE_APP_ID"
 };
 
 // ── DÉTECTION LOCAL ──────────────────────────────────────────
@@ -66,14 +65,14 @@ const AUTH = {
     if (IS_LOCAL) return this._devUser;
     if (this._currentUser) {
       return {
-        uid: this._currentUser.uid,
-        id:  this._currentUser.uid,
-        email: this._currentUser.email,
+        uid:      this._currentUser.uid,
+        id:       this._currentUser.uid,
+        email:    this._currentUser.email,
         username: this._currentUser.displayName || this._currentUser.email.split('@')[0],
+        photoURL: this._currentUser.photoURL || null,
         createdAt: this._currentUser.metadata.creationTime
       };
     }
-    // Fallback: session stockée localement
     try { return JSON.parse(localStorage.getItem('ipx_user')); } catch { return null; }
   },
 
@@ -82,10 +81,8 @@ const AUTH = {
     if (IS_LOCAL) return { ok: true, user: this._devUser };
     if (!initFirebase()) return { ok: false, error: 'Erreur de connexion au service.' };
 
-    if (password.length < 6)
-      return { ok: false, error: 'Le mot de passe doit faire au moins 6 caractères.' };
-    if (username.trim().length < 3)
-      return { ok: false, error: 'Le pseudo doit faire au moins 3 caractères.' };
+    if (username.trim().length < 2)
+      return { ok: false, error: 'Le pseudo doit faire au moins 2 caractères.' };
 
     try {
       const cred = await _firebaseAuth.createUserWithEmailAndPassword(email.trim(), password);
@@ -161,6 +158,41 @@ const AUTH = {
         }
       });
     });
+  },
+
+  // ── Réinitialisation mot de passe ────────────────────────────
+  async sendPasswordReset(email) {
+    if (IS_LOCAL) return { ok: true };
+    if (!initFirebase()) return { ok: false, error: 'Erreur de connexion.' };
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email.trim());
+      return { ok: true };
+    } catch(e) {
+      return { ok: false, error: this._fbError(e.code) };
+    }
+  },
+
+  // ── Mettre à jour le profil (displayName / photoURL) ─────────
+  async updateProfile(data) {
+    if (IS_LOCAL) return { ok: true };
+    // Récupérer l'utilisateur courant via l'API Firebase (plus fiable que this._currentUser)
+    const currentUser = _firebaseAuth ? _firebaseAuth.currentUser : null;
+    if (!currentUser) return { ok: false, error: 'Non connecté.' };
+    try {
+      const updates = {};
+      if (data.username) updates.displayName = data.username;
+      if (data.photoURL) updates.photoURL    = data.photoURL;
+      if (Object.keys(updates).length) {
+        await currentUser.updateProfile(updates);
+      }
+      // Rafraîchir _currentUser
+      this._currentUser = _firebaseAuth.currentUser;
+      const user = this.getCurrentUser();
+      localStorage.setItem('ipx_user', JSON.stringify(user));
+      return { ok: true, user };
+    } catch(e) {
+      return { ok: false, error: this._fbError(e.code) };
+    }
   },
 
   // ── Traduction erreurs Firebase ──────────────────────────
