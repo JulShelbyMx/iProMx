@@ -12,8 +12,8 @@
 
 // ── CONFIG FIREBASE ─────────────────────────────────────────
 // Remplace ces valeurs par celles de ton projet Firebase
-const FIREBASE_CONFIG = {
-  apiKey:            "AIzaSyABsp0Hq_awsAEyWU2WyKxgaIbAH_DII-I",
+const firebaseConfig = {
+  apiKey: "AIzaSyABsp0Hq_awsAEyWU2WyKxgaIbAH_DII-I",
   authDomain: "ipromx-site.firebaseapp.com",
   projectId: "ipromx-site",
   storageBucket: "ipromx-site.firebasestorage.app",

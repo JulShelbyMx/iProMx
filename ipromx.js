@@ -145,34 +145,27 @@ function toast(msg,type='success') {
 async function initAuth() {
   if (IS_LOCAL) { hideAuth(); initApp(); return; }
 
-  // Afficher un loader pendant que Firebase vérifie la session
-  showAuthLoader();
+  // Loader simple pendant la vérification Firebase (~1-2s)
+  const p = $('authPage');
+  if (p) p.style.display = 'flex';
+  const loader = $('authLoader');
+  const card   = $('authCardWrap');
+  if (loader) loader.style.display = 'flex';
+  if (card)   card.style.display   = 'none';
 
-  try {
-    const loggedIn = await AUTH.restoreSession();
-    hideAuthLoader();
-    if (loggedIn || AUTH.isGuest()) { hideAuth(); initApp(); return; }
-  } catch(e) {
-    hideAuthLoader();
-  }
-  showAuthPage();
-}
+  let loggedIn = false;
+  try { loggedIn = await AUTH.restoreSession(); } catch(_) {}
 
-function showAuthLoader() {
-  const p=$('authPage');
-  if(p){
-    p.style.display='flex';
-    p.innerHTML=`
-      <div style="text-align:center;color:var(--arc);">
-        <div style="width:40px;height:40px;border:3px solid var(--edge);border-top-color:var(--arc);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;"></div>
-        <div style="font-family:var(--font-display);font-size:.7rem;letter-spacing:3px;">CHARGEMENT...</div>
-      </div>`;
-  }
+  if (loader) loader.style.display = 'none';
+  if (card)   card.style.display   = '';
+
+  if (loggedIn || AUTH.isGuest()) { hideAuth(); initApp(); return; }
+  // Sinon afficher la page de connexion
 }
 
 function showAuthPage() {
   const p=$('authPage'); if(!p) return;
-  p.style.cssText='display:flex;position:fixed;inset:0;z-index:99999;align-items:center;justify-content:center;background:var(--void);';
+  p.style.display = 'flex';
 }
 function hideAuth() { const p=$('authPage'); if(p) p.style.display='none'; }
 
