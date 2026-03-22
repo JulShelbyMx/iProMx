@@ -70,6 +70,48 @@ const DATA = {
     {id:'youtube',name:'YouTube',desc:'+1 000 000 abonnés — Toutes les aventures en VOD',url:'https://www.youtube.com/ipromx',icon:'fab fa-youtube',platform:'youtube',banner:'images/youtube-banner.jpg'},
     {id:'discord',name:'Discord',desc:'Communauté FanTasTic RP — Rejoins le serveur !',url:'#',icon:'fab fa-discord',platform:'discord',banner:'images/discord-banner.jpg'},
     {id:'store',name:'Store',desc:'Merch officiel iProMx',url:'https://ipromx.store',icon:'fas fa-store',platform:'youtube',banner:'images/store-banner.jpg'}
+  ],
+
+  // ── NOTIFICATIONS (modifier manuellement ici) ────────────────
+  // Mettre null pour désactiver, ou remplir l'objet
+  notification: {
+    // active: false,  // mettre false pour masquer
+    active: true,
+    label: 'NOUVEL ÉPISODE',      // badge à gauche (ex: "MISE À JOUR", "NOUVEAU")
+    text:  'Nouvel épisode sorti : David Flash Saison 1 — Les Débuts dans Los Santos',
+    // Lien vers un épisode précis (laisser null pour pas de bouton)
+    link: {
+      familyId: 'flash',
+      charId:   'david-flash',
+      season:   'Saison 1',
+      epNum:    2            // numéro de l'épisode
+    }
+    // Pour une URL externe à la place :
+    // externalUrl: 'https://...'
+    // externalLabel: 'Voir'
+  },
+
+  // ── CINÉMATIQUES ─────────────────────────────────────────────
+  // Ajouter ici tes cinématiques MP4 locales ou YouTube
+  cinematics: [
+    {
+      id:       'phenix-animation',
+      title:    'Phénix — Animation',
+      desc:     'Animation officielle Aaron Flash',
+      image:    'images/aaron_flash.webp',
+      videoUrl: 'vidéos/phénixanimation1.mp4',
+      isLocal:  true
+    },
+    {
+      id:       '3freres-intro',
+      title:    '3 Frères — Intro',
+      desc:     'Introduction de la saga des 3 frères',
+      image:    'images/ned_flash.webp',
+      videoUrl: 'vidéos/3frèresintro.mp4',
+      isLocal:  true
+    }
+    // Exemple YouTube :
+    // { id:'yt-example', title:'Titre', desc:'...', image:'images/...', videoId:'YOUTUBE_ID', isLocal:false }
   ]
 };
 
@@ -249,8 +291,10 @@ async function submitForgotPassword() {
 // ── APP ───────────────────────────────────────────────────────
 function initApp() {
   renderNavUser();
+  renderNotification();
   renderHero();
   renderUniverses();
+  renderCinematics();
   renderHistory();
   renderMyList();
   renderSocial();
@@ -538,6 +582,93 @@ function renderSocial() {
       </div>
       <div class="social-body"><div class="social-name">${s.name}</div><div class="social-desc">${s.desc}</div></div>
     </a>`).join('');
+}
+
+// ── NOTIFICATION BANNER ───────────────────────────────────────
+function renderNotification() {
+  const banner = $('notifBanner');
+  const inner  = $('notifInner');
+  if(!banner||!inner) return;
+
+  const n = DATA.notification;
+  if(!n?.active) { banner.style.display='none'; return; }
+
+  // Construire le bouton action
+  let actionBtn = '';
+  if(n.link) {
+    const char = getChar(n.link.familyId, n.link.charId);
+    const eps  = char?.seasons?.[n.link.season]||[];
+    const epIdx= eps.findIndex(e=>e.num===n.link.epNum);
+    if(epIdx>=0) {
+      actionBtn = `<button onclick="playEp('${n.link.familyId}','${n.link.charId}','${esc(n.link.season)}',${epIdx})"
+        style="flex-shrink:0;padding:9px 20px;background:linear-gradient(135deg,var(--iron),var(--iron-bright));
+               border:none;border-radius:var(--radius);color:white;font-family:var(--font-display);
+               font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+               box-shadow:0 3px 12px var(--iron-glow);white-space:nowrap;transition:all .2s;">
+        <i class="fas fa-play"></i> Regarder
+      </button>`;
+    }
+  } else if(n.externalUrl) {
+    actionBtn = `<a href="${n.externalUrl}" target="_blank"
+      style="flex-shrink:0;padding:9px 20px;background:linear-gradient(135deg,var(--iron),var(--iron-bright));
+             border:none;border-radius:var(--radius);color:white;font-family:var(--font-display);
+             font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+             text-decoration:none;box-shadow:0 3px 12px var(--iron-glow);white-space:nowrap;">
+      <i class="fas fa-external-link-alt"></i> ${n.externalLabel||'Voir'}
+    </a>`;
+  }
+
+  inner.innerHTML = `
+    <div style="
+      display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+      padding:14px 20px;margin:16px 0 0;
+      background:linear-gradient(135deg,rgba(231,76,60,0.1),rgba(245,166,35,0.06));
+      border:1px solid rgba(245,166,35,0.25);border-left:3px solid var(--arc);
+      border-radius:var(--radius);position:relative;
+    ">
+      <span style="
+        flex-shrink:0;padding:3px 10px;background:var(--arc);color:var(--void);
+        font-family:var(--font-display);font-size:.55rem;font-weight:900;
+        letter-spacing:2px;border-radius:3px;text-transform:uppercase;
+      ">${n.label||'INFO'}</span>
+      <span style="flex:1;font-family:var(--font-body);font-size:.95rem;color:var(--text-dim);min-width:150px;">
+        ${n.text}
+      </span>
+      ${actionBtn}
+      <button onclick="this.closest('[style]').remove()"
+        style="position:absolute;top:8px;right:10px;background:none;border:none;
+               color:var(--text-muted);cursor:pointer;font-size:.85rem;padding:2px;">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>`;
+  banner.style.display = '';
+}
+
+// ── CINÉMATIQUES ──────────────────────────────────────────────
+function renderCinematics() {
+  const track = $('cinematicsTrack');
+  const sec   = $('secCinematics');
+  if(!track) return;
+
+  const items = DATA.cinematics||[];
+  if(!items.length) { if(sec) sec.style.display='none'; return; }
+  if(sec) sec.style.display = '';
+
+  track.innerHTML = items.map(c => `
+    <div class="card" onclick="${c.isLocal
+      ? `openLocalPlayer('${esc(c.videoUrl)}','','${esc(c.title)}')`
+      : `playEp('','','',0)`/* pour YT cinématiques, à adapter */}">
+      <div class="card-thumb" style="background-image:url('${c.image||''}')">
+        <div class="card-play-icon"><i class="fas fa-film"></i></div>
+        <div class="card-badge" style="background:rgba(245,166,35,0.85);color:#000;">CINÉ</div>
+      </div>
+      <div class="card-info">
+        <div class="card-title">${c.title}</div>
+        <div class="card-meta">${c.desc||''}</div>
+      </div>
+    </div>`).join('');
+
+  setTimeout(()=>setupCarousel('cinematicsTrack','cinematicsPrev','cinematicsNext'),50);
 }
 
 // ── SERIES MODAL ──────────────────────────────────────────────

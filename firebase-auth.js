@@ -65,12 +65,14 @@ const AUTH = {
   getCurrentUser() {
     if (IS_LOCAL) return this._devUser;
     if (this._currentUser) {
+      const uid = this._currentUser.uid;
+      const localPhoto = localStorage.getItem(`ipx_avatar_${uid}`);
       return {
-        uid:      this._currentUser.uid,
-        id:       this._currentUser.uid,
-        email:    this._currentUser.email,
-        username: this._currentUser.displayName || this._currentUser.email.split('@')[0],
-        photoURL: this._currentUser.photoURL || null,
+        uid,
+        id:        uid,
+        email:     this._currentUser.email,
+        username:  this._currentUser.displayName || this._currentUser.email.split('@')[0],
+        photoURL:  localPhoto || this._currentUser.photoURL || null,
         createdAt: this._currentUser.metadata.creationTime
       };
     }
@@ -173,22 +175,25 @@ const AUTH = {
     }
   },
 
-  // ── Mettre à jour le profil (displayName / photoURL) ─────────
+  // ── Mettre à jour le profil ─────────────────────────────────
   async updateProfile(data) {
     if (IS_LOCAL) return { ok: true };
-    // Récupérer l'utilisateur courant via l'API Firebase (plus fiable que this._currentUser)
     const currentUser = _firebaseAuth ? _firebaseAuth.currentUser : null;
     if (!currentUser) return { ok: false, error: 'Non connecté.' };
     try {
-      const updates = {};
-      if (data.username) updates.displayName = data.username;
-      if (data.photoURL) updates.photoURL    = data.photoURL;
-      if (Object.keys(updates).length) {
-        await currentUser.updateProfile(updates);
+      // displayName → Firebase Auth
+      if (data.username) {
+        await currentUser.updateProfile({ displayName: data.username });
+        this._currentUser = _firebaseAuth.currentUser;
       }
-      // Rafraîchir _currentUser
-      this._currentUser = _firebaseAuth.currentUser;
+      // photoURL → localStorage uniquement (base64 trop long pour Firebase)
+      if (data.photoURL) {
+        localStorage.setItem(`ipx_avatar_${currentUser.uid}`, data.photoURL);
+      }
       const user = this.getCurrentUser();
+      // Injecter la photo locale dans l'objet user
+      const localPhoto = localStorage.getItem(`ipx_avatar_${currentUser.uid}`);
+      if (localPhoto) user.photoURL = localPhoto;
       localStorage.setItem('ipx_user', JSON.stringify(user));
       return { ok: true, user };
     } catch(e) {

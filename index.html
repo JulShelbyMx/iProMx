@@ -34,9 +34,11 @@
       <div class="auth-logo-sub">L'Univers &middot; FanTasTic RP</div>
     </div>
     <div class="auth-card">
-      <div class="auth-tabs">
+      <!-- 3 onglets : Se connecter | S'inscrire | Invité -->
+      <div class="auth-tabs" style="grid-template-columns:1fr 1fr 1fr;">
         <button class="auth-tab active" data-target="loginForm">Se connecter</button>
         <button class="auth-tab" data-target="registerForm">S'inscrire</button>
+        <button class="auth-tab" data-target="guestPanel" style="font-size:.6rem;">Mode invité</button>
       </div>
       <div class="auth-error" style="display:none;"></div>
       <div class="auth-success" style="display:none;"></div>
@@ -67,7 +69,7 @@
         </div>
       </form>
 
-      <!-- MOT DE PASSE OUBLIÉ (caché par défaut) -->
+      <!-- MOT DE PASSE OUBLIÉ -->
       <div id="forgotForm" style="display:none;">
         <div class="auth-field">
           <label>Adresse e-mail du compte</label>
@@ -76,6 +78,10 @@
         <button type="button" class="auth-btn-main" onclick="submitForgotPassword()">
           <i class="fas fa-paper-plane"></i> Envoyer le lien
         </button>
+        <div style="background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.2);border-radius:var(--radius);padding:10px 14px;margin-bottom:12px;font-family:var(--font-ui);font-size:.8rem;color:var(--text-muted);display:flex;gap:8px;align-items:flex-start;">
+          <i class="fas fa-exclamation-triangle" style="color:var(--arc);margin-top:1px;flex-shrink:0;"></i>
+          <span>L'e-mail peut arriver dans vos <strong style="color:var(--text-dim);">spams</strong>. Vérifiez-les si vous ne le recevez pas dans votre boîte principale.</span>
+        </div>
         <div style="text-align:center;margin-top:-4px;">
           <button type="button" onclick="hideForgotPassword()"
             style="background:none;border:none;color:var(--text-muted);font-family:var(--font-body);font-size:.85rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px;">
@@ -117,12 +123,17 @@
         <button type="submit" class="auth-btn-main"><i class="fas fa-user-plus"></i> Créer mon compte</button>
       </form>
 
-      <button class="auth-guest-btn" id="guestBtn" style="margin-top:16px;">
-        <i class="fas fa-eye"></i> Continuer sans compte (mode invité)
-      </button>
-    </div>
-  </div>
-</div><!-- /authCardWrap -->
+      <!-- MODE INVITÉ (3e onglet) -->
+      <div class="auth-form" id="guestPanel" style="text-align:center;padding:8px 0 4px;">
+        <div style="font-family:var(--font-body);font-size:.95rem;color:var(--text-dim);line-height:1.6;margin-bottom:20px;">
+          Accès sans compte. L'historique et la liste ne seront <strong>pas sauvegardés</strong> entre les sessions.
+        </div>
+        <button type="button" class="auth-btn-main" id="guestBtn" style="margin-bottom:0;">
+          <i class="fas fa-eye"></i> Continuer en mode invité
+        </button>
+      </div><!-- /guestPanel -->
+    </div><!-- /auth-card -->
+  </div><!-- /auth-container / authCardWrap -->
 </div><!-- /authPage -->
 
 <!-- ═══ NAVBAR ═══ -->
@@ -143,7 +154,7 @@
       </div>
     </div>
     <div class="navbar-right">
-      <a class="live-badge" href="https://www.twitch.tv/ipromx" target="_blank">
+      <a class="live-badge" id="liveBadge" href="https://www.twitch.tv/ipromx" target="_blank">
         <span class="live-dot"></span><span class="live-text">LIVE</span>
       </a>
       <button class="nav-btn" onclick="openSearch()" title="Recherche"><i class="fas fa-search"></i></button>
@@ -180,6 +191,13 @@
     <div class="hero-indicators"></div>
   </section>
 
+  <!-- NOTIFICATION BANNER (modifiable manuellement) -->
+  <div id="notifBanner" style="display:none;">
+    <div class="section-container" style="padding-top:0;padding-bottom:0;">
+      <div id="notifInner"></div>
+    </div>
+  </div>
+
   <section class="section" id="secUniverses">
     <div class="section-container">
       <div class="section-header">
@@ -197,6 +215,22 @@
           <div class="carousel-track" id="universesTrack"></div>
         </div>
         <button class="carousel-btn next" id="univNext"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CINÉMATIQUES -->
+  <section class="section" id="secCinematics" style="display:none;">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-title">Cin&eacute;matiques</div>
+      </div>
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev" id="cinematicsPrev"><i class="fas fa-chevron-left"></i></button>
+        <div class="carousel-track-container">
+          <div class="carousel-track" id="cinematicsTrack"></div>
+        </div>
+        <button class="carousel-btn next" id="cinematicsNext"><i class="fas fa-chevron-right"></i></button>
       </div>
     </div>
   </section>
