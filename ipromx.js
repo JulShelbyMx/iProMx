@@ -94,24 +94,23 @@ const DATA = {
   // ── CINÉMATIQUES ─────────────────────────────────────────────
   // Ajouter ici tes cinématiques MP4 locales ou YouTube
   cinematics: [
+    // Format : { id, title, desc, image (thumbnail), videoId (YouTube) }
     {
-      id:       'phenix-animation',
-      title:    'Phénix — Animation',
-      desc:     'Animation officielle Aaron Flash',
-      image:    'images/aaron_flash.webp',
-      videoUrl: 'vidéos/phénixanimation1.mp4',
-      isLocal:  true
+      id:      'phenix-animation',
+      title:   'Phénix — Animation',
+      desc:    'Animation officielle Aaron Flash',
+      image:   'images/aaron_flash.webp',
+      videoId: 'YOUTUBE_ID_1'   // ← remplace par ton vrai ID YouTube
     },
     {
-      id:       '3freres-intro',
-      title:    '3 Frères — Intro',
-      desc:     'Introduction de la saga des 3 frères',
-      image:    'images/ned_flash.webp',
-      videoUrl: 'vidéos/3frèresintro.mp4',
-      isLocal:  true
+      id:      '3freres-intro',
+      title:   '3 Frères — Intro',
+      desc:    'Introduction de la saga des 3 frères',
+      image:   'images/ned_flash.webp',
+      videoId: 'YOUTUBE_ID_2'   // ← remplace par ton vrai ID YouTube
     }
-    // Exemple YouTube :
-    // { id:'yt-example', title:'Titre', desc:'...', image:'images/...', videoId:'YOUTUBE_ID', isLocal:false }
+    // Ajoute d'autres cinématiques ici :
+    // { id:'mon-id', title:'Titre', desc:'Description', image:'images/...', videoId:'YOUTUBE_ID' }
   ]
 };
 
@@ -448,8 +447,10 @@ function renderNavUser() {
   const initial=(user?.username||'G')[0].toUpperCase();
   const name=user?user.username:'Invité';
   const email=user?user.email:'';
-  const avatarHtml = user?.photoURL
-    ? `<img src="${user.photoURL}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--arc);cursor:pointer;box-shadow:0 0 10px var(--arc-dim);" id="uAvatarBtn">`
+  const avList = typeof PRESET_AVATARS !== 'undefined' ? PRESET_AVATARS : [];
+  const av = avList.find(a=>a.id===user?.avatarId);
+  const avatarHtml = av
+    ? `<img src="${av.src}" id="uAvatarBtn" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--arc);cursor:pointer;box-shadow:0 0 10px var(--arc-dim);" onerror="this.outerHTML='<div class=\\'user-avatar-placeholder\\' id=\\'uAvatarBtn\\'>${initial}</div>'">`
     : `<div class="user-avatar-placeholder" id="uAvatarBtn">${initial}</div>`;
   area.innerHTML=`
     <div style="position:relative;" id="uMenu">
@@ -467,7 +468,6 @@ function renderNavUser() {
           :`<button class="dropdown-item danger" onclick="AUTH.logout().then(()=>location.reload())"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>`}
       </div>
     </div>`;
-  // Listener séparé pour éviter les conflits de propagation
   setTimeout(()=>{
     $('uAvatarBtn')?.addEventListener('click',e=>{ e.stopPropagation(); toggleDD(); });
   },0);
@@ -565,10 +565,17 @@ function renderMyList() {
   }).join('');
   setTimeout(()=>setupCarousel('myListTrack','listPrev','listNext'),50);
 }
-function toggleList(fid,cid,btn) {
+async function toggleList(fid,cid,btn) {
   if(AUTH.isGuest()&&!IS_LOCAL) return toast('Connectez-vous pour gérer votre liste.','warning');
-  if(DB.isInList(fid,cid)){ DB.removeFromList(fid,cid); if(btn){btn.innerHTML='<i class="fas fa-plus"></i>';btn.classList.remove('active');} toast('Retiré de votre liste.','info'); }
-  else { DB.addToList({familyId:fid,charId:cid,name:getChar(fid,cid)?.name}); if(btn){btn.innerHTML='<i class="fas fa-check"></i>';btn.classList.add('active');} toast('Ajouté à votre liste !','success'); }
+  if(DB.isInList(fid,cid)){
+    await DB.removeFromList(fid,cid);
+    if(btn){btn.innerHTML='<i class="fas fa-plus"></i>';btn.classList.remove('active');}
+    toast('Retiré de votre liste.','info');
+  } else {
+    await DB.addToList({familyId:fid,charId:cid,name:getChar(fid,cid)?.name});
+    if(btn){btn.innerHTML='<i class="fas fa-check"></i>';btn.classList.add('active');}
+    toast('Ajouté à votre liste !','success');
+  }
   renderMyList();
 }
 
@@ -646,29 +653,98 @@ function renderNotification() {
 
 // ── CINÉMATIQUES ──────────────────────────────────────────────
 function renderCinematics() {
-  const track = $('cinematicsTrack');
-  const sec   = $('secCinematics');
+  const track=$('cinematicsTrack'), sec=$('secCinematics');
   if(!track) return;
-
-  const items = DATA.cinematics||[];
-  if(!items.length) { if(sec) sec.style.display='none'; return; }
-  if(sec) sec.style.display = '';
-
-  track.innerHTML = items.map(c => `
-    <div class="card" onclick="${c.isLocal
-      ? `openLocalPlayer('${esc(c.videoUrl)}','','${esc(c.title)}')`
-      : `playEp('','','',0)`/* pour YT cinématiques, à adapter */}">
+  const items=DATA.cinematics||[];
+  if(!items.length){ if(sec) sec.style.display='none'; return; }
+  if(sec) sec.style.display='';
+  track.innerHTML=items.map((c,i)=>`
+    <div class="card" onclick="playCinematic(${i})">
       <div class="card-thumb" style="background-image:url('${c.image||''}')">
         <div class="card-play-icon"><i class="fas fa-film"></i></div>
         <div class="card-badge" style="background:rgba(245,166,35,0.85);color:#000;">CINÉ</div>
       </div>
-      <div class="card-info">
-        <div class="card-title">${c.title}</div>
-        <div class="card-meta">${c.desc||''}</div>
-      </div>
+      <div class="card-info"><div class="card-title">${c.title}</div><div class="card-meta">${c.desc||''}</div></div>
     </div>`).join('');
-
   setTimeout(()=>setupCarousel('cinematicsTrack','cinematicsPrev','cinematicsNext'),50);
+}
+
+function playCinematic(idx) {
+  const items=DATA.cinematics||[];
+  const c=items[idx]; if(!c) return;
+
+  // Destroy existing YT player
+  if(ytPlayer&&typeof ytPlayer.destroy==='function'){try{ytPlayer.destroy();}catch(_){} ytPlayer=null;}
+  cancelAutoplay();
+
+  const mc=$('mainContent'); if(mc) mc.style.display='none';
+  const pp=$('playerPage'); if(!pp) return;
+  pp.classList.add('active');
+  document.body.style.overflow=''; window.scrollTo(0,0);
+  document.title=`${c.title} | iPROMX`;
+  try { history.pushState({},``,`/cinematique/${idx}`); } catch(_){}
+
+  // Nav close button
+  let closeBtn=$('navPlayerClose');
+  if(!closeBtn){
+    closeBtn=document.createElement('button');
+    closeBtn.id='navPlayerClose';
+    closeBtn.innerHTML='<i class="fas fa-times"></i><span>Fermer</span>';
+    closeBtn.style.cssText='display:inline-flex;align-items:center;gap:7px;padding:7px 16px;background:rgba(231,76,60,0.13);border:1px solid rgba(231,76,60,0.5);border-radius:6px;color:#e74c3c;font-family:var(--font-display);font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;margin-left:14px;flex-shrink:0;';
+    closeBtn.onmouseover=()=>{closeBtn.style.background='rgba(231,76,60,0.28)';};
+    closeBtn.onmouseout=()=>{closeBtn.style.background='rgba(231,76,60,0.13)';};
+    document.querySelector('.navbar-left')?.appendChild(closeBtn);
+  }
+  closeBtn.style.display='inline-flex';
+  closeBtn.onclick=()=>ROUTER.goHome();
+
+  // Recommandés (autres cinématiques)
+  const others=items.filter((_,i)=>i!==idx);
+  const recommHtml=others.length?`
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Recommandés</div>
+      <div class="sidebar-suggestions">
+        ${others.map((o,i)=>{
+          const realIdx=items.indexOf(o);
+          const thumb=o.videoId?`https://i.ytimg.com/vi/${o.videoId}/mqdefault.jpg`:o.image||'';
+          return `<div class="suggestion-card" onclick="playCinematic(${realIdx})">
+            <div class="suggestion-thumb" style="background-image:url('${thumb}')"></div>
+            <div class="suggestion-info"><div class="suggestion-ep">CINÉMATIQUE</div><div class="suggestion-title">${o.title}</div></div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`:'';
+
+  const thumb=c.videoId?`https://i.ytimg.com/vi/${c.videoId}/mqdefault.jpg`:c.image||'';
+
+  pp.innerHTML=`
+    <div class="player-video-area">
+      <div class="player-video-aspect" id="ytWrap">
+        <div id="ytPlayerContainer" style="position:absolute;inset:0;background:#000;"></div>
+      </div>
+    </div>
+    <div class="player-layout">
+      <div class="player-main">
+        <div class="player-breadcrumb" style="padding:14px 0 2px;">
+          <a href="/" onclick="ROUTER.goHome();return false;"><i class="fas fa-arrow-left"></i> Accueil</a>
+          <span class="sep">›</span><span>Cinématiques</span>
+          <span class="sep">›</span><span>${c.title}</span>
+        </div>
+        <div class="player-info-block">
+          <div class="player-ep-title">${c.title}</div>
+          <div class="player-ep-meta"><span>Cinématique</span><span class="dot"></span><span>FanTasTic RP</span></div>
+        </div>
+        <div style="font-family:var(--font-body);font-size:.95rem;color:var(--text-dim);line-height:1.6;padding:8px 0 16px;">${c.desc||''}</div>
+      </div>
+      <div class="player-sidebar">${recommHtml}</div>
+    </div>`;
+
+  // Lancer la vidéo
+  if(c.videoId) {
+    const params={videoId:c.videoId,fid:null,cid:null,season:null,epIdx:null,isCinematic:true};
+    if(typeof YT!=='undefined'&&YT.Player) _createYTPlayer(params);
+    else window._pendingYT=params;
+  }
 }
 
 // ── SERIES MODAL ──────────────────────────────────────────────
@@ -947,8 +1023,14 @@ function openHistory() {
     }).join('');
   $('manageHistoryModal').classList.add('open');
 }
-function deleteSelHistory() { if(!selHist.size) return toast('Sélectionnez des éléments.','warning'); DB.removeHistoryItems(selHist); renderHistory(); closeManageHist(); toast('Supprimé.','success'); }
-function deleteAllHistory() { if(!confirm('Supprimer tout l\'historique ?')) return; DB.clearHistory(); renderHistory(); closeManageHist(); toast('Historique effacé.','success'); }
+function deleteSelHistory() {
+  if(!selHist.size) return toast('Sélectionnez des éléments.','warning');
+  DB.removeHistoryItems(selHist).then(()=>{ renderHistory(); closeManageHist(); toast('Supprimé.','success'); });
+}
+function deleteAllHistory() {
+  if(!confirm('Supprimer tout l\'historique ?')) return;
+  DB.clearHistory().then(()=>{ renderHistory(); closeManageHist(); toast('Historique effacé.','success'); });
+}
 function closeManageHist() { $('manageHistoryModal')?.classList.remove('open'); selHist.clear(); }
 
 function openMyList() {
@@ -962,8 +1044,14 @@ function openMyList() {
     }).join('');
   $('manageListModal').classList.add('open');
 }
-function deleteSelList() { if(!selList.size) return toast('Sélectionnez des éléments.','warning'); DB.removeListItems(selList); renderMyList(); closeManageList(); toast('Supprimé.','success'); }
-function deleteAllList() { if(!confirm('Vider toute la liste ?')) return; DB.getMyList().forEach(i=>DB.removeFromList(i.familyId,i.charId)); renderMyList(); closeManageList(); toast('Liste vidée.','success'); }
+function deleteSelList() {
+  if(!selList.size) return toast('Sélectionnez des éléments.','warning');
+  DB.removeListItems(selList).then(()=>{ renderMyList(); closeManageList(); toast('Supprimé.','success'); });
+}
+function deleteAllList() {
+  if(!confirm('Vider toute la liste ?')) return;
+  Promise.all(DB.getMyList().map(i=>DB.removeFromList(i.familyId,i.charId))).then(()=>{ renderMyList(); closeManageList(); toast('Liste vidée.','success'); });
+}
 function closeManageList() { $('manageListModal')?.classList.remove('open'); selList.clear(); }
 
 // ── SETTINGS ─────────────────────────────────────────────────
@@ -983,92 +1071,65 @@ function closeSettings() {
 function renderSettings() {
   const user=AUTH.getCurrentUser(); if(!user) return;
   const sc=$('settingsContent'); if(!sc) return;
-  const avatarUrl = user.photoURL||'';
-  const avatarHtml = avatarUrl
-    ? `<img src="${avatarUrl}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--arc);">`
-    : `<div class="profile-avatar" style="width:80px;height:80px;font-size:2rem;">${(user.username||'?')[0].toUpperCase()}</div>`;
+  const avList = typeof PRESET_AVATARS !== 'undefined' ? PRESET_AVATARS : [];
+  const av = avList.find(a=>a.id===user.avatarId) || avList[0];
+  const avatarImg = av
+    ? `<img src="${av.src}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--arc);box-shadow:0 0 16px var(--arc-glow);" onerror="this.style.display=\'none\'">`
+    : `<div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--iron),var(--arc));display:flex;align-items:center;justify-content:center;font-size:2rem;color:white;border:3px solid var(--arc);">${(user.username||'?')[0].toUpperCase()}</div>`;
 
   sc.innerHTML=`
     <div style="max-width:700px;margin:0 auto;">
-
-      <!-- Profil -->
       <div class="settings-section">
         <div class="settings-section-header"><i class="fas fa-user"></i> Profil</div>
         <div class="profile-avatar-section" style="padding:20px 24px;">
-          <div style="position:relative;cursor:pointer;" onclick="document.getElementById('avatarFileInput').click()" title="Changer la photo">
-            ${avatarHtml}
-            <div style="position:absolute;inset:0;border-radius:50%;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:.2s;" class="avatar-hover-overlay">
-              <i class="fas fa-camera" style="color:white;font-size:1.2rem;"></i>
+          <div style="position:relative;cursor:pointer;flex-shrink:0;" onclick="openAvatarPicker()" title="Changer l\'avatar">
+            ${avatarImg}
+            <div style="position:absolute;bottom:0;right:0;width:26px;height:26px;border-radius:50%;background:var(--panel2);border:2px solid var(--arc);display:flex;align-items:center;justify-content:center;">
+              <i class="fas fa-pen" style="font-size:.6rem;color:var(--arc);"></i>
             </div>
           </div>
-          <input type="file" id="avatarFileInput" accept="image/*" style="display:none;" onchange="handleAvatarUpload(this)">
           <div class="profile-info">
             <h3>${user.username}</h3>
             <p>${user.email}</p>
-            <p style="font-size:.75rem;color:var(--text-muted);margin-top:4px;">Membre depuis ${new Date(user.createdAt||Date.now()).toLocaleDateString('fr')}</p>
+            <p style="font-size:.75rem;color:var(--text-muted);margin-top:4px;">Membre depuis ${new Date(user.createdAt||Date.now()).toLocaleDateString(\'fr\')}</p>
           </div>
         </div>
-
-        <!-- Modifier pseudo -->
         <div class="settings-item">
-          <div class="settings-item-info">
-            <div class="settings-item-label">Pseudo</div>
-            <div class="settings-item-desc">${user.username}</div>
-          </div>
-          <div class="settings-item-action">
-            <button class="btn-small" onclick="showEditUsername()">Modifier</button>
-          </div>
+          <div class="settings-item-info"><div class="settings-item-label">Pseudo</div><div class="settings-item-desc">${user.username}</div></div>
+          <div class="settings-item-action"><button class="btn-small" onclick="showEditUsername()">Modifier</button></div>
         </div>
-        <div id="editUsernameRow" style="display:none;padding:0 24px 16px;gap:10px;align-items:center;display:none;flex-wrap:wrap;">
+        <div id="editUsernameRow" style="display:none;padding:0 24px 16px;gap:10px;align-items:center;flex-wrap:wrap;">
           <input id="newUsernameInput" type="text" placeholder="Nouveau pseudo" value="${user.username}"
             style="background:var(--void);border:1px solid var(--edge);border-radius:var(--radius);padding:9px 14px;color:var(--text);font-family:var(--font-ui);font-size:.9rem;flex:1;min-width:160px;outline:none;">
           <button class="btn-small" onclick="saveUsername()" style="background:var(--arc-dim);border-color:var(--arc);color:var(--arc);">Enregistrer</button>
           <button class="btn-small" onclick="hideEditUsername()">Annuler</button>
         </div>
-
-        <!-- Réinitialiser mot de passe -->
         <div class="settings-item">
-          <div class="settings-item-info">
-            <div class="settings-item-label">Mot de passe</div>
-            <div class="settings-item-desc">Envoyer un lien de réinitialisation par e-mail</div>
-          </div>
-          <div class="settings-item-action">
-            <button class="btn-small" onclick="sendPasswordReset()">Réinitialiser</button>
-          </div>
+          <div class="settings-item-info"><div class="settings-item-label">Mot de passe</div><div class="settings-item-desc">Envoyer un lien de réinitialisation</div></div>
+          <div class="settings-item-action"><button class="btn-small" onclick="sendPasswordReset()">Réinitialiser</button></div>
         </div>
       </div>
-
-      <!-- Données -->
       <div class="settings-section">
         <div class="settings-section-header"><i class="fas fa-database"></i> Mes données</div>
         <div class="settings-item">
           <div class="settings-item-info"><div class="settings-item-label">Historique</div><div class="settings-item-desc">${DB.getHistory().length} élément(s)</div></div>
-          <div class="settings-item-action"><button class="btn-small danger" onclick="if(confirm('Effacer ?')){DB.clearHistory();renderHistory();toast('Effacé','success');renderSettings();}">Effacer</button></div>
+          <div class="settings-item-action"><button class="btn-small danger" onclick="DB.clearHistory().then(()=>{renderHistory();toast(\'Effacé\',\'success\');renderSettings();})">Effacer</button></div>
         </div>
         <div class="settings-item">
           <div class="settings-item-info"><div class="settings-item-label">Ma Liste</div><div class="settings-item-desc">${DB.getMyList().length} élément(s)</div></div>
           <div class="settings-item-action"><button class="btn-small" onclick="closeSettings();openMyList();">Gérer</button></div>
         </div>
       </div>
-
-      <!-- Compte -->
       ${!IS_LOCAL?`<div class="settings-section">
         <div class="settings-section-header"><i class="fas fa-shield-alt"></i> Compte</div>
         <div class="settings-item">
           <div class="settings-item-info"><div class="settings-item-label">Déconnexion</div></div>
           <div class="settings-item-action"><button class="btn-small danger" onclick="AUTH.logout().then(()=>location.reload())">Déconnecter</button></div>
         </div>
-      </div>`:''}
+      </div>`:\'\'}
     </div>`;
-
-  // Hover sur avatar
-  const overlay = sc.querySelector('.avatar-hover-overlay');
-  const avatarWrap = overlay?.parentElement;
-  if(avatarWrap && overlay) {
-    avatarWrap.addEventListener('mouseenter',()=>overlay.style.opacity='1');
-    avatarWrap.addEventListener('mouseleave',()=>overlay.style.opacity='0');
-  }
 }
+
 
 // ── SETTINGS ACTIONS ──────────────────────────────────────────
 function showEditUsername() {
@@ -1096,239 +1157,69 @@ async function sendPasswordReset() {
   toast(`E-mail envoyé à ${user.email} !`,'success');
 }
 
-// ── CROP AVATAR ───────────────────────────────────────────────
-let _cropImg = null, _cropScale = 1, _cropX = 0, _cropY = 0,
-    _cropDragStart = null, _cropCanvas = null, _cropCtx = null;
-const CROP_SIZE = 320; // carré de prévisualisation
-
-function handleAvatarUpload(input) {
-  const file = input.files?.[0];
-  if(!file) return;
-  // Accepter tout type image sans limite de taille
-  if(!file.type.startsWith('image/')) return toast('Fichier non supporté.','warning');
-
-  const reader = new FileReader();
-  reader.onload = e => openCropModal(e.target.result, file.type === 'image/gif');
-  reader.readAsDataURL(file);
-  // Reset input pour permettre re-upload du même fichier
-  input.value = '';
-}
-
-function openCropModal(src, isGif) {
-  // Si GIF : on ne crop pas, on utilise directement
-  if(isGif) {
-    _saveAvatarDataUrl(src);
-    return;
-  }
-
-  // Créer le modal de crop
-  let modal = $('cropModal');
+// ── AVATAR PICKER (style Netflix/Crunchyroll) ─────────────────
+function openAvatarPicker() {
+  let modal = $('avatarPickerModal');
   if(!modal) {
     modal = document.createElement('div');
-    modal.id = 'cropModal';
-    modal.style.cssText = `
-      position:fixed;inset:0;z-index:99999;
-      background:rgba(2,4,8,0.97);backdrop-filter:blur(16px);
-      display:flex;align-items:center;justify-content:center;padding:20px;
-    `;
+    modal.id = 'avatarPickerModal';
+    modal.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(2,4,8,0.97);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;padding:20px;';
     document.body.appendChild(modal);
   }
+  const user = AUTH.getCurrentUser();
   modal.style.display = 'flex';
   modal.innerHTML = `
-    <div style="
-      background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);
-      padding:28px;max-width:420px;width:100%;position:relative;
-      box-shadow:var(--shadow-arc);
-    ">
-      <div style="
-        font-family:var(--font-display);font-size:.8rem;font-weight:700;letter-spacing:3px;
-        color:var(--arc);margin-bottom:20px;text-transform:uppercase;
-      ">Recadrer la photo</div>
-
-      <!-- Zone de crop -->
-      <div style="position:relative;margin-bottom:16px;">
-        <canvas id="cropCanvas" width="${CROP_SIZE}" height="${CROP_SIZE}"
-          style="
-            width:100%;aspect-ratio:1;border-radius:50%;cursor:grab;display:block;
-            border:2px solid var(--arc);box-shadow:0 0 20px var(--arc-glow);
-            touch-action:none;
-          ">
-        </canvas>
-        <!-- Masque circulaire visuel -->
-        <div style="
-          position:absolute;inset:0;border-radius:50%;
-          box-shadow:0 0 0 9999px rgba(2,4,8,0.7);
-          pointer-events:none;
-        "></div>
+    <div style="background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);padding:28px 32px;max-width:520px;width:100%;position:relative;box-shadow:var(--shadow-arc);">
+      <div style="font-family:var(--font-display);font-size:.85rem;font-weight:700;letter-spacing:3px;color:var(--arc);margin-bottom:6px;text-transform:uppercase;">Choisir un avatar</div>
+      <div style="font-family:var(--font-body);font-size:.9rem;color:var(--text-muted);margin-bottom:24px;">Sélectionne l'avatar qui te représente</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;">
+        ${PRESET_AVATARS.map(av=>`
+          <div onclick="selectAvatar('${av.id}',this)"
+            style="cursor:pointer;border-radius:50%;overflow:hidden;border:3px solid ${user?.avatarId===av.id?'var(--arc)':'transparent'};
+                   transition:all .2s;aspect-ratio:1;background:var(--panel2);"
+            data-avid="${av.id}" class="avatar-pick-item">
+            <img src="${av.src}" alt="${av.label}" style="width:100%;height:100%;object-fit:cover;display:block;"
+              onerror="this.parentElement.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--arc)><i class=fas fa-user></i></div>'">
+          </div>
+          <div style="text-align:center;font-family:var(--font-display);font-size:.55rem;letter-spacing:1px;color:var(--text-muted);margin-top:4px;text-transform:uppercase;">${av.label}</div>
+        `).join('')}
       </div>
-
-      <!-- Zoom slider -->
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
-        <i class="fas fa-search-minus" style="color:var(--text-muted);font-size:.9rem;"></i>
-        <input type="range" id="cropZoom" min="1" max="4" step="0.01" value="1"
-          style="flex:1;-webkit-appearance:none;height:3px;background:var(--edge);border-radius:2px;cursor:pointer;outline:none;">
-        <i class="fas fa-search-plus" style="color:var(--text-muted);font-size:.9rem;"></i>
-      </div>
-
-      <!-- Actions -->
       <div style="display:flex;gap:10px;">
-        <button onclick="closeCropModal()"
-          style="flex:1;padding:11px;background:transparent;border:1px solid var(--edge);
-                 border-radius:var(--radius);color:var(--text-dim);font-family:var(--font-display);
-                 font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">
-          Annuler
-        </button>
-        <button onclick="applyCrop()"
-          style="flex:1;padding:11px;background:linear-gradient(135deg,var(--iron),var(--iron-bright));
-                 border:none;border-radius:var(--radius);color:white;font-family:var(--font-display);
-                 font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-                 cursor:pointer;box-shadow:0 4px 14px var(--iron-glow);">
+        <button onclick="closeAvatarPicker()" style="flex:1;padding:11px;background:transparent;border:1px solid var(--edge);border-radius:var(--radius);color:var(--text-dim);font-family:var(--font-display);font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">Annuler</button>
+        <button onclick="applyAvatar()" id="avatarApplyBtn" style="flex:1;padding:11px;background:linear-gradient(135deg,var(--iron),var(--iron-bright));border:none;border-radius:var(--radius);color:white;font-family:var(--font-display);font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 14px var(--iron-glow);">
           <i class="fas fa-check"></i> Appliquer
         </button>
       </div>
-    </div>
-  `;
-
-  // Init canvas crop
-  const canvas = $('cropCanvas');
-  _cropCanvas = canvas;
-  _cropCtx    = canvas.getContext('2d');
-  _cropImg    = new Image();
-  _cropX      = 0;
-  _cropY      = 0;
-  _cropScale  = 1;
-
-  _cropImg.onload = () => {
-    // Ajuster pour que l'image remplisse le carré par défaut
-    const ratio = Math.max(CROP_SIZE / _cropImg.naturalWidth, CROP_SIZE / _cropImg.naturalHeight);
-    _cropScale = ratio;
-    $('cropZoom').min = ratio;
-    $('cropZoom').value = ratio;
-    // Centrer
-    _cropX = (CROP_SIZE - _cropImg.naturalWidth  * _cropScale) / 2;
-    _cropY = (CROP_SIZE - _cropImg.naturalHeight * _cropScale) / 2;
-    _drawCrop();
-  };
-  _cropImg.src = src;
-
-  // Zoom
-  $('cropZoom').oninput = e => {
-    const oldScale = _cropScale;
-    _cropScale = parseFloat(e.target.value);
-    // Zoom centré sur le canvas
-    const cx = CROP_SIZE / 2, cy = CROP_SIZE / 2;
-    _cropX = cx - (_cropScale / oldScale) * (cx - _cropX);
-    _cropY = cy - (_cropScale / oldScale) * (cy - _cropY);
-    _clampCrop();
-    _drawCrop();
-  };
-
-  // Drag (souris)
-  canvas.onmousedown  = e => { _cropDragStart = {x:e.clientX-_cropX, y:e.clientY-_cropY}; canvas.style.cursor='grabbing'; };
-  canvas.onmousemove  = e => {
-    if(!_cropDragStart) return;
-    _cropX = e.clientX - _cropDragStart.x;
-    _cropY = e.clientY - _cropDragStart.y;
-    _clampCrop(); _drawCrop();
-  };
-  canvas.onmouseup    = () => { _cropDragStart=null; canvas.style.cursor='grab'; };
-  canvas.onmouseleave = () => { _cropDragStart=null; canvas.style.cursor='grab'; };
-
-  // Touch
-  canvas.ontouchstart = e => {
-    const t = e.touches[0];
-    _cropDragStart = {x:t.clientX-_cropX, y:t.clientY-_cropY};
-    e.preventDefault();
-  };
-  canvas.ontouchmove = e => {
-    if(!_cropDragStart) return;
-    const t = e.touches[0];
-    _cropX = t.clientX - _cropDragStart.x;
-    _cropY = t.clientY - _cropDragStart.y;
-    _clampCrop(); _drawCrop(); e.preventDefault();
-  };
-  canvas.ontouchend = () => { _cropDragStart = null; };
-
-  // Pinch zoom (touch)
-  let _lastPinchDist = 0;
-  canvas.ontouchstart = e => {
-    if(e.touches.length === 2) {
-      _lastPinchDist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      );
-    } else {
-      const t = e.touches[0];
-      _cropDragStart = {x:t.clientX-_cropX, y:t.clientY-_cropY};
-    }
-    e.preventDefault();
-  };
-  canvas.ontouchmove = e => {
-    if(e.touches.length === 2) {
-      const dist = Math.hypot(
-        e.touches[0].clientX - e.touches[1].clientX,
-        e.touches[0].clientY - e.touches[1].clientY
-      );
-      const delta = dist / _lastPinchDist;
-      const zoom = $('cropZoom');
-      const newScale = Math.min(parseFloat(zoom.max), Math.max(parseFloat(zoom.min), _cropScale * delta));
-      const oldScale = _cropScale;
-      _cropScale = newScale;
-      zoom.value = newScale;
-      const cx = CROP_SIZE/2, cy = CROP_SIZE/2;
-      _cropX = cx - (_cropScale/oldScale)*(cx-_cropX);
-      _cropY = cy - (_cropScale/oldScale)*(cy-_cropY);
-      _clampCrop(); _drawCrop();
-      _lastPinchDist = dist;
-    } else if(_cropDragStart) {
-      const t = e.touches[0];
-      _cropX = t.clientX - _cropDragStart.x;
-      _cropY = t.clientY - _cropDragStart.y;
-      _clampCrop(); _drawCrop();
-    }
-    e.preventDefault();
-  };
+    </div>`;
 }
 
-function _clampCrop() {
-  const w = _cropImg.naturalWidth  * _cropScale;
-  const h = _cropImg.naturalHeight * _cropScale;
-  _cropX = Math.min(0, Math.max(CROP_SIZE - w, _cropX));
-  _cropY = Math.min(0, Math.max(CROP_SIZE - h, _cropY));
+let _selectedAvatarId = null;
+
+function selectAvatar(avId, el) {
+  _selectedAvatarId = avId;
+  // Reset toutes les bordures
+  document.querySelectorAll('.avatar-pick-item').forEach(a => a.style.borderColor='transparent');
+  el.style.borderColor = 'var(--arc)';
+  el.style.boxShadow   = '0 0 16px var(--arc-glow)';
 }
 
-function _drawCrop() {
-  if(!_cropCtx || !_cropImg) return;
-  _cropCtx.clearRect(0, 0, CROP_SIZE, CROP_SIZE);
-  _cropCtx.drawImage(
-    _cropImg,
-    _cropX, _cropY,
-    _cropImg.naturalWidth  * _cropScale,
-    _cropImg.naturalHeight * _cropScale
-  );
-}
-
-function closeCropModal() {
-  const m = $('cropModal'); if(m) m.style.display = 'none';
-  _cropDragStart = null;
-}
-
-async function applyCrop() {
-  if(!_cropCanvas) return;
-  // Exporter le canvas en dataURL (carré, sera affiché en cercle via CSS)
-  const dataUrl = _cropCanvas.toDataURL('image/jpeg', 0.9);
-  closeCropModal();
-  await _saveAvatarDataUrl(dataUrl);
-}
-
-async function _saveAvatarDataUrl(dataUrl) {
-  const res = await AUTH.updateProfile({ photoURL: dataUrl });
-  if(!res.ok) return toast(res.error || 'Erreur lors de la mise à jour.', 'error');
-  toast('Photo de profil mise à jour !', 'success');
+async function applyAvatar() {
+  if(!_selectedAvatarId) return toast('Sélectionne un avatar.','warning');
+  const btn = $('avatarApplyBtn');
+  if(btn){btn.disabled=true;btn.textContent='Sauvegarde...';}
+  const res = await AUTH.updateProfile({ avatarId: _selectedAvatarId });
+  if(btn){btn.disabled=false;btn.innerHTML='<i class="fas fa-check"></i> Appliquer';}
+  if(!res.ok) return toast(res.error||'Erreur.','error');
+  closeAvatarPicker();
+  toast('Avatar mis à jour !','success');
   renderNavUser();
   renderSettings();
 }
 
+function closeAvatarPicker() {
+  const m=$('avatarPickerModal'); if(m) m.style.display='none';
+  _selectedAvatarId=null;
+}
 // ── SEARCH ────────────────────────────────────────────────────
 function setupSearch() {
   const doSearch = debounce(e=>{
@@ -1362,13 +1253,11 @@ function setupNavEvents() {
   });
 }
 function setupScrollEffects() {
-  const nav=document.querySelector('.navbar'), st=$('scrollTopBtn');
+  const nav=document.querySelector('.navbar');
   const onScroll = throttle(()=>{
     nav?.classList.toggle('scrolled', scrollY>50);
-    st?.classList.toggle('visible', scrollY>600);
   }, 50);
   window.addEventListener('scroll', onScroll, {passive:true});
-  if(st) st.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
 }
 
 // ── CAROUSELS ─────────────────────────────────────────────────
@@ -1441,8 +1330,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
   try { history.pushState({},'',(ROUTER.buildURL(fid,cid,season,ep.num))); } catch(_){}
 
   // Historique
-  DB.addHistory({familyId:fid,charId:cid,season,epNum:ep.num,epIdx,videoId:ep.videoId,title:ep.title});
-  renderHistory();
+  DB.addHistory({familyId:fid,charId:cid,season,epNum:ep.num,epIdx,videoId:ep.videoId,title:ep.title}).then(()=>renderHistory());
 
   // ── Bouton "Fermer" dans la navbar (à côté du logo, bien visible) ──
   let closeBtn = $('navPlayerClose');
@@ -1615,10 +1503,10 @@ function startAutoplay(fid,cid,season,epIdx) {
 function triggerAutoplay(){ cancelAutoplay(); const t=window._autoTarget; if(t) playEp(t.fid,t.cid,t.season,t.epIdx); }
 function cancelAutoplay(){ clearInterval(autoTimer);autoTimer=null; $('autoplayBanner')?.classList.remove('visible'); window._autoTarget=null; }
 function switchSeason(fid,cid,season,btn){ $$('.player-season-tab').forEach(t=>t.classList.remove('active')); btn?.classList.add('active'); playEp(fid,cid,season,0); }
-function togglePlayerList(fid,cid){
+async function togglePlayerList(fid,cid) {
   const inList=DB.isInList(fid,cid);
-  if(inList){DB.removeFromList(fid,cid);const b=$('plListBtn');if(b){b.innerHTML='<i class="fas fa-plus"></i><span>Ma Liste</span>';b.classList.remove('active','list');}toast('Retiré.','info');}
-  else{DB.addToList({familyId:fid,charId:cid,name:getChar(fid,cid)?.name});const b=$('plListBtn');if(b){b.innerHTML='<i class="fas fa-check"></i><span>Dans ma liste</span>';b.classList.add('active','list');}toast('Ajouté !','success');}
+  if(inList){ await DB.removeFromList(fid,cid); const b=$('plListBtn'); if(b){b.innerHTML='<i class="fas fa-plus"></i><span>Ma Liste</span>';b.classList.remove('active','list');} toast('Retiré.','info'); }
+  else{ await DB.addToList({familyId:fid,charId:cid,name:getChar(fid,cid)?.name}); const b=$('plListBtn'); if(b){b.innerHTML='<i class="fas fa-check"></i><span>Dans ma liste</span>';b.classList.add('active','list');} toast('Ajouté !','success'); }
   renderMyList();
 }
 
