@@ -1,87 +1,12 @@
 /* ============================================================
-   iPROMX v4 — Optimisé · Tous bugs corrigés
+   iPROMX v4 — App principale
+   AUTH et DB définis dans firebase-auth.js
    ============================================================ */
 'use strict';
 
 // ── PERF UTILS ────────────────────────────────────────────────
 const throttle = (fn, ms) => { let last=0; return (...a)=>{ const now=Date.now(); if(now-last>=ms){last=now;fn(...a);} }; };
 const debounce = (fn, ms) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; };
-
-// ── DÉTECTION LOCAL ───────────────────────────────────────────
-const IS_LOCAL = ['localhost','127.0.0.1',''].includes(location.hostname)
-  || location.protocol === 'file:';
-
-// ── AUTH ──────────────────────────────────────────────────────
-const AUTH = (() => {
-  const K = { session:'ipx_session', users:'ipx_users', guest:'ipx_guest' };
-  const DEV_USER = { id:'dev-001', username:'DevLocal', email:'dev@local.test', createdAt: new Date().toISOString() };
-  const getUsers   = () => { try { return JSON.parse(localStorage.getItem(K.users)||'[]'); } catch { return []; } };
-  const saveUsers  = u => localStorage.setItem(K.users, JSON.stringify(u));
-  const getSession = () => { try { return JSON.parse(localStorage.getItem(K.session)); } catch { return null; } };
-  const saveSession = u => { localStorage.setItem(K.session, JSON.stringify(u)); localStorage.removeItem(K.guest); };
-  const clearSession = () => localStorage.removeItem(K.session);
-  const genId = () => Date.now().toString(36) + Math.random().toString(36).slice(2);
-  const hash = pw => { let h=0,s=pw+'ipx2025'; for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;} return h.toString(36); };
-  return {
-    isLoggedIn:     () => IS_LOCAL || !!getSession(),
-    isGuest:        () => !IS_LOCAL && !!localStorage.getItem(K.guest),
-    getCurrentUser: () => IS_LOCAL ? DEV_USER : getSession(),
-    register(username, email, password) {
-      if (IS_LOCAL) return { ok:true, user:DEV_USER };
-      const users = getUsers();
-      if (users.find(u=>u.email===email.toLowerCase())) return {ok:false,error:'E-mail déjà utilisé.'};
-      if (users.find(u=>u.username.toLowerCase()===username.toLowerCase())) return {ok:false,error:'Pseudo déjà pris.'};
-      if (password.length<6) return {ok:false,error:'Mot de passe trop court (min. 6 caractères).'};
-      const user={id:genId(),username:username.trim(),email:email.toLowerCase().trim(),passwordHash:hash(password),createdAt:new Date().toISOString()};
-      users.push(user); saveUsers(users);
-      const {passwordHash:_,...su}=user; saveSession(su);
-      return {ok:true,user:su};
-    },
-    login(email, password) {
-      if (IS_LOCAL) return {ok:true,user:DEV_USER};
-      const users=getUsers();
-      const user=users.find(u=>u.email===email.toLowerCase().trim());
-      if (!user) return {ok:false,error:'Aucun compte avec cet e-mail.'};
-      if (user.passwordHash!==hash(password)) return {ok:false,error:'Mot de passe incorrect.'};
-      const {passwordHash:_,...su}=user; saveSession(su);
-      return {ok:true,user:su};
-    },
-    logout()     { clearSession(); localStorage.removeItem(K.guest); },
-    enterGuest() { clearSession(); localStorage.setItem(K.guest,'1'); }
-  };
-})();
-
-// ── DB ────────────────────────────────────────────────────────
-const DB = (() => {
-  const uid  = () => AUTH.getCurrentUser()?.id || 'guest';
-  const key  = t => `ipx_${t}_${uid()}`;
-  const load = t => { try { return JSON.parse(localStorage.getItem(key(t))||'[]'); } catch { return []; } };
-  const save = (t,d) => localStorage.setItem(key(t), JSON.stringify(d));
-  return {
-    getHistory: () => load('hist'),
-    addHistory(e) {
-      let h=load('hist').filter(x=>!(x.familyId===e.familyId&&x.charId===e.charId&&x.season===e.season&&x.epNum===e.epNum));
-      h.unshift({...e,watchedAt:new Date().toISOString()});
-      save('hist',h.slice(0,100));
-    },
-    clearHistory:       () => save('hist',[]),
-    removeHistoryItems(idxSet) { const h=load('hist'); [...idxSet].sort((a,b)=>b-a).forEach(i=>h.splice(i,1)); save('hist',h); },
-    getMyList:  () => load('list'),
-    addToList(item) {
-      const l=load('list');
-      if (l.find(i=>i.familyId===item.familyId&&i.charId===item.charId)) return false;
-      l.unshift({...item,addedAt:new Date().toISOString()}); save('list',l); return true;
-    },
-    removeFromList: (fid,cid) => save('list',load('list').filter(i=>!(i.familyId===fid&&i.charId===cid))),
-    isInList:       (fid,cid) => load('list').some(i=>i.familyId===fid&&i.charId===cid),
-    removeListItems(idxSet) { const l=load('list'); [...idxSet].sort((a,b)=>b-a).forEach(i=>l.splice(i,1)); save('list',l); },
-    getProgress:    (fid,cid,s,n) => (load('prog').find(p=>p.fid===fid&&p.cid===cid&&p.s===s&&p.n===n)||{pct:0}).pct,
-    saveProgress(fid,cid,s,n,pct) {
-      const p=load('prog'),i=p.findIndex(x=>x.fid===fid&&x.cid===cid&&x.s===s&&x.n===n);
-      if(i>=0)p[i].pct=pct; else p.push({fid,cid,s,n,pct}); save('prog',p);
-    }
-  };
-})();
 
 // ── DATA ──────────────────────────────────────────────────────
 const FB = 'images/flash.jpg';
@@ -113,7 +38,7 @@ const DATA = {
           description:'Le loyal absolu. Bras droit de confiance.', seasons:{} },
         { id:'ned-flash', name:'Ned / Eden / Eddy Flash', image:'images/ned_flash.webp', banner:FB,
           description:'Capitaine légendaire qui a libéré le monde de la destruction qui l\'attendait.',
-          hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', seasons:{} },
+          hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', subtitlesUrl:'vidéos/3frèresintro.vtt', seasons:{} },
         { id:'manda-flash', name:'Manda Flash', image:'images/manda_flash.webp', banner:FB,
           description:'La protectrice féroce. Mère, sœur, guerrière.', seasons:{} }
       ]
@@ -217,10 +142,32 @@ function toast(msg,type='success') {
 }
 
 // ── AUTH UI ───────────────────────────────────────────────────
-function initAuth() {
+async function initAuth() {
   if (IS_LOCAL) { hideAuth(); initApp(); return; }
-  if (AUTH.isLoggedIn()||AUTH.isGuest()) { hideAuth(); initApp(); return; }
+
+  // Afficher un loader pendant que Firebase vérifie la session
+  showAuthLoader();
+
+  try {
+    const loggedIn = await AUTH.restoreSession();
+    hideAuthLoader();
+    if (loggedIn || AUTH.isGuest()) { hideAuth(); initApp(); return; }
+  } catch(e) {
+    hideAuthLoader();
+  }
   showAuthPage();
+}
+
+function showAuthLoader() {
+  const p=$('authPage');
+  if(p){
+    p.style.display='flex';
+    p.innerHTML=`
+      <div style="text-align:center;color:var(--arc);">
+        <div style="width:40px;height:40px;border:3px solid var(--edge);border-top-color:var(--arc);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px;"></div>
+        <div style="font-family:var(--font-display);font-size:.7rem;letter-spacing:3px;">CHARGEMENT...</div>
+      </div>`;
+  }
 }
 
 function showAuthPage() {
@@ -240,18 +187,24 @@ function setupAuthListeners() {
     });
   });
   // Register
-  $('registerForm')?.addEventListener('submit',e=>{
+  $('registerForm')?.addEventListener('submit', async e=>{
     e.preventDefault(); clearFeedback();
     const pw=$('regPassword').value, cf=$('regConfirm').value;
     if(pw!==cf) return showErr('Les mots de passe ne correspondent pas.');
-    const res=AUTH.register($('regUsername').value,$('regEmail').value,pw);
+    const btn=e.target.querySelector('button[type=submit]');
+    if(btn){ btn.disabled=true; btn.textContent='Création...'; }
+    const res=await AUTH.register($('regUsername').value,$('regEmail').value,pw);
+    if(btn){ btn.disabled=false; btn.innerHTML='<i class="fas fa-user-plus"></i> Créer mon compte'; }
     if(!res.ok) return showErr(res.error);
-    showOk('Compte créé ! Connexion...'); setTimeout(()=>{hideAuth();initApp();},900);
+    showOk('Compte créé !'); setTimeout(()=>{hideAuth();initApp();},700);
   });
   // Login
-  $('loginForm')?.addEventListener('submit',e=>{
+  $('loginForm')?.addEventListener('submit', async e=>{
     e.preventDefault(); clearFeedback();
-    const res=AUTH.login($('loginEmail').value,$('loginPassword').value);
+    const btn=e.target.querySelector('button[type=submit]');
+    if(btn){ btn.disabled=true; btn.textContent='Connexion...'; }
+    const res=await AUTH.login($('loginEmail').value,$('loginPassword').value);
+    if(btn){ btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt"></i> Se connecter'; }
     if(!res.ok) return showErr(res.error);
     hideAuth(); initApp();
   });
@@ -319,8 +272,8 @@ function renderNavUser() {
         <button class="dropdown-item" onclick="openHistory();closeDD()"><i class="fas fa-history"></i> Historique</button>
         <button class="dropdown-item" onclick="openMyList();closeDD()"><i class="fas fa-star"></i> Ma Liste</button>
         ${AUTH.isGuest()||IS_LOCAL
-          ?`<button class="dropdown-item" onclick="AUTH.logout();location.reload()"><i class="fas fa-sign-in-alt"></i> Se connecter</button>`
-          :`<button class="dropdown-item danger" onclick="AUTH.logout();location.reload()"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>`}
+          ?`<button class="dropdown-item" onclick="AUTH.logout().then(()=>location.reload())"><i class="fas fa-sign-in-alt"></i> Se connecter</button>`
+          :`<button class="dropdown-item danger" onclick="AUTH.logout().then(()=>location.reload())"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>`}
       </div>
     </div>`;
   // Listener séparé pour éviter les conflits de propagation
@@ -778,7 +731,7 @@ function renderSettings() {
         <div class="settings-section-header"><i class="fas fa-shield-alt"></i> Compte</div>
         <div class="settings-item">
           <div class="settings-item-info"><div class="settings-item-label">Déconnexion</div><div class="settings-item-desc">Vous serez redirigé vers la page de connexion</div></div>
-          <div class="settings-item-action"><button class="btn-small danger" onclick="AUTH.logout();location.reload()">Déconnecter</button></div>
+          <div class="settings-item-action"><button class="btn-small danger" onclick="AUTH.logout().then(()=>location.reload())">Déconnecter</button></div>
         </div>
       </div>`:''}
     </div>`;
