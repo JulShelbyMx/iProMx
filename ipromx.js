@@ -38,7 +38,7 @@ const DATA = {
           description:'Le loyal absolu. Bras droit de confiance.', seasons:{} },
         { id:'ned-flash', name:'Ned / Eden / Eddy Flash', image:'images/ned_flash.webp', banner:FB,
           description:'Capitaine légendaire qui a libéré le monde de la destruction qui l\'attendait.',
-          hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', subtitlesUrl:'vidéos/3frèresintro.vtt', seasons:{} },
+          hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', seasons:{} },
         { id:'manda-flash', name:'Manda Flash', image:'images/manda_flash.webp', banner:FB,
           description:'La protectrice féroce. Mère, sœur, guerrière.', seasons:{} }
       ]
@@ -209,6 +209,43 @@ function showErr(msg) { const e=document.querySelector('.auth-error'); if(e){e.t
 function showOk(msg)  { clearFeedback(); const e=document.querySelector('.auth-success'); if(e){e.textContent=msg;e.style.display='block';} }
 function clearFeedback() { document.querySelectorAll('.auth-error,.auth-success').forEach(e=>{e.style.display='none';e.textContent='';}); }
 
+// ── AFFICHER/MASQUER MOT DE PASSE ─────────────────────────────
+function togglePw(inputId, btn) {
+  const input=$(inputId); if(!input) return;
+  const visible = input.type === 'text';
+  input.type = visible ? 'password' : 'text';
+  const icon = btn.querySelector('i');
+  if(icon) icon.className = visible ? 'fas fa-eye' : 'fas fa-eye-slash';
+  btn.style.color = visible ? 'var(--text-muted)' : 'var(--arc)';
+}
+
+// ── MOT DE PASSE OUBLIÉ ───────────────────────────────────────
+function showForgotPassword() {
+  $('loginForm').style.display   = 'none';
+  $('forgotForm').style.display  = 'block';
+  clearFeedback();
+  // Pré-remplir l'email si déjà saisi
+  const email = $('loginEmail')?.value;
+  if(email && $('forgotEmail')) $('forgotEmail').value = email;
+}
+function hideForgotPassword() {
+  $('forgotForm').style.display = 'none';
+  $('loginForm').style.display  = '';
+  clearFeedback();
+}
+async function submitForgotPassword() {
+  const email = $('forgotEmail')?.value?.trim();
+  if(!email) return showErr('Saisis ton adresse e-mail.');
+  clearFeedback();
+  const btn = $('forgotForm').querySelector('button.auth-btn-main');
+  if(btn){ btn.disabled=true; btn.textContent='Envoi...'; }
+  const res = await AUTH.sendPasswordReset(email);
+  if(btn){ btn.disabled=false; btn.innerHTML='<i class="fas fa-paper-plane"></i> Envoyer le lien'; }
+  if(!res.ok) return showErr(res.error);
+  showOk(`Lien envoyé à ${email} ! Vérifie ta boîte mail.`);
+  setTimeout(hideForgotPassword, 3000);
+}
+
 // ── APP ───────────────────────────────────────────────────────
 function initApp() {
   renderNavUser();
@@ -228,22 +265,136 @@ function initApp() {
 
 // ── TWITCH LIVE ───────────────────────────────────────────────
 async function checkTwitchLive() {
-  const badge=$('liveBadge'); if(!badge) return;
-  if(IS_LOCAL) { badge.innerHTML=`<span class="live-dot"></span><span class="live-text">LIVE</span>`; return; }
+  const badge = $('liveBadge');
+
+  // En local : erreur orange (la fonction Netlify ne tourne pas)
+  if(IS_LOCAL) {
+    _setLiveBadge('error');
+    _setLiveSection('error', null);
+    return;
+  }
+
   try {
-    const res=await fetch('/.netlify/functions/live-on-twitch');
-    if(!res.ok) throw new Error();
-    const data=await res.json();
-    if(data.status==='online') {
-      badge.innerHTML=`<span class="live-dot"></span><span class="live-text">EN DIRECT</span>`;
-      badge.style.borderColor='var(--gold)';
-      badge.style.color='var(--gold)';
+    // 1. Statut online/offline
+    const res = await fetch('/.netlify/functions/live-on-twitch');
+    if(!res.ok) throw new Error('http_' + res.status);
+    const data = await res.json();
+    if(data.error) throw new Error(data.error);
+
+    if(data.status === 'online') {
+      _setLiveBadge('online');
+      _setLiveSection('online', data);
     } else {
-      badge.innerHTML=`<span class="live-dot" style="background:#666;animation:none;"></span><span class="live-text">HORS LIGNE</span>`;
-      badge.style.opacity='0.6';
+      // offline — récupérer aussi les infos du dernier live (titre, date)
+      _setLiveBadge('offline');
+      // Appel secondaire pour date + titre
+      try {
+        const res2 = await fetch('/.netlify/functions/live-on-twitch', {
+          headers: { 'x-last-live': 'true' }
+        });
+        const data2 = await res2.json();
+        _setLiveSection('offline', data2);
+      } catch {
+        _setLiveSection('offline', null);
+      }
     }
   } catch {
-    badge.innerHTML=`<span class="live-dot"></span><span class="live-text">LIVE</span>`;
+    _setLiveBadge('error');
+    _setLiveSection('error', null);
+  }
+}
+
+// Mettre à jour le badge navbar
+function _setLiveBadge(status) {
+  const badge = $('liveBadge');
+  if(!badge) return;
+
+  // Reset styles
+  badge.style.cssText = '';
+
+  if(status === 'online') {
+    badge.innerHTML = `<span class="live-dot"></span><span class="live-text">EN LIVE</span>`;
+    badge.style.background    = 'rgba(39,174,96,0.15)';
+    badge.style.borderColor   = '#27ae60';
+    badge.style.color         = '#2ecc71';
+  } else if(status === 'offline') {
+    badge.innerHTML = `<span class="live-dot" style="background:#e74c3c;animation:none;box-shadow:none;"></span><span class="live-text">HORS LIGNE</span>`;
+    badge.style.background    = 'rgba(231,76,60,0.12)';
+    badge.style.borderColor   = 'rgba(231,76,60,0.5)';
+    badge.style.color         = '#e74c3c';
+    badge.style.opacity       = '0.85';
+  } else {
+    // error / local
+    badge.innerHTML = `<span class="live-dot" style="background:#e67e22;animation:none;box-shadow:none;"></span><span class="live-text">TWITCH</span>`;
+    badge.style.background    = 'rgba(230,126,34,0.12)';
+    badge.style.borderColor   = 'rgba(230,126,34,0.45)';
+    badge.style.color         = '#e67e22';
+    badge.style.opacity       = '0.8';
+  }
+}
+
+// Mettre à jour la section live sur la page principale
+function _setLiveSection(status, data) {
+  const section     = $('liveSectionBlock');
+  const dot         = $('liveDotInline');
+  const titleText   = $('liveTitleText');
+  const subtitle    = $('liveSubtitle');
+  const statVal     = $('liveStatVal');
+  const statLabel   = $('liveStatLabel');
+  const statDate    = $('liveStatDate');
+  const statDateVal = $('liveStatDateVal');
+  const btnText     = $('liveBtnText');
+  if(!section) return;
+
+  if(status === 'online') {
+    // Vert
+    section.style.borderColor = '#27ae60';
+    section.style.boxShadow   = '0 0 30px rgba(39,174,96,0.15), inset 0 0 20px rgba(39,174,96,0.05)';
+    if(dot) { dot.style.background='#2ecc71'; dot.style.boxShadow='0 0 8px #2ecc71'; }
+    if(titleText) titleText.textContent = 'iProMx est EN LIVE !';
+    // Titre du stream si dispo
+    const streamTitle = data?.streamTitle || data?.title || '';
+    if(subtitle) subtitle.innerHTML = streamTitle
+      ? `<strong>${streamTitle}</strong>`
+      : `Retrouvez le serveur <strong>FanTasTic RP</strong> en direct sur Twitch.`;
+    if(statVal) statVal.textContent    = '🟢 EN DIRECT';
+    if(statLabel) statLabel.textContent = '';
+    if(statDate) statDate.style.display = 'none';
+    if(btnText) btnText.textContent     = 'Regarder en direct';
+
+  } else if(status === 'offline') {
+    // Rouge
+    section.style.borderColor = 'rgba(231,76,60,0.3)';
+    section.style.boxShadow   = '';
+    if(dot) { dot.style.background='#e74c3c'; dot.style.boxShadow='none'; dot.style.animation='none'; }
+    if(titleText) titleText.textContent = 'iProMx est hors ligne';
+    // Titre channel même hors live (iProMx peut avoir changé son titre)
+    const chanTitle = data?.title || '';
+    if(subtitle) subtitle.innerHTML = chanTitle
+      ? `Prochain live : <strong>${chanTitle}</strong>`
+      : `Retrouvez iProMx sur <strong>Twitch</strong> pour les prochains lives.`;
+    if(statVal) statVal.textContent    = '🔴 HORS LIGNE';
+    if(statLabel) statLabel.textContent = '';
+    // Date du dernier live
+    if(data?.lastLive) {
+      if(statDate) statDate.style.display = '';
+      if(statDateVal) statDateVal.textContent = data.lastLive;
+    } else {
+      if(statDate) statDate.style.display = 'none';
+    }
+    if(btnText) btnText.textContent = 'Voir la chaîne Twitch';
+
+  } else {
+    // Erreur / local — orange, affichage neutre
+    section.style.borderColor = 'rgba(230,126,34,0.25)';
+    section.style.boxShadow   = '';
+    if(dot) { dot.style.background='#e67e22'; dot.style.boxShadow='none'; dot.style.animation='none'; }
+    if(titleText) titleText.textContent = 'iProMx sur Twitch';
+    if(subtitle) subtitle.innerHTML     = `Retrouvez le serveur <strong>FanTasTic RP</strong> en direct sur Twitch.`;
+    if(statVal) statVal.textContent     = '⚠️ INCONNU';
+    if(statLabel) statLabel.textContent = '';
+    if(statDate) statDate.style.display = 'none';
+    if(btnText) btnText.textContent     = 'Voir sur Twitch';
   }
 }
 
@@ -698,21 +849,66 @@ function closeSettings() {
 function renderSettings() {
   const user=AUTH.getCurrentUser(); if(!user) return;
   const sc=$('settingsContent'); if(!sc) return;
+  const avatarUrl = user.photoURL||'';
+  const avatarHtml = avatarUrl
+    ? `<img src="${avatarUrl}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--arc);">`
+    : `<div class="profile-avatar" style="width:80px;height:80px;font-size:2rem;">${(user.username||'?')[0].toUpperCase()}</div>`;
+
   sc.innerHTML=`
     <div style="max-width:700px;margin:0 auto;">
+
+      <!-- Profil -->
       <div class="settings-section">
         <div class="settings-section-header"><i class="fas fa-user"></i> Profil</div>
-        <div class="profile-avatar-section">
-          <div class="profile-avatar">${user.username[0].toUpperCase()}</div>
-          <div class="profile-info"><h3>${user.username}</h3><p>${user.email}</p>
-            <p style="font-size:.75rem;color:var(--text-muted);margin-top:4px;">Membre depuis ${new Date(user.createdAt).toLocaleDateString('fr')}</p>
+        <div class="profile-avatar-section" style="padding:20px 24px;">
+          <div style="position:relative;cursor:pointer;" onclick="document.getElementById('avatarFileInput').click()" title="Changer la photo">
+            ${avatarHtml}
+            <div style="position:absolute;inset:0;border-radius:50%;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:.2s;" class="avatar-hover-overlay">
+              <i class="fas fa-camera" style="color:white;font-size:1.2rem;"></i>
+            </div>
+          </div>
+          <input type="file" id="avatarFileInput" accept="image/*" style="display:none;" onchange="handleAvatarUpload(this)">
+          <div class="profile-info">
+            <h3>${user.username}</h3>
+            <p>${user.email}</p>
+            <p style="font-size:.75rem;color:var(--text-muted);margin-top:4px;">Membre depuis ${new Date(user.createdAt||Date.now()).toLocaleDateString('fr')}</p>
+          </div>
+        </div>
+
+        <!-- Modifier pseudo -->
+        <div class="settings-item">
+          <div class="settings-item-info">
+            <div class="settings-item-label">Pseudo</div>
+            <div class="settings-item-desc">${user.username}</div>
+          </div>
+          <div class="settings-item-action">
+            <button class="btn-small" onclick="showEditUsername()">Modifier</button>
+          </div>
+        </div>
+        <div id="editUsernameRow" style="display:none;padding:0 24px 16px;gap:10px;align-items:center;display:none;flex-wrap:wrap;">
+          <input id="newUsernameInput" type="text" placeholder="Nouveau pseudo" value="${user.username}"
+            style="background:var(--void);border:1px solid var(--edge);border-radius:var(--radius);padding:9px 14px;color:var(--text);font-family:var(--font-ui);font-size:.9rem;flex:1;min-width:160px;outline:none;">
+          <button class="btn-small" onclick="saveUsername()" style="background:var(--arc-dim);border-color:var(--arc);color:var(--arc);">Enregistrer</button>
+          <button class="btn-small" onclick="hideEditUsername()">Annuler</button>
+        </div>
+
+        <!-- Réinitialiser mot de passe -->
+        <div class="settings-item">
+          <div class="settings-item-info">
+            <div class="settings-item-label">Mot de passe</div>
+            <div class="settings-item-desc">Envoyer un lien de réinitialisation par e-mail</div>
+          </div>
+          <div class="settings-item-action">
+            <button class="btn-small" onclick="sendPasswordReset()">Réinitialiser</button>
           </div>
         </div>
       </div>
+
+      <!-- Données -->
       <div class="settings-section">
         <div class="settings-section-header"><i class="fas fa-database"></i> Mes données</div>
         <div class="settings-item">
-          <div class="settings-item-info"><div class="settings-item-label">Historique de visionnage</div><div class="settings-item-desc">${DB.getHistory().length} élément(s)</div></div>
+          <div class="settings-item-info"><div class="settings-item-label">Historique</div><div class="settings-item-desc">${DB.getHistory().length} élément(s)</div></div>
           <div class="settings-item-action"><button class="btn-small danger" onclick="if(confirm('Effacer ?')){DB.clearHistory();renderHistory();toast('Effacé','success');renderSettings();}">Effacer</button></div>
         </div>
         <div class="settings-item">
@@ -720,14 +916,66 @@ function renderSettings() {
           <div class="settings-item-action"><button class="btn-small" onclick="closeSettings();openMyList();">Gérer</button></div>
         </div>
       </div>
+
+      <!-- Compte -->
       ${!IS_LOCAL?`<div class="settings-section">
         <div class="settings-section-header"><i class="fas fa-shield-alt"></i> Compte</div>
         <div class="settings-item">
-          <div class="settings-item-info"><div class="settings-item-label">Déconnexion</div><div class="settings-item-desc">Vous serez redirigé vers la page de connexion</div></div>
+          <div class="settings-item-info"><div class="settings-item-label">Déconnexion</div></div>
           <div class="settings-item-action"><button class="btn-small danger" onclick="AUTH.logout().then(()=>location.reload())">Déconnecter</button></div>
         </div>
       </div>`:''}
     </div>`;
+
+  // Hover sur avatar
+  const overlay = sc.querySelector('.avatar-hover-overlay');
+  const avatarWrap = overlay?.parentElement;
+  if(avatarWrap && overlay) {
+    avatarWrap.addEventListener('mouseenter',()=>overlay.style.opacity='1');
+    avatarWrap.addEventListener('mouseleave',()=>overlay.style.opacity='0');
+  }
+}
+
+// ── SETTINGS ACTIONS ──────────────────────────────────────────
+function showEditUsername() {
+  const row=$('editUsernameRow');
+  if(row){ row.style.display='flex'; $('newUsernameInput')?.focus(); }
+}
+function hideEditUsername() {
+  const row=$('editUsernameRow'); if(row) row.style.display='none';
+}
+
+async function saveUsername() {
+  const val=$('newUsernameInput')?.value?.trim();
+  if(!val||val.length<2) return toast('Pseudo trop court.','warning');
+  const res=await AUTH.updateProfile({username:val});
+  if(!res.ok) return toast(res.error||'Erreur.','error');
+  toast('Pseudo mis à jour !','success');
+  renderNavUser();
+  renderSettings();
+}
+
+async function sendPasswordReset() {
+  const user=AUTH.getCurrentUser(); if(!user) return;
+  const res=await AUTH.sendPasswordReset(user.email);
+  if(!res.ok) return toast(res.error||'Erreur.','error');
+  toast(`E-mail envoyé à ${user.email} !`,'success');
+}
+
+async function handleAvatarUpload(input) {
+  const file=input.files?.[0]; if(!file) return;
+  if(file.size > 2*1024*1024) return toast('Image trop lourde (max 2 Mo).','warning');
+  // Convertir en base64 DataURL pour stocker dans le profil Firebase
+  const reader=new FileReader();
+  reader.onload=async(e)=>{
+    const dataUrl=e.target.result;
+    const res=await AUTH.updateProfile({photoURL:dataUrl});
+    if(!res.ok) return toast(res.error||'Erreur.','error');
+    toast('Photo de profil mise à jour !','success');
+    renderNavUser();
+    renderSettings();
+  };
+  reader.readAsDataURL(file);
 }
 
 // ── SEARCH ────────────────────────────────────────────────────

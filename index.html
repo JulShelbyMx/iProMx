@@ -41,6 +41,7 @@
       <div class="auth-error" style="display:none;"></div>
       <div class="auth-success" style="display:none;"></div>
 
+      <!-- CONNEXION -->
       <form class="auth-form active" id="loginForm">
         <div class="auth-field">
           <label>Adresse e-mail</label>
@@ -48,15 +49,46 @@
         </div>
         <div class="auth-field">
           <label>Mot de passe</label>
-          <input type="password" id="loginPassword" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required autocomplete="current-password">
+          <div style="position:relative;">
+            <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password" style="padding-right:48px;">
+            <button type="button" onclick="togglePw('loginPassword',this)" tabindex="-1"
+              style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:.85rem;padding:4px;">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
         </div>
         <button type="submit" class="auth-btn-main"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
+        <div style="text-align:center;margin-top:-8px;margin-bottom:8px;">
+          <button type="button" onclick="showForgotPassword()"
+            style="background:none;border:none;color:var(--text-muted);font-family:var(--font-body);font-size:.85rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px;transition:.2s;"
+            onmouseover="this.style.color='var(--arc)'" onmouseout="this.style.color='var(--text-muted)'">
+            Mot de passe oublié ?
+          </button>
+        </div>
       </form>
 
+      <!-- MOT DE PASSE OUBLIÉ (caché par défaut) -->
+      <div id="forgotForm" style="display:none;">
+        <div class="auth-field">
+          <label>Adresse e-mail du compte</label>
+          <input type="email" id="forgotEmail" placeholder="votremail@exemple.com" autocomplete="email">
+        </div>
+        <button type="button" class="auth-btn-main" onclick="submitForgotPassword()">
+          <i class="fas fa-paper-plane"></i> Envoyer le lien
+        </button>
+        <div style="text-align:center;margin-top:-4px;">
+          <button type="button" onclick="hideForgotPassword()"
+            style="background:none;border:none;color:var(--text-muted);font-family:var(--font-body);font-size:.85rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px;">
+            Retour
+          </button>
+        </div>
+      </div>
+
+      <!-- INSCRIPTION -->
       <form class="auth-form" id="registerForm">
         <div class="auth-field">
           <label>Pseudo</label>
-          <input type="text" id="regUsername" placeholder="VotrePseudo" required minlength="3" maxlength="32">
+          <input type="text" id="regUsername" placeholder="VotrePseudo" required maxlength="32">
         </div>
         <div class="auth-field">
           <label>Adresse e-mail</label>
@@ -64,12 +96,23 @@
         </div>
         <div class="auth-field">
           <label>Mot de passe</label>
-          <input type="password" id="regPassword" placeholder="Min. 6 caractères" required minlength="6">
-          <div class="field-hint">Au moins 6 caractères</div>
+          <div style="position:relative;">
+            <input type="password" id="regPassword" placeholder="Votre mot de passe" required style="padding-right:48px;">
+            <button type="button" onclick="togglePw('regPassword',this)" tabindex="-1"
+              style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:.85rem;padding:4px;">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
         </div>
         <div class="auth-field">
           <label>Confirmer le mot de passe</label>
-          <input type="password" id="regConfirm" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
+          <div style="position:relative;">
+            <input type="password" id="regConfirm" placeholder="••••••••" required style="padding-right:48px;">
+            <button type="button" onclick="togglePw('regConfirm',this)" tabindex="-1"
+              style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:.85rem;padding:4px;">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
         </div>
         <button type="submit" class="auth-btn-main"><i class="fas fa-user-plus"></i> Créer mon compte</button>
       </form>
@@ -160,19 +203,19 @@
 
   <section class="section">
     <div class="section-container">
-      <div class="live-section">
+      <div class="live-section" id="liveSectionBlock">
         <div class="live-inner">
           <div class="live-content">
-            <h3><span class="live-dot" style="display:inline-block;margin-right:10px;width:10px;height:10px;"></span>iProMx est en live !</h3>
-            <p>Retrouvez le serveur <strong>FanTasTic RP</strong> en direct sur Twitch.</p>
+            <h3 id="liveTitle"><span id="liveDotInline" class="live-dot" style="display:inline-block;margin-right:10px;width:10px;height:10px;"></span><span id="liveTitleText">iProMx sur Twitch</span></h3>
+            <p id="liveSubtitle">Retrouvez le serveur <strong>FanTasTic RP</strong> en direct sur Twitch.</p>
             <div class="live-stats">
               <div class="live-stat"><span>272K+</span>Followers</div>
-              <div class="live-stat"><span>1M+</span>Abonnés YT</div>
-              <div class="live-stat"><span>GTA 5 RP</span>Contenu</div>
+              <div class="live-stat" id="liveStatStatus"><span id="liveStatVal">—</span><span id="liveStatLabel">Statut</span></div>
+              <div class="live-stat" id="liveStatDate" style="display:none;"><span id="liveStatDateVal">—</span>Dernier live</div>
             </div>
           </div>
-          <a class="live-btn" href="https://www.twitch.tv/ipromx" target="_blank">
-            <i class="fab fa-twitch"></i> Regarder en direct
+          <a class="live-btn" href="https://www.twitch.tv/ipromx" target="_blank" id="liveBtnMain">
+            <i class="fab fa-twitch"></i> <span id="liveBtnText">Voir sur Twitch</span>
           </a>
         </div>
       </div>
