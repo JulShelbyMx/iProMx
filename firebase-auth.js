@@ -13,12 +13,13 @@
 // ── CONFIG FIREBASE ─────────────────────────────────────────
 // Remplace ces valeurs par celles de ton projet Firebase
 const FIREBASE_CONFIG = {
-  apiKey:            "VOTRE_API_KEY",
-  authDomain:        "VOTRE_PROJECT.firebaseapp.com",
-  projectId:         "VOTRE_PROJECT_ID",
-  storageBucket:     "VOTRE_PROJECT.appspot.com",
-  messagingSenderId: "VOTRE_SENDER_ID",
-  appId:             "VOTRE_APP_ID"
+  apiKey: "AIzaSyABsp0Hq_awsAEyWU2WyKxgaIbAH_DII-I",
+  authDomain: "ipromx-site.firebaseapp.com",
+  projectId: "ipromx-site",
+  storageBucket: "ipromx-site.firebasestorage.app",
+  messagingSenderId: "1062621859736",
+  appId: "1:1062621859736:web:cf9172ce0196aca00b65ed",
+  measurementId: "G-98GVB7ETDW"
 };
 
 // ── DÉTECTION LOCAL ──────────────────────────────────────────
