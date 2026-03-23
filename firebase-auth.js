@@ -17,15 +17,11 @@
    4. Remplacer firebaseConfig ci-dessous avec tes vraies valeurs
    ============================================================ */
 
-const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyABsp0Hq_awsAEyWU2WyKxgaIbAH_DII-I",
-  authDomain: "ipromx-site.firebaseapp.com",
-  projectId: "ipromx-site",
-  storageBucket: "ipromx-site.firebasestorage.app",
-  messagingSenderId: "1062621859736",
-  appId: "1:1062621859736:web:cf9172ce0196aca00b65ed",
-  measurementId: "G-98GVB7ETDW"
-};
+// ── CONFIG FIREBASE ──────────────────────────────────────────
+// La config est injectée dynamiquement par la Netlify function
+// /.netlify/functions/firebase-config (variables d'env Netlify)
+// NE PAS mettre de vraies clés ici — elles seraient leakées dans le repo.
+const FIREBASE_CONFIG = window.__FIREBASE_CONFIG__ || null;
 
 // ── AVATARS PRÉDÉFINIS ───────────────────────────────────────
 // Mets tes images dans /images/avatars/ et change les noms
@@ -51,6 +47,7 @@ let _db   = null;
 
 function _initFB() {
   if (_app) return true;
+  if (!FIREBASE_CONFIG) { console.error('Firebase config not loaded yet. Ensure /.netlify/functions/firebase-config is called before firebase-auth.js.'); return false; }
   try {
     _app  = firebase.initializeApp(FIREBASE_CONFIG);
     _auth = firebase.auth();
@@ -223,6 +220,8 @@ const DB = (() => {
         _list = Array.isArray(d.myList)  ? d.myList  : [];
       } else { _hist=[]; _list=[]; }
     } catch(e) { _hist=[]; _list=[]; }
+    // Charger la progression séparément (sous-collection)
+    await ret._loadProgress();
   }
 
   async function _saveField(field, val) {
@@ -231,9 +230,9 @@ const DB = (() => {
     catch { try { await ref.set({ [field]:val },{merge:true}); } catch(_){} }
   }
 
-  return {
+  const ret = {
     _loadAll,
-    _clearCache() { _hist=null; _list=null; },
+    _clearCache() { _hist=null; _list=null; this._prog=null; this._progDirty=false; clearTimeout(this._progTimer); },
 
     // ── History ─────────────────────────────────────────────
     getHistory()  { return _hist||[]; },
@@ -271,21 +270,43 @@ const DB = (() => {
       _list=l; await _saveField('myList',l);
     },
 
-    // ── Progression (localStorage — trop de writes Firestore sinon) ──
-    getProgress(fid,cid,s,n) {
+    // ── Progression (Firestore — synchronisée cross-device) ──────
+    // On garde un cache en mémoire pour éviter trop de reads.
+    // Les writes sont debouncés (~3s) pour limiter les appels Firestore.
+    _prog: null,
+    _progDirty: false,
+    _progTimer: null,
+
+    async _loadProgress() {
+      const ref = docRef(); if(!ref) { this._prog = {}; return; }
       try {
-        const k=`ipx_prog_${AUTH.getCurrentUser()?.uid||'g'}`;
-        return (JSON.parse(localStorage.getItem(k)||'[]').find(p=>p.fid===fid&&p.cid===cid&&p.s===s&&p.n===n)||{pct:0}).pct;
-      } catch { return 0; }
+        const snap = await ref.collection('progress').doc('data').get();
+        this._prog = snap.exists ? (snap.data().entries || {}) : {};
+      } catch { this._prog = {}; }
+    },
+
+    _progKey(fid,cid,s,n) { return `${fid}|${cid}|${s}|${n}`; },
+
+    async _flushProgress() {
+      if(!this._progDirty || !this._prog) return;
+      this._progDirty = false;
+      const ref = docRef(); if(!ref) return;
+      try {
+        await ref.collection('progress').doc('data').set({ entries: this._prog }, { merge: true });
+      } catch(e) { console.warn('Progress flush error:', e); }
+    },
+
+    getProgress(fid,cid,s,n) {
+      if(!this._prog) return 0;
+      return this._prog[this._progKey(fid,cid,s,n)] || 0;
     },
     saveProgress(fid,cid,s,n,pct) {
-      try {
-        const k=`ipx_prog_${AUTH.getCurrentUser()?.uid||'g'}`;
-        const p=JSON.parse(localStorage.getItem(k)||'[]');
-        const i=p.findIndex(x=>x.fid===fid&&x.cid===cid&&x.s===s&&x.n===n);
-        if(i>=0)p[i].pct=pct; else p.push({fid,cid,s,n,pct});
-        localStorage.setItem(k,JSON.stringify(p));
-      } catch {}
+      if(!this._prog) this._prog = {};
+      this._prog[this._progKey(fid,cid,s,n)] = pct;
+      this._progDirty = true;
+      clearTimeout(this._progTimer);
+      this._progTimer = setTimeout(() => this._flushProgress(), 3000);
     }
   };
+  return ret;
 })();

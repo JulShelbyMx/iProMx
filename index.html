@@ -443,9 +443,35 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<!-- Auth + DB -->
-<script src="firebase-auth.js"></script>
-<script src="https://www.youtube.com/iframe_api"></script>
-<script src="ipromx.js"></script>
+<!-- Config Firebase chargée depuis les variables d'env Netlify (jamais hardcodée ici) -->
+<script>
+(async () => {
+  // En local (file:// ou localhost), la Netlify Function n'existe pas —
+  // on charge directement les scripts sans config Firebase (mode IS_LOCAL)
+  const isLocal = ['localhost','127.0.0.1',''].includes(location.hostname)
+    || location.protocol === 'file:';
+
+  if (!isLocal) {
+    try {
+      const r = await fetch('/.netlify/functions/firebase-config');
+      if (r.ok) {
+        const js = await r.text();
+        // eslint-disable-next-line no-new-func
+        new Function(js)();
+      }
+    } catch(e) { console.warn('Firebase config fetch failed:', e); }
+  }
+
+  // Charger les scripts dans l'ordre après avoir injecté la config
+  const load = src => new Promise(res => {
+    const s = document.createElement('script');
+    s.src = src; s.onload = res; s.onerror = res;
+    document.body.appendChild(s);
+  });
+  await load('firebase-auth.js');
+  await load('https://www.youtube.com/iframe_api');
+  await load('ipromx.js');
+})();
+</script>
 </body>
 </html>

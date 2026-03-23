@@ -2233,30 +2233,6 @@ body::before {
 
 .toast.leaving { animation: toastOut 0.3s ease forwards; }
 
-/* ===== SCROLL TOP ===== */
-.scroll-top {
-  position: fixed;
-  bottom: 30px;
-  right: 90px;
-  width: 44px;
-  height: 44px;
-  background: var(--panel);
-  border: 1px solid var(--edge);
-  border-radius: var(--radius);
-  color: var(--arc);
-  font-size: 1rem;
-  cursor: pointer;
-  opacity: 0;
-  pointer-events: none;
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-
-.scroll-top.visible { opacity: 1; pointer-events: auto; }
-.scroll-top:hover { background: var(--arc-dim); border-color: var(--arc); transform: translateY(-3px); }
 
 /* ===== FOOTER ===== */
 .footer {

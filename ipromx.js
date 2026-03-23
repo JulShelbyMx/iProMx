@@ -1074,7 +1074,7 @@ function renderSettings() {
   const avList = typeof PRESET_AVATARS !== 'undefined' ? PRESET_AVATARS : [];
   const av = avList.find(a=>a.id===user.avatarId) || avList[0];
   const avatarImg = av
-    ? `<img src="${av.src}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--arc);box-shadow:0 0 16px var(--arc-glow);" onerror="this.style.display=\'none\'">`
+    ? `<img src="${av.src}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--arc);box-shadow:0 0 16px var(--arc-glow);" onerror="this.style.display='none'">`
     : `<div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--iron),var(--arc));display:flex;align-items:center;justify-content:center;font-size:2rem;color:white;border:3px solid var(--arc);">${(user.username||'?')[0].toUpperCase()}</div>`;
 
   sc.innerHTML=`
@@ -1082,7 +1082,7 @@ function renderSettings() {
       <div class="settings-section">
         <div class="settings-section-header"><i class="fas fa-user"></i> Profil</div>
         <div class="profile-avatar-section" style="padding:20px 24px;">
-          <div style="position:relative;cursor:pointer;flex-shrink:0;" onclick="openAvatarPicker()" title="Changer l\'avatar">
+          <div style="position:relative;cursor:pointer;flex-shrink:0;" onclick="openAvatarPicker()" title="Changer l'avatar">
             ${avatarImg}
             <div style="position:absolute;bottom:0;right:0;width:26px;height:26px;border-radius:50%;background:var(--panel2);border:2px solid var(--arc);display:flex;align-items:center;justify-content:center;">
               <i class="fas fa-pen" style="font-size:.6rem;color:var(--arc);"></i>
@@ -1091,7 +1091,7 @@ function renderSettings() {
           <div class="profile-info">
             <h3>${user.username}</h3>
             <p>${user.email}</p>
-            <p style="font-size:.75rem;color:var(--text-muted);margin-top:4px;">Membre depuis ${new Date(user.createdAt||Date.now()).toLocaleDateString(\'fr\')}</p>
+            <p style="font-size:.75rem;color:var(--text-muted);margin-top:4px;">Membre depuis ${new Date(user.createdAt||Date.now()).toLocaleDateString('fr')}</p>
           </div>
         </div>
         <div class="settings-item">
@@ -1113,7 +1113,7 @@ function renderSettings() {
         <div class="settings-section-header"><i class="fas fa-database"></i> Mes données</div>
         <div class="settings-item">
           <div class="settings-item-info"><div class="settings-item-label">Historique</div><div class="settings-item-desc">${DB.getHistory().length} élément(s)</div></div>
-          <div class="settings-item-action"><button class="btn-small danger" onclick="DB.clearHistory().then(()=>{renderHistory();toast(\'Effacé\',\'success\');renderSettings();})">Effacer</button></div>
+          <div class="settings-item-action"><button class="btn-small danger" onclick="DB.clearHistory().then(()=>{renderHistory();toast('Effacé','success');renderSettings();})">Effacer</button></div>
         </div>
         <div class="settings-item">
           <div class="settings-item-info"><div class="settings-item-label">Ma Liste</div><div class="settings-item-desc">${DB.getMyList().length} élément(s)</div></div>
@@ -1126,7 +1126,7 @@ function renderSettings() {
           <div class="settings-item-info"><div class="settings-item-label">Déconnexion</div></div>
           <div class="settings-item-action"><button class="btn-small danger" onclick="AUTH.logout().then(()=>location.reload())">Déconnecter</button></div>
         </div>
-      </div>`:\'\'}
+      </div>`:''}
     </div>`;
 }
 
