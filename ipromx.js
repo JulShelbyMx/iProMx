@@ -1511,4 +1511,11 @@ async function togglePlayerList(fid,cid) {
 }
 
 // ── BOOT ──────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded',()=>{ setupAuthListeners(); initAuth(); });
+// Les scripts sont chargés dynamiquement depuis index.html (après fetch config Firebase),
+// donc DOMContentLoaded est déjà passé — on vérifie et on appelle directement si besoin.
+function _boot() { setupAuthListeners(); initAuth(); }
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', _boot);
+} else {
+  _boot();
+}
