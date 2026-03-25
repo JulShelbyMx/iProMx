@@ -96,18 +96,28 @@ const DATA = {
   cinematics: [
     // Format : { id, title, desc, image (thumbnail), videoId (YouTube) }
     {
-      id:      'phenix-animation',
-      title:   'Phénix — Animation',
-      desc:    'Animation officielle Aaron Flash',
-      image:   'images/aaron_flash.webp',
-      videoId: 'YOUTUBE_ID_1'   // ← remplace par ton vrai ID YouTube
+      id:      'john4',
+      title:   "L'ETAPE LA PLUS DURE POUR JOHN FLASH ! GTAV RP LE FILM !",
+      image:   'images/john_flash.jpg',
+      videoId: 'U3Ri989csgQ'   // ← remplace par ton vrai ID YouTube
     },
     {
-      id:      '3freres-intro',
-      title:   '3 Frères — Intro',
-      desc:    'Introduction de la saga des 3 frères',
-      image:   'images/ned_flash.webp',
-      videoId: 'YOUTUBE_ID_2'   // ← remplace par ton vrai ID YouTube
+      id:      'john3',
+      title:   'LE FACE A FACE ? GTAV RP EXCLU',
+      image:   'images/john_flash.jpg',
+      videoId: 'tOOXC0Bthkw'   // ← remplace par ton vrai ID YouTube
+    },
+    {
+      id:      'johnflash1',
+      title:   'LA FIN DE JOHN FLASH ?! GTAV RP LIVE FR',
+      image:   'images/john_flash.jpg',
+      videoId: 'FBhW9KNyTyU'   // ← remplace par ton vrai ID YouTube
+    },
+    {
+      id:      'davidflash1',
+      title:   'DAVID FLASH IS BACK ! GTAV RP #0',
+      image:   'images/david_flash.jpg',
+      videoId: 'gSUZ3nxMBhg'   // ← remplace par ton vrai ID YouTube
     }
     // Ajoute d'autres cinématiques ici :
     // { id:'mon-id', title:'Titre', desc:'Description', image:'images/...', videoId:'YOUTUBE_ID' }
