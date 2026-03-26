@@ -96,274 +96,274 @@ const DATA = {
   cinematics: [
     // Format : { id, title, desc, image (thumbnail), videoId (YouTube) }
     {
-      title:   "Zayn Flash - Teaser officiel",
-      image:   'images/zayn_flash.png',
-      videoId: 'Mp1bkYZ6whA'   // ← remplace par ton vrai ID YouTube
+      title: "Zayn Flash - Teaser officiel",
+      image: "https://i.ytimg.com/vi/Mp1bkYZ6whA/hqdefault.jpg",
+      videoId: "Mp1bkYZ6whA"
     },
     {
-      title:   "TOM ESCOBAR CONTACTE JAKE WINTERS ! | CINÉMATIQUE",
-      image:   'images/tom_escobar2.png',
-      videoId: 'tYJZLe8fNYs'   // ← remplace par ton vrai ID YouTube
+      title: "TOM ESCOBAR CONTACTE JAKE WINTERS ! | CINÉMATIQUE",
+      image: "https://i.ytimg.com/vi/tYJZLe8fNYs/hqdefault.jpg",
+      videoId: "tYJZLe8fNYs"
     },
     {
-      title:   "Sylvester Shade ! Teaser #2 - GTA 5 RP",
-      image:   'images/sylvester_shade.webp',
-      videoId: 'TTOD3ROwR6s'   // ← remplace par ton vrai ID YouTube
+      title: "Sylvester Shade ! Teaser #2 - GTA 5 RP",
+      image: "https://i.ytimg.com/vi/TTOD3ROwR6s/hqdefault.jpg",
+      videoId: "TTOD3ROwR6s"
     },
     {
-      title:   "Nouveau Personnage ! Teaser #1 - GTA 5 RP",
-      image:   'images/sylvester_shade.webp',
-      videoId: 'wgZ0_iSvkZ0'   // ← remplace par ton vrai ID YouTube
+      title: "Nouveau Personnage ! Teaser #1 - GTA 5 RP",
+      image: "https://i.ytimg.com/vi/wgZ0_iSvkZ0/hqdefault.jpg",
+      videoId: "wgZ0_iSvkZ0"
     },
     {
-      title:   "L'INVITATION D'ADRIAN FLASH ! CINÉMATIQUE",
-      image:   'images/adrian_flash3.webp',
-      videoId: 'nbeGv9_AEyo'   // ← remplace par ton vrai ID YouTube
+      title: "L'INVITATION D'ADRIAN FLASH ! CINÉMATIQUE",
+      image: "https://i.ytimg.com/vi/nbeGv9_AEyo/hqdefault.jpg",
+      videoId: "nbeGv9_AEyo"
     },
     {
-      title:   "NED EDEN ET EDDY, LE RETOUR DU TRIO ! CINÉMATIQUE",
-      image:   'images/ned_flash.webp',
-      videoId: 'VujR_-Y-8fo'   // ← remplace par ton vrai ID YouTube
+      title: "NED EDEN ET EDDY, LE RETOUR DU TRIO ! CINÉMATIQUE",
+      image: "https://i.ytimg.com/vi/VujR_-Y-8fo/hqdefault.jpg",
+      videoId: "VujR_-Y-8fo"
     },
     {
-      title:   "JADE DEVIENT HUMAINE ! CINÉMATIQUE ",
-      image:   'images/ned_flash.webp',
-      videoId: 'KgdeypkzLns'   // ← remplace par ton vrai ID YouTube
+      title: "JADE DEVIENT HUMAINE ! CINÉMATIQUE ",
+      image: "https://i.ytimg.com/vi/KgdeypkzLns/hqdefault.jpg",
+      videoId: "KgdeypkzLns"
     },
     {
-      title:   "LES SOUVENIRS DE NED ! CINÉMATIQUE (LeTigreBL et iProMx)",
-      image:   'images/ned_flash.webp',
-      videoId: 'bu40TozLx-E'   // ← remplace par ton vrai ID YouTube
+      title: "LES SOUVENIRS DE NED ! CINÉMATIQUE (LeTigreBL et iProMx)",
+      image: "https://i.ytimg.com/vi/bu40TozLx-E/hqdefault.jpg",
+      videoId: "bu40TozLx-E"
     },
     {
-      title:   "PIECE HISTORIQUE (Ned et les salles des FLASH)",
-      image:   'images/ned_flash.webp',
-      videoId: 'NuXpt4eL0pI'   // ← remplace par ton vrai ID YouTube
+      title: "PIECE HISTORIQUE (Ned et les salles des FLASH)",
+      image: "https://i.ytimg.com/vi/NuXpt4eL0pI/hqdefault.jpg",
+      videoId: "NuXpt4eL0pI"
     },
     {
-      title:   "EDEN FLASH FUIT SES RESPONSABILITÉS ?! | CINÉMATIQUE",
-      image:   'images/eden_flash.webp',
-      videoId: '12OM0vXcWy0'   // ← remplace par ton vrai ID YouTube
+      title: "EDEN FLASH FUIT SES RESPONSABILITÉS ?! | CINÉMATIQUE",
+      image: "https://i.ytimg.com/vi/12OM0vXcWy0/hqdefault.jpg",
+      videoId: "12OM0vXcWy0"
     },
     {
-      title:   "LA FIN DE MANDA FLASH ? (MANDA X BASILIC)",
-      image:   'images/manda_flash.webp',
-      videoId: 'az3c-gahJ9E'   // ← remplace par ton vrai ID YouTube
+      title: "LA FIN DE MANDA FLASH ? (MANDA X BASILIC)",
+      image: "https://i.ytimg.com/vi/az3c-gahJ9E/hqdefault.jpg",
+      videoId: "az3c-gahJ9E"
     },
     {
-      title:   "Manda Blake - Saison 2 Cinématique !",
-      image:   'images/manda_flash.webp',
-      videoId: 'c_VcYTzNO1w'   // ← remplace par ton vrai ID YouTube
+      title: "Manda Blake - Saison 2 Cinématique !",
+      image: "https://i.ytimg.com/vi/c_VcYTzNO1w/hqdefault.jpg",
+      videoId: "c_VcYTzNO1w"
     },
     {
-      title:   "Eddy vs Aaron, le combat le plus terrifiant - part2 ! Cinématique",
-      image:   'images/eddy_flash.png',
-      videoId: 'r0zwnltnEu8'   // ← remplace par ton vrai ID YouTube
+      title: "Eddy vs Aaron, le combat le plus terrifiant - part2 ! Cinématique",
+      image: "https://i.ytimg.com/vi/r0zwnltnEu8/hqdefault.jpg",
+      videoId: "r0zwnltnEu8"
     },
     {
-      title:   "Ned vs Aaron - Le combat ultime (cinématique)",
-      image:   'images/ned_flash.webp',
-      videoId: 'qonTgtJUeaE'   // ← remplace par ton vrai ID YouTube
+      title: "Ned vs Aaron - Le combat ultime (cinématique)",
+      image: "https://i.ytimg.com/vi/qonTgtJUeaE/hqdefault.jpg",
+      videoId: "qonTgtJUeaE"
     },
     {
-      title:   "EDEN ET AARON FLASH VS ADRIAN ! LE FILM",
-      image:   'images/eden_flash.webp',
-      videoId: 'ygNYMUnW74k'   // ← remplace par ton vrai ID YouTube
+      title: "EDEN ET AARON FLASH VS ADRIAN ! LE FILM",
+      image: "https://i.ytimg.com/vi/ygNYMUnW74k/hqdefault.jpg",
+      videoId: "ygNYMUnW74k"
     },
     {
-      title:   "ADRIAN IS BACK ! teaser officiel",
-      image:   'images/adrian_flash4.png',
-      videoId: 'OsxWdAEHw5s'   // ← remplace par ton vrai ID YouTube
+      title: "ADRIAN IS BACK ! teaser officiel",
+      image: "https://i.ytimg.com/vi/OsxWdAEHw5s/hqdefault.jpg",
+      videoId: "OsxWdAEHw5s"
     },
     {
-      title:   "EDEN FLASH ! (Le Vrai Teaser)",
-      image:   'images/eden_flash.webp',
-      videoId: 'gnwbjHD4woc'   // ← remplace par ton vrai ID YouTube
+      title: "EDEN FLASH ! (Le Vrai Teaser)",
+      image: "https://i.ytimg.com/vi/gnwbjHD4woc/hqdefault.jpg",
+      videoId: "gnwbjHD4woc"
     },
     {
-      title:   "KAYTON VS ADRIAN LE COMBAT DU SIECLE ! CINEMATIQUE",
-      image:   'images/kayton_flash.webp',
-      videoId: 'P09rKJjBZpI'   // ← remplace par ton vrai ID YouTube
+      title: "KAYTON VS ADRIAN LE COMBAT DU SIECLE ! CINEMATIQUE",
+      image: "https://i.ytimg.com/vi/P09rKJjBZpI/hqdefault.jpg",
+      videoId: "P09rKJjBZpI"
     },
     {
-      title:   "KAYTON ENTRAÎNEMENT AVANT LE COMBAT CONTRE ADRIAN ! CINEMATIQUE",
-      image:   'images/kayton_flash.webp',
-      videoId: 'tXsvgOPPnbE'   // ← remplace par ton vrai ID YouTube
+      title: "KAYTON ENTRAÎNEMENT AVANT LE COMBAT CONTRE ADRIAN ! CINEMATIQUE",
+      image: "https://i.ytimg.com/vi/tXsvgOPPnbE/hqdefault.jpg",
+      videoId: "tXsvgOPPnbE"
     },
     {
-      title:   "KAYTON FLASH S’INTERROGE SUR LE COMBAT CONTRE ADRIAN",
-      image:   'images/kayton_flash.webp',
-      videoId: '4MQeQGZrl44'   // ← remplace par ton vrai ID YouTube
+      title: "KAYTON FLASH S’INTERROGE SUR LE COMBAT CONTRE ADRIAN",
+      image: "https://i.ytimg.com/vi/4MQeQGZrl44/hqdefault.jpg",
+      videoId: "4MQeQGZrl44"
     },
     {
-      title:   "ADRIAN FLASH LE REVEIL DU BASILIC",
-      image:   'images/adrian_flash2.webp',
-      videoId: 'iUL3jrH04hI'   // ← remplace par ton vrai ID YouTube
+      title: "ADRIAN FLASH LE REVEIL DU BASILIC",
+      image: "https://i.ytimg.com/vi/iUL3jrH04hI/hqdefault.jpg",
+      videoId: "iUL3jrH04hI"
     },
     {
-      title:   "Adrian le nouveau FLASH !",
-      image:   'images/adrian_flash1.webp',
-      videoId: 'eGoVTIeMYI0'   // ← remplace par ton vrai ID YouTube
+      title: "Adrian le nouveau FLASH !",
+      image: "https://i.ytimg.com/vi/eGoVTIeMYI0/hqdefault.jpg",
+      videoId: "eGoVTIeMYI0"
     },
     {
-      title:   "TOM ESCOBAR - LE COMBAT FINAL CONTRE AGENT X - LE FILM !",
-      image:   'images/tom_escobar1.webp',
-      videoId: 'DGkFc6z9a4Q'   // ← remplace par ton vrai ID YouTube
+      title: "TOM ESCOBAR - LE COMBAT FINAL CONTRE AGENT X - LE FILM !",
+      image: "https://i.ytimg.com/vi/DGkFc6z9a4Q/hqdefault.jpg",
+      videoId: "DGkFc6z9a4Q"
     },
     {
-      title:   "LES RETROUVAILLES DE TOM ESCOBAR ET ABDOUL !",
-      image:   'images/tom_escobar1.webp',
-      videoId: 'epf8EC5_Gxg'   // ← remplace par ton vrai ID YouTube
+      title: "LES RETROUVAILLES DE TOM ESCOBAR ET ABDOUL !",
+      image: "https://i.ytimg.com/vi/epf8EC5_Gxg/hqdefault.jpg",
+      videoId: "epf8EC5_Gxg"
     },
     {
-      title:   "KAYTON FLASH PRISON",
-      image:   'images/kayton_flash.webp',
-      videoId: 'mW9AKO1mKHI'   // ← remplace par ton vrai ID YouTube
+      title: "KAYTON FLASH PRISON",
+      image: "https://i.ytimg.com/vi/mW9AKO1mKHI/hqdefault.jpg",
+      videoId: "mW9AKO1mKHI"
     },
     {
-      title:   "KAYTON x AARON",
-      image:   'images/kayton_flash.webp',
-      videoId: 'W8nEQ5Oj7jc'   // ← remplace par ton vrai ID YouTube
+      title: "KAYTON x AARON",
+      image: "https://i.ytimg.com/vi/W8nEQ5Oj7jc/hqdefault.jpg",
+      videoId: "W8nEQ5Oj7jc"
     },
     {
-      title:   "KAYTON FLASH LE RETOUR FRACASSANT ! TEASER OFFICIEL",
-      image:   'images/kayton_flash.webp',
-      videoId: 'OWumtU_bDNw'   // ← remplace par ton vrai ID YouTube
+      title: "KAYTON FLASH LE RETOUR FRACASSANT ! TEASER OFFICIEL",
+      image: "https://i.ytimg.com/vi/OWumtU_bDNw/hqdefault.jpg",
+      videoId: "OWumtU_bDNw"
     },
     {
-      title:   "J'AI VOLЕ́ LE COSTUME DU PÈRE NOEL #1 [COURT-METRAGE] GTAV RP",
-      image:   'images/kayton_flash1.webp',
-      videoId: 'Y2QuMsbjQtU'   // ← remplace par ton vrai ID YouTube
+      title: "J'AI VOLÉ LE COSTUME DU PÈRE NOEL #1 [COURT-METRAGE] GTAV RP",
+      image: "https://i.ytimg.com/vi/Y2QuMsbjQtU/hqdefault.jpg",
+      videoId: "Y2QuMsbjQtU"
     },
     {
-      title:   "DAMON FLASH LE FILM OFFICIEL ! COMBAT FINAL",
-      image:   'images/damon_flash2.jpg',
-      videoId: 'TyAXhptUiuE'   // ← remplace par ton vrai ID YouTube
+      title: "DAMON FLASH LE FILM OFFICIEL ! COMBAT FINAL",
+      image: "https://i.ytimg.com/vi/TyAXhptUiuE/hqdefault.jpg",
+      videoId: "TyAXhptUiuE"
     },
     {
-      title:   "DAVID JR FLASH ! LE RETOUR ! CINÉMATIQUE GTAV RP ",
-      image:   'images/davidjr_flash.webp',
-      videoId: 'lsU0iBzBYrA'   // ← remplace par ton vrai ID YouTube
+      title: "DAVID JR FLASH ! LE RETOUR ! CINÉMATIQUE GTAV RP ",
+      image: "https://i.ytimg.com/vi/lsU0iBzBYrA/hqdefault.jpg",
+      videoId: "lsU0iBzBYrA"
     },
     {
-      title:   "DAMON FLASH SAISON 2 CINÉMATIQUE !",
-      image:   'images/damon_flash2.jpg',
-      videoId: '7Wxij8swW3o'   // ← remplace par ton vrai ID YouTube
+      title: "DAMON FLASH SAISON 2 CINÉMATIQUE !",
+      image: "https://i.ytimg.com/vi/7Wxij8swW3o/hqdefault.jpg",
+      videoId: "7Wxij8swW3o"
     },
     {
-      title:   "DAMON FLASH CINÉMATIQUE !",
-      image:   'images/damon_flash2.jpg',
-      videoId: '7-p-KcT11MY'   // ← remplace par ton vrai ID YouTube
+      title: "DAMON FLASH CINÉMATIQUE !",
+      image: "https://i.ytimg.com/vi/7-p-KcT11MY/hqdefault.jpg",
+      videoId: "7-p-KcT11MY"
     },
     {
-      title:   "LA BATAILLE FINAL DES FLASH ! CINEMATIQUE GTAV RP MOD",
-      image:   'images/aaron_flash.jpg',
-      videoId: 'fhNaQkBc2FE'   // ← remplace par ton vrai ID YouTube
+      title: "LA BATAILLE FINAL DES FLASH ! CINEMATIQUE GTAV RP MOD",
+      image: "https://i.ytimg.com/vi/fhNaQkBc2FE/hqdefault.jpg",
+      videoId: "fhNaQkBc2FE"
     },
     {
-      title:   "AARON FLASH L' ATTAQUE ULTIME CONTRE DAVID JR !",
-      image:   'images/aaron_flash.jpg',
-      videoId: '6HmYQLaI9Gc'   // ← remplace par ton vrai ID YouTube
+      title: "AARON FLASH L' ATTAQUE ULTIME CONTRE DAVID JR !",
+      image: "https://i.ytimg.com/vi/6HmYQLaI9Gc/hqdefault.jpg",
+      videoId: "6HmYQLaI9Gc"
     },
     {
-      title:   "AARON FLASH LE RETOUR DU PHOENIX ! CINÉMATIQUE",
-      image:   'images/aaron_flash.jpg',
-      videoId: 'rLS7wJ7_sS8'   // ← remplace par ton vrai ID YouTube
+      title: "AARON FLASH LE RETOUR DU PHOENIX ! CINÉMATIQUE",
+      image: "https://i.ytimg.com/vi/rLS7wJ7_sS8/hqdefault.jpg",
+      videoId: "rLS7wJ7_sS8"
     },
     {
-      title:   "AARON FLASH PRISON ! Clip",
-      image:   'images/aaron_flash.jpg',
-      videoId: 'KSx3fytUbwU'   // ← remplace par ton vrai ID YouTube
+      title: "AARON FLASH PRISON ! Clip",
+      image: "https://i.ytimg.com/vi/KSx3fytUbwU/hqdefault.jpg",
+      videoId: "KSx3fytUbwU"
     },
     {
-      title:   "AARON FLASH TRAILER OFFICIEL !",
-      image:   'images/aaron_flash.jpg',
-      videoId: 'xKt-BIvC5YM'   // ← remplace par ton vrai ID YouTube
+      title: "AARON FLASH TRAILER OFFICIEL !",
+      image: "https://i.ytimg.com/vi/xKt-BIvC5YM/hqdefault.jpg",
+      videoId: "xKt-BIvC5YM"
     },
     {
-      title:   "KEN LE PLUS FORT DES FLASH !",
-      image:   'images/ken_flash.jpg',
-      videoId: 'Q5c-stkNdIM'   // ← remplace par ton vrai ID YouTube
+      title: "KEN LE PLUS FORT DES FLASH !",
+      image: "https://i.ytimg.com/vi/Q5c-stkNdIM/hqdefault.jpg",
+      videoId: "Q5c-stkNdIM"
     },
     {
-      title:   "David, John, Ken Flash : Face à Face Finale",
-      image:   'images/ken_flash.jpg',
-      videoId: 'pHtx_iHieCk'   // ← remplace par ton vrai ID YouTube
+      title: "David, John, Ken Flash : Face à Face Finale",
+      image: "https://i.ytimg.com/vi/pHtx_iHieCk/hqdefault.jpg",
+      videoId: "pHtx_iHieCk"
     },
     {
-      title:   "DOUBLE 2.0",
-      image:   'images/ken_flash.jpg',
-      videoId: 'BlOJijzli10'   // ← remplace par ton vrai ID YouTube
+      title: "DOUBLE 2.0",
+      image: "https://i.ytimg.com/vi/BlOJijzli10/hqdefault.jpg",
+      videoId: "BlOJijzli10"
     },
     {
-      title:   "TOM ESCOBAR LE FILM OFFICIEL ! LA VÉRITÉ !",
-      image:   'images/tom_escobar1.jpg',
-      videoId: 'gH5Eioo6FBk'   // ← remplace par ton vrai ID YouTube
+      title: "TOM ESCOBAR LE FILM OFFICIEL ! LA VÉRITÉ !",
+      image: "https://i.ytimg.com/vi/gH5Eioo6FBk/hqdefault.jpg",
+      videoId: "gH5Eioo6FBk"
     },
     {
-      title:   "KEN FLASH LA RELÈVE DU GANG DOUBLE ! #2 !",
-      image:   'images/ken_flash.jpg',
-      videoId: 'S-Ziw2wkNOs'   // ← remplace par ton vrai ID YouTube
+      title: "KEN FLASH LA RELÈVE DU GANG DOUBLE ! #2 !",
+      image: "https://i.ytimg.com/vi/S-Ziw2wkNOs/hqdefault.jpg",
+      videoId: "S-Ziw2wkNOs"
     },
     {
-      title:   "KEN FLASH , LA FORTUNE ! GTAV RP #1 SAISON FINALE !",
-      image:   'images/ken_flash.jpg',
-      videoId: 'k29gTJH9Llw'   // ← remplace par ton vrai ID YouTube
+      title: "KEN FLASH , LA FORTUNE ! GTAV RP #1 SAISON FINALE !",
+      image: "https://i.ytimg.com/vi/k29gTJH9Llw/hqdefault.jpg",
+      videoId: "k29gTJH9Llw"
     },
     {
-      title:   "GANG DOUBLE #2 S4 - LA FEMME MYSTÉRIEUSE - GTAV RP [COURT-MÉTRAGE]",
-      image:   'images/ken_flash.jpg',
-      videoId: 'nNPojO9fZFc'   // ← remplace par ton vrai ID YouTube
+      title: "GANG DOUBLE #2 S4 - LA FEMME MYSTÉRIEUSE - GTAV RP [COURT-MÉTRAGE]",
+      image: "https://i.ytimg.com/vi/nNPojO9fZFc/hqdefault.jpg",
+      videoId: "nNPojO9fZFc"
     },
     {
-      title:   "GANG DOUBLE SAISON 4 #1 - LA VÉRITÉ ! GTAV RP [COURT-MÉTRAGE]",
-      image:   'images/ken_flash.jpg',
-      videoId: 'aqqLKLpwgUg'   // ← remplace par ton vrai ID YouTube
+      title: "GANG DOUBLE SAISON 4 #1 - LA VÉRITÉ ! GTAV RP [COURT-MÉTRAGE]",
+      image: "https://i.ytimg.com/vi/aqqLKLpwgUg/hqdefault.jpg",
+      videoId: "aqqLKLpwgUg"
     },
     {
-      title:   "DAVID FLASH VS KEN FLASH ! LE FACE A FACE ! GTAV RP #6",
-      image:   'images/ken_flash.jpg',
-      videoId: 'Ir86G35BFZ4'   // ← remplace par ton vrai ID YouTube
+      title: "DAVID FLASH VS KEN FLASH ! LE FACE A FACE ! GTAV RP #6",
+      image: "https://i.ytimg.com/vi/Ir86G35BFZ4/hqdefault.jpg",
+      videoId: "Ir86G35BFZ4"
     },
     {
-      title:   "GIULIA OU ES TU ?! EPISODE CINÉMATIQUE GTAV RP SAISON 2 #1 ! FR #ROADTO700K",
-      image:   'images/ken_flash.jpg',
-      videoId: 'bOsjL7cTDsQ'   // ← remplace par ton vrai ID YouTube
+      title: "GIULIA OU ES TU ?! EPISODE CINÉMATIQUE GTAV RP SAISON 2 #1 ! FR #ROADTO700K",
+      image: "https://i.ytimg.com/vi/bOsjL7cTDsQ/hqdefault.jpg",
+      videoId: "bOsjL7cTDsQ"
     },
     {
-      title:   "LE GANG DOUBLE SAISON 4 ! TRAILER OFFICIEL",
-      image:   'images/john_flash.jpg',
-      videoId: 'r1AoHZ-H5ik'   // ← remplace par ton vrai ID YouTube
+      title: "LE GANG DOUBLE SAISON 4 ! TRAILER OFFICIEL",
+      image: "https://i.ytimg.com/vi/r1AoHZ-H5ik/hqdefault.jpg",
+      videoId: "r1AoHZ-H5ik"
     },
     {
-      title:   "LA MORT D'ANGEL ?! GTAV RP SAISON 2 #1",
-      image:   'images/john_flash.jpg',
-      videoId: 'P04hXwK0YzM'   // ← remplace par ton vrai ID YouTube
+      title: "LA MORT D'ANGEL ?! GTAV RP SAISON 2 #1",
+      image: "https://i.ytimg.com/vi/P04hXwK0YzM/hqdefault.jpg",
+      videoId: "P04hXwK0YzM"
     },
     {
-      title:   "TRAILER OFFICIEL GTAV PRISON RP feat JOHN FLASH !",
-      image:   'images/john_flash.jpg',
-      videoId: 'ub-9oO4SO3k'   // ← remplace par ton vrai ID YouTube
+      title: "TRAILER OFFICIEL GTAV PRISON RP feat JOHN FLASH !",
+      image: "https://i.ytimg.com/vi/ub-9oO4SO3k/hqdefault.jpg",
+      videoId: "ub-9oO4SO3k"
     },
     {
-      title:   "L'ETAPE LA PLUS DURE POUR JOHN FLASH ! GTAV RP LE FILM !",
-      image:   'images/john_flash.jpg',
-      videoId: 'U3Ri989csgQ'   // ← remplace par ton vrai ID YouTube
+      title: "L'ETAPE LA PLUS DURE POUR JOHN FLASH ! GTAV RP LE FILM !",
+      image: "https://i.ytimg.com/vi/U3Ri989csgQ/hqdefault.jpg",
+      videoId: "U3Ri989csgQ"
     },
     {
-      title:   'LE FACE A FACE ? GTAV RP EXCLU',
-      image:   'images/john_flash.jpg',
-      videoId: 'tOOXC0Bthkw'   // ← remplace par ton vrai ID YouTube
+      title: 'LE FACE A FACE ? GTAV RP EXCLU',
+      image: "https://i.ytimg.com/vi/tOOXC0Bthkw/hqdefault.jpg",
+      videoId: "tOOXC0Bthkw"
     },
     {
-      title:   'LA FIN DE JOHN FLASH ?! GTAV RP LIVE FR',
-      image:   'images/john_flash.jpg',
-      videoId: 'FBhW9KNyTyU'   // ← remplace par ton vrai ID YouTube
+      title: 'LA FIN DE JOHN FLASH ?! GTAV RP LIVE FR',
+      image: "https://i.ytimg.com/vi/FBhW9KNyTyU/hqdefault.jpg",
+      videoId: "FBhW9KNyTyU"
     },
     {
-      title:   'DAVID FLASH IS BACK ! GTAV RP #0',
-      image:   'images/david_flash.jpg',
-      videoId: 'gSUZ3nxMBhg'   // ← remplace par ton vrai ID YouTube
+      title: 'DAVID FLASH IS BACK ! GTAV RP #0',
+      image: "https://i.ytimg.com/vi/gSUZ3nxMBhg/hqdefault.jpg",
+      videoId: "gSUZ3nxMBhg"
     }
     // Ajoute d'autres cinématiques ici :
     // { id:'mon-id', title:'Titre', desc:'Description', image:'images/...', videoId:'YOUTUBE_ID' }
@@ -372,7 +372,8 @@ const DATA = {
 
 const HERO_SLIDES=[
   {familyId:'flash',charId:'david-flash'},
-  {familyId:'flash',charId:'john-flash'},
+  {familyId:'escobar',charId:'tom-escobar'},
+  {familyId:'flash',charId:'adrian-flash'},
   {familyId:'shade',charId:'sylvester-shade'}
 ];
 
