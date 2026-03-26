@@ -97,22 +97,22 @@ const DATA = {
     // Format : { id, title, desc, image (thumbnail), videoId (YouTube) }
     {
       title:   "Zayn Flash - Teaser officiel",
-      image:   'images/zayn_flash.webp',
+      image:   'images/zayn_flash.png',
       videoId: 'Mp1bkYZ6whA'   // ← remplace par ton vrai ID YouTube
     },
     {
       title:   "TOM ESCOBAR CONTACTE JAKE WINTERS ! | CINÉMATIQUE",
-      image:   'images/tom_escobar2.webp',
+      image:   'images/tom_escobar2.png',
       videoId: 'tYJZLe8fNYs'   // ← remplace par ton vrai ID YouTube
     },
     {
       title:   "Sylvester Shade ! Teaser #2 - GTA 5 RP",
-      image:   'images/sylvester_shade.jpg',
+      image:   'images/sylvester_shade.webp',
       videoId: 'TTOD3ROwR6s'   // ← remplace par ton vrai ID YouTube
     },
     {
       title:   "Nouveau Personnage ! Teaser #1 - GTA 5 RP",
-      image:   'images/sylvester_shade.jpg',
+      image:   'images/sylvester_shade.webp',
       videoId: 'wgZ0_iSvkZ0'   // ← remplace par ton vrai ID YouTube
     },
     {
@@ -157,7 +157,7 @@ const DATA = {
     },
     {
       title:   "Eddy vs Aaron, le combat le plus terrifiant - part2 ! Cinématique",
-      image:   'images/eddy_flash.webp',
+      image:   'images/eddy_flash.png',
       videoId: 'r0zwnltnEu8'   // ← remplace par ton vrai ID YouTube
     },
     {
@@ -172,7 +172,7 @@ const DATA = {
     },
     {
       title:   "ADRIAN IS BACK ! teaser officiel",
-      image:   'images/adrian_flash4.webp',
+      image:   'images/adrian_flash4.png',
       videoId: 'OsxWdAEHw5s'   // ← remplace par ton vrai ID YouTube
     },
     {
@@ -821,14 +821,14 @@ function renderMyList() {
   }).join('');
   setTimeout(()=>setupCarousel('myListTrack','listPrev','listNext'),50);
 }
-async function toggleList(fid,cid,btn) {
+function toggleList(fid,cid,btn) {
   if(AUTH.isGuest()&&!IS_LOCAL) return toast('Connectez-vous pour gérer votre liste.','warning');
   if(DB.isInList(fid,cid)){
-    await DB.removeFromList(fid,cid);
+    DB.removeFromList(fid,cid);
     if(btn){btn.innerHTML='<i class="fas fa-plus"></i>';btn.classList.remove('active');}
     toast('Retiré de votre liste.','info');
   } else {
-    await DB.addToList({familyId:fid,charId:cid,name:getChar(fid,cid)?.name});
+    DB.addToList({familyId:fid,charId:cid,name:getChar(fid,cid)?.name});
     if(btn){btn.innerHTML='<i class="fas fa-check"></i>';btn.classList.add('active');}
     toast('Ajouté à votre liste !','success');
   }
@@ -1281,11 +1281,11 @@ function openHistory() {
 }
 function deleteSelHistory() {
   if(!selHist.size) return toast('Sélectionnez des éléments.','warning');
-  DB.removeHistoryItems(selHist).then(()=>{ renderHistory(); closeManageHist(); toast('Supprimé.','success'); });
+  DB.removeHistoryItems(selHist); renderHistory(); closeManageHist(); toast('Supprimé.','success');
 }
 function deleteAllHistory() {
   if(!confirm('Supprimer tout l\'historique ?')) return;
-  DB.clearHistory().then(()=>{ renderHistory(); closeManageHist(); toast('Historique effacé.','success'); });
+  DB.clearHistory(); renderHistory(); closeManageHist(); toast('Historique effacé.','success');
 }
 function closeManageHist() { $('manageHistoryModal')?.classList.remove('open'); selHist.clear(); }
 
@@ -1302,11 +1302,11 @@ function openMyList() {
 }
 function deleteSelList() {
   if(!selList.size) return toast('Sélectionnez des éléments.','warning');
-  DB.removeListItems(selList).then(()=>{ renderMyList(); closeManageList(); toast('Supprimé.','success'); });
+  DB.removeListItems(selList); renderMyList(); closeManageList(); toast('Supprimé.','success');
 }
 function deleteAllList() {
   if(!confirm('Vider toute la liste ?')) return;
-  Promise.all(DB.getMyList().map(i=>DB.removeFromList(i.familyId,i.charId))).then(()=>{ renderMyList(); closeManageList(); toast('Liste vidée.','success'); });
+  DB.getMyList().forEach(i=>DB.removeFromList(i.familyId,i.charId)); renderMyList(); closeManageList(); toast('Liste vidée.','success');
 }
 function closeManageList() { $('manageListModal')?.classList.remove('open'); selList.clear(); }
 
@@ -1369,7 +1369,7 @@ function renderSettings() {
         <div class="settings-section-header"><i class="fas fa-database"></i> Mes données</div>
         <div class="settings-item">
           <div class="settings-item-info"><div class="settings-item-label">Historique</div><div class="settings-item-desc">${DB.getHistory().length} élément(s)</div></div>
-          <div class="settings-item-action"><button class="btn-small danger" onclick="DB.clearHistory().then(()=>{renderHistory();toast('Effacé','success');renderSettings();})">Effacer</button></div>
+          <div class="settings-item-action"><button class="btn-small danger" onclick="DB.clearHistory();renderHistory();toast('Effacé','success');renderSettings();">Effacer</button></div>
         </div>
         <div class="settings-item">
           <div class="settings-item-info"><div class="settings-item-label">Ma Liste</div><div class="settings-item-desc">${DB.getMyList().length} élément(s)</div></div>
@@ -1586,7 +1586,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
   try { history.pushState({},'',(ROUTER.buildURL(fid,cid,season,ep.num))); } catch(_){}
 
   // Historique
-  DB.addHistory({familyId:fid,charId:cid,season,epNum:ep.num,epIdx,videoId:ep.videoId,title:ep.title}).then(()=>renderHistory());
+  DB.addHistory({familyId:fid,charId:cid,season,epNum:ep.num,epIdx,videoId:ep.videoId,title:ep.title}); renderHistory();
 
   // ── Bouton "Fermer" dans la navbar (à côté du logo, bien visible) ──
   let closeBtn = $('navPlayerClose');
@@ -1759,12 +1759,15 @@ function startAutoplay(fid,cid,season,epIdx) {
 function triggerAutoplay(){ cancelAutoplay(); const t=window._autoTarget; if(t) playEp(t.fid,t.cid,t.season,t.epIdx); }
 function cancelAutoplay(){ clearInterval(autoTimer);autoTimer=null; $('autoplayBanner')?.classList.remove('visible'); window._autoTarget=null; }
 function switchSeason(fid,cid,season,btn){ $$('.player-season-tab').forEach(t=>t.classList.remove('active')); btn?.classList.add('active'); playEp(fid,cid,season,0); }
-async function togglePlayerList(fid,cid) {
+function togglePlayerList(fid,cid) {
   const inList=DB.isInList(fid,cid);
-  if(inList){ await DB.removeFromList(fid,cid); const b=$('plListBtn'); if(b){b.innerHTML='<i class="fas fa-plus"></i><span>Ma Liste</span>';b.classList.remove('active','list');} toast('Retiré.','info'); }
-  else{ await DB.addToList({familyId:fid,charId:cid,name:getChar(fid,cid)?.name}); const b=$('plListBtn'); if(b){b.innerHTML='<i class="fas fa-check"></i><span>Dans ma liste</span>';b.classList.add('active','list');} toast('Ajouté !','success'); }
+  if(inList){ DB.removeFromList(fid,cid); const b=$('plListBtn'); if(b){b.innerHTML='<i class="fas fa-plus"></i><span>Ma Liste</span>';b.classList.remove('active','list');} toast('Retiré.','info'); }
+  else{ DB.addToList({familyId:fid,charId:cid,name:getChar(fid,cid)?.name}); const b=$('plListBtn'); if(b){b.innerHTML='<i class="fas fa-check"></i><span>Dans ma liste</span>';b.classList.add('active','list');} toast('Ajouté !','success'); }
   renderMyList();
 }
+
+// Flush Firestore avant fermeture de l'onglet (évite la perte de données)
+window.addEventListener('beforeunload', () => { if(typeof DB!=='undefined') DB._flushNow(); });
 
 // ── BOOT ──────────────────────────────────────────────────────
 // Les scripts sont chargés dynamiquement depuis index.html (après fetch config Firebase),
