@@ -1314,35 +1314,65 @@ function closeManageList() { $('manageListModal')?.classList.remove('open'); sel
 // ── SETTINGS ─────────────────────────────────────────────────
 function openSettings() {
   closeDD();
-  const sp=$('settingsPage');
-  if(!sp) return;
-  sp.style.cssText='display:block;position:fixed;inset:0;z-index:9000;overflow-y:auto;background:var(--void);padding:80px 30px 60px;';
-  window.scrollTo(0,0);
+
+  // Créer/réutiliser un overlay dynamique (comme avatarPickerModal) — garanti par-dessus tout
+  let overlay = $('settingsOverlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'settingsOverlay';
+    overlay.style.cssText = [
+      'position:fixed','inset:0','z-index:99990',
+      'background:var(--void)',
+      'overflow-y:auto',
+      'display:none'
+    ].join(';');
+    // Header fixe
+    overlay.innerHTML = `
+      <div style="position:sticky;top:0;z-index:2;background:var(--void);border-bottom:1px solid var(--edge2);padding:16px 30px;display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(12px);">
+        <div style="font-family:var(--font-display);font-size:1rem;font-weight:900;letter-spacing:4px;color:var(--text);text-transform:uppercase;">Paramètres</div>
+        <button onclick="closeSettings()" style="display:flex;align-items:center;gap:8px;background:none;border:1px solid var(--edge);border-radius:var(--radius);padding:8px 16px;color:var(--text-dim);cursor:pointer;font-family:var(--font-display);font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;transition:.15s;"
+          onmouseover="this.style.borderColor='var(--arc)';this.style.color='var(--arc)'"
+          onmouseout="this.style.borderColor='var(--edge)';this.style.color='var(--text-dim)'">
+          <i class="fas fa-times"></i> Fermer
+        </button>
+      </div>
+      <div id="settingsContent" style="max-width:700px;margin:0 auto;padding:32px 30px 80px;"></div>`;
+    document.body.appendChild(overlay);
+  }
+
+  overlay.style.display = 'block';
+  // Scroll to top de l'overlay
+  overlay.scrollTop = 0;
+
   const user = AUTH.getCurrentUser();
-  if(!user) {
-    // Profil pas encore chargé — afficher loader et réessayer
-    const sc=$('settingsContent');
-    if(sc) sc.innerHTML=`<div style="text-align:center;padding:80px 20px;">
+  if (!user) {
+    const sc = overlay.querySelector('#settingsContent');
+    if (sc) sc.innerHTML = `<div style="text-align:center;padding:80px 20px;">
       <div style="width:32px;height:32px;border:3px solid var(--edge);border-top-color:var(--arc);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px;"></div>
-      <div style="font-family:var(--font-display);font-size:.65rem;letter-spacing:3px;color:var(--text-muted);">CHARGEMENT DU PROFIL...</div>
+      <div style="font-family:var(--font-display);font-size:.65rem;letter-spacing:3px;color:var(--text-muted);">CHARGEMENT...</div>
     </div>`;
-    let attempts = 0;
-    const retry = setInterval(()=>{
-      attempts++;
-      if(AUTH.getCurrentUser()) { clearInterval(retry); renderSettings(); }
-      if(attempts > 10)         { clearInterval(retry); }
-    }, 400);
+    let n = 0;
+    const t = setInterval(()=>{ n++;
+      if (AUTH.getCurrentUser()) { clearInterval(t); renderSettings(); }
+      if (n > 15) clearInterval(t);
+    }, 300);
     return;
   }
   renderSettings();
 }
+
 function closeSettings() {
-  const sp=$('settingsPage');
-  if(sp) sp.style.display='none';
+  const ov = $('settingsOverlay');
+  if (ov) ov.style.display = 'none';
+  // Aussi cacher l'ancien settingsPage au cas où
+  const sp = $('settingsPage');
+  if (sp) sp.style.display = 'none';
 }
 function renderSettings() {
   const user=AUTH.getCurrentUser(); if(!user) return;
-  const sc=$('settingsContent'); if(!sc) return;
+  // Chercher le settingsContent dans l'overlay dynamique d'abord, sinon dans le DOM
+  const sc = ($('settingsOverlay') || document).querySelector('#settingsContent');
+  if(!sc) return;
   const avList = typeof PRESET_AVATARS !== 'undefined' ? PRESET_AVATARS : [];
   const av = avList.find(a=>a.id===user.avatarId) || avList[0];
   const avatarImg = av
