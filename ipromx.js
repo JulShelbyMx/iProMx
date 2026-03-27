@@ -372,7 +372,7 @@ const DATA = {
 
 const HERO_SLIDES=[
   {familyId:'flash',charId:'david-flash'},
-  {familyId:'escobar',charId:'tom-escobar'},
+  {familyId:'flash',charId:'john-flash'},
   {familyId:'flash',charId:'adrian-flash'},
   {familyId:'shade',charId:'sylvester-shade'}
 ];
@@ -1314,12 +1314,27 @@ function closeManageList() { $('manageListModal')?.classList.remove('open'); sel
 // ── SETTINGS ─────────────────────────────────────────────────
 function openSettings() {
   closeDD();
-  // Settings par-dessus tout
   const sp=$('settingsPage');
   if(!sp) return;
   sp.style.cssText='display:block;position:fixed;inset:0;z-index:9000;overflow-y:auto;background:var(--void);padding:80px 30px 60px;';
-  renderSettings();
   window.scrollTo(0,0);
+  const user = AUTH.getCurrentUser();
+  if(!user) {
+    // Profil pas encore chargé — afficher loader et réessayer
+    const sc=$('settingsContent');
+    if(sc) sc.innerHTML=`<div style="text-align:center;padding:80px 20px;">
+      <div style="width:32px;height:32px;border:3px solid var(--edge);border-top-color:var(--arc);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px;"></div>
+      <div style="font-family:var(--font-display);font-size:.65rem;letter-spacing:3px;color:var(--text-muted);">CHARGEMENT DU PROFIL...</div>
+    </div>`;
+    let attempts = 0;
+    const retry = setInterval(()=>{
+      attempts++;
+      if(AUTH.getCurrentUser()) { clearInterval(retry); renderSettings(); }
+      if(attempts > 10)         { clearInterval(retry); }
+    }, 400);
+    return;
+  }
+  renderSettings();
 }
 function closeSettings() {
   const sp=$('settingsPage');
@@ -1426,19 +1441,26 @@ function openAvatarPicker() {
   const user = AUTH.getCurrentUser();
   modal.style.display = 'flex';
   modal.innerHTML = `
-    <div style="background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);padding:28px 32px;max-width:520px;width:100%;position:relative;box-shadow:var(--shadow-arc);">
+    <div style="background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);padding:28px 32px;max-width:540px;width:100%;position:relative;box-shadow:var(--shadow-arc);">
       <div style="font-family:var(--font-display);font-size:.85rem;font-weight:700;letter-spacing:3px;color:var(--arc);margin-bottom:6px;text-transform:uppercase;">Choisir un avatar</div>
       <div style="font-family:var(--font-body);font-size:.9rem;color:var(--text-muted);margin-bottom:24px;">Sélectionne l'avatar qui te représente</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;">
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:24px;">
         ${PRESET_AVATARS.map(av=>`
           <div onclick="selectAvatar('${av.id}',this)"
-            style="cursor:pointer;border-radius:50%;overflow:hidden;border:3px solid ${user?.avatarId===av.id?'var(--arc)':'transparent'};
-                   transition:all .2s;aspect-ratio:1;background:var(--panel2);"
-            data-avid="${av.id}" class="avatar-pick-item">
-            <img src="${av.src}" alt="${av.label}" style="width:100%;height:100%;object-fit:cover;display:block;"
-              onerror="this.parentElement.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--arc)><i class=fas fa-user></i></div>'">
+               data-avid="${av.id}"
+               class="avatar-pick-item"
+               style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px;border-radius:10px;transition:background .15s;">
+            <div class="avatar-pick-circle" style="
+              width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;
+              border:3px solid ${user?.avatarId===av.id?'var(--arc)':'rgba(255,255,255,0.08)'};
+              box-shadow:${user?.avatarId===av.id?'0 0 14px var(--arc-glow)':'none'};
+              transition:all .2s;background:var(--panel2);">
+              <img src="${av.src}" alt="${av.label}"
+                   style="width:100%;height:100%;object-fit:cover;display:block;"
+                   onerror="this.parentElement.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--arc)><i class=fas\\ fa-user></i></div>'">
+            </div>
+            <span style="font-family:var(--font-display);font-size:.48rem;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;text-align:center;line-height:1.2;">${av.label}</span>
           </div>
-          <div style="text-align:center;font-family:var(--font-display);font-size:.55rem;letter-spacing:1px;color:var(--text-muted);margin-top:4px;text-transform:uppercase;">${av.label}</div>
         `).join('')}
       </div>
       <div style="display:flex;gap:10px;">
@@ -1454,10 +1476,16 @@ let _selectedAvatarId = null;
 
 function selectAvatar(avId, el) {
   _selectedAvatarId = avId;
-  // Reset toutes les bordures
-  document.querySelectorAll('.avatar-pick-item').forEach(a => a.style.borderColor='transparent');
-  el.style.borderColor = 'var(--arc)';
-  el.style.boxShadow   = '0 0 16px var(--arc-glow)';
+  // Reset tous les items
+  document.querySelectorAll('.avatar-pick-item').forEach(a => {
+    const circle = a.querySelector('.avatar-pick-circle');
+    if(circle) { circle.style.borderColor='rgba(255,255,255,0.08)'; circle.style.boxShadow='none'; }
+    a.style.background = 'transparent';
+  });
+  // Highlight sélectionné
+  const circle = el.querySelector('.avatar-pick-circle');
+  if(circle) { circle.style.borderColor='var(--arc)'; circle.style.boxShadow='0 0 14px var(--arc-glow)'; }
+  el.style.background = 'rgba(245,166,35,0.07)';
 }
 
 async function applyAvatar() {

@@ -68,8 +68,6 @@ function _initFB() {
     _auth = firebase.auth();
     _db   = firebase.firestore();
     _auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-    // Cache offline Firestore (réduit les reads à la reconnexion)
-    _db.enablePersistence({ synchronizeTabs: false }).catch(() => {});
     return true;
   } catch (e) {
     console.error('[iPROMX] Firebase init:', e);
@@ -98,7 +96,15 @@ const AUTH = {
       avatarId: this._profile?.avatarId || 'av1',
       createdAt:this._user.metadata.creationTime
     };
-    try { return JSON.parse(localStorage.getItem('ipx_user')); } catch { return null; }
+    // Fallback sur le cache local (connexion offline ou profile pas encore chargé)
+    try {
+      const cached = JSON.parse(localStorage.getItem('ipx_user'));
+      if (cached) return cached;
+    } catch {}
+    // Dernier recours : uid connu mais pas de profil
+    const uid = localStorage.getItem('ipx_uid');
+    if (uid) return { uid, id:uid, email:'', username:'Utilisateur', avatarId:'av1', createdAt:new Date().toISOString() };
+    return null;
   },
 
   async register(username, email, password) {
@@ -129,7 +135,9 @@ const AUTH = {
     try {
       const cred = await _auth.signInWithEmailAndPassword(email.trim(), password);
       this._user = cred.user;
-      await this._loadDoc(); // 1 read Firestore pour toute la session
+      // Token frais avant read Firestore
+      try { await cred.user.getIdToken(true); } catch(_) {}
+      await this._loadDoc();
       this._cache();
       return { ok:true, user:this.getCurrentUser() };
     } catch (e) { return { ok:false, error:this._err(e.code) }; }
@@ -139,12 +147,15 @@ const AUTH = {
     if (IS_LOCAL) return true;
     if (!_initFB()) return false;
     return new Promise(resolve => {
-      const timer = setTimeout(() => resolve(!!localStorage.getItem('ipx_uid')), 5000);
+      const timer = setTimeout(() => resolve(!!localStorage.getItem('ipx_uid')), 6000);
       _auth.onAuthStateChanged(async user => {
         clearTimeout(timer);
         if (user) {
           this._user = user;
-          await this._loadDoc(); // 1 read Firestore par session
+          // Forcer le rafraîchissement du token avant tout read Firestore
+          // (évite l'erreur "Missing or insufficient permissions" au démarrage)
+          try { await user.getIdToken(true); } catch(_) {}
+          await this._loadDoc();
           this._cache();
           resolve(true);
         } else {
