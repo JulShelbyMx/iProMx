@@ -707,8 +707,8 @@ function renderNavUser() {
   const avList = typeof PRESET_AVATARS !== 'undefined' ? PRESET_AVATARS : [];
   const av = avList.find(a=>a.id===user?.avatarId);
   const avatarHtml = av
-    ? `<img src="${av.src}" id="uAvatarBtn" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--arc);cursor:pointer;box-shadow:0 0 10px var(--arc-dim);" onerror="this.outerHTML='<div class=\\'user-avatar-placeholder\\' id=\\'uAvatarBtn\\'>${initial}</div>'">`
-    : `<div class="user-avatar-placeholder" id="uAvatarBtn">${initial}</div>`;
+    ? `<img src="${av.src}" id="uAvatarBtn" onclick="event.stopPropagation();toggleDD()" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--arc);cursor:pointer;box-shadow:0 0 10px var(--arc-dim);" onerror="this.outerHTML='<div class=\\'user-avatar-placeholder\\' onclick=\\'event.stopPropagation();toggleDD()\\' style=\\'width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--iron),var(--arc));display:flex;align-items:center;justify-content:center;font-weight:700;color:white;cursor:pointer;\\'>${initial}</div>'">`
+    : `<div class="user-avatar-placeholder" id="uAvatarBtn" onclick="event.stopPropagation();toggleDD()" style="cursor:pointer;">${initial}</div>`;
   area.innerHTML=`
     <div style="position:relative;" id="uMenu">
       ${avatarHtml}
@@ -725,9 +725,7 @@ function renderNavUser() {
           :`<button class="dropdown-item danger" onclick="AUTH.logout().then(()=>location.reload())"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>`}
       </div>
     </div>`;
-  setTimeout(()=>{
-    $('uAvatarBtn')?.addEventListener('click',e=>{ e.stopPropagation(); toggleDD(); });
-  },0);
+  // onclick géré directement dans le HTML ci-dessus (plus fiable que addEventListener post-render)
 }
 function toggleDD() { $('uDD')?.classList.toggle('open'); }
 function closeDD()  { $('uDD')?.classList.remove('open'); }
@@ -956,7 +954,7 @@ function playCinematic(idx) {
   closeBtn.onclick=()=>ROUTER.goHome();
 
   // Recommandés (autres cinématiques)
-  const others=items.filter((_,i)=>i!==idx);
+  const others=items.filter((_,i)=>i!==idx).slice(0,5);
   const recommHtml=others.length?`
     <div class="sidebar-section">
       <div class="sidebar-section-title">Recommandés</div>
@@ -1689,9 +1687,11 @@ function showPlayerPage(fid,cid,season,epIdx) {
       <div class="player-ep-info"><div class="player-ep-num">Épisode ${e.num}</div><div class="player-ep-name">${e.title}</div></div>
     </div>`;
   }).join('');
-  const sugg=eps.map((e,i)=>{
-    const cur=i===epIdx;
-    return `<div class="suggestion-card${cur?' current':''}" ${!cur?`onclick="playEp('${fid}','${cid}','${esc(season)}',${i})"`:''}>
+  // Sidebar : épisode courant + 4 autres max (5 au total)
+  const suggEps=eps.slice(Math.max(0,epIdx-1),epIdx+4);
+  const sugg=suggEps.map((e,i)=>{
+    const realIdx=eps.indexOf(e), cur=realIdx===epIdx;
+    return `<div class="suggestion-card${cur?' current':''}" ${!cur?`onclick="playEp('${fid}','${cid}','${esc(season)}',${realIdx})"`:''}>
       <div class="suggestion-thumb" style="background-image:url('${ytThumb(e.videoId)}')"></div>
       <div class="suggestion-info"><div class="suggestion-ep">${cur?'EN COURS · ':''}EP ${e.num}</div><div class="suggestion-title">${e.title}</div></div>
     </div>`;
