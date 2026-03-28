@@ -58,10 +58,43 @@ const DATA = {
       description:'Froids comme l\'hiver. Impitoyables en affaires.',
       image:'images/winters-universe.jpg', banner:'images/winters-banner.jpg',
       characters:[
-        { id:'oliver-winters', name:'Oliver Winters', image:'images/oliver_winters.jpg', banner:'images/winters-banner.jpg',
-          description:'Le leader froid et calculateur.', seasons:{} },
         { id:'jake-winters', name:'Jake Winters', image:'images/jake_winters.jpg', banner:'images/winters-banner.jpg',
-          description:'Le second fidèle et brutal.', seasons:{} }
+          description:'Le second fidèle et brutal.', seasons:{} },
+        { id:'oliver-winters', name:'Oliver Winters', image:'images/oliver_winters.jpg', banner:'images/winters-banner.jpg',
+          description:'Le leader froid et calculateur.', seasons:{} }
+      ]
+    },
+    escobar: {
+      id:'escobar', name:'Escobar', color:'#e67e22',
+      description:'L\'empire du cartel. Un homme, une légende, une menace.',
+      image:'images/tom_escobar1.webp', banner:'images/tom_escobar1.webp',
+      characters:[
+        { id:'tom-escobar', name:'Tom Escobar', image:'images/tom_escobar1.webp', banner:'images/tom_escobar1.webp',
+          description:'Le chef incontesté du cartel. Redoutable, stratège, imprévisible.', seasons:{} }
+      ]
+    },
+    kingsley: {
+      id:'kingsley', name:'Kingsley', color:'#1abc9c',
+      description:'Un nom qui résonne dans toute la ville. Zack Kingsley ne fait pas de compromis.',
+      image:'images/zack_kingsley.webp', banner:'images/zack_kingsley.webp',
+      characters:[
+        { id:'zack-kingsley', name:'Zack Kingsley', image:'images/zack_kingsley.webp', banner:'images/zack_kingsley.webp',
+          description:'Charismatique et redoutable. Zack Kingsley impose sa loi sans concession.', seasons:{} }
+      ]
+    },
+    independants: {
+      id:'independants', name:'Indépendants', color:'#95a5a6',
+      description:'Ils n\'appartiennent à aucune famille — mais leur impact sur Los Santos est indéniable.',
+      image:'images/poil_carotte.webp', banner:'images/poil_carotte.webp',
+      characters:[
+        { id:'poil-carotte', name:'Poil de Carotte', image:'images/poil_carotte.webp', banner:'images/poil_carotte.webp',
+          description:'L\'imprévisible. Personne ne sait vraiment ce qu\'il prépare.', seasons:{} },
+        { id:'axel-leret', name:'Axel Léret', image:'images/axel_leret.webp', banner:'images/axel_leret.webp',
+          description:'Un personnage à part entière, avec ses propres ambitions et ses propres règles.', seasons:{} },
+        { id:'le-geant', name:'Le Géant', image:'images/le_geant.webp', banner:'images/le_geant.webp',
+          description:'Sa stature impose le respect. Sa réputation, la peur.', seasons:{} },
+        { id:'gang-gamins', name:'Le Gang des Gamins', image:'images/gang_gamins.webp', banner:'images/gang_gamins.webp',
+          description:'Ne les sous-estime pas. Ces gamins ont prouvé que la taille n\'a rien à voir avec le danger.', seasons:{} }
       ]
     }
   },
@@ -372,9 +405,10 @@ const DATA = {
 
 const HERO_SLIDES=[
   {familyId:'flash',charId:'david-flash'},
-  {familyId:'flash',charId:'john-flash'},
+  {familyId:'kingsley',charId:'zack-kingsley'},
   {familyId:'flash',charId:'adrian-flash'},
-  {familyId:'shade',charId:'sylvester-shade'}
+  {familyId:'shade',charId:'sylvester-shade'},
+  {familyId:'escobar',charId:'tom-escobar'}
 ];
 
 // ── HELPERS ───────────────────────────────────────────────────
@@ -382,7 +416,48 @@ const $   = id  => document.getElementById(id);
 const $$  = (s,r=document) => [...r.querySelectorAll(s)];
 const esc = s   => String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
 const getChar     = (fid,cid) => DATA.universes[fid]?.characters.find(c=>c.id===cid)||null;
-const getAllChars  = () => Object.values(DATA.universes).flatMap(u=>u.characters.map(c=>({...c,familyId:u.id,family:u})));
+
+// Ordre d'affichage dans "Univers" (tel que demandé)
+const CHAR_ORDER = [
+  ['kingsley','zack-kingsley'],
+  ['shade','sylvester-shade'],
+  ['winters','jake-winters'],
+  ['flash','ned-flash'],
+  ['flash','manda-flash'],
+  ['flash','adrian-flash'],
+  ['independants','gang-gamins'],
+  ['flash','kayton-flash'],
+  ['flash','damon-flash'],
+  ['flash','david-jr-flash'],
+  ['flash','aaron-flash'],
+  ['escobar','tom-escobar'],
+  ['independants','le-geant'],
+  ['flash','ken-flash'],
+  ['independants','poil-carotte'],
+  ['flash','john-flash'],
+  ['flash','david-flash'],
+  // Secondaires (pas dans l'ordre demandé, mais présents)
+  ['independants','axel-leret'],
+  ['winters','oliver-winters'],
+];
+
+const getAllChars = () => {
+  const ordered = [];
+  const seen = new Set();
+  for(const [fid,cid] of CHAR_ORDER) {
+    const u = DATA.universes[fid]; if(!u) continue;
+    const c = u.characters.find(ch=>ch.id===cid); if(!c) continue;
+    ordered.push({...c, familyId:fid, family:u});
+    seen.add(fid+'|'+cid);
+  }
+  // Ajouter tout ce qui n'est pas dans la liste d'ordre
+  for(const [fid,u] of Object.entries(DATA.universes)) {
+    for(const c of u.characters) {
+      if(!seen.has(fid+'|'+c.id)) ordered.push({...c, familyId:fid, family:u});
+    }
+  }
+  return ordered;
+};
 const getTotalEps = c => Object.values(c.seasons||{}).reduce((s,e)=>s+e.length,0);
 const hasContent  = c => getTotalEps(c)>0||c.hasLocalVideo||c.hasLawBook;
 const getFirstEp  = c => { for(const [s,eps] of Object.entries(c.seasons||{})) if(eps.length) return {season:s,ep:eps[0],idx:0}; return null; };
@@ -837,13 +912,60 @@ function toggleList(fid,cid,btn) {
 // ── SOCIAL ────────────────────────────────────────────────────
 function renderSocial() {
   const g=$('socialGrid'); if(!g) return;
-  g.innerHTML=DATA.social.map(s=>`
-    <a class="social-card ${s.platform}" href="${s.url}" target="_blank">
-      <div class="social-banner" style="background-image:url('${s.banner}')">
-        <div class="social-platform-badge ${s.platform}"><i class="${s.icon}"></i> ${s.name}</div>
+
+  const platformMeta = {
+    twitch:  { color:'#9147ff', bg:'rgba(145,71,255,0.1)',  border:'rgba(145,71,255,0.3)',  stat:'272K+', statLabel:'Followers',   cta:'Regarder en direct', ctaIcon:'fas fa-play-circle' },
+    youtube: { color:'#ff0000', bg:'rgba(255,0,0,0.1)',     border:'rgba(255,0,0,0.3)',     stat:'1M+',   statLabel:'Abonnés',     cta:'Voir la chaîne',     ctaIcon:'fab fa-youtube'     },
+    discord: { color:'#7289da', bg:'rgba(114,137,218,0.1)', border:'rgba(114,137,218,0.3)', stat:'∞',     statLabel:'Membres',     cta:'Rejoindre',          ctaIcon:'fab fa-discord'     },
+    youtube2:{ color:'#f5a623', bg:'rgba(245,166,35,0.1)',  border:'rgba(245,166,35,0.3)',  stat:'↗',     statLabel:'Disponible',  cta:'Visiter le store',   ctaIcon:'fas fa-shopping-bag'},
+  };
+
+  g.innerHTML = DATA.social.map(s => {
+    const pm = platformMeta[s.id] || platformMeta[s.platform] || platformMeta.twitch;
+    return `
+    <a class="soc-card" href="${s.url}" target="_blank" style="
+      display:flex;flex-direction:column;
+      background:${pm.bg};
+      border:1px solid ${pm.border};
+      border-radius:var(--radius-lg);
+      overflow:hidden;
+      text-decoration:none;
+      transition:transform .2s,box-shadow .2s;
+      cursor:pointer;
+      position:relative;
+    " onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px ${pm.border}'"
+       onmouseout="this.style.transform='';this.style.boxShadow=''">
+
+      <!-- Barre couleur top -->
+      <div style="height:3px;background:${pm.color};width:100%;"></div>
+
+      <!-- Bannière -->
+      <div style="height:110px;background-image:url('${s.banner}');background-size:cover;background-position:center;position:relative;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,${pm.bg.replace('0.1','0.85')});"></div>
+        <!-- Badge plateforme -->
+        <div style="position:absolute;top:12px;left:14px;display:flex;align-items:center;gap:8px;">
+          <div style="width:38px;height:38px;border-radius:50%;background:${pm.color};display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:white;box-shadow:0 2px 12px ${pm.border};">
+            <i class="${s.icon}"></i>
+          </div>
+          <span style="font-family:var(--font-display);font-size:.7rem;font-weight:900;letter-spacing:2px;color:white;text-shadow:0 1px 4px rgba(0,0,0,.8);text-transform:uppercase;">${s.name}</span>
+        </div>
+        <!-- Stat -->
+        <div style="position:absolute;bottom:12px;right:14px;text-align:right;">
+          <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:900;color:${pm.color};line-height:1;">${pm.stat}</div>
+          <div style="font-family:var(--font-body);font-size:.7rem;color:rgba(255,255,255,.7);margin-top:1px;">${pm.statLabel}</div>
+        </div>
       </div>
-      <div class="social-body"><div class="social-name">${s.name}</div><div class="social-desc">${s.desc}</div></div>
-    </a>`).join('');
+
+      <!-- Body -->
+      <div style="padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;gap:10px;">
+        <p style="font-family:var(--font-body);font-size:.9rem;color:var(--text-dim);line-height:1.5;margin:0;flex:1;">${s.desc}</p>
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:${pm.color};border-radius:30px;color:white;font-family:var(--font-display);font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;align-self:flex-start;">
+          <i class="${pm.ctaIcon}" style="font-size:.85rem;"></i>
+          ${pm.cta}
+        </div>
+      </div>
+    </a>`;
+  }).join('');
 }
 
 // ── NOTIFICATION BANNER ───────────────────────────────────────
