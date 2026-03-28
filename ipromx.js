@@ -40,7 +40,9 @@ const DATA = {
           description:'Capitaine légendaire qui a libéré le monde de la destruction qui l\'attendait.',
           hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', seasons:{} },
         { id:'manda-flash', name:'Manda Flash', image:'images/manda_flash.webp', banner:FB,
-          description:'La protectrice féroce. Mère, sœur, guerrière.', seasons:{} }
+          description:'La protectrice féroce. Mère, sœur, guerrière.', seasons:{} },
+          { id:'zayn-flash', name:'Zayn Flash', image:'images/zayn_flash.webp', banner:FB,
+          description:'Ok', seasons:{} }
       ]
     },
     shade: {
@@ -404,7 +406,7 @@ const DATA = {
 };
 
 const HERO_SLIDES=[
-  {familyId:'flash',charId:'david-flash'},
+  {familyId:'flash',charId:'ned-flash'},
   {familyId:'kingsley',charId:'zack-kingsley'},
   {familyId:'flash',charId:'adrian-flash'},
   {familyId:'shade',charId:'sylvester-shade'},
@@ -420,11 +422,14 @@ const getChar     = (fid,cid) => DATA.universes[fid]?.characters.find(c=>c.id===
 // Ordre d'affichage dans "Univers" (tel que demandé)
 const CHAR_ORDER = [
   ['kingsley','zack-kingsley'],
+  ['flash','zayn-flash'],
   ['shade','sylvester-shade'],
   ['winters','jake-winters'],
   ['flash','ned-flash'],
+  ['independants','axel-leret'],
   ['flash','manda-flash'],
   ['flash','adrian-flash'],
+  ['winters','oliver-winters'],
   ['independants','gang-gamins'],
   ['flash','kayton-flash'],
   ['flash','damon-flash'],
@@ -436,9 +441,6 @@ const CHAR_ORDER = [
   ['independants','poil-carotte'],
   ['flash','john-flash'],
   ['flash','david-flash'],
-  // Secondaires (pas dans l'ordre demandé, mais présents)
-  ['independants','axel-leret'],
-  ['winters','oliver-winters'],
 ];
 
 const getAllChars = () => {
