@@ -1954,7 +1954,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
             <div class="player-char-desc">${char.description}</div>
           </div>
         </div>
-        ${seasons.length?`<div class="sidebar-section-title" style="margin:24px 0 12px;">Épisodes</div><div class="player-season-tabs">${stabs}</div><div class="player-episodes-list" id="playerEpList">${epList}</div>`:''}
+        ${seasons.length?`<div class="sidebar-section-title" style="margin:24px 0 12px;">Épisodes</div><div class="player-season-tabs">${stabs}</div><div class="player-episodes-list">${epList}</div>`:''}
       </div>
       <div class="player-sidebar">
         <div class="sidebar-section">
@@ -1967,17 +1967,6 @@ function showPlayerPage(fid,cid,season,epIdx) {
         ${eps.length>1?`<div class="sidebar-section"><div class="sidebar-section-title">Tous les épisodes</div><div class="sidebar-suggestions">${sugg}</div></div>`:''}
       </div>
     </div>`;
-
-  // Scroller la liste d'épisodes pour centrer l'épisode courant
-  requestAnimationFrame(() => {
-    const epListEl = $('playerEpList');
-    const curEl = epListEl?.querySelector('.player-ep-item.current');
-    if (epListEl && curEl) {
-      const listTop = epListEl.getBoundingClientRect().top;
-      const curTop  = curEl.getBoundingClientRect().top;
-      epListEl.scrollTop = curTop - listTop - (epListEl.clientHeight / 2) + (curEl.clientHeight / 2);
-    }
-  });
 
   // Monter le player YT dans le container dédié
   const params = {videoId:ep.videoId, fid, cid, season, epIdx};

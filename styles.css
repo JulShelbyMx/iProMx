@@ -1678,9 +1678,11 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 450px;
+  max-height: 500px;
   overflow-y: auto;
   padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--iron) var(--panel2);
 }
 
 .episodes-list::-webkit-scrollbar { width: 6px; }
@@ -1697,6 +1699,7 @@ body::before {
   overflow: hidden;
   cursor: pointer;
   transition: var(--transition);
+  flex-shrink: 0;
 }
 
 .episode-item:hover { border-color: var(--arc); transform: translateX(4px); }
@@ -1707,6 +1710,7 @@ body::before {
   background-position: center;
   background-color: var(--panel2);
   position: relative;
+  flex-shrink: 0;
 }
 
 .episode-thumb-play {
@@ -1724,7 +1728,14 @@ body::before {
 
 .episode-item:hover .episode-thumb-play { opacity: 1; }
 
-.episode-info { padding: 10px 14px; display: flex; flex-direction: column; justify-content: center; }
+.episode-info {
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+}
 
 .ep-number {
   font-family: var(--font-display);
@@ -1737,10 +1748,13 @@ body::before {
 
 .ep-title {
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--text);
   margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ep-watched {
