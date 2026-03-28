@@ -19,7 +19,85 @@ const DATA = {
       characters:[
         { id:'david-flash', name:'David Flash', image:'images/david_flash.jpg', banner:FB,
           description:'Le fondateur légendaire de la famille Flash. Un homme au passé trouble qui a bâti un empire dans l\'ombre de Los Santos.',
-          seasons:{ 'Saison 1':[{num:1,title:'POUR LA PREMIÈRE FOIS JE TESTE GTAV RP',videoId:'z_H0tafxHAc'},{num:2,title:'Les Débuts dans Los Santos',videoId:'z_H0tafxHAc'}], 'Saison 2':[{num:1,title:'LA FEMME DE MA VIE OU LE GANG',videoId:'Eoo3Vpelub4'},{num:2,title:'LA FEMME DE MA VIE OU LE GANG (SUITE)',videoId:'Eoo3Vpelub4'}] }},
+          seasons:{
+    'Saison 1':[
+        {num:1,title:'POUR LA PREMIERE FOIS JE TESTE GTAV RP - UN TROLLEUR SUR UN JEU ROLEPLAY ?',videoId:'z_H0tafxHAc'},
+        {num:2,title:'GTAV RP #2 - JE FAIS DE L\'ILLEGAL POUR LA PREMIERE FOIS !',videoId:'_fABb3_UqlI'},
+        {num:3,title:'ON MENACE DE ME TUER - GTAV RP #3',videoId:'rnlPQz_yZkk'},
+        {num:4,title:'GTAV RP #4 - ON KIDNAPPE UN MEC ET L\'OBLIGE A TRAVAILLER POUR NOUS DANS L\'ILLÉGAL !',videoId:'1RT89ZnoIFc'},
+        {num:5,title:'GTAV RP #5 - ON CREE NOTRE GANG ET ESSAYE DE NOUS FAIRE RESPECTER ! FIVELIFE',videoId:'bAL5YrzkmPI'},
+        {num:6,title:'JE SUIS DEVENU UNE VRAIE RACAILLE + ON RECRUTE 2 MEC DANS NOTRE GANG - GTAV RP #6',videoId:'uJx1Z2AQHnA'},
+        {num:7,title:'ON PREPARE NOTRE PLUS GROS COUP QUI PEUT NOUS RENDRE MILLIONAIRE ! GTAV RP #7',videoId:'c02txsFw56U'},
+        {num:8,title:'ON VOLE UN TANK ET DEMANDE UNE RANÇON DE 1MILLIONS AUX POLICIERS ! GTAV RP #8',videoId:'CJl7bC9cfxc'},
+        {num:9,title:'LE GRAND JOUR , NEGOCIATION AVEC LA POLICE POUR ECHANGE TANK CONTRE 1MILLIONS DOLLARS - GTAV RP #9',videoId:'Dhy2Uz0CkA8'},
+        {num:10,title:'COURSE POURSUITE AVEC LA POLICE AVEC 600 000$ DANS LA POCHE - GTAV RP #10',videoId:'2zrMMtsB1r0'},
+        {num:11,title:'LES AGENTS SECRETS NOUS ONT RETROUVÉ , JE PERDS MON MEILLEUR AMI GUY TRAGIQUEMENT :\'( - GTAV RP #11',videoId:'kGu8Bqy8Q50'},
+        {num:12,title:'JE VAIS ME VENGER DE LA MORT DE GUY MAUD ! - GTAV RP #12',videoId:'r1qBzNm5aHY'},
+        {num:13,title:'ACHETER DES ARMES ILLEGALES ET S\'INFILTRER DANS LE FBI POUR SE VENGER DE GUY ! GTAV RP #13',videoId:'OjNnC83AaM4'},
+        {num:14,title:'LA FIN DU GANG DOUBLE ? :( GTAV RP #14',videoId:'s-wSTU9i1Lw'},
+        {num:15,title:'LE GANG DOUBLE REVIENT EN FORCE ! GTAV RP #15',videoId:'B608R75HNfE'},
+        {num:16,title:'C\'ETAIT TROP BEAU POUR ÊTRE VRAI ! RETOURNEMENT DE SITUATION ! GTAV RP #16',videoId:'Rb0XbQdD31g'},
+        {num:17,title:'PERDU SEUL DANS LA FORÊT ENTOURÉ D\'ANIMAUX SAUVAGES ! GTAV RP #17',videoId:'vy_Ci-ctl-U'},
+        {num:18,title:'TRAILER EPISODE FINAL DU GANG DOUBLE ! GTAV RP',videoId:'b8OeooNJ2lk'},
+        {num:19,title:'LE PLUS GROS COUP DU GANG DOUBLE ! VENGEANCE ULTIME  - GTAV RP EPISODE FINAL',videoId:'cxtl5GTsmhE'},
+        ],
+    'Saison 2':[ 
+            {num:20,title:'JE DOIS CHOISIR ENTRE LA FEMME DE MA VIE OU LE GANG DOUBLE ? GTAV RP SAISON 2 #1',videoId:'Eoo3Vpelub4'},
+        {num:21,title:'JE RECONSTRUIS LE GANG DOUBLE DANS LE DOS DE MA FEMME - GTAV RP S2 #2',videoId:'u-c7OsaY62M'},
+        {num:22,title:'LE GRAND JOUR , VOLER DES VOITURES QUI VALENT DES MILLIONS A DES HOMMES RICHES - GTAV RP S2 #3',videoId:'wbw-dOzIe7Q'},
+        {num:23,title:'MA FEMME APPREND QUE J\'AI REFORMÉ LE GANG DOUBLE , VA-T-ELLE ME QUITTER ? GTAV RP S2 #4',videoId:'gyc2K4p3KG4'},
+        {num:24,title:'LE JOUR DE LA PAYE , QUE LES CHOSES SÉRIEUSES COMMENCENT ! GTAV RP S2 #5',videoId:'7p01OcCJ62Y'},
+        {num:25,title:'ON ME FAIT QUITTER LE GANG DOUBLE DE FORCE :\'( - GTAV RP S2 #6',videoId:'KiUrxBgYMRI'},
+        {num:26,title:'DOUBLE C\'EST FINI ?! NON ! JAMAIS DE LA VIE ! EXPLICATON',videoId:'E02ICk8dnJc'},
+        {num:27,title:'COMMENT ALEXANDRA S\'EST FAIT KIDNAPPER ? - GTAV RP S2',videoId:'AoKd1OPhb7I'},
+        {num:28,title:'DAVID FLASH VA-T\'IL RÉINTÉGRER LE GANG DOUBLE ET SAUVER SA FEMME ? GTAV RP S2 #7',videoId:'VSlcPS0yUgY'},
+        {num:29,title:'ALEXANDRA EST-ELLE MORTE ? DES GENS VEULENT DETRUIRE LE GANG DOUBLE ! GTAV RP S2 #8',videoId:'vGKQWWrEn5E'},
+        {num:30,title:'ON SE FAIT PASSER POUR DES POLICIERS POUR S\'INFILTRER DANS LE COMMISSARIAT ! GTAV RP S2 #9',videoId:'48d6rARuXcc'},
+        {num:31,title:'TRAILER EPISODE 10 ASSAUT DE LA PRISON FEDERAL ! GTAV RP',videoId:'op4u7AXMijM'},
+        {num:32,title:'ON ATTAQUE LA PRISON FEDERALE ! GTAV RP #10',videoId:'zBLrb3oA5kY'},
+        {num:33,title:'LE GRAND JOUR ! EVASION DE RAY DEFESSE ET DE BOUNDRIL ! GTAV S2 #11',videoId:'vWqf1P05D4k'},
+        {num:34,title:'LE PLUS GRAND EVENEMENT DE LA VIE DE DAVID FLASH ! DOUBLE A ACCOMPLI L\'IMPOSSIBLE ! GTAV RP FINAL S2',videoId:'5OAmyfAAbu4'},
+        ],  
+    'HS 1':[ 
+        {num:35,title:'J\'OUVRE MON ENTREPRISE D\'ARMES ILLEGALES - GTAV RP HS #1',videoId:'-28O2WxPClI'},
+    ],  
+    'Saison 3':[ 
+        {num:36,title:'NOTRE MEILLEUR COUP ? LE GANG DOUBLE MILLIONNAIRE ? GTAV RP SAISON 3 #1',videoId:'FDsqTZf8eg4'},
+        {num:37,title:'ALEXANDRA ET MON FILS MORTS ? UN NOUVEAU GANG NOUS MENACE ! GTAV RP S3 #2',videoId:'vDm9BvzsuAQ'},
+        {num:38,title:'LE GANG SPINNER A ENCORE FRAPPE ! GTAV RP S3 #3',videoId:'VRDxUyr7vgI'},
+        {num:39,title:'J\'AI PERDU TOUS LES MEMBRES DU GANG DOUBLE :( ! LE GANG SPINNER VEUT NOUS DETRUIRE ! GTAV S3 #4',videoId:'c1CqiTsd9tA'},
+        {num:40,title:'JE PREPARE UN GROS PIEGE AU GANG SPINNER ! GTAV RP S3 #5',videoId:'sYAB_akUuV8'},
+        {num:41,title:'J\'ARRETE LA SERIE DU GANG DOUBLE ! LES ABONNES PETENT UN CABLE !',videoId:'NUBlOdmIGg0'},
+        {num:42,title:'LE GANG DOUBLE EN PRISON ? GTAV RP S3 #6',videoId:'molx0yNEUNM'},
+        {num:43,title:'ON S\'INFILTRE DANS LE QG DU GANG SPINNER - GTAV RP S3 #7',videoId:'R6V_icHGkvc'},
+        {num:44,title:'ON SE DEGUISE EN GANG SPINNER POUR RETROUVER LE BOSS ! GTAV RP S3 #8',videoId:'sbhbMxMIvMI'},
+        {num:45,title:'LE GRAND JOUR , LE FACE A FACE AVEC LE CHEF SPINNER ! GTAV RP S3 #9',videoId:'2RRBgXB2aDQ'},
+        {num:46,title:'LE CHEF SPINNER NOUS DEMANDE DE FAIRE L\'IMPOSSIBLE POUR SURVIVRE ! GTAV RP S3 #10',videoId:'Gf2Zbia3Dps'},
+        {num:47,title:'RETOURNEMENT DE SITUATION , LE CHEF SPINNER VA LE REGRETTER ! GTAV RP S3 #11',videoId:'WbfH4Al6AeY'},
+        {num:48,title:'LA FIN DU GANG SPINNER OU DU GANG DOUBLE ? EPISODE FINAL SAISON 3 ! GTAV RP #12',videoId:'djbhlQxN4RE'},
+        ],  
+    'HS 2':[ 
+        {num:49,title:'DAVID FLASH SE LANCE DANS DU TRAFIC ILLÉGAL DANS UNE NOUVELLE VILLE ! GTAV RP',videoId:'urOab280d00'},
+        {num:50,title:'DAVID FLASH DANS LE CAMPS DES FLICS ? GTAV RP LIVE #1',videoId:'BoAs8IN83xs'},
+        {num:51,title:'J\'OUVRE ENFIN MON ENTREPRISE D\'ARMES ILLÉGAUX ! GTAV RP LIVE #2',videoId:'78TonPlT0dk'},
+        {num:52,title:'A LA RECHERCHE DE PABLO KEY POUR RÈGLEMENT DE COMPTE  ! GTAV RP LIVE #2',videoId:'W02l-9kobMY'},
+        {num:53,title:'GROS CONVOI DE CARGAISONS D\'ARMES ILLÉGALES PLUS DE 5 MILLIONS $  ! GTAV RP LIVE #4',videoId:'PYV2PNYudn8'},
+        {num:54,title:'DAVID FLASH DEVIENT UN TUEUR A GAGE ! GTAV RP LIVE #5',videoId:'WLYvqz1wzK4'},
+        {num:55,title:'MON PREMIER CONTRAT DE TUEUR A GAGE ! GTAV RP LIVE #6',videoId:'_knXty9Cv-A'},
+        {num:56,title:'JE PRÉPARE UNE SURPRISE A MON AMI DOUME PAOLI POUR LES RETROUVAILLES ! GTAV RP LIVE #7',videoId:'MJOIpkzlIOc'},
+        {num:57,title:'LE GRAND JOUR , DAVID FLASH TRAVAIL AVEC D\'AUTRE GANG ! GTAV RP LIVE #8 Partie1',videoId:'__8J5xGuEdE'},
+        {num:58,title:'LE GRAND JOUR , DAVID FLASH TRAVAIL AVEC D\'AUTRE GANG ! GTAV RP LIVE #8 Partie2',videoId:'PCy6ACpY0XE'},
+        ],  
+    'Saison 4':[ 
+        {num:59,title:'GANG DOUBLE SAISON 4 #1 - LA VÉRITÉ ! GTAV RP [COURT-MÉTRAGE]',videoId:'aqqLKLpwgUg'},
+        {num:60,title:'GANG DOUBLE #2 S4 - LA FEMME MYSTÉRIEUSE - GTAV RP [COURT-MÉTRAGE]',videoId:'nNPojO9fZFc'},
+        {num:61,title:'DAVID FLASH VA REFORMER LE GANG DOUBLE ! GTAV RP #3 SAISON 4',videoId:'OGhPP6Fb_Us'},
+        {num:62,title:'OPÉRATION BRAQUAGE DE BANQUE SOUS TERRAIN - GTAV RP #4 [GANG DOUBLE]',videoId:'UKT4XRH0ZmU'},
+        {num:63,title:'LES CHOSES SÉRIEUSES COMMENCENT ! PIRATAGE SYSTÈME CAMERA ! GTAV RP #5',videoId:'FOd15vE2u7c'},
+        {num:64,title:'GROS BRAQUAGE DE LA BANQUE CENTRAL PAR SOUS TERRAIN ! GTAV RP #6',videoId:'cSkKh59QQAU'},
+        {num:65,title:'DAVID FLASH A FAIT L\'IMPOSSIBLE MAIS SA MALADIE LE MENACE ! GTAV RP #7',videoId:'iK5E34WF5uI'}
+    ] 
+  }},
         { id:'john-flash', name:'John Flash', image:'images/john_flash.jpg', banner:FB,
           description:'Le successeur ambitieux. Charismatique, déterminé, il modernise l\'empire familial tout en affrontant ses propres démons.',
           seasons:{ 'Saison 1':[{num:1,title:'Je suis gay !',videoId:'z_H0tafxHAc'},{num:2,title:'Les Débuts',videoId:'z_H0tafxHAc'}], 'Saison 2':[{num:1,title:'LA FEMME DE MA VIE OU LE GANG',videoId:'Eoo3Vpelub4'}] }},
@@ -1876,7 +1954,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
             <div class="player-char-desc">${char.description}</div>
           </div>
         </div>
-        ${seasons.length?`<div class="sidebar-section-title" style="margin:24px 0 12px;">Épisodes</div><div class="player-season-tabs">${stabs}</div><div class="player-episodes-list">${epList}</div>`:''}
+        ${seasons.length?`<div class="sidebar-section-title" style="margin:24px 0 12px;">Épisodes</div><div class="player-season-tabs">${stabs}</div><div class="player-episodes-list" id="playerEpList">${epList}</div>`:''}
       </div>
       <div class="player-sidebar">
         <div class="sidebar-section">
@@ -1889,6 +1967,17 @@ function showPlayerPage(fid,cid,season,epIdx) {
         ${eps.length>1?`<div class="sidebar-section"><div class="sidebar-section-title">Tous les épisodes</div><div class="sidebar-suggestions">${sugg}</div></div>`:''}
       </div>
     </div>`;
+
+  // Scroller la liste d'épisodes pour centrer l'épisode courant
+  requestAnimationFrame(() => {
+    const epListEl = $('playerEpList');
+    const curEl = epListEl?.querySelector('.player-ep-item.current');
+    if (epListEl && curEl) {
+      const listTop = epListEl.getBoundingClientRect().top;
+      const curTop  = curEl.getBoundingClientRect().top;
+      epListEl.scrollTop = curTop - listTop - (epListEl.clientHeight / 2) + (curEl.clientHeight / 2);
+    }
+  });
 
   // Monter le player YT dans le container dédié
   const params = {videoId:ep.videoId, fid, cid, season, epIdx};

@@ -19,7 +19,9 @@ seasons:{
         {num:17,title:'PERDU SEUL DANS LA FORÊT ENTOURÉ D\'ANIMAUX SAUVAGES ! GTAV RP #17',videoId:'vy_Ci-ctl-U'},
         {num:18,title:'TRAILER EPISODE FINAL DU GANG DOUBLE ! GTAV RP',videoId:'b8OeooNJ2lk'},
         {num:19,title:'LE PLUS GROS COUP DU GANG DOUBLE ! VENGEANCE ULTIME  - GTAV RP EPISODE FINAL',videoId:'cxtl5GTsmhE'},
-        {num:20,title:'JE DOIS CHOISIR ENTRE LA FEMME DE MA VIE OU LE GANG DOUBLE ? GTAV RP SAISON 2 #1',videoId:'Eoo3Vpelub4'},
+        ],
+    'Saison 2':[ 
+            {num:20,title:'JE DOIS CHOISIR ENTRE LA FEMME DE MA VIE OU LE GANG DOUBLE ? GTAV RP SAISON 2 #1',videoId:'Eoo3Vpelub4'},
         {num:21,title:'JE RECONSTRUIS LE GANG DOUBLE DANS LE DOS DE MA FEMME - GTAV RP S2 #2',videoId:'u-c7OsaY62M'},
         {num:22,title:'LE GRAND JOUR , VOLER DES VOITURES QUI VALENT DES MILLIONS A DES HOMMES RICHES - GTAV RP S2 #3',videoId:'wbw-dOzIe7Q'},
         {num:23,title:'MA FEMME APPREND QUE J\'AI REFORMÉ LE GANG DOUBLE , VA-T-ELLE ME QUITTER ? GTAV RP S2 #4',videoId:'gyc2K4p3KG4'},
@@ -34,7 +36,11 @@ seasons:{
         {num:32,title:'ON ATTAQUE LA PRISON FEDERALE ! GTAV RP #10',videoId:'zBLrb3oA5kY'},
         {num:33,title:'LE GRAND JOUR ! EVASION DE RAY DEFESSE ET DE BOUNDRIL ! GTAV S2 #11',videoId:'vWqf1P05D4k'},
         {num:34,title:'LE PLUS GRAND EVENEMENT DE LA VIE DE DAVID FLASH ! DOUBLE A ACCOMPLI L\'IMPOSSIBLE ! GTAV RP FINAL S2',videoId:'5OAmyfAAbu4'},
+        ],  
+    'HS 1':[ 
         {num:35,title:'J\'OUVRE MON ENTREPRISE D\'ARMES ILLEGALES - GTAV RP HS #1',videoId:'-28O2WxPClI'},
+    ],  
+    'Saison 3':[ 
         {num:36,title:'NOTRE MEILLEUR COUP ? LE GANG DOUBLE MILLIONNAIRE ? GTAV RP SAISON 3 #1',videoId:'FDsqTZf8eg4'},
         {num:37,title:'ALEXANDRA ET MON FILS MORTS ? UN NOUVEAU GANG NOUS MENACE ! GTAV RP S3 #2',videoId:'vDm9BvzsuAQ'},
         {num:38,title:'LE GANG SPINNER A ENCORE FRAPPE ! GTAV RP S3 #3',videoId:'VRDxUyr7vgI'},
@@ -48,6 +54,8 @@ seasons:{
         {num:46,title:'LE CHEF SPINNER NOUS DEMANDE DE FAIRE L\'IMPOSSIBLE POUR SURVIVRE ! GTAV RP S3 #10',videoId:'Gf2Zbia3Dps'},
         {num:47,title:'RETOURNEMENT DE SITUATION , LE CHEF SPINNER VA LE REGRETTER ! GTAV RP S3 #11',videoId:'WbfH4Al6AeY'},
         {num:48,title:'LA FIN DU GANG SPINNER OU DU GANG DOUBLE ? EPISODE FINAL SAISON 3 ! GTAV RP #12',videoId:'djbhlQxN4RE'},
+        ],  
+    'HS 2':[ 
         {num:49,title:'DAVID FLASH SE LANCE DANS DU TRAFIC ILLÉGAL DANS UNE NOUVELLE VILLE ! GTAV RP',videoId:'urOab280d00'},
         {num:50,title:'DAVID FLASH DANS LE CAMPS DES FLICS ? GTAV RP LIVE #1',videoId:'BoAs8IN83xs'},
         {num:51,title:'J\'OUVRE ENFIN MON ENTREPRISE D\'ARMES ILLÉGAUX ! GTAV RP LIVE #2',videoId:'78TonPlT0dk'},
@@ -56,8 +64,10 @@ seasons:{
         {num:54,title:'DAVID FLASH DEVIENT UN TUEUR A GAGE ! GTAV RP LIVE #5',videoId:'WLYvqz1wzK4'},
         {num:55,title:'MON PREMIER CONTRAT DE TUEUR A GAGE ! GTAV RP LIVE #6',videoId:'_knXty9Cv-A'},
         {num:56,title:'JE PRÉPARE UNE SURPRISE A MON AMI DOUME PAOLI POUR LES RETROUVAILLES ! GTAV RP LIVE #7',videoId:'MJOIpkzlIOc'},
-        {num:57,title:'LE GRAND JOUR , DAVID FLASH TRAVAIL AVEC D\'AUTRE GANG ! GTAV RP LIVE #8',videoId:'__8J5xGuEdE'},
-        {num:58,title:'LE GRAND JOUR , DAVID FLASH TRAVAIL AVEC D\'AUTRE GANG ! GTAV RP LIVE #8',videoId:'PCy6ACpY0XE'},
+        {num:57,title:'LE GRAND JOUR , DAVID FLASH TRAVAIL AVEC D\'AUTRE GANG ! GTAV RP LIVE #8 Partie1',videoId:'__8J5xGuEdE'},
+        {num:58,title:'LE GRAND JOUR , DAVID FLASH TRAVAIL AVEC D\'AUTRE GANG ! GTAV RP LIVE #8 Partie2',videoId:'PCy6ACpY0XE'},
+        ],  
+    'Saison 4':[ 
         {num:59,title:'GANG DOUBLE SAISON 4 #1 - LA VÉRITÉ ! GTAV RP [COURT-MÉTRAGE]',videoId:'aqqLKLpwgUg'},
         {num:60,title:'GANG DOUBLE #2 S4 - LA FEMME MYSTÉRIEUSE - GTAV RP [COURT-MÉTRAGE]',videoId:'nNPojO9fZFc'},
         {num:61,title:'DAVID FLASH VA REFORMER LE GANG DOUBLE ! GTAV RP #3 SAISON 4',videoId:'OGhPP6Fb_Us'},
