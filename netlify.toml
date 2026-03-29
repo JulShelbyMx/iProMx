@@ -16,11 +16,7 @@
   schedule = "0 0 */2 * *"   # Tous les 2 jours à minuit UTC
 
 # ── Redirects ────────────────────────────────────────────────
-[[redirects]]
-  from = "/sitemap.xml"
-  to = "/.netlify/functions/sitemap"
-  status = 200
-  force = true
+
 
 # ── Headers HTTP ─────────────────────────────────────────────
 
