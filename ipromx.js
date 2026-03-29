@@ -17,7 +17,7 @@ const DATA = {
       description:'La saga légendaire qui traverse les générations. Los Santos ne sera plus jamais le même.',
       image:'images/flashlogo.webp', banner:FB,
       characters:[
-        { id:'david-flash', name:'David Flash', image:'images/david_flash.jpg', banner:FB,
+        { id:'david-flash', name:'David Flash', image:'images/david_flash.jpg', banner:'images/david_flash.jpg',
           description:'Le fondateur légendaire de la famille Flash. Un homme au passé trouble qui a bâti un empire dans l\'ombre de Los Santos.',
           seasons:{
     'Saison 1':[
