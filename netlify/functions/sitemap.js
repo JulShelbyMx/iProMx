@@ -1,6 +1,6 @@
-const { builder } = require("@netlify/functions");
+// Sitemap dynamique — aucune dépendance externe requise
+// Ajoute tes pages dans le tableau ci-dessous
 
-// === Liste de toutes tes pages (à compléter au fur et à mesure) ===
 const pages = [
   {
     loc: "https://ipromx.netlify.app/",
@@ -14,35 +14,23 @@ const pages = [
     changefreq: "monthly",
     priority: "0.8"
   },
-  // ← Ajoute ici tous tes autres épisodes, pages, saisons...
+  // ← Ajoute ici tes autres épisodes/pages
 ];
 
 const generateSitemap = () => {
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
-
-  pages.forEach(page => {
-    xml += `  <url>
-    <loc>${page.loc}</loc>
-    <lastmod>${page.lastmod}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
-  </url>\n`;
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+  pages.forEach(p => {
+    xml += `  <url>\n    <loc>${p.loc}</loc>\n    <lastmod>${p.lastmod}</lastmod>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>\n`;
   });
-
   xml += `</urlset>`;
   return xml;
 };
 
-exports.handler = builder(async () => {
-  const sitemapXml = generateSitemap();
-
-  return {
-    statusCode: 200,
-    headers: {
-      "Content-Type": "application/xml; charset=utf-8",
-      "Cache-Control": "public, max-age=3600, must-revalidate"  // 1 heure de cache
-    },
-    body: sitemapXml
-  };
+exports.handler = async () => ({
+  statusCode: 200,
+  headers: {
+    "Content-Type": "application/xml; charset=utf-8",
+    "Cache-Control": "public, max-age=3600, must-revalidate"
+  },
+  body: generateSitemap()
 });
