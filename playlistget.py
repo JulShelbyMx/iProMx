@@ -64,7 +64,7 @@ def generate_seasons_text(videos, output_file="seasons_data.txt"):
 
 
 # ==================== CONFIGURATION ====================
-playlist_id = "PLlyNYo3VmFrXagcJ8QhDtNwJU1dSZ9NES"
+playlist_id = "PLIVm-YyjTqSHQ4jB0HLYe0O7TD-2bWvF-"
 
 videos = get_playlist_videos(playlist_id)
 generate_seasons_text(videos, output_file="seasons_data.txt")

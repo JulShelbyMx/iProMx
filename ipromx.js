@@ -496,9 +496,109 @@ const DATA = {
         {num:24,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 2 ! #1 S3',videoId:'ETV4TcSbZos'}
     ]
 }, },
-        { id:'ned-flash', name:'Ned / Eden / Eddy Flash', image:'images/ned_flash.webp', banner:FB,
+        { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/ned_flash.webp', banner:FB,
           description:'Capitaine légendaire qui a libéré le monde de la destruction qui l\'attendait.',
-          hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', seasons:{} },
+          hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', 
+          seasons:{
+    'Saison 1 (Eden)':[
+        {num:1,title:'EDEN FLASH ! LE COMMENCEMENT ! GTA V RP ! by iProMx #1',videoId:'T-ToLtedYSc'},
+        {num:2,title:'L\'EVASION DE EDEN FLASH ?! GTA V RP ! by iProMx #2',videoId:'JpuPf1PYOJI'},
+        {num:3,title:'LA NOUNOU A T-ELLE PERDU AARON ?! GTA V RP ! by iProMx #3',videoId:'a7SE6ryLdLc'},
+        {num:4,title:'NED A FAIT UNE CONNERIE ! GTA V RP ! by iProMx #4',videoId:'BZlewe0rU7A'},
+        {num:5,title:'NED A DEPASSÉ LES LIMITES ! GTA V RP ! by iProMx #5',videoId:'knNfPE6Mj_k'},
+        {num:6,title:'EDEN SE REVEILLE DANS LA CHAMBRE DE .... ! GTA V RP ! by iProMx #6',videoId:'GJyQmJhVOOY'},
+        {num:7,title:'LE TROISIEME VISAGE D\'EDEN FLASH ! GTA V RP ! by iProMx #7',videoId:'pWDWJ9oqZiw'},
+        {num:8,title:'EDEN ET NED, LA LIBERATION DU 3EME FLASH ! GTA V RP ! by iProMx #8',videoId:'H4jVA82wVlk'},
+        {num:9,title:'LA FIN D\'AARON FLASH ! GTA V RP ! by iProMx #9',videoId:'q05HoWuHMaQ'},
+        {num:10,title:'EDEN FLASH VS LE MONDE ! GTA V RP ! by iProMx #10',videoId:'znXWIvR6Pxk'},
+        {num:11,title:'EDEN ET NED CONSOLIDE LES LIENS DE L\'EQUIPE ! GTA V RP ! by iProMx #11',videoId:'MHFFnr4w53U'},
+        {num:12,title:'LA PREPARATION POUR LA TERRE DES FLASH ! GTA V RP ! by iProMx #12',videoId:'UiFyEvfaick'},
+        {num:13,title:'NED A DISPARU ! GTA V RP ! by iProMx #13',videoId:'MnCcbhosqBM'},
+        {num:14,title:'NED VA DIRE LA VERITE A ASHLEY  ! GTA V RP ! by iProMx #14',videoId:'Zp6NbKldav8'},
+        {num:15,title:'L\'EXPERIENCE SCIENTIFIQUE DE EDEN ! GTA V RP ! by iProMx #15',videoId:'gJHNJAzXmYI'},
+        {num:16,title:'LA COMPETITION POUR LA TERRE DES FLASH COMMENCE ! PARTIE 1 ! GTA V RP ! by iProMx #16',videoId:'HEjg3hA00Sk'},
+        {num:17,title:'LA COMPETITION POUR LA TERRE DES FLASH COMMENCE ! PARTIE 2 ! GTA V RP ! by iProMx #16',videoId:'R4DoGoSUWWU'}
+ ],
+    'Saison 2 (Ned Partie1)':[
+        {num:18,title:'NED FLASH, LA NOUVELLE FAMILLE ! GTA V RP ! by iProMx S2 #1',videoId:'sbg2qvwNtww'},
+        {num:19,title:'LE PREMIER DATE DE NED FLASH ! GTA V RP ! by iProMx S2 #2',videoId:'yF1a5026zXA'},
+        {num:20,title:'L\'ALLIANCE ENTRE NED ET ADRIAN ! GTA V RP  ! by iProMx S2 #3',videoId:'4tAsma6BW7k'},
+        {num:21,title:'NED FLASH, LA PUISSANCE DU DRAGON ! GTA V RP ! by iProMx S2 #4',videoId:'GGtp5HoJ_WY'},
+        {num:22,title:'NED FLASH DECLENCHE UNE GUERRE ! GTA V RP ! by iProMx S2 #5',videoId:'PB2mNgoTA9Y'},
+        {num:23,title:'LE RETOUR D\'AARON FLASH !? GTA V RP ! by iProMx S2 #6',videoId:'Bqnsn6HVTIo'},
+        {num:24,title:'PARTIE 1 ! NED FLASH, ENTRE L\'AMOUR ET LA HAINE ! GTA V RP ! by iProMx S2 #7',videoId:'upnmDXuU7S8'},
+        {num:25,title:'PARTIE 2 ! NED FLASH, ENTRE L\'AMOUR ET LA HAINE ! GTA V RP ! by iProMx S2 #7',videoId:'X3wj8Io_Y-I'},
+        {num:26,title:'PARTIE 3 ! NED FLASH, ENTRE L\'AMOUR ET LA HAINE ! GTA 5 RP ! by iProMx S2 #7',videoId:'ltYOBHgzEVM'},
+        {num:27,title:'PARTIE 1 - LA CAVALE DE NED FLASH ! GTA V RP ! by iProMx S2 #8',videoId:'o53BQksbvE8'},
+        {num:28,title:'PARTIE 2 - LA CAVALE DE NED FLASH ! GTA V RP ! by iProMx S2 #8',videoId:'7CsJ5Xfn6po'},
+        {num:29,title:'LA VENGEANCE DE NED FLASH ! GTA V RP ! by iProMx S2 #9',videoId:'eITqh2PI_TY'},
+        {num:30,title:'NED FLASH EN CAVALE AVEC 150 MILLIONS SUR LA TÊTE ! GTA V RP ! by iProMx S2 #10',videoId:'jJB1IkyMtWQ'},
+        {num:31, title:'NED FLASH, LE RETOUR DES POUVOIRS, 200 MILLIONS DE PRIME MORT OU VIF ! GTA V RP ! by iProMx S2 #11.mp4', megaUrl:'https://mega.nz/embed/IDlAUBjT#vUpIjcJmRufQUTEbY4SI5Rfn9wk0bzIL8FHvlY33j2o', thumb:'images/ned_ep11.png' },
+        {num:32,title:'INTEGRALE - LA VENGEANCE DE NED FLASH ! GTA V RP ! by iProMx S2 #12',videoId:'mYseAdImUNc'},
+        {num:33,title:'LA PUNITION D\'ADRIAN FLASH ! GTA V RP ! by iProMx  S2 #13',videoId:'NDcPxNZd_XE'},
+        {num:34,title:'NED FLASH SEUL CONTRE LE MUR  ! GTA V RP ! by iProMx S2 #14',videoId:'2ngPOKhiT0k'},
+        {num:35,title:'NED A FAIT UNE CONNERIE AVEC AVA ! GTA V RP ! by iProMx #15 S2',videoId:'lrKnB5ZL7LM'},
+        {num:36,title:'NED VA T-IL SURVIVRE CONTRE ADRIAN ?! GTA V RP ! by iProMx #16 S2',videoId:'1xqYUKBDocM'},
+        {num:37,title:'NED FLASH RENCONTRE .... ! GTA V RP ! by iProMx #17 S2',videoId:'528x5qSEhXA'},
+        {num:38,title:'LA FIN DE NED FLASH !? GTA V RP ! by iProMx #18 S2',videoId:'5krScKgCwps'},
+        {num:39,title:'NED FLASH DANS UN NOUVEAU MONDE ?! GTA V RP ! by iProMx #19 S2',videoId:'04F7DezzIEU'},
+        {num:40,title:'NED FLASH, LE MONDE A L\'ENVERS ! GTA V RP ! by iProMx #20 S2',videoId:'1v3kiyxO0Ek'},
+        {num:41,title:'NED FLASH EST DEVENU EXTRÊMEMENT PUISSANT ! GTA V RP ! by iProMx #21 S2',videoId:'heGChcFMaoI'},
+        {num:42,title:'NED ET JUNE UN NOUVEAU COUPLE ?! GTA V RP by IProMx #22 S2',videoId:'RSljUOn_MY8'},
+        {num:43,title:'NED VS AARON, LE COMBAT ULTIME ! by iProMx #23 S2',videoId:'ADD1YJtMHuE'},
+        {num:44,title:'AARON VS EDDY : LE COMBAT ! GTA V RP ! by iProMx #24 S2',videoId:'XjJcDbFux1w'}
+    ],
+    'Saison 3 (Ned Partie2)':[
+        {num:45,title:'LA FIN DE MANDA FLASH ET LE RETOUR DE NED ?! by iProMx #1',videoId:'hs-NTLrWWqQ'},
+        {num:46,title:'LA FOLIE DE NED FLASH PREND LE DESSUS ! GTA V RP ! by iProMx #2',videoId:'4YEHDw4uMvQ'},
+        {num:47,title:'NED SEUL CONTRE TOUS ! GTA V RP ! by iProMx #3',videoId:'vt3smQYAUmA'},
+        {num:48,title:'NED FLASH, C\'EST LA GUERRE ! GTA V RP ! by iProMx #4',videoId:'YSnYCryerxI'},
+        {num:49,title:'LA TOMBE DE NED FLASH ! GTA V RP ! by iProMx #5',videoId:'bb3WTIPVcM8'},
+        {num:50,title:'LE JOUR J ! EPREUVE LABYRINTHE ! GTA V RP ! by iProMx #6',videoId:'joUdGooocds'},
+        {num:51,title:'L\'EVASION DE NED FLASH ! GTA V RP ! by iProMx #7',videoId:'6BvOSzBG648'},
+        {num:52,title:'NED PRIME DE RETOUR ! GTA V RP ! by iProMx #8',videoId:'j-40QZ_mIO8'},
+        {num:53,title:'NED TOURNE LA PAGE ! GTA V RP ! by iProMx #9',videoId:'mkxkyNO0iuw'},
+        {num:54,title:'L\'EPREUVE DU LABYRITHE ! GTA V RP ! by iProMx #10',videoId:'MJ_LunVlsX4'},
+        {num:55,title:'LA VRAIE EVASION DE NED ! GTA V RP ! by iProMx #11',videoId:'QLtCGrRwNqo'},
+        {num:56,title:'NED PART A LA RECHERCHE DE LA VRAIE SIRENE ! GTA V RP ! by iProMx #12',videoId:'9teqh1t2IYA'},
+        {num:57,title:'NED A FAIT UNE GROSSE BETISE ! GTA V RP ! by iProMx #13',videoId:'XfuoAs5Nhr0'},
+        {num:58,title:'LA MARIAGE DE NED ET DE LA REINE DES SIRENES ! GTA V RP ! by iProMx #14',videoId:'oXGuhlJ34IE'},
+        {num:59,title:'NED FLASH, LE ROI DE L\'OCEAN ! GTA V RP ! by iProMx #15',videoId:'cjLcN4yZxUM'},
+        {num:60,title:'NED FLASH A ENCORE DES PROBLEMES ! GTA V RP ! by iProMx #16',videoId:'9qUF6LI_MyI'},
+        {num:61,title:'EDDY ? TU ES LA ?! GTA V RP ! by iProMx #17',videoId:'sgZ9OroeCTo'},
+        {num:62,title:'CASSIE ME DETESTE ! GTA V RP ! by iProMx #18',videoId:'nmJFJbcRaQk'},
+        {num:63,title:'NED FLASH VS LE MONSTRE ! GTA V RP ! by iProMx #19',videoId:'n-OR7w4Te2o'},
+        {num:64,title:'NED FLASH ET LES POUVOIRS DE LA TACHE ! GTA V RP ! by iProMx #20',videoId:'HI-XqhQ3o7s'},
+        {num:65,title:'NED FLASH x KAYTON FLASH ! GTA V RP ! by iProMx #21',videoId:'DgPV2m2T98M'},
+        {num:66,title:'NED A FAIT LA CHOSE AVEC JADE MAIS... ! GTA V RP ! by iProMx #22',videoId:'uE2h03_3AuM'},
+        {num:67,title:'NED FLASH EST ENCORE DANS DES PROBLÈMES ! GTA V RP ! by iProMx #23',videoId:'bFPvXCSphZI'}
+    ],
+    'Saison 4 (Ned Partie3)':[
+        {num:68,title:'LA VIE APRÈS LA MORT ! GTA V RP ! by iProMx #1',videoId:'7QVDTzxf11Q'},
+        {num:69,title:'QUI SUIS-JE ?! GTA V RP ! by iProMx #2',videoId:'kR_ROHHCtDM'},
+        {num:70,title:'CODY A FAIT UNE CONNERIE ! GTA V RP ! by iProMx #3',videoId:'0bksrTrNajc'},
+        {num:71,title:'VIVRE OU MOURRIR ?! GTA V RP ! by iProMx #4',videoId:'0Z3PmCVGUkM'},
+        {num:72,title:'EN QUÊTE DE RÉPONSE ! EST-CE QUE TOUT EST RÉEL ?! GTA V RP ! by iProMx #5',videoId:'nOUeJWZWuyQ'},
+        {num:73,title:'LE JOUR J ! QU\'ALLONS-NOUS DÉCOUVRIR ?! GTA V RP ! by iProMx #6',videoId:'7WniFutiFBg'},
+        {num:74,title:'LE BAL DE FIN D\'ANNÉE ! GTA V RP ! by iProMx #7',videoId:'Jv4a7gZor4I'},
+        {num:75,title:'QUE SE PASSE T-IL ？QUE SUIS-JE ?! GTA V RP ! by iProMx #8',videoId:'1JpMyneuvfI'},
+        {num:76,title:'QUE VA-T-IL NOUS ARRIVER CE SOIR ？! GTA V RP ! by iProMx #9',videoId:'2GQWJmtyfzE'},
+        {num:77,title:'ON EST DANS LE MAL ! GTA V RP ! by iProMx #10',videoId:'26FtV9a0Ips'},
+        {num:78,title:'CONQUETE SUR WORLD OF WARSHIPS  ! SUITE AVEC CODY ! GTA V RP ! by iProMx #11',videoId:'TTKKJ9wsCvU'},
+        {num:79,title:'LA CONQUETE DU CLAN DES MERS SUR WORLD OF WARSHIPS ! LA SUITE AVEC CODY !  GTA V RP ! by iProMx #12',videoId:'2sZudL9vCTw'},
+        {num:80,title:'LA DÉCOUVERTE D\'UN LOURD SECRET ! GTA V RP ! by iProMx #13',videoId:'Mqbn94rpY3s'},
+        {num:81,title:'ENFIN LIBRE CE SOIR ?! GTA V RP ! by iProMx #14',videoId:'Drwm5gns-xE'},
+        {num:82,title:'LE RETOUR ! GTA V RP ! by iProMx #15',videoId:'LAss4Be8NTY'},
+        {num:83,title:'NED FLASH DE RETOUR ?! GTA V RP ! by iProMx #16',videoId:'I1AUvTghm2k'},
+        {num:84,title:'LA MENACE EST DE PLUS EN PLUS GRANDE ! GTA V RP ! by iProMx #17',videoId:'1FRgs1X0fds'},
+        {num:85,title:'SUIS-JE MORT ? LA TERRE EST SAUVÉE ?! GTA V RP ! by iProMx #18',videoId:'G_-ld7wWXyU'},
+        {num:86,title:'LE VRAI RETOUR DE NED FLASH ! GTA V RP ! by iProMx #19',videoId:'G_Y6VR244lc'},
+        {num:87,title:'OUVERTURE DE LA PORTE FINAL DU CERBERE ! ARC DE FIN ! GTA V RP ! by iProMx #20',videoId:'jaYxLESmhgE'},
+        {num:88,title:'LA FIN ! GTA V RP ! by iProMx #21',videoId:'rOykw1zHNc0'},
+        {num:89,title:'Adrian vs Ned - Au coeur des ténèbres [Le Film]',videoId:'sReaGjD0op4'}
+    ]
+  }, },
+
         { id:'manda-flash', name:'Manda Flash', image:'images/manda_flash.webp', banner:FB,
           description:'La protectrice féroce. Mère, sœur, guerrière.',
           seasons:{
@@ -526,7 +626,7 @@ const DATA = {
         {num:19,title:'MANDA EST AU PLUS MAL ! GTA V RP ! by iProMx S2 #7',videoId:'8DSdty7XBDM'}
     ]
 }, },
-          { id:'zayn-flash', name:'Zayn Flash', image:'images/zayn_flash.webp', banner:FB,
+          { id:'zayn-flash', name:'Zayn Flash', image:'images/zayn_flash.png', banner:'images/zayn_flash.png',
           description:'Ok', 
           seasons:{
     'Saison 1':[
@@ -566,11 +666,48 @@ const DATA = {
     shade: {
       id:'shade', name:'Famille Shade', color:'#9b59b6',
       description:'Mystère et ombres. Ses lois sont gravées dans le sang.',
-      image:'images/shade-universe.jpg', banner:'images/shade-banner.jpg',
+      image:'images/sylvester_shade.png', banner:'images/sylvester_shade.png',
       characters:[
-        { id:'sylvester-shade', name:'Sylvester (Silver) Shade', image:'images/sylvester_shade.jpg', banner:'images/shade-banner.jpg',
+        { id:'sylvester-shade', name:'Sylvester Shade', image:'images/sylvester_shade.webp', banner:'images/sylvester_shade.webp',
           description:'L\'ombre insaisissable. Maître du mystère, il règne sur un empire de secrets. Personne ne transgresse ses lois impunément.',
-          hasLawBook:true, lawBookImages:['images/shade-law-1.webp','images/shade-law-2.webp','images/shade-law-3.webp'], seasons:{} }
+          hasLawBook:true, lawBookImages:['images/shade-law-1.webp','images/shade-law-2.webp','images/shade-law-3.webp'], 
+          seasons:{
+    'Saison 1':[
+        {num:1,title:'LE COMMENCEMENT ! LA FAMILLE SHADE ! GTA V RP ! by iProMx S1 #1',videoId:'R-5W88CwVZU'},
+        {num:2,title:'DE LA MANIPULATION A L\'ANEANTISSEMENT DES FLASH ! GTA V RP ! by iProMx #2 S1',videoId:'32zOZYmsTWY'},
+        {num:3,title:'HOMMAGE A NED FLASH ! UNE DERNIERE FOIS ! GTA V RP ! by iProMx #3',videoId:'Bbl9FOUQxG4'},
+        {num:4,title:'ATTAQUE DE L\'ILE DE NED FLASH ! GTA V RP ! by iProMx #4',videoId:'-BtsSS4xATg'},
+        {num:5,title:'SYLVERTER APPREND DES NOUVEAUX POUVOIRS ! GTA V RP ! by iProMx #5',videoId:'XvQ9yDLvjls'},
+        {num:6,title:'SILVER DECHIRE L\'OMBRE : LA FAILLITE DU SCEAU ! GTA V RP ! by iProMx #6',videoId:'whThMOkWjiQ'},
+        {num:7,title:'LA MARIAGE DE SILVER ET JUNE + DATE AVEC EZRA FLASH ! GTA V RP ! by iProMx #7',videoId:'IQN0FY1qwz4'},
+        {num:8,title:'SYLVESTER SHADE FACE AUX FILLES DE KAYTON ! GTA V RP ! by iProMx #8',videoId:'231al__2YLg'},
+        {num:9,title:'LE SACRIFICE DE SILVER ?! GTA V RP ! by iProMx #9',videoId:'AjxK4i4Qqxo'},
+        {num:10,title:'LA CAPTURE D\'UN FLASH ! GTA V RP ! by iProMx #10',videoId:'Vvn5StQfm7Q'},
+        {num:11,title:'SYLVESTER SHADE A TOUT PERDU ! GTA V RP ! by iProMx #11',videoId:'kmdnL6rZT34'},
+        {num:12,title:'UNE SOIRÉE ÉTRANGE ET LE BAL AVEC ERZA FLASH ! GTA V RP ! by iProMx #12',videoId:'CA-bgJrFR74'},
+        {num:13,title:'ERZA FLASH ÉLIMINÉE, SILVER EST EN DANGER ! GTA V RP ! by iProMx #13',videoId:'fUVJu6oj57E'},
+        {num:14,title:'UN POUVOIR INCONNU : SILVER DOMINE LA MORT ! GTA V RP ! by iProMx #14',videoId:'PK3hPrjn6v8'},
+        {num:15,title:'SILVER VS LA MORT : LA FIN CE SOIR ?! GTA V RP ! by iProMx #15',videoId:'zhdieriLVYM'},
+        {num:16,title:'SYLVESTER SHADE : LE NOUVEAU GARDIEN DE LA MORT ?! GTA V RP ! by iProMx #16',videoId:'73PEy-FCGJo'},
+        {num:17,title:'SILVER A FAIT UNE ÉNORME CONNERIE ! GTA V RP ! by iProMx #17',videoId:'fA5neA8yN3w'},
+        {num:18,title:'SILVER DOIT RETROUVER NED FLASH ! GTA V RP ! by iProMx #18',videoId:'kFJZDDGxF-Q'},
+        {num:19,title:'A LA RECHERCHE DE NED ET LE BASSILIC ! GTA V RP ! by iProMx #19',videoId:'6NGpKRdL7k4'},
+        {num:20,title:'LE DIVORCE DE SILVER ET JUNE ! GTA V RP ! by iProMx #20',videoId:'nLfZxgzJOMU'},
+        {num:21,title:'TOUTE LA VÉRITÉ QU’ON VOUS CACHE SUR SILVER, ELIO ET NED FLASH ! GTA V RP ! by iProMx #21',videoId:'One0u2y8JCw'},
+        {num:22,title:'RETOUR DANS LA TOMBE DE NED POUR RETROUVER FREDDY ! GTA V RP ! by iProMx #22',videoId:'pZgL2BHqeiQ'},
+        {num:23,title:'LE DEBUT DE LA FIN ! GTA V RP ! by iProMx #23',videoId:'bk0VWJwsixI'},
+        {num:24,title:'EXPLORATION DU TERRITOIRE INTERDIT ! GTA V RP ! by iProMx #24',videoId:'NJL0ceDDVIk'},
+        {num:25,title:'L\'ULTIME COMBAT CONTRE L\'HUMANITÉ ! GTA V RP ! by iProMx #25',videoId:'zuOp-17egb8'},
+        {num:26,title:'LA RENCONTRE AVEC ADRIAN ! GTA V RP ! by iProMx #26',videoId:'8mnOU5cwlNs'},
+        {num:27,title:'PIÉGÉ DANS LA PRISON DES MORTS D’ADRIAN ! GTA V RP ! by iProMx #27',videoId:'tgei0KLog_4'},
+        {num:28,title:'GTA 5 RP - Debrief Jake Winters + On donne des scènes à Fantastic !',videoId:'vWXHaMMqgrc'},
+        {num:29,title:'GTA 5 RP - Ce soir on passe a l\'action ! part 1',videoId:'1rgcqMFk7XA'},
+        {num:30,title:'GTA 5 RP - Ce soir on passe a l\'action ! part 2',videoId:'QQ92Vix-ZPc'},
+        {num:31,title:'GTA 5 RP - Ce soir, on doit le capturer !',videoId:'guIPmULAhKs'},
+        {num:32,title:'GTA 5 RP – Le Grand jour : Le Labyrinthe !',videoId:'MPbC8HGh_-0'},
+        {num:33,title:'LE RETOUR DE IPROMX ?!',videoId:'pHE7l20tHMU'}
+    ]
+}, }
       ]
     },
     winters: {
@@ -578,7 +715,7 @@ const DATA = {
       description:'Froids comme l\'hiver. Impitoyables en affaires.',
       image:'images/winters-universe.jpg', banner:'images/winters-banner.jpg',
       characters:[
-        { id:'jake-winters', name:'Jake Winters', image:'images/jake_winters.jpg', banner:'images/winters-banner.jpg',
+        { id:'jake-winters', name:'Jake Winters', image:'images/jake_winters.png', banner:'images/jake_winters.png',
           description:'Le second fidèle et brutal.', 
           seasons:{
     'Saison 1':[
@@ -687,7 +824,7 @@ const DATA = {
         {num:99,title:'GTA 5 RP - Jake x Tom : La Rencontre avec Mon Père ! [Fin]',videoId:'r7Rq1RCInqQ'}
     ]
 }, },
-        { id:'oliver-winters', name:'Oliver Winters', image:'images/oliver_winters.jpg', banner:'images/winters-banner.jpg',
+        { id:'oliver-winters', name:'Oliver Winters', image:'images/oliver_winters.png', banner:'images/oliver_winters.png',
           description:'Le leader froid et calculateur.', 
           seasons:{
     'Saison 1':[
@@ -842,18 +979,301 @@ const DATA = {
     escobar: {
       id:'escobar', name:'Escobar', color:'#e67e22',
       description:'L\'empire du cartel. Un homme, une légende, une menace.',
-      image:'images/tom_escobar1.webp', banner:'images/tom_escobar1.webp',
+      image:'images/tom_escobar.png', banner:'images/tom_escobar.png',
       characters:[
-        { id:'tom-escobar', name:'Tom Escobar', image:'images/tom_escobar1.webp', banner:'images/tom_escobar1.webp',
-          description:'Le chef incontesté du cartel. Redoutable, stratège, imprévisible.', seasons:{} }
+        { id:'tom-escobar', name:'Tom Escobar', image:'images/tom_escobar.png', banner:'images/tom_escobar.png',
+          description:'Le chef incontesté du cartel. Redoutable, stratège, imprévisible.', 
+          seasons:{
+    'Saison 1':[
+        {num:1,title:'JE ME TRANSFORME EN ENFANT DE 7 ANS ET ROULE DANS UNE LAMBORGHINI DEVANT UN FLIC ! GTAV RP MOD #1',videoId:'TQC_pXz-_YY'},
+        {num:2,title:'UN GAMIN DE 7 ANS PAYE 3 MILLIONS DE DOLLARS POUR ENTRER DANS UNE BOÎTE DE NUIT ! GTAV RP MOD #2',videoId:'Oeut24vtKKw'},
+        {num:3,title:'JE M\'INFILTRE AU COMMISSARIAT AVEC LE GAMIN POUR RÉCUPÉRER MA LAMBORGHINI ! GTAV RP MOD #3',videoId:'eaysqD3HIko'},
+        {num:4,title:'UN GAMIN DE 7 ANS BRAQUE UNE BANQUE AVEC UNE BANANE ! GTAV RP MOD #4',videoId:'f0DYxH3F-1w'},
+        {num:5,title:'UN GAMIN DE 7 ANS TRAFIQUANT D\'ARMES ! GTAV RP MOD #5',videoId:'GDhVfuaXO68'},
+        {num:6,title:'UN GAMIN DE 7 ANS RECHERCHÉ PAR TOUTE LA POLICE ! GTAV RP MOD #6',videoId:'GmGd_ZZe-uA'},
+        {num:7,title:'UN GAMIN DE 7 ANS  KIDNAPPE SA BELLE MÈRE ! GTAV RP MOD #7',videoId:'4pK12uVWSFI'},
+        {num:8,title:'UN GAMIN DE 7 ANS DEVIENT POLICIER ET ARRÊTE DES CRIMINELS ! GTAV RP MOD #8',videoId:'LeKOiCu0cak'},
+        {num:9,title:'UN GAMIN DE 7 ANS SE FAIT KIDNAPPER PAR DES BANDITS ! GTAV RP MOD #9',videoId:'snC4AOfXDn0'},
+        {num:10,title:'UN GAMIN DE 7 ANS SURPREND SA BELLE MÈRE QUI TROMPE SON PÈRE ! GTAV RP MOD #10',videoId:'z0GUWMqIs-E'},
+        {num:11,title:'UN GAMIN DE 7 ANS DÉFONCE SA BELLE MÈRE ! GTAV RP MOD #11',videoId:'ljh8ghN1eyw'},
+        {num:12,title:'LA POLICE VEUT LA DÉMISSION DU PRÉSIDENT A CAUSE DE SON FILS - GTAV RP MOD #12',videoId:'D5S0RqPVKNc'},
+        {num:13,title:'UN GAMIN DE 7 ANS DEVIENT GANGSTER POUR SE VENGER DE SA BELLE MÈRE ! GTAV RP MOD #13',videoId:'fCOL9OyZn68'},
+        {num:14,title:'UN GAMIN DE 7 ANS POURSUIVI PAR 10 POLICIERS ! GTAV RP MOD #14',videoId:'ijllR-pSeTQ'},
+        {num:15,title:'UN GAMIN DE 7 ANS KIDNAPPE UN VIEUX DE 70 ANS ! GTAV RP MOD',videoId:'D0ipG53DNHE'},
+        {num:16,title:'UN GAMIN DE 7 ANS VEND LES VOITURES DE SON PÈRE A 3 MILLIONS DE DOLLARS ! GTAV RP MOD #16',videoId:'tzFak_CLaOc'},
+        {num:17,title:'UN GAMIN DE 7 ANS TOMBE AMOUREUX D\'UNE INFIRMIÈRE D’ÉCOLE ! GTAV RP MOD #17',videoId:'RlUuxpzBgYg'},
+        {num:18,title:'UN GAMIN DE 7 ANS EN PRISON ? GTAV RP MOD #18',videoId:'U-y8nxYlk-8'},
+        {num:19,title:'TOM ESCOBAR FAIT SON PREMIER MEURTRE ! GTAV RP MOD #19',videoId:'q0QcNdrPizI'},
+        {num:20,title:'UN GAMIN DE 7 ANS RETOURNE TOUTE LA VILLE ! GTAV RP MOD #20',videoId:'7Xj0kC41rA4'},
+        {num:21,title:'UN GAMIN DE 7 ANS ÉLIMINE SA BELLE MÈRE ! GTAV RP MOD #21',videoId:'CtO_rzy4Vp4'},
+        {num:22,title:'UN GAMIN DE 7 ANS GÉNIE DU MAL ! GTAV RP MOD #22',videoId:'q2pnLqYuW7g'},
+        {num:23,title:'UN GAMIN DE 7 ANS FAIT DU BOUCHE A BOUCHE A L’INFIRMIÈRE DE L\'ECOLE ! GTAV RP MOD #23',videoId:'R0Rai1R0PQU'},
+        {num:24,title:'UN GAMIN DE 7 ANS DÉFONCE UN LYCÉEN ! GTAV RP MOD #24',videoId:'a6bETxaIVVE'},
+        {num:25,title:'UN GAMIN DE 7 ANS S’ÉVADE DU LYCÉE AVEC SA NOUVELLE COPINE ! GTAV RP MOD #25',videoId:'xRuPEqiOgNA'},
+        {num:26,title:'UN GAMIN DÉBARQUE AU LYCÉE AVEC 2 DANSEUSES DE BOÎTE DE NUIT ! GTAV RP MOD #26',videoId:'K5qhBDjnG7w'},
+        {num:27,title:'UN GAMIN DE 7 ANS TUE LE PÈRE D\'UN ÉLÈVE ! GTAV RP MOD #27',videoId:'yejT1_G-lvU'},
+        {num:28,title:'UN GAMIN DE 7 ANS DÉFONCE UN PROF D’ÉCOLE ! GTAV RP MOD #28',videoId:'ByY_QPMP4vA'},
+        {num:29,title:'UN GAMIN DE 7 ANS TUE SA CAVALIÈRE DU BAL PROMO ! GTAV RP MOD #29',videoId:'z_hd6qE_QpQ'},
+        {num:30,title:'UN GAMIN DE 7 ANS MOMIFIE LE CORPS DE SA VICTIME ! GTAV RP MOD #30',videoId:'eytyV8fcKY0'},
+        {num:31,title:'UN GAMIN DE 7 ANS MILLIONNAIRE RISQUE D’ÊTRE PAUVRE ! GTAV RP MOD #31',videoId:'fmMvQKjOtT8'},
+        {num:32,title:'UN GAMIN DE 7 ANS SAUVE SA COPINE DE 10 ANS ! LE DIRECTEUR VEUT NOUS TUER ! GTAV RP MOD #32',videoId:'pPn3y1Y33qk'},
+        {num:33,title:'UN GAMIN DE 7 ANS DÉTRUIT TOUTE LA VILLE AVEC UN ROBOT INVINCIBLE ! GTAV RP MOD #33',videoId:'7tnBa0qzRAk'},
+        {num:34,title:'UN GAMIN DE 7 ANS CONTRÔLE TOUTE LA VILLE ! GTAV RP #34',videoId:'9nqF26PwVbo'},
+        {num:35,title:'UN GAMIN DE 7 ANS HACK TOUTE LA VILLE ! GTAV RP MOD #35',videoId:'dbY2D6lF-YE'},
+        {num:36,title:'UN GAMIN DE 7 ANS SAUVE SON PAPA D\'UNE SECRÉTAIRE TUEUSE ! GTAV RP MOD #36',videoId:'Hf8V__WB_jg'},
+        {num:37,title:'UN GAMIN DE 7 ANS DÉTRUIT LA MAZE BANK ! GTAV RP MOD #37',videoId:'RgQnUxR6aUs'},
+        {num:38,title:'UN GAMIN DE 7 ANS TRANSFORME UNE FEMME EN ROBOT ! GTAV RP MOD #38',videoId:'EtgLaBbjc5s'},
+        {num:39,title:'UN GAMIN DEMANDE 1 MILLIARD DE DOLLARS OU DESTRUCTION DE LA VILLE ! GTAV RP MOD #39',videoId:'TcDXJj1qmmc'},
+        {num:40,title:'UN GAMIN DE 7 ANS NOUVEAU PRÉSIDENT DE LA VILLE ! GTAV RP MOD #40',videoId:'bmjmoHmhHwc'},
+        {num:41,title:'UN GAMIN DE 7 ANS CONTRÔLE TOUTE LA POLICE ! GTAV RP MOD #41',videoId:'KipXFywgZ3g'},
+        {num:42,title:'UN GAMIN SURPREND SON PÈRE A EMBRASSER LA VICE PRÉSIDENTE ! GTAV RP MOD #42',videoId:'R-gQp7F499Y'},
+        {num:43,title:'UN GAMIN BRAQUE TOUTES LES BANQUES AVEC UNE VOITURE TÉLÉCOMMANDÉ ! GTAV RP MOD #43',videoId:'-PiZ3b8wV5s'},
+        {num:44,title:'UN GAMIN DE 12 ANS VOLEUR PROFESSIONNEL ! GTAV RP MOD #1',videoId:'yhPXodchAgI'},
+        {num:45,title:'UN GAMIN DE 12 ANS CAMBRIOLE DES MAISONS ! GTAV RP MOD #2',videoId:'xOkem9Tr6eU'},
+        {num:46,title:'UN GAMIN DE 12 ANS CAMBRIOLE LA MAISON DE TOM CA TOURNE MAL ! GTAV RP MOD #3',videoId:'-9Y_a0dBDvU'},
+        {num:47,title:'DEUX GAMINS FONT DU SALE A LA VICE PRÉSIDENTE ! GTAV RP MOD #4',videoId:'X33PbwgZdjs'},
+        {num:48,title:'UN GAMIN DE 7 ANS GÂCHE LE MARIAGE DU PRÉSIDENT ! GTAV RP MOD #44',videoId:'BI2Ah_B7lYk'},
+        {num:49,title:'UN GAMIN DE 7 ANS VOLE LA FORMULE 1 DE SON PÈRE ! GTAV RP MOD #45',videoId:'jBRC7-kqAW8'},
+        {num:50,title:'UN GAMIN DE 7 ANS JETTE SA BELLE MÈRE AU REQUINS ! GTAV RP MOD #46',videoId:'UH9DFWeKg8A'},
+        {num:51,title:'UN GAMIN DE 7 ANS PECHO TOUTE LES FEMMES DE LA VILLE ! GTAV RP MOD #47',videoId:'FhAke-pbL84'},
+        {num:52,title:'UN GAMIN DE 7 ANS BRAQUE DES CIVILS AVEC UN PISTOLET LASER ! GTAV RP MOD #48',videoId:'jsKtg5CO_-Q'},
+        {num:53,title:'UN GAMIN DE 7 ANS  DÉTRUIT LA VILLE AVEC UN LASER ULTRA PUISSANT ! GTAV RP MOD #49',videoId:'fugCwIX6uHc'},
+        {num:54,title:'UN GAMIN DE 7 ANS FAIT DU SALE A LA LIEUTENANTE DANS LA VOITURE ! GTAV RP MOD #50',videoId:'_ASW1WlckTs'},
+        {num:55,title:'UN GAMIN DE 7 ANS SE BAT CONTRE SON DIRECTEUR ! GTAV RP MOD #51',videoId:'SqoGWKrNYEI'},
+        {num:56,title:'UN GAMIN DE 7 ANS PLANTE DE LA WEED A LA MAISON BLANCHE ! GTAV RP MOD #52',videoId:'S0BELd0jIyo'},
+        {num:57,title:'UN GAMIN DE 7 ANS DROGUE LA LIEUTENANTE ! GTAV RP MOD #53',videoId:'qkqyuDtpMH4'},
+        {num:58,title:'LA POLICE DÉCOUVRE LE TRAFIC DE WEED A LA MAISON BLANCHE ! GTAV RP MOD #54',videoId:'fMCAeWiumLM'},
+        {num:59,title:'UN GAMIN DE 7 ANS ACHÈTE DISNEYLAND A 300 000 000$ ! GTAV RP MOD #55',videoId:'1jjjIG0cS9Y'},
+        {num:60,title:'UN GAMIN DE 7 ANS ACHÈTE TOUTES LES VOITURES DE LUXE POUR SON ANNIVERSAIRE ! GTAV RP MOD #56',videoId:'pnQ-rqeh4Lw'},
+        {num:61,title:'UN GAMIN DE 7 ANS SE FAIT RÉTRÉCIR A 5 CENTIMÈTRES ! GTAV RP MOD #57',videoId:'U9huzYetF2Y'},
+        {num:62,title:'UN GAMIN DE 7 ANS SE FAIT KIDNAPPER PAR SON DIRECTEUR ! GTAV RP MOD #58',videoId:'eSnjHwfZKyk'},
+        {num:63,title:'UN GAMIN DE 7 ANS FAIT DU SALE A UNE MEUF MAGNIFIQUE ! GTAV RP MOD #59',videoId:'ZqcqkFUy7KY'},
+        {num:64,title:'UN GAMIN DE 7 ANS DÉTRUIT L\'ECOLE ! GTAV RP MOD #60',videoId:'M83QS5S77q0'},
+        {num:65,title:'UN GAMIN DE 7 ANS NOUVEAU DIRECTEUR DE L\'ECOLE ! GTAV MOD #61',videoId:'uEC_pZvvFes'},
+        {num:66,title:'UN GAMIN DE 7 ANS VOLE LES CLEFS D\'UN PASSAGE SECRET DANS L\'ECOLE ! GTAV RP MOD #62',videoId:'nr3LHgM8i_Q'},
+        {num:67,title:'UN GAMIN DE 7 ANS PREND UNE DOUCHE AVEC UNE ETUDIANTE ! GTAV RP MOD #63',videoId:'IjGa8XhAu3E'},
+        {num:68,title:'UN GAMIN DE 7 ANS CRÉE UNE TORNADE GÉANTE A L\'ECOLE ! GTAV RP MOD #64',videoId:'TQIU7JEfW_Q'},
+        {num:69,title:'UN GAMIN DE 7 ANS FOU LE GROS BORDEL A L\'ECOLE ! ALERTE ROUGE ! GTAV RP MOD #65',videoId:'ncGECxZifYo'},
+        {num:70,title:'UN GAMIN DE 7 ANS ENFERME LE DIRECTEUR DANS UNE CAGE ! GTAV RP MOD #66',videoId:'7M10ecZliBw'},
+        {num:71,title:'UN GAMIN DE 7 ANS SE TRANSFORME EN DIRECTEUR ET CONTRÔLE L\'ECOLE ! GTAV RP MOD #67',videoId:'K55PXUVOAdU'},
+        {num:72,title:'TOM ESCOBAR ! LA VÉRITÉ ! TRAILER OFFICIEL',videoId:'HSPAJ6SvVgg'},
+        {num:73,title:'TOM ESCOBAR LE FILM OFFICIEL ! LA VÉRITÉ !',videoId:'gH5Eioo6FBk'},
+        {num:74,title:'UN GAMIN DE 7 ANS ENFERME DES ÉLÈVES DANS UN CASIER ! GTAV RP MOD #68',videoId:'3FLQBfu9rcs'},
+        {num:75,title:'UN GAMIN DE 7 ANS S’ÉVADE DE L\'ECOLE ET ÇA TOURNE MAL ! GTAV RP MOD #69',videoId:'GQP23czihlM'},
+        {num:76,title:'UN GAMIN DE 7 ANS TROUVE ENFIN L\'AMOUR DE SA VIE ! GTAV RP MOD #70',videoId:'_Ste46GQmXQ'},
+        {num:77,title:'UN GAMIN DE 7 ANS ACHÈTE UNE MAISON A 500 000$ POUR SA CHÉRIE ! GTAV RP MOD #71',videoId:'Eb3Q-e8jFzI'},
+        {num:78,title:'UN GAMIN DE 7 ANS ESPIONNE LA BOITE DE STR*P-TE*SE AVEC UN MINI DRONE ! GTAV RP MOD #72',videoId:'OhGOfghLlmE'},
+        {num:79,title:'UN GAMIN DE 7 ANS ACHÈTE UNE BOITE DE NUIT POUR ADULTE +18 ! GTAV RP MOD #73',videoId:'AslZhqaGZlo'},
+        {num:80,title:'UN GAMIN DE 7 ANS PAYE UNE FORTUNE POUR UN SHOW PRIVÉ ! GTAV RP MOD #74',videoId:'tATrTP9FSrE'},
+        {num:81,title:'UN GAMIN DE 7 ANS RECRUTE DES DANSEUSES POUR SA BOITE ! GTAV RP MOD #75',videoId:'ped4yoCuRHA'},
+        {num:82,title:'UN GAMIN DE 7 ANS EMBRASSE UNE FILLE DE 17 ANS ! GTAV RP MOD #76',videoId:'4SSwZV5BoF8'},
+        {num:83,title:'UN GAMIN DE 7 ANS TRAHI SA COPINE AVEC D\'AUTRES FEMMES ! GTAV RP MOD #77',videoId:'vDuDmuWEZgg'},
+        {num:84,title:'UN GAMIN DE 7 ANS RECOUVRE SES DANSEUSES DE PEINTURE ! GTAV RP MOD #78',videoId:'G9urAoL5JxY'},
+        {num:85,title:'UN GAMIN DE 7 ANS VEND DE LA DR*GUE DANS SA BOITE ! GTAV RP MOD #79',videoId:'P7mxD7PQzmw'},
+        {num:86,title:'UN GAMIN DE 7 ANS CONTRÔLE UNE VOITURE DE POLICE A DISTANCE ! GTAV RP MOD #80',videoId:'sO8CCpKorek'},
+        {num:87,title:'UN GAMIN DE 7 ANS MET UNE CAMERA LA OU IL FAUT PAS ! GTAV RP MOD #81',videoId:'gJhqnnG8dF4'},
+        {num:88,title:'UN GAMIN DE 7 ANS SE FIANCE SUR SON NOUVEAU BATEAU DE LUXE ! GTAV RP MOD #82',videoId:'CYpKFQUquy4'},
+        {num:89,title:'UN GAMIN DE 7 ANS MONTRE SON QG D\'AVENGERS A ABDOUL ET SONIC ! GTAV RP MOD #83',videoId:'jIEDTK8qDUw'},
+        {num:90,title:'UN GAMIN DE 7 ANS ATTAQUE LA PLUS GROSSE BANQUE AVEC SES GADGETS ! GTAV RP MOD #84',videoId:'qQ_BhSZBsJ0'},
+        {num:91,title:'UN GAMIN DE 7 ANS REÇOIT UNE MINI LAMBORGHINI ! GTAV RP MOD #85',videoId:'wSrcS4xroo8'},
+        {num:92,title:'UN GAMIN DE 7 ANS BRISE LE COUPLE DE SON PÈRE ! GTAV RP MOD #86',videoId:'qQPycoud3dM'},
+        {num:93,title:'UN GAMIN DE 7 ANS COMPLOTE POUR REMPLACER SA BELLE MÈRE PAR SONIC ! GTAV RP MOD #87',videoId:'12lZHIUl1Rc'},
+        {num:94,title:'UN GAMIN DE 7 ANS RELOOK CETTE FEMME POUR SÉDUIRE SON PÈRE ! GTAV RP MOD #88',videoId:'fAl4zZwmC-M'},
+        {num:95,title:'UN GAMIN DE 7 ANS A T\'IL VRAIMENT OSÉ FAIRE ÇA ?! GTAV RP MOD #89',videoId:'B79lH5vtN1Y'},
+        {num:96,title:'UN GAMIN DE 7 ANS V.S LE STRING DE GUERRE ! GTAV RP MOD #90',videoId:'J5rN40de-I8'},
+        {num:97,title:'UN GAMIN DE 7 ANS FOU LE BORDEL DANS UN QUARTIER DANGEREUX ! GTAV RP MOD #91',videoId:'3V8S19imjrw'},
+        {num:98,title:'UN GAMIN DE 7 ANS S\'INFILTRE DANS LA BASE MILITAIRE AVEC SON MINI DRONE ! GTAV RP MOD #92',videoId:'xjxpxag5M8w'},
+        {num:99,title:'UN GAMIN DE 7 ANS VOLE UN TANK A LA BASE MILITAIRE ! GTAV RP MOD #93',videoId:'PRFAQH6g1Jk'},
+        {num:100,title:'UN GAMIN DE 7 ANS ATTAQUE UN QUARTIER DANGEREUX AVEC UN MINI TANK ! GTAV RP MOD #94',videoId:'Z-w3ZMDDI8U'},
+        {num:101,title:'UN GAMIN DE 7 ANS MORT !? GTAV RP MOD #95',videoId:'1AoP05mb51Q'},
+        {num:102,title:'UN GAMIN DE 7 ANS RÉVÈLE QU\'IL EST AGENT X ! GTAV RP MOD #96',videoId:'U1lzml3yuzg'},
+        {num:103,title:'UN GAMIN DE 7 ANS VEUT 1 MILLIARD DE DOLLARS POUR SON ANNIVERSAIRE ! GTAV RP MOD #97',videoId:'OhA9b9vR4YA'},
+        {num:104,title:'UN GAMIN DE 7 ANS VOLE UN CHARIOT DE LINGOTS D\'OR ! GTAV RP MOD #98',videoId:'G0vVZ-f3Uhg'},
+        {num:105,title:'UN GAMIN DE 7 ANS DOIT ALLER A LIBERTY CITY POUR LA NASA ! GTAV RP MOD #99',videoId:'BjXfNkDOVjE'},
+        {num:106,title:'L\'INCROYABLE ANNIVERSAIRE DE TOM ESCOBAR ! TRAILER OFFICIEL',videoId:'bzpuVp-affc'},
+        {num:107,title:'L\'INCROYABLE ANNIVERSAIRE DE TOM ESCOBAR ! GTAV RP MOD #100 FINAL',videoId:'Eqqpyn7J7PA'}
+    ],
+    'Saison 2':[
+        {num:1,title:'UN GAMIN DE 8 ANS DÉCOUVRE LIBERTY CITY (NEW YORK) ! GTAV RP MOD #1 SAISON 2',videoId:'meORtqVQrxM'},
+        {num:2,title:'UN GAMIN DE 8 ANS INTÈGRE ENFIN LA NASA ! GTAV RP MOD #2- SAISON 2',videoId:'2GqzhKWtfHU'},
+        {num:3,title:'UN GAMIN DE 8 ANS S\'INFILTRE DANS LA ZONE 51 ! GTAV RP MOD #3 - SAISON 2',videoId:'Q_YW9M9Du88'},
+        {num:4,title:'UN GAMIN DE 8 ANS CRÉE UN MINI ROBOT POUR SAUVER AGENT X ! GTAV RP MOD #4 - SAISON 2',videoId:'Eu_4wmb_vMM'},
+        {num:5,title:'UN GAMIN DE 8 ANS REND FOUS LES POLICIERS AVEC MINI AGENT X ! GTAV RP MOD #5 - SAISON 2',videoId:'SXUaL0lJTqg'},
+        {num:6,title:'UN GAMIN DE 8 ANS DÉCOUVRE LE QG D\'AGENT X DÉTRUIT ! GTAV RP #6 - SAISON 2',videoId:'a4bud4ZiL6Y'},
+        {num:7,title:'QUELQU\'UN A VOLÉ AGENT X ET TOUT L\'OR ! GTAV RP MOD #7 - SAISON 2',videoId:'9eWCRD8zyNY'},
+        {num:8,title:'MON PAPA TROMPE SONIC AVEC UNE DANSEUSE ! GTAV RP MOD #8 - SAISON 2',videoId:'y56zSSlbOFM'},
+        {num:9,title:'UN GAMIN DE 8 ANS APPREND QUE SON PAPA N\'EST PLUS PRESIDENT ! GTAV RP MOD #9',videoId:'6okiCRiNeJA'},
+        {num:10,title:'UN GAMIN DE 8 ANS RETOURNE A LOS SANTOS EN SOUCOUPE VOLANTE ! GTAV RP MOD #10',videoId:'q0k7EXSfW5Y'},
+        {num:11,title:'UN GAMIN DE 8 ANS AIDE UN GANG A BRAQUER UNE BANQUE ! GTAV RP MOD #11',videoId:'0Ivu_4vJkXk'},
+        {num:12,title:'UN GAMIN DE 8 ANS SE DÉGUISE EN ALIEN ET REND FOU TOUTE LA VILLE ! GTAV RP MOD #12',videoId:'CRn9zGjZsjQ'},
+        {num:13,title:'LA NOUVELLE VOITURE DE TOM ESCOBAR ! GTAV RP MOD #13 - SAISON 2',videoId:'666ERo_kE0A'},
+        {num:14,title:'UN GAMIN DE 8 ANS APPREND QUE SA MAMAN A QUITTER SON PAPA ! GTAV RP MOD #14',videoId:'SyAs4aWSQas'},
+        {num:15,title:'UN GAMIN DE 8 ANS RETROUVE CELUI QUI A VOLÉ SON OR ! GTAV RP MOD #15',videoId:'oB91HLP5CVI'},
+        {num:16,title:'TOM ESCOBAR LE NOUVEAU PRINCE DE LA VILLE ! GTAV RP MOD #16',videoId:'U7MyqVQAtWE'},
+        {num:17,title:'TOM ESCOBAR VS AGENT X ! LE FACE A FACE ! GTAV RP MOD #17',videoId:'kjBHN5L2nBs'},
+        {num:18,title:'AGENT X VS MINI AGENT X ! LE COMBAT ULTIME ! GTAV RP MOD #18',videoId:'mqquMhcyUVE'},
+        {num:19,title:'UN GAMIN DE 8 ANS APPREND QU\'AGENT X VEUT ETRE PRÉSIDENT ! GTAV RP MOD #19',videoId:'gCLxA9BMoZM'},
+        {num:20,title:'LA FIN DE TOM ESCOBAR ! TSUNAMI ! GTAV RP MOD #20',videoId:'uPubVUJG9Wg'},
+        {num:21,title:'LOS SANTOS SOUS L\'EAU ! TOM A TOUT PERDU ! GTAV RP MOD #21',videoId:'x4cjZgAKjXY'},
+        {num:22,title:'UN GAMIN DE 8 ANS ASPIRÉ AU FOND DE L’OCÉAN ! GTAV RP MOD #22',videoId:'NRxZHO9FeuY'},
+        {num:23,title:'UN GAMIN DE 8 ANS TROUVE LA LAMBORGHINI DE SES RÊVE A 12 MILLIARD $ ! GTAV RP MOD #23',videoId:'2FSdYhMT67s'},
+        {num:24,title:'UN GAMIN DE 8 ANS VOLE LA LAMBO A 12 MILLIARDS $ ! GTAV RP MOD #24',videoId:'8GZUaXS-b80'},
+        {num:25,title:'UN GAMIN DE 8 ANS DANS L\'ESPACE ! GTAV RP MOD #25',videoId:'wrPQKJQIZ-k'},
+        {num:26,title:'TOM ESCOBAR LE PREMIER ENFANT SUR MARS ! GTAV RP MOD #26',videoId:'BINp6yDlBis'},
+        {num:27,title:'UN GAMIN DE 8 ANS ABSORBÉ DANS UN TROU NOIR ! EPISODE FINAL SAISON 2 ! GTAV RP MOD',videoId:'25gTd0F6tK8'}
+    ],
+    'Saison 3':[
+        {num:1,title:'UN GAMIN DE 8 ANS SE RÉVEILLE EN FRANCE A PARIS ! GTAV RP MOD #1 - SAISON 3',videoId:'yRMBSEcYZ6g'},
+        {num:2,title:'UN GAMIN DE 8 ANS S’ÉVADE DE PRISON ! LA POLICE DEVIENT FOLLE ! GTAV RP MOD #2 - SAISON 3',videoId:'_q2AY7XBjvo'},
+        {num:3,title:'UN GAMIN DE 8 ANS RETROUVE SON PAPA MAIS... ! GTAV RP MOD #3',videoId:'7G82La1dBcw'},
+        {num:4,title:'UN GAMIN DE 8 ANS ECHANGE UNE FERRARI POLICE CONTRE DEUX FEMMES ! GTAV RP MOD #4',videoId:'Dw60PvEDm7E'},
+        {num:5,title:'UN GAMIN DE 8 ANS FAIT DU SALE A UNE POLICIÈRE DANS SA FERRARI ! GTAV RP MOD #5',videoId:'8ItMaFdhNqM'},
+        {num:6,title:'UN GAMIN DE 8 ANS DONNE DE LA WEED A SON PAPA POUR SE FAIRE PARDONNER MS... ! GTAV RP MOD #6',videoId:'wifzyTxc0tY'},
+        {num:7,title:'UN GAMIN DE 8 ANS FILME LA SERGENTE A POIL ! GTAV RP MOD #6',videoId:'HSivUwJz1hc'},
+        {num:8,title:'UN GAMIN DE 8 ANS DÉFONCE TOUT AVEC SA MINI SULTAN RS ! GTAV RP MOD #7',videoId:'rBjWcms46g8'},
+        {num:9,title:'UN GAMIN DE 8 ANS VA T\'IL RETROUVER SA MÉMOIRE GRACE A CETTE FEMME ? GTAV RP MOD #8',videoId:'q4wRM0k1ZHk'},
+        {num:10,title:'UN GAMIN DE 8 ANS TOMBE AMOUREUX DE SA PSY ! GTAV RP MOD #8',videoId:'r02V3_NJeO0'},
+        {num:11,title:'UN GAMIN DE 8 ANS SE SOUVIENT D\'ABDOUL ! GTAV RP MOD #9',videoId:'kvnry7l0UeE'},
+        {num:12,title:'UN GAMIN DE 8 ANS DEVIENT PRÉSIDENT ! GTAV RP MOD #10',videoId:'amj9-F4c33w'},
+        {num:13,title:'TOM ESCOBAR RETROUVE LA MÉMOIRE ! GTAV RP MOD #11',videoId:'_vvIgf8FYGY'},
+        {num:14,title:'UN GAMIN DE 8 ANS ECHANGE SON LOGICIEL HACK CONTRE UNE PETITE COPINE ! GTAV RP MOD #12',videoId:'hrax7GVndcU'},
+        {num:15,title:'UN GAMIN DE 8 ANS FAIT UNE GROSSE SURPRISE A SON PAPA ! GTAV RP MOD #13',videoId:'ggnTafpFybE'},
+        {num:16,title:'LA LISTE DES CADEAUX DE TOM ESCOBAR AU PÈRE NOEL ! GTAV RP MOD (BONUS)',videoId:'ijxiF3OIZ78'},
+        {num:17,title:'UN GAMIN DE 8 ANS DÉCOUVRE UNE ÎLE SECRÈTE ILLÉGAL ! GTAV RP MOD #14',videoId:'hKbKlHsNWo8'},
+        {num:18,title:'UN GAMIN DE 8 ANS CRÉE SON NOUVEAU ROBOT PLUS FORT QU\'AGENT X ! GTAV RP MOD #15',videoId:'-wbQGyRyDNw'},
+        {num:19,title:'UN GAMIN DE 8 ANS RENCONTRE UNE GAMINE DE 8 ANS ! GTAV RP MOD #16',videoId:'XWSRzv8WExM'},
+        {num:20,title:'UN GAMIN DE 8 ANS OFFRE UNE ARME A SA PETITE COPINE ! GTAV RP MOD #17',videoId:'8gU_vJ-FecE'},
+        {num:21,title:'L\'INCROYABLE NOEL DE TOM ESCOBAR ! GTAV RP MOD #18',videoId:'ZmVeClQ-4vM'},
+        {num:22,title:'UN GAMIN DE 8 ANS DOIT CAPTURER LE PÈRE NOEL ! GTAV RP MOD #19',videoId:'EG2cjqPVvxw'},
+        {num:23,title:'UN GAMIN DE 8 ANS VOLE TOUS LES CADEAUX DU MONDE AU PÈRE NOEL ! GTAV RP MOD #20',videoId:'A6PHShJb86U'},
+        {num:24,title:'TOM ET SARAH DÉBALLENT LEURS CADEAUX DE NOEL ÇA TOURNE MAL ! GTAV RP MOD #21',videoId:'P51uZpPgGGA'},
+        {num:25,title:'UN GAMIN DE 8 ANS DÉCOUVRE LES 3 NOUVELLES FEMMES DE SON PAPA ! GTAV RP MOD #22',videoId:'pcZjbf19qEE'},
+        {num:26,title:'UN GAMIN DE 8 ANS CRÉE LE SYSTÈME DE HACK LE PLUS PUISSANT DU MONDE ! GTAV RP MOD #23',videoId:'QqvLKzaHqpY'},
+        {num:27,title:'UN GAMIN DE 8 ANS DEVIENT LE MAÎTRE DE LOS SANTOS ! GTAV RP MOD #24',videoId:'YWzgBwY_0gI'},
+        {num:28,title:'UN GAMIN DE 8 ANS CLONE DES GENS AVEC L’ŒIL DU FAUCON ! GTAV RP MOD #25',videoId:'u2IPvXJcHO0'},
+        {num:29,title:'UN GAMIN DE 8 ANS KIDNAPPE SA PSY ! GTAV RP MOD #26',videoId:'kTIvE6FnrSg'},
+        {num:30,title:'UN GAMIN DE 8 ANS TRANSFORME UNE MEUF EN OBJET ! GTAV RP MOD #27',videoId:'_ruUgjaJy5g'},
+        {num:31,title:'UN GAMIN DE 8 ANS RENCONTRE SON GRAND PÈRE POUR LA PREMIÈRE FOIS ! GTAV RP MOD #28',videoId:'wSe8STsRvbQ'},
+        {num:32,title:'UN GAMIN DE 8 ANS S\'INFILTRE DANS LA PRISON LA PLUS DANGEREUSE ! GTAV RP MOD #29',videoId:'O6ak92ki2T8'},
+        {num:33,title:'UN GAMIN DE 8 ANS RETROUVE SON DIRECTEUR VIVANT ! GTAV RP MOD #30',videoId:'dDHEdCfOc98'},
+        {num:34,title:'UN GAMIN DE 8 ANS VA AVOIR UN PETIT FRÈRE OU UNE PETITE SOEUR ! GTAV RP MOD #31',videoId:'F48M8dly0HA'},
+        {num:35,title:'UN GAMIN DE 8 ANS LIVRE LES 2 FEMMES DE SON PÈRE A GRINCHIAT POUR LES BOUFFER ! GTAV RP MOD #32',videoId:'sxk56mD_YO8'},
+        {num:36,title:'UN GAMIN DE 8 ANS RETROUVE SONIC ! GTAV RP MOD #33',videoId:'_AOlmPIX3iE'},
+        {num:37,title:'UN GAMIN DE 8 ANS APPREND QUE SON PAPA RISQUE LA PRISON ! GTAV RP MOD #34',videoId:'oCJHQ73_Nl8'},
+        {num:38,title:'C\'EST LA FIN , MON PAPA N\'EST PLUS PRÉSIDENT ! GTAV RP MOD #35',videoId:'MvfZIT7Cscs'},
+        {num:39,title:'UN GAMIN DE 8 ANS VA ALLER DANS UNE FAMILLE D\'ACCUEIL ! GTAV RP MOD #36',videoId:'HDVrB28rENg'},
+        {num:40,title:'UN GAMIN DE 8 ANS ASSISTE AU JUGEMENT DE SON PAPA CA TOURNE MAL ! GTAV RP MOD #37',videoId:'XNC9C6QlaHI'},
+        {num:41,title:'SONIC PRÉSIDENTE ? MON PAPA OFFICIELLEMENT EN PRISON !',videoId:'snQpcHFE3gA'},
+        {num:42,title:'UN GAMIN DE 8 ANS ACHÈTE DES GENS POUR LES ELECTIONS PRÉSIDENTIELLES ! GTAV RP MOD #39',videoId:'V9p6uMTDMF8'},
+        {num:43,title:'UN GAMIN DE 8 ANS EN CAVALE A CAUSE DU JUGE ! GTAV RP MOD #40',videoId:'Ytcn1LRs7x4'},
+        {num:44,title:'UN GAMIN DE 8 ANS PREND 10 PERSONNES EN OTAGE ET DEMANDE 5 MILLIONS $ ! GTAV RP MOD #41',videoId:'fZAZln3rbT4'},
+        {num:45,title:'UN GAMIN DE 8 ANS A TOUS LES FLICS DE LA VILLE CONTRE LUI ! LA FUITE ! GTAV RP MOD #42',videoId:'bBSup8u8fxk'},
+        {num:46,title:'LE SECRET DE TOM ESCOBAR DÉVOILÉ ? GTAV RP MOD #43',videoId:'VjgrJ9ltVtg'},
+        {num:47,title:'UN GAMIN DE 8 ANS SAUVE ABDOUL DE PRISON AVEC IRON X ! GTAV RP MOD #44',videoId:'T5GnJ_4eOzY'},
+        {num:48,title:'UN GAMIN DE 8 ANS OFFRE A ABDOUL UN ROBOT PUISSANT MAIS C\'EST TROP PUISSANT XD ! GTAV RP MOD #45',videoId:'a7Hai2WEuH8'},
+        {num:49,title:'UN GAMIN DE 8 ANS LIBÈRE SON PAPA DE PRISON ! GTAV RP MOD #46',videoId:'wekmtOmofoY'},
+        {num:50,title:'TOM ESCOBAR REMONTE DANS LE TEMPS DANS LES ANNÉES 1860 ! [EXCLU]',videoId:'Av9OEp1K9xk'},
+        {num:51,title:'TOM ESCOBAR VA FAIRE LE BRAQUAGE DU SIÈCLE ! GTAV RP MOD #47',videoId:'ACMIROpmf8k'},
+        {num:52,title:'UN GAMIN DE 8 ANS PRÉPARE LE BRAQUAGE DU SIÈCLE ! GTAV RP MOD #48',videoId:'fxQnt-B7rxU'},
+        {num:53,title:'UN GAMIN DE 8 ANS FAIT PARTICIPER SON PAPA AU BRAQUAGE ! GTAV RP MOD #49',videoId:'D-utZNz9LJo'},
+        {num:54,title:'UN GAMIN DE 8 ANS RETROUVE SARAH DANS UN PARC D\'ATTRACTION ! GTAV RP MOD #50',videoId:'t8hZ2vpO7EI'},
+        {num:55,title:'LA NOUVELLE MINI VOITURE DE SARAH ET TOM ! GTAV RP MOD #51',videoId:'sKoBbfXZCJg'},
+        {num:56,title:'UN GAMIN DE 8 ANS RENCONTRE LE NOUVEAU PRÉSIDENT , CA TOURNE MAL ! GTAV RP MOD #52',videoId:'0lgUqFMeHvM'},
+        {num:57,title:'UN GAMIN DE 8 ANS KIDNAPPE LE NOUVEAU PRÉSIDENT ! GTAV RP MOD #52',videoId:'n_colKaIadM'},
+        {num:58,title:'UN GAMIN DE 8 ANS CONSTRUIT UNE VOITURE RARE ! GTAV RP MOD #53',videoId:'Po_ONcK9FpU'},
+        {num:59,title:'TOM ET SA COPINE BRAQUENT LE YACHT D\'UN MILLIARDAIRE ! GTAV RP MOD #54',videoId:'yKI7hBSxMNg'},
+        {num:60,title:'LA NOUVELLE FERRARI DE COLLECTION DE TOM ESCOBAR ! GTAV RP MOD #55',videoId:'sGI4i7b5vrk'},
+        {num:61,title:'LA VILLA DE RÊVE DE TOM ET SARAH ! GTAV RP MOD #56',videoId:'j6nx-NfBgfM'},
+        {num:62,title:'TOM A UNE PRIME DE 10 000 000$  SUR SA TÊTE ET SE FAIT ARRÊTER PAR LA FIB ! GTAV RP MOD #57',videoId:'UfIyDPiwzdw'},
+        {num:63,title:'TOM EN PRISON ! IRON X LE RETOUR ? GTAV RP MOD #58',videoId:'6nKTYBaY8T4'},
+        {num:64,title:'TOM DÉCOUVRE SON NOUVEAU QG SPÉCIALEMENT POUR HACK ! GTAV RP MOD #59',videoId:'ch-jYU37IjU'},
+        {num:65,title:'TOM ESCOBAR DEVIENT UN VRAI SUPER HÉRO ET SAUVE LA VILLE ! GTAV RP MOD #60',videoId:'B77_EauD1A8'},
+        {num:66,title:'TOM S\'INFILTRE DANS L\'USINE A FABRIQUER DES BILLETS ! UN REVE QUI DEVIENT REALITÉ ! GTAV RP MOD #60',videoId:'TTOzlUYqT8g'},
+        {num:67,title:'TOM ESCOBAR CONSTRUIT HULK ÇA TOURNE MAL ! GTAV RP MOD #61',videoId:'fvLQLDjlXqc'},
+        {num:68,title:'TOM FABRIQUE UN AIMANT ULTRA PUISSANT (c\'est trop lourd) ! GTAV RP MOD #62',videoId:'tCPYyANlZXc'},
+        {num:69,title:'TOM EST PARTI TROP LOIN ! GTAV RP MOD #63',videoId:'WLOVgkGgXOY'},
+        {num:70,title:'TOM ESCOBAR LE PREMIER GAMIN A AVOIR LA PLAYSTATION 5  ! GTAV RP MOD #64',videoId:'fXMJYNL4ft0'},
+        {num:71,title:'L\'INCROYABLE BRAQUAGE DE TOM ESCOBAR - USINE A BILLETS ACT 1  ! GTAV RP MOD #65',videoId:'REfpU06SevI'},
+        {num:72,title:'L\'INCROYABLE BRAQUAGE DE TOM ESCOBAR - FABRICATION DES BILLETS ACT 2 ! GTAV RP MOD #66',videoId:'VUBmjUPwTNM'},
+        {num:73,title:'L\'INCROYABLE BRAQUAGE DE TOM ESCOBAR - L\'EVASION ET LA TRAHISON ACT FINAL ! GTAV RP MOD #67',videoId:'UoHhyvaf9nY'},
+        {num:74,title:'TOUT CE QUE TOM A ACHETÉ AVEC L\'ARGENT DU BRAQUAGE ET RETROUVAILLES AVEC SON PAPA ! GTAV RP MOD #68',videoId:'zGgzpaCPzMI'},
+        {num:75,title:'AGENT X RETROUVE TOM ESCOBAR ! LA FIN EST PROCHE ! GTAV RP MOD #69',videoId:'nT705IB96g0'},
+        {num:76,title:'LE PÈRE DE TOM DECOUVRE SON QG SECRET MAIS ÇA FINI TRES MAL ! GTAV RP #70',videoId:'66ZkVawcCds'},
+        {num:77,title:'UN GAMIN DE 8 ANS ET SON PAPA REPRENNENT LE POUVOIR AU GOUVERNEMENT ! GTAV RP MOD #71',videoId:'VPuG_ydQOCs'},
+        {num:78,title:'UN GAMIN DE 8 ANS CHANGE D\'APPARENCE ! GTAV RP MOD #72',videoId:'M7f-L3NSHyE'},
+        {num:79,title:'UN GAMIN DE 8 ANS ACHÈTE LE CASINO AVEC SON TONTON REMY LE NAIN ! GTAV RP MOD #73',videoId:'I8oCEC4RFb8'},
+        {num:80,title:'UN GAMIN SURPREND SON TONTON FAIRE DU SALE AVEC SA SECRETAIRE ! GTAV RP MOD #74',videoId:'uoWtlEkt_EQ'},
+        {num:81,title:'UN GAMIN QUITTE LOS SANTOS POUR ALLER SUR L\'ILE SECRETE DES TRAFIQUANTS ! GTAV RP MOD #75',videoId:'sf1BB9nlGu8'},
+        {num:82,title:'TOM CAPTURÉ PAR DES TRAFIQUANTS DANGEREUX ! REMY MORT ? GTAV RP MOD #76',videoId:'B8KV2-XWTRQ'},
+        {num:83,title:'UN GAMIN APPREND QUE SON TONTON REMY S’EST FAIT BOUFFER PAR UN T-REX ! GTAV RP MOD #77',videoId:'f2VW-Nzl1gU'},
+        {num:84,title:'UN GAMIN LIBÈRE UN DINOSAURE DE SA CAGE + VOLE SON OEUF ! GTAV RP MOD #78',videoId:'UTHtxA-_5TQ'},
+        {num:85,title:'UN GAMIN DE 8 ANS IMPRESSIONNE LE GRAND BOSS DES TRAFIQUANTS ! GTAV RP MOD #79',videoId:'PfPCGwso1PM'},
+        {num:86,title:'UN GAMIN PREND L\'APPARENCE DE SON TONTON RÉMY POUR PÉCHO ANASTASIA ! GTAV RP MOD #80',videoId:'J1amgqUBC6s'},
+        {num:87,title:'RÉMY SURPREND TOM FAIRE DU SALE AVEC ANASTASIA ! GTAV RP MOD #81',videoId:'_MzgLuOVdFQ'},
+        {num:88,title:'TOM EST PARTI TROP LOIN , IL MENACE LE BOSS DES TRAFIQUANTS ! GTAV RP MOD #82',videoId:'XZDmM5KB3DQ'},
+        {num:89,title:'TOM A FOUTU ANASTASIA ET REMY DANS LE  MAL , LES TRAFIQUANTS PRENNENT POSSESSION DU CASINO ! #83',videoId:'Yl2965QoHh4'},
+        {num:90,title:'LE PÈRE DE TOM REDEVIENT PRÉSIDENT ! JE SUIS ENFIN LIBRE ! GTAV RP MOD #84',videoId:'Kng-SATv1LU'},
+        {num:91,title:'TOM OFFRE LA VOITURE DE SES RÊVES A ANASTASIA , ELLE TOMBE SOUS LE CHARME ! GTAV RP MOD #85',videoId:'Y-3PyINPT0k'},
+        {num:92,title:'TOM RAMÈNE ANASTASIA DANS SA VILLA DE LUXE , SARAH DÉBARQUE ! GTAV RP MOD #86',videoId:'r306dhRTqc8'},
+        {num:93,title:'TOM DÉCOUVRE LE SECRET D\'ANASTASIA ! IL EST CHOQUÉ ! GTAV RP MOD #87',videoId:'WpJiuRj0g9c'},
+        {num:94,title:'TOM SURPREND UNE CONVERSATION SECRÈTE PAR RAPPORT AU COLIS ET SUR SON VRAI PAPA ! GTAV RP MOD #88',videoId:'y9_6jeq01wg'},
+        {num:95,title:'TOM SURPREND SON PAPA EN TRAIN DE SE TAPER LA MEILLEURE AMIE D\'ANASTASIA ! GTAV RP MOD #89',videoId:'YjdvHuWCB6A'},
+        {num:96,title:'LE PÈRE DE TOM ORGANISE LA PLUS GROSSE SOIRÉE JAMAIS RÉALISÉE ! PROJET X ! GTAV RP MOD #90',videoId:'JyDK9dcdMjU'},
+        {num:97,title:'LE PÈRE DE TOM L’EMMÈNE EN BOÎTE POUR ADULTES, ANASTASIA PÈTE UN CÂBLE ! GTAV RP MOD #91',videoId:'zII1lOR8LFU'},
+        {num:98,title:'TOM APPREND QU\'ANASTASIA EST AMOUREUSE DE SON PERE ! GTAV RP MOD #92',videoId:'qfM8LhKgN2U'},
+        {num:99,title:'LE PÈRE DE TOM SE TAPE HÉLÉNA , AGENT X DÉBARQUE ?! GTAV RP MOD #93',videoId:'FkSqmtg_8aU'},
+        {num:100,title:'TOM FUSIONNE IRON X ET HULK ET ABUSE DES SES POUVOIRS ! GTAV RP MOD #94',videoId:'RpP4j8sbomw'},
+        {num:101,title:'TOM SURPREND ANASTASIA ET SON PÈRE EN PLEINE ACTION ! IL PÈTE UN CÂBLE ! GTAV RP MOD#95',videoId:'ZvWi7ducS10'},
+        {num:102,title:'TOM RASSEMBLE TOUTES LES MEUFS QUE SON PÈRE S\'EST TAPÉ ! GTAV RP MOD #96',videoId:'0C1Fja_tTPo'},
+        {num:103,title:'LE PÈRE DE TOM V.S SES 3 CONQUÊTES, ÇA TOURNE MAL ! GTAV RP MOD #97',videoId:'-oZlUB-_Yag'},
+        {num:104,title:'TOM ET ANA SEULS CONTRE AGENT X ! GTAV RP MOD #98',videoId:'zUwJ5kPf398'},
+        {num:105,title:'ANASTASIA S\'EST FAIT KIDNAPPER ! LA FIN DE TOM ESCOBAR ?! GTAV RP MOD #99',videoId:'L0PMfVydw9s'},
+        {num:106,title:'LA NOUVELLE VOITURE LEGO ULTRA PUISSANTE DE TOM ! GTAV RP MOD BONUS !',videoId:'5NFJV65fzSQ'},
+        {num:107,title:'TOM JOUE A CACHE CACHE AVEC DES ADULTES , ÇA PART EN SUCETTE ! GTAV RP BONUS #2',videoId:'PUajky2upz0'},
+        {num:108,title:'LA NOUVELLE COLLECTION DE MINI VOITURES DE TOM + CACHE CACHE AU COMICO ! GTAV RP BONUS #3',videoId:'rMGqsCKK_kc'},
+        {num:109,title:'LE PLUS GROS CACHE CACHE DE TOM ! ECOLE HANTÉE ! GTAV RP BONUS #4',videoId:'2U8oZk19yZI'},
+        {num:110,title:'OMG ! GRINCHIAT A UNE FILLE ! TOM PRIS DANS SON PIEGE ! GTAV RP FINAL BONUS',videoId:'qDEDn4okqO8'},
+        {num:111,title:'TOM ESCOBAR - LE COMBAT FINAL CONTRE AGENT X - LE FILM ! #100',videoId:'DGkFc6z9a4Q'}
+    ],
+    'Saison 4':[
+        {num:1,title:'TOM ESCOBAR ET SON PETIT FRERE DE 4 ANS - GTAV RP MOD #1 SAISON 4',videoId:'Mr8iCuM6SHA'},
+        {num:2,title:'SONIC DE RETOUR ! ELLE SE TAPE MON PAPA LE PRÉSIDENT ! GTAV RP MOD #2',videoId:'t6P3o3aMqco'},
+        {num:3,title:'LA NOUVELLE MCLAREN LEGO PUISSANTE DE TOM + LES PROBLEMES COMMENCENT ! GTAV RP MOD #3',videoId:'vDZr6K_Kso8'},
+        {num:4,title:'TOM DÉCOUVRE UN SECRET QU\'IL NE DEVAIT PAS VOIR SUR ANA ! GTAV RP MOD #4',videoId:'Pf8whGHIAe4'},
+        {num:5,title:'TOM PERD SA MAISON ET SE RETROUVE A LA RUE ! GTAV RP MOD #5',videoId:'vI3MFwLILa4'},
+        {num:6,title:'LE NOUVEAU QG INCROYABLE DE TOM ESCOBAR ! GTAV RP MOD #6',videoId:'X58ChkN3naA'},
+        {num:7,title:'LA NOUVELLE COLLECTION DE VOITURES DE LEGO DE TOM ! GTAV RP MOD #7',videoId:'YpYj5vZvm6Y'},
+        {num:8,title:'TOM SURPREND ANA ENTRAIN DE SEDUIRE REMY ! GTAV RP MOD #8',videoId:'mIwlZ-LVGUU'},
+        {num:9,title:'TOM OUVRE LA PORTE SECRETE DE REMY , ET DECOUVRE UN AUTRE UNIVERS - GTAV RP MOD #9',videoId:'9Ps8XKfNWZI'},
+        {num:10,title:'TOM RENCONTRE UNE NOUVELLE PETITE COPINE - GTAV RP MOD #10',videoId:'2HRs0DcuP40'},
+        {num:11,title:'TOM APPREND QUE SON EX A UN NOUVEAU PETIT COPAIN - GTAV RP MOD #11',videoId:'BrILZEmH12g'},
+        {num:12,title:'TOM TUE LE PETIT COPAIN DE SON EX ! GTAV RP MOD #12',videoId:'U_LWxY_dKog'},
+        {num:13,title:'TOM ET REMY VOYAGENT DANS LE TEMPS , RETOUR DANS LE PASSÉ ! GTAV RP (feat RedM) #13',videoId:'1V48CkY0HZs'},
+        {num:14,title:'TOM DEVIENT GEANT ET FOUT LE BORDEL DANS TOUTE LA VILLE ! GTAV RP #14 (feat RedM)',videoId:'IdOkjr9WTFQ'},
+        {num:15,title:'TOM VOLE UN TRAIN DE LUXE ET DEVIENT L\'ENNEMI NUMERO 1 DE LA VILLE ! GTAV RP #15 (feat RedM)',videoId:'qtx1b7mOHmo'},
+        {num:16,title:'TOM RECONSTRUIT TOUT LE SQUID GAME ET PARTICIPE ! GTAV RP MOD',videoId:'m_D1KYgfGe8'},
+        {num:17,title:'TOM RETOURNE A LOS SANTOS AVEC UNE POTION POUR DEVENIR ADULTE  ! GTAV RP MOD #16',videoId:'Y0vQx0T2qLo'},
+        {num:18,title:'TOM DEVIENT ADULTE PENDANT UNE JOURNÉE ! GTAV RP MOD #17',videoId:'SRliRCiHpcQ'},
+        {num:19,title:'TOM A ENFIN REUSSI A PECHO ANASTASIA (elle tombe sous son charme) ! GTAV RP MOD #18',videoId:'GE-ku6LLfPs'},
+        {num:20,title:'TOM RAMENE ANASTASIA DANS SON LIT ET... ! GTAV RP MOD #19',videoId:'FiFK8VJ578c'},
+        {num:21,title:'HELENA ENCORE EN VIE ET FAIT LIBERER MON PAPA ! (Agent x le retour?) GTAV RP MOD #20',videoId:'0NBFB8Seqd4'},
+        {num:22,title:'ANASTASIA APPREND LA VERITÉ SUR MON PAPA ! ÇA TOURNE MAL - GTAV RP MOD #21',videoId:'T7yA-seWVRU'},
+        {num:23,title:'TOM ET ANA QUITTENT LOS SANTOS POUR LA FRANCE ! GTAV RP MOD #22',videoId:'uQr6NHxIE80'},
+        {num:24,title:'LA FIN ENTRE ANASTASIA ET TOM ESCOBAR ! (elle me quitte) ! GTAV RP MOD #23',videoId:'875_jXJxpdk'},
+        {num:25,title:'TOM ESCOBAR EPISODE FINAL SAISON 4 ! #24',videoId:'JAvgPjywXPo'}
+    ],
+    'Saison 5':[
+      {num:1,title:'UN GAMIN DE 9 ANS FILS DU COMMISSAIRE DECOUVRE LA FRANCE ! GTAV RP MOD SAISON 5 #1',videoId:'wZovaH8_feg'},
+    ]
+}, }
       ]
     },
     kingsley: {
       id:'kingsley', name:'Kingsley', color:'#1abc9c',
       description:'Un nom qui résonne dans toute la ville. Zack Kingsley ne fait pas de compromis.',
-      image:'images/zack_kingsley.webp', banner:'images/zack_kingsley.webp',
+      image:'images/zack_kingsley.png', banner:'images/zack_kingsley.png',
       characters:[
-        { id:'zack-kingsley', name:'Zack Kingsley', image:'images/zack_kingsley.webp', banner:'images/zack_kingsley.webp',
+        { id:'zack-kingsley', name:'Zack Kingsley', image:'images/zack_kingsley.png', banner:'images/zack_kingsley.png',
           description:'Charismatique et redoutable. Zack Kingsley impose sa loi sans concession.', 
           seasons:{
     'Saison 1':[
@@ -871,7 +1291,7 @@ const DATA = {
         {num:12,title:'GTA 5 RP À ZÉRO ! #12 (J’achète une île secrète… C’est ouf !🤯)',videoId:'ydcHdy6he-s'},
         {num:13,title:'GTA 5 RP À ZÉRO ! #13 (J’ai investi une fortune dans mon île… le résultat est fou 💰)',videoId:'h82XzqJJ2jg'},
         {num:14,title:'GTA 5 RP À ZÉRO ! #14 (J’ai construit un mini-drone ultra puissant ! 🚀)',videoId:'nMmsDQYZ_rs'},
-        {num:14,title:'GTA 5 RP À ZÉRO ! #15 (La jalousie explose… et mon drone évolue dangereusement🔥)',videoId:'LH_65m6zJFQ'}
+        {num:15,title:'GTA 5 RP À ZÉRO ! #15 (La jalousie explose… et mon drone évolue dangereusement🔥)',videoId:'LH_65m6zJFQ'}
     ]
 }, }
       ]
@@ -881,7 +1301,7 @@ const DATA = {
       description:'Ils n\'appartiennent à aucune famille — mais leur impact sur Los Santos est indéniable.',
       image:'images/poil_carotte.webp', banner:'images/poil_carotte.webp',
       characters:[
-        { id:'poil-carotte', name:'Poil de Carotte', image:'images/poil_carotte.webp', banner:'images/poil_carotte.webp',
+        { id:'poil-carotte', name:'Poil de Carotte', image:'images/poildecarotte.png', banner:'images/poildecarotte-bn.png',
           description:'L\'imprévisible. Personne ne sait vraiment ce qu\'il prépare.', 
           seasons:{
     'Saison 1':[
@@ -931,7 +1351,7 @@ const DATA = {
         {num:40,title:'JE DOIS DIRE LA VÉRITÉ A JADE  ! GTAV RP !',videoId:'-Jl6UOh5ISM'}
     ]
 }, },
-        { id:'axel-leret', name:'Axel Léret', image:'images/axel_leret.webp', banner:'images/axel_leret.webp',
+        { id:'axel-leret', name:'Axel Léret', image:'images/axel_leret.png', banner:'images/axel_leret.png',
           description:'Un personnage à part entière, avec ses propres ambitions et ses propres règles.', 
           seasons:{
     'Saison 1':[
@@ -944,7 +1364,7 @@ const DATA = {
         {num:7,title:'GTA V RP SURVIVOR ! #7 ',videoId:'U7DElYtUteo'}
     ]
 }, },
-        { id:'le-geant', name:'Le Géant (Freddy)', image:'images/le_geant.webp', banner:'images/le_geant.webp',
+        { id:'le-geant', name:'Le Géant (Freddy)', image:'images/legeant.png', banner:'images/legeant.png',
           description:'Sa stature impose le respect. Sa réputation, la peur.', seasons:{
     'Saison 1':[
         {num:1,title:'UN GÉANT DÉBARQUE EN VILLE ! GTAV RP MOD',videoId:'awNw8oxqu_c'},
@@ -958,21 +1378,63 @@ const DATA = {
         {num:7,title:'FREDDY GRINCHIAT EN CELLULE ! GTA V RP ! by iProMx #2',videoId:'94NAp6gqY7c'},
     ]
 }, },
-        { id:'gang-gamins', name:'Le Gang des Gamins', image:'images/gang_gamins.webp', banner:'images/gang_gamins.webp',
+        { id:'gang-gamins', name:'Le Gang des Gamins', image:'images/ganggamins.png', banner:'images/ganggamins.png',
           description:'Ne les sous-estime pas. Ces gamins ont prouvé que la taille n\'a rien à voir avec le danger.', seasons:{
     'Saison 1':[
         {num:1,title:'LE GANG DES GAMINS SUR GTA 5 RP !',videoId:'EKjaehrb24g'},
         {num:2,title:'DES GAMINS BRAQUENT DES GANGS AVEC DES PISTOLETS NERF ! GTA V RP',videoId:'4z42mOj0m3M'},
     ]
 }, },
+    { id:'le-genie', name:'Le Génie', image:'images/legenie.png', banner:'images/legenie.png',
+          description:'Ne les sous-estime pas. Ces gamins ont prouvé que la taille n\'a rien à voir avec le danger.', seasons:{
+    'Saison 1':[
+        {num:1,title:'UN GÉNIE RÉALISE LES VOEUX D\'UNE FEMME ! GTAV RP MOD #1',videoId:'zPxglmYF9Xk'},
+        {num:2,title:'UN GÉNIE RÉALISE LES VOEUX D\'UN HOMME PAUVRE ! GTAV RP MOD #2',videoId:'bWQCbcPrY0M'},
+        {num:3,title:'UN GÉNIE FAIT ÉVADER UN PRISONNIER DANGEREUX ÇA TOURNE MAL ! GTAV RP MOD #3',videoId:'ZRtdMkyMAjg'},
+        {num:4,title:'ELLE COUCHE AVEC UN GENIE POUR DES VOEUX ! GTAV RP MOD #4',videoId:'7MVvgikpcf0'},
+    ]
+}, },
+  { id:'zak-hackeur', name:'Zak le Hackeur', image:'images/zakhackeur.png', banner:'images/zakhackeur.png',
+          description:'Ne les sous-estime pas. Ces gamins ont prouvé que la taille n\'a rien à voir avec le danger.', seasons:{
+    'Saison 1':[
+        {num:1,title:'NOUVEAU PERSONNAGE ! GTA V RP ! by iProMx #1',videoId:'gETMpvb9Aek'},
+        {num:2,title:'PARTIE 2 ! NOUVEAU PERSONNAGE ! GTA V RP ! by iProMx #1',videoId:'NFNdA_X4yM8'},
+        {num:3,title:'ZACK A CREE L\'IMPOSSIBLE ! GTA V RP ! by iProMx #2',videoId:'whBzM5chOTQ'},
+        {num:4,title:'LE RETOUR DE ZACK ( + EXPLICATION ) ! GTA V RP ! by iProMx #3',videoId:'SHez_DVaKu8'},
+    ]
+}, },
+{ id:'billy', name:'Billy', image:'images/billy.png', banner:'images/billy.png',
+          description:'Ne les sous-estime pas. Ces gamins ont prouvé que la taille n\'a rien à voir avec le danger.', seasons:{
+    'Saison 1':[
+        {num:1,title:'BILLY & TEDDY, LES FRÈRES HORS-LA-LOI ! RED DEAD RP ! #1',videoId:'2pQOm9FwYHM'},
+        {num:2,title:'LE DON DES FRERES JOHNSON + COMBATS CLANDESTINS ! RED DEAD RP ! #2',videoId:'Oqfgq1lbRH0'},
+        {num:3,title:'BILLY VEUT S\'ENFUIR AVEC CASSIDY ! RED DEAD RP ! by iProMx #3',videoId:'NqNAw4_9J70'},
+        {num:4,title:'LE RETOUR DE RED DEAD RP avec IPROMX ! RED DEAD REDEMPTION 2 RP ! by iProMx #1',videoId:'8gvBSxAr9yg'},
+        {num:5,title:'DIRECTION SAINT DENIS ! RED DEAD REDEMPTION 2 RP ! by iProMx #2',videoId:'Kx9Swi0o8cM'},
+    ]
+}, },
+{ id:'ryan-johnson', name:'Ryan Johnson', image:'images/ryan.png', banner:'images/ryan.png',
+          description:'Ne les sous-estime pas. Ces gamins ont prouvé que la taille n\'a rien à voir avec le danger.', seasons:{
+    'Saison 1':[
+        {num:1,title:'RYAN JOHNSON ! LA SOIREE DU SIECLE PROJET X ! GTA V RP ! by iProMx #1',videoId:'B4niyD5lNdI'},
+        {num:2,title:'RYAN, LE REVEIL AVEC LA FILLE DE DWAYNE ! GTA V RP ! by iProMx #2',videoId:'GDIaEnIiHU0'},
+        {num:3,title:'LE PLUS GROS PROJET DE RYAN JOHNSON ! RACING X ! GTA V RP ! by iProMx #3',videoId:'buMMMtoy8yg'},
+        {num:4,title:'RYAN A DORMI AVEC ANASTAISA?! CE SOIR JE PRENDS DES RISQUES GTA V RP ! by iProMx #4',videoId:'VeXNNGRt8JE'},
+    ]
+}, },
       ]
     }
   },
   social:[
-    {id:'twitch',name:'Twitch',desc:'Lives GTA 5 RP sur FanTasTic RP — Rejoins le direct !',url:'https://www.twitch.tv/ipromx',icon:'fab fa-twitch',platform:'twitch',banner:'images/twitch-banner.jpg'},
-    {id:'youtube',name:'YouTube',desc:'+1 000 000 abonnés — Toutes les aventures en VOD',url:'https://www.youtube.com/ipromx',icon:'fab fa-youtube',platform:'youtube',banner:'images/youtube-banner.jpg'},
-    {id:'discord',name:'Discord',desc:'Communauté FanTasTic RP — Rejoins le serveur !',url:'#',icon:'fab fa-discord',platform:'discord',banner:'images/discord-banner.jpg'},
-    {id:'store',name:'Store',desc:'Merch officiel iProMx',url:'https://ipromx.store',icon:'fas fa-store',platform:'youtube',banner:'images/store-banner.jpg'}
+    { id:'youtube',  name:'YouTube Principal',  url:'https://www.youtube.com/@iProMx',             icon:'fab fa-youtube',    color:'#ff0000', bg:'rgba(255,0,0,0.08)',       border:'rgba(255,0,0,0.25)',       cta:'Voir la chaîne',       ctaIcon:'fab fa-youtube'      },
+    { id:'youtube2', name:'YouTube Secondaire', url:'https://www.youtube.com/@iProMx_ytb',         icon:'fab fa-youtube',    color:'#ff4444', bg:'rgba(255,68,68,0.07)',     border:'rgba(255,68,68,0.22)',     cta:'Voir la chaîne',       ctaIcon:'fab fa-youtube'      },
+    { id:'twitch',   name:'Twitch',             url:'https://www.twitch.tv/ipromx',                icon:'fab fa-twitch',     color:'#9147ff', bg:'rgba(145,71,255,0.08)',    border:'rgba(145,71,255,0.25)',    cta:'Regarder en direct',   ctaIcon:'fas fa-play-circle'  },
+    { id:'discord',  name:'Discord',            url:'https://discord.gg/iProMx',                   icon:'fab fa-discord',    color:'#7289da', bg:'rgba(114,137,218,0.08)',   border:'rgba(114,137,218,0.25)',   cta:'Rejoindre le serveur', ctaIcon:'fab fa-discord'      },
+    { id:'tiktok',   name:'TikTok',             url:'https://www.tiktok.com/@ipromx__',            icon:'fab fa-tiktok',     color:'#ff0050', bg:'rgba(255,0,80,0.08)',      border:'rgba(255,0,80,0.25)',      cta:'Voir les vidéos',      ctaIcon:'fab fa-tiktok'       },
+    { id:'tiktok2',  name:'TikTok Clips',       url:'https://www.tiktok.com/@ipromxclipofficiel',  icon:'fab fa-tiktok',     color:'#69c9d0', bg:'rgba(105,201,208,0.08)',   border:'rgba(105,201,208,0.25)',   cta:'Voir les clips',       ctaIcon:'fab fa-tiktok'       },
+    { id:'x',        name:'X (Twitter)',         url:'https://x.com/@iProMxYt',                    icon:'fab fa-x-twitter',  color:'#e7e7e7', bg:'rgba(255,255,255,0.05)',   border:'rgba(255,255,255,0.15)',   cta:'Suivre',               ctaIcon:'fab fa-x-twitter'    },
+    { id:'boutique', name:'Boutique',            url:'https://ipromx.store/',                      icon:'fas fa-store',      color:'#f5a623', bg:'rgba(245,166,35,0.08)',    border:'rgba(245,166,35,0.25)',    cta:'Visiter la boutique',  ctaIcon:'fas fa-shopping-bag' },
+    { id:'tebex',    name:'Tebex',               url:'https://ipromx.tebex.io/',                   icon:'fas fa-gamepad',    color:'#00b4d8', bg:'rgba(0,180,216,0.08)',     border:'rgba(0,180,216,0.25)',     cta:'Accéder au Tebex',     ctaIcon:'fas fa-gamepad'      },
   ],
 
   // ── NOTIFICATIONS (modifier manuellement ici) ────────────────
@@ -981,13 +1443,13 @@ const DATA = {
     // active: false,  // mettre false pour masquer
     active: true,
     label: 'NOUVEL ÉPISODE',      // badge à gauche (ex: "MISE À JOUR", "NOUVEAU")
-    text:  'Nouvel épisode sorti : David Flash Saison 1 — Les Débuts dans Los Santos',
+    text:  'Nouvel épisode : (Zack Kingsley) GTA 5 RP À ZÉRO ! #15 (La jalousie explose… et mon drone évolue dangereusement🔥)',
     // Lien vers un épisode précis (laisser null pour pas de bouton)
     link: {
-      familyId: 'flash',
-      charId:   'david-flash',
+      familyId: 'kingsley',
+      charId:   'zack-kingsley',
       season:   'Saison 1',
-      epNum:    2            // numéro de l'épisode
+      epNum:    15            // numéro de l'épisode
     }
     // Pour une URL externe à la place :
     // externalUrl: 'https://...'
@@ -1299,10 +1761,14 @@ const CHAR_ORDER = [
   ['flash','adrian-flash'],
   ['winters','oliver-winters'],
   ['independants','gang-gamins'],
+  ['independants','zak-hackeur'],
+  ['independants','ryan-johnson'],
   ['flash','kayton-flash'],
+  ['independants','billy'],
   ['flash','damon-flash'],
   ['flash','david-jr-flash'],
   ['flash','aaron-flash'],
+  ['independants', 'le-genie'],
   ['escobar','tom-escobar'],
   ['independants','le-geant'],
   ['flash','ken-flash'],
@@ -1332,7 +1798,8 @@ const getTotalEps = c => Object.values(c.seasons||{}).reduce((s,e)=>s+e.length,0
 const hasContent  = c => getTotalEps(c)>0||c.hasLocalVideo||c.hasLawBook;
 const getFirstEp  = c => { for(const [s,eps] of Object.entries(c.seasons||{})) if(eps.length) return {season:s,ep:eps[0],idx:0}; return null; };
 const fmtTime     = s => { if(isNaN(s)||s<0)return'0:00'; const m=Math.floor(s/60),sec=String(Math.floor(s%60)).padStart(2,'0'); return`${m}:${sec}`; };
-const ytThumb     = id => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
+const ytThumb = id => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
+const epThumb = ep => ep.thumb || (ep.videoId ? ytThumb(ep.videoId) : 'images/flash.jpg');
 
 // ── ROUTER ────────────────────────────────────────────────────
 const ROUTER = (() => {
@@ -1782,60 +2249,31 @@ function toggleList(fid,cid,btn) {
 // ── SOCIAL ────────────────────────────────────────────────────
 function renderSocial() {
   const g=$('socialGrid'); if(!g) return;
-
-  const platformMeta = {
-    twitch:  { color:'#9147ff', bg:'rgba(145,71,255,0.1)',  border:'rgba(145,71,255,0.3)',  stat:'272K+', statLabel:'Followers',   cta:'Regarder en direct', ctaIcon:'fas fa-play-circle' },
-    youtube: { color:'#ff0000', bg:'rgba(255,0,0,0.1)',     border:'rgba(255,0,0,0.3)',     stat:'1M+',   statLabel:'Abonnés',     cta:'Voir la chaîne',     ctaIcon:'fab fa-youtube'     },
-    discord: { color:'#7289da', bg:'rgba(114,137,218,0.1)', border:'rgba(114,137,218,0.3)', stat:'∞',     statLabel:'Membres',     cta:'Rejoindre',          ctaIcon:'fab fa-discord'     },
-    youtube2:{ color:'#f5a623', bg:'rgba(245,166,35,0.1)',  border:'rgba(245,166,35,0.3)',  stat:'↗',     statLabel:'Disponible',  cta:'Visiter le store',   ctaIcon:'fas fa-shopping-bag'},
-  };
-
-  g.innerHTML = DATA.social.map(s => {
-    const pm = platformMeta[s.id] || platformMeta[s.platform] || platformMeta.twitch;
-    return `
-    <a class="soc-card" href="${s.url}" target="_blank" style="
+  g.innerHTML = DATA.social.map(s => `
+    <a href="${s.url}" target="_blank" style="
       display:flex;flex-direction:column;
-      background:${pm.bg};
-      border:1px solid ${pm.border};
+      background:${s.bg};
+      border:1px solid ${s.border};
       border-radius:var(--radius-lg);
       overflow:hidden;
       text-decoration:none;
       transition:transform .2s,box-shadow .2s;
       cursor:pointer;
-      position:relative;
-    " onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px ${pm.border}'"
+    " onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px ${s.border}'"
        onmouseout="this.style.transform='';this.style.boxShadow=''">
-
-      <!-- Barre couleur top -->
-      <div style="height:3px;background:${pm.color};width:100%;"></div>
-
-      <!-- Bannière -->
-      <div style="height:110px;background-image:url('${s.banner}');background-size:cover;background-position:center;position:relative;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,${pm.bg.replace('0.1','0.85')});"></div>
-        <!-- Badge plateforme -->
-        <div style="position:absolute;top:12px;left:14px;display:flex;align-items:center;gap:8px;">
-          <div style="width:38px;height:38px;border-radius:50%;background:${pm.color};display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:white;box-shadow:0 2px 12px ${pm.border};">
+      <div style="height:3px;background:${s.color};width:100%;"></div>
+      <div style="padding:18px 18px 16px;display:flex;flex-direction:column;gap:14px;flex:1;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:42px;height:42px;border-radius:10px;background:${s.color};display:flex;align-items:center;justify-content:center;font-size:1.15rem;color:white;flex-shrink:0;">
             <i class="${s.icon}"></i>
           </div>
-          <span style="font-family:var(--font-display);font-size:.7rem;font-weight:900;letter-spacing:2px;color:white;text-shadow:0 1px 4px rgba(0,0,0,.8);text-transform:uppercase;">${s.name}</span>
+          <span style="font-family:var(--font-display);font-size:.75rem;font-weight:900;letter-spacing:2px;color:var(--text);text-transform:uppercase;">${s.name}</span>
         </div>
-        <!-- Stat -->
-        <div style="position:absolute;bottom:12px;right:14px;text-align:right;">
-          <div style="font-family:var(--font-display);font-size:1.3rem;font-weight:900;color:${pm.color};line-height:1;">${pm.stat}</div>
-          <div style="font-family:var(--font-body);font-size:.7rem;color:rgba(255,255,255,.7);margin-top:1px;">${pm.statLabel}</div>
+        <div style="display:inline-flex;align-items:center;gap:7px;padding:7px 14px;background:${s.color};border-radius:30px;color:white;font-family:var(--font-display);font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;align-self:flex-start;margin-top:auto;">
+          <i class="${s.ctaIcon}" style="font-size:.78rem;"></i> ${s.cta}
         </div>
       </div>
-
-      <!-- Body -->
-      <div style="padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;gap:10px;">
-        <p style="font-family:var(--font-body);font-size:.9rem;color:var(--text-dim);line-height:1.5;margin:0;flex:1;">${s.desc}</p>
-        <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:${pm.color};border-radius:30px;color:white;font-family:var(--font-display);font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;align-self:flex-start;">
-          <i class="${pm.ctaIcon}" style="font-size:.85rem;"></i>
-          ${pm.cta}
-        </div>
-      </div>
-    </a>`;
-  }).join('');
+    </a>`).join('');
 }
 
 // ── NOTIFICATION BANNER ───────────────────────────────────────
@@ -1988,7 +2426,7 @@ function playCinematic(idx) {
 
   // Lancer la vidéo
   if(c.videoId) {
-    const params={videoId:c.videoId,fid:null,cid:null,season:null,epIdx:null,isCinematic:true};
+    const params={videoId:c.videoId||null,megaUrl:c.megaUrl||null,fid:null,cid:null,season:null,epIdx:null,isCinematic:true};
     if(typeof YT!=='undefined'&&YT.Player) _createYTPlayer(params);
     else window._pendingYT=params;
   }
@@ -2074,7 +2512,7 @@ function renderModalEps(fid,cid,season) {
   el.innerHTML=eps.map((ep,i)=>{
     const prog=DB.getProgress(fid,cid,season,ep.num), done=prog>=90;
     return `<div class="episode-item" onclick="playEp('${fid}','${cid}','${esc(season)}',${i})">
-      <div class="episode-thumb" style="background-image:url('${ytThumb(ep.videoId)}')">
+      <div class="episode-thumb" style="background-image:url('${epThumb(ep)}')">
         <div class="episode-thumb-play"><i class="fas fa-play"></i></div>
         ${done?'<div class="ep-watched"></div>':''}
       </div>
@@ -2672,7 +3110,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
   const epList=eps.map((e,i)=>{
     const prog=DB.getProgress(fid,cid,season,e.num), cur=i===epIdx;
     return `<div class="player-ep-item${cur?' current':''}" ${!cur?`onclick="playEp('${fid}','${cid}','${esc(season)}',${i})"`:''}>
-      <div class="player-ep-thumb" style="background-image:url('${ytThumb(e.videoId)}')">
+      <div class="player-ep-thumb" style="background-image:url('${epThumb(e)}')">
         <div class="player-ep-thumb-overlay">${cur?'<div class="player-ep-playing-icon"><i class="fas fa-volume-up"></i></div>':'<i class="fas fa-play"></i>'}</div>
         ${prog>0&&!cur?`<div class="player-ep-progress"><div class="player-ep-progress-fill" style="width:${prog}%"></div></div>`:''}
       </div>
@@ -2684,7 +3122,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
   const sugg=suggEps.map((e,i)=>{
     const realIdx=eps.indexOf(e), cur=realIdx===epIdx;
     return `<div class="suggestion-card${cur?' current':''}" ${!cur?`onclick="playEp('${fid}','${cid}','${esc(season)}',${realIdx})"`:''}>
-      <div class="suggestion-thumb" style="background-image:url('${ytThumb(e.videoId)}')"></div>
+      <div class="suggestion-thumb" style="background-image:url('${epThumb(e)}')"></div>
       <div class="suggestion-info"><div class="suggestion-ep">${cur?'EN COURS · ':''}EP ${e.num}</div><div class="suggestion-title">${e.title}</div></div>
     </div>`;
   }).join('');
@@ -2750,7 +3188,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
         <div class="sidebar-section">
           <div class="sidebar-section-title">Épisode suivant</div>
           ${nextEp?`<div class="upnext-card" onclick="playEp('${fid}','${cid}','${esc(season)}',${epIdx+1})">
-            <div class="upnext-thumb" style="background-image:url('${ytThumb(nextEp.videoId)}')"><div class="upnext-play-btn"><i class="fas fa-play"></i></div></div>
+            <div class="upnext-thumb" style="background-image:url('${epThumb(nextEp)}')"><div class="upnext-play-btn"><i class="fas fa-play"></i></div></div>
             <div class="upnext-info"><div class="upnext-label">Épisode suivant</div><div class="upnext-title">${nextEp.title}</div><div class="upnext-ep">Épisode ${nextEp.num} · ${season}</div></div>
           </div>`:`<div class="empty-state" style="padding:20px;"><i class="fas fa-flag-checkered"></i><h4>Fin de la saison</h4></div>`}
         </div>
@@ -2759,7 +3197,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
     </div>`;
 
   // Monter le player YT dans le container dédié
-  const params = {videoId:ep.videoId, fid, cid, season, epIdx};
+  const params = {videoId:ep.videoId||null, megaUrl:ep.megaUrl||null, fid, cid, season, epIdx};
   if(typeof YT!=='undefined'&&YT.Player) {
     _createYTPlayer(params);
   } else {
@@ -2768,16 +3206,27 @@ function showPlayerPage(fid,cid,season,epIdx) {
 }
 
 function _createYTPlayer(params) {
-  const {videoId, fid, cid, season, epIdx} = params;
-  // Le container doit exister
+  const {videoId, megaUrl, fid, cid, season, epIdx, isCinematic} = params;
   const container = $('ytPlayerContainer');
   if(!container) { window._pendingYT=params; return; }
+  container.innerHTML='';
 
-  // Créer un div enfant pour YT (YT remplace ce div par un iframe)
+  if (megaUrl) {
+    // ── Lecteur MEGA embed ─────────────────────────────────
+    const iframe = document.createElement('iframe');
+    iframe.src = megaUrl;
+    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
+    iframe.allow = 'autoplay; fullscreen';
+    iframe.allowFullscreen = true;
+    container.appendChild(iframe);
+    ytPlayer = null; // Mega n'a pas d'API — pas d'autoplay suivant
+    return;
+  }
+
+  // ── Lecteur YouTube ────────────────────────────────────
   const div=document.createElement('div');
   div.id='ytDivInner';
   div.style.cssText='width:100%;height:100%;';
-  container.innerHTML='';
   container.appendChild(div);
 
   ytPlayer=new YT.Player('ytDivInner',{
@@ -2786,7 +3235,7 @@ function _createYTPlayer(params) {
     playerVars:{autoplay:1,rel:0,modestbranding:1,iv_load_policy:3,cc_load_policy:0,fs:1},
     events:{
       onReady(e){ e.target.playVideo(); },
-      onStateChange(e){ if(e.data===YT.PlayerState.ENDED) onVidEnd(fid,cid,season,epIdx); }
+      onStateChange(e){ if(e.data===YT.PlayerState.ENDED && !isCinematic) onVidEnd(fid,cid,season,epIdx); }
     }
   });
 }
