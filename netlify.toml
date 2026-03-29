@@ -1,42 +1,67 @@
+# ============================================================
+#  iPROMX — Configuration Netlify
+# ============================================================
+
 [build]
   functions = "netlify/functions"
   publish = "."
 
 [functions]
+  directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# ── Fonctions planifiées ─────────────────────────────────────
 [[scheduled.functions]]
   name = "keepalive"
-  schedule = "0 0 */2 * *"  # Tous les 2 jours à minuit UTC
+  schedule = "0 0 */2 * *"   # Tous les 2 jours à minuit UTC
+
+# ── Redirects ────────────────────────────────────────────────
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/.netlify/functions/sitemap"
+  status = 200
+  force = true
+
+# ── Headers HTTP ─────────────────────────────────────────────
 
 [[headers]]
   for = "/*.js"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
- 
+
 [[headers]]
   for = "/*.css"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
- 
-# HTML : jamais caché (toujours frais)
+
 [[headers]]
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
- 
+    X-Robots-Tag = "index, follow"
+
 [[headers]]
   for = "/"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
- 
-# Images et fonts : cache long (elles ne changent pas souvent)
+    X-Robots-Tag = "index, follow"
+
 [[headers]]
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
- 
+
 [[headers]]
   for = "/fonts/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
