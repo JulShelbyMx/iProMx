@@ -17,7 +17,7 @@ const DATA = {
       description:'La saga légendaire qui traverse les générations. Los Santos ne sera plus jamais le même.',
       image:'images/flashlogo.webp', banner:FB,
       characters:[
-        { id:'david-flash', name:'David Flash', image:'images/david_flash.jpg', banner:'images/david_flash.jpg',
+        { id:'david-flash', name:'David Flash', image:'images/david_flash.png', banner:'images/david_flash.png',
           description:'Le fondateur légendaire de la famille Flash. Un homme au passé trouble qui a bâti un empire dans l\'ombre de Los Santos.',
           seasons:{
     'Saison 1':[
@@ -98,7 +98,7 @@ const DATA = {
         {num:65,title:'DAVID FLASH A FAIT L\'IMPOSSIBLE MAIS SA MALADIE LE MENACE ! GTAV RP #7',videoId:'iK5E34WF5uI'}
     ] 
   }},
-        { id:'john-flash', name:'John Flash', image:'images/john_flash.jpg', banner:FB,
+        { id:'john-flash', name:'John Flash', image:'images/john_flash.png', banner:'images/john_flash.png',
           description:'Le successeur ambitieux. Charismatique, déterminé, il modernise l\'empire familial tout en affrontant ses propres démons.',
           seasons:{
     'Saison 1':[
@@ -165,10 +165,14 @@ const DATA = {
     'Saison 2 Partie 2':[ 
         {num:58,title:'LA MORT D\'ANGEL ?! GTAV RP SAISON 2 #1',videoId:'P04hXwK0YzM'},
         {num:59,title:'GARRY A T\'IL TUE JOHN FLASH ?',videoId:'lUnQHvJy-jM'},
-        {num:60,title:'ENFERME DANS UN CONTENEUR ! ANGEL MORTE ? GTAV RP SAISON 2 #2',videoId:'bmIJqQi96yQ'}
+        {num:60,title:'ENFERME DANS UN CONTENEUR ! ANGEL MORTE ? GTAV RP SAISON 2 #2',videoId:'bmIJqQi96yQ'},
+    ],
+    'Saison 3':[ 
+        {num:61,title:'JOHN FLASH EN PRISON ! GTAV PRISON RP #1',videoId:'ne9HX6WNgXs'},
+        {num:62,title:'LES ANCIENS NOUS VEULENT DU MAL ! GTAV PRISON RP #2',videoId:'zDTgyQCDSW0'},
     ]
     }},
-        { id:'ken-flash', name:'Ken Flash', image:'images/ken_flash.jpg', banner:FB,
+        { id:'ken-flash', name:'Ken Flash', image:'images/ken_flash.png', banner:'images/ken_flash.png',
           description:'Le stratège froid. Maître des plans complexes et des alliances secrètes.', 
           seasons:{
     'Saison 1 Partie 1':[
@@ -274,7 +278,7 @@ const DATA = {
         {num:92,title:'KEN FLASH, LES ADIEUX ! GTA V RP ! by iProMx #10 S2',videoId:'4L92knQnHf8'},
     ]
 },},
-        { id:'aaron-flash', name:'Aaron Flash', image:'images/aaron_flash.webp', banner:FB,
+        { id:'aaron-flash', name:'Aaron Flash', image:'images/aaron_flash.webp', banner:'images/aaron_flash.webp',
           description:'L\'ancien militaire reconverti. Le bras armé de la famille, prêt à tout pour protéger les siens.',
           hasLocalVideo:true, videoUrl:'vidéos/phénixanimation1.mp4', 
           seasons:{
@@ -335,7 +339,7 @@ const DATA = {
         {num:52,title:'LE MARIAGE D\'AARON ET NINA ! GTA V RP ! by iProMx #14 S2',videoId:'2rJB3cCv9as'}
     ]
 }, },
-        { id:'david-jr-flash', name:'David Jr Flash', image:'images/davidjr_flash.webp', banner:FB,
+        { id:'david-jr-flash', name:'David Jr Flash', image:'images/david-jr_flash.png', banner:'images/david-jr_flash.png',
           description:'La nouvelle génération montante. Entre admiration et rébellion face à l\'héritage criminel.', 
           seasons:{
     'Saison 1':[
@@ -350,7 +354,7 @@ const DATA = {
         {num:9,title:'LE GRAND JOUR ! LA TERRE DES FLASH ! GTA V RP ! by iProMx #8',videoId:'sNQ3s-LdJHk'}
     ]
 }, },
-        { id:'damon-flash', name:'Damon Flash', image:'images/damon_flash2.jpg', banner:FB,
+        { id:'damon-flash', name:'Damon Flash', image:'images/damon_flash2.jpg', banner:'images/damon_flash2.jpg',
           description:'Le mystérieux et imprévisible. Son retour soulève des questions.', 
           seasons:{
     'Saison 1':[
@@ -417,7 +421,7 @@ const DATA = {
         {num:57,title:'DAMON FLASH LE FILM OFFICIEL ! COMBAT FINAL',videoId:'TyAXhptUiuE'}
     ]
 }, },
-        { id:'kayton-flash', name:'Kayton Flash', image:'images/kayton_flash.webp', banner:FB,
+        { id:'kayton-flash', name:'Kayton Flash', image:'images/kayton_flash.png', banner:'images/kayton_flash.png',
           description:'Le tacticien discret. Spécialiste des opérations clandestines.', 
           seasons:{
     'Saison 1':[
@@ -462,7 +466,7 @@ const DATA = {
         {num:35,title:'PARTIE 2 ! LA FIN DE KAYTON FLASH ! GTA V RP ! by iProMx #9',videoId:'79XMv8kW9Ag'}
     ]
 }, },
-        { id:'adrian-flash', name:'Adrian Flash', image:'images/adrian_flash3.webp', banner:FB,
+        { id:'adrian-flash', name:'Adrian Flash', image:'images/adrian_flash.png', banner:'images/adrian_flash.png',
           description:'Le loyal absolu. Bras droit de confiance.', 
           seasons:{
     'Saison 1':[
@@ -496,8 +500,8 @@ const DATA = {
         {num:24,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 2 ! #1 S3',videoId:'ETV4TcSbZos'}
     ]
 }, },
-        { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/ned_flash.webp', banner:FB,
-          description:'Capitaine légendaire qui a libéré le monde de la destruction qui l\'attendait.',
+        { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/ned_flash.webp', banner:'images/ned_flash.png',
+          description:'Fils de l\'ancien roi de la terre des Flash, le capitaine Ned s\'est battu au péril de sa vie au côté de son équipage pour venir à bout de la plus grande menace qu\'a connu cette terre. Ce héros a libéré le monde de la destruction qui l\'attendait.',
           hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', 
           seasons:{
     'Saison 1 (Eden)':[
@@ -599,7 +603,7 @@ const DATA = {
     ]
   }, },
 
-        { id:'manda-flash', name:'Manda Flash', image:'images/manda_flash.webp', banner:FB,
+        { id:'manda-flash', name:'Manda Flash', image:'images/manda_flash.png', banner:'images/manda_flash.png',
           description:'La protectrice féroce. Mère, sœur, guerrière.',
           seasons:{
     'Saison 1':[
