@@ -186,24 +186,37 @@ const AUTH = {
     } catch (e) { return { ok:false, error:this._err(e.code) }; }
   },
 
-  async restoreSession() {
+async restoreSession() {
     if (IS_LOCAL) return true;
     if (!_initFB()) return false;
+    
     return new Promise(resolve => {
-      const timer = setTimeout(() => resolve(!!localStorage.getItem('ipx_uid')), 6000);
+      // Timeout un peu plus court (3s suffisent généralement)
+      const timer = setTimeout(() => resolve(!!localStorage.getItem('ipx_uid')), 3000);
+      
       _auth.onAuthStateChanged(async user => {
         clearTimeout(timer);
-        if (user) {
+        if (user && user.uid) { // Vérifie bien que l'UID existe
           this._user = user;
-          // Forcer le rafraîchissement du token avant tout read Firestore
-          // (évite l'erreur "Missing or insufficient permissions" au démarrage)
-          try { await user.getIdToken(true); } catch(_) {}
-          await this._loadDoc();
-          this._cache();
-          resolve(true);
+          try { 
+            // Rafraîchissement du token
+            await user.getIdToken(true); 
+            
+            // Tente de charger le document Firestore
+            await this._loadDoc(); 
+            this._cache();
+            resolve(true);
+          } catch(e) {
+            console.error("Erreur Firestore au démarrage:", e);
+            // Si Firestore échoue (Erreur 400), on resolve quand même 
+            // pour ne pas bloquer l'interface
+            resolve(true); 
+          }
         } else {
-          this._user = null; this._profile = null;
-          localStorage.removeItem('ipx_user'); localStorage.removeItem('ipx_uid');
+          this._user = null; 
+          this._profile = null;
+          localStorage.removeItem('ipx_user'); 
+          localStorage.removeItem('ipx_uid');
           resolve(false);
         }
       });
