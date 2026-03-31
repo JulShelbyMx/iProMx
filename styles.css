@@ -1568,7 +1568,6 @@ body::before {
   width: 0;
   overflow: hidden;
   transition: width 0.25s ease;
-  -webkit-appearance: none;
   background: rgba(255,255,255,0.2);
   height: 3px;
   border-radius: 2px;
