@@ -3232,15 +3232,31 @@ function _createYTPlayer(params) {
   div.style.cssText='width:100%;height:100%;';
   container.appendChild(div);
 
-  ytPlayer=new YT.Player('ytDivInner',{
-    videoId,
-    height:'100%', width:'100%',
-    playerVars:{autoplay:1,rel:0,modestbranding:1,iv_load_policy:3,cc_load_policy:0,fs:1},
-    events:{
-      onReady(e){ e.target.playVideo(); },
-      onStateChange(e){ if(e.data===YT.PlayerState.ENDED && !isCinematic) onVidEnd(fid,cid,season,epIdx); }
+ytPlayer = new YT.Player('ytDivInner', {
+  videoId,
+  height: '100%',
+  width: '100%',
+  host: 'https://www.youtube-nocookie.com', 
+  playerVars: {
+    autoplay: 1,
+    rel: 0,
+    modestbranding: 1,
+    iv_load_policy: 3,
+    cc_load_policy: 0,
+    fs: 1,
+    enablejsapi: 1, // INDISPENSABLE pour que le code puisse contrôler la vidéo
+    origin: window.location.origin 
+  },
+  events: {
+    onReady(e) { 
+      // On tente de lancer la vidéo, mais sans crash si le navigateur bloque l'autoplay
+      try { e.target.playVideo(); } catch(err) { console.log("Autoplay en attente d'interaction"); }
+    },
+    onStateChange(e) { 
+      if (e.data === YT.PlayerState.ENDED && !isCinematic) onVidEnd(fid, cid, season, epIdx); 
     }
-  });
+  }
+});
 }
 
 function onVidEnd(fid,cid,season,epIdx) {
