@@ -83,7 +83,7 @@ const PRESET_AVATARS = [
   { id:'av47',  src:'images/sylvester_shade.png',  label:'Sylvester Shade 2'     },
   { id:'av48',  src:'images/sylvester_shade.webp',  label:'Sylvester Shade 3'     },
   { id:'av49',  src:'images/zayn_flash.png',  label:'Zayn Flash'     },
-  { id:'av50',  src:'images/zack_kingsley.png',  label:'Zack Kingsley'     },
+  { id:'av50',  src:'images/zack_kingsley1.png',  label:'Zack Kingsley'     },
 
   
 

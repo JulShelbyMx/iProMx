@@ -1277,7 +1277,7 @@ const DATA = {
       description:'Un nom qui résonne dans toute la ville. Zack Kingsley ne fait pas de compromis.',
       image:'images/zack_kingsley.png', banner:'images/zack_kingsley.png',
       characters:[
-        { id:'zack-kingsley', name:'Zack Kingsley', image:'images/zack_kingsley.png', banner:'images/zack_kingsley.png',
+        { id:'zack-kingsley', name:'Zack Kingsley', image:'images/zack_kingsley1.png', banner:'images/zack_kingsley1.png',
           description:'Charismatique et redoutable. Zack Kingsley impose sa loi sans concession.', 
           seasons:{
     'Saison 1':[
