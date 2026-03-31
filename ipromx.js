@@ -3073,7 +3073,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
   document.title=`${char.name} — EP${ep.num} | iPROMX`;
 
   // URL propre
-  try { history.pushState({},'',(ROUTER.buildURL(fid,cid,season,ep.num))); } catch(_){}
+  // try { history.pushState({},'',(ROUTER.buildURL(fid,cid,season,ep.num))); } catch(_){}
 
   // Historique
   DB.addHistory({familyId:fid,charId:cid,season,epNum:ep.num,epIdx,videoId:ep.videoId,title:ep.title}); renderHistory();
