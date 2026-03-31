@@ -1841,7 +1841,7 @@ const ROUTER = (() => {
       window.addEventListener('popstate',()=>dispatch(parse(location.pathname)));
       const r=parse(location.pathname); if(r.view==='player') dispatch(r);
     },
-    // goHome() { history.pushState({},'','/'); showHome(); },
+    //goHome() { history.pushState({},'','/'); showHome(); },
     buildURL
   };
 })();
@@ -3073,7 +3073,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
   document.title=`${char.name} — EP${ep.num} | iPROMX`;
 
   // URL propre
-  // try { history.pushState({},'',(ROUTER.buildURL(fid,cid,season,ep.num))); } catch(_){}
+  try { history.pushState({},'',(ROUTER.buildURL(fid,cid,season,ep.num))); } catch(_){}
 
   // Historique
   DB.addHistory({familyId:fid,charId:cid,season,epNum:ep.num,epIdx,videoId:ep.videoId,title:ep.title}); renderHistory();
