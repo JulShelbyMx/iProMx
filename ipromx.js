@@ -1295,7 +1295,8 @@ const DATA = {
         {num:12,title:'GTA 5 RP À ZÉRO ! #12 (J’achète une île secrète… C’est ouf !🤯)',videoId:'ydcHdy6he-s'},
         {num:13,title:'GTA 5 RP À ZÉRO ! #13 (J’ai investi une fortune dans mon île… le résultat est fou 💰)',videoId:'h82XzqJJ2jg'},
         {num:14,title:'GTA 5 RP À ZÉRO ! #14 (J’ai construit un mini-drone ultra puissant ! 🚀)',videoId:'nMmsDQYZ_rs'},
-        {num:15,title:'GTA 5 RP À ZÉRO ! #15 (La jalousie explose… et mon drone évolue dangereusement🔥)',videoId:'LH_65m6zJFQ'}
+        {num:15,title:'GTA 5 RP À ZÉRO ! #15 (La jalousie explose… et mon drone évolue dangereusement🔥)',videoId:'LH_65m6zJFQ'},
+        {num:16,title:'GTA 5 RP À ZÉRO ! #16 (J’ai créé le système le plus CHEATÉ de FiveM)',videoId:'d25Bq_h_1FM'}
     ]
 }, }
       ]
@@ -1447,13 +1448,13 @@ const DATA = {
     // active: false,  // mettre false pour masquer
     active: true,
     label: 'NOUVEL ÉPISODE',      // badge à gauche (ex: "MISE À JOUR", "NOUVEAU")
-    text:  'Nouvel épisode : (Zack Kingsley) GTA 5 RP À ZÉRO ! #15 (La jalousie explose… et mon drone évolue dangereusement🔥)',
+    text:  'Nouvel épisode : (Zack Kingsley) GTA 5 RP À ZÉRO ! #16 (J’ai créé le système le plus CHEATÉ de FiveM)',
     // Lien vers un épisode précis (laisser null pour pas de bouton)
     link: {
       familyId: 'kingsley',
       charId:   'zack-kingsley',
       season:   'Saison 1',
-      epNum:    15            // numéro de l'épisode
+      epNum:    16            // numéro de l'épisode
     }
     // Pour une URL externe à la place :
     // externalUrl: 'https://...'
