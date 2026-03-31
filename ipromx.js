@@ -1841,7 +1841,7 @@ const ROUTER = (() => {
       window.addEventListener('popstate',()=>dispatch(parse(location.pathname)));
       const r=parse(location.pathname); if(r.view==='player') dispatch(r);
     },
-    //goHome() { history.pushState({},'','/'); showHome(); },
+    goHome() { history.pushState({},'','/'); showHome(); },
     buildURL
   };
 })();
