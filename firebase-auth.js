@@ -65,7 +65,7 @@ const PRESET_AVATARS = [
   { id:'av29',  src:'images/oliver_winters.png',  label:'Oliver Winters'     },
   { id:'av30',  src:'images/adrian_flash1.webp',  label:'Adrian Flash 1'     },
   { id:'av31',  src:'images/adrian_flash2.webp',  label:'Adrian Flash 2'     },
-  { id:'av32',  src:'images/adrian_flash4.webp',  label:'Adrian Flash 3'     },
+  { id:'av32',  src:'images/adrian_flash4.png',  label:'Adrian Flash 3'     },
   { id:'av33',  src:'images/adrian_flash3.webp',  label:'Adrian Flash 4'     },
   { id:'av34',  src:'images/basilicadrian.webp',  label:'Basilic Adrian'     },
   { id:'av35',  src:'images/manda_flash.png',  label:'Manda Flash'     },

@@ -462,12 +462,12 @@ body::before {
 .navbar-container {
   max-width: 1500px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 12px 0 24px;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 12px;
 }
 
 .navbar-left { display: flex; align-items: center; gap: 0; }
@@ -526,6 +526,7 @@ body::before {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 
 .live-badge {
@@ -2431,6 +2432,8 @@ body::before {
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .live-badge .live-text { display: none; }
+  .navbar-container { padding: 0 24px 0 16px; gap: 6px; }
+  .navbar-right { gap: 6px; }
   .hero-content { left: 20px; right: 10%; bottom: 60px; }
   .hero-title { font-size: 1.8rem; }
   .hero-desc { display: none; }
