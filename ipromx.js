@@ -1486,6 +1486,11 @@ const DATA = {
       videoId: "wgZ0_iSvkZ0"
     },
     {
+      title: "Adrian vs Ned - Au coeur des ténèbres [Le Film]",
+      image: "https://i.ytimg.com/vi/sReaGjD0op4/hqdefault.jpg",
+      videoId: "sReaGjD0op4"
+    },
+    {
       title: "L'INVITATION D'ADRIAN FLASH ! CINÉMATIQUE",
       image: "https://i.ytimg.com/vi/nbeGv9_AEyo/hqdefault.jpg",
       videoId: "nbeGv9_AEyo"
@@ -1534,6 +1539,11 @@ const DATA = {
       title: "Ned vs Aaron - Le combat ultime (cinématique)",
       image: "https://i.ytimg.com/vi/qonTgtJUeaE/hqdefault.jpg",
       videoId: "qonTgtJUeaE"
+    },
+    {
+      title: "La fin de Ned Flash !? GTA V cinématique",
+      image: "https://i.ytimg.com/vi/mlOHJK8qNaA/hqdefault.jpg",
+      videoId: "mlOHJK8qNaA"
     },
     {
       title: "EDEN ET AARON FLASH VS ADRIAN ! LE FILM",
