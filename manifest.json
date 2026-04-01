@@ -1,0 +1,22 @@
+{
+  "name": "L'univers d'iProMx",
+  "short_name": "L'univers d'iProMx",
+  "description": "L'univers d'iProMx",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#080600",
+  "theme_color": "#f5a623",
+  "icons": [
+    {
+      "src": "images/logo192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

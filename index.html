@@ -11,8 +11,24 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="player.css">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="images/logo192.png">
   <meta name="google-site-verification" content="_yEaPZ6uwnbnq-02Wu6RiQHIdMtXFrVxWffr9to5cdM" />
 </head>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "695800f3-ae65-4e50-8ac9-9e81510e9057",
+      safari_web_id: "web.onesignal.auto.2e77cfdc-f6e8-4572-82d4-363b6713f2bc",
+      notifyButton: {
+        enable: false, // ON CACHE LA CLOCHE ROUGE
+      },
+      allowLocalhostAsSecureOrigin: true,
+    });
+  });
+</script>
 <body>
 
 <!-- ═══ AUTH PAGE ═══ -->

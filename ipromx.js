@@ -3307,3 +3307,57 @@ if (document.readyState === 'loading') {
 } else {
   _boot();
 }
+
+/* ── BOOT ────────────────────────────────────────────────────── */
+function _boot() { setupAuthListeners(); initAuth(); }
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', _boot);
+} else {
+  _boot();
+}
+
+// ── PWA, INSTALLATION & NOTIFICATIONS ─────────────────────────
+let deferredPrompt;
+const installBtn = document.createElement('button');
+installBtn.id = 'installApp';
+installBtn.innerHTML = '<i class="fas fa-download"></i> Installer l\'App';
+installBtn.style.display = 'none'; 
+document.body.appendChild(installBtn);
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'block'; 
+});
+
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    // 1. Lancement de l'installation (Android/PC)
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      console.log('App installée !');
+    }
+    deferredPrompt = null;
+    installBtn.style.display = 'none';
+
+    // 2. Demande des notifications OneSignal
+    if (window.OneSignalDeferred) {
+      window.OneSignalDeferred.push(function(OneSignal) {
+        OneSignal.Notifications.requestPermission();
+      });
+    }
+  }
+});
+
+// ── DETECTION IOS (Pour Eliya) ────────────────────────────────
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+
+if (isIOS && !isStandalone) {
+  setTimeout(() => {
+    if (typeof toast === 'function') {
+      toast("Installation : Appuyez sur [Partager] puis 'Sur l'écran d'accueil' pour activer les notifications.", "info");
+    }
+  }, 3000);
+}

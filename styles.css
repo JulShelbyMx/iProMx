@@ -701,6 +701,34 @@ body::before {
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+
+/* Bouton Installation PWA - Style Gold Arc */
+#installApp {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 10000;
+  background: var(--arc);
+  color: var(--void);
+  border: 2px solid var(--gold-bright);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 20px var(--arc-glow);
+  cursor: pointer;
+  display: none; /* Géré par le JS */
+  transition: all 0.3s ease;
+}
+
+#installApp:hover {
+  transform: scale(1.1);
+  background: var(--gold-bright);
+  box-shadow: 0 0 30px var(--gold-glow);
+}
+
 /* Mobile nav drawer */
 .mobile-nav {
   display: none;
