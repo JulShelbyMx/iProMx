@@ -3308,14 +3308,6 @@ if (document.readyState === 'loading') {
   _boot();
 }
 
-/* ── BOOT ────────────────────────────────────────────────────── */
-function _boot() { setupAuthListeners(); initAuth(); }
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', _boot);
-} else {
-  _boot();
-}
-
 // ── PWA, INSTALLATION & NOTIFICATIONS ─────────────────────────
 let deferredPrompt;
 const installBtn = document.createElement('button');
