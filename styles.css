@@ -2463,7 +2463,15 @@ body::before {
   .navbar-right { gap: 6px; }
   .hero-content { left: 20px; right: 10%; bottom: 60px; }
   .hero-title { font-size: 1.8rem; }
-  .hero-desc { display: none; }
+  .hero-desc { font-size: 0.9rem; /* Taille adaptée pour mobile */
+    line-height: 1.4;
+    max-width: 100%;
+    margin-bottom: 15px;
+    color: rgba(255, 255, 255, 0.8); /* Gris clair pour la lisibilité */
+    /* On limite à 3 lignes pour ne pas manger tout l'écran */
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical;
+    overflow: hidden; }
   .section-container { padding: 0 16px; }
   .live-inner { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 24px; }
