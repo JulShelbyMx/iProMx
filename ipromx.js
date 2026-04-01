@@ -3361,3 +3361,12 @@ if (isIOS && !isStandalone) {
     }
   }, 3000);
 }
+
+// ── ENREGISTREMENT DU WORKER (Pour les notifs en arrière-plan) ──
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/OneSignalSDKWorker.js')
+      .then(reg => console.log('Service Worker iProMx prêt !'))
+      .catch(err => console.log('Erreur SW:', err));
+  });
+}
