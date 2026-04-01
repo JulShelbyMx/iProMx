@@ -3362,11 +3362,15 @@ if (isIOS && !isStandalone) {
   }, 3000);
 }
 
-// ── ENREGISTREMENT DU WORKER (Pour les notifs en arrière-plan) ──
+// REMPLACE TOUT TON BLOC DE FIN PAR CELUI-CI :
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/OneSignalSDKWorker.js')
-      .then(reg => console.log('Service Worker iProMx prêt !'))
-      .catch(err => console.log('Erreur SW:', err));
+    // On n'enregistre plus le worker OneSignal qui bugue
+    // On laisse le navigateur gérer la PWA normalement
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      for(let registration of registrations) {
+        registration.unregister(); // Nettoie les anciens workers OneSignal
+      }
+    });
   });
 }
