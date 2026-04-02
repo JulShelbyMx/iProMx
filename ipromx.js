@@ -14,11 +14,11 @@ const DATA = {
   universes: {
     flash: {
       id:'flash', name:'Famille Flash', color:'#e74c3c',
-      description:'La saga légendaire qui traverse les générations. Los Santos ne sera plus jamais le même.',
+      description:'La saga légendaire qui traverse les générations. ',
       image:'images/flashlogo.webp', banner:FB,
       characters:[
         { id:'david-flash', name:'David Flash', image:'images/david_flash.png', banner:'images/david_flash.png',
-          description:'Le fondateur légendaire de la famille Flash. Un homme au passé trouble qui a bâti un empire dans l\'ombre de Los Santos.',
+          description:'Chef de gang légendaire ayant tout perdu, de sa liberté à sa famille, il finit par vivre dans l\'ombre pour protéger les siens. Protecteur infatigable, il traverse les épreuves et les époques pour guider ses héritiers jusqu\'à son dernier souffle.',
           seasons:{
     'Saison 1':[
         {num:1,title:'POUR LA PREMIERE FOIS JE TESTE GTAV RP - UN TROLLEUR SUR UN JEU ROLEPLAY ?',videoId:'z_H0tafxHAc'},
@@ -99,7 +99,7 @@ const DATA = {
     ] 
   }},
         { id:'john-flash', name:'John Flash', image:'images/john_flash.png', banner:'images/john_flash.png',
-          description:'Le successeur ambitieux. Charismatique, déterminé, il modernise l\'empire familial tout en affrontant ses propres démons.',
+          description:'Pilote clandestin devenu le plus grand criminel du continent, il a bâti un empire colossal après avoir découvert la vérité sur ses origines. Solitaire et déterminé comme le loup, il a transformé ses tragédies personnelles en une soif de pouvoir absolue, régnant sans partage jusqu\'à la transmission de son héritage.',
           seasons:{
     'Saison 1':[
         {num:1,title:'LES BOSS DES RUES ! GTAV RP #1',videoId:'NGjgos92uSU'},
@@ -173,7 +173,7 @@ const DATA = {
     ]
     }},
         { id:'ken-flash', name:'Ken Flash', image:'images/ken_flash.png', banner:'images/ken_flash.png',
-          description:'Le stratège froid. Maître des plans complexes et des alliances secrètes.', 
+          description:'Ancien policier devenu criminel par choix, il a repris le flambeau familial pour transformer un gang en une équipe de héros protecteurs. Puissant et déterminé comme le dragon, il a fini par donner sa vie dans un sacrifice ultime pour offrir une chance de paix à ses enfants et au monde.', 
           seasons:{
     'Saison 1 Partie 1':[
         {num:1,title:'QUI EST KEN FLASH ?! GTAV RP ADASTRA 450 SLOTS ! FR',videoId:'exCu9-AzaKs'},
@@ -279,7 +279,7 @@ const DATA = {
     ]
 },},
         { id:'aaron-flash', name:'Aaron Flash', image:'images/aaron_flash.webp', banner:'images/aaron_flash.webp',
-          description:'L\'ancien militaire reconverti. Le bras armé de la famille, prêt à tout pour protéger les siens.',
+          description:'Guerrier au destin tragique devenu roi et protecteur, il a surmonté les trahisons et les pertes pour reconstruire un futur de paix. À l\'image du phénix, il renaît sans cesse de ses cendres pour guider ses fils et affronter ses ennemis, jusqu\'à son ultime sacrifice.',
           hasLocalVideo:true, videoUrl:'vidéos/phénixanimation1.mp4', 
           seasons:{
     'Saison 1':[
@@ -340,7 +340,7 @@ const DATA = {
     ]
 }, },
         { id:'david-jr-flash', name:'David Jr Flash', image:'images/david-jr_flash.png', banner:'images/david-jr_flash.png',
-          description:'La nouvelle génération montante. Entre admiration et rébellion face à l\'héritage criminel.', 
+          description:'Enfant de la pègre devenu un monstre de vengeance, il a semé le chaos et la destruction avant de chercher la paix dans l\'isolement. Tel un cobra changeant de peau, il a fini par troquer sa haine contre un chemin de rédemption, offrant sa vie pour sauver ceux qu\'il combattait autrefois..', 
           seasons:{
     'Saison 1':[
         {num:1,title:'LE RETOUR D\'UNE LEGENDE ! GTA V RP ! by iProMx #1',videoId:'X4l0agpzSqI'},
@@ -355,7 +355,7 @@ const DATA = {
     ]
 }, },
         { id:'damon-flash', name:'Damon Flash', image:'images/damon_flash2.jpg', banner:'images/damon_flash2.jpg',
-          description:'Le mystérieux et imprévisible. Son retour soulève des questions.', 
+          description:'Enfant brisé devenu le « Roi de Los Santos » sous l\'emprise d\'une entité maléfique, il a commis l\'irréparable avant de chercher le pardon sous une fausse identité. Porté par la force du lion, il a fini par vaincre ses démons intérieurs et se sacrifier pour offrir aux autres l\'amour et la paix qu\'il n\'a jamais connus.', 
           seasons:{
     'Saison 1':[
         {num:1,title:'L\'ARRIVÉ DE DAMON FLASH ! by iProMx #1',videoId:'tXoCThA1kOc'},
@@ -422,7 +422,7 @@ const DATA = {
     ]
 }, },
         { id:'kayton-flash', name:'Kayton Flash', image:'images/kayton_flash.png', banner:'images/kayton_flash.png',
-          description:'Le tacticien discret. Spécialiste des opérations clandestines.', 
+          description:'Esprit vengeur né de la douleur et devenu démon, il a cherché à anéantir sa propre lignée avant de recevoir une seconde chance inespérée. Transformé en loup-garou luttant contre ses pulsions, il a fini par choisir l\'amour et la rédemption, prouvant que même le plus sombre des monstres peut redevenir humain.', 
           seasons:{
     'Saison 1':[
         {num:1,title:'UN NOUVEAU FLASH ! PREMIER FILS DE KEN FLASH ! GTA V RP ! by iProMx #1',videoId:'Ic56_QKPepo'},
@@ -467,7 +467,7 @@ const DATA = {
     ]
 }, },
         { id:'adrian-flash', name:'Adrian Flash', image:'images/adrian_flash.png', banner:'images/adrian_flash.png',
-          description:'Le loyal absolu. Bras droit de confiance.', 
+          description:'Ancien militaire d\'élite brisé par une condamnation injuste, il est devenu un mort-vivant assoiffé de vengeance et de pouvoir. Tel un basilic sombre et indestructible, il a manipulé et terrassé ses ennemis avec une intelligence surhumaine avant de s\'éteindre définitivement lors d\'un ultime combat.', 
           seasons:{
     'Saison 1':[
         {num:1,title:'LE NOUVEAU FLASH ! GTA V RP ! by iProMx #1',videoId:'9-CkiigRt0w'},
