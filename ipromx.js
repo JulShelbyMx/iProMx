@@ -2537,7 +2537,7 @@ function renderModalEps(fid,cid,season) {
   const el=$('seriesEpisodesList'); if(!el) return;
   if(!eps.length){ el.innerHTML=`<div class="empty-state"><i class="fas fa-clock"></i><h4>Bientôt disponible</h4></div>`; return; }
   el.innerHTML=eps.map((ep,i)=>{
-    const prog=DB.getProgress(fid,cid,season,ep.num), done=prog>=90;
+    const prog=DB.getProgress(ep.familyId||ep.fid, ep.charId||ep.cid, ep.season, ep.epNum).pct, done=prog>=90;
     return `<div class="episode-item" onclick="playEp('${fid}','${cid}','${esc(season)}',${i})">
       <div class="episode-thumb" style="background-image:url('${epThumb(ep)}')">
         <div class="episode-thumb-play"><i class="fas fa-play"></i></div>
@@ -3198,7 +3198,7 @@ window._currentEpMeta = { fid, cid, season, epNum: ep.num };
 
   const stabs=seasons.map(s=>`<button class="player-season-tab${s===season?' active':''}" onclick="switchSeason('${fid}','${cid}','${esc(s)}',this)">${s}</button>`).join('');
   const epList=eps.map((e,i)=>{
-    const prog=DB.getProgress(fid,cid,season,e.num), cur=i===epIdx;
+    const prog=DB.getProgress(fid,cid,season,e.num).pct, cur=i===epIdx;
     return `<div class="player-ep-item${cur?' current':''}" ${!cur?`onclick="playEp('${fid}','${cid}','${esc(season)}',${i})"`:''}>
       <div class="player-ep-thumb" style="background-image:url('${epThumb(e)}')">
         <div class="player-ep-thumb-overlay">${cur?'<div class="player-ep-playing-icon"><i class="fas fa-volume-up"></i></div>':'<i class="fas fa-play"></i>'}</div>
