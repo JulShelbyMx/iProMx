@@ -1298,8 +1298,8 @@ const DATA = {
 }, }
       ]
     },
-    independants: {
-      id:'independants', name:'Indépendants', color:'#95a5a6',
+    autres: {
+      id:'autres', name:'Autres', color:'#95a5a6',
       image:'images/poil_carotte.webp', banner:'images/poil_carotte.webp',
       characters:[
         { id:'poil-carotte', name:'Poil de Carotte', image:'images/poildecarotte.png', banner:'images/poildecarotte-bn.png',
@@ -1773,23 +1773,23 @@ const CHAR_ORDER = [
   ['shade','sylvester-shade'],
   ['winters','jake-winters'],
   ['flash','ned-flash'],
-  ['independants','axel-leret'],
+  ['autres','axel-leret'],
   ['flash','manda-flash'],
   ['flash','adrian-flash'],
   ['winters','oliver-winters'],
-  ['independants','gang-gamins'],
-  ['independants','zak-hackeur'],
-  ['independants','ryan-johnson'],
+  ['autres','gang-gamins'],
+  ['autres','zak-hackeur'],
+  ['autres','ryan-johnson'],
   ['flash','kayton-flash'],
-  ['independants','billy'],
+  ['autres','billy'],
   ['flash','damon-flash'],
   ['flash','david-jr-flash'],
   ['flash','aaron-flash'],
-  ['independants', 'le-genie'],
+  ['autres', 'le-genie'],
   ['escobar','tom-escobar'],
-  ['independants','le-geant'],
+  ['autres','le-geant'],
   ['flash','ken-flash'],
-  ['independants','poil-carotte'],
+  ['autres','poil-carotte'],
   ['flash','john-flash'],
   ['flash','david-flash'],
 ];
@@ -2201,7 +2201,7 @@ function renderUniverses(filter='all') {
     return `<div class="card" data-family="${c.familyId}" onclick="openSeriesModal('${c.familyId}','${c.id}')">
       <div class="card-thumb" style="background-image:url('${c.image}')">
         <div class="card-play-icon"><i class="fas fa-${hasContent(c)?'play':'info-circle'}"></i></div>
-        ${eps>0?`<div class="card-badge">${eps} EP</div>`:c.hasLocalVideo?`<div class="card-badge" style="background:var(--gold);color:#000;">VIDÉO</div>`:c.hasLawBook?`<div class="card-badge" style="background:#9b59b6;">LOIS</div>`:''}
+        ${eps>0?`<div class="card-badge">${eps} EPISODES</div>`:c.hasLocalVideo?`<div class="card-badge" style="background:var(--gold);color:#000;">VIDÉO</div>`:c.hasLawBook?`<div class="card-badge" style="background:#9b59b6;">LOIS</div>`:''}
       </div>
       <div class="card-info"><div class="card-title">${c.name}</div><div class="card-meta">${c.family.name}</div></div>
     </div>`;
@@ -2358,7 +2358,7 @@ function renderCinematics() {
     <div class="card" onclick="playCinematic(${i})">
       <div class="card-thumb" style="background-image:url('${c.image||''}')">
         <div class="card-play-icon"><i class="fas fa-film"></i></div>
-        <div class="card-badge" style="background:rgba(245,166,35,0.85);color:#000;">CINÉ</div>
+        <div class="card-badge" style="background:rgba(245,166,35,0.85);color:#000;">CINÉMATIQUE</div>
       </div>
       <div class="card-info"><div class="card-title">${c.title}</div><div class="card-meta">${c.desc||''}</div></div>
     </div>`).join('');

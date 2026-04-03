@@ -266,7 +266,7 @@
         <button class="filter-tab" data-filter="winters" onclick="filterFamily('winters')">Winters</button>
         <button class="filter-tab" data-filter="escobar" onclick="filterFamily('escobar')">Escobar</button>
         <button class="filter-tab" data-filter="kingsley" onclick="filterFamily('kingsley')">Kingsley</button>
-        <button class="filter-tab" data-filter="independants" onclick="filterFamily('independants')">Indépendants</button>
+        <button class="filter-tab" data-filter="autres" onclick="filterFamily('autres')">Autres</button>
       </div>
       <div class="carousel-wrapper">
         <button class="carousel-btn prev" id="univPrev"><i class="fas fa-chevron-left"></i></button>
@@ -324,7 +324,27 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <div class="footer-copy">&copy; 2026 L'Univers d'iProMx · Tous droits réservés</div>
+        <div class="footer-copy" 
+  title="© iProMx · © Jul ipmx (discord)"
+  style="cursor:pointer;position:relative;"
+  onclick="this.querySelector('.footer-credits').style.opacity=this.querySelector('.footer-credits').style.opacity==='1'?'0':'1'">
+  © 2026 L'Univers d'iProMx · Tous droits réservés
+  <span class="footer-credits" style="
+    position:absolute;
+    left:50%;transform:translateX(-50%);
+    bottom:calc(100% + 8px);
+    background:rgba(20,16,8,0.95);
+    border:1px solid var(--arc);
+    border-radius:6px;
+    padding:6px 14px;
+    white-space:nowrap;
+    font-size:.4rem;
+    color:var(--arc);
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .2s;
+  ">© iProMx · © Jul_ipmx (Discord)</span>
+</div>
       </div>
     </div>
   </footer>
