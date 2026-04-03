@@ -2379,7 +2379,7 @@ function playCinematic(idx) {
       const epPrev = window._currentEpMeta;
       if (epPrev && dur > 0) {
         DB.saveProgress(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
-        DB.saveProgressRemote(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
+DB.flushProgressNow(); // force le write Firestore immédiatement
       }
     }
   } catch(_) {}
@@ -3092,7 +3092,7 @@ function showHome() {
       const epPrev = window._currentEpMeta;
       if (epPrev && dur > 0) {
         DB.saveProgress(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
-        DB.saveProgressRemote(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
+DB.flushProgressNow(); // force le write Firestore immédiatement
       }
     }
   } catch(_) {}
@@ -3141,7 +3141,7 @@ try {
     const epPrev = window._currentEpMeta;
     if (epPrev && dur > 0) {
       DB.saveProgress(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
-      DB.saveProgressRemote(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
+DB.flushProgressNow(); // force le write Firestore immédiatement
     }
   }
 } catch(_) {}

@@ -166,7 +166,9 @@ const AUTH = {
         history: [], myList: [],
         createdAt: new Date().toISOString()
       });
-      DB._setData([], []);
+      // Là où tu fais déjà DB._setData(h, l) :
+DB._setData(data.history || [], data.myList || []);
+DB._loadProgress(data.progress || {}); // pré-charger le cache progression
       this._cache();
       return { ok:true, user:this.getCurrentUser() };
     } catch (e) { return { ok:false, error:this._err(e.code) }; }
@@ -404,44 +406,65 @@ const DB = (() => {
       _schedule();
     },
 
-    /* Progression — localStorage uniquement */
-    /* Progression — localStorage uniquement */
-    getProgress(fid, cid, s, n) {
-      try {
-        const k = `ipx_prog_${AUTH.getCurrentUser()?.uid || 'g'}`;
-        return JSON.parse(localStorage.getItem(k) || '[]')
-          .find(p => p.fid===fid && p.cid===cid && p.s===s && p.n===n) || { pct:0, sec:0 };
-      } catch { return { pct:0, sec:0 }; }
-    },
+/* Progression — localStorage (cache) + Firestore debouncé 30s */
+_prog: {},        // cache mémoire
+_progTimer: null,
 
-    saveProgress(fid, cid, s, n, pct, sec) {
-      try {
-        const k = `ipx_prog_${AUTH.getCurrentUser()?.uid || 'g'}`;
-        const p = JSON.parse(localStorage.getItem(k) || '[]');
-        const i = p.findIndex(x => x.fid===fid && x.cid===cid && x.s===s && x.n===n);
-        const entry = { fid, cid, s, n, pct, sec: sec || 0 };
-        if (i >= 0) p[i] = entry; else p.push(entry);
-        localStorage.setItem(k, JSON.stringify(p));
-      } catch {}
-    },
+getProgress(fid, cid, s, n) {
+  try {
+    const k = `ipx_prog_${AUTH.getCurrentUser()?.uid || 'g'}`;
+    return JSON.parse(localStorage.getItem(k) || '[]')
+      .find(p => p.fid===fid && p.cid===cid && p.s===s && p.n===n) || { pct:0, sec:0 };
+  } catch { return { pct:0, sec:0 }; }
+},
 
-    /* Progression — Firestore (sync multi-appareils, appelé uniquement à la fermeture) */
-    async saveProgressRemote(fid, cid, s, n, pct, sec) {
-      const ref = docRef(); if (!ref) return;
-      try {
-        const key = `${fid}__${cid}__${s}__${n}`;
-        await ref.set({ progress: { [key]: { pct, sec, updatedAt: new Date().toISOString() } } }, { merge: true });
-      } catch(e) { console.warn('[iPROMX] progress write error:', e.message); }
-    },
+saveProgress(fid, cid, s, n, pct, sec) {
+  // 1. localStorage immédiat
+  try {
+    const k = `ipx_prog_${AUTH.getCurrentUser()?.uid || 'g'}`;
+    const p = JSON.parse(localStorage.getItem(k) || '[]');
+    const i = p.findIndex(x => x.fid===fid && x.cid===cid && x.s===s && x.n===n);
+    const entry = { fid, cid, s, n, pct, sec: sec || 0 };
+    if (i >= 0) p[i] = entry; else p.push(entry);
+    localStorage.setItem(k, JSON.stringify(p));
+  } catch {}
 
-    async getProgressRemote(fid, cid, s, n) {
-      const ref = docRef(); if (!ref) return null;
-      try {
-        const doc = await ref.get();
-        const key = `${fid}__${cid}__${s}__${n}`;
-        return doc.data()?.progress?.[key] || null;
-      } catch { return null; }
-    }
+  // 2. Cache mémoire
+  const key = `${fid}__${cid}__${s}__${n}`;
+  this._prog[key] = { pct, sec: sec || 0, updatedAt: new Date().toISOString() };
+
+  // 3. Firestore debouncé 30s — 1 seul write même si appelé souvent
+  clearTimeout(this._progTimer);
+  this._progTimer = setTimeout(() => this._flushProgress(), 30000);
+},
+
+async _flushProgress() {
+  const ref = docRef(); if (!ref || !Object.keys(this._prog).length) return;
+  try {
+    await ref.set({ progress: this._prog }, { merge: true });
+  } catch(e) { console.warn('[iPROMX] progress flush error:', e.message); }
+},
+
+// Appelé à la fermeture pour forcer le write sans attendre 30s
+flushProgressNow() {
+  clearTimeout(this._progTimer);
+  this._progTimer = setTimeout(() => this._flushProgress(), 5000);
+},
+
+// Lit depuis le doc déjà en mémoire (0 lecture Firestore supplémentaire)
+async getProgressRemote(fid, cid, s, n) {
+  const ref = docRef(); if (!ref) return null;
+  try {
+    const doc = await ref.get();
+    const key = `${fid}__${cid}__${s}__${n}`;
+    return doc.data()?.progress?.[key] || null;
+  } catch { return null; }
+},
+
+// Appelé au login pour pré-remplir le cache mémoire
+_loadProgress(progressData) {
+  if (progressData) this._prog = { ...progressData };
+},
   };
 
 })();
