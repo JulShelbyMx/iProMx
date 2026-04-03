@@ -2933,16 +2933,16 @@ function openAvatarPicker() {
   if(!modal) {
     modal = document.createElement('div');
     modal.id = 'avatarPickerModal';
-    modal.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(2,4,8,0.97);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;padding:20px;';
+    modal.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(2,4,8,0.97);backdrop-filter:blur(16px);display:flex;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto;overflow-x:hidden;';
     document.body.appendChild(modal);
   }
   const user = AUTH.getCurrentUser();
   modal.style.display = 'flex';
   modal.innerHTML = `
-    <div style="background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);padding:28px 32px;max-width:540px;width:100%;position:relative;box-shadow:var(--shadow-arc);">
+    <div style="background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);padding:20px 16px;max-width:540px;width:100%;position:relative;box-shadow:var(--shadow-arc);">
       <div style="font-family:var(--font-display);font-size:.85rem;font-weight:700;letter-spacing:3px;color:var(--arc);margin-bottom:6px;text-transform:uppercase;">Choisir un avatar</div>
       <div style="font-family:var(--font-body);font-size:.9rem;color:var(--text-muted);margin-bottom:24px;">Sélectionne l'avatar qui te représente</div>
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:24px;max-height:50vh;overflow-y:auto;padding-right:8px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:12px;margin-bottom:20px;max-height:55vh;overflow-y:auto;overflow-x:hidden;padding-right:4px;">
         ${PRESET_AVATARS.map(av=>`
           <div onclick="selectAvatar('${av.id}',this)"
                data-avid="${av.id}"
