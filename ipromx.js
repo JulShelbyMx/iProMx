@@ -500,7 +500,7 @@ const DATA = {
     ]
 }, },
         { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/ned_flash.webp', banner:'images/ned_flash.png',
-          description:'Frères de sang et d\'esprit fusionnés en une seule entité, ils forment le Cerbère, protecteur ultime de la Terre des Flash. Alliant la mémoire d\'Eden, la force obscure d\'Eddy et la détermination du capitaine Ned, ce héros aux trois visages a sacrifié sa liberté pour enchaîner le mal à jamais et veiller sur l\'avenir des siens.',
+          description:'Frères de sang et d\'esprit, ils forment le Cerbère. Alliant la mémoire d\'Eden, la force obscure d\'Eddy et la détermination du capitaine Ned, ce héros aux trois visages a sacrifié sa liberté pour enchaîner le mal à jamais et veiller sur l\'avenir des siens.',
           hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', 
           seasons:{
     'Saison 1 (Eden)':[
@@ -671,7 +671,7 @@ const DATA = {
       image:'images/sylvester_shade.png', banner:'images/sylvester_shade.png',
       characters:[
         { id:'sylvester-shade', name:'Sylvester Shade', image:'images/sylvester_shade.webp', banner:'images/sylvester_shade.webp',
-          description:'Maître des ombres et de la manipulation, il voue une haine profonde à la lignée Flash, tout en ayant été banni de sa propre famille, les Shade. Ayant perdu son cœur sous l\'emprise de sorcières. Il a fini par abandonner toute son humanité en passant un pacte définitif avec La Mort. Désormais lié à lui, il est devenu le Gardien de La Mort, parcourant le monde pour chasser les âmes égarées.',
+          description:'Maître des ombres et de la manipulation, il voue une haine profonde à la lignée Flash. Il a abandonné toute son humanité en passant un pacte définitif avec La Mort. Désormais lié à lui, il est devenu le Gardien de La Mort.',
           hasLawBook:true, lawBookImages:['images/shade-law-1.webp','images/shade-law-2.webp','images/shade-law-3.webp'], 
           seasons:{
     'Saison 1':[
@@ -1274,7 +1274,7 @@ const DATA = {
       image:'images/zack_kingsley.png', banner:'images/zack_kingsley.png',
       characters:[
         { id:'zack-kingsley', name:'Zack Kingsley', image:'images/zack_kingsley1.png', banner:'images/zack_kingsley1.png',
-          description:'Longtemps aveuglé par sa fortune, Zack Kingsley perd tout le soir de son anniversaire après un incendie dévastateur. Rejeté par ses parents et trahi par ses faux amis, il se retrouve à la rue et doit repartir de zéro. Loin de s\'avouer vaincu, il se reconstruit en secret, développant des talents en science et en informatique. Aujourd\'hui à la tête de son propre domaine, King\'s Land, et entouré d\'amis fidèles, il s\'apprête à bouleverser le monde pour prendre sa revanche et prouver sa valeur.', 
+          description:'Longtemps aveuglé par sa fortune, Zack perd tout le soir de son anniversaire après un incendie. Rejeté par ses parents et trahi par ses faux amis, il se retrouve à la rue et doit repartir de zéro. Il se reconstruit en secret, développant des talents en science et en informatique. Aujourd\'hui à la tête de son propre domaine, King\'s Land, et entouré d\'amis fidèles, il s\'apprête à bouleverser le monde pour prendre sa revanche et prouver sa valeur.', 
           seasons:{
     'Saison 1':[
         {num:1,title:'JE RECOMMENCE GTA 5 RP #1 (en étant le fils d’un milliardaire)',videoId:'_m21CMee_Y8'},
