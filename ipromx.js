@@ -14,7 +14,6 @@ const DATA = {
   universes: {
     flash: {
       id:'flash', name:'Famille Flash', color:'#e74c3c',
-      description:'La saga légendaire qui traverse les générations. ',
       image:'images/flashlogo.webp', banner:FB,
       characters:[
         { id:'david-flash', name:'David Flash', image:'images/david_flash.png', banner:'images/david_flash.png',
@@ -669,7 +668,6 @@ const DATA = {
     },
     shade: {
       id:'shade', name:'Famille Shade', color:'#9b59b6',
-      description:'Mystère et ombres. Ses lois sont gravées dans le sang.',
       image:'images/sylvester_shade.png', banner:'images/sylvester_shade.png',
       characters:[
         { id:'sylvester-shade', name:'Sylvester Shade', image:'images/sylvester_shade.webp', banner:'images/sylvester_shade.webp',
@@ -716,7 +714,6 @@ const DATA = {
     },
     winters: {
       id:'winters', name:'Famille Winters', color:'#3498db',
-      description:'Froids comme l\'hiver. Impitoyables en affaires.',
       image:'images/winters-universe.jpg', banner:'images/winters-banner.jpg',
       characters:[
         { id:'jake-winters', name:'Jake Winters', image:'images/jake_winters.png', banner:'images/jake_winters.png',
@@ -982,11 +979,10 @@ const DATA = {
     },
     escobar: {
       id:'escobar', name:'Escobar', color:'#e67e22',
-      description:'L\'empire du cartel. Un homme, une légende, une menace.',
       image:'images/tom_escobar.png', banner:'images/tom_escobar.png',
       characters:[
         { id:'tom-escobar', name:'Tom Escobar', image:'images/tom_escobar.png', banner:'images/tom_escobar.png',
-          description:'Le chef incontesté du cartel. Redoutable, stratège, imprévisible.', 
+          description:'Fils du président et véritable petit prodige, Tom Escobar est un génie qui a toujours eu plusieurs longueurs d\'avance. Il a donné naissance à des inventions incroyables comme les robots Agent X et Iron X ou encore l`\'Oeil du Faucon. Il adore plaisanter et ne cache pas son petit côté charmeur dès qu\'il croise une jolie femme. ',
           seasons:{
     'Saison 1':[
         {num:1,title:'JE ME TRANSFORME EN ENFANT DE 7 ANS ET ROULE DANS UNE LAMBORGHINI DEVANT UN FLIC ! GTAV RP MOD #1',videoId:'TQC_pXz-_YY'},
@@ -1278,7 +1274,7 @@ const DATA = {
       image:'images/zack_kingsley.png', banner:'images/zack_kingsley.png',
       characters:[
         { id:'zack-kingsley', name:'Zack Kingsley', image:'images/zack_kingsley1.png', banner:'images/zack_kingsley1.png',
-          description:'Charismatique et redoutable. Zack Kingsley impose sa loi sans concession.', 
+          description:'Longtemps aveuglé par sa fortune, Zack Kingsley perd tout le soir de son anniversaire après un incendie dévastateur. Rejeté par ses parents et trahi par ses faux amis, il se retrouve à la rue et doit repartir de zéro. Loin de s\'avouer vaincu, il se reconstruit en secret, développant des talents en science et en informatique. Aujourd\'hui à la tête de son propre domaine, King\'s Land, et entouré d\'amis fidèles, il s\'apprête à bouleverser le monde pour prendre sa revanche et prouver sa valeur.', 
           seasons:{
     'Saison 1':[
         {num:1,title:'JE RECOMMENCE GTA 5 RP #1 (en étant le fils d’un milliardaire)',videoId:'_m21CMee_Y8'},
@@ -1303,11 +1299,10 @@ const DATA = {
     },
     independants: {
       id:'independants', name:'Indépendants', color:'#95a5a6',
-      description:'Ils n\'appartiennent à aucune famille — mais leur impact sur Los Santos est indéniable.',
       image:'images/poil_carotte.webp', banner:'images/poil_carotte.webp',
       characters:[
         { id:'poil-carotte', name:'Poil de Carotte', image:'images/poildecarotte.png', banner:'images/poildecarotte-bn.png',
-          description:'L\'imprévisible. Personne ne sait vraiment ce qu\'il prépare.', 
+          description:'Élève turbulent devenu figure du crime, Poil de Carotte a troqué ses bêtises de classe pour des braquages de banques et la gestion d\'une entreprise aérienne. Sa vie, marquée par une relation passionnée avec Jade, bascule entre trahisons amoureuses et séjours en haute sécurité. Après s\'être évadé de la prison la plus dangereuse de Los Santos, il va jusqu\'à simuler son propre décès pour protéger les siens, observant son enterrement dans l\'ombre avant de tenter de reconquérir sa liberté.', 
           seasons:{
     'Saison 1':[
         {num:1,title:'ON VA RÉVOLUTIONNER LE GTAV RP ! LIVE SPÉCIALE  SCHOOL RP',videoId:'1y5Db1-fIdY'},
@@ -1357,7 +1352,7 @@ const DATA = {
     ]
 }, },
         { id:'axel-leret', name:'Axel Léret', image:'images/axel_leret.png', banner:'images/axel_leret.png',
-          description:'Un personnage à part entière, avec ses propres ambitions et ses propres règles.', 
+          description:'Doyen bienveillant de l\'aventure Survivor, Axel Leret a marqué la compétition par son dévouement envers les autres participants. À 70 ans, il a surmonté toutes les épreuves de survie jusqu\'au vote fatidique de l\'élimination. En quittant l\'aventure, il révèle que son unique but était de remporter le prix pour le reverser intégralement à des associations d\'aide aux enfants, laissant derrière lui l\'image d\'un homme au cœur pur..', 
           seasons:{
     'Saison 1':[
         {num:1,title:'GTA V RP SURVIVOR ! #1 (Survivre dans la Peau d\'un vieux de 70ans)',videoId:'53wP0Z-bTko'},
@@ -1370,7 +1365,8 @@ const DATA = {
     ]
 }, },
         { id:'le-geant', name:'Le Géant (Freddy)', image:'images/legeant.png', banner:'images/legeant.png',
-          description:'Sa stature impose le respect. Sa réputation, la peur.', seasons:{
+          description:'Colosse au visage brûlé et à la voix grave, Géant Freddy terrifie la ville dès son arrivée. Pourtant, derrière cette apparence effrayante se cache un être sensible, passionné de jardinage, qui souffre du jugement permanent des autres. Après avoir frôlé la mort et vécu un amour impossible pour sa patronne, il finit par obtenir une apparence humaine pour tenter de s\'intégrer. Sous le nom de Freddy Grinchiat, il découvre alors la dure réalité de la vie d\'homme, se retrouvant même confronté à la justice et à la cellule.', 
+          seasons:{
     'Saison 1':[
         {num:1,title:'UN GÉANT DÉBARQUE EN VILLE ! GTAV RP MOD',videoId:'awNw8oxqu_c'},
         {num:2,title:'UN GÉANT FAIT PEUR A TOUTE LA VILLE , UN HOMME TRES MYSTÉRIEUX ! GTAV RP MOD #2',videoId:'dkhDNWY3NL4'},
@@ -1384,14 +1380,16 @@ const DATA = {
     ]
 }, },
         { id:'gang-gamins', name:'Le Gang des Gamins', image:'images/ganggamins.png', banner:'images/ganggamins.png',
-          description:'Ne les sous-estime pas. Ces gamins ont prouvé que la taille n\'a rien à voir avec le danger.', seasons:{
+          description:'Le Gang des Gamins sème le chaos avec une insouciance redoutable. Armés de pistolets Nerf, ces enfants n\'hésitent pas à défier les lois et à braquer les plus gros gangs de la ville, prouvant que le désordre n\'a pas d\'âge.', 
+          seasons:{
     'Saison 1':[
         {num:1,title:'LE GANG DES GAMINS SUR GTA 5 RP !',videoId:'EKjaehrb24g'},
         {num:2,title:'DES GAMINS BRAQUENT DES GANGS AVEC DES PISTOLETS NERF ! GTA V RP',videoId:'4z42mOj0m3M'},
     ]
 }, },
     { id:'le-genie', name:'Le Génie', image:'images/legenie.png', banner:'images/legenie.png',
-          description:'Ne les sous-estime pas. Ces gamins ont prouvé que la taille n\'a rien à voir avec le danger.', seasons:{
+          description:'Entité aux pouvoirs illimités, le Génie parcourt Los Santos pour exaucer les vœux les plus fous, de la richesse pour les plus démunis aux désirs les plus charnels.', 
+          seasons:{
     'Saison 1':[
         {num:1,title:'UN GÉNIE RÉALISE LES VOEUX D\'UNE FEMME ! GTAV RP MOD #1',videoId:'zPxglmYF9Xk'},
         {num:2,title:'UN GÉNIE RÉALISE LES VOEUX D\'UN HOMME PAUVRE ! GTAV RP MOD #2',videoId:'bWQCbcPrY0M'},
@@ -1400,7 +1398,8 @@ const DATA = {
     ]
 }, },
   { id:'zak-hackeur', name:'Zak le Hackeur', image:'images/zakhackeur.png', banner:'images/zakhackeur.png',
-          description:'Ne les sous-estime pas. Ces gamins ont prouvé que la taille n\'a rien à voir avec le danger.', seasons:{
+          description:'Génie de l\'informatique opérant depuis son propre QG, le hackeur Zak a brièvement marqué Los Santos par ses capacités hors normes..', 
+          seasons:{
     'Saison 1':[
         {num:1,title:'NOUVEAU PERSONNAGE ! GTA V RP ! by iProMx #1',videoId:'gETMpvb9Aek'},
         {num:2,title:'PARTIE 2 ! NOUVEAU PERSONNAGE ! GTA V RP ! by iProMx #1',videoId:'NFNdA_X4yM8'},
@@ -1409,7 +1408,8 @@ const DATA = {
     ]
 }, },
 { id:'billy', name:'Billy', image:'images/billy.png', banner:'images/billy.png',
-          description:'Ne les sous-estime pas. Ces gamins ont prouvé que la taille n\'a rien à voir avec le danger.', seasons:{
+          description:'Hors-la-loi du Far West, Billy Johnson enchaîne combats clandestins et cavales avec son frère Teddy. Prêt à tout quitter pour s\'enfuir avec Cassidy, ce bandit au grand cœur tente de se forger un nouvel avenir entre les plaines sauvages et les rues de Saint Denis.', 
+          seasons:{
     'Saison 1':[
         {num:1,title:'BILLY & TEDDY, LES FRÈRES HORS-LA-LOI ! RED DEAD RP ! #1',videoId:'2pQOm9FwYHM'},
         {num:2,title:'LE DON DES FRERES JOHNSON + COMBATS CLANDESTINS ! RED DEAD RP ! #2',videoId:'Oqfgq1lbRH0'},
@@ -1419,7 +1419,8 @@ const DATA = {
     ]
 }, },
 { id:'ryan-johnson', name:'Ryan Johnson', image:'images/ryan.png', banner:'images/ryan.png',
-          description:'Ne les sous-estime pas. Ces gamins ont prouvé que la taille n\'a rien à voir avec le danger.', seasons:{
+          description:'Fêtard et père biologique du jeune génie Tom Escobar, Ryan Johnson vit pour l\'adrénaline et les excès. Roi des soirées monumentales façon \"Projet X\", il enchaîne les réveils compliqués et les conquêtes risquées au cœur de Los Santos. Ambitieux malgré son style de vie chaotique, il est également le cerveau derrière Racing X, son plus gros projet de courses clandestines.', 
+          seasons:{
     'Saison 1':[
         {num:1,title:'RYAN JOHNSON ! LA SOIREE DU SIECLE PROJET X ! GTA V RP ! by iProMx #1',videoId:'B4niyD5lNdI'},
         {num:2,title:'RYAN, LE REVEIL AVEC LA FILLE DE DWAYNE ! GTA V RP ! by iProMx #2',videoId:'GDIaEnIiHU0'},
