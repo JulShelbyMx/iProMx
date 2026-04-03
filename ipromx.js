@@ -2693,7 +2693,7 @@ function openLocalPlayer(url, subs, title) {
   rotBtn.onclick = () => {
     _rot = (_rot + 90) % 360;
     if(screen.orientation && screen.orientation.lock) {
-      const lockMap = { 0:'landscape', 90:'portrait', 180:'landscape', 270:'portrait' };
+      const lockMap = { 0:'portrait', 90:'landscape', 180:'portrait', 270:'landscape' };
       screen.orientation.lock(lockMap[_rot] || 'landscape').catch(()=>{});
     }
     video.style.transform = `rotate(${_rot}deg)`;
@@ -3256,7 +3256,8 @@ function _createYTPlayer(params) {
     const iframe = document.createElement('iframe');
     iframe.src = megaUrl;
     iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
-    iframe.allow = 'autoplay; fullscreen';
+    iframe.allow = 'autoplay; fullscreen; screen-wake-lock; picture-in-picture; orientation-lock';
+    iframe.setAttribute('allowfullscreen', '');
     iframe.allowFullscreen = true;
     container.appendChild(iframe);
     ytPlayer = null; // Mega n'a pas d'API — pas d'autoplay suivant
@@ -3286,9 +3287,16 @@ ytPlayer = new YT.Player('ytDivInner', {
   },
   events: {
     onReady(e) { 
-      // On tente de lancer la vidéo, mais sans crash si le navigateur bloque l'autoplay
-      try { e.target.playVideo(); } catch(err) { console.log("Autoplay en attente d'interaction"); }
-    },
+  try { e.target.playVideo(); } catch(err) { console.log("Autoplay en attente d'interaction"); }
+  // Patch permissions iframe pour autoriser le plein écran paysage en PWA
+  try {
+    const iframe = e.target.getIframe();
+    if (iframe) {
+      iframe.allow = 'autoplay; fullscreen; screen-wake-lock; picture-in-picture; orientation-lock';
+      iframe.setAttribute('allowfullscreen', '');
+    }
+  } catch(_) {}
+},
     onStateChange(e) { 
       if (e.data === YT.PlayerState.ENDED && !isCinematic) onVidEnd(fid, cid, season, epIdx); 
     }
