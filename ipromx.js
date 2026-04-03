@@ -2340,11 +2340,7 @@ function renderNotification() {
         ${n.text}
       </span>
       ${actionBtn}
-      <button onclick="this.closest('[style]').remove()"
-        style="position:absolute;top:8px;right:10px;background:none;border:none;
-               color:var(--text-muted);cursor:pointer;font-size:.85rem;padding:2px;">
-        <i class="fas fa-times"></i>
-      </button>
+
     </div>`;
   banner.style.display = '';
 }
@@ -2680,6 +2676,33 @@ function openLocalPlayer(url, subs, title) {
   container.appendChild(video);
   m.classList.add('open');
   document.body.style.overflow = 'hidden';
+
+  // Bouton rotation sur mobile
+  let rotBtn = m.querySelector('.local-rotate-btn');
+  if(!rotBtn) {
+    rotBtn = document.createElement('button');
+    rotBtn.className = 'local-rotate-btn';
+    rotBtn.title = 'Pivoter la vidéo';
+    rotBtn.innerHTML = '<i class="fas fa-sync-alt"></i>';
+    rotBtn.style.cssText = 'position:fixed;bottom:80px;right:18px;z-index:99999;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.25);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:white;font-size:1rem;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);touch-action:manipulation;';
+    m.appendChild(rotBtn);
+  }
+  rotBtn.style.display = '';
+  let _rot = 0;
+  rotBtn.onclick = () => {
+    _rot = (_rot + 90) % 360;
+    if(screen.orientation && screen.orientation.lock) {
+      const lockMap = { 0:'landscape', 90:'portrait', 180:'landscape', 270:'portrait' };
+      screen.orientation.lock(lockMap[_rot] || 'landscape').catch(()=>{});
+    }
+    video.style.transform = `rotate(${_rot}deg)`;
+    video.style.transformOrigin = 'center center';
+    if(_rot === 90 || _rot === 270) {
+      const vw = container.clientWidth, vh = container.clientHeight;
+      const scale = Math.min(vw, vh) / Math.max(vw, vh);
+      video.style.transform = `rotate(${_rot}deg) scale(${scale})`;
+    }
+  };
 }
 
 function closeLocalPlayer() {
@@ -2689,6 +2712,9 @@ function closeLocalPlayer() {
   const v=container?.querySelector('video');
   if(v){v.pause();v.src='';}
   if(container) container.innerHTML='';
+  try { if(screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); } catch(_){}
+  const rb = $('localPlayerModal')?.querySelector('.local-rotate-btn');
+  if(rb) rb.style.display='none';
 }
 
 // ── LAW BOOK ─────────────────────────────────────────────────
@@ -2982,7 +3008,7 @@ function setupSearch() {
     const q=e.target.value.trim().toLowerCase(), res=$('searchResults'); if(!res) return;
     if(q.length<2){res.innerHTML='';return;}
     const matches=getAllChars().filter(c=>c.name.toLowerCase().includes(q)||c.family.name.toLowerCase().includes(q));
-    res.innerHTML=matches.slice(0,12).map(c=>`
+    res.innerHTML=matches.slice(0,20).map(c=>`
       <div class="search-result-card" onclick="closeSearch();openSeriesModal('${c.familyId}','${c.id}')">
         <div class="search-result-thumb" style="background-image:url('${c.image}')"></div>
         <div class="search-result-info"><h4>${c.name}</h4><p>${c.family.name}</p></div>
@@ -3020,7 +3046,7 @@ function setupScrollEffects() {
 function setupCarousel(tid,pid,nid,cw=212) {
   const track=$(tid),prev=$(pid),next=$(nid); if(!track||!prev||!next) return;
   let pos=0;
-  const step=(cw+12)*3;
+  const step=cw+12;
   function upd(){
     track.style.transform=`translateX(${pos}px)`;
     const max=-(track.scrollWidth-track.parentElement.clientWidth+16);
@@ -3033,7 +3059,7 @@ function setupCarousel(tid,pid,nid,cw=212) {
   nn.addEventListener('click',()=>{const max=-(track.scrollWidth-track.parentElement.clientWidth+16);pos=Math.max(max,pos-step);upd();});
   let sx=0;
   track.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
-  track.addEventListener('touchend',e=>{const d=sx-e.changedTouches[0].clientX;if(Math.abs(d)>50){if(d>0)nn.click();else np.click();}},{passive:true});
+  track.addEventListener('touchend',e=>{const d=sx-e.changedTouches[0].clientX;if(Math.abs(d)>40){if(d>0)nn.click();else np.click();}},{passive:true});
   upd();
 }
 

@@ -830,10 +830,18 @@ body::before {
   width: 100%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
   overflow-y: auto;
+  max-height: calc(100vh - 260px);
+  padding-right: 6px;
+  align-content: start;
+  scrollbar-width: thin;
+  scrollbar-color: var(--arc) transparent;
 }
+.search-results::-webkit-scrollbar { width: 5px; }
+.search-results::-webkit-scrollbar-track { background: transparent; }
+.search-results::-webkit-scrollbar-thumb { background: var(--arc); border-radius: 4px; }
 
 .search-result-card {
   background: var(--panel);
@@ -842,29 +850,46 @@ body::before {
   overflow: hidden;
   cursor: pointer;
   transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .search-result-card:hover { border-color: var(--arc); transform: translateY(-3px); box-shadow: var(--shadow-arc); }
 
 .search-result-thumb {
-  height: 110px;
+  height: 100px;
+  flex-shrink: 0;
   background-size: cover;
   background-position: center;
   background-color: var(--panel2);
 }
 
-.search-result-info { padding: 12px; }
+.search-result-info { padding: 10px 12px; min-width: 0; }
 
 .search-result-info h4 {
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 4px;
-  letter-spacing: 1px;
+  margin-bottom: 3px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.search-result-info p { font-size: 0.8rem; color: var(--text-muted); }
+.search-result-info p { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+@media (max-width: 600px) {
+  .search-results {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-height: calc(100vh - 220px);
+  }
+  .search-result-thumb { height: 80px; }
+  .search-result-info { padding: 8px 10px; }
+}
 
 /* ===== HERO SECTION ===== */
 .hero {
@@ -2462,7 +2487,7 @@ body::before {
   .navbar-container { padding: 0 24px 0 16px; gap: 6px; }
   .navbar-right { gap: 6px; }
   .hero-content { left: 20px; right: 10%; bottom: 60px; }
-  .hero-title { font-size: 1.8rem; }
+  .hero-title { font-size: 1.8rem; } 
   .hero-desc { font-size: 0.9rem; /* Taille adaptée pour mobile */
     line-height: 1.4;
     max-width: 100%;
