@@ -2220,7 +2220,7 @@ function renderHistory() {
   if(sec) sec.style.display='';
   track.innerHTML=hist.map(h=>{
     const char=getChar(h.familyId,h.charId); if(!char) return '';
-    const prog=DB.getProgress(h.familyId,h.charId,h.season,h.epNum);
+    const progData=DB.getProgress(fid,cid,season,e.num), prog=progData.pct, cur=i===epIdx;
     return `<div class="card wide" onclick="playEp('${h.familyId}','${h.charId}','${esc(h.season)}',${h.epIdx||0})">
       <div class="card-thumb" style="background-image:url('${ytThumb(h.videoId)}')">
         <div class="card-play-icon"><i class="fas fa-play"></i></div>
@@ -2365,11 +2365,25 @@ function renderCinematics() {
   setTimeout(()=>setupCarousel('cinematicsTrack','cinematicsPrev','cinematicsNext'),50);
 }
 
+// APRÈS
 function playCinematic(idx) {
   const items=DATA.cinematics||[];
   const c=items[idx]; if(!c) return;
 
-  // Destroy existing YT player
+  // Sauvegarde AVANT de détruire le player précédent
+  if (window._ytProgressInterval) { clearInterval(window._ytProgressInterval); window._ytProgressInterval = null; }
+  try {
+    if (ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
+      const cur = ytPlayer.getCurrentTime();
+      const dur = ytPlayer.getDuration();
+      const epPrev = window._currentEpMeta;
+      if (epPrev && dur > 0) {
+        DB.saveProgress(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
+        DB.saveProgressRemote(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
+      }
+    }
+  } catch(_) {}
+
   if(ytPlayer&&typeof ytPlayer.destroy==='function'){try{ytPlayer.destroy();}catch(_){} ytPlayer=null;}
   cancelAutoplay();
 
@@ -2438,6 +2452,8 @@ function playCinematic(idx) {
   // Lancer la vidéo
   if(c.videoId) {
     const params={videoId:c.videoId||null,megaUrl:c.megaUrl||null,fid:null,cid:null,season:null,epIdx:null,isCinematic:true};
+    // Stocker les meta cinématique (fid='cinematic', cid=videoId, season='', epNum=idx)
+window._currentEpMeta = { fid: 'cinematic', cid: c.videoId || String(idx), season: 'cinematic', epNum: idx };
     if(typeof YT!=='undefined'&&YT.Player) _createYTPlayer(params);
     else window._pendingYT=params;
   }
@@ -3067,6 +3083,21 @@ function setupCarousel(tid,pid,nid,cw=212) {
 
 // ── PAGE SWITCH ───────────────────────────────────────────────
 function showHome() {
+  // Sauvegarde finale avant fermeture
+  if (window._ytProgressInterval) { clearInterval(window._ytProgressInterval); window._ytProgressInterval = null; }
+  try {
+    if (ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
+      const cur = ytPlayer.getCurrentTime();
+      const dur = ytPlayer.getDuration();
+      const epPrev = window._currentEpMeta;
+      if (epPrev && dur > 0) {
+        DB.saveProgress(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
+        DB.saveProgressRemote(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
+      }
+    }
+  } catch(_) {}
+  if(ytPlayer&&typeof ytPlayer.destroy==='function'){try{ytPlayer.destroy();}catch(_){} ytPlayer=null;}
+
   const mc=$('mainContent'), pp=$('playerPage');
   if(mc){ mc.style.display=''; mc.classList.remove('hidden'); }
   if(pp){ pp.classList.remove('active'); pp.innerHTML=''; }
@@ -3099,9 +3130,24 @@ function showPlayerPage(fid,cid,season,epIdx) {
   const char=getChar(fid,cid), u=DATA.universes[fid]; if(!char||!u) return;
   const eps=char.seasons?.[season]||[], ep=eps[epIdx]; if(!ep) return;
 
-  // Détruire ancien player YT
-  if(ytPlayer&&typeof ytPlayer.destroy==='function'){try{ytPlayer.destroy();}catch(_){} ytPlayer=null;}
-  cancelAutoplay();
+  // APRÈS
+if (window._ytProgressInterval) { clearInterval(window._ytProgressInterval); window._ytProgressInterval = null; }
+
+// Sauvegarde finale AVANT de détruire le player
+try {
+  if (ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
+    const cur = ytPlayer.getCurrentTime();
+    const dur = ytPlayer.getDuration();
+    const epPrev = window._currentEpMeta;
+    if (epPrev && dur > 0) {
+      DB.saveProgress(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
+      DB.saveProgressRemote(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
+    }
+  }
+} catch(_) {}
+
+if(ytPlayer&&typeof ytPlayer.destroy==='function'){try{ytPlayer.destroy();}catch(_){} ytPlayer=null;}
+cancelAutoplay();
 
   // Switcher les pages
   const mc=$('mainContent'); if(mc) mc.style.display='none';
@@ -3115,6 +3161,9 @@ function showPlayerPage(fid,cid,season,epIdx) {
 
   // Historique
   DB.addHistory({familyId:fid,charId:cid,season,epNum:ep.num,epIdx,videoId:ep.videoId,title:ep.title}); renderHistory();
+
+// Stocker les meta pour la sauvegarde à la fermeture
+window._currentEpMeta = { fid, cid, season, epNum: ep.num };
 
   // ── Bouton "Fermer" dans la navbar (à côté du logo, bien visible) ──
   let closeBtn = $('navPlayerClose');
@@ -3287,9 +3336,8 @@ ytPlayer = new YT.Player('ytDivInner', {
     origin: window.location.origin 
   },
   events: {
-    onReady(e) { 
+    onReady(e) {
   try { e.target.playVideo(); } catch(err) { console.log("Autoplay en attente d'interaction"); }
-  // Patch permissions iframe pour autoriser le plein écran paysage en PWA
   try {
     const iframe = e.target.getIframe();
     if (iframe) {
@@ -3297,6 +3345,32 @@ ytPlayer = new YT.Player('ytDivInner', {
       iframe.setAttribute('allowfullscreen', '');
     }
   } catch(_) {}
+
+  // Reprise — Firestore en priorité, localStorage en fallback
+// APRÈS
+const epMeta = window._currentEpMeta;
+if (epMeta) {
+  DB.getProgressRemote(epMeta.fid, epMeta.cid, epMeta.season, epMeta.epNum).then(remote => {
+    const local = DB.getProgress(epMeta.fid, epMeta.cid, epMeta.season, epMeta.epNum);
+    const sec = remote?.sec > (local?.sec || 0) ? remote.sec : (local?.sec || 0);
+    if (sec > 10) {
+      try { e.target.seekTo(sec, true); } catch(_) {}
+    }
+  });
+}
+
+  // ── Sauvegarde toutes les 5s ──
+  if (window._ytProgressInterval) clearInterval(window._ytProgressInterval);
+  window._ytProgressInterval = setInterval(() => {
+    try {
+      const cur = e.target.getCurrentTime();
+      const dur = e.target.getDuration();
+      if (dur > 0) {
+        const epMeta2 = window._currentEpMeta;
+if (epMeta2) DB.saveProgress(epMeta2.fid, epMeta2.cid, epMeta2.season, epMeta2.epNum, (cur/dur)*100, cur);
+      }
+    } catch(_) {}
+  }, 5000);
 },
     onStateChange(e) { 
       if (e.data === YT.PlayerState.ENDED && !isCinematic) onVidEnd(fid, cid, season, epIdx); 

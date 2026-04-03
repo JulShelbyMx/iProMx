@@ -405,22 +405,44 @@ const DB = (() => {
     },
 
     /* Progression — localStorage uniquement */
+    /* Progression — localStorage uniquement */
     getProgress(fid, cid, s, n) {
       try {
         const k = `ipx_prog_${AUTH.getCurrentUser()?.uid || 'g'}`;
-        return (JSON.parse(localStorage.getItem(k) || '[]')
-          .find(p => p.fid===fid && p.cid===cid && p.s===s && p.n===n) || { pct:0 }).pct;
-      } catch { return 0; }
+        return JSON.parse(localStorage.getItem(k) || '[]')
+          .find(p => p.fid===fid && p.cid===cid && p.s===s && p.n===n) || { pct:0, sec:0 };
+      } catch { return { pct:0, sec:0 }; }
     },
 
-    saveProgress(fid, cid, s, n, pct) {
+    saveProgress(fid, cid, s, n, pct, sec) {
       try {
         const k = `ipx_prog_${AUTH.getCurrentUser()?.uid || 'g'}`;
         const p = JSON.parse(localStorage.getItem(k) || '[]');
         const i = p.findIndex(x => x.fid===fid && x.cid===cid && x.s===s && x.n===n);
-        if (i >= 0) p[i].pct = pct; else p.push({ fid, cid, s, n, pct });
+        const entry = { fid, cid, s, n, pct, sec: sec || 0 };
+        if (i >= 0) p[i] = entry; else p.push(entry);
         localStorage.setItem(k, JSON.stringify(p));
       } catch {}
+    },
+
+    /* Progression — Firestore (sync multi-appareils, appelé uniquement à la fermeture) */
+    async saveProgressRemote(fid, cid, s, n, pct, sec) {
+      const ref = docRef(); if (!ref) return;
+      try {
+        const key = `${fid}__${cid}__${s}__${n}`;
+        await ref.set({ progress: { [key]: { pct, sec, updatedAt: new Date().toISOString() } } }, { merge: true });
+      } catch(e) { console.warn('[iPROMX] progress write error:', e.message); }
+    },
+
+    async getProgressRemote(fid, cid, s, n) {
+      const ref = docRef(); if (!ref) return null;
+      try {
+        const doc = await ref.get();
+        const key = `${fid}__${cid}__${s}__${n}`;
+        return doc.data()?.progress?.[key] || null;
+      } catch { return null; }
     }
   };
+
 })();
+
