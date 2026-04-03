@@ -2220,7 +2220,7 @@ function renderHistory() {
   if(sec) sec.style.display='';
   track.innerHTML=hist.map(h=>{
     const char=getChar(h.familyId,h.charId); if(!char) return '';
-    const progData=DB.getProgress(fid,cid,season,e.num), prog=progData.pct, cur=i===epIdx;
+    const progData=DB.getProgress(h.familyId, h.charId, h.season, h.epNum), prog=progData.pct;
     return `<div class="card wide" onclick="playEp('${h.familyId}','${h.charId}','${esc(h.season)}',${h.epIdx||0})">
       <div class="card-thumb" style="background-image:url('${ytThumb(h.videoId)}')">
         <div class="card-play-icon"><i class="fas fa-play"></i></div>
