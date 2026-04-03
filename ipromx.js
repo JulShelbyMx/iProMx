@@ -501,7 +501,7 @@ const DATA = {
     ]
 }, },
         { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/ned_flash.webp', banner:'images/ned_flash.png',
-          description:'Fils de l\'ancien roi de la terre des Flash, le capitaine Ned s\'est battu au péril de sa vie au côté de son équipage pour venir à bout de la plus grande menace qu\'a connu cette terre. Ce héros a libéré le monde de la destruction qui l\'attendait.',
+          description:'Frères de sang et d\'esprit fusionnés en une seule entité, ils forment le Cerbère, protecteur ultime de la Terre des Flash. Alliant la mémoire d\'Eden, la force obscure d\'Eddy et la détermination du capitaine Ned, ce héros aux trois visages a sacrifié sa liberté pour enchaîner le mal à jamais et veiller sur l\'avenir des siens.',
           hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', 
           seasons:{
     'Saison 1 (Eden)':[
@@ -604,7 +604,7 @@ const DATA = {
   }, },
 
         { id:'manda-flash', name:'Manda Flash', image:'images/manda_flash.png', banner:'images/manda_flash.png',
-          description:'La protectrice féroce. Mère, sœur, guerrière.',
+          description:'Fils d\'un tyran et héritier d\'une lignée brisée, il a été choisi par son oncle pour devenir le nouveau roi de la Terre des Flash. Il a su réellement résister à l\'emprise du basilic, et a aidé Ned à vaincre son propre père, Adrian.',
           seasons:{
     'Saison 1':[
         {num:1,title:'MANDA BLAKE DEBARQUE A LA SCHOOL RP ! GTA 5 RP ! by iProMx #1 S1',videoId:'IjksgVhs4HA'},
@@ -631,7 +631,7 @@ const DATA = {
     ]
 }, },
           { id:'zayn-flash', name:'Zayn Flash', image:'images/zayn_flash.png', banner:'images/zayn_flash.png',
-          description:'Ok', 
+          description:'Héritier déterminé de la lignée Flash, Zayn a bravé l\'interdiction frappant sa famille en intégrant l\'école de magie Veylar. Son unique but était d\'apprendre la magie des sorciers et d\'obtenir l\'Orion, un artefact puissant capable de libérer son père, Ned Flash, scellé au fond des océans.', 
           seasons:{
     'Saison 1':[
         {num:1,title:'PREMIER JOUR À L’ÉCOLE DE MAGIE VEYLAR ! GTA V RP ! by iProMx #1',videoId:'E8LT9YzXv_I'},
@@ -673,7 +673,7 @@ const DATA = {
       image:'images/sylvester_shade.png', banner:'images/sylvester_shade.png',
       characters:[
         { id:'sylvester-shade', name:'Sylvester Shade', image:'images/sylvester_shade.webp', banner:'images/sylvester_shade.webp',
-          description:'L\'ombre insaisissable. Maître du mystère, il règne sur un empire de secrets. Personne ne transgresse ses lois impunément.',
+          description:'Maître des ombres et de la manipulation, il voue une haine profonde à la lignée Flash, tout en ayant été banni de sa propre famille, les Shade. Ayant perdu son cœur sous l\'emprise de sorcières. Il a fini par abandonner toute son humanité en passant un pacte définitif avec La Mort. Désormais lié à lui, il est devenu le Gardien de La Mort, parcourant le monde pour chasser les âmes égarées.',
           hasLawBook:true, lawBookImages:['images/shade-law-1.webp','images/shade-law-2.webp','images/shade-law-3.webp'], 
           seasons:{
     'Saison 1':[
@@ -720,7 +720,7 @@ const DATA = {
       image:'images/winters-universe.jpg', banner:'images/winters-banner.jpg',
       characters:[
         { id:'jake-winters', name:'Jake Winters', image:'images/jake_winters.png', banner:'images/jake_winters.png',
-          description:'Le second fidèle et brutal.', 
+          description:'Parti à la poursuite du rêve américain, Jake Winters voit son destin basculer lorsqu\'il est contraint de rejoindre l\'armée de Cayo Perico. Plus tard, il rejoint aussi l\'armée des Russes contre Cayo. Hanté par ses origines, il consacre sa vie à rechercher son père, Oliver Winters, tout en traquant la trace de « l’Œil du Faucon », une technologie légendaire capable de tout contrôler. Au fil de sa quête, il réalise que les secrets de son passé et cette puissance technologique sont bien plus liés à sa propre existence qu\'il ne l\'imaginait.', 
           seasons:{
     'Saison 1':[
         {num:1,title:'JE RECOMMENCE GTA 5 RP A ZERO EN HARDCORE ! #1 (Le Fils d\'Oliver Winters)',videoId:'I5WzfTVoX6E'},
@@ -829,7 +829,7 @@ const DATA = {
     ]
 }, },
         { id:'oliver-winters', name:'Oliver Winters', image:'images/oliver_winters.png', banner:'images/oliver_winters.png',
-          description:'Le leader froid et calculateur.', 
+          description:'Parti de rien pour bâtir son propre destin, Oliver Winters a gravi les échelons avec détermination, passant de simple chauffeur de taxi à propriétaire de son propre cinéma. Refusant de céder à l\'emprise de son père, le redoutable chef de Cayo Perico qui voulait faire de lui son héritier, il a choisi la voie de l\'indépendance jusqu\'à l\'affrontement final. Dans un dernier acte de courage, il est parvenu à mettre fin au règne de son père, scellant ainsi l\'histoire d\'un homme qui n\'a jamais voulu de cet héritage sanglant.', 
           seasons:{
     'Saison 1':[
         {num:1,title:'JE RECOMMENCE GTA 5 RP A ZERO SANS TRICHER ! #1 (objectif atteindre le million)',videoId:'oELECDvHano'},
