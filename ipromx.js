@@ -352,7 +352,7 @@ const DATA = {
         {num:9,title:'LE GRAND JOUR ! LA TERRE DES FLASH ! GTA V RP ! by iProMx #8',videoId:'sNQ3s-LdJHk'}
     ]
 }, },
-        { id:'damon-flash', name:'Damon Flash', image:'images/damon_flash2.jpg', banner:'images/damon_flash2.jpg',
+        { id:'damon-flash', name:'Damon Flash', image:'images/letigrebl/damon.webp', banner:'images/letigrebl/damon-bannière.webp',
           description:'Enfant brisé devenu le « Roi de Los Santos » sous l\'emprise d\'une entité maléfique, il a commis l\'irréparable avant de chercher le pardon sous une fausse identité. Porté par la force du lion, il a fini par vaincre ses démons intérieurs et se sacrifier pour offrir aux autres l\'amour et la paix qu\'il n\'a jamais connus.', 
           seasons:{
     'Saison 1':[
@@ -419,7 +419,7 @@ const DATA = {
         {num:57,title:'DAMON FLASH LE FILM OFFICIEL ! COMBAT FINAL',videoId:'TyAXhptUiuE'}
     ]
 }, },
-        { id:'kayton-flash', name:'Kayton Flash', image:'images/kayton_flash.png', banner:'images/kayton_flash.png',
+        { id:'kayton-flash', name:'Kayton Flash', image:'images/letigrebl/kayton.webp', banner:'images/letigrebl/kayton-bannière.webp',
           description:'Esprit vengeur né de la douleur et devenu démon, il a cherché à anéantir sa propre lignée avant de recevoir une seconde chance inespérée. Transformé en loup-garou luttant contre ses pulsions, il a fini par choisir l\'amour et la rédemption, prouvant que même le plus sombre des monstres peut redevenir humain.', 
           seasons:{
     'Saison 1':[
@@ -464,7 +464,7 @@ const DATA = {
         {num:35,title:'PARTIE 2 ! LA FIN DE KAYTON FLASH ! GTA V RP ! by iProMx #9',videoId:'79XMv8kW9Ag'}
     ]
 }, },
-        { id:'adrian-flash', name:'Adrian Flash', image:'images/adrian_flash.png', banner:'images/adrian_flash.png',
+        { id:'adrian-flash', name:'Adrian Flash', image:'images/letigrebl/adrian.webp', banner:'images/letigrebl/adrian-bannière.webp',
           description:'Ancien militaire d\'élite brisé par une condamnation injuste, il est devenu un mort-vivant assoiffé de vengeance et de pouvoir. Tel un basilic sombre et indestructible, il a manipulé et terrassé ses ennemis avec une intelligence surhumaine avant de s\'éteindre définitivement lors d\'un ultime combat.', 
           seasons:{
     'Saison 1':[
@@ -498,7 +498,7 @@ const DATA = {
         {num:24,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 2 ! #1 S3',videoId:'ETV4TcSbZos'}
     ]
 }, },
-        { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/ned_flash.webp', banner:'images/ned_flash.png',
+        { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/letigrebl/ned-eden-eddy.webp', banner:'images/letigrebl/ned-eden-eddy-bannière.webp',
           description:'Frères de sang et d\'esprit, ils forment le Cerbère. Alliant la mémoire d\'Eden, la force obscure d\'Eddy et la détermination du capitaine Ned, ce héros aux trois visages a sacrifié sa liberté pour enchaîner le mal à jamais et veiller sur l\'avenir des siens.',
           hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', 
           seasons:{
@@ -601,7 +601,7 @@ const DATA = {
     ]
   }, },
 
-        { id:'manda-flash', name:'Manda Flash', image:'images/manda_flash.png', banner:'images/manda_flash.png',
+        { id:'manda-flash', name:'Manda Flash', image:'images/letigrebl/manda.webp', banner:'images/letigrebl/manda-bannière.webp',
           description:'Fils d\'un tyran et héritier d\'une lignée brisée, il a été choisi par son oncle pour devenir le nouveau roi de la Terre des Flash. Il a su réellement résister à l\'emprise du basilic, et a aidé Ned à vaincre son propre père, Adrian.',
           seasons:{
     'Saison 1':[
@@ -628,7 +628,7 @@ const DATA = {
         {num:19,title:'MANDA EST AU PLUS MAL ! GTA V RP ! by iProMx S2 #7',videoId:'8DSdty7XBDM'}
     ]
 }, },
-          { id:'zayn-flash', name:'Zayn Flash', image:'images/zayn_flash.png', banner:'images/zayn_flash.png',
+          { id:'zayn-flash', name:'Zayn Flash', image:'images/letigrebl/zayn.webp', banner:'images/letigrebl/zayn-bannière.webp',
           description:'Héritier déterminé de la lignée Flash, Zayn a bravé l\'interdiction frappant sa famille en intégrant l\'école de magie Veylar. Son unique but était d\'apprendre la magie des sorciers et d\'obtenir l\'Orion, un artefact puissant capable de libérer son père, Ned Flash, scellé au fond des océans.', 
           seasons:{
     'Saison 1':[
@@ -667,9 +667,9 @@ const DATA = {
     },
     shade: {
       id:'shade', name:'Famille Shade', color:'#9b59b6',
-      image:'images/sylvester_shade.png', banner:'images/sylvester_shade.png',
       characters:[
-        { id:'sylvester-shade', name:'Sylvester Shade', image:'images/sylvester_shade.webp', banner:'images/sylvester_shade.webp',
+        { id:'sylvester-shade', name:'Sylvester Shade', 
+          image:'images/letigrebl/silver.webp', banner:'images/letigrebl/silver-bannière.webp',
           description:'Maître des ombres et de la manipulation, il voue une haine profonde à la lignée Flash. Il a abandonné toute son humanité en passant un pacte définitif avec La Mort. Désormais lié à lui, il est devenu le Gardien de La Mort.',
           hasLawBook:true, lawBookImages:['images/shade-law-1.webp','images/shade-law-2.webp','images/shade-law-3.webp'], 
           seasons:{
@@ -1270,9 +1270,8 @@ const DATA = {
     kingsley: {
       id:'kingsley', name:'Kingsley', color:'#1abc9c',
       description:'Un nom qui résonne dans toute la ville. Zack Kingsley ne fait pas de compromis.',
-      image:'images/zack_kingsley.png', banner:'images/zack_kingsley.png',
       characters:[
-        { id:'zack-kingsley', name:'Zack Kingsley', image:'images/zack_kingsley1.png', banner:'images/zack_kingsley1.png',
+        { id:'zack-kingsley', name:'Zack Kingsley', image:'images/zack_kingsley.webp', banner:'images/zack_kingsley.webp',
           description:'Longtemps aveuglé par sa fortune, Zack perd tout le soir de son anniversaire après un incendie. Rejeté par ses parents et trahi par ses faux amis, il se retrouve à la rue et doit repartir de zéro. Il se reconstruit en secret, développant des talents en science et en informatique. Aujourd\'hui à la tête de son propre domaine, King\'s Land, et entouré d\'amis fidèles, il s\'apprête à bouleverser le monde pour prendre sa revanche et prouver sa valeur.', 
           seasons:{
     'Saison 1':[
@@ -1299,9 +1298,8 @@ const DATA = {
     },
     autres: {
       id:'autres', name:'Autres', color:'#95a5a6',
-      image:'images/poil_carotte.webp', banner:'images/poil_carotte.webp',
       characters:[
-        { id:'poil-carotte', name:'Poil de Carotte', image:'images/poildecarotte.png', banner:'images/poildecarotte-bn.png',
+        { id:'poil-carotte', name:'Poil de Carotte', image:'images/letigrebl/poildecarotte.webp', banner:'images/letigrebl/poildecarotte-bannière.webp',
           description:'Élève turbulent devenu figure du crime, Poil de Carotte a troqué ses bêtises de classe pour des braquages de banques et la gestion d\'une entreprise aérienne. Sa vie, marquée par une relation passionnée avec Jade, bascule entre trahisons amoureuses et séjours en haute sécurité. Après s\'être évadé de la prison la plus dangereuse de Los Santos, il va jusqu\'à simuler son propre décès pour protéger les siens, observant son enterrement dans l\'ombre avant de tenter de reconquérir sa liberté.', 
           seasons:{
     'Saison 1':[
@@ -1418,7 +1416,7 @@ const DATA = {
         {num:5,title:'DIRECTION SAINT DENIS ! RED DEAD REDEMPTION 2 RP ! by iProMx #2',videoId:'Kx9Swi0o8cM'},
     ]
 }, },
-{ id:'ryan-johnson', name:'Ryan Johnson', image:'images/ryan.png', banner:'images/ryan.png',
+{ id:'ryan-johnson', name:'Ryan Johnson', image:'images/letigrebl/ryan.webp', banner:'images/letigrebl/ryan-bannière.webp',
           description:'Fêtard et père biologique du jeune génie Tom Escobar, Ryan Johnson vit pour l\'adrénaline et les excès. Roi des soirées monumentales façon \"Projet X\", il enchaîne les réveils compliqués et les conquêtes risquées au cœur de Los Santos. Ambitieux malgré son style de vie chaotique, il est également le cerveau derrière Racing X, son plus gros projet de courses clandestines.', 
           seasons:{
     'Saison 1':[
@@ -1489,7 +1487,7 @@ const DATA = {
     },
     {
       title: "Adrian vs Ned - Au coeur des ténèbres [Le Film]",
-      image: "https://i.ytimg.com/vi/sReaGjD0op4/hqdefault.jpg",
+      image: "images/letigrebl/nedadrianciné.webp",
       videoId: "sReaGjD0op4"
     },
     {
