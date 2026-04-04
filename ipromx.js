@@ -16,7 +16,7 @@ const DATA = {
       id:'flash', name:'Famille Flash', color:'#e74c3c',
       image:'images/flashlogo.webp', banner:FB,
       characters:[
-        { id:'david-flash', name:'David Flash', image:'images/david_flash.png', banner:'images/david_flash.png',
+        { id:'david-flash', name:'David Flash', image:'images/letigrebl/david.webp', banner:'images/letigrebl/david-bannière.webp',
           description:'Chef de gang légendaire ayant tout perdu, de sa liberté à sa famille, il finit par vivre dans l\'ombre pour protéger les siens. Protecteur infatigable, il traverse les épreuves et les époques pour guider ses héritiers jusqu\'à son dernier souffle.',
           seasons:{
     'Saison 1':[
