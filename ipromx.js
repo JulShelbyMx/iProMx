@@ -1537,7 +1537,7 @@ const DATA = {
     },
     {
       title: "Ned vs Aaron - Le combat ultime (cinématique)",
-      image: "https://i.ytimg.com/vi/qonTgtJUeaE/hqdefault.jpg",
+      image: "images/letigrebl/aaronnedfight.webp",
       videoId: "qonTgtJUeaE"
     },
     {
@@ -1562,7 +1562,7 @@ const DATA = {
     },
     {
       title: "KAYTON VS ADRIAN LE COMBAT DU SIECLE ! CINEMATIQUE",
-      image: "https://i.ytimg.com/vi/P09rKJjBZpI/hqdefault.jpg",
+      image: "images/letigrebl/kaytonadrianfight.webp",
       videoId: "P09rKJjBZpI"
     },
     {
