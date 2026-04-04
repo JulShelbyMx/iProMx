@@ -97,7 +97,7 @@ const DATA = {
         {num:65,title:'DAVID FLASH A FAIT L\'IMPOSSIBLE MAIS SA MALADIE LE MENACE ! GTAV RP #7',videoId:'iK5E34WF5uI'}
     ] 
   }},
-        { id:'john-flash', name:'John Flash', image:'images/john_flash.png', banner:'images/john_flash.png',
+        { id:'john-flash', name:'John Flash', image:'images/letigrebl/john.webp', banner:'images/letigrebl/john-bannière.webp',
           description:'Pilote clandestin devenu le plus grand criminel du continent, il a bâti un empire colossal après avoir découvert la vérité sur ses origines. Solitaire et déterminé comme le loup, il a transformé ses tragédies personnelles en une soif de pouvoir absolue, régnant sans partage jusqu\'à la transmission de son héritage.',
           seasons:{
     'Saison 1':[
@@ -171,7 +171,7 @@ const DATA = {
         {num:62,title:'LES ANCIENS NOUS VEULENT DU MAL ! GTAV PRISON RP #2',videoId:'zDTgyQCDSW0'},
     ]
     }},
-        { id:'ken-flash', name:'Ken Flash', image:'images/ken_flash.png', banner:'images/ken_flash.png',
+        { id:'ken-flash', name:'Ken Flash', image:'images/letigrebl/ken.webp', banner:'images/letigrebl/ken-bannière.webp',
           description:'Ancien policier devenu criminel par choix, il a repris le flambeau familial pour transformer un gang en une équipe de héros protecteurs. Puissant et déterminé comme le dragon, il a fini par donner sa vie dans un sacrifice ultime pour offrir une chance de paix à ses enfants et au monde.', 
           seasons:{
     'Saison 1 Partie 1':[
@@ -277,9 +277,8 @@ const DATA = {
         {num:92,title:'KEN FLASH, LES ADIEUX ! GTA V RP ! by iProMx #10 S2',videoId:'4L92knQnHf8'},
     ]
 },},
-        { id:'aaron-flash', name:'Aaron Flash', image:'images/aaron_flash.webp', banner:'images/aaron_flash.webp',
+        { id:'aaron-flash', name:'Aaron Flash', image:'images/letigrebl/aaron.webp', banner:'images/letigrebl/aaron-bannière.webp',
           description:'Guerrier au destin tragique devenu roi et protecteur, il a surmonté les trahisons et les pertes pour reconstruire un futur de paix. À l\'image du phénix, il renaît sans cesse de ses cendres pour guider ses fils et affronter ses ennemis, jusqu\'à son ultime sacrifice.',
-          hasLocalVideo:true, videoUrl:'vidéos/phénixanimation1.mp4', 
           seasons:{
     'Saison 1':[
         {num:1,title:'AARON FLASH, LE DERNIER FLASH ! by iProMx #1',videoId:'IyfrWC0DcuI'},
@@ -338,7 +337,7 @@ const DATA = {
         {num:52,title:'LE MARIAGE D\'AARON ET NINA ! GTA V RP ! by iProMx #14 S2',videoId:'2rJB3cCv9as'}
     ]
 }, },
-        { id:'david-jr-flash', name:'David Jr Flash', image:'images/david-jr_flash.png', banner:'images/david-jr_flash.png',
+        { id:'david-jr-flash', name:'David Jr Flash', image:'images/letigrebl/davidjr.webp', banner:'images/letigrebl/davidjr-bannière.webp',
           description:'Enfant de la pègre devenu un monstre de vengeance, il a semé le chaos et la destruction avant de chercher la paix dans l\'isolement. Tel un cobra changeant de peau, il a fini par troquer sa haine contre un chemin de rédemption, offrant sa vie pour sauver ceux qu\'il combattait autrefois..', 
           seasons:{
     'Saison 1':[
