@@ -1291,7 +1291,7 @@ const DATA = {
         {num:14,title:'GTA 5 RP À ZÉRO ! #14 (J’ai construit un mini-drone ultra puissant ! 🚀)',videoId:'nMmsDQYZ_rs'},
         {num:15,title:'GTA 5 RP À ZÉRO ! #15 (La jalousie explose… et mon drone évolue dangereusement🔥)',videoId:'LH_65m6zJFQ'},
         {num:16,title:'GTA 5 RP À ZÉRO ! #16 (J’ai créé le système le plus CHEATÉ de FiveM)',videoId:'d25Bq_h_1FM'},
-        {num:17,title:'GTA 5 RP À ZÉRO ! #17 (Je deviens le maître du jeu…)',videoId:'OgIyhA0r6Qw'},
+        {num:17,title:'GTA 5 RP À ZÉRO ! #17 (Je deviens le maître du jeu…)',videoId:'OgIyhA0r6Qw',youtubeLink:true},
     ]
 }, }
       ]
@@ -3120,6 +3120,12 @@ function playEp(fid,cid,season,epIdx) {
   const char=getChar(fid,cid); if(!char) return;
   const eps=char.seasons?.[season]||[];
   if(epIdx<0||epIdx>=eps.length) return;
+  const ep=eps[epIdx];
+  // Si youtubeLink:true → ouvrir la vidéo YouTube originale (avec pubs, pour soutenir le créateur)
+  if(ep.youtubeLink && ep.videoId) {
+    window.open('https://www.youtube.com/watch?v='+ep.videoId, '_blank');
+    return;
+  }
   closeSeriesModal();
   showPlayerPage(fid,cid,season,epIdx);
 }
@@ -3199,8 +3205,9 @@ window._currentEpMeta = { fid, cid, season, epNum: ep.num };
     const prog=DB.getProgress(fid,cid,season,e.num).pct, cur=i===epIdx;
     return `<div class="player-ep-item${cur?' current':''}" ${!cur?`onclick="playEp('${fid}','${cid}','${esc(season)}',${i})"`:''}>
       <div class="player-ep-thumb" style="background-image:url('${epThumb(e)}')">
-        <div class="player-ep-thumb-overlay">${cur?'<div class="player-ep-playing-icon"><i class="fas fa-volume-up"></i></div>':'<i class="fas fa-play"></i>'}</div>
+        <div class="player-ep-thumb-overlay">${cur?'<div class="player-ep-playing-icon"><i class="fas fa-volume-up"></i></div>':e.youtubeLink?'<i class="fab fa-youtube"></i>':'<i class="fas fa-play"></i>'}</div>
         ${prog>0&&!cur?`<div class="player-ep-progress"><div class="player-ep-progress-fill" style="width:${prog}%"></div></div>`:''}
+        ${e.youtubeLink?'<div class="ep-yt-badge"><i class="fab fa-youtube"></i> YouTube</div>':''}
       </div>
       <div class="player-ep-info"><div class="player-ep-num">Épisode ${e.num}</div><div class="player-ep-name">${e.title}</div></div>
     </div>`;
