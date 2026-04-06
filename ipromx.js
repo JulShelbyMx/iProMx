@@ -1477,7 +1477,7 @@ const DATA = {
     // Format : { id, title, desc, image (thumbnail), videoId (YouTube) }
     {
       title: "Zayn Flash - Exploration Ned (Cinématique)",
-      image: "images/zaynnedocean.png",
+      image: "images/letigrebl/zaynnedocean.webp",
       megaUrl:'https://mega.nz/embed/hb9xhCQK#Gb8EssbaTwcdoiRQ5TKnkxNzwrQNblANUZG4T7hn1ik', 
     },
     {
