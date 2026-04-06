@@ -495,7 +495,8 @@ const DATA = {
     ],
     'Saison 3':[
         {num:23,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 1 ! #1 S3',videoId:'VLIMlbJ19eU'},
-        {num:24,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 2 ! #1 S3',videoId:'ETV4TcSbZos'}
+        {num:24,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 2 ! #1 S3',videoId:'ETV4TcSbZos'},
+        {num:24,title:'Adrian kidnappe Avery!',megaUrl:'https://mega.nz/embed/5KVEjR6A#Kc1p24N15F_SpcKYdOAFvWSWFJoUSiikVzAX3j7_6Aw',thumb:''},
     ]
 }, },
         { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/letigrebl/ned-eden-eddy.webp', banner:'images/letigrebl/ned-eden-eddy-bannière.webp',
@@ -715,7 +716,7 @@ const DATA = {
       id:'winters', name:'Famille Winters', color:'#3498db',
       image:'images/winters-universe.jpg', banner:'images/winters-banner.jpg',
       characters:[
-        { id:'jake-winters', name:'Jake Winters', image:'images/jake_winters.png', banner:'images/jake_winters.png',
+        { id:'jake-winters', name:'Jake Winters', image:'images/letigrebl/jake.webp', banner:'images/letigrebl/jake-bannière.webp',
           description:'Parti à la poursuite du rêve américain, Jake Winters voit son destin basculer lorsqu\'il est contraint de rejoindre l\'armée de Cayo Perico. Plus tard, il rejoint aussi l\'armée des Russes contre Cayo. Hanté par ses origines, il consacre sa vie à rechercher son père, Oliver Winters, tout en traquant la trace de « l’Œil du Faucon », une technologie légendaire capable de tout contrôler. Au fil de sa quête, il réalise que les secrets de son passé et cette puissance technologique sont bien plus liés à sa propre existence qu\'il ne l\'imaginait.', 
           seasons:{
     'Saison 1':[
@@ -824,7 +825,7 @@ const DATA = {
         {num:99,title:'GTA 5 RP - Jake x Tom : La Rencontre avec Mon Père ! [Fin]',videoId:'r7Rq1RCInqQ'}
     ]
 }, },
-        { id:'oliver-winters', name:'Oliver Winters', image:'images/oliver_winters.png', banner:'images/oliver_winters.png',
+        { id:'oliver-winters', name:'Oliver Winters', image:'images/letigrebl/oliver.webp', banner:'images/letigrebl/oliver-bannière.webp',
           description:'Parti de rien pour bâtir son propre destin, Oliver Winters a gravi les échelons avec détermination, passant de simple chauffeur de taxi à propriétaire de son propre cinéma. Refusant de céder à l\'emprise de son père, le redoutable chef de Cayo Perico qui voulait faire de lui son héritier, il a choisi la voie de l\'indépendance jusqu\'à l\'affrontement final. Dans un dernier acte de courage, il est parvenu à mettre fin au règne de son père, scellant ainsi l\'histoire d\'un homme qui n\'a jamais voulu de cet héritage sanglant.', 
           seasons:{
     'Saison 1':[
@@ -980,7 +981,7 @@ const DATA = {
       id:'escobar', name:'Escobar', color:'#e67e22',
       image:'images/tom_escobar.png', banner:'images/tom_escobar.png',
       characters:[
-        { id:'tom-escobar', name:'Tom Escobar', image:'images/tom_escobar.png', banner:'images/tom_escobar.png',
+        { id:'tom-escobar', name:'Tom Escobar', image:'images/letigrebl/tom.webp', banner:'images/letigrebl/tom-bannière.webp',
           description:'Fils du président et véritable petit prodige, Tom Escobar est un génie qui a toujours eu plusieurs longueurs d\'avance. Il a donné naissance à des inventions incroyables comme les robots Agent X et Iron X ou encore l`\'Oeil du Faucon. Il adore plaisanter et ne cache pas son petit côté charmeur dès qu\'il croise une jolie femme. ',
           seasons:{
     'Saison 1':[
@@ -1271,7 +1272,7 @@ const DATA = {
       id:'kingsley', name:'Kingsley', color:'#1abc9c',
       description:'Un nom qui résonne dans toute la ville. Zack Kingsley ne fait pas de compromis.',
       characters:[
-        { id:'zack-kingsley', name:'Zack Kingsley', image:'images/zack_kingsley.webp', banner:'images/zack_kingsley.webp',
+        { id:'zack-kingsley', name:'Zack Kingsley', image:'images/letigrebl/zack.webp', banner:'images/letigrebl/zack-bannière.webp',
           description:'Longtemps aveuglé par sa fortune, Zack perd tout le soir de son anniversaire après un incendie. Rejeté par ses parents et trahi par ses faux amis, il se retrouve à la rue et doit repartir de zéro. Il se reconstruit en secret, développant des talents en science et en informatique. Aujourd\'hui à la tête de son propre domaine, King\'s Land, et entouré d\'amis fidèles, il s\'apprête à bouleverser le monde pour prendre sa revanche et prouver sa valeur.', 
           seasons:{
     'Saison 1':[
@@ -1349,7 +1350,7 @@ const DATA = {
         {num:40,title:'JE DOIS DIRE LA VÉRITÉ A JADE  ! GTAV RP !',videoId:'-Jl6UOh5ISM'}
     ]
 }, },
-        { id:'axel-leret', name:'Axel Léret', image:'images/axel_leret.png', banner:'images/axel_leret.png',
+        { id:'axel-leret', name:'Axel Léret', image:'images/letigrebl/axeleret.webp', banner:'images/letigrebl/axeleret-bannière.webp',
           description:'Doyen bienveillant de l\'aventure Survivor, Axel Leret a marqué la compétition par son dévouement envers les autres participants. À 70 ans, il a surmonté toutes les épreuves de survie jusqu\'au vote fatidique de l\'élimination. En quittant l\'aventure, il révèle que son unique but était de remporter le prix pour le reverser intégralement à des associations d\'aide aux enfants, laissant derrière lui l\'image d\'un homme au cœur pur..', 
           seasons:{
     'Saison 1':[
@@ -1362,7 +1363,7 @@ const DATA = {
         {num:7,title:'GTA V RP SURVIVOR ! #7 ',videoId:'U7DElYtUteo'}
     ]
 }, },
-        { id:'le-geant', name:'Le Géant (Freddy)', image:'images/legeant.png', banner:'images/legeant.png',
+        { id:'le-geant', name:'Le Géant (Freddy)', image:'images/letigrebl/legeant.webp', banner:'images/letigrebl/legeant-bannière.webp',
           description:'Colosse au visage brûlé et à la voix grave, Géant Freddy terrifie la ville dès son arrivée. Pourtant, derrière cette apparence effrayante se cache un être sensible, passionné de jardinage, qui souffre du jugement permanent des autres. Après avoir frôlé la mort et vécu un amour impossible pour sa patronne, il finit par obtenir une apparence humaine pour tenter de s\'intégrer. Sous le nom de Freddy Grinchiat, il découvre alors la dure réalité de la vie d\'homme, se retrouvant même confronté à la justice et à la cellule.', 
           seasons:{
     'Saison 1':[
@@ -1377,7 +1378,7 @@ const DATA = {
         {num:7,title:'FREDDY GRINCHIAT EN CELLULE ! GTA V RP ! by iProMx #2',videoId:'94NAp6gqY7c'},
     ]
 }, },
-        { id:'gang-gamins', name:'Le Gang des Gamins', image:'images/ganggamins.png', banner:'images/ganggamins.png',
+        { id:'gang-gamins', name:'Le Gang des Gamins', image:'images/letigrebl/ganggamins.png', banner:'images/letigrebl/ganggamins-bannière.png',
           description:'Le Gang des Gamins sème le chaos avec une insouciance redoutable. Armés de pistolets Nerf, ces enfants n\'hésitent pas à défier les lois et à braquer les plus gros gangs de la ville, prouvant que le désordre n\'a pas d\'âge.', 
           seasons:{
     'Saison 1':[
@@ -1385,7 +1386,7 @@ const DATA = {
         {num:2,title:'DES GAMINS BRAQUENT DES GANGS AVEC DES PISTOLETS NERF ! GTA V RP',videoId:'4z42mOj0m3M'},
     ]
 }, },
-    { id:'le-genie', name:'Le Génie', image:'images/legenie.png', banner:'images/legenie.png',
+    { id:'le-genie', name:'Le Génie', image:'images/letigrebl/legenie.webp', banner:'images/letigrebl/legenie-bannière.webp',
           description:'Entité aux pouvoirs illimités, le Génie parcourt Los Santos pour exaucer les vœux les plus fous, de la richesse pour les plus démunis aux désirs les plus charnels.', 
           seasons:{
     'Saison 1':[
@@ -1395,7 +1396,7 @@ const DATA = {
         {num:4,title:'ELLE COUCHE AVEC UN GENIE POUR DES VOEUX ! GTAV RP MOD #4',videoId:'7MVvgikpcf0'},
     ]
 }, },
-  { id:'zak-hackeur', name:'Zak le Hackeur', image:'images/zakhackeur.png', banner:'images/zakhackeur.png',
+  { id:'zak-hackeur', name:'Zak le Hackeur', image:'images/letigrebl/zakhackeur.webp', banner:'images/letigrebl/zakhackeur-bannière.webp',
           description:'Génie de l\'informatique opérant depuis son propre QG, le hackeur Zak a brièvement marqué Los Santos par ses capacités hors normes..', 
           seasons:{
     'Saison 1':[
@@ -1405,7 +1406,7 @@ const DATA = {
         {num:4,title:'LE RETOUR DE ZACK ( + EXPLICATION ) ! GTA V RP ! by iProMx #3',videoId:'SHez_DVaKu8'},
     ]
 }, },
-{ id:'billy', name:'Billy', image:'images/billy.png', banner:'images/billy.png',
+{ id:'billy', name:'Billy', image:'images/letigrebl/billy.png', banner:'images/letigrebl/billy-bannière.png',
           description:'Hors-la-loi du Far West, Billy Johnson enchaîne combats clandestins et cavales avec son frère Teddy. Prêt à tout quitter pour s\'enfuir avec Cassidy, ce bandit au grand cœur tente de se forger un nouvel avenir entre les plaines sauvages et les rues de Saint Denis.', 
           seasons:{
     'Saison 1':[
@@ -1426,6 +1427,14 @@ const DATA = {
         {num:4,title:'RYAN A DORMI AVEC ANASTAISA?! CE SOIR JE PRENDS DES RISQUES GTA V RP ! by iProMx #4',videoId:'VeXNNGRt8JE'},
     ]
 }, },
+{ id:'leconcierge', name:'Le concièrge', image:'images/letigrebl/leconcierge.webp', banner:'images/letigrebl/leconcierge-bannière.webp',
+          description:'Fêtard et père biologique du jeune génie Tom Escobar, Ryan Johnson vit pour l\'adrénaline et les excès. Roi des soirées monumentales façon \"Projet X\", il enchaîne les réveils compliqués et les conquêtes risquées au cœur de Los Santos. Ambitieux malgré son style de vie chaotique, il est également le cerveau derrière Racing X, son plus gros projet de courses clandestines.', 
+          seasons:{
+    'Saison 1':[
+        {num:1,title:'GTA V SCHOOL RP ! #1 (Je deviens concierge dans une école pas comme les autres)',videoId:'datXzvubQys'},
+        {num:2,title:'GTA V SCHOOL RP ! #2 (Le Livre Secret du concierge)',videoId:'kPKtLvGyVC4'},
+    ]
+}, },
       ]
     }
   },
@@ -1440,6 +1449,7 @@ const DATA = {
     { id:'x',        name:'X (Twitter)',         url:'https://x.com/@iProMxYt',                    icon:'fab fa-x-twitter',  color:'#e7e7e77d', bg:'rgba(255,255,255,0.05)',   border:'rgba(255,255,255,0.15)',   cta:'Suivre',               ctaIcon:'fab fa-x-twitter'    },
     { id:'boutique', name:'Boutique',            url:'https://ipromx.store/',                      icon:'fas fa-store',      color:'#f5a623', bg:'rgba(245,166,35,0.08)',    border:'rgba(245,166,35,0.25)',    cta:'Visiter la boutique',  ctaIcon:'fas fa-shopping-bag' },
     { id:'tebex',    name:'Tebex',               url:'https://ipromx.tebex.io/',                   icon:'fas fa-gamepad',    color:'#00b4d8', bg:'rgba(0,180,216,0.08)',     border:'rgba(0,180,216,0.25)',     cta:'Accéder au Tebex',     ctaIcon:'fas fa-gamepad'      },
+    { id:'tierlistflash',    name:'Tier-List Flash',               url:'https://share.google/fI16WAB9w7dv5cFn7',                   icon:'fas fa-list-ol',    color:'#00d80e', bg:'rgba(0, 216, 18, 0.08)',     border:'rgba(0, 216, 148, 0.25)',     cta:'Accéder à la Tier-list Flash',     ctaIcon:'fas fa-list-ol'      },
   ],
 
   // ── NOTIFICATIONS (modifier manuellement ici) ────────────────
@@ -1466,6 +1476,11 @@ const DATA = {
   cinematics: [
     // Format : { id, title, desc, image (thumbnail), videoId (YouTube) }
     {
+      title: "Zayn Flash - Exploration Ned (Cinématique)",
+      image: "images/zaynnedocean.png",
+      megaUrl:'https://mega.nz/embed/hb9xhCQK#Gb8EssbaTwcdoiRQ5TKnkxNzwrQNblANUZG4T7hn1ik', 
+    },
+    {
       title: "Zayn Flash - Teaser officiel",
       image: "https://i.ytimg.com/vi/Mp1bkYZ6whA/hqdefault.jpg",
       videoId: "Mp1bkYZ6whA"
@@ -1491,13 +1506,18 @@ const DATA = {
       videoId: "sReaGjD0op4"
     },
     {
+      title: "HOMMAGE AU FLASH (IPROMX) CINÉMATIQUE!",
+      image: "https://i.ytimg.com/vi/3fPWr6JvPIk/hqdefault.jpg",
+      videoId: "3fPWr6JvPIk"
+    },
+    {
       title: "L'INVITATION D'ADRIAN FLASH ! CINÉMATIQUE",
-      image: "https://i.ytimg.com/vi/nbeGv9_AEyo/hqdefault.jpg",
-      videoId: "nbeGv9_AEyo"
+      image: "images/letigrebl/adrianinvitation.webp",
+      videoId: "2o6xdAIi0BM"
     },
     {
       title: "NED EDEN ET EDDY, LE RETOUR DU TRIO ! CINÉMATIQUE",
-      image: "https://i.ytimg.com/vi/VujR_-Y-8fo/hqdefault.jpg",
+      image: "images/letigrebl/nededeneddyprime.webp",
       videoId: "VujR_-Y-8fo"
     },
     {
@@ -1507,7 +1527,7 @@ const DATA = {
     },
     {
       title: "LES SOUVENIRS DE NED ! CINÉMATIQUE (LeTigreBL et iProMx)",
-      image: "https://i.ytimg.com/vi/bu40TozLx-E/hqdefault.jpg",
+      image: "images/letigrebl/nedsouvenirs.webp",
       videoId: "bu40TozLx-E"
     },
     {
@@ -1552,12 +1572,12 @@ const DATA = {
     },
     {
       title: "ADRIAN IS BACK ! teaser officiel",
-      image: "https://i.ytimg.com/vi/OsxWdAEHw5s/hqdefault.jpg",
+      image: "images/letigrebl/adrianback.webp",
       videoId: "OsxWdAEHw5s"
     },
     {
       title: "EDEN FLASH ! (Le Vrai Teaser)",
-      image: "https://i.ytimg.com/vi/gnwbjHD4woc/hqdefault.jpg",
+      image: "images/letigrebl/edenteaser.webp",
       videoId: "gnwbjHD4woc"
     },
     {
@@ -1567,7 +1587,7 @@ const DATA = {
     },
     {
       title: "KAYTON ENTRAÎNEMENT AVANT LE COMBAT CONTRE ADRIAN ! CINEMATIQUE",
-      image: "https://i.ytimg.com/vi/tXsvgOPPnbE/hqdefault.jpg",
+      image: "images/letigrebl/kaytonentrainement.webp",
       videoId: "tXsvgOPPnbE"
     },
     {
@@ -1594,6 +1614,31 @@ const DATA = {
       title: "LES RETROUVAILLES DE TOM ESCOBAR ET ABDOUL !",
       image: "https://i.ytimg.com/vi/epf8EC5_Gxg/hqdefault.jpg",
       videoId: "epf8EC5_Gxg"
+    },
+    {
+      title: "OPÉRATION 1 000 000 000 $ ! (Agent X)",
+      image: "https://i.ytimg.com/vi/6mcf03Lqz-o/hqdefault.jpg",
+      videoId: "6mcf03Lqz-o"
+    },
+    {
+      title: "IS BACK ... (Agent X)",
+      image: "https://i.ytimg.com/vi/KEnJgBBLcHY/hqdefault.jpg",
+      videoId: "KEnJgBBLcHY"
+    },
+    {
+      title: "MERCI (Agent X)",
+      image: "https://i.ytimg.com/vi/9C0j1_9StNg/hqdefault.jpg",
+      videoId: "9C0j1_9StNg"
+    },
+    {
+      title: "AGENT X !",
+      image: "https://i.ytimg.com/vi/iXInEFoZvHU/hqdefault.jpg",
+      videoId: "iXInEFoZvHU"
+    },
+    {
+      title: "AGENT X ! NIVEAU 1 !",
+      image: "https://i.ytimg.com/vi/Nk--17wGMPU/hqdefault.jpg",
+      videoId: "Nk--17wGMPU"
     },
     {
       title: "KAYTON FLASH PRISON",
@@ -1639,6 +1684,11 @@ const DATA = {
       title: "LA BATAILLE FINAL DES FLASH ! CINEMATIQUE GTAV RP MOD",
       image: "https://i.ytimg.com/vi/fhNaQkBc2FE/hqdefault.jpg",
       videoId: "fhNaQkBc2FE"
+    },
+    {
+      title: "DAVID JR ATTAQUE",
+      image: "https://i.ytimg.com/vi/qGc_ExPOyeI/hqdefault.jpg",
+      videoId: "qGc_ExPOyeI"
     },
     {
       title: "AARON FLASH L' ATTAQUE ULTIME CONTRE DAVID JR !",
@@ -1772,6 +1822,7 @@ const CHAR_ORDER = [
   ['winters','jake-winters'],
   ['flash','ned-flash'],
   ['autres','axel-leret'],
+  ['autres','leconcierge'],
   ['flash','manda-flash'],
   ['flash','adrian-flash'],
   ['winters','oliver-winters'],
@@ -2448,12 +2499,41 @@ DB.flushProgressNow(); // force le write Firestore immédiatement
     </div>`;
 
   // Lancer la vidéo
-  if(c.videoId) {
-    const params={videoId:c.videoId||null,megaUrl:c.megaUrl||null,fid:null,cid:null,season:null,epIdx:null,isCinematic:true};
-    // Stocker les meta cinématique (fid='cinematic', cid=videoId, season='', epNum=idx)
-window._currentEpMeta = { fid: 'cinematic', cid: c.videoId || String(idx), season: 'cinematic', epNum: idx };
-    if(typeof YT!=='undefined'&&YT.Player) _createYTPlayer(params);
-    else window._pendingYT=params;
+// 1. DÉFINITION DES PARAMÈTRES (Indispensable pour éviter l'erreur "not defined")
+  const params = {
+    videoId: c.videoId || null,
+    megaUrl: c.megaUrl || null,
+    fid: 'cinematic',
+    cid: c.videoId || (c.megaUrl ? "mega-" + idx : String(idx)),
+    season: 'cinematic',
+    epIdx: idx,
+    isCinematic: true
+  };
+
+  // 2. SAUVEGARDE DES MÉTA (Pour la barre de progression/historique)
+  window._currentEpMeta = { 
+    fid: params.fid, 
+    cid: params.cid, 
+    season: params.season, 
+    epNum: idx 
+  };
+
+  // 3. LOGIQUE D'AFFICHAGE DU LECTEUR
+  const container = $('ytPlayerContainer');
+  
+  if (c.megaUrl) {
+    // CAS MEGA : On injecte l'iframe directement
+    if (container) {
+      container.innerHTML = `<iframe src="${c.megaUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay"></iframe>`;
+    }
+  } 
+  else if (c.videoId) {
+    // CAS YOUTUBE : On utilise l'API YouTube habituelle
+    if (typeof YT !== 'undefined' && YT.Player) {
+      _createYTPlayer(params);
+    } else {
+      window._pendingYT = params;
+    }
   }
 }
 
