@@ -1487,12 +1487,12 @@ const DATA = {
     },
     {
       title: "Silver - Flashback : La Transformation d'Adrian après l'Attaque de Kayton ! (Teaser GTAV RP)",
-      image: "images/letigrebl/silver-flashbackadrianciné.webp",
+      image: "https://i.ytimg.com/vi/y9datfzLTEo/hqdefault.jpg",
       videoId: "y9datfzLTEo"
     },
     {
       title: "TOM ESCOBAR CONTACTE JAKE WINTERS ! | CINÉMATIQUE",
-      image: "images/letigrebl/tomadulteciné.png",
+      image: "https://i.ytimg.com/vi/tYJZLe8fNYs/hqdefault.jpg",
       videoId: "tYJZLe8fNYs"
     },
     {
@@ -1542,7 +1542,7 @@ const DATA = {
     },
     {
       title: "EDEN FLASH FUIT SES RESPONSABILITÉS ?! | CINÉMATIQUE",
-      image: "images/letigrebl/edenfuitciné.webp",
+      image: "https://i.ytimg.com/vi/12OM0vXcWy0/hqdefault.jpg",
       videoId: "12OM0vXcWy0"
     },
     {
@@ -1557,7 +1557,7 @@ const DATA = {
     },
     {
       title: "Eddy vs Aaron, le combat le plus terrifiant - part2 ! Cinématique",
-      image: "images/letigrebl/eddyaaronfightciné.webp",
+      image: "https://i.ytimg.com/vi/r0zwnltnEu8/hqdefault.jpg",
       videoId: "r0zwnltnEu8"
     },
     {
@@ -1597,17 +1597,17 @@ const DATA = {
     },
     {
       title: "KAYTON FLASH S’INTERROGE SUR LE COMBAT CONTRE ADRIAN",
-      image: "images/letigrebl/kaytonpenseciné.webp",
+      image: "https://i.ytimg.com/vi/4MQeQGZrl44/hqdefault.jpg",
       videoId: "4MQeQGZrl44"
     },
     {
       title: "ADRIAN FLASH LE REVEIL DU BASILIC",
-      image: "images/letigrebl/adrianprimeciné.webp",
+      image: "https://i.ytimg.com/vi/iUL3jrH04hI/hqdefault.jpg",
       videoId: "iUL3jrH04hI"
     },
     {
       title: "Adrian le nouveau FLASH !",
-      image: "images/letigrebl/adriannewflashciné.webp",
+      image: "https://i.ytimg.com/vi/eGoVTIeMYI0/hqdefault.jpg",
       videoId: "eGoVTIeMYI0"
     },
     {
@@ -1622,27 +1622,27 @@ const DATA = {
     },
     {
       title: "OPÉRATION 1 000 000 000 $ ! (Agent X)",
-      image: "images/letigrebl/agentx5ciné.webp",
+      image: "https://i.ytimg.com/vi/6mcf03Lqz-o/hqdefault.jpg",
       videoId: "6mcf03Lqz-o"
     },
     {
       title: "IS BACK ... (Agent X)",
-      image: "images/letigrebl/agentx4ciné.webp",
+      image: "https://i.ytimg.com/vi/KEnJgBBLcHY/hqdefault.jpg",
       videoId: "KEnJgBBLcHY"
     },
     {
       title: "MERCI (Agent X)",
-      image: "images/letigrebl/agentx3ciné.webp",
+      image: "https://i.ytimg.com/vi/9C0j1_9StNg/hqdefault.jpg",
       videoId: "9C0j1_9StNg"
     },
     {
       title: "AGENT X !",
-      image: "images/letigrebl/agentx2ciné.webp",
+      image: "https://i.ytimg.com/vi/iXInEFoZvHU/hqdefault.jpg",
       videoId: "iXInEFoZvHU"
     },
     {
       title: "AGENT X ! NIVEAU 1 !",
-      image: "images/letigrebl/agentx1ciné.webp",
+      image: "https://i.ytimg.com/vi/Nk--17wGMPU/hqdefault.jpg",
       videoId: "Nk--17wGMPU"
     },
     {
@@ -1667,7 +1667,7 @@ const DATA = {
     },
     {
       title: "DAMON FLASH LE FILM OFFICIEL ! COMBAT FINAL",
-      image: "images/letigrebl/damonkaytonfightciné.webp",
+      image: "https://i.ytimg.com/vi/TyAXhptUiuE/hqdefault.jpg",
       videoId: "TyAXhptUiuE"
     },
     {
@@ -2549,35 +2549,7 @@ function openSeriesModal(fid,cid) {
   const char=getChar(fid,cid), u=DATA.universes[fid]; if(!char) return;
   curSF=fid; curSC=cid;
   const modal=$('seriesModal'); modal.classList.add('open');
-  modal.style.display = 'block'; // forcer l'affichage
   document.body.style.overflow='hidden';
-  modal.scrollTop = 0; // Remonte en haut pour voir la bannière
-
-  // Bouton "Fermer" dans la navbar
-  let closeBtn = $('navPlayerClose');
-  if(!closeBtn) {
-    closeBtn = document.createElement('button');
-    closeBtn.id = 'navPlayerClose';
-    closeBtn.innerHTML = '<i class="fas fa-times"></i><span>Fermer</span>';
-    closeBtn.style.cssText = [
-      'display:inline-flex','align-items:center','gap:7px',
-      'padding:7px 16px',
-      'background:rgba(231,76,60,0.13)',
-      'border:1px solid rgba(231,76,60,0.5)',
-      'border-radius:6px',
-      'color:#e74c3c',
-      'font-family:var(--font-display)',
-      'font-size:0.62rem','font-weight:700','letter-spacing:2px',
-      'text-transform:uppercase','cursor:pointer',
-      'transition:background .15s,border-color .15s',
-      'margin-left:14px','flex-shrink:0'
-    ].join(';');
-    closeBtn.onmouseover = () => { closeBtn.style.background='rgba(231,76,60,0.28)'; };
-    closeBtn.onmouseout  = () => { closeBtn.style.background='rgba(231,76,60,0.13)'; };
-    document.querySelector('.navbar-left')?.appendChild(closeBtn);
-  }
-  closeBtn.style.display = 'inline-flex';
-  closeBtn.onclick = () => closeSeriesModal();
 
   // Hero bg + vidéo locale si présente
   const heroBg=$('seriesHeroBg'), heroVid=$('seriesHeroVideo');
@@ -2664,22 +2636,16 @@ function renderModalEps(fid,cid,season) {
 }
 
 function closeSeriesModal() {
-  const navBtn = document.getElementById('navPlayerClose');
-  if(navBtn) navBtn.style.display = 'none';
-  
-  const modal = $('seriesModal');
-  if(modal) {
-    modal.classList.remove('open');
-    modal.style.display = 'none'; // ← AJOUTER cette ligne
-  }
-  document.body.style.overflow = '';
-  
-  const v = $('seriesHeroVideo');
+  $('seriesModal')?.classList.remove('open');
+  document.body.style.overflow='';
+  const v=$('seriesHeroVideo');
   if(v){
     v.pause();
-    v.style.display = 'none';
-    const srcEl = $('seriesHeroSource');
-    if(srcEl) srcEl.src = '';
+    v.style.display='none';
+    // Ne PAS faire v.src='' car la source est sur l'élément <source> enfant
+    // Juste vider la source enfant
+    const srcEl=$('seriesHeroSource');
+    if(srcEl) srcEl.src='';
   }
 }
 
@@ -3235,13 +3201,11 @@ window.onYouTubeIframeAPIReady=function(){
   if(window._pendingYT){ const p=window._pendingYT; window._pendingYT=null; _createYTPlayer(p); }
 };
 
-function playEp(fid, cid, season, epIdx) {
-  const char = getChar(fid, cid); 
-  if (!char) return;
-
-  const eps = char.seasons?.[season] || [];
-  if (epIdx < 0 || epIdx >= eps.length) return;
-  const ep = eps[epIdx];
+function playEp(fid,cid,season,epIdx) {
+  const char=getChar(fid,cid); if(!char) return;
+  const eps=char.seasons?.[season]||[];
+  if(epIdx<0||epIdx>=eps.length) return;
+  const ep=eps[epIdx];
   // Si youtubeLink:true → ouvrir la vidéo YouTube originale (avec pubs, pour soutenir le créateur)
   if(ep.youtubeLink && ep.videoId) {
     window.open('https://www.youtube.com/watch?v='+ep.videoId, '_blank');
@@ -3251,158 +3215,174 @@ function playEp(fid, cid, season, epIdx) {
   showPlayerPage(fid,cid,season,epIdx);
 }
 
-function showPlayerPage(fid, cid, season, epIdx) {
-  const char = getChar(fid, cid), u = DATA.universes[fid];
-  if (!char || !u) return;
-  const eps = char.seasons?.[season] || [], ep = eps[epIdx];
-  if (!ep) return;
+function showPlayerPage(fid,cid,season,epIdx) {
+  const char=getChar(fid,cid), u=DATA.universes[fid]; if(!char||!u) return;
+  const eps=char.seasons?.[season]||[], ep=eps[epIdx]; if(!ep) return;
 
-  // 1. NETTOYAGE
-  if (window._ytProgressInterval) { clearInterval(window._ytProgressInterval); window._ytProgressInterval = null; }
-  try {
-    if (typeof ytPlayer !== 'undefined' && ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
-      const cur = ytPlayer.getCurrentTime();
-      const dur = ytPlayer.getDuration();
-      const epPrev = window._currentEpMeta;
-      if (epPrev && dur > 0) {
-        DB.saveProgress(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur / dur) * 100, cur);
-        DB.flushProgressNow();
-      }
+  // APRÈS
+if (window._ytProgressInterval) { clearInterval(window._ytProgressInterval); window._ytProgressInterval = null; }
+
+// Sauvegarde finale AVANT de détruire le player
+try {
+  if (ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
+    const cur = ytPlayer.getCurrentTime();
+    const dur = ytPlayer.getDuration();
+    const epPrev = window._currentEpMeta;
+    if (epPrev && dur > 0) {
+      DB.saveProgress(epPrev.fid, epPrev.cid, epPrev.season, epPrev.epNum, (cur/dur)*100, cur);
+DB.flushProgressNow(); // force le write Firestore immédiatement
     }
-  } catch (_) {}
-  if (typeof ytPlayer !== 'undefined' && ytPlayer && typeof ytPlayer.destroy === 'function') {
-    try { ytPlayer.destroy(); } catch (_) {}
-    ytPlayer = null;
   }
-  cancelAutoplay();
+} catch(_) {}
 
-  // 2. GESTION DES PAGES
-  const mc = document.getElementById('mainContent');
-  const pp = document.getElementById('playerPage');
-  const navbar = document.querySelector('.navbar');
-  const navContainer = navbar?.querySelector('.container'); // Le conteneur qui limite souvent la largeur
-  
-  if (!pp) return;
+if(ytPlayer&&typeof ytPlayer.destroy==='function'){try{ytPlayer.destroy();}catch(_){} ytPlayer=null;}
+cancelAutoplay();
 
-  pp.style.display = 'block';
+  // Switcher les pages
+  const mc=$('mainContent'); if(mc) mc.style.display='none';
+  const pp=$('playerPage'); if(!pp) return;
   pp.classList.add('active');
-  if (mc) mc.style.display = 'none';
-  
-  // 3. RESTAURER LE "VIDE DE FOU" (ALIGNEMENT PC)
-  if (navbar) {
-    navbar.style.display = 'flex';
-    navbar.style.position = 'fixed';
-    navbar.style.top = '0';
-    navbar.style.left = '0';
-    navbar.style.width = '100vw'; 
-    navbar.style.maxWidth = '100vw';
-    navbar.style.padding = '0 40px'; // Espace sur les bords de l'écran
-    navbar.style.justifyContent = 'space-between';
-    navbar.style.zIndex = '11000'; 
-    navbar.style.height = 'var(--nav-h)';
-    navbar.style.background = 'rgba(2, 4, 8, 0.95)';
-    navbar.style.backdropFilter = 'blur(20px)';
-    navbar.style.borderBottom = '1px solid var(--edge2)';
+  document.body.style.overflow=''; window.scrollTo(0,0);
+  document.title=`${char.name} — EP${ep.num} | iPROMX`;
 
-    // FORCE LE CONTENEUR INTERNE À S'ÉTIRER
-    if (navContainer) {
-      navContainer.style.width = '100%';
-      navContainer.style.maxWidth = 'none'; // Casse la limite (ex: 1200px) du CSS
-      navContainer.style.display = 'flex';
-      navContainer.style.justifyContent = 'space-between';
-      navContainer.style.margin = '0';
-    }
-  }
-  
-  document.body.style.overflow = 'hidden'; 
-  window.scrollTo(0, 0);
-  document.title = `${char.name} — EP${ep.num} | iPROMX`;
-  window._currentEpMeta = { fid, cid, season, epNum: ep.num };
+  // URL propre
+  // try { history.pushState({},'',(ROUTER.buildURL(fid,cid,season,ep.num))); } catch(_){}
 
-  // 4. BOUTON FERMER (DANS NAVBAR-LEFT)
-  let closeBtn = document.getElementById('navPlayerClose');
-  if (!closeBtn) {
+  // Historique
+  DB.addHistory({familyId:fid,charId:cid,season,epNum:ep.num,epIdx,videoId:ep.videoId,title:ep.title}); renderHistory();
+
+// Stocker les meta pour la sauvegarde à la fermeture
+window._currentEpMeta = { fid, cid, season, epNum: ep.num };
+
+  // ── Bouton "Fermer" dans la navbar (à côté du logo, bien visible) ──
+  let closeBtn = $('navPlayerClose');
+  if(!closeBtn) {
     closeBtn = document.createElement('button');
     closeBtn.id = 'navPlayerClose';
-    closeBtn.style.cssText = `
-      background: var(--iron);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-family: var(--font-display);
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.65rem;
-      letter-spacing: 1px;
-      box-shadow: 0 0 15px var(--iron-glow);
-      margin-left: 20px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    `;
-    closeBtn.innerHTML = '<i class="fas fa-times"></i> FERMER';
+    closeBtn.innerHTML = '<i class="fas fa-times"></i><span>Fermer</span>';
+    closeBtn.style.cssText = [
+      'display:inline-flex','align-items:center','gap:7px',
+      'padding:7px 16px',
+      'background:rgba(231,76,60,0.13)',
+      'border:1px solid rgba(231,76,60,0.5)',
+      'border-radius:6px',
+      'color:#e74c3c',
+      'font-family:var(--font-display)',
+      'font-size:0.62rem','font-weight:700','letter-spacing:2px',
+      'text-transform:uppercase','cursor:pointer',
+      'transition:background .15s,border-color .15s',
+      'margin-left:14px','flex-shrink:0'
+    ].join(';');
+    closeBtn.onmouseover = () => { closeBtn.style.background='rgba(231,76,60,0.28)'; };
+    closeBtn.onmouseout  = () => { closeBtn.style.background='rgba(231,76,60,0.13)'; };
     document.querySelector('.navbar-left')?.appendChild(closeBtn);
   }
-  closeBtn.style.display = 'flex';
-  
-  closeBtn.onclick = () => {
-    pp.classList.remove('active');
-    pp.style.display = 'none';
-    if (mc) mc.style.display = 'block';
-    closeBtn.style.display = 'none';
-    document.body.style.overflow = '';
-    if (typeof ytPlayer !== 'undefined' && ytPlayer) ytPlayer.stopVideo();
-    
-    // Reset complet pour l'accueil
-    if (navbar) {
-      navbar.style.cssText = ''; 
-      if (navContainer) navContainer.style.cssText = '';
-    }
-    window.scrollTo(0, 0);
-  };
+  closeBtn.style.display = 'inline-flex';
+  closeBtn.onclick = () => ROUTER.goHome();
 
-  // 5. INJECTION DU HTML (Format réduit pour clarté)
-  const nextEp = epIdx + 1 < eps.length ? eps[epIdx + 1] : null;
-  const inList = DB.isInList(fid, cid);
-  const seasons = Object.keys(char.seasons || {});
+  // Build HTML
+  const nextEp=epIdx+1<eps.length?eps[epIdx+1]:null;
+  const inList=DB.isInList(fid,cid);
+  const seasons=Object.keys(char.seasons||{});
 
-  pp.innerHTML = `
-    <div class="player-video-area"><div class="player-video-aspect" id="ytWrap"><div id="ytPlayerContainer"></div></div></div>
+  const stabs=seasons.map(s=>`<button class="player-season-tab${s===season?' active':''}" onclick="switchSeason('${fid}','${cid}','${esc(s)}',this)">${s}</button>`).join('');
+  const epList=eps.map((e,i)=>{
+    const prog=DB.getProgress(fid,cid,season,e.num).pct, cur=i===epIdx;
+    return `<div class="player-ep-item${cur?' current':''}" ${!cur?`onclick="playEp('${fid}','${cid}','${esc(season)}',${i})"`:''}>
+      <div class="player-ep-thumb" style="background-image:url('${epThumb(e)}')">
+        <div class="player-ep-thumb-overlay">${cur?'<div class="player-ep-playing-icon"><i class="fas fa-volume-up"></i></div>':e.youtubeLink?'<i class="fab fa-youtube"></i>':'<i class="fas fa-play"></i>'}</div>
+        ${prog>0&&!cur?`<div class="player-ep-progress"><div class="player-ep-progress-fill" style="width:${prog}%"></div></div>`:''}
+        ${e.youtubeLink?'<div class="ep-yt-badge"><i class="fab fa-youtube"></i> YouTube</div>':''}
+      </div>
+      <div class="player-ep-info"><div class="player-ep-num">Épisode ${e.num}</div><div class="player-ep-name">${e.title}</div></div>
+    </div>`;
+  }).join('');
+  // Sidebar : épisode courant + 4 autres max (5 au total)
+  const suggEps=eps.slice(Math.max(0,epIdx-1),epIdx+4);
+  const sugg=suggEps.map((e,i)=>{
+    const realIdx=eps.indexOf(e), cur=realIdx===epIdx;
+    return `<div class="suggestion-card${cur?' current':''}" ${!cur?`onclick="playEp('${fid}','${cid}','${esc(season)}',${realIdx})"`:''}>
+      <div class="suggestion-thumb" style="background-image:url('${epThumb(e)}')"></div>
+      <div class="suggestion-info"><div class="suggestion-ep">${cur?'EN COURS · ':''}EP ${e.num}</div><div class="suggestion-title">${e.title}</div></div>
+    </div>`;
+  }).join('');
+
+  pp.innerHTML=`
+    <div class="player-video-area">
+      <div class="player-video-aspect" id="ytWrap">
+        <div id="ytPlayerContainer" style="position:absolute;inset:0;background:#000;"></div>
+        <div class="autoplay-banner" id="autoplayBanner">
+          <div class="autoplay-info">
+            <div>
+              <div class="autoplay-text">PROCHAIN ÉPISODE DANS <span id="autoCD">${AUTOPLAY_SEC}</span>s</div>
+              ${nextEp?`<div class="autoplay-title">${nextEp.title}</div>`:''}
+            </div>
+            <div class="autoplay-actions">
+              <button class="btn-autoplay-cancel" onclick="cancelAutoplay()">Annuler</button>
+              ${nextEp?`<button class="btn-autoplay-play" onclick="triggerAutoplay()"><i class="fas fa-forward"></i> Suivant</button>`:''}
+            </div>
+          </div>
+          <div class="autoplay-progress-bar"><div class="autoplay-progress-fill" id="autoFill" style="width:100%"></div></div>
+        </div>
+      </div>
+    </div>
     <div class="player-layout">
       <div class="player-main">
-        <div class="player-topbar" style="margin-top: 0;">
-          <div class="player-breadcrumb">
-            <a href="#" onclick="ROUTER.goHome();return false;"><i class="fas fa-arrow-left"></i> Accueil</a>
-            <span class="sep">›</span>
-            <a href="#" onclick="openSeriesModal('${fid}','${cid}');return false;">${char.name}</a>
-          </div>
+        <!-- Breadcrumb -->
+        <div class="player-breadcrumb" style="padding:14px 0 2px;">
+          <a href="/" onclick="ROUTER.goHome();return false;"><i class="fas fa-arrow-left"></i> Accueil</a>
+          <span class="sep">›</span>
+          <a href="#" onclick="openSeriesModal('${fid}','${cid}');return false;">${char.name}</a>
+          <span class="sep">›</span>
+          <span>${season}</span>
+          <span class="sep">›</span>
+          <span>Épisode ${ep.num}</span>
         </div>
         <div class="player-info-block">
-          <div class="player-series-name">${char.name}</div>
+          <div class="player-series-name">${char.name} · ${u.name}</div>
           <div class="player-ep-title">${ep.title}</div>
+          <div class="player-ep-meta"><span>${season}</span><span class="dot"></span><span>Épisode ${ep.num}</span><span class="dot"></span><span>GTA 5 RP · FanTasTic</span></div>
         </div>
         <div class="player-actions-row">
           <div class="player-nav-eps">
-            <button class="btn-ep-nav" onclick="playEp('${fid}','${cid}','${esc(season)}',${epIdx - 1})" ${epIdx === 0 ? 'disabled' : ''}><i class="fas fa-step-backward"></i></button>
-            <button class="btn-ep-nav" onclick="playEp('${fid}','${cid}','${esc(season)}',${epIdx + 1})" ${!nextEp ? 'disabled' : ''}><i class="fas fa-step-forward"></i></button>
+            <button class="btn-ep-nav" onclick="playEp('${fid}','${cid}','${esc(season)}',${epIdx-1})" ${epIdx===0?'disabled':''}><i class="fas fa-step-backward"></i> <span>Précédent</span></button>
+            <button class="btn-ep-nav" onclick="playEp('${fid}','${cid}','${esc(season)}',${epIdx+1})" ${!nextEp?'disabled':''}><span>Suivant</span> <i class="fas fa-step-forward"></i></button>
+          </div>
+          <div class="player-extra-actions">
+            <button class="btn-player-action${inList?' active list':''}" id="plListBtn" onclick="togglePlayerList('${fid}','${cid}')">
+              <i class="fas fa-${inList?'check':'plus'}"></i> <span>${inList?'Dans ma liste':'Ma Liste'}</span>
+            </button>
           </div>
         </div>
-        <div class="player-episodes-list" style="display:grid !important;">
-          ${eps.map((e, i) => `
-            <div class="player-ep-item${i === epIdx ? ' current' : ''}" onclick="playEp('${fid}','${cid}','${esc(season)}',${i})">
-              <div class="player-ep-info">Épisode ${e.num} - ${e.title}</div>
-            </div>`).join('')}
+        <div class="player-char-block">
+          <img class="player-char-avatar" src="${char.image}" alt="${char.name}">
+          <div class="player-char-text">
+            <div class="player-char-name">${char.name}</div>
+            <div class="player-char-family">${u.name}</div>
+            <div class="player-char-desc">${char.description}</div>
+          </div>
         </div>
+        ${seasons.length?`<div class="sidebar-section-title" style="margin:24px 0 12px;">Épisodes</div><div class="player-season-tabs">${stabs}</div><div class="player-episodes-list">${epList}</div>`:''}
+      </div>
+      <div class="player-sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Épisode suivant</div>
+          ${nextEp?`<div class="upnext-card" onclick="playEp('${fid}','${cid}','${esc(season)}',${epIdx+1})">
+            <div class="upnext-thumb" style="background-image:url('${epThumb(nextEp)}')"><div class="upnext-play-btn"><i class="fas fa-play"></i></div></div>
+            <div class="upnext-info"><div class="upnext-label">Épisode suivant</div><div class="upnext-title">${nextEp.title}</div><div class="upnext-ep">Épisode ${nextEp.num} · ${season}</div></div>
+          </div>`:`<div class="empty-state" style="padding:20px;"><i class="fas fa-flag-checkered"></i><h4>Fin de la saison</h4></div>`}
+        </div>
+        ${eps.length>1?`<div class="sidebar-section"><div class="sidebar-section-title">Tous les épisodes</div><div class="sidebar-suggestions">${sugg}</div></div>`:''}
       </div>
     </div>`;
 
-  setTimeout(() => {
-    if (typeof YT !== 'undefined' && YT.Player) {
-      _createYTPlayer({ videoId: ep.videoId, fid, cid, season, epIdx });
-    }
-  }, 100);
+  // Monter le player YT dans le container dédié
+  const params = {videoId:ep.videoId||null, megaUrl:ep.megaUrl||null, fid, cid, season, epIdx};
+  if(typeof YT!=='undefined'&&YT.Player) {
+    _createYTPlayer(params);
+  } else {
+    window._pendingYT = params;
+  }
 }
 
 function _createYTPlayer(params) {

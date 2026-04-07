@@ -4,13 +4,21 @@
 
 /* ── PAGE PLAYER ── */
 #playerPage {
+  padding-top: var(--nav-h); /* Laisse la place à la navbar */
   display: none;
-  min-height: 100vh;
+  position: fixed;
+  inset: 0;
+  z-index: 999; /* Juste sous la navbar */
+  width: 100vw;
+  height: 100vh;
   background: var(--void);
-  padding-top: var(--nav-h);
+  overflow-y: auto;
+  color: white;
 }
 
-#playerPage.active { display: block; }
+#playerPage.active {
+  display: block !important;
+}
 
 /* Topbar player - breadcrumb + bouton fermer */
 .player-topbar {
@@ -51,37 +59,48 @@
 
 /* ── VIDEO AREA ── */
 .player-video-area {
-  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   background: #000;
-  position: relative;
+  box-shadow: 0 0 50px rgba(0,0,0,0.8);
 }
 
 .player-video-aspect {
   position: relative;
   width: 100%;
-  padding-bottom: 45%;
-  background: #000;
+  padding-top: 56.25%; /* C'est ça qui crée la hauteur de la vidéo */
+  height: 0;
 }
 
-.player-video-aspect iframe {
+#ytPlayerContainer {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  border: none;
-  display: block;
 }
+
+.player-video-aspect iframe, 
+#ytPlayerContainer iframe,
+#ytDivInner {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+}
+
 
 /* ── PLAYER LAYOUT (crunchyroll: video left, sidebar right) ── */
 .player-layout {
   display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 0;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+  padding: 24px;
   max-width: 1600px;
   margin: 0 auto;
-  padding: 24px 24px 60px;
-  gap: 24px;
-  align-items: start;
+  width: 100%;
 }
 
 /* ── LEFT COLUMN ── */
@@ -421,9 +440,15 @@
 
 /* ── RIGHT SIDEBAR ── */
 .player-sidebar {
-  position: sticky;
-  top: calc(var(--nav-h) + 20px);
+    position: sticky;
+    top: calc(var(--nav-h) + 20px);
+    height: calc(100vh - var(--nav-h) - 40px);
+    overflow-y: auto;
+    padding-right: 5px;
 }
+
+.player-sidebar::-webkit-scrollbar { width: 4px; }
+.player-sidebar::-webkit-scrollbar-thumb { background: var(--iron); border-radius: 10px; }
 
 .sidebar-section {
   margin-bottom: 24px;
@@ -678,6 +703,7 @@
 @media (max-width: 1100px) {
   .player-layout {
     grid-template-columns: 1fr;
+    padding: 16px;
   }
   .player-sidebar {
     position: static;

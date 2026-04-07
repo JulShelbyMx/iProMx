@@ -147,7 +147,6 @@
         <img src="images/logoblanc.webp" alt="iProMx" class="logo-img">
         <span class="logo-text">iPROMX</span>
       </a>
-      
       <div class="nav-links">
         <a class="nav-link" href="#secUniverses">Univers</a>
         <a class="nav-link" href="#secHistory">Historique</a>
@@ -304,37 +303,53 @@
     </div>
   </section>
 
-  <div class="footer-bottom" style="text-align: center;">
-  <p style="font-size: 0.7rem; color: var(--text-muted); margin-bottom: 10px; opacity: 0.7;">
-    Ce site est protégé par reCAPTCHA. Les 
-    <a href="https://policies.google.com/privacy" target="_blank" style="color: var(--arc); text-decoration: none;">Privacité</a> et 
-    <a href="https://policies.google.com/terms" target="_blank" style="color: var(--arc); text-decoration: none;">Conditions</a> de Google s'appliquent.
-  </p>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">L'univers d'iProMx</div>
+          <p style="margin-top:10px;color:var(--text-muted);font-size:.9rem;">Un multivers RP mêlant lignées légendaires, destins épiques et émotions fortes </p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="#secUniverses">Univers</a>
+          <a href="#secHistory">Historique</a>
+          <a href="#secMyList">Ma Liste</a>
+        </div>
+        <div class="footer-col">
+          <h4>Liens</h4>
+          <a href="https://www.twitch.tv/ipromx" target="_blank"><i class="fab fa-twitch" style="margin-right:6px;"></i>Twitch</a>
+          <a href="https://www.youtube.com/ipromx" target="_blank"><i class="fab fa-youtube" style="margin-right:6px;"></i>YouTube</a>
+          <a href="https://ipromx.store" target="_blank"><i class="fas fa-store" style="margin-right:6px;"></i>Store</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy" 
+  title="© iProMx · © Jul ipmx (discord)"
+  style="cursor:pointer;position:relative;"
+  onclick="this.querySelector('.footer-credits').style.opacity=this.querySelector('.footer-credits').style.opacity==='1'?'0':'1'">
+  © 2026 L'Univers d'iProMx · Tous droits réservés
+  <span class="footer-credits" style="
+    position:absolute;
+    left:50%;transform:translateX(-50%);
+    bottom:calc(100% + 8px);
+    background:rgba(20,16,8,0.95);
+    border:1px solid var(--arc);
+    border-radius:6px;
+    padding:6px 14px;
+    white-space:nowrap;
+    font-size:.4rem;
+    color:var(--arc);
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .2s;
+  ">© iProMx · © Jul_ipmx (Discord)</span>
+</div>
+      </div>
+    </div>
+  </footer>
+</div>
 
-  <div class="footer-copy" 
-    title="© iProMx · © Jul ipmx (discord)"
-    style="cursor:pointer;position:relative;"
-    onclick="this.querySelector('.footer-credits').style.opacity=this.querySelector('.footer-credits').style.opacity==='1'?'0':'1'">
-    © 2026 L'Univers d'iProMx · Tous droits réservés
-    <span class="footer-credits" style="
-      position:absolute;
-      left:50%;transform:translateX(-50%);
-      bottom:calc(100% + 8px);
-      background:rgba(20,16,8,0.95);
-      border:1px solid var(--arc);
-      border-radius:6px;
-      padding:6px 14px;
-      white-space:nowrap;
-      font-size:.4rem;
-      color:var(--arc);
-      pointer-events:none;
-      opacity:0;
-      transition:opacity .2s;
-    ">© iProMx · © Jul_ipmx (Discord)</span>
-</div>
-</div>
-
-</div>
 <!-- ═══ PLAYER PAGE ═══ -->
 <div id="playerPage"></div>
 
@@ -354,16 +369,14 @@
 
 <!-- ═══ SERIES MODAL ═══ -->
 <div class="series-modal" id="seriesModal">
- <button class="series-close-btn" onclick="closeSeriesModal()" title="Fermer">
-    <i class="fas fa-times"></i>
-  </button>
+  <button class="series-close-btn" onclick="closeSeriesModal()"><i class="fas fa-times"></i></button>
   <div class="series-modal-inner">
     <div class="series-hero-img" id="seriesHeroBg">
-      <video id="seriesHeroVideo" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;" playsinline loop>
+      <video id="seriesHeroVideo" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" playsinline loop>
         <source id="seriesHeroSource" src="" type="video/mp4">
         <track id="seriesHeroTrack" kind="subtitles" srclang="fr" label="Français">
       </video>
-      <div id="seriesVideoControls" style="position:absolute;bottom:0;left:0;right:0;padding:20px 30px;z-index:3;background:linear-gradient(to top,rgba(2,4,8,.95),transparent);">
+      <div id="seriesVideoControls" style="position:absolute;bottom:0;left:0;right:0;padding:20px 30px;z-index:2;background:linear-gradient(to top,rgba(2,4,8,.95),transparent);">
         <div id="seriesVideoProgressBar" style="width:100%;height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin-bottom:12px;cursor:pointer;">
           <div id="seriesVideoProgressFill" style="height:100%;width:0;background:linear-gradient(90deg,var(--iron),var(--arc));border-radius:2px;"></div>
         </div>
@@ -472,12 +485,8 @@
   </div>
 </div>
 
-
-
 <!-- Firebase SDK (compat) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-check-compat.js"></script>
-<script src="https://www.google.com/recaptcha/enterprise.js?render=6LfF_qosAAAAAMZ1xqdr1YRUhRYc-JqZxsIFjd4p " async defer></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <!-- Config Firebase chargée depuis les variables d'env Netlify (jamais hardcodée ici) -->
@@ -510,6 +519,5 @@
   await load('ipromx.js');
 })();
 </script>
-
 </body>
 </html>
