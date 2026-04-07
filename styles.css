@@ -2553,3 +2553,7 @@ body::before {
   position: relative;
   z-index: 10;
 }
+
+.grecaptcha-badge { 
+    visibility: hidden !important;
+}
