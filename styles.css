@@ -1653,10 +1653,12 @@ body::before {
   align-items: center;
   justify-content: center;
   transition: var(--transition);
-  z-index: 9000;
+  z-index: 20000;
 }
 
 .series-close-btn:hover { background: var(--iron); color: white; border-color: var(--iron); }
+
+
 
 .series-info-row {
   display: grid;

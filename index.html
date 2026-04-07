@@ -352,7 +352,9 @@
 
 <!-- ═══ SERIES MODAL ═══ -->
 <div class="series-modal" id="seriesModal">
-  <button class="series-close-btn" onclick="closeSeriesModal()"><i class="fas fa-times"></i></button>
+ <button class="series-close-btn" onclick="closeSeriesModal()" title="Fermer">
+    <i class="fas fa-times"></i>
+  </button>
   <div class="series-modal-inner">
     <div class="series-hero-img" id="seriesHeroBg">
       <video id="seriesHeroVideo" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" playsinline loop>
@@ -468,6 +470,8 @@
   </div>
 </div>
 
+
+
 <!-- Firebase SDK (compat) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-check-compat.js"></script>
@@ -504,5 +508,6 @@
   await load('ipromx.js');
 })();
 </script>
+
 </body>
 </html>

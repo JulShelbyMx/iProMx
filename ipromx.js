@@ -2551,6 +2551,32 @@ function openSeriesModal(fid,cid) {
   const modal=$('seriesModal'); modal.classList.add('open');
   document.body.style.overflow='hidden';
 
+  // Bouton "Fermer" dans la navbar
+  let closeBtn = $('navPlayerClose');
+  if(!closeBtn) {
+    closeBtn = document.createElement('button');
+    closeBtn.id = 'navPlayerClose';
+    closeBtn.innerHTML = '<i class="fas fa-times"></i><span>Fermer</span>';
+    closeBtn.style.cssText = [
+      'display:inline-flex','align-items:center','gap:7px',
+      'padding:7px 16px',
+      'background:rgba(231,76,60,0.13)',
+      'border:1px solid rgba(231,76,60,0.5)',
+      'border-radius:6px',
+      'color:#e74c3c',
+      'font-family:var(--font-display)',
+      'font-size:0.62rem','font-weight:700','letter-spacing:2px',
+      'text-transform:uppercase','cursor:pointer',
+      'transition:background .15s,border-color .15s',
+      'margin-left:14px','flex-shrink:0'
+    ].join(';');
+    closeBtn.onmouseover = () => { closeBtn.style.background='rgba(231,76,60,0.28)'; };
+    closeBtn.onmouseout  = () => { closeBtn.style.background='rgba(231,76,60,0.13)'; };
+    document.querySelector('.navbar-left')?.appendChild(closeBtn);
+  }
+  closeBtn.style.display = 'inline-flex';
+  closeBtn.onclick = () => closeSeriesModal();
+
   // Hero bg + vidéo locale si présente
   const heroBg=$('seriesHeroBg'), heroVid=$('seriesHeroVideo');
   heroVid.pause();
@@ -2636,14 +2662,17 @@ function renderModalEps(fid,cid,season) {
 }
 
 function closeSeriesModal() {
+  // Cacher le bouton Fermer de la navbar
+  const navBtn = document.getElementById('navPlayerClose');
+  if(navBtn) navBtn.style.display = 'none';
+
   $('seriesModal')?.classList.remove('open');
   document.body.style.overflow='';
+  
   const v=$('seriesHeroVideo');
   if(v){
     v.pause();
     v.style.display='none';
-    // Ne PAS faire v.src='' car la source est sur l'élément <source> enfant
-    // Juste vider la source enfant
     const srcEl=$('seriesHeroSource');
     if(srcEl) srcEl.src='';
   }
