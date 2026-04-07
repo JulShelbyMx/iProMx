@@ -171,7 +171,7 @@ const AUTH = {
     // 1. Validation locale basique
     const cleanUsername = username.trim();
     if (cleanUsername.length < 2) return { ok:false, error:'Pseudo trop court (min. 2 caractères).' };
-
+ 
     // ── 2. APPEL AU RATE LIMITER (NETLIFY) ──────────────────────
     try {
       const rlRes = await fetch('/.netlify/functions/check-register-limit', {
