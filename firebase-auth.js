@@ -111,6 +111,20 @@ function _initFB() {
     _auth = firebase.auth();
     _db   = firebase.firestore();
     _auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+    // ── AJOUT APP CHECK (reCAPTCHA Enterprise) ────────────────
+    try {
+      const appCheck = firebase.appCheck();
+      appCheck.activate(
+        new firebase.appCheck.ReCaptchaEnterpriseProvider('6LfF_qosAAAAAMZ1xqdr1YRUhRYc-JqZxsIFjd4p'),
+        true // auto-refresh du token en arrière-plan
+      );
+      console.log('[iPROMX] App Check est actif.');
+    } catch (acError) {
+      console.error('[iPROMX] Erreur App Check:', acError);
+    }
+    // ──────────────────────────────────────────────────────────
+
     return true;
   } catch (e) {
     console.error('[iPROMX] Firebase init:', e);
@@ -153,27 +167,62 @@ const AUTH = {
   async register(username, email, password) {
     if (IS_LOCAL) return { ok:true, user:this._devUser };
     if (!_initFB()) return { ok:false, error:'Impossible de contacter le serveur.' };
-    if (username.trim().length < 2) return { ok:false, error:'Pseudo trop court (min. 2 caractères).' };
+    
+    // 1. Validation locale basique
+    const cleanUsername = username.trim();
+    if (cleanUsername.length < 2) return { ok:false, error:'Pseudo trop court (min. 2 caractères).' };
+
+    // ── 2. APPEL AU RATE LIMITER (NETLIFY) ──────────────────────
     try {
-      const cred = await _auth.createUserWithEmailAndPassword(email.trim(), password);
-      await cred.user.updateProfile({ displayName: username.trim() });
-      this._user    = cred.user;
-      this._profile = { username: username.trim(), avatarId: 'av1' };
-      // 1 seul write Firestore à l'inscription
-      await _db.collection('users').doc(cred.user.uid).set({
-        username: username.trim(), avatarId: 'av1',
-        email: email.toLowerCase().trim(),
-        history: [], myList: [],
-        createdAt: new Date().toISOString()
+      const rlRes = await fetch('/.netlify/functions/check-register-limit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
       });
-      // Là où tu fais déjà DB._setData(h, l) :
-DB._setData(data.history || [], data.myList || []);
-DB._loadProgress(data.progress || {}); // pré-charger le cache progression
+
+      if (rlRes.status === 429) {
+        const data = await rlRes.json();
+        // Affiche le message d'erreur précis renvoyé par ton script (ex: "Réessaie dans 45 min.")
+        return { ok: false, error: data.error || 'Trop de tentatives. Réessaie plus tard.' };
+      }
+    } catch (e) {
+      // Si la fonction Netlify est en panne, on laisse passer pour ne pas bloquer les vrais gens
+      console.warn('[iPROMX] Rate limit check failed, proceeding...', e);
+    }
+    // ──────────────────────────────────────────────────────────
+
+    // 3. Création du compte Firebase
+    try {
+      const cleanEmail = email.toLowerCase().trim();
+      const cred = await _auth.createUserWithEmailAndPassword(cleanEmail, password);
+      
+      await cred.user.updateProfile({ displayName: cleanUsername });
+      
+      this._user    = cred.user;
+      this._profile = { username: cleanUsername, avatarId: 'av1' };
+
+      // Initialisation du document Firestore
+      const userData = {
+        username: cleanUsername,
+        avatarId: 'av1',
+        email: cleanEmail,
+        history: [],
+        myList: [],
+        createdAt: new Date().toISOString()
+      };
+
+      await _db.collection('users').doc(cred.user.uid).set(userData);
+
+      // Synchro avec ton interface (DB.js)
+      DB._setData([], []);
+      DB._loadProgress({});
+      
       this._cache();
       return { ok:true, user:this.getCurrentUser() };
-    } catch (e) { return { ok:false, error:this._err(e.code) }; }
+      
+    } catch (e) { 
+      return { ok:false, error:this._err(e.code) }; 
+    }
   },
-
   async login(email, password) {
     if (IS_LOCAL) return { ok:true, user:this._devUser };
     if (!_initFB()) return { ok:false, error:'Impossible de contacter le serveur.' };
