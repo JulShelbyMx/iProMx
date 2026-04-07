@@ -1537,6 +1537,7 @@ body::before {
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(2,4,8,1) 0%, rgba(2,4,8,0.4) 40%, transparent 100%);
+  z-index: 1;   /* ← ajouter ça */
 }
 
 .series-hero-video {
@@ -1545,6 +1546,7 @@ body::before {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 0;  
 }
 
 .series-hero-controls {

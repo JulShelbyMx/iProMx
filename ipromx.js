@@ -1487,12 +1487,12 @@ const DATA = {
     },
     {
       title: "Silver - Flashback : La Transformation d'Adrian après l'Attaque de Kayton ! (Teaser GTAV RP)",
-      image: "https://i.ytimg.com/vi/y9datfzLTEo/hqdefault.jpg",
+      image: "images/letigrebl/silver-flashbackadrianciné.webp",
       videoId: "y9datfzLTEo"
     },
     {
       title: "TOM ESCOBAR CONTACTE JAKE WINTERS ! | CINÉMATIQUE",
-      image: "https://i.ytimg.com/vi/tYJZLe8fNYs/hqdefault.jpg",
+      image: "images/letigrebl/tomadulteciné.png",
       videoId: "tYJZLe8fNYs"
     },
     {
@@ -1542,7 +1542,7 @@ const DATA = {
     },
     {
       title: "EDEN FLASH FUIT SES RESPONSABILITÉS ?! | CINÉMATIQUE",
-      image: "https://i.ytimg.com/vi/12OM0vXcWy0/hqdefault.jpg",
+      image: "images/letigrebl/edenfuitciné.webp",
       videoId: "12OM0vXcWy0"
     },
     {
@@ -1557,7 +1557,7 @@ const DATA = {
     },
     {
       title: "Eddy vs Aaron, le combat le plus terrifiant - part2 ! Cinématique",
-      image: "https://i.ytimg.com/vi/r0zwnltnEu8/hqdefault.jpg",
+      image: "images/letigrebl/eddyaaronfightciné.webp",
       videoId: "r0zwnltnEu8"
     },
     {
@@ -1597,17 +1597,17 @@ const DATA = {
     },
     {
       title: "KAYTON FLASH S’INTERROGE SUR LE COMBAT CONTRE ADRIAN",
-      image: "https://i.ytimg.com/vi/4MQeQGZrl44/hqdefault.jpg",
+      image: "images/letigrebl/kaytonpenseciné.webp",
       videoId: "4MQeQGZrl44"
     },
     {
       title: "ADRIAN FLASH LE REVEIL DU BASILIC",
-      image: "https://i.ytimg.com/vi/iUL3jrH04hI/hqdefault.jpg",
+      image: "images/letigrebl/adrianprimeciné.webp",
       videoId: "iUL3jrH04hI"
     },
     {
       title: "Adrian le nouveau FLASH !",
-      image: "https://i.ytimg.com/vi/eGoVTIeMYI0/hqdefault.jpg",
+      image: "images/letigrebl/adriannewflashciné.webp",
       videoId: "eGoVTIeMYI0"
     },
     {
@@ -1622,27 +1622,27 @@ const DATA = {
     },
     {
       title: "OPÉRATION 1 000 000 000 $ ! (Agent X)",
-      image: "https://i.ytimg.com/vi/6mcf03Lqz-o/hqdefault.jpg",
+      image: "images/letigrebl/agentx5ciné.webp",
       videoId: "6mcf03Lqz-o"
     },
     {
       title: "IS BACK ... (Agent X)",
-      image: "https://i.ytimg.com/vi/KEnJgBBLcHY/hqdefault.jpg",
+      image: "images/letigrebl/agentx4ciné.webp",
       videoId: "KEnJgBBLcHY"
     },
     {
       title: "MERCI (Agent X)",
-      image: "https://i.ytimg.com/vi/9C0j1_9StNg/hqdefault.jpg",
+      image: "images/letigrebl/agentx3ciné.webp",
       videoId: "9C0j1_9StNg"
     },
     {
       title: "AGENT X !",
-      image: "https://i.ytimg.com/vi/iXInEFoZvHU/hqdefault.jpg",
+      image: "images/letigrebl/agentx2ciné.webp",
       videoId: "iXInEFoZvHU"
     },
     {
       title: "AGENT X ! NIVEAU 1 !",
-      image: "https://i.ytimg.com/vi/Nk--17wGMPU/hqdefault.jpg",
+      image: "images/letigrebl/agentx1ciné.webp",
       videoId: "Nk--17wGMPU"
     },
     {
@@ -1667,7 +1667,7 @@ const DATA = {
     },
     {
       title: "DAMON FLASH LE FILM OFFICIEL ! COMBAT FINAL",
-      image: "https://i.ytimg.com/vi/TyAXhptUiuE/hqdefault.jpg",
+      image: "images/letigrebl/damonkaytonfightciné.webp",
       videoId: "TyAXhptUiuE"
     },
     {
