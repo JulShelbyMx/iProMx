@@ -1292,7 +1292,8 @@ const DATA = {
         {num:14,title:'GTA 5 RP À ZÉRO ! #14 (J’ai construit un mini-drone ultra puissant ! 🚀)',videoId:'nMmsDQYZ_rs'},
         {num:15,title:'GTA 5 RP À ZÉRO ! #15 (La jalousie explose… et mon drone évolue dangereusement🔥)',videoId:'LH_65m6zJFQ'},
         {num:16,title:'GTA 5 RP À ZÉRO ! #16 (J’ai créé le système le plus CHEATÉ de FiveM)',videoId:'d25Bq_h_1FM'},
-        {num:17,title:'GTA 5 RP À ZÉRO ! #17 (Je deviens le maître du jeu…)',videoId:'OgIyhA0r6Qw',youtubeLink:true},
+        {num:17,title:'GTA 5 RP À ZÉRO ! #17 (Je deviens le maître du jeu…)',videoId:'OgIyhA0r6Qw'},
+        {num:18,title:'GTA 5 RP À ZÉRO ! #18 (Mon île se fait attaquer !)',videoId:'HXBC67CpfIA',youtubeLink:true},
     ]
 }, }
       ]
@@ -1428,7 +1429,7 @@ const DATA = {
     ]
 }, },
 { id:'leconcierge', name:'Le concièrge', image:'images/letigrebl/leconcierge.webp', banner:'images/letigrebl/leconcierge-bannière.webp',
-          description:'Fêtard et père biologique du jeune génie Tom Escobar, Ryan Johnson vit pour l\'adrénaline et les excès. Roi des soirées monumentales façon \"Projet X\", il enchaîne les réveils compliqués et les conquêtes risquées au cœur de Los Santos. Ambitieux malgré son style de vie chaotique, il est également le cerveau derrière Racing X, son plus gros projet de courses clandestines.', 
+          description:'Derrière son balai, ce Concierge d\'une école étrange dissimule un livre secret et des connaissances bien plus vastes que ses simples fonctions.', 
           seasons:{
     'Saison 1':[
         {num:1,title:'GTA V SCHOOL RP ! #1 (Je deviens concierge dans une école pas comme les autres)',videoId:'datXzvubQys'},
@@ -1458,13 +1459,13 @@ const DATA = {
     // active: false,  // mettre false pour masquer
     active: true,
     label: 'NOUVEL ÉPISODE',      // badge à gauche (ex: "MISE À JOUR", "NOUVEAU")
-    text:  'Nouvel épisode : (Zack Kingsley) GTA 5 RP À ZÉRO ! #17 (Je deviens le maître du jeu…)',
+    text:  'Nouvel épisode : (Zack Kingsley) GTA 5 RP À ZÉRO ! #18 (Mon île se fait attaquer !) ',
     // Lien vers un épisode précis (laisser null pour pas de bouton)
     link: {
       familyId: 'kingsley',
       charId:   'zack-kingsley',
       season:   'Saison 1',
-      epNum:    17            // numéro de l'épisode
+      epNum:    18           // numéro de l'épisode
     }
     // Pour une URL externe à la place :
     // externalUrl: 'https://...'
@@ -1657,7 +1658,7 @@ const DATA = {
     },
     {
       title: "KAYTON FLASH LE RETOUR FRACASSANT ! TEASER OFFICIEL",
-      image: "https://i.ytimg.com/vi/OWumtU_bDNw/hqdefault.jpg",
+      image: "images/letigrebl/kaytonretourciné.webp",
       videoId: "OWumtU_bDNw"
     },
     {
@@ -1672,7 +1673,7 @@ const DATA = {
     },
     {
       title: "DAVID JR FLASH ! LE RETOUR ! CINÉMATIQUE GTAV RP ",
-      image: "https://i.ytimg.com/vi/lsU0iBzBYrA/hqdefault.jpg",
+      image: "images/letigrebl/djrretourciné.webp",
       videoId: "lsU0iBzBYrA"
     },
     {
@@ -1682,7 +1683,7 @@ const DATA = {
     },
     {
       title: "DAMON FLASH CINÉMATIQUE !",
-      image: "https://i.ytimg.com/vi/7-p-KcT11MY/hqdefault.jpg",
+      image: "images/letigrebl/damonciné.webp",
       videoId: "7-p-KcT11MY"
     },
     {
