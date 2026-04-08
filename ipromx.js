@@ -3493,36 +3493,61 @@ if (epMeta2) DB.saveProgress(epMeta2.fid, epMeta2.cid, epMeta2.season, epMeta2.e
   }, 5000);
 },
     onStateChange(e) { 
-      if (e.data === YT.PlayerState.ENDED && !isCinematic) onVidEnd(fid, cid, season, epIdx); 
+      if (e.data === YT.PlayerState.ENDED && !isCinematic) onVidEnd(fid, cid, season, epIdx)
     }
   }
 });
 }
 
-function onVidEnd(fid,cid,season,epIdx) {
-  const eps=getChar(fid,cid)?.seasons?.[season]||[];
-  if(epIdx+1>=eps.length) return;
-  startAutoplay(fid,cid,season,epIdx);
+function onVidEnd(fid, cid, season, epIdx) {
+  const char = getChar(fid, cid);
+  const eps = char?.seasons?.[season] || [];
+  // Vérifie s'il y a un épisode après celui-ci
+  if (epIdx + 1 < eps.length) {
+    startAutoplay(fid, cid, season, epIdx);
+  } else {
+    console.log("Fin de saison, pas d'autoplay.");
+  }
 }
-function startAutoplay(fid,cid,season,epIdx) {
-  autoCD=AUTOPLAY_SEC;
-  window._autoTarget={fid,cid,season,epIdx:epIdx+1};
-  $('autoplayBanner')?.classList.add('visible');
-  autoTimer=setInterval(()=>{
+
+function startAutoplay(fid, cid, season, epIdx) {
+  if (autoTimer) clearInterval(autoTimer);
+  
+  autoCD = 10; 
+  window._autoTarget = { fid, cid, season, epIdx: epIdx + 1 };
+  
+  // Utilise 'active' pour correspondre au CSS
+  const banner = $('autoplayBanner');
+  if (banner) banner.classList.add('active');
+
+  autoTimer = setInterval(() => {
     autoCD--;
-    const c=$('autoCD'); if(c) c.textContent=autoCD;
-    const f=$('autoFill'); if(f) f.style.width=(autoCD/AUTOPLAY_SEC*100)+'%';
-    if(autoCD<=0){clearInterval(autoTimer);triggerAutoplay();}
-  },1000);
+    const c = $('autoCD'); if (c) c.textContent = autoCD;
+    const f = $('autoFill'); if (f) f.style.width = (autoCD / 10 * 100) + '%';
+
+    if (autoCD <= 0) {
+      clearInterval(autoTimer);
+      triggerAutoplay();
+    }
+  }, 1000);
 }
-function triggerAutoplay(){ cancelAutoplay(); const t=window._autoTarget; if(t) playEp(t.fid,t.cid,t.season,t.epIdx); }
-function cancelAutoplay(){ clearInterval(autoTimer);autoTimer=null; $('autoplayBanner')?.classList.remove('visible'); window._autoTarget=null; }
-function switchSeason(fid,cid,season,btn){ $$('.player-season-tab').forEach(t=>t.classList.remove('active')); btn?.classList.add('active'); playEp(fid,cid,season,0); }
-function togglePlayerList(fid,cid) {
-  const inList=DB.isInList(fid,cid);
-  if(inList){ DB.removeFromList(fid,cid); const b=$('plListBtn'); if(b){b.innerHTML='<i class="fas fa-plus"></i><span>Ma Liste</span>';b.classList.remove('active','list');} toast('Retiré.','info'); }
-  else{ DB.addToList({familyId:fid,charId:cid,name:getChar(fid,cid)?.name}); const b=$('plListBtn'); if(b){b.innerHTML='<i class="fas fa-check"></i><span>Dans ma liste</span>';b.classList.add('active','list');} toast('Ajouté !','success'); }
-  renderMyList();
+
+function triggerAutoplay() {
+  const target = window._autoTarget; // On récupère la cible AVANT de nettoyer
+  cancelAutoplay(); 
+  
+  if (target) {
+    // playEp appelle showPlayerPage qui contient DB.addHistory
+    playEp(target.fid, target.cid, target.season, target.epIdx);
+  }
+}
+
+function cancelAutoplay() {
+  if (autoTimer) clearInterval(autoTimer);
+  autoTimer = null;
+  const banner = $('autoplayBanner');
+  if (banner) banner.classList.remove('active');
+  window._autoTarget = null;
 }
 
 // Flush Firestore avant fermeture de l'onglet (évite la perte de données)
