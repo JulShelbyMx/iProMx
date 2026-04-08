@@ -4,20 +4,18 @@
 
 /* ── PAGE PLAYER ── */
 #playerPage {
-  padding-top: var(--nav-h); /* Laisse la place à la navbar */
+  padding-top: calc(var(--nav-h) + 10px);
   display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 999; /* Juste sous la navbar */
-  width: 100vw;
-  height: 100vh;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  min-height: 100vh;
   background: var(--void);
-  overflow-y: auto;
   color: white;
 }
 
 #playerPage.active {
-  display: block !important;
+  display: block;
 }
 
 /* Topbar player - breadcrumb + bouton fermer */
