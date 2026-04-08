@@ -1498,12 +1498,12 @@ const DATA = {
     },
     {
       title: "Sylvester Shade ! Teaser #2 - GTA 5 RP",
-      image: "https://i.ytimg.com/vi/TTOD3ROwR6s/hqdefault.jpg",
+      image: "images/letigrebl/silvershadeciné2.png",
       videoId: "TTOD3ROwR6s"
     },
     {
       title: "Nouveau Personnage ! Teaser #1 - GTA 5 RP",
-      image: "https://i.ytimg.com/vi/wgZ0_iSvkZ0/hqdefault.jpg",
+      image: "images/letigrebl/silvershadeciné.webp",
       videoId: "wgZ0_iSvkZ0"
     },
     {
@@ -1512,8 +1512,8 @@ const DATA = {
       videoId: "sReaGjD0op4"
     },
     {
-      title: "HOMMAGE AU FLASH (IPROMX) CINÉMATIQUE!",
-      image: "https://i.ytimg.com/vi/3fPWr6JvPIk/hqdefault.jpg",
+      title: "HOMMAGE AUX FLASH (IPROMX) CINÉMATIQUE!",
+      image: "images/letigrebl/hommageflashciné.png", //https://i.ytimg.com/vi/3fPWr6JvPIk/hqdefault.jpg
       videoId: "3fPWr6JvPIk"
     },
     {
@@ -1528,7 +1528,7 @@ const DATA = {
     },
     {
       title: "JADE DEVIENT HUMAINE ! CINÉMATIQUE ",
-      image: "https://i.ytimg.com/vi/KgdeypkzLns/hqdefault.jpg",
+      image: "images/letigrebl/nedjadecoeurciné.png",
       videoId: "KgdeypkzLns"
     },
     {
