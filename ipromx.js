@@ -1483,7 +1483,7 @@ const DATA = {
     },
     {
       title: "Zayn Flash - Teaser officiel",
-      image: "https://i.ytimg.com/vi/Mp1bkYZ6whA/hqdefault.jpg",
+      image: "images/letigrebl/zaynteaser.png",
       videoId: "Mp1bkYZ6whA"
     },
     {
