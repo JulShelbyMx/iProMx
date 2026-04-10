@@ -496,7 +496,7 @@ const DATA = {
     'Saison 3':[
         {num:23,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 1 ! #1 S3',videoId:'VLIMlbJ19eU'},
         {num:24,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 2 ! #1 S3',videoId:'ETV4TcSbZos'},
-        {num:24,title:'Adrian kidnappe Avery!',megaUrl:'https://mega.nz/embed/5KVEjR6A#Kc1p24N15F_SpcKYdOAFvWSWFJoUSiikVzAX3j7_6Aw',thumb:''},
+        {num:24,title:'Adrian kidnappe Avery!',sibnetUrl:'https://video.sibnet.ru/shell.php?videoid=6168087',thumb:''},
     ]
 }, },
         { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/letigrebl/ned-eden-eddy.webp', banner:'images/letigrebl/ned-eden-eddy-bannière.webp',
@@ -536,7 +536,7 @@ const DATA = {
         {num:28,title:'PARTIE 2 - LA CAVALE DE NED FLASH ! GTA V RP ! by iProMx S2 #8',videoId:'7CsJ5Xfn6po'},
         {num:29,title:'LA VENGEANCE DE NED FLASH ! GTA V RP ! by iProMx S2 #9',videoId:'eITqh2PI_TY'},
         {num:30,title:'NED FLASH EN CAVALE AVEC 150 MILLIONS SUR LA TÊTE ! GTA V RP ! by iProMx S2 #10',videoId:'jJB1IkyMtWQ'},
-        {num:31, title:'NED FLASH, LE RETOUR DES POUVOIRS, 200 MILLIONS DE PRIME MORT OU VIF ! GTA V RP ! by iProMx S2 #11.mp4', megaUrl:'https://mega.nz/embed/IDlAUBjT#vUpIjcJmRufQUTEbY4SI5Rfn9wk0bzIL8FHvlY33j2o', thumb:'images/ned_ep11.png' },
+        {num:31, title:'NED FLASH, LE RETOUR DES POUVOIRS, 200 MILLIONS DE PRIME MORT OU VIF ! GTA V RP ! by iProMx S2 #11.mp4', sibnetUrl:'https://video.sibnet.ru/shell.php?videoid=6168096', thumb:'images/ned_ep11.png' },
         {num:32,title:'INTEGRALE - LA VENGEANCE DE NED FLASH ! GTA V RP ! by iProMx S2 #12',videoId:'mYseAdImUNc'},
         {num:33,title:'LA PUNITION D\'ADRIAN FLASH ! GTA V RP ! by iProMx  S2 #13',videoId:'NDcPxNZd_XE'},
         {num:34,title:'NED FLASH SEUL CONTRE LE MUR  ! GTA V RP ! by iProMx S2 #14',videoId:'2ngPOKhiT0k'},
@@ -1479,7 +1479,7 @@ const DATA = {
     {
       title: "Zayn Flash - Exploration Ned (Cinématique)",
       image: "images/letigrebl/zaynnedocean.webp",
-      megaUrl:'https://mega.nz/embed/hb9xhCQK#Gb8EssbaTwcdoiRQ5TKnkxNzwrQNblANUZG4T7hn1ik', 
+      sibnetUrl:'https://video.sibnet.ru/shell.php?videoid=6167747', 
     },
     {
       title: "Zayn Flash - Teaser officiel",
@@ -2508,9 +2508,9 @@ DB.flushProgressNow(); // force le write Firestore immédiatement
 // 1. DÉFINITION DES PARAMÈTRES (Indispensable pour éviter l'erreur "not defined")
   const params = {
     videoId: c.videoId || null,
-    megaUrl: c.megaUrl || null,
+    sibnetUrl: c.sibnetUrl || null,
     fid: 'cinematic',
-    cid: c.videoId || (c.megaUrl ? "mega-" + idx : String(idx)),
+    cid: c.videoId || (c.sibnetUrl ? "sibnet-" + idx : String(idx)),
     season: 'cinematic',
     epIdx: idx,
     isCinematic: true
@@ -2527,10 +2527,10 @@ DB.flushProgressNow(); // force le write Firestore immédiatement
   // 3. LOGIQUE D'AFFICHAGE DU LECTEUR
   const container = $('ytPlayerContainer');
   
-  if (c.megaUrl) {
-    // CAS MEGA : On injecte l'iframe directement
+  if (c.sibnetUrl) {
+    // CAS SIBNET : Iframe optimisée (anti-lag, GPU boost, anti-popups)
     if (container) {
-      container.innerHTML = `<iframe src="${c.megaUrl}" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay"></iframe>`;
+      container.innerHTML = `<iframe src="${c.sibnetUrl}" width="100%" height="100%" frameborder="0" scrolling="no" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" allow="autoplay; fullscreen; picture-in-picture" sandbox="allow-scripts allow-same-origin allow-presentation" referrerpolicy="no-referrer" style="will-change: transform; transform: translateZ(0); background: #000;"></iframe>`;
     }
   } 
   else if (c.videoId) {
@@ -3408,7 +3408,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
       </div>
     </div>`;
 
-  const params = {videoId:ep.videoId||null, megaUrl:ep.megaUrl||null, fid, cid, season, epIdx};
+  const params = {videoId:ep.videoId||null, sibnetUrl:ep.sibnetUrl||null, fid, cid, season, epIdx};
   if(typeof YT!=='undefined'&&YT.Player) {
     _createYTPlayer(params);
   } else {
@@ -3417,21 +3417,29 @@ function showPlayerPage(fid,cid,season,epIdx) {
 }
 
 function _createYTPlayer(params) {
-  const {videoId, megaUrl, fid, cid, season, epIdx, isCinematic} = params;
+  const {videoId, sibnetUrl, fid, cid, season, epIdx, isCinematic} = params;
   const container = $('ytPlayerContainer');
   if(!container) { window._pendingYT=params; return; }
   container.innerHTML='';
 
-  if (megaUrl) {
-    // ── Lecteur MEGA embed ─────────────────────────────────
+  if (sibnetUrl) {
+    // ── Lecteur SIBNET embed (Optimisé anti-lag/anti-pub) ────────────────
     const iframe = document.createElement('iframe');
-    iframe.src = megaUrl;
-    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
-    iframe.allow = 'autoplay; fullscreen; screen-wake-lock; picture-in-picture; orientation-lock';
-    iframe.setAttribute('allowfullscreen', '');
-    iframe.allowFullscreen = true;
+    iframe.src = sibnetUrl;
+    // Styles pour forcer l'accélération matérielle (GPU)
+    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;will-change:transform;transform:translateZ(0);background:#000;';
+    iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+    iframe.setAttribute('allowfullscreen', 'true');
+    iframe.setAttribute('webkitallowfullscreen', 'true');
+    iframe.setAttribute('mozallowfullscreen', 'true');
+    iframe.setAttribute('scrolling', 'no');
+    iframe.setAttribute('referrerpolicy', 'no-referrer');
+    
+    // Sandbox bloque les popups/redirections de pubs qui font lagger Sibnet
+    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+    
     container.appendChild(iframe);
-    ytPlayer = null; // Mega n'a pas d'API — pas d'autoplay suivant
+    ytPlayer = null; // Sibnet n'a pas d'API comme YouTube — pas d'autoplay suivant possible
     return;
   }
 
