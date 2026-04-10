@@ -3426,14 +3426,15 @@ function _createYTPlayer(params) {
     const iframe = document.createElement('iframe');
     iframe.src = sibnetUrl;
     
-    // 1. On regroupe tout dans 'allow' pour supprimer l'avertissement de la console
-    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; encrypted-media');
+    // On retire 'allowfullscreen' pour ne garder que 'allow' (évite le warning console)
+    // On ajoute 'autoplay' pour éviter l'AbortError sur le play()
+    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer');
     
-    // 2. On ajuste la sandbox : on ajoute 'allow-forms' et 'allow-pointer-lock' 
-    // Cela permet aux scripts internes de Sibnet de ne pas crash en boucle.
+    // Sandbox optimisée : on ajoute 'allow-forms' et 'allow-pointer-lock'
+    // Sans 'allow-forms', certains scripts de stats de Sibnet plantent et créent la boucle infinie.
     iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-forms allow-pointer-lock');
     
-    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;will-change:transform;transform:translateZ(0);background:#000;';
+    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;background:#000;z-index:1;';
     iframe.setAttribute('scrolling', 'no');
     iframe.setAttribute('referrerpolicy', 'no-referrer');
     
