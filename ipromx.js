@@ -3423,25 +3423,24 @@ function _createYTPlayer(params) {
   container.innerHTML='';
 
   if (sibnetUrl) {
-    // ── Lecteur SIBNET embed (Optimisé anti-lag/anti-pub) ────────────────
     const iframe = document.createElement('iframe');
     iframe.src = sibnetUrl;
-    // Styles pour forcer l'accélération matérielle (GPU)
+    
+    // 1. On regroupe tout dans 'allow' pour supprimer l'avertissement de la console
+    iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture; encrypted-media');
+    
+    // 2. On ajuste la sandbox : on ajoute 'allow-forms' et 'allow-pointer-lock' 
+    // Cela permet aux scripts internes de Sibnet de ne pas crash en boucle.
+    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-forms allow-pointer-lock');
+    
     iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;will-change:transform;transform:translateZ(0);background:#000;';
-    iframe.allow = 'autoplay; fullscreen; picture-in-picture';
-    iframe.setAttribute('allowfullscreen', 'true');
-    iframe.setAttribute('webkitallowfullscreen', 'true');
-    iframe.setAttribute('mozallowfullscreen', 'true');
     iframe.setAttribute('scrolling', 'no');
     iframe.setAttribute('referrerpolicy', 'no-referrer');
     
-    // Sandbox bloque les popups/redirections de pubs qui font lagger Sibnet
-    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
-    
     container.appendChild(iframe);
-    ytPlayer = null; // Sibnet n'a pas d'API comme YouTube — pas d'autoplay suivant possible
+    ytPlayer = null; 
     return;
-  }
+}
 
   // ── Lecteur YouTube ────────────────────────────────────
   const div=document.createElement('div');
