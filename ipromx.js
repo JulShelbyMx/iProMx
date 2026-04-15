@@ -496,7 +496,7 @@ const DATA = {
     'Saison 3':[
         {num:23,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 1 ! #1 S3',videoId:'VLIMlbJ19eU'},
         {num:24,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 2 ! #1 S3',videoId:'ETV4TcSbZos'},
-        {num:24,title:'Adrian kidnappe Avery!',sibnetUrl:'https://video.sibnet.ru/shell.php?videoid=6168087',thumb:''},
+        {num:24,title:'ADRIAN KIDNAPPE AVERY!',videoId:'zyBhVKhvqzk'},
     ]
 }, },
         { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/letigrebl/ned-eden-eddy.webp', banner:'images/letigrebl/ned-eden-eddy-bannière.webp',
@@ -1293,7 +1293,8 @@ const DATA = {
         {num:15,title:'GTA 5 RP À ZÉRO ! #15 (La jalousie explose… et mon drone évolue dangereusement🔥)',videoId:'LH_65m6zJFQ'},
         {num:16,title:'GTA 5 RP À ZÉRO ! #16 (J’ai créé le système le plus CHEATÉ de FiveM)',videoId:'d25Bq_h_1FM'},
         {num:17,title:'GTA 5 RP À ZÉRO ! #17 (Je deviens le maître du jeu…)',videoId:'OgIyhA0r6Qw'},
-        {num:18,title:'GTA 5 RP À ZÉRO ! #18 (Mon île se fait attaquer !)',videoId:'HXBC67CpfIA',youtubeLink:true},
+        {num:18,title:'GTA 5 RP À ZÉRO ! #18 (Mon île se fait attaquer !)',videoId:'HXBC67CpfIA',},
+        //youtubeLink:true},
     ]
 }, }
       ]
@@ -1513,7 +1514,7 @@ const DATA = {
     },
     {
       title: "HOMMAGE AUX FLASH (IPROMX) CINÉMATIQUE!",
-      image: "images/letigrebl/hommageflashciné.png", //https://i.ytimg.com/vi/3fPWr6JvPIk/hqdefault.jpg
+      image: "images/letigrebl/hommageflashciné.webp", //https://i.ytimg.com/vi/3fPWr6JvPIk/hqdefault.jpg
       videoId: "3fPWr6JvPIk"
     },
     {
