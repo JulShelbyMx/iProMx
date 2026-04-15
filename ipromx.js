@@ -496,7 +496,7 @@ const DATA = {
     'Saison 3':[
         {num:23,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 1 ! #1 S3',videoId:'VLIMlbJ19eU'},
         {num:24,title:'LE RETOUR D\'ADRIAN FLASH ! PARTIE 2 ! #1 S3',videoId:'ETV4TcSbZos'},
-        {num:24,title:'ADRIAN KIDNAPPE AVERY!',videoId:'zyBhVKhvqzk'},
+        {num:25,title:'ADRIAN KIDNAPPE AVERY!',videoId:'zyBhVKhvqzk'},
     ]
 }, },
         { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/letigrebl/ned-eden-eddy.webp', banner:'images/letigrebl/ned-eden-eddy-bannière.webp',
