@@ -823,7 +823,9 @@ const DATA = {
         {num:97,title:'GTA 5 RP A ZERO ! #24 (Ma femme me quitte ?)',videoId:'WAlObGdtb_w'},
         {num:98,title:'GTA 5 RP À ZÉRO ! #25 (L\'héritage de Jake Winters) !',videoId:'X6dwuyqMN6Q'},
         {num:99,title:'GTA 5 RP - Jake x Tom : La Rencontre avec Mon Père ! [Fin]',videoId:'r7Rq1RCInqQ'}
-    ]
+    ],
+    'Saison 4':[
+     ],
 }, },
         { id:'oliver-winters', name:'Oliver Winters', image:'images/letigrebl/oliver.webp', banner:'images/letigrebl/oliver-bannière.webp',
           description:'Parti de rien pour bâtir son propre destin, Oliver Winters a gravi les échelons avec détermination, passant de simple chauffeur de taxi à propriétaire de son propre cinéma. Refusant de céder à l\'emprise de son père, le redoutable chef de Cayo Perico qui voulait faire de lui son héritier, il a choisi la voie de l\'indépendance jusqu\'à l\'affrontement final. Dans un dernier acte de courage, il est parvenu à mettre fin au règne de son père, scellant ainsi l\'histoire d\'un homme qui n\'a jamais voulu de cet héritage sanglant.', 
@@ -1445,10 +1447,12 @@ const DATA = {
     { id:'youtube2', name:'YouTube Secondaire', url:'https://www.youtube.com/@iProMx_ytb',         icon:'fab fa-youtube',    color:'#ff4444', bg:'rgba(255,68,68,0.07)',     border:'rgba(255,68,68,0.22)',     cta:'Voir la chaîne',       ctaIcon:'fab fa-youtube'      },
     { id:'twitch',   name:'Twitch',             url:'https://www.twitch.tv/ipromx',                icon:'fab fa-twitch',     color:'#9147ff', bg:'rgba(145,71,255,0.08)',    border:'rgba(145,71,255,0.25)',    cta:'Regarder en direct',   ctaIcon:'fas fa-play-circle'  },
     { id:'discord',  name:'Discord',            url:'https://discord.gg/iProMx',                   icon:'fab fa-discord',    color:'#7289da', bg:'rgba(114,137,218,0.08)',   border:'rgba(114,137,218,0.25)',   cta:'Rejoindre le serveur', ctaIcon:'fab fa-discord'      },
-    { id:'discord2',  name:'Discord Fantastic',            url:'https://discord.gg/fantasticwl',              icon:'fab fa-discord',    color:'#5064af', bg:'rgba(98, 116, 179, 0.08)',   border:'rgba(114,137,218,0.25)',   cta:'Rejoindre le serveur', ctaIcon:'fab fa-discord'      },
+    { id:'discord2',  name:'Discord PixelarWL',            url:'https://discord.gg/pixelarwl',              icon:'fab fa-discord',    color:'#5064af', bg:'rgba(98, 116, 179, 0.08)',   border:'rgba(114,137,218,0.25)',   cta:'Rejoindre le serveur', ctaIcon:'fab fa-discord'      },
+    { id:'discord3',  name:'Discord MX Workshop',            url:'https://discord.com/invite/xeP9xtM3Kd',              icon:'fab fa-discord',    color:'#374886', bg:'rgba(63, 79, 139, 0.08)',   border:'rgba(65, 92, 197, 0.3)',   cta:'Rejoindre le serveur', ctaIcon:'fab fa-discord'      },
     { id:'tiktok',   name:'TikTok',             url:'https://www.tiktok.com/@ipromx__',            icon:'fab fa-tiktok',     color:'#ff0050', bg:'rgba(255,0,80,0.08)',      border:'rgba(255,0,80,0.25)',      cta:'Voir les vidéos',      ctaIcon:'fab fa-tiktok'       },
     { id:'tiktok2',  name:'TikTok Clips',       url:'https://www.tiktok.com/@ipromxclipofficiel',  icon:'fab fa-tiktok',     color:'#69c9d0e4', bg:'rgba(105,201,208,0.08)',   border:'rgba(105,201,208,0.25)',   cta:'Voir les clips',       ctaIcon:'fab fa-tiktok'       },
-    { id:'x',        name:'X (Twitter)',         url:'https://x.com/@iProMxYt',                    icon:'fab fa-x-twitter',  color:'#e7e7e77d', bg:'rgba(255,255,255,0.05)',   border:'rgba(255,255,255,0.15)',   cta:'Suivre',               ctaIcon:'fab fa-x-twitter'    },
+    { id:'x',        name:'X (Twitter)',         url:'https://x.com/@iProMxYt',                    icon:'fab fa-x-twitter',  color:'#e7e7e77d', bg:'rgba(255,255,255,0.05)',   border:'rgba(255,255,255,0.15)',   cta:'Suivre',               ctaIcon:'fab fa-x'    },
+     { id:'insta',        name:'Instagram',         url:'https://www.instagram.com/ipromx_officiel/',                    icon:'fab fa-instagram',  color:'#ee22817d', bg:'rgba(108, 44, 90, 0.05)',   border:'rgba(148, 12, 132, 0.15)',   cta:'Suivre',               ctaIcon:'fab fa-instagram'    },
     { id:'boutique', name:'Boutique',            url:'https://ipromx.store/',                      icon:'fas fa-store',      color:'#f5a623', bg:'rgba(245,166,35,0.08)',    border:'rgba(245,166,35,0.25)',    cta:'Visiter la boutique',  ctaIcon:'fas fa-shopping-bag' },
     { id:'tebex',    name:'Tebex',               url:'https://ipromx.tebex.io/',                   icon:'fas fa-gamepad',    color:'#00b4d8', bg:'rgba(0,180,216,0.08)',     border:'rgba(0,180,216,0.25)',     cta:'Accéder au Tebex',     ctaIcon:'fas fa-gamepad'      },
     { id:'tierlistflash',    name:'Tier-List Flash',               url:'https://share.google/fI16WAB9w7dv5cFn7',                   icon:'fas fa-list-ol',    color:'#00d80e', bg:'rgba(0, 216, 18, 0.08)',     border:'rgba(0, 216, 148, 0.25)',     cta:'Accéder à la Tier-list Flash',     ctaIcon:'fas fa-list-ol'      },
@@ -1477,6 +1481,11 @@ const DATA = {
   // Ajouter ici tes cinématiques MP4 locales ou YouTube
   cinematics: [
     // Format : { id, title, desc, image (thumbnail), videoId (YouTube) }
+    {
+      title: "JAKE WINTERS : LA DERNIÈRE MISSION ! (Teaser)",
+      image: "images/letigrebl/jakemissionfinale.png",
+      videoId: "-hh3J71KXJk"
+    },
     {
       title: "Zayn Flash - Exploration Ned (Cinématique)",
       image: "images/letigrebl/zaynnedocean.webp",
@@ -1614,12 +1623,12 @@ const DATA = {
     },
     {
       title: "TOM ESCOBAR - LE COMBAT FINAL CONTRE AGENT X - LE FILM !",
-      image: "https://i.ytimg.com/vi/DGkFc6z9a4Q/hqdefault.jpg",
+      image: "images/letigrebl/tomagentxcombatciné.webp",
       videoId: "DGkFc6z9a4Q"
     },
     {
       title: "LES RETROUVAILLES DE TOM ESCOBAR ET ABDOUL !",
-      image: "https://i.ytimg.com/vi/epf8EC5_Gxg/hqdefault.jpg",
+      image: "images/letigrebl/tomabdoul.webp",
       videoId: "epf8EC5_Gxg"
     },
     {
@@ -1724,7 +1733,7 @@ const DATA = {
     },
     {
       title: "David, John, Ken Flash : Face à Face Finale",
-      image: "https://i.ytimg.com/vi/pHtx_iHieCk/hqdefault.jpg",
+      image: "images/letigrebl/davidjohnkenciné.webp",
       videoId: "pHtx_iHieCk"
     },
     {
@@ -2141,7 +2150,7 @@ function _setLiveSection(status, data) {
     const streamTitle = data?.streamTitle || data?.title || '';
     if(subtitle) subtitle.innerHTML = streamTitle
       ? `<strong>${streamTitle}</strong>`
-      : `Retrouvez le serveur <strong>FanTasTic RP</strong> en direct sur Twitch.`;
+      : `Retrouvez <strong>iProMx</strong> en direct sur Twitch.`;
     if(statVal) statVal.textContent    = '🟢 EN DIRECT';
     if(statLabel) statLabel.textContent = '';
     if(statDate) statDate.style.display = 'none';
@@ -2175,7 +2184,7 @@ function _setLiveSection(status, data) {
     section.style.boxShadow   = '';
     if(dot) { dot.style.background='#e67e22'; dot.style.boxShadow='none'; dot.style.animation='none'; }
     if(titleText) titleText.textContent = 'iProMx sur Twitch';
-    if(subtitle) subtitle.innerHTML     = `Retrouvez le serveur <strong>FanTasTic RP</strong> en direct sur Twitch.`;
+    if(subtitle) subtitle.innerHTML     = `Retrouvez <strong>iProMx</strong> en direct sur Twitch.`;
     if(statVal) statVal.textContent     = '⚠️ INCONNU';
     if(statLabel) statLabel.textContent = '';
     if(statDate) statDate.style.display = 'none';
@@ -2498,7 +2507,7 @@ DB.flushProgressNow(); // force le write Firestore immédiatement
         </div>
         <div class="player-info-block">
           <div class="player-ep-title">${c.title}</div>
-          <div class="player-ep-meta"><span>Cinématique</span><span class="dot"></span><span>FanTasTic RP</span></div>
+          <div class="player-ep-meta"><span>Cinématique</span><span class="dot"></span><span>Pixelar RP</span></div>
         </div>
         <div style="font-family:var(--font-body);font-size:.95rem;color:var(--text-dim);line-height:1.6;padding:8px 0 16px;">${c.desc||''}</div>
       </div>
@@ -3374,7 +3383,7 @@ function showPlayerPage(fid,cid,season,epIdx) {
         <div class="player-info-block">
           <div class="player-series-name">${char.name} · ${u.name}</div>
           <div class="player-ep-title">${ep.title}</div>
-          <div class="player-ep-meta"><span>${season}</span><span class="dot"></span><span>Épisode ${ep.num}</span><span class="dot"></span><span>GTA 5 RP · FanTasTic</span></div>
+          <div class="player-ep-meta"><span>${season}</span><span class="dot"></span><span>Épisode ${ep.num}</span><span class="dot"></span><span>GTA 5 RP · Pixelar</span></div>
         </div>
         <div class="player-actions-row">
           <div class="player-nav-eps">
@@ -3414,6 +3423,48 @@ function showPlayerPage(fid,cid,season,epIdx) {
     _createYTPlayer(params);
   } else {
     window._pendingYT = params;
+  }
+}
+
+function switchSeason(fid, cid, season, btn) {
+  // 1. Mettre à jour l'onglet actif
+  const tabs = document.querySelectorAll('.player-season-tab');
+  tabs.forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  // 2. Récupérer les épisodes de la saison sélectionnée
+  const char = getChar(fid, cid);
+  if (!char) return;
+  const eps = char.seasons?.[season] || [];
+  
+  // 3. Récupérer les infos de l'épisode actuellement en cours de lecture
+  const curMeta = window._currentEpMeta;
+
+  // 4. Générer le HTML de la nouvelle liste
+  const epListHtml = eps.map((e, i) => {
+    const prog = DB.getProgress(fid, cid, season, e.num).pct;
+    // Vérifie si cet épisode de la boucle est celui qu'on est en train de regarder
+    const isCurEp = curMeta && curMeta.fid === fid && curMeta.cid === cid && curMeta.season === season && curMeta.epNum === e.num;
+
+    return `<div class="player-ep-item${isCurEp ? ' current' : ''}" ${!isCurEp ? `onclick="playEp('${fid}','${cid}','${esc(season)}',${i})"` : ''}>
+      <div class="player-ep-thumb" style="background-image:url('${epThumb(e)}')">
+        <div class="player-ep-thumb-overlay">
+          ${isCurEp ? '<div class="player-ep-playing-icon"><i class="fas fa-volume-up"></i></div>' : e.youtubeLink ? '<i class="fab fa-youtube"></i>' : '<i class="fas fa-play"></i>'}
+        </div>
+        ${prog > 0 && !isCurEp ? `<div class="player-ep-progress"><div class="player-ep-progress-fill" style="width:${prog}%"></div></div>` : ''}
+        ${e.youtubeLink ? '<div class="ep-yt-badge"><i class="fab fa-youtube"></i> YouTube</div>' : ''}
+      </div>
+      <div class="player-ep-info">
+        <div class="player-ep-num">Épisode ${e.num}</div>
+        <div class="player-ep-name">${e.title}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // 5. Injecter le HTML dans le conteneur
+  const listContainer = document.querySelector('.player-episodes-list');
+  if (listContainer) {
+    listContainer.innerHTML = epListHtml || `<div class="empty-state"><i class="fas fa-clock"></i><h4>Bientôt disponible</h4></div>`;
   }
 }
 

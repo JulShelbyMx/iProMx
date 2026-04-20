@@ -40,7 +40,7 @@ const PRESET_AVATARS = [
   { id:'av6',  src:'images/avatars/letigrebl/ken.webp',  label:'Ken Flash'     },
   { id:'av8',  src:'images/avatars/letigrebl/legeant.webp',  label:'Le Géant Freddy'     },
   { id:'av9',  src:'images/avatars/letigrebl/tom.webp',  label:'Tom Escobar 1'     },
-  { id:'av9',  src:'images/avatars/letigrebl/tomadulteciné.webp',  label:'Tom 2'     },
+  { id:'av9',  src:'images/avatars/letigrebl/tomadulteciné.png',  label:'Tom 2'     },
   { id:'av10',  src:'images/avatars/letigrebl/legenie.webp',  label:'Le Génie'     },
   { id:'av11',  src:'images/avatars/letigrebl/aaron.webp',  label:'Aaron Flash'     },
   { id:'av15',  src:'images/avatars/letigrebl/davidjr.webp',  label:'David JR Flash 1'     },
