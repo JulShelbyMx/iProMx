@@ -1456,6 +1456,7 @@ const DATA = {
     { id:'boutique', name:'Boutique',            url:'https://ipromx.store/',                      icon:'fas fa-store',      color:'#f5a623', bg:'rgba(245,166,35,0.08)',    border:'rgba(245,166,35,0.25)',    cta:'Visiter la boutique',  ctaIcon:'fas fa-shopping-bag' },
     { id:'tebex',    name:'Tebex',               url:'https://ipromx.tebex.io/',                   icon:'fas fa-gamepad',    color:'#00b4d8', bg:'rgba(0,180,216,0.08)',     border:'rgba(0,180,216,0.25)',     cta:'Accéder au Tebex',     ctaIcon:'fas fa-gamepad'      },
     { id:'tierlistflash',    name:'Tier-List Flash',               url:'https://share.google/fI16WAB9w7dv5cFn7',                   icon:'fas fa-list-ol',    color:'#00d80e', bg:'rgba(0, 216, 18, 0.08)',     border:'rgba(0, 216, 148, 0.25)',     cta:'Accéder à la Tier-list Flash',     ctaIcon:'fas fa-list-ol'      },
+    { id:'sitecanva',    name:'Site Lafami de @kiling_',               url:'https://lafami.my.canva.site/',                   icon:'fas fa-book',    color:'#ff5722', bg:'rgba(255, 87, 34, 0.08)',     border:'rgba(255, 87, 34, 0.25)',     cta:"Découvrir l'univers des Flash en format texte",     ctaIcon:'fas fa-book'      },
   ],
 
   // ── NOTIFICATIONS (modifier manuellement ici) ────────────────
