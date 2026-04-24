@@ -707,7 +707,7 @@
     position: static;
   }
   .sidebar-suggestions { max-height: none; }
-  .player-episodes-list { display: none; }
+  .player-episodes-list { display: flex; }
 }
 
 @media (max-width: 768px) {
