@@ -1465,7 +1465,11 @@ const DATA = {
     // active: false,  // mettre false pour masquer
     active: true,
     label: 'NOUVEAU',      // badge à gauche (ex: "MISE À JOUR", "NOUVEAU")
-    text:  'Nouveaux avatars disponibles ! N\'hésitez pas à choisir celui qui vous correspond (cliquer sur avatar=>paramètres=>petitcrayon) !',
+    //text:  'Nouvel épisode disponible : ... ',
+    texts: [
+    'Nouveaux avatars disponibles ! N\'hésitez pas à choisir celui qui vous correspond (cliquer sur avatar=>paramètres=>petitcrayon) !',
+    'Nouvelle catégorie disponible : "Galerie", retrouvez toutes les meilleures images des personnages là-bas !'
+  ],
     // Lien vers un épisode précis (laisser null pour pas de bouton)
     link: {
       //familyId: 'kingsley',
@@ -2406,7 +2410,7 @@ function renderNotification() {
         letter-spacing:2px;border-radius:3px;text-transform:uppercase;
       ">${n.label||'INFO'}</span>
       <span style="flex:1;font-family:var(--font-body);font-size:.95rem;color:var(--text-dim);min-width:150px;">
-        ${n.text}
+        ${(Array.isArray(n.texts) ? n.texts : [n.text||n.texts]).join('<br>')}
       </span>
       ${actionBtn}
 
