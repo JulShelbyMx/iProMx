@@ -46,7 +46,7 @@ const PRESET_AVATARS = [
   { id:'av10', src:'images/avatars/letigrebl/tomadulteciné.png',  label:'Tom 2'     },
   { id:'av11', src:'images/avatars/letigrebl/tom-agentx.png',  label:'Tom et Agent X'     },
   { id:'av12', src:'images/avatars/letigrebl/legenie.png',  label:'Le Génie'     },
-  { id:'av13', src:'images/avatars/letigrebl/aaron.png',  label:'Aaron Flash'     },
+  { id:'av13', src:'images/avatars/letigrebl/aaron.png',  label:'Aaron Flash 1'     },
   { id:'av14', src:'images/avatars/letigrebl/aaron2.png',  label:'Aaron Flash 2'     },
   { id:'av15', src:'images/avatars/letigrebl/aaronmeditate.png',  label:'Aaron Flash 3'     },
   { id:'av16', src:'images/avatars/letigrebl/aaron3.png',  label:'Aaron Flash 4'     },
