@@ -2046,6 +2046,7 @@ function initApp() {
   renderHero();
   renderUniverses();
   renderCinematics();
+  renderGallery();
   renderHistory();
   renderMyList();
   renderSocial();
@@ -2412,6 +2413,125 @@ function renderNotification() {
     </div>`;
   banner.style.display = '';
 }
+
+// ── GALERIE ───────────────────────────────────────────────────
+// Ajoutez vos images ici au format 'images/download/example.jpg'
+const GALLERY_IMAGES = [
+  'images/downloadimg/img1.jpg',
+  'images/downloadimg/img2.jpg',
+  'images/downloadimg/img3.jpg',
+  'images/downloadimg/img4.jpg',
+  'images/downloadimg/img6.jpg',
+  'images/downloadimg/img7.jpg',
+  'images/downloadimg/img8.jpg',
+  'images/downloadimg/img9.jpg',
+  'images/downloadimg/img10.jpg',
+  'images/downloadimg/img11.jpg',
+  'images/downloadimg/img12.jpg',
+  'images/downloadimg/img13.jpg',
+  'images/downloadimg/img14.jpg',
+  'images/downloadimg/img15.jpg',
+  'images/downloadimg/img16.jpg',
+  'images/downloadimg/img17.jpg',
+  'images/downloadimg/img18.jpg',
+  'images/downloadimg/img19.jpg',
+  'images/downloadimg/img20.jpg',
+  'images/downloadimg/img21.jpg',
+  'images/downloadimg/img22.jpg',
+  'images/downloadimg/img23.jpg',
+  'images/downloadimg/img24.jpg',
+  'images/downloadimg/img25.jpg',
+  'images/downloadimg/img26.jpg',
+  'images/downloadimg/img27.jpg',
+  'images/downloadimg/img28.jpg',
+  'images/downloadimg/img29.jpg',
+  'images/downloadimg/img30.jpg',
+  'images/downloadimg/img31.jpg',
+  'images/downloadimg/img32.jpg',
+  'images/downloadimg/img33.jpg',
+  'images/downloadimg/img34.jpg',
+  'images/downloadimg/img35.jpg',
+  'images/downloadimg/img36.jpg',
+  'images/downloadimg/img37.jpg',
+  'images/downloadimg/img38.jpg',
+  'images/downloadimg/img39.jpg',
+  'images/downloadimg/img40.jpg',
+  'images/downloadimg/img41.jpg',
+  'images/downloadimg/img42.jpg',
+  'images/downloadimg/img43.jpg',
+  'images/downloadimg/img44.jpg',
+  'images/downloadimg/img45.jpg',
+  'images/downloadimg/img46.jpg',
+  'images/downloadimg/img47.jpg',
+  'images/downloadimg/img48.jpg',
+  'images/downloadimg/img49.jpg',
+  'images/downloadimg/img50.jpg',
+  'images/downloadimg/img51.jpg',
+  'images/downloadimg/img52.jpg',
+  'images/downloadimg/img53.jpg',
+  'images/downloadimg/img54.jpg',
+  'images/downloadimg/img55.jpg',
+  'images/downloadimg/img56.jpg',
+  //mettre images à partir du génie + images hors avatars (plus haut dans la conv)
+
+
+];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function renderGallery() {
+  const track = $('galleryTrack'), sec = $('secGallery');
+  if (!track) return;
+  const imgs = GALLERY_IMAGES.filter(Boolean);
+  if (!imgs.length) { if (sec) sec.style.display = 'none'; return; }
+  if (sec) sec.style.display = '';
+  const shuffled = shuffle(imgs);
+  track.innerHTML = shuffled.map(src => `
+    <div class="gallery-card" onclick="openLightbox('${src}')">
+      <div class="gallery-card-thumb">
+        <img src="${src}" alt="" loading="lazy">
+        <div class="gallery-card-overlay">
+          <div class="gallery-card-zoom"><i class="fas fa-expand"></i></div>
+        </div>
+      </div>
+    </div>`).join('');
+  setTimeout(() => setupCarousel('galleryTrack', 'galleryPrev', 'galleryNext', 320), 50);
+}
+
+function openLightbox(src) {
+  const lb = $('galleryLightbox');
+  const img = $('galleryLightboxImg');
+  const dlBtn = $('galleryDlBtn');
+  if (!lb || !img) return;
+  img.src = src;
+  dlBtn.onclick = () => downloadGalleryImg(src);
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e, force) {
+  if (!force && e && e.target !== $('galleryLightbox')) return;
+  const lb = $('galleryLightbox');
+  if (lb) lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function downloadGalleryImg(src) {
+  const a = document.createElement('a');
+  a.href = src;
+  a.download = src.split('/').pop() || 'image.jpg';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
 
 // ── CINÉMATIQUES ──────────────────────────────────────────────
 function renderCinematics() {
@@ -3756,7 +3876,7 @@ installBtn.addEventListener('click', async () => {
   }
 });
 
-// ── DETECTION IOS (Pour Eliya) ────────────────────────────────
+// ── DETECTION IOS ────────────────────────────────
 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
 

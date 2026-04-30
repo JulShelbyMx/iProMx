@@ -295,7 +295,34 @@
     </div>
   </section>
 
+ <!-- GALERIE -->
+  <section class="section" id="secGallery" style="display:none;">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-title">Galerie (@letigrebl)</div>
+      </div>
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev" id="galleryPrev"><i class="fas fa-chevron-left"></i></button>
+        <div class="carousel-track-container">
+          <div class="carousel-track" id="galleryTrack"></div>
+        </div>
+        <button class="carousel-btn next" id="galleryNext"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </section>
 
+  <!-- LIGHTBOX -->
+  <div class="gallery-lightbox" id="galleryLightbox" onclick="closeLightbox(event)">
+    <div class="gallery-lightbox-box" onclick="event.stopPropagation()">
+      <button class="gallery-lightbox-close" onclick="closeLightbox(null,true)" title="Fermer"><i class="fas fa-times"></i></button>
+      <div class="gallery-lightbox-inner">
+        <img id="galleryLightboxImg" src="" alt="">
+      </div>
+      <div class="gallery-lightbox-footer">
+        <button class="gallery-lightbox-dl" id="galleryDlBtn"><i class="fas fa-download"></i> Télécharger</button>
+      </div>
+    </div>
+  </div>
 
   <section class="section">
     <div class="section-container">
