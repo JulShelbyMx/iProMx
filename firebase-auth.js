@@ -129,15 +129,18 @@ function _initFB() {
     _auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
     // ── AJOUT APP CHECK (reCAPTCHA Enterprise) ────────────────
+    // auto-refresh désactivé : évite la boucle de requêtes qui
+    // déclenche un 429 (throttle) côté Google sur certaines IP.
     try {
       const appCheck = firebase.appCheck();
       appCheck.activate(
         new firebase.appCheck.ReCaptchaEnterpriseProvider('6LfF_qosAAAAAMZ1xqdr1YRUhRYc-JqZxsIFjd4p'),
-        true // auto-refresh du token en arrière-plan
+        false // ← NE PAS auto-refresh : on laisse Firebase Auth gérer le token à la demande
       );
-      console.log('[iPROMX] App Check est actif.');
+      console.log('[iPROMX] App Check est actif (refresh manuel).');
     } catch (acError) {
-      console.error('[iPROMX] Erreur App Check:', acError);
+      // App Check non critique : on continue même s'il échoue
+      console.warn('[iPROMX] App Check indisponible (mode dégradé):', acError.message);
     }
     // ──────────────────────────────────────────────────────────
 
@@ -245,12 +248,26 @@ const AUTH = {
     try {
       const cred = await _auth.signInWithEmailAndPassword(email.trim(), password);
       this._user = cred.user;
-      // Token frais avant read Firestore
-      try { await cred.user.getIdToken(true); } catch(_) {}
+      // Token frais avant read Firestore — on ignore silencieusement les
+      // erreurs App Check (throttle 429) qui ne bloquent pas la connexion.
+      try { await cred.user.getIdToken(true); } catch(tokenErr) {
+        if (!tokenErr?.message?.includes('throttled') && !tokenErr?.message?.includes('appCheck')) {
+          console.warn('[iPROMX] getIdToken error:', tokenErr.message);
+        }
+      }
       await this._loadDoc();
       this._cache();
       return { ok:true, user:this.getCurrentUser() };
-    } catch (e) { return { ok:false, error:this._err(e.code) }; }
+    } catch (e) {
+      // Si l'erreur vient uniquement d'App Check throttlé, on ne bloque pas l'utilisateur
+      if (e?.code?.includes('appCheck') || e?.message?.includes('throttled')) {
+        console.warn('[iPROMX] App Check throttlé, connexion sans token App Check.');
+        await this._loadDoc().catch(() => {});
+        this._cache();
+        return { ok:true, user:this.getCurrentUser() };
+      }
+      return { ok:false, error:this._err(e.code) };
+    }
   },
 
 async restoreSession() {
@@ -533,4 +550,3 @@ _loadProgress(progressData) {
   };
 
 })();
-
