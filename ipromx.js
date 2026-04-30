@@ -1464,14 +1464,14 @@ const DATA = {
   notification: {
     // active: false,  // mettre false pour masquer
     active: true,
-    label: 'NOUVEL ÉPISODE',      // badge à gauche (ex: "MISE À JOUR", "NOUVEAU")
-    text:  'Nouvel épisode : (Zack Kingsley) GTA 5 RP À ZÉRO ! #18 (Mon île se fait attaquer !) ',
+    label: 'NOUVEAU',      // badge à gauche (ex: "MISE À JOUR", "NOUVEAU")
+    text:  'Nouveaux avatars disponibles ! N\'hésitez pas à choisir celui qui vous correspond (cliquer sur avatar=>paramètres=>petitcrayon) !',
     // Lien vers un épisode précis (laisser null pour pas de bouton)
     link: {
-      familyId: 'kingsley',
-      charId:   'zack-kingsley',
-      season:   'Saison 1',
-      epNum:    18           // numéro de l'épisode
+      //familyId: 'kingsley',
+      //charId:   'zack-kingsley',
+      //season:   'Saison 1',
+      //epNum:    18           // numéro de l'épisode
     }
     // Pour une URL externe à la place :
     // externalUrl: 'https://...'
@@ -3074,7 +3074,106 @@ async function sendPasswordReset() {
 }
 
 // ── AVATAR PICKER (style Netflix/Crunchyroll) ─────────────────
+// ── AVATAR FAMILY MAPPING ─────────────────────────────────────
+const AVATAR_FAMILY_MAP = {
+  flash:   ['av1','av2','av3','av5','av13','av14','av15','av16','av17','av18','av19','av20','av21','av22','av24','av25','av26','av27','av28','av33','av34','av35','av36','av37','av38','av39','av40','av43','av44','av45','av46','av47','av48','av49','av50','av51','av52','av53','av54','av55','av56','av57','av71','av72','av73','av74','av75','av76','av77','av78','av79'],
+  shade:   ['av59','av60','av61','av62','av63','av64','av65','av66','av67','av68','av69','av70'],
+  winters: ['av32','av58'],
+  escobar: ['av7','av8','av9','av10','av11'],
+  kingsley:['av80'],
+  autres:  [,'av4','av6','av12','av23','av29','av30','av31','av41','av42']
+};
+const AVATAR_FAMILIES = [
+  { id:'all',      label:'Tous',     color:'var(--arc)' },
+  { id:'flash',    label:'Flash',    color:'#e77b3c' },
+  { id:'shade',    label:'Shade',    color:'#9b59b6' },
+  { id:'winters',  label:'Winters',  color:'#3498db' },
+  { id:'escobar',  label:'Escobar',  color:'#ab0909' },
+  { id:'kingsley', label:'Kingsley', color:'#f1c40f' },
+  { id:'autres',   label:'Autres',   color:'#95a5a6' }
+];
+
+let _avatarFamilyFilter = 'all';
+
+function _getAvatarFamily(avId) {
+  for(const [fam, ids] of Object.entries(AVATAR_FAMILY_MAP)) {
+    if(ids.includes(avId)) return fam;
+  }
+  return 'autres';
+}
+
+function _renderAvatarGrid() {
+  const user = AUTH.getCurrentUser();
+  const grid = document.getElementById('avatarPickerGrid');
+  if(!grid) return;
+  const filtered = _avatarFamilyFilter === 'all'
+    ? PRESET_AVATARS
+    : PRESET_AVATARS.filter(av => (AVATAR_FAMILY_MAP[_avatarFamilyFilter]||[]).includes(av.id));
+
+  // Group by family when showing "all"
+  let html = '';
+  if(_avatarFamilyFilter === 'all') {
+    const families = ['flash','shade','winters','escobar','kingsley','autres'];
+    const famLabels = {flash:'Famille Flash',shade:'Famille Shade',winters:'Famille Winters',escobar:'Famille Escobar',kingsley:'Famille Kingsley',autres:'Autres'};
+    const famColors = {flash:'#e74c3c',shade:'#9b59b6',winters:'#3498db',escobar:'#e67e22',kingsley:'#f1c40f',autres:'#95a5a6'};
+    for(const fam of families) {
+      const famAvatars = PRESET_AVATARS.filter(av=>(AVATAR_FAMILY_MAP[fam]||[]).includes(av.id));
+      if(!famAvatars.length) continue;
+      html += `<div style="grid-column:1/-1;display:flex;align-items:center;gap:10px;margin:8px 0 4px;">
+        <div style="width:3px;height:16px;border-radius:2px;background:${famColors[fam]};flex-shrink:0;"></div>
+        <span style="font-family:var(--font-display);font-size:.6rem;font-weight:700;letter-spacing:2.5px;color:${famColors[fam]};text-transform:uppercase;">${famLabels[fam]}</span>
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.05);"></div>
+      </div>`;
+      for(const av of famAvatars) {
+        const isSelected = user?.avatarId===av.id || _selectedAvatarId===av.id;
+        html += `<div onclick="selectAvatar('${av.id}',this)" data-avid="${av.id}" class="avatar-pick-item"
+          style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px;border-radius:10px;transition:background .15s;${isSelected?'background:rgba(245,166,35,0.07);':''}">
+          <div class="avatar-pick-circle" style="width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;
+            border:3px solid ${isSelected?'var(--arc)':'rgba(255,255,255,0.08)'};
+            box-shadow:${isSelected?'0 0 14px var(--arc-glow)':'none'};
+            transition:all .2s;background:var(--panel2);">
+            <img src="${av.src}" alt="${av.label}" style="width:100%;height:100%;object-fit:cover;display:block;"
+              onerror="this.parentElement.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--arc)><i class=fas\\ fa-user></i></div>'">
+          </div>
+          <span style="font-family:var(--font-display);font-size:.48rem;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;text-align:center;line-height:1.2;">${av.label}</span>
+        </div>`;
+      }
+    }
+  } else {
+    for(const av of filtered) {
+      const isSelected = user?.avatarId===av.id || _selectedAvatarId===av.id;
+      html += `<div onclick="selectAvatar('${av.id}',this)" data-avid="${av.id}" class="avatar-pick-item"
+        style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px;border-radius:10px;transition:background .15s;${isSelected?'background:rgba(245,166,35,0.07);':''}">
+        <div class="avatar-pick-circle" style="width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;
+          border:3px solid ${isSelected?'var(--arc)':'rgba(255,255,255,0.08)'};
+          box-shadow:${isSelected?'0 0 14px var(--arc-glow)':'none'};
+          transition:all .2s;background:var(--panel2);">
+          <img src="${av.src}" alt="${av.label}" style="width:100%;height:100%;object-fit:cover;display:block;"
+            onerror="this.parentElement.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--arc)><i class=fas\\ fa-user></i></div>'">
+        </div>
+        <span style="font-family:var(--font-display);font-size:.48rem;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;text-align:center;line-height:1.2;">${av.label}</span>
+      </div>`;
+    }
+  }
+  grid.innerHTML = html;
+}
+
+function filterAvatarsByFamily(famId) {
+  _avatarFamilyFilter = famId;
+  // Update button styles
+  document.querySelectorAll('.avatar-fam-btn').forEach(btn => {
+    const isActive = btn.dataset.fam === famId;
+    const col = btn.dataset.color;
+    btn.style.background = isActive ? col : 'transparent';
+    btn.style.color = isActive ? '#fff' : 'var(--text-dim)';
+    btn.style.borderColor = isActive ? col : 'var(--edge)';
+    btn.style.boxShadow = isActive ? `0 2px 12px ${col}55` : 'none';
+  });
+  _renderAvatarGrid();
+}
+
 function openAvatarPicker() {
+  _avatarFamilyFilter = 'all';
   let modal = $('avatarPickerModal');
   if(!modal) {
     modal = document.createElement('div');
@@ -3082,31 +3181,28 @@ function openAvatarPicker() {
     modal.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(2,4,8,0.97);backdrop-filter:blur(16px);display:flex;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto;overflow-x:hidden;';
     document.body.appendChild(modal);
   }
-  const user = AUTH.getCurrentUser();
   modal.style.display = 'flex';
   modal.innerHTML = `
     <div style="background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);padding:20px 16px;max-width:540px;width:100%;position:relative;box-shadow:var(--shadow-arc);">
-      <div style="font-family:var(--font-display);font-size:.85rem;font-weight:700;letter-spacing:3px;color:var(--arc);margin-bottom:6px;text-transform:uppercase;">Choisir un avatar</div>
-      <div style="font-family:var(--font-body);font-size:.9rem;color:var(--text-muted);margin-bottom:24px;">Sélectionne l'avatar qui te représente</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:12px;margin-bottom:20px;max-height:55vh;overflow-y:auto;overflow-x:hidden;padding-right:4px;">
-        ${PRESET_AVATARS.map(av=>`
-          <div onclick="selectAvatar('${av.id}',this)"
-               data-avid="${av.id}"
-               class="avatar-pick-item"
-               style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px;border-radius:10px;transition:background .15s;">
-            <div class="avatar-pick-circle" style="
-              width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;
-              border:3px solid ${user?.avatarId===av.id?'var(--arc)':'rgba(255,255,255,0.08)'};
-              box-shadow:${user?.avatarId===av.id?'0 0 14px var(--arc-glow)':'none'};
-              transition:all .2s;background:var(--panel2);">
-              <img src="${av.src}" alt="${av.label}"
-                   style="width:100%;height:100%;object-fit:cover;display:block;"
-                   onerror="this.parentElement.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:var(--arc)><i class=fas\\ fa-user></i></div>'">
-            </div>
-            <span style="font-family:var(--font-display);font-size:.48rem;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;text-align:center;line-height:1.2;">${av.label}</span>
-          </div>
+      <div style="font-family:var(--font-display);font-size:.85rem;font-weight:700;letter-spacing:3px;color:var(--arc);margin-bottom:4px;text-transform:uppercase;">Choisir un avatar</div>
+      <div style="font-family:var(--font-body);font-size:.9rem;color:var(--text-muted);margin-bottom:16px;">Sélectionne l'avatar qui te représente</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
+        ${AVATAR_FAMILIES.map(f=>`
+          <button class="avatar-fam-btn"
+            data-fam="${f.id}"
+            data-color="${f.color}"
+            onclick="filterAvatarsByFamily('${f.id}')"
+            style="padding:5px 12px;border-radius:20px;border:1px solid ${f.id==='all'?'var(--arc)':'var(--edge)'};
+              background:${f.id==='all'?'var(--arc)':'transparent'};
+              color:${f.id==='all'?'#fff':'var(--text-dim)'};
+              box-shadow:${f.id==='all'?'0 2px 12px var(--arc-dim)':'none'};
+              font-family:var(--font-display);font-size:.58rem;font-weight:700;letter-spacing:1.5px;
+              text-transform:uppercase;cursor:pointer;transition:all .15s;white-space:nowrap;">
+            ${f.label}
+          </button>
         `).join('')}
       </div>
+      <div id="avatarPickerGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:12px;margin-bottom:20px;max-height:52vh;overflow-y:auto;overflow-x:hidden;padding-right:4px;"></div>
       <div style="display:flex;gap:10px;">
         <button onclick="closeAvatarPicker()" style="flex:1;padding:11px;background:transparent;border:1px solid var(--edge);border-radius:var(--radius);color:var(--text-dim);font-family:var(--font-display);font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;">Annuler</button>
         <button onclick="applyAvatar()" id="avatarApplyBtn" style="flex:1;padding:11px;background:linear-gradient(135deg,var(--iron),var(--iron-bright));border:none;border-radius:var(--radius);color:white;font-family:var(--font-display);font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 14px var(--iron-glow);">
@@ -3114,6 +3210,7 @@ function openAvatarPicker() {
         </button>
       </div>
     </div>`;
+  _renderAvatarGrid();
 }
 
 let _selectedAvatarId = null;

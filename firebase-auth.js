@@ -93,14 +93,27 @@ const PRESET_AVATARS = [
   { id:'av57', src:'images/avatars/letigrebl/eddy3.png',  label:'Eddy Flash 3'     }, 
   { id:'av58', src:'images/avatars/letigrebl/jake.png',  label:'Jake Winters'     },  
   { id:'av59', src:'images/avatars/shadelogologo.png',  label:'Logo Shade'     },
-
-  // à changer à partir d'ici
-  { id:'av60', src:'images/avatars/letigrebl/sylvester-avatar.png',  label:'Sylvester Shade 1'     },
-  { id:'av61', src:'images/avatars/letigrebl/sylvester_shade.png',  label:'Sylvester Shade 2'     },
-  { id:'av62', src:'images/avatars/letigrebl/sylvester_shade.webp',  label:'Sylvester Shade 3'     },
-  { id:'av63', src:'images/avatars/letigrebl/zayn.png',  label:'Zayn Flash 1'     },
-  { id:'av64', src:'images/avatars/letigrebl/zaynteaser.png',  label:'Zayn Flash 2'     },
-  { id:'av65', src:'images/avatars/letigrebl/zack.png',  label:'Zack Kingsley'     }
+  { id:'av60', src:'images/avatars/letigrebl/silver1.png',  label:'Sylvester Shade 1'     },
+  { id:'av61', src:'images/avatars/letigrebl/silver2.png',  label:'Sylvester Shade 2'     },
+  { id:'av62', src:'images/avatars/letigrebl/silver3.png',  label:'Sylvester Shade 3'     },
+  { id:'av63', src:'images/avatars/letigrebl/silver4.png',  label:'Sylvester x La Mort 4'     },
+  { id:'av64', src:'images/avatars/letigrebl/silver5.png',  label:'Sylvester Shade 5'     },
+  { id:'av65', src:'images/avatars/letigrebl/silver6.png',  label:'Sylvester Shade 6'     },
+  { id:'av66', src:'images/avatars/letigrebl/silver7.png',  label:'Sylvester Shade 7'     },
+  { id:'av67', src:'images/avatars/letigrebl/silver8.png',  label:'Sylvester Shade 8'     },
+  { id:'av68', src:'images/avatars/letigrebl/lamort1.png',  label:'La Mort 1'     },
+  { id:'av69', src:'images/avatars/letigrebl/lamort2.png',  label:'La Mort 2'     },
+  { id:'av70', src:'images/avatars/letigrebl/lamort3.png',  label:'La Mort 3'     },
+  { id:'av71', src:'images/avatars/letigrebl/zayn1.png',  label:'Zayn Flash 1'     },
+  { id:'av72', src:'images/avatars/letigrebl/zayn2.png',  label:'Zayn Flash 2'     },
+  { id:'av73', src:'images/avatars/letigrebl/zayn3.png',  label:'Zayn Flash 3'     },
+  { id:'av74', src:'images/avatars/letigrebl/zayn4.png',  label:'Zayn Flash 4'     },
+  { id:'av75', src:'images/avatars/letigrebl/zayn5.png',  label:'Zayn Flash 5'     },
+  { id:'av76', src:'images/avatars/letigrebl/zayn6.png',  label:'Zayn Flash 6'     },
+  { id:'av77', src:'images/avatars/letigrebl/zayn7.png',  label:'Zayn Flash 7'     },
+  { id:'av78', src:'images/avatars/letigrebl/zayn8.png',  label:'Zayn Flash 8'     },
+  { id:'av79', src:'images/avatars/letigrebl/zayn9.png',  label:'Zayn Flash 9'     },
+  { id:'av80', src:'images/avatars/letigrebl/zack.png',  label:'Zack Kingsley'     }
   
 
 ];
