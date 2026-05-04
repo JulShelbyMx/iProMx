@@ -9,14 +9,14 @@ const throttle = (fn, ms) => { let last=0; return (...a)=>{ const now=Date.now()
 const debounce = (fn, ms) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; };
 
 // ── DATA ──────────────────────────────────────────────────────
-const FB = 'images/flash.jpg';
+const FB = 'https://ik.imagekit.io/ipromx/images/flash.jpg';
 const DATA = {
   universes: {
     flash: {
       id:'flash', name:'Famille Flash', color:'#e74c3c',
-      image:'images/flashlogo.webp', banner:FB,
+      image:'https://ik.imagekit.io/ipromx/images/flashlogo.webp', banner:FB,
       characters:[
-        { id:'david-flash', name:'David Flash', image:'images/letigrebl/david2.webp', banner:'images/letigrebl/david-bannière.webp',
+        { id:'david-flash', name:'David Flash', image:'https://ik.imagekit.io/ipromx/images/letigrebl/david2.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/david-bannière.webp',
           description:'Chef de gang légendaire ayant tout perdu, de sa liberté à sa famille, il finit par vivre dans l\'ombre pour protéger les siens. Protecteur infatigable, il traverse les épreuves et les époques pour guider ses héritiers jusqu\'à son dernier souffle.',
           seasons:{
     'Saison 1':[
@@ -97,7 +97,7 @@ const DATA = {
         {num:65,title:'DAVID FLASH A FAIT L\'IMPOSSIBLE MAIS SA MALADIE LE MENACE ! GTAV RP #7',videoId:'iK5E34WF5uI'}
     ] 
   }},
-        { id:'john-flash', name:'John Flash', image:'images/letigrebl/john.webp', banner:'images/letigrebl/john-bannière.webp',
+        { id:'john-flash', name:'John Flash', image:'https://ik.imagekit.io/ipromx/images/letigrebl/john.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/john-bannière.webp',
           description:'Pilote clandestin devenu le plus grand criminel du continent, il a bâti un empire colossal après avoir découvert la vérité sur ses origines. Solitaire et déterminé comme le loup, il a transformé ses tragédies personnelles en une soif de pouvoir absolue, régnant sans partage jusqu\'à la transmission de son héritage.',
           seasons:{
     'Saison 1':[
@@ -171,7 +171,7 @@ const DATA = {
         {num:62,title:'LES ANCIENS NOUS VEULENT DU MAL ! GTAV PRISON RP #2',videoId:'zDTgyQCDSW0'},
     ]
     }},
-        { id:'ken-flash', name:'Ken Flash', image:'images/letigrebl/ken.webp', banner:'images/letigrebl/ken-bannière.webp',
+        { id:'ken-flash', name:'Ken Flash', image:'https://ik.imagekit.io/ipromx/images/letigrebl/ken.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/ken-bannière.webp',
           description:'Ancien policier devenu criminel par choix, il a repris le flambeau familial pour transformer un gang en une équipe de héros protecteurs. Puissant et déterminé comme le dragon, il a fini par donner sa vie dans un sacrifice ultime pour offrir une chance de paix à ses enfants et au monde.', 
           seasons:{
     'Saison 1 Partie 1':[
@@ -277,7 +277,7 @@ const DATA = {
         {num:92,title:'KEN FLASH, LES ADIEUX ! GTA V RP ! by iProMx #10 S2',videoId:'4L92knQnHf8'},
     ]
 },},
-        { id:'aaron-flash', name:'Aaron Flash', image:'images/letigrebl/aaron.webp', banner:'images/letigrebl/aaron-bannière.webp',
+        { id:'aaron-flash', name:'Aaron Flash', image:'https://ik.imagekit.io/ipromx/images/letigrebl/aaron.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/aaron-bannière.webp',
           description:'Guerrier au destin tragique devenu roi et protecteur, il a surmonté les trahisons et les pertes pour reconstruire un futur de paix. À l\'image du phénix, il renaît sans cesse de ses cendres pour guider ses fils et affronter ses ennemis, jusqu\'à son ultime sacrifice.',
           seasons:{
     'Saison 1':[
@@ -337,7 +337,7 @@ const DATA = {
         {num:52,title:'LE MARIAGE D\'AARON ET NINA ! GTA V RP ! by iProMx #14 S2',videoId:'2rJB3cCv9as'}
     ]
 }, },
-        { id:'david-jr-flash', name:'David Jr Flash', image:'images/letigrebl/davidjr.webp', banner:'images/letigrebl/davidjr-bannière.webp',
+        { id:'david-jr-flash', name:'David Jr Flash', image:'https://ik.imagekit.io/ipromx/images/letigrebl/davidjr.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/davidjr-bannière.webp',
           description:'Enfant de la pègre devenu un monstre de vengeance, il a semé le chaos et la destruction avant de chercher la paix dans l\'isolement. Tel un cobra changeant de peau, il a fini par troquer sa haine contre un chemin de rédemption, offrant sa vie pour sauver ceux qu\'il combattait autrefois..', 
           seasons:{
     'Saison 1':[
@@ -352,7 +352,7 @@ const DATA = {
         {num:9,title:'LE GRAND JOUR ! LA TERRE DES FLASH ! GTA V RP ! by iProMx #8',videoId:'sNQ3s-LdJHk'}
     ]
 }, },
-        { id:'damon-flash', name:'Damon Flash', image:'images/letigrebl/damon.webp', banner:'images/letigrebl/damon-bannière.webp',
+        { id:'damon-flash', name:'Damon Flash', image:'https://ik.imagekit.io/ipromx/images/letigrebl/damon.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/damon-bannière.webp',
           description:'Enfant brisé devenu le « Roi de Los Santos » sous l\'emprise d\'une entité maléfique, il a commis l\'irréparable avant de chercher le pardon sous une fausse identité. Porté par la force du lion, il a fini par vaincre ses démons intérieurs et se sacrifier pour offrir aux autres l\'amour et la paix qu\'il n\'a jamais connus.', 
           seasons:{
     'Saison 1':[
@@ -419,7 +419,7 @@ const DATA = {
         {num:57,title:'DAMON FLASH LE FILM OFFICIEL ! COMBAT FINAL',videoId:'TyAXhptUiuE'}
     ]
 }, },
-        { id:'kayton-flash', name:'Kayton Flash', image:'images/letigrebl/kayton.webp', banner:'images/letigrebl/kayton-bannière.webp',
+        { id:'kayton-flash', name:'Kayton Flash', image:'https://ik.imagekit.io/ipromx/images/letigrebl/kayton.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/kayton-bannière.webp',
           description:'Esprit vengeur né de la douleur et devenu démon, il a cherché à anéantir sa propre lignée avant de recevoir une seconde chance inespérée. Transformé en loup-garou luttant contre ses pulsions, il a fini par choisir l\'amour et la rédemption, prouvant que même le plus sombre des monstres peut redevenir humain.', 
           seasons:{
     'Saison 1':[
@@ -464,7 +464,7 @@ const DATA = {
         {num:35,title:'PARTIE 2 ! LA FIN DE KAYTON FLASH ! GTA V RP ! by iProMx #9',videoId:'79XMv8kW9Ag'}
     ]
 }, },
-        { id:'adrian-flash', name:'Adrian Flash', image:'images/letigrebl/adrian.webp', banner:'images/letigrebl/adrian-bannière.webp',
+        { id:'adrian-flash', name:'Adrian Flash', image:'https://ik.imagekit.io/ipromx/images/letigrebl/adrian.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/adrian-bannière.webp',
           description:'Ancien militaire d\'élite brisé par une condamnation injuste, il est devenu un mort-vivant assoiffé de vengeance et de pouvoir. Tel un basilic sombre et indestructible, il a manipulé et terrassé ses ennemis avec une intelligence surhumaine avant de s\'éteindre définitivement lors d\'un ultime combat.', 
           seasons:{
     'Saison 1':[
@@ -499,7 +499,7 @@ const DATA = {
         {num:25,title:'ADRIAN KIDNAPPE AVERY!',videoId:'zyBhVKhvqzk'},
     ]
 }, },
-        { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'images/letigrebl/ned-eden-eddy.webp', banner:'images/letigrebl/ned-eden-eddy-bannière.webp',
+        { id:'ned-flash', name:'Ned, Eden, Eddy Flash', image:'https://ik.imagekit.io/ipromx/images/letigrebl/ned-eden-eddy.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/ned-eden-eddy-bannière.webp',
           description:'Frères de sang et d\'esprit, ils forment le Cerbère. Alliant la mémoire d\'Eden, la force obscure d\'Eddy et la détermination du capitaine Ned, ce héros aux trois visages a sacrifié sa liberté pour enchaîner le mal à jamais et veiller sur l\'avenir des siens.',
           hasLocalVideo:true, videoUrl:'vidéos/3frèresintro.mp4', 
           seasons:{
@@ -536,7 +536,7 @@ const DATA = {
         {num:28,title:'PARTIE 2 - LA CAVALE DE NED FLASH ! GTA V RP ! by iProMx S2 #8',videoId:'7CsJ5Xfn6po'},
         {num:29,title:'LA VENGEANCE DE NED FLASH ! GTA V RP ! by iProMx S2 #9',videoId:'eITqh2PI_TY'},
         {num:30,title:'NED FLASH EN CAVALE AVEC 150 MILLIONS SUR LA TÊTE ! GTA V RP ! by iProMx S2 #10',videoId:'jJB1IkyMtWQ'},
-        {num:31, title:'NED FLASH, LE RETOUR DES POUVOIRS, 200 MILLIONS DE PRIME MORT OU VIF ! GTA V RP ! by iProMx S2 #11.mp4', sibnetUrl:'https://video.sibnet.ru/shell.php?videoid=6168101', thumb:'images/ned_ep11.png' },
+        {num:31, title:'NED FLASH, LE RETOUR DES POUVOIRS, 200 MILLIONS DE PRIME MORT OU VIF ! GTA V RP ! by iProMx S2 #11.mp4', sibnetUrl:'https://video.sibnet.ru/shell.php?videoid=6168101', thumb:'https://ik.imagekit.io/ipromx/images/ned_ep11.png' },
         {num:32,title:'INTEGRALE - LA VENGEANCE DE NED FLASH ! GTA V RP ! by iProMx S2 #12',videoId:'mYseAdImUNc'},
         {num:33,title:'LA PUNITION D\'ADRIAN FLASH ! GTA V RP ! by iProMx  S2 #13',videoId:'NDcPxNZd_XE'},
         {num:34,title:'NED FLASH SEUL CONTRE LE MUR  ! GTA V RP ! by iProMx S2 #14',videoId:'2ngPOKhiT0k'},
@@ -602,7 +602,7 @@ const DATA = {
     ]
   }, },
 
-        { id:'manda-flash', name:'Manda Flash', image:'images/letigrebl/manda.webp', banner:'images/letigrebl/manda-bannière.webp',
+        { id:'manda-flash', name:'Manda Flash', image:'https://ik.imagekit.io/ipromx/images/letigrebl/manda.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/manda-bannière.webp',
           description:'Fils d\'un tyran et héritier d\'une lignée brisée, il a été choisi par son oncle pour devenir le nouveau roi de la Terre des Flash. Il a su réellement résister à l\'emprise du basilic, et a aidé Ned à vaincre son propre père, Adrian.',
           seasons:{
     'Saison 1':[
@@ -629,7 +629,7 @@ const DATA = {
         {num:19,title:'MANDA EST AU PLUS MAL ! GTA V RP ! by iProMx S2 #7',videoId:'8DSdty7XBDM'}
     ]
 }, },
-          { id:'zayn-flash', name:'Zayn Flash', image:'images/letigrebl/zayn.webp', banner:'images/letigrebl/zayn-bannière.webp',
+          { id:'zayn-flash', name:'Zayn Flash', image:'https://ik.imagekit.io/ipromx/images/letigrebl/zayn.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/zayn-bannière.webp',
           description:'Héritier déterminé de la lignée Flash, Zayn a bravé l\'interdiction frappant sa famille en intégrant l\'école de magie Veylar. Son unique but était d\'apprendre la magie des sorciers et d\'obtenir l\'Orion, un artefact puissant capable de libérer son père, Ned Flash, scellé au fond des océans.', 
           seasons:{
     'Saison 1':[
@@ -670,9 +670,9 @@ const DATA = {
       id:'shade', name:'Famille Shade', color:'#9b59b6',
       characters:[
         { id:'sylvester-shade', name:'Sylvester Shade', 
-          image:'images/letigrebl/silver.webp', banner:'images/letigrebl/silver-bannière.webp',
+          image:'https://ik.imagekit.io/ipromx/images/letigrebl/silver.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/silver-bannière.webp',
           description:'Maître des ombres et de la manipulation, il voue une haine profonde à la lignée Flash. Il a abandonné toute son humanité en passant un pacte définitif avec La Mort. Désormais lié à lui, il est devenu le Gardien de La Mort.',
-          hasLawBook:true, lawBookImages:['images/shade-law-1.webp','images/shade-law-2.webp','images/shade-law-3.webp'], 
+          hasLawBook:true, lawBookImages:['https://ik.imagekit.io/ipromx/images/shade-law-1.webp','https://ik.imagekit.io/ipromx/images/shade-law-2.webp','https://ik.imagekit.io/ipromx/images/shade-law-3.webp'], 
           seasons:{
     'Saison 1':[
         {num:1,title:'LE COMMENCEMENT ! LA FAMILLE SHADE ! GTA V RP ! by iProMx S1 #1',videoId:'R-5W88CwVZU'},
@@ -714,9 +714,9 @@ const DATA = {
     },
     winters: {
       id:'winters', name:'Famille Winters', color:'#3498db',
-      image:'images/winters-universe.jpg', banner:'images/winters-banner.jpg',
+      image:'https://ik.imagekit.io/ipromx/images/winters-universe.jpg', banner:'https://ik.imagekit.io/ipromx/images/winters-banner.jpg',
       characters:[
-        { id:'jake-winters', name:'Jake Winters', image:'images/letigrebl/jake.webp', banner:'images/letigrebl/jake-bannière.webp',
+        { id:'jake-winters', name:'Jake Winters', image:'https://ik.imagekit.io/ipromx/images/letigrebl/jake.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/jake-bannière.webp',
           description:'Parti à la poursuite du rêve américain, Jake Winters voit son destin basculer lorsqu\'il est contraint de rejoindre l\'armée de Cayo Perico. Plus tard, il rejoint aussi l\'armée des Russes contre Cayo. Hanté par ses origines, il consacre sa vie à rechercher son père, Oliver Winters, tout en traquant la trace de « l’Œil du Faucon », une technologie légendaire capable de tout contrôler. Au fil de sa quête, il réalise que les secrets de son passé et cette puissance technologique sont bien plus liés à sa propre existence qu\'il ne l\'imaginait.', 
           seasons:{
     'Saison 1':[
@@ -827,7 +827,7 @@ const DATA = {
     'Saison 4':[
      ],
 }, },
-        { id:'oliver-winters', name:'Oliver Winters', image:'images/letigrebl/oliver.webp', banner:'images/letigrebl/oliver-bannière.webp',
+        { id:'oliver-winters', name:'Oliver Winters', image:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver-bannière.webp',
           description:'Parti de rien pour bâtir son propre destin, Oliver Winters a gravi les échelons avec détermination, passant de simple chauffeur de taxi à propriétaire de son propre cinéma. Refusant de céder à l\'emprise de son père, le redoutable chef de Cayo Perico qui voulait faire de lui son héritier, il a choisi la voie de l\'indépendance jusqu\'à l\'affrontement final. Dans un dernier acte de courage, il est parvenu à mettre fin au règne de son père, scellant ainsi l\'histoire d\'un homme qui n\'a jamais voulu de cet héritage sanglant.', 
           seasons:{
     'Saison 1':[
@@ -981,9 +981,9 @@ const DATA = {
     },
     escobar: {
       id:'escobar', name:'Escobar', color:'#e67e22',
-      image:'images/tom_escobar.png', banner:'images/tom_escobar.png',
+      image:'https://ik.imagekit.io/ipromx/images/tom_escobar.png', banner:'https://ik.imagekit.io/ipromx/images/tom_escobar.png',
       characters:[
-        { id:'tom-escobar', name:'Tom Escobar', image:'images/letigrebl/tom.webp', banner:'images/letigrebl/tom-bannière.webp',
+        { id:'tom-escobar', name:'Tom Escobar', image:'https://ik.imagekit.io/ipromx/images/letigrebl/tom.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/tom-bannière.webp',
           description:'Fils du président et véritable petit prodige, Tom Escobar est un génie qui a toujours eu plusieurs longueurs d\'avance. Il a donné naissance à des inventions incroyables comme les robots Agent X et Iron X ou encore l`\'Oeil du Faucon. Il adore plaisanter et ne cache pas son petit côté charmeur dès qu\'il croise une jolie femme. ',
           seasons:{
     'Saison 1':[
@@ -1274,7 +1274,7 @@ const DATA = {
       id:'kingsley', name:'Kingsley', color:'#1abc9c',
       description:'Un nom qui résonne dans toute la ville. Zack Kingsley ne fait pas de compromis.',
       characters:[
-        { id:'zack-kingsley', name:'Zack Kingsley', image:'images/letigrebl/zack.webp', banner:'images/letigrebl/zack-bannière.webp',
+        { id:'zack-kingsley', name:'Zack Kingsley', image:'https://ik.imagekit.io/ipromx/images/letigrebl/zack.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/zack-bannière.webp',
           description:'Longtemps aveuglé par sa fortune, Zack perd tout le soir de son anniversaire après un incendie. Rejeté par ses parents et trahi par ses faux amis, il se retrouve à la rue et doit repartir de zéro. Il se reconstruit en secret, développant des talents en science et en informatique. Aujourd\'hui à la tête de son propre domaine, King\'s Land, et entouré d\'amis fidèles, il s\'apprête à bouleverser le monde pour prendre sa revanche et prouver sa valeur.', 
           seasons:{
     'Saison 1':[
@@ -1304,7 +1304,7 @@ const DATA = {
     autres: {
       id:'autres', name:'Autres', color:'#95a5a6',
       characters:[
-        { id:'poil-carotte', name:'Poil de Carotte', image:'images/letigrebl/poildecarotte.webp', banner:'images/letigrebl/poildecarotte-bannière.webp',
+        { id:'poil-carotte', name:'Poil de Carotte', image:'https://ik.imagekit.io/ipromx/images/letigrebl/poildecarotte.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/poildecarotte-bannière.webp',
           description:'Élève turbulent devenu figure du crime, Poil de Carotte a troqué ses bêtises de classe pour des braquages de banques et la gestion d\'une entreprise aérienne. Sa vie, marquée par une relation passionnée avec Jade, bascule entre trahisons amoureuses et séjours en haute sécurité. Après s\'être évadé de la prison la plus dangereuse de Los Santos, il va jusqu\'à simuler son propre décès pour protéger les siens, observant son enterrement dans l\'ombre avant de tenter de reconquérir sa liberté.', 
           seasons:{
     'Saison 1':[
@@ -1354,7 +1354,7 @@ const DATA = {
         {num:40,title:'JE DOIS DIRE LA VÉRITÉ A JADE  ! GTAV RP !',videoId:'-Jl6UOh5ISM'}
     ]
 }, },
-        { id:'axel-leret', name:'Axel Léret', image:'images/letigrebl/axeleret.webp', banner:'images/letigrebl/axeleret-bannière.webp',
+        { id:'axel-leret', name:'Axel Léret', image:'https://ik.imagekit.io/ipromx/images/letigrebl/axeleret.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/axeleret-bannière.webp',
           description:'Doyen bienveillant de l\'aventure Survivor, Axel Leret a marqué la compétition par son dévouement envers les autres participants. À 70 ans, il a surmonté toutes les épreuves de survie jusqu\'au vote fatidique de l\'élimination. En quittant l\'aventure, il révèle que son unique but était de remporter le prix pour le reverser intégralement à des associations d\'aide aux enfants, laissant derrière lui l\'image d\'un homme au cœur pur..', 
           seasons:{
     'Saison 1':[
@@ -1367,7 +1367,7 @@ const DATA = {
         {num:7,title:'GTA V RP SURVIVOR ! #7 ',videoId:'U7DElYtUteo'}
     ]
 }, },
-        { id:'le-geant', name:'Le Géant (Freddy)', image:'images/letigrebl/legeant.webp', banner:'images/letigrebl/legeant-bannière.webp',
+        { id:'le-geant', name:'Le Géant (Freddy)', image:'https://ik.imagekit.io/ipromx/images/letigrebl/legeant.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/legeant-bannière.webp',
           description:'Colosse au visage brûlé et à la voix grave, Géant Freddy terrifie la ville dès son arrivée. Pourtant, derrière cette apparence effrayante se cache un être sensible, passionné de jardinage, qui souffre du jugement permanent des autres. Après avoir frôlé la mort et vécu un amour impossible pour sa patronne, il finit par obtenir une apparence humaine pour tenter de s\'intégrer. Sous le nom de Freddy Grinchiat, il découvre alors la dure réalité de la vie d\'homme, se retrouvant même confronté à la justice et à la cellule.', 
           seasons:{
     'Saison 1':[
@@ -1382,7 +1382,7 @@ const DATA = {
         {num:7,title:'FREDDY GRINCHIAT EN CELLULE ! GTA V RP ! by iProMx #2',videoId:'94NAp6gqY7c'},
     ]
 }, },
-        { id:'gang-gamins', name:'Le Gang des Gamins', image:'images/letigrebl/ganggamins.png', banner:'images/letigrebl/ganggamins-bannière.png',
+        { id:'gang-gamins', name:'Le Gang des Gamins', image:'https://ik.imagekit.io/ipromx/images/letigrebl/ganggamins.png', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/ganggamins-bannière.png',
           description:'Le Gang des Gamins sème le chaos avec une insouciance redoutable. Armés de pistolets Nerf, ces enfants n\'hésitent pas à défier les lois et à braquer les plus gros gangs de la ville, prouvant que le désordre n\'a pas d\'âge.', 
           seasons:{
     'Saison 1':[
@@ -1390,7 +1390,7 @@ const DATA = {
         {num:2,title:'DES GAMINS BRAQUENT DES GANGS AVEC DES PISTOLETS NERF ! GTA V RP',videoId:'4z42mOj0m3M'},
     ]
 }, },
-    { id:'le-genie', name:'Le Génie', image:'images/letigrebl/legenie.webp', banner:'images/letigrebl/legenie-bannière.webp',
+    { id:'le-genie', name:'Le Génie', image:'https://ik.imagekit.io/ipromx/images/letigrebl/legenie.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/legenie-bannière.webp',
           description:'Entité aux pouvoirs illimités, le Génie parcourt Los Santos pour exaucer les vœux les plus fous, de la richesse pour les plus démunis aux désirs les plus charnels.', 
           seasons:{
     'Saison 1':[
@@ -1400,7 +1400,7 @@ const DATA = {
         {num:4,title:'ELLE COUCHE AVEC UN GENIE POUR DES VOEUX ! GTAV RP MOD #4',videoId:'7MVvgikpcf0'},
     ]
 }, },
-  { id:'zak-hackeur', name:'Zak le Hackeur', image:'images/letigrebl/zakhackeur.webp', banner:'images/letigrebl/zakhackeur-bannière.webp',
+  { id:'zak-hackeur', name:'Zak le Hackeur', image:'https://ik.imagekit.io/ipromx/images/letigrebl/zakhackeur.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/zakhackeur-bannière.webp',
           description:'Génie de l\'informatique opérant depuis son propre QG, le hackeur Zak a brièvement marqué Los Santos par ses capacités hors normes..', 
           seasons:{
     'Saison 1':[
@@ -1410,7 +1410,7 @@ const DATA = {
         {num:4,title:'LE RETOUR DE ZACK ( + EXPLICATION ) ! GTA V RP ! by iProMx #3',videoId:'SHez_DVaKu8'},
     ]
 }, },
-{ id:'billy', name:'Billy', image:'images/letigrebl/billy.png', banner:'images/letigrebl/billy-bannière.png',
+{ id:'billy', name:'Billy', image:'https://ik.imagekit.io/ipromx/images/letigrebl/billy.png', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/billy-bannière.png',
           description:'Hors-la-loi du Far West, Billy Johnson enchaîne combats clandestins et cavales avec son frère Teddy. Prêt à tout quitter pour s\'enfuir avec Cassidy, ce bandit au grand cœur tente de se forger un nouvel avenir entre les plaines sauvages et les rues de Saint Denis.', 
           seasons:{
     'Saison 1':[
@@ -1421,7 +1421,7 @@ const DATA = {
         {num:5,title:'DIRECTION SAINT DENIS ! RED DEAD REDEMPTION 2 RP ! by iProMx #2',videoId:'Kx9Swi0o8cM'},
     ]
 }, },
-{ id:'ryan-johnson', name:'Ryan Johnson', image:'images/letigrebl/ryan.webp', banner:'images/letigrebl/ryan-bannière.webp',
+{ id:'ryan-johnson', name:'Ryan Johnson', image:'https://ik.imagekit.io/ipromx/images/letigrebl/ryan.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/ryan-bannière.webp',
           description:'Fêtard et père biologique du jeune génie Tom Escobar, Ryan Johnson vit pour l\'adrénaline et les excès. Roi des soirées monumentales façon \"Projet X\", il enchaîne les réveils compliqués et les conquêtes risquées au cœur de Los Santos. Ambitieux malgré son style de vie chaotique, il est également le cerveau derrière Racing X, son plus gros projet de courses clandestines.', 
           seasons:{
     'Saison 1':[
@@ -1431,7 +1431,7 @@ const DATA = {
         {num:4,title:'RYAN A DORMI AVEC ANASTAISA?! CE SOIR JE PRENDS DES RISQUES GTA V RP ! by iProMx #4',videoId:'VeXNNGRt8JE'},
     ]
 }, },
-{ id:'leconcierge', name:'Le concièrge', image:'images/letigrebl/leconcierge.webp', banner:'images/letigrebl/leconcierge-bannière.webp',
+{ id:'leconcierge', name:'Le concièrge', image:'https://ik.imagekit.io/ipromx/images/letigrebl/leconcierge.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/leconcierge-bannière.webp',
           description:'Derrière son balai, ce Concierge d\'une école étrange dissimule un livre secret et des connaissances bien plus vastes que ses simples fonctions.', 
           seasons:{
     'Saison 1':[
@@ -1488,67 +1488,67 @@ const DATA = {
     // Format : { id, title, desc, image (thumbnail), videoId (YouTube) }
     {
       title: "JAKE WINTERS : LA DERNIÈRE MISSION ! (Teaser)",
-      image: "images/letigrebl/jakemissionfinale.png",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/jakemissionfinale.png",
       videoId: "-hh3J71KXJk"
     },
     {
       title: "Zayn Flash - Exploration Ned (Cinématique)",
-      image: "images/letigrebl/zaynnedocean.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/zaynnedocean.webp",
       sibnetUrl:'https://video.sibnet.ru/shell.php?videoid=6167747', 
     },
     {
       title: "Zayn Flash - Teaser officiel",
-      image: "images/letigrebl/zaynteaser.png",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/zaynteaser.png",
       videoId: "Mp1bkYZ6whA"
     },
     {
       title: "Silver - Flashback : La Transformation d'Adrian après l'Attaque de Kayton ! (Teaser GTAV RP)",
-      image: "images/letigrebl/silver-flashbackadrianciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/silver-flashbackadrianciné.webp",
       videoId: "y9datfzLTEo"
     },
     {
       title: "TOM ESCOBAR CONTACTE JAKE WINTERS ! | CINÉMATIQUE",
-      image: "images/letigrebl/tomadulteciné.png",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/tomadulteciné.png",
       videoId: "tYJZLe8fNYs"
     },
     {
       title: "Sylvester Shade ! Teaser #2 - GTA 5 RP",
-      image: "images/letigrebl/silvershadeciné2.png",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/silvershadeciné2.png",
       videoId: "TTOD3ROwR6s"
     },
     {
       title: "Nouveau Personnage ! Teaser #1 - GTA 5 RP",
-      image: "images/letigrebl/silvershadeciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/silvershadeciné.webp",
       videoId: "wgZ0_iSvkZ0"
     },
     {
       title: "Adrian vs Ned - Au coeur des ténèbres [Le Film]",
-      image: "images/letigrebl/nedadrianciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/nedadrianciné.webp",
       videoId: "sReaGjD0op4"
     },
     {
       title: "HOMMAGE AUX FLASH (IPROMX) CINÉMATIQUE!",
-      image: "images/letigrebl/hommageflashciné.webp", //https://i.ytimg.com/vi/3fPWr6JvPIk/hqdefault.jpg
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/hommageflashciné.webp", //https://i.ytimg.com/vi/3fPWr6JvPIk/hqdefault.jpg
       videoId: "3fPWr6JvPIk"
     },
     {
       title: "L'INVITATION D'ADRIAN FLASH ! CINÉMATIQUE",
-      image: "images/letigrebl/adrianinvitation.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/adrianinvitation.webp",
       videoId: "2o6xdAIi0BM"
     },
     {
       title: "NED EDEN ET EDDY, LE RETOUR DU TRIO ! CINÉMATIQUE",
-      image: "images/letigrebl/nededeneddyprime.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/nededeneddyprime.webp",
       videoId: "VujR_-Y-8fo"
     },
     {
       title: "JADE DEVIENT HUMAINE ! CINÉMATIQUE ",
-      image: "images/letigrebl/nedjadecoeurciné.png",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/nedjadecoeurciné.png",
       videoId: "KgdeypkzLns"
     },
     {
       title: "LES SOUVENIRS DE NED ! CINÉMATIQUE (LeTigreBL et iProMx)",
-      image: "images/letigrebl/nedsouvenirs.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/nedsouvenirs.webp",
       videoId: "bu40TozLx-E"
     },
     {
@@ -1558,7 +1558,7 @@ const DATA = {
     },
     {
       title: "EDEN FLASH FUIT SES RESPONSABILITÉS ?! | CINÉMATIQUE",
-      image: "images/letigrebl/edenfuitciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/edenfuitciné.webp",
       videoId: "12OM0vXcWy0"
     },
     {
@@ -1573,12 +1573,12 @@ const DATA = {
     },
     {
       title: "Eddy vs Aaron, le combat le plus terrifiant - part2 ! Cinématique",
-      image: "images/letigrebl/eddyaaronfightciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/eddyaaronfightciné.webp",
       videoId: "r0zwnltnEu8"
     },
     {
       title: "Ned vs Aaron - Le combat ultime (cinématique)",
-      image: "images/letigrebl/aaronnedfight.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/aaronnedfight.webp",
       videoId: "qonTgtJUeaE"
     },
     {
@@ -1593,72 +1593,72 @@ const DATA = {
     },
     {
       title: "ADRIAN IS BACK ! teaser officiel",
-      image: "images/letigrebl/adrianback.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/adrianback.webp",
       videoId: "OsxWdAEHw5s"
     },
     {
       title: "EDEN FLASH ! (Le Vrai Teaser)",
-      image: "images/letigrebl/edenteaser.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/edenteaser.webp",
       videoId: "gnwbjHD4woc"
     },
     {
       title: "KAYTON VS ADRIAN LE COMBAT DU SIECLE ! CINEMATIQUE",
-      image: "images/letigrebl/kaytonadrianfight.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/kaytonadrianfight.webp",
       videoId: "P09rKJjBZpI"
     },
     {
       title: "KAYTON ENTRAÎNEMENT AVANT LE COMBAT CONTRE ADRIAN ! CINEMATIQUE",
-      image: "images/letigrebl/kaytonentrainement.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/kaytonentrainement.webp",
       videoId: "tXsvgOPPnbE"
     },
     {
       title: "KAYTON FLASH S’INTERROGE SUR LE COMBAT CONTRE ADRIAN",
-      image: "images/letigrebl/kaytonpenseciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/kaytonpenseciné.webp",
       videoId: "4MQeQGZrl44"
     },
     {
       title: "ADRIAN FLASH LE REVEIL DU BASILIC",
-      image: "images/letigrebl/adrianprimeciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/adrianprimeciné.webp",
       videoId: "iUL3jrH04hI"
     },
     {
       title: "Adrian le nouveau FLASH !",
-      image: "images/letigrebl/adriannewflashciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/adriannewflashciné.webp",
       videoId: "eGoVTIeMYI0"
     },
     {
       title: "TOM ESCOBAR - LE COMBAT FINAL CONTRE AGENT X - LE FILM !",
-      image: "images/letigrebl/tomagentxcombatciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/tomagentxcombatciné.webp",
       videoId: "DGkFc6z9a4Q"
     },
     {
       title: "LES RETROUVAILLES DE TOM ESCOBAR ET ABDOUL !",
-      image: "images/letigrebl/tomabdoul.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/tomabdoul.webp",
       videoId: "epf8EC5_Gxg"
     },
     {
       title: "OPÉRATION 1 000 000 000 $ ! (Agent X)",
-      image: "images/letigrebl/agentx5ciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/agentx5ciné.webp",
       videoId: "6mcf03Lqz-o"
     },
     {
       title: "IS BACK ... (Agent X)",
-      image: "images/letigrebl/agentx4ciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/agentx4ciné.webp",
       videoId: "KEnJgBBLcHY"
     },
     {
       title: "MERCI (Agent X)",
-      image: "images/letigrebl/agentx3ciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/agentx3ciné.webp",
       videoId: "9C0j1_9StNg"
     },
     {
       title: "AGENT X !",
-      image: "images/letigrebl/agentx2ciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/agentx2ciné.webp",
       videoId: "iXInEFoZvHU"
     },
     {
       title: "AGENT X ! NIVEAU 1 !",
-      image: "images/letigrebl/agentx1ciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/agentx1ciné.webp",
       videoId: "Nk--17wGMPU"
     },
     {
@@ -1673,7 +1673,7 @@ const DATA = {
     },
     {
       title: "KAYTON FLASH LE RETOUR FRACASSANT ! TEASER OFFICIEL",
-      image: "images/letigrebl/kaytonretourciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/kaytonretourciné.webp",
       videoId: "OWumtU_bDNw"
     },
     {
@@ -1683,12 +1683,12 @@ const DATA = {
     },
     {
       title: "DAMON FLASH LE FILM OFFICIEL ! COMBAT FINAL",
-      image: "images/letigrebl/damonkaytonfightciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/damonkaytonfightciné.webp",
       videoId: "TyAXhptUiuE"
     },
     {
       title: "DAVID JR FLASH ! LE RETOUR ! CINÉMATIQUE GTAV RP ",
-      image: "images/letigrebl/djrretourciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/djrretourciné.webp",
       videoId: "lsU0iBzBYrA"
     },
     {
@@ -1698,7 +1698,7 @@ const DATA = {
     },
     {
       title: "DAMON FLASH CINÉMATIQUE !",
-      image: "images/letigrebl/damonciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/damonciné.webp",
       videoId: "7-p-KcT11MY"
     },
     {
@@ -1738,7 +1738,7 @@ const DATA = {
     },
     {
       title: "David, John, Ken Flash : Face à Face Finale",
-      image: "images/letigrebl/davidjohnkenciné.webp",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/davidjohnkenciné.webp",
       videoId: "pHtx_iHieCk"
     },
     {
@@ -1817,7 +1817,7 @@ const DATA = {
       videoId: "gSUZ3nxMBhg"
     }
     // Ajoute d'autres cinématiques ici :
-    // { id:'mon-id', title:'Titre', desc:'Description', image:'images/...', videoId:'YOUTUBE_ID' }
+    // { id:'mon-id', title:'Titre', desc:'Description', image:'https://ik.imagekit.io/ipromx/images/...', videoId:'YOUTUBE_ID' }
   ]
 };
 
@@ -1886,7 +1886,7 @@ const hasContent  = c => getTotalEps(c)>0||c.hasLocalVideo||c.hasLawBook;
 const getFirstEp  = c => { for(const [s,eps] of Object.entries(c.seasons||{})) if(eps.length) return {season:s,ep:eps[0],idx:0}; return null; };
 const fmtTime     = s => { if(isNaN(s)||s<0)return'0:00'; const m=Math.floor(s/60),sec=String(Math.floor(s%60)).padStart(2,'0'); return`${m}:${sec}`; };
 const ytThumb = id => `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
-const epThumb = ep => ep.thumb || (ep.videoId ? ytThumb(ep.videoId) : 'images/flash.jpg');
+const epThumb = ep => ep.thumb || (ep.videoId ? ytThumb(ep.videoId) : 'https://ik.imagekit.io/ipromx/images/flash.jpg');
 
 // ── ROUTER ────────────────────────────────────────────────────
 const ROUTER = (() => {
@@ -2419,63 +2419,66 @@ function renderNotification() {
 }
 
 // ── GALERIE ───────────────────────────────────────────────────
-// Ajoutez vos images ici au format 'images/download/example.jpg'
+// Ajoutez vos images ici au format 'https://ik.imagekit.io/ipromx/images/download/example.jpg'
+// Helper pour créer une entrée galerie : src = affichage, dl = téléchargement ImageKit
+const _gimg = url => ({ src: url, dl: url + '?ik-attachment=true' });
+
 const GALLERY_IMAGES = [
-'images/downloadimg/img1.webp',
-'images/downloadimg/img2.webp',
-'images/downloadimg/img3.webp',
-'images/downloadimg/img4.webp',
-'images/downloadimg/img6.webp',
-'images/downloadimg/img7.webp',
-'images/downloadimg/img8.webp',
-'images/downloadimg/img9.webp',
-'images/downloadimg/img10.webp',
-'images/downloadimg/img11.webp',
-'images/downloadimg/img12.webp',
-'images/downloadimg/img13.webp',
-'images/downloadimg/img14.webp',
-'images/downloadimg/img15.webp',
-'images/downloadimg/img16.webp',
-'images/downloadimg/img17.webp',
-'images/downloadimg/img18.webp',
-'images/downloadimg/img19.webp',
-'images/downloadimg/img20.webp',
-'images/downloadimg/img21.webp',
-'images/downloadimg/img22.webp',
-'images/downloadimg/img23.webp',
-'images/downloadimg/img24.webp',
-'images/downloadimg/img25.webp',
-'images/downloadimg/img26.webp',
-'images/downloadimg/img27.webp',
-'images/downloadimg/img28.webp',
-'images/downloadimg/img29.webp',
-'images/downloadimg/img30.webp',
-'images/downloadimg/img31.webp',
-'images/downloadimg/img32.webp',
-'images/downloadimg/img33.webp',
-'images/downloadimg/img34.webp',
-'images/downloadimg/img35.webp',
-'images/downloadimg/img36.webp',
-'images/downloadimg/img37.webp',
-'images/downloadimg/img38.webp',
-'images/downloadimg/img39.webp',
-'images/downloadimg/img40.webp',
-'images/downloadimg/img41.webp',
-'images/downloadimg/img42.webp',
-'images/downloadimg/img43.webp',
-'images/downloadimg/img44.webp',
-'images/downloadimg/img45.webp',
-'images/downloadimg/img46.webp',
-'images/downloadimg/img47.webp',
-'images/downloadimg/img48.webp',
-'images/downloadimg/img49.webp',
-'images/downloadimg/img50.webp',
-'images/downloadimg/img51.webp',
-'images/downloadimg/img52.webp',
-'images/downloadimg/img53.webp',
-'images/downloadimg/img54.webp',
-'images/downloadimg/img55.webp',
-'images/downloadimg/img56.webp',
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img1.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img2.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img3.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img4.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img6.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img7.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img8.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img9.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img10.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img11.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img12.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img13.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img14.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img15.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img16.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img17.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img18.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img19.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img20.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img21.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img22.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img23.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img24.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img25.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img26.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img27.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img28.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img29.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img30.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img31.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img32.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img33.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img34.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img35.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img36.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img37.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img38.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img39.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img40.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img41.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img42.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img43.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img44.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img45.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img46.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img47.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img48.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img49.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img50.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img51.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img52.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img53.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img54.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img55.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img56.webp'),
 
   //mettre images à partir du génie + images hors avatars (plus haut dans la conv)
 
@@ -2498,10 +2501,10 @@ function renderGallery() {
   if (!imgs.length) { if (sec) sec.style.display = 'none'; return; }
   if (sec) sec.style.display = '';
   const shuffled = shuffle(imgs);
-  track.innerHTML = shuffled.map(src => `
-    <div class="gallery-card" onclick="openLightbox('${src}')">
+  track.innerHTML = shuffled.map(item => `
+    <div class="gallery-card" onclick="openLightbox('${item.src}','${item.dl}')">
       <div class="gallery-card-thumb">
-        <img src="${src}" alt="" loading="lazy">
+        <img src="${item.src}" alt="" loading="lazy">
         <div class="gallery-card-overlay">
           <div class="gallery-card-zoom"><i class="fas fa-expand"></i></div>
         </div>
@@ -2510,13 +2513,14 @@ function renderGallery() {
   setTimeout(() => setupCarousel('galleryTrack', 'galleryPrev', 'galleryNext', 320), 50);
 }
 
-function openLightbox(src) {
+function openLightbox(src, dl) {
   const lb = $('galleryLightbox');
   const img = $('galleryLightboxImg');
   const dlBtn = $('galleryDlBtn');
   if (!lb || !img) return;
   img.src = src;
-  dlBtn.onclick = () => downloadGalleryImg(src);
+  // dl = URL de téléchargement ImageKit (?ik-attachment=true), fallback sur src
+  dlBtn.onclick = () => downloadGalleryImg(dl || src, src.split('/').pop());
   lb.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -2528,10 +2532,10 @@ function closeLightbox(e, force) {
   document.body.style.overflow = '';
 }
 
-function downloadGalleryImg(src) {
+function downloadGalleryImg(dlUrl, filename) {
   const a = document.createElement('a');
-  a.href = src;
-  a.download = src.split('/').pop() || 'image.jpg';
+  a.href = dlUrl;
+  a.download = filename || dlUrl.split('/').pop().split('?')[0] || 'image.jpg';
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
