@@ -2555,7 +2555,9 @@ body.player-open {
   overflow: hidden;
   border-radius: 6px;
   cursor: pointer;
-  border: 1px solid transparent;
+  outline: 3px solid rgba(245,166,35,.55); 
+  outline-offset: -2px;   
+  border: none;              
   background: var(--panel3);
   transition: transform .22s cubic-bezier(.22,1,.36,1), border-color .2s, box-shadow .25s;
 }
