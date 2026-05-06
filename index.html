@@ -301,12 +301,14 @@
       <div class="section-header">
         <div class="section-title">Galerie (@letigrebl)</div>
       </div>
-      <div class="carousel-wrapper">
-        <button class="carousel-btn prev" id="galleryPrev"><i class="fas fa-chevron-left"></i></button>
-        <div class="carousel-track-container">
-          <div class="carousel-track" id="galleryTrack"></div>
-        </div>
-        <button class="carousel-btn next" id="galleryNext"><i class="fas fa-chevron-right"></i></button>
+      <div class="gallery-grid" id="galleryGrid"></div>
+      <div class="gallery-controls" id="galleryControls">
+        <button class="gallery-btn-more" id="galleryBtnMore" onclick="galleryShowMore()">
+          <i class="fas fa-images"></i> Voir plus
+        </button>
+        <button class="gallery-btn-less" id="galleryBtnLess" onclick="galleryShowLess()" style="display:none;">
+          <i class="fas fa-compress-alt"></i> Voir moins
+        </button>
       </div>
     </div>
   </section>
@@ -315,10 +317,13 @@
   <div class="gallery-lightbox" id="galleryLightbox" onclick="closeLightbox(event)">
     <div class="gallery-lightbox-box" onclick="event.stopPropagation()">
       <button class="gallery-lightbox-close" onclick="closeLightbox(null,true)" title="Fermer"><i class="fas fa-times"></i></button>
+      <button class="gallery-lightbox-nav prev" id="galleryLbPrev" onclick="lightboxNav(-1)" title="Précédent"><i class="fas fa-chevron-left"></i></button>
+      <button class="gallery-lightbox-nav next" id="galleryLbNext" onclick="lightboxNav(1)" title="Suivant"><i class="fas fa-chevron-right"></i></button>
       <div class="gallery-lightbox-inner">
         <img id="galleryLightboxImg" src="" alt="">
       </div>
       <div class="gallery-lightbox-footer">
+        <span class="gallery-lightbox-counter" id="galleryLbCounter"></span>
         <button class="gallery-lightbox-dl" id="galleryDlBtn"><i class="fas fa-download"></i> Télécharger</button>
       </div>
     </div>

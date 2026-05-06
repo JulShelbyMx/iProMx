@@ -2424,159 +2424,165 @@ function renderNotification() {
 const _gimg = url => ({ src: url, dl: url + '?ik-attachment=true' });
 
 const GALLERY_IMAGES = [
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img1.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img2.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img3.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img4.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img6.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img7.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img8.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img9.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img10.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img11.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img12.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img13.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img14.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img15.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img16.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img17.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img18.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img19.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img20.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img21.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img22.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img23.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img24.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img25.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img26.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img27.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img28.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img29.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img30.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img31.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img32.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img33.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img34.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img35.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img36.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img37.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img38.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img39.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img40.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img41.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img42.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img43.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img44.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img45.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img46.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img47.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img48.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img49.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img50.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img51.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img52.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img53.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img54.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img55.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img56.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img57.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img58.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img59.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img60.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img61.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img62.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img63.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img64.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img65.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img66.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img67.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img68.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img69.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img70.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img71.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img72.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img73.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img74.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img75.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img76.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img77.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img78.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img79.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img80.webp'),
 _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img81.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img82.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img83.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img84.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img85.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img86.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img87.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img88.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img89.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img90.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img91.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img92.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img93.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img94.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img95.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img96.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img97.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img98.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img99.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img100.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img101.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img102.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img103.webp'),
 _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img104.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img105.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img106.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img107.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img108.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img109.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img110.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img111.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img112.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img113.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img114.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img115.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img116.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img117.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img118.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img119.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img120.webp'),
 _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img121.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img122.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img123.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img124.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img125.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img126.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img127.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img2.webp'),
 _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img128.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img129.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img79.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img34.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img93.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img83.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img24.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img23.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img124.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img40.webp'),
 _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img130.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img131.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img132.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img133.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img134.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img129.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img139.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img144.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img26.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img71.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img107.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img8.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img91.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img74.webp'),
 _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img135.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img59.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img21.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img7.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img153.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img155.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img14.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img57.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img67.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img158.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img105.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img127.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img9.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img41.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img80.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img42.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img149.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img100.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img1.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img48.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img120.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img125.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img63.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img33.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img101.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img16.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img56.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img28.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img43.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img64.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img54.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img98.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img111.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img140.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img32.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img154.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img90.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img143.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img77.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img11.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img123.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img122.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img37.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img89.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img142.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img30.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img86.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img138.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img114.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img88.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img52.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img25.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img3.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img58.webp'),
 _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img136.webp'),
 _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img137.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img138.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img139.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img140.webp'),
 _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img141.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img142.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img143.webp'),
-_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img144.webp'),
-// reprendre à La Tache
-
-
-
-
-
-
-  //mettre images à partir du génie + images hors avatars (plus haut dans la conv)
-
-
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img46.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img66.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img69.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img19.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img99.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img94.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img117.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img78.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img92.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img61.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img145.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img20.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img134.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img29.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img39.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img18.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img72.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img95.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img112.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img4.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img108.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img113.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img131.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img119.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img51.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img15.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img146.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img55.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img118.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img70.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img82.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img35.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img103.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img65.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img148.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img68.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img133.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img17.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img22.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img151.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img150.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img96.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img157.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img31.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img53.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img73.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img132.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img5.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img110.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img13.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img126.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img147.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img115.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img27.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img97.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img45.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img10.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img87.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img47.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img6.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img85.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img84.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img50.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img102.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img36.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img106.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img44.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img49.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img152.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img156.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img12.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img62.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img116.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img76.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img75.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img60.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img38.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img109.webp'),
+_gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img159.webp')
 ];
 
 function shuffle(arr) {
@@ -2588,35 +2594,124 @@ function shuffle(arr) {
   return a;
 }
 
+// ── ÉTAT GALERIE ──────────────────────────────────────────────
+let _galVisible = 20;           // nombre d'images actuellement affichées
+const _galStep  = 20;           // combien on charge à chaque "voir plus"
+let _galCurrentIdx = 0;         // index image courante dans la lightbox
+
+// Détermine si une carte est "wide" (1 image sur 8 prend 2 colonnes)
+function _isWide(idx) {
+  // Toutes les 8 images, la 5e de chaque groupe est wide (indice % 8 === 4)
+  return idx % 8 === 4;
+}
+
 function renderGallery() {
-  const track = $('galleryTrack'), sec = $('secGallery');
-  if (!track) return;
+  const grid = $('galleryGrid'), sec = $('secGallery');
+  if (!grid) return;
   const imgs = GALLERY_IMAGES.filter(Boolean);
   if (!imgs.length) { if (sec) sec.style.display = 'none'; return; }
   if (sec) sec.style.display = '';
-  const shuffled = shuffle(imgs);
-  track.innerHTML = shuffled.map(item => `
-    <div class="gallery-card" onclick="openLightbox('${item.src}','${item.dl}')">
-      <div class="gallery-card-thumb">
-        <img src="${item.src}" alt="" loading="lazy">
-        <div class="gallery-card-overlay">
-          <div class="gallery-card-zoom"><i class="fas fa-expand"></i></div>
-        </div>
-      </div>
-    </div>`).join('');
-  setTimeout(() => setupCarousel('galleryTrack', 'galleryPrev', 'galleryNext', 320), 50);
+  _galVisible = 20;
+  _renderGalleryItems(imgs);
 }
 
-function openLightbox(src, dl) {
-  const lb = $('galleryLightbox');
+function _renderGalleryItems(imgs) {
+  const grid = $('galleryGrid');
+  if (!grid) return;
+  const total = imgs.length;
+  const count = Math.min(_galVisible, total);
+
+  grid.innerHTML = imgs.slice(0, count).map((item, i) => {
+    const wide = _isWide(i) ? ' wide' : '';
+    // delay animé décalé pour effet cascade (max 500ms)
+    const delay = Math.min(i * 28, 480);
+    return `<div class="gallery-item${wide}" style="animation-delay:${delay}ms"
+               onclick="openLightbox('${item.src}','${item.dl}',${i})">
+      <img src="${item.src}" alt="" loading="lazy">
+      <div class="gallery-item-overlay">
+        <div class="gallery-item-zoom"><i class="fas fa-expand"></i></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Boutons
+  const btnMore = $('galleryBtnMore');
+  const btnLess = $('galleryBtnLess');
+  if (btnMore) btnMore.style.display = _galVisible < total ? '' : 'none';
+  if (btnLess) btnLess.style.display = _galVisible > 20   ? '' : 'none';
+}
+
+function galleryShowMore() {
+  const imgs = GALLERY_IMAGES.filter(Boolean);
+  _galVisible = Math.min(_galVisible + _galStep, imgs.length);
+  _renderGalleryItems(imgs);
+  // scroll léger vers le bas pour voir les nouvelles images
+  const grid = $('galleryGrid');
+  if (grid) {
+    const last = grid.lastElementChild;
+    if (last) setTimeout(() => last.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
+  }
+}
+
+function galleryShowLess() {
+  _galVisible = 20;
+  const imgs = GALLERY_IMAGES.filter(Boolean);
+  _renderGalleryItems(imgs);
+  // scroll vers le haut de la galerie
+  const sec = $('secGallery');
+  if (sec) setTimeout(() => sec.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+}
+
+// ── LIGHTBOX ─────────────────────────────────────────────────
+function openLightbox(src, dl, idx) {
+  const lb  = $('galleryLightbox');
   const img = $('galleryLightboxImg');
   const dlBtn = $('galleryDlBtn');
   if (!lb || !img) return;
-  img.src = src;
-  // dl = URL de téléchargement ImageKit (?ik-attachment=true), fallback sur src
+
+  _galCurrentIdx = (typeof idx === 'number') ? idx : 0;
+  _updateLightboxImg();
+
   dlBtn.onclick = () => downloadGalleryImg(dl || src, src.split('/').pop());
   lb.classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+function _updateLightboxImg() {
+  const imgs = GALLERY_IMAGES.filter(Boolean);
+  const item = imgs[_galCurrentIdx];
+  if (!item) return;
+
+  const img    = $('galleryLightboxImg');
+  const dlBtn  = $('galleryDlBtn');
+  const counter = $('galleryLbCounter');
+  const btnPrev = $('galleryLbPrev');
+  const btnNext = $('galleryLbNext');
+
+  // Animation swap
+  if (img) {
+    img.style.opacity = '0';
+    img.style.transform = 'scale(.97)';
+    setTimeout(() => {
+      img.src = item.src;
+      img.style.transition = 'opacity .22s, transform .22s';
+      img.style.opacity = '1';
+      img.style.transform = 'scale(1)';
+    }, 80);
+  }
+
+  if (dlBtn) dlBtn.onclick = () => downloadGalleryImg(item.dl || item.src, item.src.split('/').pop());
+  if (counter) counter.textContent = `${_galCurrentIdx + 1} / ${imgs.length}`;
+  if (btnPrev) btnPrev.disabled = _galCurrentIdx <= 0;
+  if (btnNext) btnNext.disabled = _galCurrentIdx >= imgs.length - 1;
+}
+
+function lightboxNav(dir) {
+  const imgs = GALLERY_IMAGES.filter(Boolean);
+  const next = _galCurrentIdx + dir;
+  if (next < 0 || next >= imgs.length) return;
+  _galCurrentIdx = next;
+  _updateLightboxImg();
 }
 
 function closeLightbox(e, force) {
@@ -2625,6 +2720,15 @@ function closeLightbox(e, force) {
   if (lb) lb.classList.remove('open');
   document.body.style.overflow = '';
 }
+
+// Navigation clavier dans la lightbox
+document.addEventListener('keydown', (e) => {
+  const lb = $('galleryLightbox');
+  if (!lb || !lb.classList.contains('open')) return;
+  if (e.key === 'ArrowLeft')  lightboxNav(-1);
+  if (e.key === 'ArrowRight') lightboxNav(1);
+  if (e.key === 'Escape')     closeLightbox(null, true);
+});
 
 function downloadGalleryImg(dlUrl, filename) {
   const a = document.createElement('a');
