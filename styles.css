@@ -707,7 +707,7 @@ body::before {
 /* Bouton Installation PWA - Style Gold Arc */
 #installApp {
   position: fixed;
-  bottom: 60px;
+  bottom: px;
   left: 25px;
   z-index: 10000;
   background: var(--arc);
