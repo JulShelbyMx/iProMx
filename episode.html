@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPROMX — Épisode</title>
+  <meta name="description" content="Regarder cet épisode sur l'univers iPROMX.">
+  <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/styles.css?v=13">
+  <link rel="stylesheet" href="/player.css?v=13">
+  <style>
+    body { background: var(--void); color: var(--text); margin: 0; overflow-x: hidden; }
+    .ep-back-btn {
+      position: fixed; top: 18px; left: 20px; z-index: 9000;
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px;
+      background: rgba(2,4,8,.82); border: 1px solid var(--edge); border-radius: var(--radius);
+      color: var(--text-dim); font-family: var(--font-display); font-size: .58rem;
+      font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      cursor: pointer; transition: var(--transition); text-decoration: none;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      white-space: nowrap;
+    }
+    .ep-back-btn:hover { border-color: var(--arc); color: var(--arc); transform: translateX(-2px); }
+    .ep-page { padding-top: 56px; min-height: 100vh; }
+    @media(max-width:768px){.ep-back-btn{top:12px;left:12px;font-size:.52rem;padding:8px 12px;}.ep-page{padding-top:48px;}}
+  </style>
+</head>
+<body>
+
+<!-- Apply theme immediately before render -->
+<script>
+(()=>{
+  const t=localStorage.getItem('ipx_theme')||'iron';
+  const T={'iron':{'--arc':'#f5a623','--iron':'#c0392b','--iron-bright':'#e74c3c','--void':'#060504','--panel':'#111009','--panel2':'#171410','--panel3':'#1e1a0c','--arc-dim':'rgba(245,166,35,0.12)','--arc-glow':'rgba(245,166,35,0.45)','--iron-glow':'rgba(231,76,60,0.45)','--edge':'rgba(245,166,35,0.22)','--edge2':'rgba(245,166,35,0.08)','--text':'#f0e8d8'},'midnight':{'--arc':'#7c8cff','--iron':'#4f46e5','--iron-bright':'#6366f1','--void':'#04040a','--panel':'#0a0a14','--panel2':'#111122','--panel3':'#181830','--arc-dim':'rgba(124,140,255,0.12)','--arc-glow':'rgba(124,140,255,0.45)','--iron-glow':'rgba(99,102,241,0.45)','--edge':'rgba(124,140,255,0.22)','--edge2':'rgba(124,140,255,0.08)','--text':'#e8eaf8'},'crimson':{'--arc':'#ff6b6b','--iron':'#c0392b','--iron-bright':'#e74c3c','--void':'#080404','--panel':'#130808','--panel2':'#1a0a0a','--panel3':'#200c0c','--arc-dim':'rgba(255,107,107,0.12)','--arc-glow':'rgba(255,107,107,0.45)','--iron-glow':'rgba(231,76,60,0.45)','--edge':'rgba(255,107,107,0.22)','--edge2':'rgba(255,107,107,0.08)','--text':'#f8e8e8'},'forest':{'--arc':'#4ade80','--iron':'#16a34a','--iron-bright':'#22c55e','--void':'#030806','--panel':'#081209','--panel2':'#0d180e','--panel3':'#111e12','--arc-dim':'rgba(74,222,128,0.12)','--arc-glow':'rgba(74,222,128,0.45)','--iron-glow':'rgba(34,197,94,0.45)','--edge':'rgba(74,222,128,0.22)','--edge2':'rgba(74,222,128,0.08)','--text':'#e8f8ec'},'ocean':{'--arc':'#38bdf8','--iron':'#0369a1','--iron-bright':'#0ea5e9','--void':'#020a10','--panel':'#071220','--panel2':'#0c1a2e','--panel3':'#10223a','--arc-dim':'rgba(56,189,248,0.12)','--arc-glow':'rgba(56,189,248,0.45)','--iron-glow':'rgba(14,165,233,0.45)','--edge':'rgba(56,189,248,0.22)','--edge2':'rgba(56,189,248,0.08)','--text':'#e0f4ff'},'ember':{'--arc':'#fb923c','--iron':'#9a3412','--iron-bright':'#ea580c','--void':'#080402','--panel':'#180a04','--panel2':'#220e06','--panel3':'#2c1208','--arc-dim':'rgba(251,146,60,0.12)','--arc-glow':'rgba(251,146,60,0.45)','--iron-glow':'rgba(234,88,12,0.45)','--edge':'rgba(251,146,60,0.22)','--edge2':'rgba(251,146,60,0.08)','--text':'#fff1e6'},'neon':{'--arc':'#e879f9','--iron':'#a21caf','--iron-bright':'#d946ef','--void':'#060108','--panel':'#100614','--panel2':'#180a1e','--panel3':'#200d28','--arc-dim':'rgba(232,121,249,0.12)','--arc-glow':'rgba(232,121,249,0.45)','--iron-glow':'rgba(217,70,239,0.45)','--edge':'rgba(232,121,249,0.22)','--edge2':'rgba(232,121,249,0.08)','--text':'#fce7ff'},'gold':{'--arc':'#fbbf24','--iron':'#92400e','--iron-bright':'#d97706','--void':'#060400','--panel':'#130e00','--panel2':'#1c1500','--panel3':'#261d00','--arc-dim':'rgba(251,191,36,0.12)','--arc-glow':'rgba(251,191,36,0.45)','--iron-glow':'rgba(217,119,6,0.45)','--edge':'rgba(251,191,36,0.22)','--edge2':'rgba(251,191,36,0.08)','--text':'#fffbeb'},'ice':{'--arc':'#a5f3fc','--iron':'#164e63','--iron-bright':'#06b6d4','--void':'#020608','--panel':'#060e12','--panel2':'#0a161c','--panel3':'#0e1e26','--arc-dim':'rgba(165,243,252,0.12)','--arc-glow':'rgba(165,243,252,0.45)','--iron-glow':'rgba(6,182,212,0.4)','--edge':'rgba(165,243,252,0.2)','--edge2':'rgba(165,243,252,0.07)','--text':'#ecfeff'},'smoke':{'--arc':'#94a3b8','--iron':'#475569','--iron-bright':'#64748b','--void':'#050507','--panel':'#0e0e12','--panel2':'#141418','--panel3':'#1a1a1e','--arc-dim':'rgba(148,163,184,0.12)','--arc-glow':'rgba(148,163,184,0.35)','--iron-glow':'rgba(100,116,139,0.4)','--edge':'rgba(148,163,184,0.18)','--edge2':'rgba(148,163,184,0.07)','--text':'#e2e8f0'}};
+  const theme=T[t]||T.iron;
+  Object.entries(theme).forEach(([k,v])=>document.documentElement.style.setProperty(k,v));
+})();
+</script>
+
+<a class="ep-back-btn" id="backBtn" href="/"><i class="fas fa-arrow-left"></i> <span id="backLabel">Retour</span></a>
+
+<div class="ep-page">
+  <div id="playerPage" class="active">
+    <!-- Video -->
+    <div class="player-video-area" id="playerVideoArea">
+      <div class="player-video-aspect">
+        <div id="ytPlayerContainer" style="position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+            <div style="width:40px;height:40px;border:3px solid rgba(245,166,35,.2);border-top-color:var(--arc);border-radius:50%;animation:spin .7s linear infinite;"></div>
+            <div style="font-family:var(--font-display);font-size:.62rem;letter-spacing:3px;color:var(--arc);">CHARGEMENT</div>
+          </div>
+        </div>
+        <div class="autoplay-banner" id="autoplayBanner">
+          <div class="autoplay-info">
+            <div>
+              <div class="autoplay-text">ÉPISODE SUIVANT DANS <span id="autoCD">10</span>s</div>
+              <div class="autoplay-title" id="autoTitle"></div>
+            </div>
+            <div class="autoplay-actions">
+              <button class="btn-autoplay-cancel" onclick="cancelAutoplay()">Annuler</button>
+              <button class="btn-autoplay-play" id="autoPlayBtn" onclick="triggerAutoplay()"><i class="fas fa-forward"></i> Suivant</button>
+            </div>
+          </div>
+          <div class="autoplay-progress-bar"><div class="autoplay-progress-fill" id="autoFill" style="width:100%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layout -->
+    <div class="player-layout">
+      <div class="player-main">
+        <!-- Breadcrumb -->
+        <div class="player-breadcrumb" id="epBreadcrumb">
+          <a href="/" style="color:rgba(245,166,35,.7);text-decoration:none;display:flex;align-items:center;gap:5px;"><i class="fas fa-home"></i></a>
+          <span class="sep">›</span>
+          <a href="#" id="bcChar" style="color:rgba(245,166,35,.7);text-decoration:none;transition:color .2s;"></a>
+          <span class="sep">›</span>
+          <span id="bcSeason" style="color:var(--text-muted);"></span>
+          <span class="sep">›</span>
+          <span id="bcEp" style="color:var(--text-dim);"></span>
+        </div>
+
+        <!-- Info -->
+        <div class="player-info-block">
+          <div class="player-series-name" id="epSeriesName"></div>
+          <div class="player-ep-title" id="epTitle"></div>
+          <div class="player-ep-meta" id="epMeta"></div>
+        </div>
+
+        <!-- Actions -->
+        <div class="player-actions-row">
+          <div class="player-nav-eps">
+            <button class="btn-ep-nav" id="btnPrev" disabled><i class="fas fa-step-backward"></i> <span>Précédent</span></button>
+            <button class="btn-ep-nav" id="btnNext" disabled><span>Suivant</span> <i class="fas fa-step-forward"></i></button>
+          </div>
+          <div class="player-extra-actions">
+            <button class="btn-player-action" id="btnList" onclick="handleListToggle()">
+              <i class="fas fa-plus"></i> <span>Ma Liste</span>
+            </button>
+            <button class="btn-player-action" onclick="shareEpisode()" title="Partager">
+              <i class="fas fa-share-alt"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Rating -->
+        <div id="epRatingBlock" style="margin-bottom:20px;"></div>
+
+        <!-- Character block -->
+        <div class="player-char-block" id="charBlock"></div>
+
+        <!-- Seasons + list -->
+        <div id="epSeasonSection"></div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="player-sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Épisode suivant</div>
+          <div id="upnextCard"></div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Dans cette saison</div>
+          <div class="sidebar-suggestions" id="suggestList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="/data.js?v=13"></script>
+<script src="/app.js?v=13"></script>
+<script>
+'use strict';
+
+// ── Rating ──────────────────────────────────────────────────────
+const RK = () => `ipx_ratings_${(typeof AUTH!=='undefined'&&AUTH?.getCurrentUser?.()?.uid)||'g'}`;
+function getRating(fid,cid,s,n){try{return JSON.parse(localStorage.getItem(RK())||'{}')[`${fid}__${cid}__${s}__${n}`]||0;}catch{return 0;}}
+function setRating(fid,cid,s,n,stars){
+  try{
+    const k=RK(),all=JSON.parse(localStorage.getItem(k)||'{}'),key=`${fid}__${cid}__${s}__${n}`;
+    const newVal=(all[key]===stars)?0:stars;
+    if(newVal===0) delete all[key]; else all[key]=newVal;
+    localStorage.setItem(k,JSON.stringify(all));
+    // Sync to Firestore via DB
+    if(typeof DB!=='undefined'&&DB.saveRating) DB.saveRating(fid,cid,s,n,newVal);
+    renderRating(fid,cid,s,n);
+    toast(newVal?`Note : ${newVal}/5 ★`:'Note retirée','success');
+  }catch{}
+}
+window.setRating=setRating;
+
+function renderRating(fid,cid,season,epNum){
+  const cur=getRating(fid,cid,season,epNum);
+  const b=document.getElementById('epRatingBlock');if(!b)return;
+  b.innerHTML=`<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--edge2);">
+    <span style="font-family:var(--font-display);font-size:.56rem;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;white-space:nowrap;">Ma note</span>
+    <div style="display:flex;gap:3px;" id="epStars">
+      ${[1,2,3,4,5].map(s=>`<i class="fa${s<=cur?'s':'r'} fa-star"
+        onclick="setRating('${fid}','${cid}','${season.replace(/'/g,"\\'")}',${epNum},${s})"
+        onmouseover="hoverStar(${s})" onmouseout="hoverStar(0)"
+        style="font-size:1.05rem;color:${s<=cur?'var(--arc)':'rgba(255,255,255,.18)'};cursor:pointer;transition:color .12s,transform .1s;"></i>`).join('')}
+    </div>
+    ${cur?`<span style="font-family:var(--font-ui);font-size:.73rem;color:var(--text-muted);">${cur}/5</span>`:''}
+  </div>`;
+}
+window.hoverStar=function(n){
+  document.querySelectorAll('#epStars i').forEach((el,i)=>{
+    el.style.color=n>0?(i<n?'var(--arc)':'rgba(255,255,255,.18)'):'';
+    el.style.transform=n>0&&i<n?'scale(1.2)':'scale(1)';
+  });
+};
+
+// ── State ────────────────────────────────────────────────────────
+let _fid,_cid,_season,_epIdx,_eps,_char,_u;
+let ytPlayer=null,autoTimer=null,autoCD=0;
+const AUTOPLAY_SEC=10;
+
+function parsePath(){
+  const p=new URLSearchParams(location.search);
+  if(p.get('fid')&&p.get('cid')&&p.get('season')&&p.get('ep'))
+    return{view:'episode',fid:p.get('fid'),cid:p.get('cid'),season:p.get('season'),epNum:parseInt(p.get('ep'))};
+  return SLUG.parse(location.pathname);
+}
+
+function render(route){
+  _fid=route.fid;_cid=route.cid;_season=route.season;
+  _char=getChar(_fid,_cid);_u=DATA.universes[_fid];
+  if(!_char||!_u){location.href='/';return;}
+
+  _eps=_char.seasons?.[_season]||[];
+  _epIdx=_eps.findIndex(e=>e.num===route.epNum);
+  if(_epIdx<0){location.href=SLUG.charURL(_fid,_cid);return;}
+
+  const ep=_eps[_epIdx];
+  document.title=`${ep.title} — ${_char.name}`;
+
+  // Back button
+  const backBtn=document.getElementById('backBtn');
+  if(backBtn){backBtn.href=SLUG.charURL(_fid,_cid);document.getElementById('backLabel').textContent=_char.name;}
+
+  // Breadcrumb
+  const bcChar=document.getElementById('bcChar');
+  if(bcChar){bcChar.textContent=_char.name;bcChar.href=SLUG.charURL(_fid,_cid);}
+  const bcSeas=document.getElementById('bcSeason');if(bcSeas)bcSeas.textContent=_season;
+  const bcEp=document.getElementById('bcEp');if(bcEp)bcEp.textContent=`Épisode ${ep.num}`;
+
+  document.getElementById('epSeriesName').textContent=`${_char.name} · ${_u.name}`;
+  document.getElementById('epTitle').textContent=ep.title;
+  document.getElementById('epMeta').innerHTML=
+    `<span>${_season}</span><span class="dot"></span><span>Épisode ${ep.num}</span><span class="dot"></span><span>FanTasTic RP · Pixelar</span>`;
+
+  // Prev / Next
+  const prevEp=_epIdx>0?_eps[_epIdx-1]:null;
+  const nextEp=_epIdx<_eps.length-1?_eps[_epIdx+1]:null;
+  const btnP=document.getElementById('btnPrev'),btnN=document.getElementById('btnNext');
+  if(btnP){btnP.disabled=!prevEp;btnP.onclick=prevEp?()=>navigate(_fid,_cid,_season,_epIdx-1):null;}
+  if(btnN){btnN.disabled=!nextEp;btnN.onclick=nextEp?()=>navigate(_fid,_cid,_season,_epIdx+1):null;}
+
+  updateListBtn();
+  renderRating(_fid,_cid,_season,ep.num);
+
+  // Char block
+  const cb=document.getElementById('charBlock');
+  if(cb) cb.innerHTML=`
+    <div class="player-char-avatar lazy-bg" style="background-image:url('${_char.image}');width:72px;height:72px;border-radius:var(--radius);background-size:cover;background-position:center;border:2px solid var(--edge);flex-shrink:0;"></div>
+    <div class="player-char-text">
+      <div class="player-char-name">${_char.name}</div>
+      <div class="player-char-family">${_u.name}</div>
+      <div class="player-char-desc">${_char.description||''}</div>
+      <a href="${SLUG.charURL(_fid,_cid)}" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-family:var(--font-display);font-size:.56rem;letter-spacing:2px;color:var(--arc);text-decoration:none;padding:7px 14px;border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);transition:.2s;" onmouseover="this.style.background='rgba(245,166,35,.1)'" onmouseout="this.style.background=''">
+        <i class="fas fa-list"></i> Tous les épisodes
+      </a>
+    </div>`;
+
+  // Season + ep list
+  const seasons=Object.keys(_char.seasons||{});
+  const ss=document.getElementById('epSeasonSection');
+  if(ss&&seasons.length){
+    ss.innerHTML=`
+      <div class="sidebar-section-title" style="margin:22px 0 12px;">Épisodes</div>
+      <div class="player-season-tabs">${seasons.map(s=>`<button class="player-season-tab${s===_season?' active':''}" onclick="switchSeasonEp('${s.replace(/'/g,"\\'")}',this)">${s}</button>`).join('')}</div>
+      <div class="player-episodes-list" id="epListInPlayer"></div>`;
+    renderEpList(_fid,_cid,_season,_epIdx);
+  }
+
+  // Upnext
+  const upnext=document.getElementById('upnextCard');
+  if(upnext){
+    if(nextEp){
+      const nt=nextEp.thumb||(nextEp.videoId?`https://i.ytimg.com/vi/${nextEp.videoId}/mqdefault.jpg`:'https://ik.imagekit.io/ipromx/images/flash.jpg');
+      upnext.innerHTML=`<div class="upnext-card" onclick="navigate('${_fid}','${_cid}','${_season.replace(/'/g,"\\'")}',${_epIdx+1})" style="cursor:pointer;">
+        <div class="upnext-thumb lazy-bg" data-bg="${nt}"><div class="upnext-play-btn"><i class="fas fa-play"></i></div></div>
+        <div class="upnext-info">
+          <div class="upnext-label">Épisode suivant</div>
+          <div class="upnext-title">${nextEp.title}</div>
+          <div class="upnext-ep">Épisode ${nextEp.num} · ${_season}</div>
+        </div>
+      </div>`;
+    } else {
+      upnext.innerHTML=`<div style="padding:20px;text-align:center;color:var(--text-muted);font-family:var(--font-display);font-size:.58rem;letter-spacing:2px;"><i class="fas fa-flag-checkered" style="font-size:1.5rem;display:block;margin-bottom:10px;opacity:.35;"></i>FIN DE LA SAISON</div>`;
+    }
+  }
+
+  // Suggestions
+  const sugg=document.getElementById('suggestList');
+  if(sugg){
+    const slice=_eps.slice(Math.max(0,_epIdx-2),_epIdx+5);
+    sugg.innerHTML=slice.map(e=>{
+      const isCur=e.num===ep.num;
+      const t=e.thumb||(e.videoId?`https://i.ytimg.com/vi/${e.videoId}/mqdefault.jpg`:'https://ik.imagekit.io/ipromx/images/flash.jpg');
+      return `<div class="suggestion-card${isCur?' current':''}" ${!isCur?`onclick="navigate('${_fid}','${_cid}','${_season.replace(/'/g,"\\'")}',${_eps.indexOf(e)})"`:'style="cursor:default;"'}>
+        <div class="suggestion-thumb lazy-bg" data-bg="${t}"></div>
+        <div class="suggestion-info">
+          <div class="suggestion-ep">${isCur?'EN COURS · ':''}ÉP. ${e.num}</div>
+          <div class="suggestion-title">${e.title}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  initLazyBg();
+
+  // Autoplay
+  document.getElementById('autoTitle').textContent=nextEp?.title||'';
+  document.getElementById('autoPlayBtn').style.display=nextEp?'':'none';
+  window._autoTarget=nextEp?{fid:_fid,cid:_cid,season:_season,epIdx:_epIdx+1}:null;
+
+  // History
+  if(typeof DB!=='undefined') DB.addHistory({familyId:_fid,charId:_cid,season:_season,epNum:ep.num,epIdx:_epIdx,videoId:ep.videoId,title:ep.title});
+  window._currentEpMeta={fid:_fid,cid:_cid,season:_season,epNum:ep.num};
+
+  loadVideo(ep);
+  setupKeyboard(prevEp,nextEp);
+}
+
+function updateListBtn(){
+  const inList=typeof DB!=='undefined'?DB.isInList(_fid,_cid):false;
+  const btn=document.getElementById('btnList');
+  if(btn){
+    btn.innerHTML=`<i class="fas fa-${inList?'check':'plus'}"></i> <span>${inList?'Dans ma liste':'Ma Liste'}</span>`;
+    btn.classList.toggle('active',inList);
+    btn.classList.toggle('list',inList);
+  }
+}
+
+function renderEpList(fid,cid,season,curIdx){
+  const eps=getChar(fid,cid)?.seasons?.[season]||[];
+  const list=document.getElementById('epListInPlayer');if(!list)return;
+  list.innerHTML=eps.map((e,i)=>{
+    const prog=typeof DB!=='undefined'?DB.getProgress(fid,cid,season,e.num).pct:0;
+    const isCur=i===curIdx;
+    const t=e.thumb||(e.videoId?`https://i.ytimg.com/vi/${e.videoId}/mqdefault.jpg`:'https://ik.imagekit.io/ipromx/images/flash.jpg');
+    return `<div class="player-ep-item${isCur?' current':''}" ${!isCur?`onclick="navigate('${fid}','${cid}','${season.replace(/'/g,"\\'")}',${i})"`:'style="cursor:default;"'}>
+      <div class="player-ep-thumb lazy-bg" data-bg="${t}">
+        <div class="player-ep-thumb-overlay">${isCur?'<div class="player-ep-playing-icon"><i class="fas fa-volume-up"></i></div>':'<i class="fas fa-play"></i>'}</div>
+        ${prog>0&&!isCur?`<div class="player-ep-progress"><div class="player-ep-progress-fill" style="width:${prog}%"></div></div>`:''}
+      </div>
+      <div class="player-ep-info"><div class="player-ep-num">Épisode ${e.num}</div><div class="player-ep-name">${e.title}</div></div>
+    </div>`;
+  }).join('');
+  initLazyBg();
+  // Scroll to current episode
+  setTimeout(()=>{
+    const cur=list.querySelector('.current');
+    if(cur) cur.scrollIntoView({behavior:'smooth',block:'nearest'});
+  },200);
+}
+
+function switchSeasonEp(s,btn){
+  document.querySelectorAll('.player-season-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const eps=getChar(_fid,_cid)?.seasons?.[s]||[];
+  const list=document.getElementById('epListInPlayer');if(!list)return;
+  list.innerHTML=eps.map((e,i)=>{
+    const t=e.thumb||(e.videoId?`https://i.ytimg.com/vi/${e.videoId}/mqdefault.jpg`:'https://ik.imagekit.io/ipromx/images/flash.jpg');
+    const prog=typeof DB!=='undefined'?DB.getProgress(_fid,_cid,s,e.num).pct:0;
+    return `<div class="player-ep-item" onclick="navigate('${_fid}','${_cid}','${s.replace(/'/g,"\\'")}',${i})">
+      <div class="player-ep-thumb lazy-bg" data-bg="${t}">
+        <div class="player-ep-thumb-overlay"><i class="fas fa-play"></i></div>
+        ${prog>0?`<div class="player-ep-progress"><div class="player-ep-progress-fill" style="width:${prog}%"></div></div>`:''}
+      </div>
+      <div class="player-ep-info"><div class="player-ep-num">Épisode ${e.num}</div><div class="player-ep-name">${e.title}</div></div>
+    </div>`;
+  }).join('');
+  initLazyBg();
+}
+window.switchSeasonEp=switchSeasonEp;
+
+function navigate(fid,cid,season,epIdx){
+  saveProgress();
+  if(ytPlayer&&typeof ytPlayer.destroy==='function'){try{ytPlayer.destroy();}catch{}ytPlayer=null;}
+  if(window._ytProgressInterval){clearInterval(window._ytProgressInterval);window._ytProgressInterval=null;}
+  cancelAutoplay();
+  const eps=getChar(fid,cid)?.seasons?.[season]||[];
+  const ep=eps[epIdx];if(!ep)return;
+  const url=SLUG.epURL(fid,cid,season,ep.num);
+  history.pushState({},``,url);
+  render({view:'episode',fid,cid,season,epNum:ep.num});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+window.navigate=navigate;
+
+function handleListToggle(){
+  const inList=typeof DB!=='undefined'?DB.isInList(_fid,_cid):false;
+  if(inList){DB.removeFromList(_fid,_cid);toast('Retiré de votre liste.','info');}
+  else{DB.addToList({familyId:_fid,charId:_cid,name:_char?.name});toast('Ajouté à votre liste !','success');}
+  updateListBtn();
+}
+window.handleListToggle=handleListToggle;
+
+function shareEpisode(){
+  const text=`${_eps?.[_epIdx]?.title} — ${_char?.name} | iPROMX`;
+  if(navigator.share)navigator.share({title:text,url:location.href}).catch(()=>{});
+  else navigator.clipboard?.writeText(location.href).then(()=>toast('Lien copié !','success'));
+}
+window.shareEpisode=shareEpisode;
+
+function saveProgress(){
+  try{
+    if(!ytPlayer||typeof ytPlayer.getCurrentTime!=='function')return;
+    const cur=ytPlayer.getCurrentTime(),dur=ytPlayer.getDuration();
+    const m=window._currentEpMeta;
+    if(m&&dur>0&&typeof DB!=='undefined') DB.saveProgress(m.fid,m.cid,m.season,m.epNum,(cur/dur)*100,cur);
+  }catch{}
+}
+
+function loadVideo(ep){
+  const cont=document.getElementById('ytPlayerContainer');if(!cont)return;
+  cont.innerHTML='';
+  if(ep.youtubeLink&&ep.videoId){
+    window.open('https://www.youtube.com/watch?v='+ep.videoId,'_blank');
+    cont.innerHTML=`<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:#000;">
+      <i class="fab fa-youtube" style="font-size:3rem;color:#ff0000;"></i>
+      <div style="font-family:var(--font-display);font-size:.7rem;letter-spacing:2px;color:rgba(255,255,255,.7);">Ouvert dans YouTube</div>
+      <a href="https://www.youtube.com/watch?v=${ep.videoId}" target="_blank" class="btn-primary" style="font-size:.6rem;text-decoration:none;">
+        <i class="fab fa-youtube"></i> Regarder sur YouTube
+      </a>
+    </div>`;
+    return;
+  }
+  if(ep.sibnetUrl){
+    const iframe=document.createElement('iframe');
+    iframe.src=ep.sibnetUrl;
+    iframe.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:none;';
+    iframe.allowFullscreen=true;
+    cont.appendChild(iframe);return;
+  }
+  if(ep.videoId){
+    if(typeof YT!=='undefined'&&YT.Player) _createYTPlayer(ep.videoId);
+    else window._pendingYTVideoId=ep.videoId;
+  }
+}
+
+window.onYouTubeIframeAPIReady=function(){
+  if(window._pendingYTVideoId){_createYTPlayer(window._pendingYTVideoId);window._pendingYTVideoId=null;}
+};
+
+function _createYTPlayer(videoId){
+  const cont=document.getElementById('ytPlayerContainer');if(!cont)return;
+  cont.innerHTML='<div id="ytDivInner"></div>';
+  ytPlayer=new YT.Player('ytDivInner',{
+    videoId,
+    playerVars:{autoplay:1,rel:0,modestbranding:1,iv_load_policy:3},
+    events:{
+      onReady(e){
+        e.target.playVideo();
+        if(typeof DB!=='undefined'&&window._currentEpMeta){
+          const m=window._currentEpMeta;
+          const saved=DB.getProgress(m.fid,m.cid,m.season,m.epNum);
+          if(saved?.sec>5) setTimeout(()=>{try{e.target.seekTo(saved.sec,true);}catch{}},800);
+        }
+        if(window._ytProgressInterval)clearInterval(window._ytProgressInterval);
+        window._ytProgressInterval=setInterval(()=>{
+          try{
+            if(!ytPlayer||typeof ytPlayer.getCurrentTime!=='function')return;
+            const cur=ytPlayer.getCurrentTime(),dur=ytPlayer.getDuration();
+            if(dur>0&&window._currentEpMeta&&typeof DB!=='undefined'){
+              const m=window._currentEpMeta;
+              DB.saveProgress(m.fid,m.cid,m.season,m.epNum,(cur/dur)*100,cur);
+            }
+          }catch{}
+        },15000);
+      },
+      onStateChange(e){
+        if(e.data===YT.PlayerState.ENDED){saveProgress();if(window._autoTarget)startAutoplay();}
+        if(e.data===YT.PlayerState.PAUSED)saveProgress();
+      }
+    }
+  });
+}
+
+function startAutoplay(){
+  if(!window._autoTarget)return;
+  document.getElementById('autoplayBanner')?.classList.add('visible');
+  autoCD=AUTOPLAY_SEC;
+  const fill=document.getElementById('autoFill');
+  autoTimer=setInterval(()=>{
+    autoCD--;
+    const cd=document.getElementById('autoCD');if(cd)cd.textContent=autoCD;
+    if(fill)fill.style.width=`${(autoCD/AUTOPLAY_SEC)*100}%`;
+    if(autoCD<=0)triggerAutoplay();
+  },1000);
+}
+function cancelAutoplay(){clearInterval(autoTimer);autoTimer=null;document.getElementById('autoplayBanner')?.classList.remove('visible');}
+function triggerAutoplay(){const t=window._autoTarget;cancelAutoplay();if(t)navigate(t.fid,t.cid,t.season,t.epIdx);}
+window.cancelAutoplay=cancelAutoplay;window.triggerAutoplay=triggerAutoplay;
+
+function setupKeyboard(prevEp,nextEp){
+  document.onkeydown=e=>{
+    const tag=document.activeElement?.tagName;
+    if(tag==='INPUT'||tag==='TEXTAREA')return;
+    if(e.key==='ArrowLeft'&&prevEp)navigate(_fid,_cid,_season,_epIdx-1);
+    if(e.key==='ArrowRight'&&nextEp)navigate(_fid,_cid,_season,_epIdx+1);
+    if(e.key==='Escape')cancelAutoplay();
+    if(e.key===' '||e.key==='k'){
+      e.preventDefault();
+      try{if(ytPlayer){const s=ytPlayer.getPlayerState();if(s===YT.PlayerState.PLAYING)ytPlayer.pauseVideo();else ytPlayer.playVideo();}}catch{}
+    }
+    if(e.key==='f'||e.key==='F'){
+      try{const vc=document.getElementById('ytDivInner');if(vc){if(document.fullscreenElement)document.exitFullscreen();else vc.requestFullscreen?.();}}catch{}
+    }
+  };
+}
+
+window.addEventListener('popstate',()=>{
+  saveProgress();
+  const route=parsePath();
+  if(route.view==='episode')render(route);
+  else location.reload();
+});
+window.addEventListener('beforeunload',saveProgress);
+
+appInit(()=>{
+  const route=parsePath();
+  if(route.view!=='episode'){location.href='/';return;}
+  const yt=document.createElement('script');
+  yt.src='https://www.youtube.com/iframe_api';
+  document.head.appendChild(yt);
+  render(route);
+});
+</script>
+</body>
+</html>

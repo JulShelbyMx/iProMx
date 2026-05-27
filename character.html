@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPROMX</title>
+  <meta name="description" content="Découvrez les épisodes sur l'Univers iPROMX.">
+  <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/styles.css?v=13">
+  <style>
+    body { background: var(--void); color: var(--text); }
+    .char-hero::before { content:""; position:absolute; top:0; left:0; right:0; height:80px; background:linear-gradient(to bottom, rgba(2,4,8,.7) 0%, transparent 100%); z-index:1; pointer-events:none; }
+    .back-btn {
+      position: fixed; top: 18px; left: 20px; z-index: 9000;
+      display: flex; align-items: center; gap: 8px;
+      padding: 9px 18px;
+      background: rgba(2,4,8,.82); border: 1px solid var(--edge); border-radius: var(--radius);
+      color: var(--text-dim); font-family: var(--font-display); font-size: .58rem;
+      font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      cursor: pointer; transition: var(--transition); text-decoration: none;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    }
+    .back-btn:hover { border-color: var(--arc); color: var(--arc); transform: translateX(-2px); }
+    .user-btn {
+      position: fixed; top: 18px; right: 20px; z-index: 9000;
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 6px 6px 14px;
+      background: rgba(2,4,8,.82); border: 1px solid var(--edge); border-radius: 30px;
+      color: var(--text-dim); font-family: var(--font-display); font-size: .58rem;
+      font-weight: 700; letter-spacing: 1px;
+      cursor: pointer; transition: var(--transition);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      text-decoration: none;
+    }
+    .user-btn:hover { border-color: var(--arc); }
+    .user-btn-avatar {
+      width: 30px; height: 30px; border-radius: 50%; object-fit: cover;
+      border: 2px solid var(--arc); flex-shrink: 0;
+    }
+    .char-hero {
+      position: relative; height: 58vh; min-height: 420px; max-height: 680px;
+      background-size: cover; background-position: center 20%; overflow: hidden;
+    }
+    .char-hero::after {
+      content: ''; position: absolute; inset: 0;
+      background:
+        linear-gradient(to right, rgba(2,4,8,.92) 0%, rgba(2,4,8,.45) 55%, rgba(2,4,8,.05) 100%),
+        linear-gradient(to top, rgba(2,4,8,1) 0%, rgba(2,4,8,.5) 42%, transparent 100%);
+    }
+    .char-hero-content {
+      position: absolute; bottom: 44px; left: 60px; right: 40%; z-index: 2;
+    }
+    .char-family-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 14px; background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.35);
+      border-radius: 30px; font-family: var(--font-display); font-size: .58rem;
+      font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--arc);
+      margin-bottom: 14px;
+    }
+    .char-name {
+      font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 3.8rem);
+      font-weight: 900; color: white; letter-spacing: 2px;
+      text-shadow: 0 2px 20px rgba(0,0,0,.8); margin-bottom: 12px; line-height: 1.05;
+    }
+    .char-desc {
+      font-family: var(--font-body); font-size: clamp(.9rem, 1.4vw, 1.05rem);
+      color: rgba(240,232,216,.72); line-height: 1.65; max-width: 480px; margin-bottom: 22px;
+    }
+    .char-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .char-prog { margin-top: 16px; max-width: 300px; }
+    .char-prog-label { display: flex; justify-content: space-between; font-family: var(--font-display); font-size: .54rem; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 5px; }
+    .char-prog-track { height: 3px; background: rgba(255,255,255,.1); border-radius: 2px; overflow: hidden; }
+    .char-prog-fill { height: 100%; background: linear-gradient(90deg,var(--iron),var(--arc)); border-radius: 2px; transition: width .8s ease; }
+    .char-body { max-width: 1280px; margin: 0 auto; padding: 0 40px 80px; }
+    .char-layout { display: grid; grid-template-columns: 1fr 260px; gap: 36px; align-items: start; }
+    .char-sidebar { position: sticky; top: 24px; }
+    .side-card { background: var(--panel); border: 1px solid var(--edge2); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 14px; }
+    .side-card-h { padding: 12px 16px; border-bottom: 1px solid var(--edge2); font-family: var(--font-display); font-size: .56rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--arc); display: flex; align-items: center; gap: 8px; }
+    .side-card-h::before { content:''; width:3px; height:13px; background:linear-gradient(to bottom,var(--arc),var(--iron)); border-radius:2px; }
+    .side-card-b { padding: 12px 16px; }
+    .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--edge2); font-family: var(--font-body); font-size: .86rem; }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-lbl { color: var(--text-muted); }
+    .stat-val { color: var(--arc); font-weight: 700; font-family: var(--font-display); font-size: .74rem; letter-spacing: 1px; }
+    /* Continue watching strip */
+    .continue-strip { margin: 28px 0 10px; padding: 16px 18px; background: linear-gradient(135deg,var(--panel),var(--panel2)); border: 1px solid var(--edge); border-radius: var(--radius-lg); display: flex; align-items: center; gap: 16px; cursor: pointer; transition: var(--transition); }
+    .continue-strip:hover { border-color: var(--arc); transform: translateY(-2px); box-shadow: var(--shadow-arc); }
+    .continue-thumb { width: 90px; height: 54px; border-radius: 5px; background-size: cover; background-position: center; background-color: var(--panel2); flex-shrink: 0; position: relative; overflow: hidden; }
+    .continue-fill { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--iron),var(--arc)); }
+    .continue-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.45); font-size: 1.2rem; color: white; opacity: 0; transition: opacity .2s; }
+    .continue-strip:hover .continue-play { opacity: 1; }
+    .continue-info { flex: 1; min-width: 0; }
+    .continue-label { font-family: var(--font-display); font-size: .52rem; letter-spacing: 2px; color: var(--arc); margin-bottom: 3px; text-transform: uppercase; }
+    .continue-title { font-family: var(--font-body); font-size: .95rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .continue-meta { font-family: var(--font-ui); font-size: .72rem; color: var(--text-muted); margin-top: 2px; }
+    /* Season nav */
+    .seas-nav { display: flex; align-items: center; gap: 8px; padding: 22px 0 16px; overflow-x: auto; scrollbar-width: none; }
+    .seas-nav::-webkit-scrollbar { display: none; }
+    .seas-tab { flex-shrink: 0; padding: 7px 18px; background: transparent; border: 1px solid var(--edge2); border-radius: 30px; color: var(--text-muted); font-family: var(--font-display); font-size: .58rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: var(--transition); }
+    .seas-tab:hover { color: var(--text-dim); border-color: var(--edge); }
+    .seas-tab.active { background: var(--arc-dim); border-color: rgba(245,166,35,.5); color: var(--arc); }
+    /* Episodes grid */
+    .ep-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap: 14px; }
+    .ep-card { background: var(--panel); border: 1px solid var(--edge2); border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; transition: border-color .2s, transform .2s, box-shadow .2s; text-decoration: none; display: block; position: relative; }
+    .ep-card:hover { border-color: rgba(245,166,35,.35); transform: translateY(-3px); box-shadow: var(--shadow-arc); }
+    .ep-card.watched { opacity: .72; } .ep-card.watched:hover { opacity: 1; }
+    .ep-thumb { position: relative; width: 100%; padding-top: 56.25%; background-size: cover; background-position: center; background-color: var(--panel2); overflow: hidden; }
+    .ep-thumb::after { content:''; position:absolute;inset:0;background:linear-gradient(to top,rgba(2,4,8,.65) 0%,transparent 55%); }
+    .ep-play { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;background:rgba(231,76,60,.88);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:white;opacity:0;transition:opacity .2s;z-index:2;box-shadow:0 4px 18px var(--iron-glow); }
+    .ep-card:hover .ep-play { opacity: 1; }
+    .ep-num { position:absolute;bottom:8px;left:10px;font-family:var(--font-display);font-size:.54rem;font-weight:700;letter-spacing:2px;color:rgba(245,166,35,.9);z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.8); }
+    .ep-done { position:absolute;top:8px;right:8px;width:22px;height:22px;background:rgba(46,204,113,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:white;z-index:2; }
+    .ep-new { position:absolute;top:8px;left:8px;padding:2px 7px;background:var(--iron);border-radius:3px;font-family:var(--font-display);font-size:.44rem;font-weight:700;letter-spacing:2px;color:white;z-index:2; }
+    .ep-prog { position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(0,0,0,.3);z-index:2; }
+    .ep-prog-f { height:100%;background:linear-gradient(90deg,var(--iron),var(--arc)); }
+    .ep-info { padding: 12px 14px; }
+    .ep-title { font-family:var(--font-body);font-size:.9rem;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden; }
+    .ep-meta { font-family:var(--font-ui);font-size:.7rem;color:var(--text-muted); }
+    .ep-stars { margin-top:5px;color:var(--arc);font-size:.7rem;letter-spacing:1px; }
+    .skeleton { background:linear-gradient(90deg,var(--panel2) 25%,var(--panel3) 50%,var(--panel2) 75%);background-size:200% auto;animation:shimmer 1.4s linear infinite;border-radius:var(--radius); }
+    @media(max-width:1100px){.char-layout{grid-template-columns:1fr;}.char-sidebar{position:static;}}
+    @media(max-width:768px){.char-hero-content{left:20px;right:8%;bottom:28px;}.char-name{font-size:1.7rem;}.char-desc{-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}.char-body{padding:0 16px 60px;}.ep-grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;}.back-btn{top:12px;left:12px;}.user-btn{top:12px;right:12px;}}
+    @media(max-width:480px){.ep-grid{grid-template-columns:repeat(2,1fr);gap:8px;}}
+  </style>
+</head>
+<body>
+
+<a class="back-btn" href="/" id="backBtn"><i class="fas fa-arrow-left"></i> Retour</a>
+<div class="user-btn" id="userBtnFixed" onclick="openUserMenu()"></div>
+<div id="userMenuFloat" style="position:fixed;top:60px;right:20px;z-index:9001;display:none;"></div>
+
+<div style="height:56px;background:var(--void);"></div>
+<div id="charHero" class="char-hero">
+  <div class="char-hero-content" id="charHeroContent">
+    <div class="skeleton" style="width:120px;height:22px;margin-bottom:14px;border-radius:30px;"></div>
+    <div class="skeleton" style="width:280px;height:48px;margin-bottom:12px;"></div>
+    <div class="skeleton" style="width:360px;height:50px;margin-bottom:18px;"></div>
+    <div class="skeleton" style="width:200px;height:44px;border-radius:6px;"></div>
+  </div>
+</div>
+
+<div class="char-body">
+  <div style="padding:14px 0 0;font-family:var(--font-display);font-size:.54rem;letter-spacing:2px;color:var(--text-muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+    <a href="/" style="color:rgba(245,166,35,.7);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:5px;" onmouseover="this.style.color='var(--arc)'" onmouseout="this.style.color='rgba(245,166,35,.7)'"><i class="fas fa-home"></i> Accueil</a>
+    <span>›</span><span id="breadFam"></span><span>›</span><span id="breadChar"></span>
+  </div>
+  <div class="char-layout" style="padding-top:4px;">
+    <div id="charMain">
+      <div id="continueWatching"></div>
+      <nav class="seas-nav" id="seasNav"></nav>
+      <div class="ep-grid" id="epGrid"></div>
+    </div>
+    <aside class="char-sidebar" id="charSidebar"></aside>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="/data.js?v=13"></script>
+<script src="/app.js?v=13"></script>
+<script>
+'use strict';
+
+// Apply saved theme immediately
+(()=>{
+  const t=localStorage.getItem('ipx_theme')||'iron';
+  const T={'iron':{'--arc':'#f5a623','--iron':'#c0392b','--iron-bright':'#e74c3c','--void':'#060504','--panel':'#111009','--panel2':'#171410','--panel3':'#1e1a0c','--arc-dim':'rgba(245,166,35,0.12)','--arc-glow':'rgba(245,166,35,0.45)','--iron-glow':'rgba(231,76,60,0.45)','--edge':'rgba(245,166,35,0.22)','--edge2':'rgba(245,166,35,0.08)','--text':'#f0e8d8'},'midnight':{'--arc':'#7c8cff','--iron':'#4f46e5','--iron-bright':'#6366f1','--void':'#04040a','--panel':'#0a0a14','--panel2':'#111122','--panel3':'#181830','--arc-dim':'rgba(124,140,255,0.12)','--arc-glow':'rgba(124,140,255,0.45)','--iron-glow':'rgba(99,102,241,0.45)','--edge':'rgba(124,140,255,0.22)','--edge2':'rgba(124,140,255,0.08)','--text':'#e8eaf8'},'crimson':{'--arc':'#ff6b6b','--iron':'#c0392b','--iron-bright':'#e74c3c','--void':'#080404','--panel':'#130808','--panel2':'#1a0a0a','--panel3':'#200c0c','--arc-dim':'rgba(255,107,107,0.12)','--arc-glow':'rgba(255,107,107,0.45)','--iron-glow':'rgba(231,76,60,0.45)','--edge':'rgba(255,107,107,0.22)','--edge2':'rgba(255,107,107,0.08)','--text':'#f8e8e8'},'forest':{'--arc':'#4ade80','--iron':'#16a34a','--iron-bright':'#22c55e','--void':'#030806','--panel':'#081209','--panel2':'#0d180e','--panel3':'#111e12','--arc-dim':'rgba(74,222,128,0.12)','--arc-glow':'rgba(74,222,128,0.45)','--iron-glow':'rgba(34,197,94,0.45)','--edge':'rgba(74,222,128,0.22)','--edge2':'rgba(74,222,128,0.08)','--text':'#e8f8ec'},'ocean':{'--arc':'#38bdf8','--iron':'#0369a1','--iron-bright':'#0ea5e9','--void':'#020a10','--panel':'#071220','--panel2':'#0c1a2e','--panel3':'#10223a','--arc-dim':'rgba(56,189,248,0.12)','--arc-glow':'rgba(56,189,248,0.45)','--iron-glow':'rgba(14,165,233,0.45)','--edge':'rgba(56,189,248,0.22)','--edge2':'rgba(56,189,248,0.08)','--text':'#e0f4ff'},'ember':{'--arc':'#fb923c','--iron':'#9a3412','--iron-bright':'#ea580c','--void':'#080402','--panel':'#180a04','--panel2':'#220e06','--panel3':'#2c1208','--arc-dim':'rgba(251,146,60,0.12)','--arc-glow':'rgba(251,146,60,0.45)','--iron-glow':'rgba(234,88,12,0.45)','--edge':'rgba(251,146,60,0.22)','--edge2':'rgba(251,146,60,0.08)','--text':'#fff1e6'},'neon':{'--arc':'#e879f9','--iron':'#a21caf','--iron-bright':'#d946ef','--void':'#060108','--panel':'#100614','--panel2':'#180a1e','--panel3':'#200d28','--arc-dim':'rgba(232,121,249,0.12)','--arc-glow':'rgba(232,121,249,0.45)','--iron-glow':'rgba(217,70,239,0.45)','--edge':'rgba(232,121,249,0.22)','--edge2':'rgba(232,121,249,0.08)','--text':'#fce7ff'},'gold':{'--arc':'#fbbf24','--iron':'#92400e','--iron-bright':'#d97706','--void':'#060400','--panel':'#130e00','--panel2':'#1c1500','--panel3':'#261d00','--arc-dim':'rgba(251,191,36,0.12)','--arc-glow':'rgba(251,191,36,0.45)','--iron-glow':'rgba(217,119,6,0.45)','--edge':'rgba(251,191,36,0.22)','--edge2':'rgba(251,191,36,0.08)','--text':'#fffbeb'},'ice':{'--arc':'#a5f3fc','--iron':'#164e63','--iron-bright':'#06b6d4','--void':'#020608','--panel':'#060e12','--panel2':'#0a161c','--panel3':'#0e1e26','--arc-dim':'rgba(165,243,252,0.12)','--arc-glow':'rgba(165,243,252,0.45)','--iron-glow':'rgba(6,182,212,0.4)','--edge':'rgba(165,243,252,0.2)','--edge2':'rgba(165,243,252,0.07)','--text':'#ecfeff'},'smoke':{'--arc':'#94a3b8','--iron':'#475569','--iron-bright':'#64748b','--void':'#050507','--panel':'#0e0e12','--panel2':'#141418','--panel3':'#1a1a1e','--arc-dim':'rgba(148,163,184,0.12)','--arc-glow':'rgba(148,163,184,0.35)','--iron-glow':'rgba(100,116,139,0.4)','--edge':'rgba(148,163,184,0.18)','--edge2':'rgba(148,163,184,0.07)','--text':'#e2e8f0'}};
+  const theme=T[t]||T.iron;
+  Object.entries(theme).forEach(([k,v])=>document.documentElement.style.setProperty(k,v));
+})();
+
+const RK = () => `ipx_ratings_${(typeof AUTH!=='undefined'&&AUTH?.getCurrentUser?.()?.uid)||'g'}`;
+const getRating = (fid,cid,s,n) => { try{return JSON.parse(localStorage.getItem(RK())||'{}')[`${fid}__${cid}__${s}__${n}`]||0;}catch{return 0;} };
+
+let _fid, _cid, _curSeason;
+
+function parsePath(){
+  const p=new URLSearchParams(location.search);
+  if(p.get('fid')&&p.get('cid')) return{view:'character',fid:p.get('fid'),cid:p.get('cid')};
+  return SLUG.parse(location.pathname);
+}
+
+function render(route){
+  _fid=route.fid; _cid=route.cid;
+  const char=getChar(_fid,_cid), u=DATA.universes[_fid];
+  if(!char||!u){location.href='/';return;}
+
+  document.title=char.name;
+  document.querySelector('meta[name=description]').content=(char.description||'').slice(0,160);
+
+  const hero=document.getElementById('charHero');
+  hero.style.backgroundImage=`url('${char.banner||u.banner||char.image}')`;
+
+  const prog=(typeof getOverallProgress==='function')?getOverallProgress(_fid,_cid):0;
+  const totalEps=getTotalEps(char);
+  const inList=(typeof DB!=='undefined')?DB.isInList(_fid,_cid):false;
+  const firstEp=getFirstEp(char);
+
+  document.getElementById('charHeroContent').innerHTML=`
+    <div class="char-family-tag"><i class="fas fa-users"></i> ${u.name}</div>
+    <h1 class="char-name">${char.name}</h1>
+    <p class="char-desc">${char.description||''}</p>
+    <div class="char-actions">
+      ${firstEp?`<a href="${SLUG.epURL(_fid,_cid,firstEp.season,firstEp.ep.num)}" class="btn-primary" style="text-decoration:none;"><i class="fas fa-play"></i> Regarder</a>`:''}
+      <button class="btn-icon${inList?' active':''}" id="listBtn" onclick="handleList()" title="${inList?'Retirer de ma liste':'Ajouter à ma liste'}"><i class="fas fa-${inList?'check':'plus'}"></i></button>
+      <button class="btn-icon" onclick="shareChar()" title="Partager"><i class="fas fa-share-alt"></i></button>
+    </div>
+    ${prog>0?`<div class="char-prog"><div class="char-prog-label"><span>Progression</span><span>${prog}%</span></div><div class="char-prog-track"><div class="char-prog-fill" style="width:${prog}%"></div></div></div>`:''}`;
+
+  document.getElementById('breadFam').textContent=u.name;
+  document.getElementById('breadChar').textContent=char.name;
+
+  renderUserBtn();
+  renderSidebar(char,u,prog,totalEps);
+  renderContinueWatching(char);
+
+  const seasons=Object.keys(char.seasons||{});
+  _curSeason=seasons[0]||null;
+  document.getElementById('seasNav').innerHTML=seasons.map(s=>
+    `<button class="seas-tab${s===_curSeason?' active':''}" onclick="selSeason('${s.replace(/'/g,"\\'")}',this)">${s}</button>`
+  ).join('');
+  renderEps(_fid,_cid,_curSeason);
+  initLazyBg();
+}
+
+function renderUserBtn(){
+  const user=typeof AUTH!=='undefined'?AUTH.getCurrentUser():null;
+  const isGuest=typeof AUTH!=='undefined'?AUTH.isGuest():false;
+  const btn=document.getElementById('userBtnFixed');
+  if(!btn)return;
+  if(!user&&!isGuest){btn.style.display='none';return;}
+  const avSrc=user?.avatarId&&typeof PRESET_AVATARS!=='undefined'?PRESET_AVATARS?.find(a=>a.id===user.avatarId)?.src:null;
+  const initials=(user?.username||'G').slice(0,2).toUpperCase();
+  btn.innerHTML=`<span style="font-family:var(--font-display);font-size:.56rem;letter-spacing:1px;color:var(--text-muted);">${user?.username||'Invité'}</span>
+    ${avSrc?`<img src="${avSrc}" class="user-btn-avatar">`:`<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--iron),var(--arc));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:.65rem;font-weight:700;color:white;">${initials}</div>`}`;
+}
+
+function openUserMenu(){
+  const float=document.getElementById('userMenuFloat');
+  if(!float)return;
+  if(float.style.display!=='none'){float.style.display='none';return;}
+  const user=typeof AUTH!=='undefined'?AUTH.getCurrentUser():null;
+  const isGuest=typeof AUTH!=='undefined'?AUTH.isGuest():false;
+  float.innerHTML=`<div style="background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);overflow:hidden;min-width:190px;box-shadow:var(--shadow-arc);animation:fadeInUp .18s ease;">
+    <div style="padding:12px 16px;border-bottom:1px solid var(--edge2);">
+      <div style="font-family:var(--font-display);font-size:.7rem;font-weight:700;color:var(--text);">${user?.username||'Invité'}</div>
+      ${user?.email?`<div style="font-family:var(--font-ui);font-size:.7rem;color:var(--text-muted);margin-top:2px;">${user.email}</div>`:''}
+    </div>
+    <button class="dd-item" onclick="location.href='/'"><i class="fas fa-home"></i> Accueil</button>
+    ${!isGuest?`<button class="dd-item" onclick="float.style.display='none';" disabled><i class="fas fa-cog"></i> Paramètres (accueil)</button>`:''}
+    <button class="dd-item danger" onclick="${isGuest
+      ? "AUTH.logout?.().then(()=>location.href='/')"
+      : "AUTH.logout?.().then(()=>location.href='/')"}">
+      <i class="fas fa-sign-out-alt"></i> ${isGuest?'Quitter':'Déconnexion'}
+    </button>
+  </div>`;
+  float.style.display='block';
+  setTimeout(()=>document.addEventListener('click',()=>{float.style.display='none';},{once:true}),0);
+}
+window.openUserMenu=openUserMenu;
+
+function renderContinueWatching(char){
+  const cw=document.getElementById('continueWatching');if(!cw)return;
+  if(typeof DB==='undefined'){cw.innerHTML='';return;}
+  const hist=DB.getHistory().filter(h=>h.familyId===_fid&&h.charId===_cid);
+  if(!hist.length){cw.innerHTML='';return;}
+  const h=hist[0];
+  const prog=DB.getProgress(h.familyId,h.charId,h.season,h.epNum).pct||0;
+  const url=SLUG.epURL(h.familyId,h.charId,h.season,h.epNum);
+  const thumb=h.videoId?`https://i.ytimg.com/vi/${h.videoId}/mqdefault.jpg`:'https://ik.imagekit.io/ipromx/images/flash.jpg';
+  cw.innerHTML=`<div class="continue-strip" onclick="location.href='${url}'">
+    <div class="continue-thumb lazy-bg" data-bg="${thumb}">
+      <div class="continue-play"><i class="fas fa-play"></i></div>
+      ${prog>0?`<div class="continue-fill" style="width:${prog}%"></div>`:''}
+    </div>
+    <div class="continue-info">
+      <div class="continue-label"><i class="fas fa-history"></i> Continuer</div>
+      <div class="continue-title">${h.title||'Épisode '+h.epNum}</div>
+      <div class="continue-meta">${h.season} · Épisode ${h.epNum}${prog>0?' · '+Math.round(prog)+'%':''}</div>
+    </div>
+    <i class="fas fa-chevron-right" style="color:var(--arc);opacity:.6;font-size:1.1rem;flex-shrink:0;"></i>
+  </div>`;
+}
+
+function renderSidebar(char,u,prog,totalEps){
+  const seasons=Object.keys(char.seasons||{});
+  const siblings=u.characters.filter(c=>c.id!==_cid&&getTotalEps({seasons:c.seasons||{},hasLocalVideo:c.hasLocalVideo,hasLawBook:c.hasLawBook})>0).slice(0,5);
+  document.getElementById('charSidebar').innerHTML=`
+    <div class="side-card">
+      <div class="side-card-h">Infos</div>
+      <div class="side-card-b">
+        <div class="stat-row"><span class="stat-lbl">Famille</span><span class="stat-val">${u.name}</span></div>
+        <div class="stat-row"><span class="stat-lbl">Saisons</span><span class="stat-val">${seasons.length}</span></div>
+        <div class="stat-row"><span class="stat-lbl">Épisodes</span><span class="stat-val">${totalEps}</span></div>
+        ${prog>0?`<div class="stat-row"><span class="stat-lbl">Progression</span><span class="stat-val">${prog}%</span></div>`:''}
+      </div>
+    </div>
+    ${siblings.length?`<div class="side-card">
+      <div class="side-card-h">Famille ${u.name}</div>
+      <div class="side-card-b" style="display:flex;flex-direction:column;gap:0;">
+        ${siblings.map(c=>`<a href="${SLUG.charURL(_fid,c.id)}" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding:8px 0;border-bottom:1px solid var(--edge2);">
+          <div style="width:32px;height:32px;border-radius:50%;background-size:cover;background-position:center;background-image:url('${c.image}');border:1px solid var(--edge);flex-shrink:0;"></div>
+          <span style="font-family:var(--font-body);font-size:.86rem;font-weight:600;color:var(--text-dim);transition:color .2s;" onmouseover="this.style.color='var(--arc)'" onmouseout="this.style.color='var(--text-dim)'">${c.name}</span>
+        </a>`).join('')}
+      </div>
+    </div>`:''}`;
+}
+
+function selSeason(s,btn){
+  _curSeason=s;
+  document.querySelectorAll('.seas-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderEps(_fid,_cid,s);
+}
+window.selSeason=selSeason;
+
+function renderEps(fid,cid,season){
+  const char=getChar(fid,cid);
+  const eps=char?.seasons?.[season]||[];
+  const grid=document.getElementById('epGrid');if(!grid)return;
+  if(!eps.length){
+    grid.innerHTML=`<div style="grid-column:1/-1;display:flex;flex-direction:column;align-items:center;padding:56px 20px;gap:12px;color:var(--text-muted);">
+      <i class="fas fa-clock" style="font-size:2rem;opacity:.3;"></i>
+      <h4 style="font-family:var(--font-display);font-size:.76rem;letter-spacing:3px;color:var(--text-dim);">BIENTÔT DISPONIBLE</h4>
+    </div>`;return;
+  }
+  grid.innerHTML=eps.map(ep=>{
+    const prog=typeof DB!=='undefined'?DB.getProgress(fid,cid,season,ep.num).pct:0;
+    const done=prog>=90;
+    const stars=getRating(fid,cid,season,ep.num);
+    const isNew=ep.addedAt&&(Date.now()-new Date(ep.addedAt).getTime())<14*86400000;
+    const url=SLUG.epURL(fid,cid,season,ep.num);
+    const thumb=ep.thumb||(ep.videoId?`https://i.ytimg.com/vi/${ep.videoId}/mqdefault.jpg`:'https://ik.imagekit.io/ipromx/images/flash.jpg');
+    return `<a class="ep-card${done?' watched':''}" href="${url}">
+      <div class="ep-thumb lazy-bg" data-bg="${thumb}">
+        <div class="ep-play"><i class="fas fa-play"></i></div>
+        <div class="ep-num">ÉP. ${ep.num}</div>
+        ${done?'<div class="ep-done"><i class="fas fa-check"></i></div>':''}
+        ${isNew&&!done?'<div class="ep-new">NOUVEAU</div>':''}
+        ${ep.youtubeLink?'<div style="position:absolute;bottom:7px;right:7px;background:rgba(255,0,0,.85);color:white;font-family:var(--font-display);font-size:.44rem;font-weight:700;letter-spacing:1px;padding:2px 6px;border-radius:3px;z-index:2;"><i class=\'fab fa-youtube\'></i> YT</div>':''}
+        ${prog>0&&!done?`<div class="ep-prog"><div class="ep-prog-f" style="width:${prog}%"></div></div>`:''}
+      </div>
+      <div class="ep-info">
+        <div class="ep-title">${ep.title}</div>
+        <div class="ep-meta">${season} · Épisode ${ep.num}</div>
+        ${stars>0?`<div class="ep-stars">${'★'.repeat(stars)}${'☆'.repeat(5-stars)}</div>`:''}
+      </div>
+    </a>`;
+  }).join('');
+  initLazyBg();
+}
+
+function handleList(){
+  const inList=typeof DB!=='undefined'?DB.isInList(_fid,_cid):false;
+  const btn=document.getElementById('listBtn');
+  if(inList){DB.removeFromList(_fid,_cid);if(btn){btn.innerHTML='<i class="fas fa-plus"></i>';btn.classList.remove('active');}toast('Retiré de votre liste.','info');}
+  else{DB.addToList({familyId:_fid,charId:_cid,name:getChar(_fid,_cid)?.name});if(btn){btn.innerHTML='<i class="fas fa-check"></i>';btn.classList.add('active');}toast('Ajouté à votre liste !','success');}
+}
+window.handleList=handleList;
+
+function shareChar(){
+  const char=getChar(_fid,_cid);
+  if(navigator.share)navigator.share({title:`${char?.name} — iPROMX`,url:location.href}).catch(()=>{});
+  else navigator.clipboard?.writeText(location.href).then(()=>toast('Lien copié !','success'));
+}
+window.shareChar=shareChar;
+
+appInit(()=>{
+  const route=parsePath();
+  if(route.view!=='character'&&route.view!=='episode'){location.href='/';return;}
+  render(route);
+});
+</script>
+</body>
+</html>

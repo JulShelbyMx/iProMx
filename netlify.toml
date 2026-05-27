@@ -1,66 +1,74 @@
-# ============================================================
-#  iPROMX — Configuration Netlify (optimisée bande passante)
-# ============================================================
-
 [build]
   functions = "netlify/functions"
-  publish = "."
+  publish   = "."
 
 [functions]
-  directory = "netlify/functions"
+  directory    = "netlify/functions"
   node_bundler = "esbuild"
 
-# ── Fonctions planifiées ─────────────────────────────────────
 [[scheduled.functions]]
-  name = "keepalive"
-  schedule = "0 0 */2 * *"   # Tous les 2 jours à minuit UTC
+  name     = "keepalive"
+  schedule = "0 0 */2 * *"
 
-# ── Headers HTTP ─────────────────────────────────────────────
+# SPA Routing — URLs réelles pour les personnages et épisodes
+[[redirects]]
+  from   = "/:fam/:char/:season/:ep"
+  to     = "/episode.html"
+  status = 200
 
-# JS — versioning manuel via ?v=xxx dans index.html conseillé
+[[redirects]]
+  from   = "/:fam/:char"
+  to     = "/character.html"
+  status = 200
+
+[[redirects]]
+  from   = "/:fam/:char/"
+  to     = "/character.html"
+  status = 200
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+
+# Headers
 [[headers]]
   for = "/*.js"
   [headers.values]
     Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
 
-# CSS
 [[headers]]
   for = "/*.css"
   [headers.values]
     Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
 
-# HTML — toujours revalidé
 [[headers]]
   for = "/*.html"
   [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-    X-Robots-Tag = "index, follow"
+    Cache-Control  = "public, max-age=0, must-revalidate"
+    X-Robots-Tag   = "index, follow"
 
 [[headers]]
   for = "/"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
-    X-Robots-Tag = "index, follow"
+    X-Robots-Tag  = "index, follow"
 
-# Images — immutable longue durée (WebP déjà en place ✓)
 [[headers]]
   for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Fonts
 [[headers]]
   for = "/fonts/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# Manifest PWA
 [[headers]]
   for = "/manifest.json"
   [headers.values]
     Cache-Control = "public, max-age=86400"
 
-# Robots / Sitemap
 [[headers]]
   for = "/robots.txt"
   [headers.values]
@@ -71,15 +79,11 @@
   [headers.values]
     Cache-Control = "public, max-age=3600"
 
-# Netlify Functions — cache côté CDN pour les endpoints publics non-auth
-# La fonction firebase-config change rarement → cache 1h en CDN
 [[headers]]
   for = "/.netlify/functions/firebase-config"
   [headers.values]
     Cache-Control = "public, max-age=3600, stale-while-revalidate=600"
 
-# live-on-twitch : déjà caché 2 min en mémoire dans la function,
-# on ajoute 90s de cache CDN pour couper encore les appels froids
 [[headers]]
   for = "/.netlify/functions/live-on-twitch"
   [headers.values]
