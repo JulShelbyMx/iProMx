@@ -2435,29 +2435,31 @@ async function sendIA() {
   const q = input.value.trim();
   if (!q) return;
 
-  // Add user bubble
-  msgs.innerHTML += `<div class="ia-msg ia-user"><span>${escHtml(q)}</span></div>`;
+  const addMsg = (html) => {
+    msgs.insertAdjacentHTML('beforeend', html);
+    msgs.scrollTop = msgs.scrollHeight;
+  };
+
+  addMsg(`<div class="ia-msg ia-user"><span>${escHtml(q)}</span></div>`);
   input.value = '';
+  input.focus();
   btn.disabled = true;
   btn.style.opacity = '.4';
 
-  // Typing indicator
   const typingId = 'ia-typing-' + Date.now();
-  msgs.innerHTML += `<div class="ia-msg ia-bot" id="${typingId}"><span class="ia-typing"><i></i><i></i><i></i></span></div>`;
-  msgs.scrollTop = msgs.scrollHeight;
+  addMsg(`<div class="ia-msg ia-bot" id="${typingId}"><span class="ia-typing"><i></i><i></i><i></i></span></div>`);
 
   const result = await IA.ask(q);
 
-  // Remove typing indicator
   document.getElementById(typingId)?.remove();
   btn.disabled = false;
   btn.style.opacity = '1';
 
   if (result.error) {
-    msgs.innerHTML += `<div class="ia-msg ia-error"><span><i class="fas fa-exclamation-circle" style="margin-right:6px;"></i>${escHtml(result.error)}</span></div>`;
+    addMsg(`<div class="ia-msg ia-error"><span><i class="fas fa-exclamation-circle" style="margin-right:6px;"></i>${escHtml(result.error)}</span></div>`);
     if (status) { status.textContent = result.error; status.style.display = 'block'; setTimeout(() => { status.style.display = 'none'; }, 4000); }
   } else {
-    msgs.innerHTML += `<div class="ia-msg ia-bot"><span>${escHtml(result.text)}</span></div>`;
+    addMsg(`<div class="ia-msg ia-bot"><span>${escHtml(result.text)}</span></div>`);
     if (result.remaining !== undefined && status) {
       status.textContent = `${result.remaining} message${result.remaining > 1 ? 's' : ''} restant${result.remaining > 1 ? 's' : ''}`;
       status.style.display = 'block';

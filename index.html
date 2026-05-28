@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css?v=15">
+  <link rel="stylesheet" href="styles.css?v=16">
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" href="https://ik.imagekit.io/ipromx/images/logo192.webp?updatedAt=1777902836886">
   <meta name="google-site-verification" content="_yEaPZ6uwnbnq-02Wu6RiQHIdMtXFrVxWffr9to5cdM" />
@@ -394,34 +394,45 @@
       <i class="fas fa-robot"></i>
     </button>
     <div id="iaPanel" style="
-      position:absolute;bottom:64px;right:0;
+      position:absolute;bottom:68px;right:0;
       width:340px;max-width:calc(100vw - 40px);
       background:var(--panel);border:1px solid var(--edge);
       border-radius:var(--radius-lg);overflow:hidden;
-      box-shadow:0 16px 48px rgba(0,0,0,.85);
+      box-shadow:0 16px 48px rgba(0,0,0,.9);
       display:none;flex-direction:column;
-      animation:fadeInUp .22s ease;">
-      <div style="padding:14px 16px;border-bottom:1px solid var(--edge2);display:flex;align-items:center;justify-content:space-between;">
+      animation:fadeInUp .22s ease;
+      max-height:520px;">
+      <!-- Header FIXE — toujours visible, hors du scroll -->
+      <div style="flex-shrink:0;padding:13px 16px;border-bottom:1px solid var(--edge2);display:flex;align-items:center;justify-content:space-between;background:var(--panel);position:relative;z-index:2;">
         <div style="display:flex;align-items:center;gap:10px;">
-          <img src="https://ik.imagekit.io/ipromx/images/ipromxlogo.jpg?updatedAt=1777902837879" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid var(--edge);">
+          <img src="https://ik.imagekit.io/ipromx/images/ipromxlogo.jpg?updatedAt=1777902837879" style="width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1px solid var(--edge);">
           <div>
-            <div style="font-family:var(--font-display);font-size:.72rem;font-weight:700;letter-spacing:1px;color:var(--text);">iProMx</div>
-            <div style="font-family:var(--font-ui);font-size:.65rem;color:var(--text-muted);">Pose moi une question</div>
+            <div style="font-family:var(--font-display);font-size:.7rem;font-weight:700;letter-spacing:1px;color:var(--text);">iProMx</div>
+            <div style="font-family:var(--font-ui);font-size:.62rem;color:var(--text-muted);">Pose moi une question</div>
           </div>
         </div>
-        <button onclick="toggleIA()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1rem;padding:4px;transition:color .2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-muted)'"><i class="fas fa-times"></i></button>
+        <button onclick="toggleIA()" title="Fermer"
+          style="background:none;border:1px solid var(--edge2);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);cursor:pointer;font-size:.85rem;transition:all .2s;flex-shrink:0;"
+          onmouseover="this.style.borderColor='var(--iron-bright)';this.style.color='var(--iron-bright)'"
+          onmouseout="this.style.borderColor='var(--edge2)';this.style.color='var(--text-muted)'">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
-      <div id="iaMessages" style="flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;max-height:340px;min-height:120px;scrollbar-width:thin;scrollbar-color:var(--iron) transparent;">
+      <!-- Zone messages SCROLLABLE -->
+      <div id="iaMessages" style="flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:9px;min-height:140px;max-height:300px;scrollbar-width:thin;scrollbar-color:var(--iron) transparent;">
         <div class="ia-msg ia-bot"><span>Salut ! Pose-moi n'importe quelle question sur l'univers d'iProMx, les personnages, les familles...</span></div>
       </div>
-      <div id="iaStatus" style="display:none;padding:6px 14px;font-family:var(--font-ui);font-size:.72rem;color:var(--arc);border-top:1px solid var(--edge2);"></div>
-      <div style="padding:10px 12px;border-top:1px solid var(--edge2);display:flex;gap:8px;align-items:center;">
-        <input id="iaInput" type="text" placeholder="Pose ta question..." maxlength="300"
-          style="flex:1;background:var(--void);border:1px solid var(--edge);border-radius:var(--radius);padding:9px 12px;color:var(--text);font-family:var(--font-ui);font-size:.85rem;outline:none;transition:border-color .2s;"
+      <!-- Status -->
+      <div id="iaStatus" style="display:none;padding:5px 14px;font-family:var(--font-ui);font-size:.7rem;color:var(--arc);border-top:1px solid var(--edge2);flex-shrink:0;"></div>
+      <!-- Input FIXE en bas -->
+      <div style="flex-shrink:0;padding:10px 11px;border-top:1px solid var(--edge2);display:flex;gap:7px;align-items:center;background:var(--panel);">
+        <input id="iaInput" type="text" placeholder="Pose ta question..." maxlength="300" autocomplete="off"
+          style="flex:1;background:var(--panel2);border:1px solid var(--edge);border-radius:var(--radius);padding:9px 12px;color:var(--text);font-family:var(--font-ui);font-size:.84rem;outline:none;transition:border-color .2s;"
           onfocus="this.style.borderColor='var(--arc)'" onblur="this.style.borderColor='var(--edge)'"
-          onkeydown="if(event.key==='Enter')sendIA()">
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendIA();}">
         <button onclick="sendIA()" id="iaSendBtn"
-          style="width:36px;height:36px;flex-shrink:0;background:linear-gradient(135deg,var(--iron),var(--iron-bright));border:none;border-radius:var(--radius);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:opacity .2s;">
+          style="width:36px;height:36px;flex-shrink:0;background:linear-gradient(135deg,var(--iron),var(--iron-bright));border:none;border-radius:var(--radius);color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.88rem;transition:opacity .2s,transform .15s;"
+          onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
           <i class="fas fa-paper-plane"></i>
         </button>
       </div>
@@ -521,11 +532,11 @@
     s.src = src; s.onload = res; s.onerror = res;
     document.body.appendChild(s);
   });
-  await load('firebase-auth.js?v=15');
-  await load('data.js?v=15');
-  await load('app.js?v=15');
+  await load('firebase-auth.js?v=16');
+  await load('data.js?v=16');
+  await load('app.js?v=16');
   await load('https://www.youtube.com/iframe_api');
-  await load('ipromx.js?v=15');
+  await load('ipromx.js?v=16');
 })();
 </script>
 
