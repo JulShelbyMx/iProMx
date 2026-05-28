@@ -1455,9 +1455,9 @@ const DATA = {
     label: 'NOUVEAU',      // badge à gauche (ex: "MISE À JOUR", "NOUVEAU")
     //text:  'Nouvel épisode disponible : ... ',
     texts: [
-    'Nouveaux thèmes disponibles : Choisissez la couleur qui vous plait le plus ! (cliquer sur avatar=>paramètres=>couleur de l\'interface)',
-    'Nouveaux avatars disponibles ! Choisissez celui qui vous correspond (cliquer sur avatar=>paramètres=>petitcrayon) !',
-    'Nouvelle catégorie disponible : "Galerie", retrouvez toutes les meilleures images des personnages là-bas !'
+    'Nouveaux avatars disponibles ! Choisissez celui qui vous correspond → avatar → paramètres → ✏️',
+    'Galerie disponible : retrouvez les meilleures images des personnages !',
+    '10 thèmes disponibles ! Personnalisez votre interface → avatar → paramètres → couleur'
   ],
     // Lien vers un épisode précis (laisser null pour pas de bouton)
     link: {

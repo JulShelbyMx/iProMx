@@ -122,9 +122,36 @@
     .ep-meta { font-family:var(--font-ui);font-size:.7rem;color:var(--text-muted); }
     .ep-stars { margin-top:5px;color:var(--arc);font-size:.7rem;letter-spacing:1px; }
     .skeleton { background:linear-gradient(90deg,var(--panel2) 25%,var(--panel3) 50%,var(--panel2) 75%);background-size:200% auto;animation:shimmer 1.4s linear infinite;border-radius:var(--radius); }
-    @media(max-width:1100px){.char-layout{grid-template-columns:1fr;}.char-sidebar{position:static;}}
-    @media(max-width:768px){.char-hero-content{left:20px;right:8%;bottom:28px;}.char-name{font-size:1.7rem;}.char-desc{-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}.char-body{padding:0 16px 60px;}.ep-grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:10px;}.back-btn{top:12px;left:12px;}.user-btn{top:12px;right:12px;}}
-    @media(max-width:480px){.ep-grid{grid-template-columns:repeat(2,1fr);gap:8px;}}
+    @media(max-width:1100px){
+      .char-layout{grid-template-columns:1fr;}
+      .char-sidebar{position:static;}
+    }
+    @media(max-width:768px){
+      .char-hero{min-height:360px;height:54vh;}
+      .char-hero-content{left:18px;right:6%;bottom:24px;}
+      .char-name{font-size:1.55rem;}
+      .char-desc{font-size:.88rem;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}
+      .char-actions .btn-primary{padding:11px 20px;font-size:.66rem;}
+      .char-body{padding:0 14px 60px;}
+      .char-layout{gap:24px;}
+      .ep-grid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:8px;}
+      .ep-card-info{padding:9px 11px;}
+      .ep-card-title{font-size:.84rem;}
+      .ep-card-meta{font-size:.68rem;}
+      .back-btn{top:12px;left:12px;padding:8px 14px;font-size:.52rem;}
+      .user-btn{top:12px;right:12px;}
+    }
+    @media(max-width:480px){
+      .char-hero{min-height:300px;height:50vh;}
+      .char-hero-content{left:14px;right:4%;bottom:20px;}
+      .char-name{font-size:1.3rem;}
+      .ep-grid{grid-template-columns:repeat(2,1fr);gap:7px;}
+      .ep-card-thumb{padding-top:60%;}
+    }
+    @media(max-width:360px){
+      .char-name{font-size:1.1rem;}
+      .ep-grid{grid-template-columns:1fr 1fr;gap:6px;}
+    }
   </style>
 </head>
 <body>

@@ -27,7 +27,41 @@
     }
     .ep-back-btn:hover { border-color: var(--arc); color: var(--arc); transform: translateX(-2px); }
     .ep-page { padding-top: 56px; min-height: 100vh; }
-    @media(max-width:768px){.ep-back-btn{top:12px;left:12px;font-size:.52rem;padding:8px 12px;}.ep-page{padding-top:48px;}}
+    @media(max-width:1100px){
+      .player-layout{grid-template-columns:1fr;padding:14px;}
+      .player-sidebar{position:static;height:auto;}
+      .sidebar-suggestions{max-height:none;}
+    }
+    @media(max-width:768px){
+      .ep-back-btn{top:10px;left:10px;font-size:.5rem;padding:7px 12px;letter-spacing:1px;}
+      .ep-page{padding-top:44px;}
+      .player-layout{padding:10px 12px 48px;gap:14px;}
+      .player-ep-title{font-size:1.05rem;}
+      .player-breadcrumb{font-size:.5rem;}
+      .player-info-block{padding:12px 0 14px;}
+      .player-actions-row{gap:8px;}
+      .btn-ep-nav{padding:8px 12px;font-size:.56rem;}
+      .btn-ep-nav span{display:none;}
+      .player-char-block{flex-direction:column;}
+      .player-char-block > div:first-child{width:100%;height:100px;background-size:cover;background-position:center;border-radius:var(--radius);}
+      .player-season-tabs{gap:5px;}
+      .player-season-tab{padding:6px 14px;font-size:.54rem;}
+      .player-ep-item{grid-template-columns:110px 1fr;}
+      .player-ep-thumb{height:62px;}
+      .suggestion-card{grid-template-columns:80px 1fr;}
+      .suggestion-thumb{height:45px;}
+      .upnext-thumb{height:150px;}
+    }
+    @media(max-width:480px){
+      .ep-back-btn span{display:none;}
+      .ep-back-btn{width:36px;height:36px;padding:0;justify-content:center;border-radius:50%;}
+      .player-ep-item{grid-template-columns:1fr;}
+      .player-ep-thumb{height:150px;}
+      .player-actions-row{flex-direction:column;align-items:flex-start;}
+      .player-nav-eps{width:100%;}
+      .btn-ep-nav{flex:1;justify-content:center;}
+      .btn-ep-nav span{display:inline;}
+    }
   </style>
 </head>
 <body>
@@ -50,7 +84,7 @@
     <div class="player-video-area" id="playerVideoArea">
       <div class="player-video-aspect">
         <div id="ytPlayerContainer" style="position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center;">
-          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
             <div style="width:40px;height:40px;border:3px solid rgba(245,166,35,.2);border-top-color:var(--arc);border-radius:50%;animation:spin .7s linear infinite;"></div>
             <div style="font-family:var(--font-display);font-size:.62rem;letter-spacing:3px;color:var(--arc);">CHARGEMENT</div>
           </div>

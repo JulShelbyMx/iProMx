@@ -88,3 +88,8 @@
   for = "/.netlify/functions/live-on-twitch"
   [headers.values]
     Cache-Control = "public, max-age=90, stale-while-revalidate=30"
+
+[[headers]]
+  for = "/.netlify/functions/ia"
+  [headers.values]
+    Cache-Control = "no-cache, no-store"

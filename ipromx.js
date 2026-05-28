@@ -359,9 +359,10 @@ function updateHero(i) {
       <span class="hero-tag">GTA 5 RP</span>
     </div>
     <div class="hero-actions">
-      ${first?`<button class="btn-primary" onclick="location.href=ROUTER.buildURL('${slide.familyId}','${slide.charId}','${esc(first.season)}',0)"><i class="fas fa-play"></i> Regarder</button>`
-             :`<button class="btn-primary" href="${ROUTER.charURL(slide.familyId,slide.charId)}"><i class="fas fa-info-circle"></i> Découvrir</button>`}
-      <button class="btn-secondary" href="${ROUTER.charURL(slide.familyId,slide.charId)}"><i class="fas fa-info-circle"></i> Plus d'infos</button>
+      ${first
+        ?`<a class="btn-primary" href="${ROUTER.buildURL(slide.familyId,slide.charId,first.season,first.ep.num)}" style="text-decoration:none;"><i class="fas fa-play"></i> Regarder</a>`
+        :`<a class="btn-primary" href="${ROUTER.charURL(slide.familyId,slide.charId)}" style="text-decoration:none;"><i class="fas fa-info-circle"></i> Découvrir</a>`}
+      <a class="btn-secondary" href="${ROUTER.charURL(slide.familyId,slide.charId)}" style="text-decoration:none;"><i class="fas fa-info-circle"></i> Plus d'infos</a>
       <button class="btn-icon${inList?' active':''}" onclick="toggleList('${slide.familyId}','${slide.charId}',this)"><i class="fas fa-${inList?'check':'plus'}"></i></button>
     </div>`;
   const dots=document.querySelector('.hero-indicators');
@@ -2280,8 +2281,8 @@ if ('serviceWorker' in navigator) {
 
 // ============================================================
 //  iProMx IA — Système conversationnel
-//  Modèle : Claude Haiku (via Anthropic API, optimisé free-tier)
-//  Cooldown : 1min/message, 5msg → 30min (géré sur Firestore)
+//  Modèle : Gemini 2.0 Flash (Google AI Studio, plan gratuit)
+//  Cooldown : 1min/message, 5msg → 30min (Firestore)
 // ============================================================
 
 const IA = (() => {
@@ -2387,35 +2388,26 @@ ${buildContext()}`;
     const cd = await checkCooldown();
     if (!cd.ok) return { error: cd.reason };
 
-    // Append user message
     history.push({ role: 'user', content: question });
     if (history.length > 12) history = history.slice(-12);
 
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('/.netlify/functions/ia', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: 'claude-haiku-4-5-20251001',
-          max_tokens: 300,
-          system: SYSTEM_PROMPT,
+          system:   SYSTEM_PROMPT,
           messages: history,
         }),
       });
 
-      if (res.status === 429 || res.status === 529) {
+      const data = await res.json();
+      if (data.error) {
         history.pop();
-        return { error: 'Indisponible, réessayez plus tard.' };
+        return { error: data.error };
       }
-      if (!res.ok) {
-        history.pop();
-        return { error: 'Indisponible, réessayez plus tard.' };
-      }
-
-      const data   = await res.json();
-      const answer = data.content?.find(b => b.type === 'text')?.text || 'Pas de réponse.';
-      history.push({ role: 'assistant', content: answer });
-      return { text: answer, remaining: cd.remaining };
+      history.push({ role: 'assistant', content: data.text });
+      return { text: data.text, remaining: cd.remaining };
     } catch {
       history.pop();
       return { error: 'Indisponible, réessayez plus tard.' };
