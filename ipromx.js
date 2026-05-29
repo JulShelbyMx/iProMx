@@ -2307,6 +2307,7 @@ const IA = (() => {
     return lines.join('\n').slice(0, 6000);
   }
 
+  console.log('[IA] Building SYSTEM_PROMPT...');
   const SYSTEM_PROMPT = `Tu es l'IA officielle d'iProMx, une plateforme de streaming dédiée à l'univers de roleplay GTA 5 d'iProMx (univers Pixelar). Tu réponds en français, de façon naturelle et concise (max 3 phrases par réponse sauf si résumé demandé). Tu connais tous les personnages, familles et épisodes ci-dessous. Pour les résumés de personnage, base-toi sur les titres d'épisodes pour deviner les arcs narratifs. Si une question est hors sujet, réponds brièvement et redirige vers l'univers.
 
 Univers disponible :
@@ -2361,6 +2362,7 @@ ${buildContext()}`;
   }
 
   function checkLocalCooldown(key) {
+    console.log('[IA] checkLocalCooldown, key:', key);
     const now = Date.now();
     try {
       const d = JSON.parse(localStorage.getItem(key) || '{}');
@@ -2385,11 +2387,25 @@ ${buildContext()}`;
   let history = [];
 
   async function ask(question) {
+    console.log('[IA] ask() appelé avec:', question.slice(0, 60));
+
     const cd = await checkCooldown();
+    console.log('[IA] cooldown result:', cd);
     if (!cd.ok) return { error: cd.reason };
 
     history.push({ role: 'user', content: question });
     if (history.length > 12) history = history.slice(-12);
+
+    const isLocal = ['localhost','127.0.0.1',''].includes(location.hostname) || location.protocol === 'file:';
+    console.log('[IA] isLocal:', isLocal, '| hostname:', location.hostname);
+    console.log('[IA] Envoi vers /.netlify/functions/ia, messages:', history.length);
+    console.log('[IA] system prompt length:', SYSTEM_PROMPT.length);
+
+    // En local : utilise Netlify Dev (netlify dev) ou retourne un message d'info
+    if (isLocal) {
+      history.pop();
+      return { error: 'IA indisponible en local. Lance "netlify dev" ou teste sur Netlify.' };
+    }
 
     try {
       const res = await fetch('/.netlify/functions/ia', {
@@ -2401,19 +2417,31 @@ ${buildContext()}`;
         }),
       });
 
-      const data = await res.json();
+      console.log('[IA] HTTP status:', res.status, res.statusText);
+
+      const rawText = await res.text();
+      console.log('[IA] Raw response:', rawText.slice(0, 300));
+
+      let data;
+      try { data = JSON.parse(rawText); }
+      catch(e) { console.error('[IA] JSON parse error:', e.message, rawText.slice(0,200)); history.pop(); return { error: 'Indisponible, réessayez plus tard.' }; }
+
       if (data.error) {
+        console.warn('[IA] Erreur retournée:', data.error);
         history.pop();
         return { error: data.error };
       }
+      console.log('[IA] Réponse OK:', data.text?.slice(0, 80));
       history.push({ role: 'assistant', content: data.text });
       return { text: data.text, remaining: cd.remaining };
-    } catch {
+    } catch(err) {
+      console.error('[IA] Fetch exception:', err.message, err);
       history.pop();
       return { error: 'Indisponible, réessayez plus tard.' };
     }
   }
 
+  console.log('[IA] Module initialisé. SYSTEM_PROMPT length:', SYSTEM_PROMPT.length);
   return { ask, reset: () => { history = []; } };
 })();
 
