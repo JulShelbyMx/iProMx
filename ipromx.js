@@ -2281,7 +2281,7 @@ if ('serviceWorker' in navigator) {
 
 // ============================================================
 //  iProMx IA — Système conversationnel
-//  Modèle : Gemini 2.0 Flash (Google AI Studio, plan gratuit)
+//  Modèle : Llama 3.1 8B Instant via Groq (14 400 req/jour, gratuit)
 //  Cooldown : 1min/message, 5msg → 30min (Firestore)
 // ============================================================
 
