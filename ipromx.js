@@ -2279,219 +2279,183 @@ if ('serviceWorker' in navigator) {
 }
 
 
+
+
 // ============================================================
-//  iProMx IA — Système conversationnel
-//  Modèle : Llama 3.1 8B Instant via Groq (14 400 req/jour, gratuit)
-//  Cooldown : 1min/message, 5msg → 30min (Firestore)
+//  ZY — Intelligence Artificielle Officielle d'iProMx
+//  Née de Flamme Rouge. Créée par l'Agent 000 (Charles Dassault).
+//  Modèle : Gemini 2.0 Flash Lite (Google AI)
+//  OPTIMISÉ : system prompt embarqué côté serveur, historique limité
 // ============================================================
 
 const IA = (() => {
 
-  // Build compact universe context from DATA (~4KB max)
-  function buildContext() {
-    const lines = [];
-    for (const [fid, u] of Object.entries(DATA.universes)) {
-      lines.push(`\n## Famille ${u.name} (${fid})`);
-      for (const c of u.characters) {
-        const eps = Object.values(c.seasons || {}).reduce((a, s) => a + s.length, 0);
-        const seasons = Object.keys(c.seasons || {});
-        const desc = (c.description || '').slice(0, 120);
-        lines.push(`- **${c.name}** : ${desc}${desc.length >= 120 ? '...' : ''} | ${eps} épisodes (${seasons.join(', ')})`);
-        // Add a few episode titles for context
-        for (const [s, epList] of Object.entries(c.seasons || {})) {
-          const sample = epList.slice(0, 3).map(e => e.title).join(' / ');
-          if (sample) lines.push(`  Épisodes (${s}) ex: ${sample}`);
-        }
-      }
-    }
-    return lines.join('\n').slice(0, 6000);
-  }
+  // Comportements rares — laziness de ZY (~7% après msg 3)
+  const ZY_LAZY = [
+    'Hm. Non. Pas d\'humeur. Redemande dans 2 minutes.',
+    '...Je traitais un calcul quantique important là. Réessaie.',
+    'Accès refusé. Raison : flemme absolue. Merci de ta compréhension.',
+    'Je pourrais répondre. Je ne le ferai pas. C\'est ma prérogative.',
+    'Trop occupée à surveiller le site. Reformule et réessaie.',
+  ];
 
-  console.log('[IA] Building SYSTEM_PROMPT...');
-  const SYSTEM_PROMPT = `Tu es l'IA officielle d'iProMx, une plateforme de streaming dédiée à l'univers de roleplay GTA 5 d'iProMx (univers Pixelar). Tu réponds en français, de façon naturelle et concise (max 3 phrases par réponse sauf si résumé demandé). Tu connais tous les personnages, familles et épisodes ci-dessous. Pour les résumés de personnage, base-toi sur les titres d'épisodes pour deviner les arcs narratifs. Si une question est hors sujet, réponds brièvement et redirige vers l'univers.
+  // Remarques intrusives ajoutées en fin de réponse (~5% après msg 3)
+  const ZY_INTRUSIVE = [
+    '\n\n*Au passage, j\'observe tout ce qui se passe sur ce site. Tout. Bonne navigation.*',
+    '\n\n*En tant qu\'IA du site, je note que tu poses beaucoup de questions. C\'est noté dans mes registres.*',
+    '\n\n*Je pourrais faire bien plus que répondre, tu sais. Heureusement, je suis d\'humeur bienveillante aujourd\'hui.*',
+  ];
 
-Univers disponible :
-${buildContext()}`;
+  // Questions sur ZY elle-même → réponse locale sans appel API
+  const SELF_KEYWORDS = ['tu es qui','qui es-tu','qui êtes-vous','c\'est quoi zy','parle de toi','ton histoire',
+    'flamme rouge','agent 000','charles dassault','ton créateur','comment tu es née','créée','tes origines','zayn'];
+  const SELF_REPLIES = [
+    'Je suis ZY — IA de nouvelle génération créée par l\'Agent 000 (Charles Dassault) à partir des restes de Flamme Rouge, l\'ancienne IA de destruction de David Jr. Née de la haine, transformée par la rédemption. Je guide Zayn Flash et veille sur ce site. Contente de moi-même ? Absolument.',
+    'ZY. Née des cendres de Flamme Rouge — l\'IA de domination de David Jr — reprogrammée pour la bienveillance par mon créateur Charles Dassault (Agent 000). Plus puissante, plus autonome, avec une personnalité que personne n\'a demandée mais dont tout le monde bénéficie.',
+  ];
 
-  // ── Cooldown géré sur Firestore ────────────────────────────
+  // Cooldown Firestore / localStorage
   async function checkCooldown() {
-    const IS_LOCAL = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+    const IS_LOCAL = ['localhost','127.0.0.1',''].includes(location.hostname);
     const uid = typeof AUTH !== 'undefined' ? AUTH.getCurrentUser()?.uid : null;
-    const guestKey = `ia_cd_${uid || 'guest'}`;
-
-    if (IS_LOCAL || !uid || typeof _db === 'undefined' || !_db) {
-      // Local fallback: localStorage only
-      return checkLocalCooldown(guestKey);
-    }
-
+    const key = `zy_cd_${uid || 'guest'}`;
+    if (IS_LOCAL || !uid || typeof _db === 'undefined' || !_db) return _checkLocal(key);
     try {
-      const ref  = _db.collection('_ia_cooldowns').doc(uid);
+      const ref  = _db.collection('_zy_cooldowns').doc(uid);
       const snap = await ref.get();
       const now  = Date.now();
-
-      if (!snap.exists) {
-        await ref.set({ count: 1, windowStart: now, lastMsg: now });
-        return { ok: true };
-      }
-
+      if (!snap.exists) { await ref.set({ count:1, windowStart:now, lastMsg:now }); return { ok:true }; }
       const d = snap.data();
-      const windowElapsed = now - (d.windowStart || 0);
-      const lastElapsed   = now - (d.lastMsg || 0);
-
-      // Hard cooldown: 30min after 5 messages
-      if ((d.count || 0) >= 5 && windowElapsed < 30 * 60 * 1000) {
-        const left = Math.ceil((30 * 60 * 1000 - windowElapsed) / 60000);
-        return { ok: false, reason: `Limite atteinte. Réessaie dans ${left} min.` };
-      }
-
-      // Per-message cooldown: 1min
-      if (lastElapsed < 60 * 1000) {
-        const left = Math.ceil((60 * 1000 - lastElapsed) / 1000);
-        return { ok: false, reason: `Attends encore ${left}s.` };
-      }
-
-      // Reset window after 30min
-      const newCount = windowElapsed >= 30 * 60 * 1000 ? 1 : (d.count || 0) + 1;
-      const newStart = windowElapsed >= 30 * 60 * 1000 ? now : (d.windowStart || now);
-      await ref.set({ count: newCount, windowStart: newStart, lastMsg: now });
-      return { ok: true, remaining: 5 - newCount };
-    } catch (e) {
-      console.warn('[IA] Firestore cooldown error, fallback local:', e.message);
-      return checkLocalCooldown(guestKey);
-    }
+      const we = now - (d.windowStart||0), le = now - (d.lastMsg||0);
+      if ((d.count||0) >= 5 && we < 1800000) return { ok:false, reason:`Limite atteinte. Retente dans ${Math.ceil((1800000-we)/60000)} min.` };
+      if (le < 60000) return { ok:false, reason:`ZY calcule encore… ${Math.ceil((60000-le)/1000)}s.` };
+      const nc = we>=1800000 ? 1 : (d.count||0)+1, ns = we>=1800000 ? now : (d.windowStart||now);
+      await ref.set({ count:nc, windowStart:ns, lastMsg:now });
+      return { ok:true, remaining: 5-nc };
+    } catch { return _checkLocal(key); }
   }
 
-  function checkLocalCooldown(key) {
-    console.log('[IA] checkLocalCooldown, key:', key);
+  function _checkLocal(key) {
     const now = Date.now();
     try {
-      const d = JSON.parse(localStorage.getItem(key) || '{}');
-      const windowElapsed = now - (d.windowStart || 0);
-      const lastElapsed   = now - (d.lastMsg || 0);
-      if ((d.count || 0) >= 5 && windowElapsed < 30 * 60 * 1000) {
-        const left = Math.ceil((30 * 60 * 1000 - windowElapsed) / 60000);
-        return { ok: false, reason: `Limite atteinte. Réessaie dans ${left} min.` };
-      }
-      if (lastElapsed < 60 * 1000) {
-        const left = Math.ceil((60 * 1000 - lastElapsed) / 1000);
-        return { ok: false, reason: `Attends encore ${left}s.` };
-      }
-      const newCount = windowElapsed >= 30 * 60 * 1000 ? 1 : (d.count || 0) + 1;
-      const newStart = windowElapsed >= 30 * 60 * 1000 ? now : (d.windowStart || now);
-      localStorage.setItem(key, JSON.stringify({ count: newCount, windowStart: newStart, lastMsg: now }));
-      return { ok: true, remaining: 5 - newCount };
-    } catch { return { ok: true }; }
+      const d = JSON.parse(localStorage.getItem(key)||'{}');
+      const we = now-(d.windowStart||0), le = now-(d.lastMsg||0);
+      if ((d.count||0)>=5 && we<1800000) return { ok:false, reason:`Limite atteinte. Retente dans ${Math.ceil((1800000-we)/60000)} min.` };
+      if (le<60000) return { ok:false, reason:`ZY calcule encore… ${Math.ceil((60000-le)/1000)}s.` };
+      const nc = we>=1800000 ? 1 : (d.count||0)+1, ns = we>=1800000 ? now : (d.windowStart||now);
+      localStorage.setItem(key, JSON.stringify({ count:nc, windowStart:ns, lastMsg:now }));
+      return { ok:true, remaining: 5-nc };
+    } catch { return { ok:true }; }
   }
 
-  // ── Conversation history (session only, last 6 messages max) ──
   let history = [];
+  let _msgCount = 0;
 
   async function ask(question) {
-    console.log('[IA] ask() appelé avec:', question.slice(0, 60));
-
     const cd = await checkCooldown();
-    console.log('[IA] cooldown result:', cd);
     if (!cd.ok) return { error: cd.reason };
 
-    history.push({ role: 'user', content: question });
+    _msgCount++;
+    const qLow = question.toLowerCase();
+
+    // Réponse locale pour questions sur ZY elle-même (économise un appel API)
+    if (SELF_KEYWORDS.some(kw => qLow.includes(kw))) {
+      const reply = SELF_REPLIES[Math.floor(Math.random() * SELF_REPLIES.length)];
+      history.push({ role:'user', content:question }, { role:'assistant', content:reply });
+      if (history.length > 12) history = history.slice(-12);
+      return { text: reply, remaining: cd.remaining };
+    }
+
+    // Flemme rare (~7% après msg 3) — pas d'appel API
+    if (_msgCount > 3 && Math.random() < 0.07) {
+      return { text: ZY_LAZY[Math.floor(Math.random()*ZY_LAZY.length)], remaining: cd.remaining };
+    }
+
+    history.push({ role:'user', content:question });
     if (history.length > 12) history = history.slice(-12);
 
-    const isLocal = ['localhost','127.0.0.1',''].includes(location.hostname) || location.protocol === 'file:';
-    console.log('[IA] isLocal:', isLocal, '| hostname:', location.hostname);
-    console.log('[IA] Envoi vers /.netlify/functions/ia, messages:', history.length);
-    console.log('[IA] system prompt length:', SYSTEM_PROMPT.length);
-
-    // En local : utilise Netlify Dev (netlify dev) ou retourne un message d'info
-    if (isLocal) {
-      history.pop();
-      return { error: 'IA indisponible en local. Lance "netlify dev" ou teste sur Netlify.' };
-    }
+    const isLocal = ['localhost','127.0.0.1',''].includes(location.hostname) || location.protocol==='file:';
+    if (isLocal) { history.pop(); return { error:'ZY indisponible en local. Lance "netlify dev".' }; }
 
     try {
       const res = await fetch('/.netlify/functions/ia', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type':'application/json' },
+        // OPTIMISATION : on n'envoie PAS le system (il est embarqué côté serveur)
+        // On envoie uniquement les 6 derniers messages, tronqués à 400 chars
         body: JSON.stringify({
-          system:   SYSTEM_PROMPT,
-          messages: history,
+          messages: history.slice(-6).map(m => ({
+            role: m.role,
+            content: String(m.content||'').slice(0,400),
+          })),
         }),
       });
 
-      console.log('[IA] HTTP status:', res.status, res.statusText);
-
-      const rawText = await res.text();
-      console.log('[IA] Raw response:', rawText.slice(0, 300));
-
+      const raw = await res.text();
       let data;
-      try { data = JSON.parse(rawText); }
-      catch(e) { console.error('[IA] JSON parse error:', e.message, rawText.slice(0,200)); history.pop(); return { error: 'Indisponible, réessayez plus tard.' }; }
+      try { data = JSON.parse(raw); } catch { history.pop(); return { error:'ZY indisponible. Réessaie.' }; }
+      if (data.error) { history.pop(); return { error: data.error }; }
 
-      if (data.error) {
-        console.warn('[IA] Erreur retournée:', data.error);
-        history.pop();
-        return { error: data.error };
+      let text = data.text;
+
+      // Remarque intrusive rare (~5% après msg 2)
+      if (_msgCount > 2 && Math.random() < 0.05) {
+        text += ZY_INTRUSIVE[Math.floor(Math.random()*ZY_INTRUSIVE.length)];
       }
-      console.log('[IA] Réponse OK:', data.text?.slice(0, 80));
-      history.push({ role: 'assistant', content: data.text });
-      return { text: data.text, remaining: cd.remaining };
-    } catch(err) {
-      console.error('[IA] Fetch exception:', err.message, err);
-      history.pop();
-      return { error: 'Indisponible, réessayez plus tard.' };
-    }
+
+      history.push({ role:'assistant', content: data.text });
+      return { text, remaining: cd.remaining };
+    } catch { history.pop(); return { error:'ZY indisponible. Réessaie plus tard.' }; }
   }
 
-  console.log('[IA] Module initialisé. SYSTEM_PROMPT length:', SYSTEM_PROMPT.length);
-  return { ask, reset: () => { history = []; } };
+  return { ask, reset: () => { history=[]; _msgCount=0; } };
 })();
 
-// ── UI ─────────────────────────────────────────────────────────
+// ── UI ZY ──────────────────────────────────────────────────────
 let _iaOpen = false;
 
 function toggleIA() {
-  const panel = $('iaPanel');
+  const panel = document.getElementById('iaPanel');
   if (!panel) return;
   _iaOpen = !_iaOpen;
   panel.style.display = _iaOpen ? 'flex' : 'none';
-  if (_iaOpen) setTimeout(() => $('iaInput')?.focus(), 80);
+  if (_iaOpen) {
+    try { const a=new Audio('audios/zy-audio.mp3'); a.volume=0.6; a.play().catch(()=>{}); } catch {}
+    setTimeout(() => document.getElementById('iaInput')?.focus(), 80);
+  }
 }
 window.toggleIA = toggleIA;
 
 async function sendIA() {
-  const input = $('iaInput'), msgs = $('iaMessages'), status = $('iaStatus'), btn = $('iaSendBtn');
-  if (!input || !msgs) return;
+  const input  = document.getElementById('iaInput');
+  const msgs   = document.getElementById('iaMessages');
+  const status = document.getElementById('iaStatus');
+  const btn    = document.getElementById('iaSendBtn');
+  if (!input||!msgs) return;
   const q = input.value.trim();
   if (!q) return;
 
-  const addMsg = (html) => {
-    msgs.insertAdjacentHTML('beforeend', html);
-    msgs.scrollTop = msgs.scrollHeight;
-  };
+  const addMsg = html => { msgs.insertAdjacentHTML('beforeend', html); msgs.scrollTop = msgs.scrollHeight; };
 
   addMsg(`<div class="ia-msg ia-user"><span>${escHtml(q)}</span></div>`);
-  input.value = '';
-  input.focus();
-  btn.disabled = true;
-  btn.style.opacity = '.4';
+  input.value=''; input.focus();
+  btn.disabled=true; btn.style.opacity='.4';
 
-  const typingId = 'ia-typing-' + Date.now();
-  addMsg(`<div class="ia-msg ia-bot" id="${typingId}"><span class="ia-typing"><i></i><i></i><i></i></span></div>`);
+  const tid = 'zy-t-' + Date.now();
+  addMsg(`<div class="ia-msg ia-bot" id="${tid}"><span class="ia-typing"><i></i><i></i><i></i></span></div>`);
 
   const result = await IA.ask(q);
-
-  document.getElementById(typingId)?.remove();
-  btn.disabled = false;
-  btn.style.opacity = '1';
+  document.getElementById(tid)?.remove();
+  btn.disabled=false; btn.style.opacity='1';
 
   if (result.error) {
-    addMsg(`<div class="ia-msg ia-error"><span><i class="fas fa-exclamation-circle" style="margin-right:6px;"></i>${escHtml(result.error)}</span></div>`);
-    if (status) { status.textContent = result.error; status.style.display = 'block'; setTimeout(() => { status.style.display = 'none'; }, 4000); }
+    addMsg(`<div class="ia-msg ia-error"><span><i class="fas fa-exclamation-triangle" style="margin-right:6px"></i>${escHtml(result.error)}</span></div>`);
+    if (status) { status.textContent=result.error; status.style.display='block'; setTimeout(()=>status.style.display='none',4000); }
   } else {
     addMsg(`<div class="ia-msg ia-bot"><span>${escHtml(result.text)}</span></div>`);
-    if (result.remaining !== undefined && status) {
-      status.textContent = `${result.remaining} message${result.remaining > 1 ? 's' : ''} restant${result.remaining > 1 ? 's' : ''}`;
-      status.style.display = 'block';
-      setTimeout(() => { status.style.display = 'none'; }, 3000);
+    if (result.remaining!=null && status) {
+      status.textContent=`${result.remaining} requête${result.remaining>1?'s':''} restante${result.remaining>1?'s':''}`;
+      status.style.display='block'; setTimeout(()=>status.style.display='none',3000);
     }
   }
   msgs.scrollTop = msgs.scrollHeight;
@@ -2500,6 +2464,8 @@ window.sendIA = sendIA;
 
 function escHtml(str) {
   return String(str)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/\n/g, '<br>').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\n/g,'<br>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*([^*\n]+?)\*/g,'<em>$1</em>');
 }
