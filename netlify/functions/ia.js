@@ -49,17 +49,16 @@ ${CHAR_HISTORY}`;
 
 // ── Appel OpenRouter avec fallback robuste et intelligent ──
 async function callOpenRouter(apiKey, messages) {
-  // Liste élargie de modèles gratuits pour maximiser les chances en cas de forte affluence
+  // Liste corrigée avec les EXACTS slugs gratuits d'OpenRouter (Plus de 404)
   const MODELS = [
-    'google/gemini-2.5-flash:free',
-    'qwen/qwen-2.5-72b-instruct:free',
-    'meta-llama/llama-3.3-70b-instruct:free',
-    'mistralai/mistral-7b-instruct:free'
+    'google/gemini-flash-1.5-8b:free',
+    'qwen/qwen-2.5-7b-instruct:free',
+    'meta-llama/llama-3.3-70b-instruct:free'
     
-    // NOTE STABILITÉ : Si tu as ne serait-ce que 0,50 $ de crédit sur OpenRouter,
-    // remplace la liste ci-dessus par la version payante prioritaire ci-dessous.
-    // Elle coûte 0,07 $ pour 1 MILLION de tokens (donc virtuellement gratuite) et ne subit JAMAIS de 429 :
-    // 'google/gemini-2.5-flash'
+    // 💡 CONSEIL POUR TON SITE : Les modèles ":free" d'OpenRouter subissent constamment des 429 en soirée.
+    // Si tu ajoutes 1$ de crédit sur ton compte OpenRouter, remplace TOUTE cette liste par le modèle ci-dessous.
+    // Il coûte 0,07$ pour 1 MILLION de tokens (soit environ 0,00005$ par message), est ultra-rapide et ne plante JAMAIS :
+    // 'google/gemini-flash-1.5-8b'
   ];
 
   const chatMessages = [
@@ -70,7 +69,6 @@ async function callOpenRouter(apiKey, messages) {
     })),
   ];
 
-  // Tableau pour stocker le statut de chaque modèle testé
   let historiqueErreurs = [];
 
   for (const model of MODELS) {
@@ -94,7 +92,6 @@ async function callOpenRouter(apiKey, messages) {
       const text = await res.text();
 
       if (!res.ok) {
-        // On extrait un morceau propre du message d'erreur d'OpenRouter
         let shortError = text;
         try {
           const parsed = JSON.parse(text);
@@ -109,10 +106,7 @@ async function callOpenRouter(apiKey, messages) {
       try { data = JSON.parse(text); } catch { continue; }
 
       const answer = data?.choices?.[0]?.message?.content?.trim();
-      if (!answer) {
-        historiqueErreurs.push(`• ${model} → Réponse vide json`);
-        continue;
-      }
+      if (!answer) continue;
 
       return { text: answer };
     } catch (err) {
@@ -121,7 +115,6 @@ async function callOpenRouter(apiKey, messages) {
     }
   }
 
-  // Si tout a échoué, on affiche le compte rendu exact ligne par ligne dans le tchat
   return { 
     error: `[Diagnostic Multi-Modèles]\nTous les modèles ont échoué :\n${historiqueErreurs.join('\n')}` 
   };
