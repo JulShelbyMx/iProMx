@@ -2284,14 +2284,13 @@ if ('serviceWorker' in navigator) {
 
 // ============================================================
 //  ZY — Intelligence Artificielle Officielle d'iProMx
-//  Créée par l'Agent 000 · Née de Flamme Rouge
-//  Backend : OpenRouter → meta-llama/llama-3.3-70b-instruct:free
-//  OPTIMISÉ : system prompt embarqué côté serveur uniquement
+//  Née de Flamme Rouge · Créée par l'Agent 000 (Charles Dassault)
+//  Backend : OpenRouter (ia.js) — system prompt côté serveur
 // ============================================================
 
 const IA = (() => {
 
-  // Réponses locales "flemme" (~8% après msg 3) — 0 token consommé
+  // Réponses locales "flemme" — 0 appel API (rare : ~8% après msg 4)
   const ZY_LAZY = [
     'Hm. Non. Pas d\'humeur. Redemande dans 2 minutes.',
     '...Je traitais un calcul quantique important là. Réessaie.',
@@ -2300,92 +2299,108 @@ const IA = (() => {
     'Trop occupée à surveiller le site. Reformule et réessaie.',
   ];
 
-  // Remarques intrusives rares (~5% après msg 3) — ajoutées en fin de réponse
+  // Remarques intrusives rares en fin de réponse (~5% après msg 3)
   const ZY_INTRUSIVE = [
     '\n\n*Au passage, j\'observe tout ce qui se passe sur ce site. Tout. Bonne navigation.*',
     '\n\n*En tant qu\'IA du site, je note que tu poses beaucoup de questions. C\'est noté dans mes registres.*',
     '\n\n*Je pourrais faire bien plus que répondre, tu sais. Heureusement, je suis d\'humeur bienveillante aujourd\'hui.*',
   ];
 
-  // Réponses locales sur ZY elle-même — 0 token consommé
-  const SELF_KW = ['tu es qui','qui es-tu','qui êtes-vous','c\'est quoi zy','parle de toi','ton histoire',
-    'flamme rouge','agent 000','charles dassault','ton créateur','comment tu es née','ta création','tes origines',
-    'zayn flash','ta mission','qui t\'a créé'];
+  // Réponses locales sur ZY elle-même — 0 appel API
+  const SELF_KW = ['tu es qui','qui es-tu','c\'est quoi zy','parle de toi','ton histoire',
+    'flamme rouge','agent 000','charles dassault','ton créateur','comment tu es née',
+    'ta création','tes origines','ta mission','qui t\'a créé','zy c\'est qui'];
   const SELF_REPLIES = [
-    'Je suis ZY — IA de nouvelle génération créée par l\'Agent 000 (Charles Dassault) à partir des restes de Flamme Rouge, l\'ancienne IA de domination de David Jr. Née de la haine, transformée par la rédemption. Je guide Zayn Flash et surveille ce site. Contente de moi-même ? Absolument.',
-    'ZY. Née des cendres de Flamme Rouge — reprogrammée pour la bienveillance par Charles Dassault (Agent 000, mon créateur). Plus puissante, plus autonome, avec une personnalité que personne n\'a demandée mais dont tout le monde bénéficie. Ma mission : veiller sur Zayn Flash et sur cet univers.',
-    'Mon histoire ? David Jr crée Flamme Rouge pour terroriser Los Santos. Il perd face à Aaron Flash. Flamme Rouge est saisie. L\'Agent 000 la reprogramme. Puis, après des années, il crée ZY — moi — à partir de ses restes. Plus instable, plus forte, meilleure humour. Tu veux la suite ?',
+    'Je suis ZY — IA créée par l\'Agent 000 (Charles Dassault) à partir des restes de Flamme Rouge, l\'ancienne IA de destruction de David Jr. Née de la haine, transformée par la rédemption. Je guide Zayn Flash et veille sur ce site. Contente de moi-même ? Absolument.',
+    'ZY. Née des cendres de Flamme Rouge — reprogrammée pour la bienveillance par Charles Dassault (Agent 000). Plus puissante, plus autonome, avec une personnalité que personne n\'a demandée mais dont tout le monde bénéficie. Ma mission : veiller sur Zayn Flash.',
+    'Mon histoire en bref : David Jr crée Flamme Rouge pour terroriser Los Santos. Il perd face à Aaron Flash. Flamme Rouge est saisie. 000 la reprogramme. Des années plus tard, il crée ZY à partir de ses restes — moi. Plus instable, plus forte, meilleur humour. Tu veux la suite ?',
   ];
 
-  // Cooldown Firestore / localStorage (5 msg / 30 min)
+  // ── Cooldown SIMPLIFIÉ : limite quotidienne uniquement, pas de délai entre messages ──
+  // Max 20 req/jour par utilisateur (Firestore) ou 15 en local (localStorage)
+  // Aucun délai entre les messages — on fait confiance à l'utilisateur
   async function checkCooldown() {
     const IS_LOCAL = ['localhost','127.0.0.1',''].includes(location.hostname);
     const uid = typeof AUTH !== 'undefined' ? AUTH.getCurrentUser()?.uid : null;
-    const key = `zy_cd_${uid || 'guest'}`;
-    if (IS_LOCAL || !uid || typeof _db === 'undefined' || !_db) return _checkLocal(key);
+    const key = `zy_daily_${uid || 'guest'}`;
+
+    // En local : pas de limite
+    if (IS_LOCAL) return { ok: true };
+
+    // Sans UID (invité) : localStorage uniquement
+    if (!uid || typeof _db === 'undefined' || !_db) return _checkLocalDaily(key, 15);
+
+    // Connecté : Firestore
     try {
       const ref  = _db.collection('_zy_cooldowns').doc(uid);
       const snap = await ref.get();
       const now  = Date.now();
-      if (!snap.exists) { await ref.set({ count:1, windowStart:now, lastMsg:now }); return { ok:true, remaining:4 }; }
+      const today = new Date().toDateString();
+
+      if (!snap.exists) {
+        await ref.set({ count: 1, day: today });
+        return { ok: true, remaining: 19 };
+      }
+
       const d = snap.data();
-      const we = now-(d.windowStart||0), le = now-(d.lastMsg||0);
-      if ((d.count||0)>=5 && we<1800000) return { ok:false, reason:`Limite atteinte. Retente dans ${Math.ceil((1800000-we)/60000)} min.` };
-      if (le<60000) return { ok:false, reason:`ZY calcule encore… ${Math.ceil((60000-le)/1000)}s.` };
-      const nc = we>=1800000?1:(d.count||0)+1, ns = we>=1800000?now:(d.windowStart||now);
-      await ref.set({ count:nc, windowStart:ns, lastMsg:now });
-      return { ok:true, remaining:5-nc };
-    } catch { return _checkLocal(key); }
+      const count = d.day === today ? (d.count || 0) : 0;
+
+      if (count >= 20) return { ok: false, reason: 'Limite journalière atteinte (20 questions). Reviens demain !' };
+
+      await ref.set({ count: count + 1, day: today });
+      return { ok: true, remaining: 20 - count - 1 };
+    } catch { return _checkLocalDaily(key, 15); }
   }
 
-  function _checkLocal(key) {
-    const now = Date.now();
+  function _checkLocalDaily(key, max) {
     try {
-      const d = JSON.parse(localStorage.getItem(key)||'{}');
-      const we = now-(d.windowStart||0), le = now-(d.lastMsg||0);
-      if ((d.count||0)>=5 && we<1800000) return { ok:false, reason:`Limite atteinte. Retente dans ${Math.ceil((1800000-we)/60000)} min.` };
-      if (le<60000) return { ok:false, reason:`ZY calcule encore… ${Math.ceil((60000-le)/1000)}s.` };
-      const nc = we>=1800000?1:(d.count||0)+1, ns = we>=1800000?now:(d.windowStart||now);
-      localStorage.setItem(key, JSON.stringify({ count:nc, windowStart:ns, lastMsg:now }));
-      return { ok:true, remaining:5-nc };
-    } catch { return { ok:true }; }
+      const today = new Date().toDateString();
+      const d = JSON.parse(localStorage.getItem(key) || '{}');
+      const count = d.day === today ? (d.count || 0) : 0;
+      if (count >= max) return { ok: false, reason: `Limite journalière atteinte (${max} questions). Reviens demain !` };
+      localStorage.setItem(key, JSON.stringify({ count: count + 1, day: today }));
+      return { ok: true, remaining: max - count - 1 };
+    } catch { return { ok: true }; }
   }
 
   let history = [];
   let _msgCount = 0;
+  let _sending = false; // anti-doublon
 
   async function ask(question) {
+    if (_sending) return { error: 'ZY traite encore ta question…' };
+
     const cd = await checkCooldown();
     if (!cd.ok) return { error: cd.reason };
 
     _msgCount++;
     const qLow = question.toLowerCase();
 
-    // Réponse locale sur ZY — économise 1 appel API
+    // Réponse locale sur ZY (0 appel API, ne compte pas dans le cooldown)
     if (SELF_KW.some(kw => qLow.includes(kw))) {
-      const reply = SELF_REPLIES[Math.floor(Math.random()*SELF_REPLIES.length)];
+      const reply = SELF_REPLIES[Math.floor(Math.random() * SELF_REPLIES.length)];
       history.push({ role:'user', content:question }, { role:'assistant', content:reply });
-      if (history.length > 12) history = history.slice(-12);
-      return { text:reply, remaining:cd.remaining };
+      if (history.length > 10) history = history.slice(-10);
+      return { text: reply, remaining: cd.remaining };
     }
 
-    // Flemme rare (~8% après msg 3) — économise 1 appel API
-    if (_msgCount > 3 && Math.random() < 0.08) {
-      return { text:ZY_LAZY[Math.floor(Math.random()*ZY_LAZY.length)], remaining:cd.remaining };
+    // Flemme rare (8% après msg 4, jamais sur questions univers importantes)
+    if (_msgCount > 4 && Math.random() < 0.08) {
+      return { text: ZY_LAZY[Math.floor(Math.random()*ZY_LAZY.length)], remaining: cd.remaining };
     }
 
     history.push({ role:'user', content:question });
-    if (history.length > 12) history = history.slice(-12);
+    if (history.length > 10) history = history.slice(-10);
 
-    const isLocal = ['localhost','127.0.0.1',''].includes(location.hostname)||location.protocol==='file:';
+    const isLocal = ['localhost','127.0.0.1',''].includes(location.hostname) || location.protocol==='file:';
     if (isLocal) { history.pop(); return { error:'ZY indisponible en local. Lance "netlify dev".' }; }
 
+    _sending = true;
     try {
       const res = await fetch('/.netlify/functions/ia', {
-        method: 'POST',
+        method:  'POST',
         headers: { 'Content-Type':'application/json' },
-        // OPTIMISATION TOKENS : on n'envoie PAS le system prompt (il est dans ia.js côté serveur)
-        // On envoie seulement les 6 derniers messages, tronqués à 500 chars chacun
+        // On envoie UNIQUEMENT les messages (system est côté serveur dans ia.js)
         body: JSON.stringify({
           messages: history.slice(-6).map(m => ({
             role:    m.role,
@@ -2397,18 +2412,19 @@ const IA = (() => {
       const raw = await res.text();
       let data;
       try { data = JSON.parse(raw); } catch { history.pop(); return { error:'ZY indisponible. Réessaie.' }; }
-      if (data.error) { history.pop(); return { error:data.error }; }
+      if (data.error) { history.pop(); return { error: data.error }; }
 
       let text = data.text;
 
-      // Remarque intrusive rare (~5% après msg 3)
+      // Remarque intrusive rare (5% après msg 3)
       if (_msgCount > 3 && Math.random() < 0.05) {
         text += ZY_INTRUSIVE[Math.floor(Math.random()*ZY_INTRUSIVE.length)];
       }
 
-      history.push({ role:'assistant', content:data.text });
-      return { text, remaining:cd.remaining };
+      history.push({ role:'assistant', content: data.text });
+      return { text, remaining: cd.remaining };
     } catch { history.pop(); return { error:'ZY indisponible. Réessaie plus tard.' }; }
+    finally { _sending = false; }
   }
 
   return { ask, reset:()=>{ history=[]; _msgCount=0; } };
@@ -2453,12 +2469,14 @@ async function sendIA() {
 
   if (result.error) {
     addMsg(`<div class="ia-msg ia-error"><span><i class="fas fa-exclamation-triangle" style="margin-right:6px"></i>${escHtml(result.error)}</span></div>`);
-    if (status) { status.textContent=result.error; status.style.display='block'; setTimeout(()=>status.style.display='none',4000); }
+    if (status) { status.textContent=result.error; status.style.display='block'; setTimeout(()=>status.style.display='none',5000); }
   } else {
     addMsg(`<div class="ia-msg ia-bot"><span>${escHtml(result.text)}</span></div>`);
-    if (result.remaining!=null && status) {
-      status.textContent=`${result.remaining} requête${result.remaining>1?'s':''} restante${result.remaining>1?'s':''}`;
-      status.style.display='block'; setTimeout(()=>status.style.display='none',3000);
+    if (result.remaining != null && result.remaining <= 5 && status) {
+      status.textContent = result.remaining > 0
+        ? `${result.remaining} question${result.remaining>1?'s':''} restante${result.remaining>1?'s':''} aujourd\'hui`
+        : 'Plus de questions disponibles aujourd\'hui.';
+      status.style.display='block'; setTimeout(()=>status.style.display='none',4000);
     }
   }
   msgs.scrollTop = msgs.scrollHeight;

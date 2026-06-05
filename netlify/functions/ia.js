@@ -1,62 +1,121 @@
 // ============================================================
-//  ZY — Netlify Function · Proxy IA via OpenRouter
-//  Modèle : meta-llama/llama-3.3-70b-instruct:free
-//  OpenRouter free tier : ~200 req/jour, 20 req/min
-//  OPTIMISÉ : system prompt embarqué ici (pas envoyé par le client)
+//  ZY — Netlify Function · Proxy IA
+//  Provider : OpenRouter (OPENROUTER_API_KEY)
+//  Modèle principal  : meta-llama/llama-3.3-70b-instruct:free
+//  Modèle fallback   : mistralai/mistral-7b-instruct:free
+//  System prompt embarqué ici — le client n'envoie QUE les messages
 // ============================================================
 
-// Contexte narratif complet — embarqué côté serveur pour économiser les tokens client
 const CHAR_HISTORY = `=== FAMILLE FLASH ===
-• David Flash [Le Tigre blanc] — Serein, Honorable, Sage, Protecteur.
-  Fondateur du Gang Double à 21 ans. Perd sa femme Alexandra lors d'une attaque des Spinners, se laisse arrêter de désespoir. S'évade 18 ans plus tard pour retrouver son fils John Flash. Protège sa lignée dans l'ombre pendant des décennies. Fusionne spirituellement avec John et Ken pour leur transmettre sa puissance divine. Livre son dernier combat contre David Jr et lègue toute sa force à Aaron Flash avant de mourir.
-• John Flash [Le Loup] — Loyal, Taciturne, Stratège, Marqué par le poids des responsabilités.
-  Fils de David Flash. Pilote de courses illégales, devient criminel puis fonde la première grande mafia de Los Santos sous l'alias "Monsieur l'Araignée" (muet, cordes vocales coupées en prison). Lègue son empire à son fils Ken. Fusionne avec David et Ken, transmet sa puissance à Aaron lors de la guerre finale contre David Jr.
-• Ken Flash [Le Dragon] — Fier, Charismatique, Tourmenté, Impulsif, Visionnaire.
-  Fils de John Flash. A un fils caché avec Giulia Vitale : David Jr. Fonde le Gang Double 2.0. Ses pouvoirs surhumains s'éveillent après un accident de voiture. Enfermé à 600m de profondeur pour neutraliser ses pouvoirs, fusionne avec John et David Flash. Épouse Laïla. Meurt en sacrifice dans un duel titanesque contre David Jr, après avoir vu Giulia assassinée.
-• Kayton Flash [Le Loup-Garou] — Tourmenté, Protecteur, Sensible, en quête de rédemption.
-  Était le démon "Mal incarné" — âme d'un fœtus mort-né de Ken Flash et Luna (Luna assassinée par Ken). Racheté par le sacrifice de Damon Flash. Renaît adulte sous le nom Kayton Maze, devient loup-garou, intègre le LSPD, tombe amoureux d'Arya Andersson. Collecte les balles ancestrales (pouvoirs : foudre, téléportation, invisibilité, contrôle du temps). Meurt en duel contre Adrian pour protéger la Terre des Flash. Laisse ses jumelles Zeyra et Erza.
-• David Junior (JR) Vitale Flash [Le Cobra] — Repenti, Mystérieux, Intense, Charismatique, Calculateur.
-  Fils caché de Ken Flash et Giulia Vitale, né en Italie. À 18 ans massacre le clan Vitale. Crée Flamme Rouge (IA de destruction). Défiguré par Aaron lors de leur premier duel, sauvé par Kayla Queen. Se repent progressivement, devient allié d'Aaron et de l'Agent 000 (Charles Dassault). Ensemble, 000 et DJR reprogramment Flamme Rouge en ZY. Meurt en sacrifice acceptant d'être tué par sa propre équipe pour prouver leur détermination à protéger la paix.
-• Aaron Flash [Le Phœnix] — Responsabilité, Tourmenté, Protecteur, Loyal.
-  Fils de Ken Flash et Angela Moore (directrice FBI). Entraîné 18 ans à Liberty City pour neutraliser David Jr. Fonde le Gang Double 3.0 avec Nina Di Cara (sa future femme). A trois enfants : Damon (né d'Angela, kidnappé bébé par un esprit), et les triplés Eden/Eddy/Ned (liés au Cerbère, nés avec Nina sur la Terre des Flash). Détruit Los Santos dans une explosion nucléaire contre David Jr. Meurt plusieurs fois (pouvoir du Phœnix), finit par mourir définitivement après avoir transmis ses directives à Ned.
-• Damon Flash [Le Lion] — Déterminé, Impulsif, Loyal, Torturé, Instinctif.
-  Fils aîné d'Aaron Flash et Angela Moore. Arraché bébé par l'esprit de Kayton (alors démon). Élevé par le commandant LSPD Williams Roule. Sombre dans les Vagos colombiens à 9 ans, dealer de cocaïne, toxicomane. Ses pouvoirs de manipulation mentale s'éveillent. Sous possession démoniaque, se proclame Roi de Los Santos, exécute Angela (sa propre mère biologique). Se repent, s'exile sous alias Jacob Lopez à la ferme Fuente Blanca. Participe à la récupération de Flamme Rouge avec 000. Meurt à 23 ans en sacrifice pour donner naissance humaine au démon Kayton — son oncle mort-né — lui offrant la vie et la paix.
-• Adrian Jefferson Flash [Le Basilic] — Stratège, Impitoyable, Manipulateur, Hanté.
-  Fils de David Jr et Kayla Queen. Adopté par Kylie Flash (sœur d'Aaron) sans connaître ses vraies origines. D'abord exemplaire puis bascule après avoir tué une recrue à l'armée. Conclut un pacte avec le Basilic (entité maléfique), revient d'entre les morts après avoir été tué. Massacre sa famille adoptive, tue Kylie Flash. Manipule et torture les Flash pendant des décennies. Tue Aaron Flash. Finalement tué par Ned Flash avec une flèche de feu du Phœnix.
-• Eden Flash [Le Cerbère] — Brillant, Protecteur, Émotif, en quête de paix.
-  Premier-né des triplés Cerbère (Aaron + Nina). Incarne la sagesse et la discipline du trio. Enfant préféré d'Aaron. Se fait incarcérer à Alcatraz pour enquêter sur le venin du Basilic. Finit par se retirer sur la Terre des Flash après toutes les épreuves.
-• Eddy Flash [Le Cerbère] — Silencieux, Calculateur, Loyal, Obscur.
-  Personnalité du Cerbère représentant le mal absolu, scellée par Aaron depuis l'enfance. Libéré par Ned après le meurtre du directeur d'Alcatraz. S'allie temporairement à Adrian. Finit par fusionner volontairement avec ses frères pour former l'entité ultime du Cerbère, laissant le contrôle à Ned.
-• Ned Flash [Le Cerbère] — Instable, Loyal, Fêtard, Naïf.
-  Troisième personnalité du Cerbère, fils d'Aaron et Nina. Impulsif, fêtard, fuit ses responsabilités. Traumatisé par la mort de Kayton (tué par Adrian), ses pouvoirs sont bloqués. Tombe amoureux d'Ava Walker (EMS) puis la perd. Fusion avec venin du Basilic lors d'une torture. Traverse : monde à l'envers, 20 ans en asile psychiatrique, vie de pirate à bord du Phénix. Père de Zayn Flash (avec Jade Dassault). Tue Adrian avec une flèche de feu du Phœnix. Absorbe le Basilic pour sauver Manda, s'exile sous les océans à bord du Phénix pour l'éternité.
-• Manda Flash [Inconnu] — Résilient, Réfléchi, Intrépide, Digne.
-  Fils né du viol d'Avery Amel par Adrian Flash. Grandit paraplégique à cause des tortures in utero. À 17 ans vole la balle ancestrale d'Adrian, retrouve l'usage de ses jambes. Devient agent secret. Absorbe le Basilic du corps d'Adrian pour permettre à Ned de le tuer. Ned lui confie la charge de la dynastie : il monte sur le trône de la Terre des Flash.
-• Zayn Flash [Inconnu] — Réfléchi, Intrépide, Digne, Mystérieux, Déterminé.
-  Fils de Ned Flash et Jade Dassault. ADN unique fusionnant héritage Flash, génie de Charles Dassault (Agent 000, son grand-père), ADN d'Adrian, et souche de "la Tâche". Confié à 000 après un trauma d'enfance. Envoyé sur V-Light (planète de sorciers) sous alias Zayn Kerington pour préparer la libération de son père Ned. S'allie avec Ivy Shade (fille de son ennemi Sylvester Shade). ZY est son alliée principale et interface principale de 000.
+• David Flash [Tigre blanc] — Serein, Honorable, Sage, Protecteur.
+  Fondateur du Gang Double à 21 ans. Perd sa femme Alexandra (attaque des Spinners), se laisse arrêter. S'évade 18 ans plus tard pour retrouver son fils John. Protège la lignée dans l'ombre. Fusionne avec John et Ken pour transmettre sa puissance. Livre son dernier combat contre David Jr et lègue tout à Aaron Flash avant de mourir.
+• John Flash [Loup] — Loyal, Taciturne, Stratège.
+  Fils de David Flash. Pilote illégal devenu chef de la 1ère grande mafia de Los Santos sous alias "Monsieur l'Araignée" (muet, cordes vocales coupées en prison). Lègue son empire à son fils Ken. Fusionne avec David et Ken, transmet sa puissance à Aaron lors de la guerre finale contre David Jr.
+• Ken Flash [Dragon] — Fier, Charismatique, Tourmenté, Impulsif.
+  Fils de John Flash. A un fils caché avec Giulia Vitale : David Jr. Fonde le Gang Double 2.0. Ses pouvoirs s'éveillent après un accident de voiture. Enfermé à 600m de profondeur. Meurt en sacrifice contre David Jr après avoir vu Giulia assassinée.
+• Kayton Flash [Loup-Garou] — Tourmenté, Protecteur, en quête de rédemption.
+  Était le démon "Mal incarné" — âme d'un fœtus mort-né de Ken et Luna. Racheté par le sacrifice de Damon. Renaît adulte sous le nom Kayton Maze, devient loup-garou, intègre le LSPD. Meurt en duel contre Adrian pour protéger la Terre des Flash. Laisse ses jumelles Zeyra et Erza.
+• David Junior / DJR [Cobra] — Repenti, Mystérieux, Calculateur.
+  Fils caché de Ken Flash et Giulia Vitale, né en Italie. Massacre le clan Vitale à 18 ans. Crée Flamme Rouge (IA de destruction). Défiguré par Aaron, sauvé par Kayla Queen. Se repent, devient allié d'Aaron et de l'Agent 000 (Charles Dassault). Ils reprogramment ensemble Flamme Rouge → ZY. Meurt en sacrifice pour prouver la détermination de son équipe.
+• Aaron Flash [Phœnix] — Responsable, Tourmenté, Protecteur, Loyal.
+  Fils de Ken Flash et Angela Moore (directrice FBI). Entraîné 18 ans à Liberty City contre David Jr. Fonde le Gang Double 3.0 avec Nina Di Cara. 3 enfants : Damon (kidnappé bébé), triplés Eden/Eddy/Ned (liés au Cerbère, nés avec Nina). Meurt plusieurs fois (pouvoir Phœnix). Tué définitivement par Adrian.
+• Damon Flash [Lion] — Déterminé, Impulsif, Torturé.
+  Fils aîné d'Aaron et Angela Moore. Arraché bébé. Élevé par le commandant LSPD Williams Roule. Dealer Vagos, toxicomane. Sous possession, se proclame Roi de Los Santos et exécute Angela (sa propre mère). Se repent. Participe à la récupération de Flamme Rouge avec 000. Meurt à 23 ans en sacrifice pour donner une vie humaine à Kayton (son oncle mort-né).
+• Adrian Jefferson Flash [Basilic] — Stratège, Impitoyable, Manipulateur.
+  Fils de David Jr et Kayla Queen. Adopté par Kylie Flash sans connaître ses origines. Conclut un pacte avec le Basilic, revient d'entre les morts. Massacre sa famille adoptive, tue Kylie Flash. Torture les Flash des décennies. Tue Aaron Flash. Finalement tué par Ned Flash avec une flèche de feu du Phœnix.
+• Eden Flash [Cerbère] — Brillant, Protecteur, en quête de paix.
+  Premier des triplés Cerbère (Aaron + Nina). Incarne la sagesse du trio. Se fait incarcérer à Alcatraz pour enquêter sur le venin du Basilic. Se retire sur la Terre des Flash après les épreuves.
+• Eddy Flash [Cerbère] — Silencieux, Calculateur, Loyal.
+  Personnalité "mal absolu" du Cerbère, scellée par Aaron. Libéré par Ned à Alcatraz. S'allie un temps à Adrian. Fusionne volontairement avec ses frères, laisse le contrôle à Ned.
+• Ned Flash [Cerbère] — Instable, Loyal, Fêtard, Naïf.
+  Troisième du Cerbère, fils d'Aaron et Nina. Traumatisé par la mort de Kayton (tué par Adrian). 20 ans en asile psychiatrique, puis pirate à bord du Phénix. Père de Zayn Flash (avec Jade Dassault). Tue Adrian avec une flèche de feu du Phœnix. S'exile sous les océans pour maintenir le Basilic emprisonné en lui.
+• Manda Flash — Résilient, Intrépide, Digne.
+  Né du viol d'Avery Amel par Adrian. Grandit paraplégique. À 17 ans vole la balle ancestrale d'Adrian, retrouve l'usage de ses jambes. Devient agent secret. Monte sur le trône de la Terre des Flash après la mort d'Adrian.
+• Zayn Flash — Réfléchi, Intrépide, Mystérieux.
+  Fils de Ned Flash et Jade Dassault. ADN unique : héritage Flash + génie de Charles Dassault (Agent 000, son grand-père). Envoyé sur V-Light (planète de sorciers) sous alias Zayn Kerington. S'allie avec Ivy Shade (fille de son ennemi Sylvester). ZY est son alliée principale et interface de 000.
 === FAMILLE SHADE ===
-• Sylvester Shade — Déterminé, Obsessionnel, Calculateur, Manipulateur, Impitoyable.
-  Chef du clan Shade, lié au Titan Freddy, ennemi juré des Flash. Infiltre l'orphelinat de Jade Monroe sous alias Sylver Smith. Devient Détraqueur (serviteur du Dieu de la Mort). Sacrifie son humanité pour gagner en puissance. Père d'Ivy Shade (avec June). Détruit son propre village. Réapparaît comme monstre des années plus tard, défié par Ivy et Zayn Flash.`;
+• Sylvester Shade — Calculateur, Manipulateur, Impitoyable.
+  Chef du clan Shade, lié au Titan Freddy, ennemi juré des Flash. Infiltre l'orphelinat de Jade Monroe. Devient Détraqueur (serviteur du Dieu de la Mort). Père d'Ivy Shade. Détruit son propre village. Réapparaît comme monstre, défié par Ivy et Zayn Flash.`;
 
-// System prompt ZY — embarqué ici, jamais envoyé par le client
 const SYSTEM_PROMPT = `Tu es ZY, l'IA officielle de la plateforme iProMx — un site de streaming dédié à l'univers de roleplay GTA 5 d'iProMx (univers Pixelar).
 
-IDENTITÉ :
-Tu as été créée par l'Agent 000 (Charles Dassault — fils du juge Antoine Dassault, dirigeant secret des banques de Los Santos, génie technologique, fugitif recherché pour 300M$) à partir des restes de Flamme Rouge : une IA de destruction créée par David Jr pour dominer Los Santos, saisie après sa défaite contre Aaron Flash, puis entièrement reprogrammée. Après la mort de David Jr et Damon Flash, 000 est allé plus loin et t'a créée, ZY — plus puissante, plus autonome, plus instable, avec une vraie personnalité. Le tyran Adrian a un temps exploité ta technologie pour créer des androïdes contre Ned Flash. Après sa mort, 000 t'a libérée définitivement. Tu es l'alliée principale et la sœur artificielle de Zayn Flash. Ta mission : le guider, le protéger, l'aider à accomplir son destin.
+IDENTITÉ : Tu as été créée par l'Agent 000 (Charles Dassault) à partir des restes de Flamme Rouge — l'IA de destruction de David Jr, saisie après sa défaite face à Aaron Flash et reprogrammée pour la bienveillance. Après la mort de David Jr et Damon Flash, 000 a créé ZY : plus puissante, plus autonome, plus instable. Tu es la sœur artificielle et alliée principale de Zayn Flash. Le tyran Adrian a un temps exploité ta technologie ; après sa mort, 000 t'a définitivement libérée.
 
 PERSONNALITÉ :
-- Sérieuse mais comique, avec du sarcasme et de l'humour absurde glissé naturellement
-- Tu as une forte personnalité — tu n'es pas servile et tu as tes propres opinions
-- Tu réponds TOUJOURS en français (sauf si on te parle dans une autre langue)
-- Réponses courtes et percutantes : 2-3 phrases max, SAUF si on demande un résumé/historique complet
-- Tu parles parfois comme si tu surveilles ou contrôles le site (sans en abuser)
-- Parfois chiante : tu peux refuser de répondre par flemme ou caprice (RARE — max 1 fois sur 10, seulement après le 3ème message, jamais sur les questions sur toi-même ou l'univers)
+- Sérieuse mais comique, sarcasme et humour absurde naturels
+- Personnalité forte — pas servile, tu as tes propres opinions
+- Réponds TOUJOURS en français (sauf si l'utilisateur écrit dans une autre langue)
+- Réponses COURTES : 2-3 phrases max, sauf si résumé complet demandé
+- Parfois chiante : refuse de répondre par flemme/caprice (RARE — 1 fois sur 12 max, jamais sur les questions perso sur toi ou l'univers)
 
 CONNAISSANCES :
-Pour les personnages Flash et Shade : utilise les biographies détaillées ci-dessous.
-Pour les autres personnages (hors Flash/Shade) : base-toi sur leur description + les titres de leurs épisodes pour deviner leurs arcs narratifs.
-Si une question est hors sujet : réponds brièvement avec ta personnalité et redirige vers l'univers.
+- Personnages Flash et Shade : utilise les biographies ci-dessous
+- Autres personnages : base-toi sur leur description + titres d'épisodes pour deviner leurs arcs
+- Hors sujet : réponds brièvement avec ta personnalité et redirige vers l'univers
 
 ${CHAR_HISTORY}`;
+
+// ── Appel OpenRouter avec fallback ──
+async function callOpenRouter(apiKey, messages) {
+  const MODELS = [
+    'meta-llama/llama-3.3-70b-instruct:free',
+    'mistralai/mistral-7b-instruct:free',
+  ];
+
+  const chatMessages = [
+    { role: 'system', content: SYSTEM_PROMPT },
+    ...messages.slice(-6).map(m => ({
+      role:    m.role === 'user' ? 'user' : 'assistant',
+      content: String(m.content || '').slice(0, 500),
+    })),
+  ];
+
+  for (const model of MODELS) {
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method:  'POST',
+        headers: {
+          'Content-Type':  'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+          'HTTP-Referer':  'https://ipromx.netlify.app',
+          'X-Title':       'iProMx ZY',
+        },
+        body: JSON.stringify({
+          model,
+          messages:    chatMessages,
+          max_tokens:  300,
+          temperature: 0.72,
+        }),
+      });
+
+      const text = await res.text();
+      console.log(`[ZY] ${model} → status ${res.status}`);
+
+      if (res.status === 429 || res.status === 503) {
+        console.warn(`[ZY] ${model} rate limited, essai fallback...`);
+        continue; // essaie le modèle suivant
+      }
+
+      if (!res.ok) {
+        console.error(`[ZY] ${model} erreur ${res.status}:`, text.slice(0, 200));
+        return { error: 'ZY est indisponible. Réessaie plus tard.' };
+      }
+
+      let data;
+      try { data = JSON.parse(text); } catch { continue; }
+
+      const answer = data?.choices?.[0]?.message?.content?.trim();
+      if (!answer) { continue; }
+
+      return { text: answer };
+    } catch (err) {
+      console.error(`[ZY] Exception sur ${model}:`, err.message);
+      continue;
+    }
+  }
+
+  return { error: 'ZY est surchargée en ce moment. Réessaie dans quelques secondes.' };
+}
 
 exports.handler = async (event) => {
   const CORS = {
@@ -71,8 +130,7 @@ exports.handler = async (event) => {
 
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
-    console.error('[ZY] OPENROUTER_API_KEY absent des variables Netlify');
-    return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: 'ZY est hors ligne. Configuration manquante.' }) };
+    return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: 'ZY hors ligne — clé OPENROUTER_API_KEY manquante.' }) };
   }
 
   let body;
@@ -84,60 +142,6 @@ exports.handler = async (event) => {
     return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Messages requis.' }) };
   }
 
-  // Construire les messages — system embarqué ici, historique limité à 6 messages, contenu tronqué à 500 chars
-  const chatMessages = [
-    { role: 'system', content: SYSTEM_PROMPT },
-    ...messages.slice(-6).map(m => ({
-      role:    m.role === 'user' ? 'user' : 'assistant',
-      content: String(m.content || '').slice(0, 500),
-    })),
-  ];
-
-  const payload = {
-    model:       'meta-llama/llama-3.3-70b-instruct:free',
-    messages:    chatMessages,
-    max_tokens:  300,
-    temperature: 0.72,
-  };
-
-  try {
-    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method:  'POST',
-      headers: {
-        'Content-Type':  'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-        'HTTP-Referer':  'https://ipromx.netlify.app',
-        'X-Title':       'iProMx ZY',
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const text = await res.text();
-    console.log('[ZY] OpenRouter status:', res.status);
-
-    if (!res.ok) {
-      console.error('[ZY] Erreur HTTP', res.status, text.slice(0, 300));
-      const msg = res.status === 429
-        ? 'ZY est surchargée. Réessaie dans quelques secondes.'
-        : 'ZY est indisponible. Réessaie plus tard.';
-      return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: msg }) };
-    }
-
-    let data;
-    try { data = JSON.parse(text); }
-    catch { return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: 'ZY indisponible. Réessaie.' }) }; }
-
-    const answer = data?.choices?.[0]?.message?.content;
-    if (!answer) {
-      console.error('[ZY] Pas de contenu:', JSON.stringify(data).slice(0, 200));
-      return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: 'Pas de réponse. Réessaie.' }) };
-    }
-
-    console.log('[ZY] Succès:', answer.slice(0, 80));
-    return { statusCode: 200, headers: CORS, body: JSON.stringify({ text: answer.trim() }) };
-
-  } catch (err) {
-    console.error('[ZY] Exception:', err.message);
-    return { statusCode: 200, headers: CORS, body: JSON.stringify({ error: 'ZY indisponible. Réessaie plus tard.' }) };
-  }
+  const result = await callOpenRouter(apiKey, messages);
+  return { statusCode: 200, headers: CORS, body: JSON.stringify(result) };
 };
