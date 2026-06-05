@@ -49,10 +49,17 @@ ${CHAR_HISTORY}`;
 
 // ── Appel OpenRouter avec fallback robuste et intelligent ──
 async function callOpenRouter(apiKey, messages) {
+  // Liste élargie de modèles gratuits pour maximiser les chances en cas de forte affluence
   const MODELS = [
     'google/gemini-2.5-flash:free',
     'qwen/qwen-2.5-72b-instruct:free',
-    'meta-llama/llama-3.3-70b-instruct:free'
+    'meta-llama/llama-3.3-70b-instruct:free',
+    'mistralai/mistral-7b-instruct:free'
+    
+    // NOTE STABILITÉ : Si tu as ne serait-ce que 0,50 $ de crédit sur OpenRouter,
+    // remplace la liste ci-dessus par la version payante prioritaire ci-dessous.
+    // Elle coûte 0,07 $ pour 1 MILLION de tokens (donc virtuellement gratuite) et ne subit JAMAIS de 429 :
+    // 'google/gemini-2.5-flash'
   ];
 
   const chatMessages = [
@@ -63,8 +70,8 @@ async function callOpenRouter(apiKey, messages) {
     })),
   ];
 
-  // Variable pour stocker la cause réelle de l'échec
-  let detailErreur = "Aucun modèle n'a pu être contacté (problème réseau global).";
+  // Tableau pour stocker le statut de chaque modèle testé
+  let historiqueErreurs = [];
 
   for (const model of MODELS) {
     try {
@@ -85,11 +92,16 @@ async function callOpenRouter(apiKey, messages) {
       });
 
       const text = await res.text();
-      console.log(`[ZY] ${model} → statut HTTP ${res.status}`);
 
       if (!res.ok) {
-        // On mémorise la réponse brute de l'erreur (ex: clé invalide, crédits insuffisants)
-        detailErreur = `Modèle ${model} a échoué avec le statut ${res.status}. Réponse OpenRouter : ${text.slice(0, 150)}`;
+        // On extrait un morceau propre du message d'erreur d'OpenRouter
+        let shortError = text;
+        try {
+          const parsed = JSON.parse(text);
+          shortError = parsed.error?.message || text;
+        } catch (e) {}
+        
+        historiqueErreurs.push(`• ${model} → Code ${res.status} (${shortError.slice(0, 80)})`);
         continue;
       }
 
@@ -97,17 +109,22 @@ async function callOpenRouter(apiKey, messages) {
       try { data = JSON.parse(text); } catch { continue; }
 
       const answer = data?.choices?.[0]?.message?.content?.trim();
-      if (!answer) continue;
+      if (!answer) {
+        historiqueErreurs.push(`• ${model} → Réponse vide json`);
+        continue;
+      }
 
       return { text: answer };
     } catch (err) {
-      detailErreur = `Exception réseau sur ${model} : ${err.message}`;
+      historiqueErreurs.push(`• ${model} → Erreur réseau : ${err.message}`);
       continue;
     }
   }
 
-  // Renvoie le diagnostic précis directement dans l'interface du tchat
-  return { error: `[Diagnostic ZY] Échec total. ${detailErreur}` };
+  // Si tout a échoué, on affiche le compte rendu exact ligne par ligne dans le tchat
+  return { 
+    error: `[Diagnostic Multi-Modèles]\nTous les modèles ont échoué :\n${historiqueErreurs.join('\n')}` 
+  };
 }
 
 exports.handler = async (event) => {
