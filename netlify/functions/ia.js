@@ -50,15 +50,10 @@ ${CHAR_HISTORY}`;
 // ── Appel OpenRouter avec fallback robuste et intelligent ──
 async function callOpenRouter(apiKey, messages) {
   // Liste corrigée avec les EXACTS slugs gratuits d'OpenRouter (Plus de 404)
-  const MODELS = [
-    'google/gemini-flash-1.5-8b:free',
-    'qwen/qwen-2.5-7b-instruct:free',
+ const MODELS = [
+    'meta-llama/llama-3-8b-instruct:free',
+    'nvidia/llama-3.1-nemotron-70b-instruct:free',
     'meta-llama/llama-3.3-70b-instruct:free'
-    
-    // 💡 CONSEIL POUR TON SITE : Les modèles ":free" d'OpenRouter subissent constamment des 429 en soirée.
-    // Si tu ajoutes 1$ de crédit sur ton compte OpenRouter, remplace TOUTE cette liste par le modèle ci-dessous.
-    // Il coûte 0,07$ pour 1 MILLION de tokens (soit environ 0,00005$ par message), est ultra-rapide et ne plante JAMAIS :
-    // 'google/gemini-flash-1.5-8b'
   ];
 
   const chatMessages = [
