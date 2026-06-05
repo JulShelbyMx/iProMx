@@ -49,15 +49,12 @@ ${CHAR_HISTORY}`;
 
 // ── Appel OpenRouter avec fallback robuste et intelligent ──
 async function callOpenRouter(apiKey, messages) {
-  // Sélection de modèles gratuits fiables et rapides (Gemini 2.5 Flash est ultra-stable en gratuit)
   const MODELS = [
     'google/gemini-2.5-flash:free',
     'qwen/qwen-2.5-72b-instruct:free',
     'meta-llama/llama-3.3-70b-instruct:free'
   ];
 
-  // OPTIMISATION CRÉDITS : On ne garde que les 4 derniers messages (2 tours de dialogue)
-  // et on tronque drastiquement les messages longs saisis par l'utilisateur (300 car. max)
   const chatMessages = [
     { role: 'system', content: SYSTEM_PROMPT },
     ...messages.slice(-4).map(m => ({
@@ -65,6 +62,9 @@ async function callOpenRouter(apiKey, messages) {
       content: String(m.content || '').slice(0, 300),
     })),
   ];
+
+  // Variable pour stocker la cause réelle de l'échec
+  let detailErreur = "Aucun modèle n'a pu être contacté (problème réseau global).";
 
   for (const model of MODELS) {
     try {
@@ -79,17 +79,17 @@ async function callOpenRouter(apiKey, messages) {
         body: JSON.stringify({
           model,
           messages:    chatMessages,
-          max_tokens:  120, // Économise les crédits de sortie : ZY fait des réponses courtes
+          max_tokens:  120,
           temperature: 0.65,
         }),
       });
 
       const text = await res.text();
-      console.log(`[ZY] ${model} → status ${res.status}`);
+      console.log(`[ZY] ${model} → statut HTTP ${res.status}`);
 
-      // CORRECTION DU BUG : Si le modèle échoue (peu importe l'erreur), on CONTINUE au lieu de return !
       if (!res.ok) {
-        console.warn(`[ZY] Échec sur ${model} (status ${res.status}), bascule sur le modèle suivant...`);
+        // On mémorise la réponse brute de l'erreur (ex: clé invalide, crédits insuffisants)
+        detailErreur = `Modèle ${model} a échoué avec le statut ${res.status}. Réponse OpenRouter : ${text.slice(0, 150)}`;
         continue;
       }
 
@@ -101,13 +101,13 @@ async function callOpenRouter(apiKey, messages) {
 
       return { text: answer };
     } catch (err) {
-      console.error(`[ZY] Exception sur ${model}:`, err.message);
-      continue; // En cas de plantage réseau, on passe au modèle suivant
+      detailErreur = `Exception réseau sur ${model} : ${err.message}`;
+      continue;
     }
   }
 
-  // Si aucun modèle n'a répondu après avoir parcouru toute la liste
-  return { error: 'Système ZY temporairement surchargé. Réessaie dans quelques instants.' };
+  // Renvoie le diagnostic précis directement dans l'interface du tchat
+  return { error: `[Diagnostic ZY] Échec total. ${detailErreur}` };
 }
 
 exports.handler = async (event) => {
