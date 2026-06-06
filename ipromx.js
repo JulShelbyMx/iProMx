@@ -479,56 +479,70 @@ function renderSocial() {
 function renderNotification() {
   const banner = $('notifBanner');
   const inner  = $('notifInner');
-  if(!banner||!inner) return;
+  if (!banner || !inner) return;
 
-  const n = DATA.notification;
-  if(!n?.active) { banner.style.display='none'; return; }
-
-  // Construire le bouton action
-  let actionBtn = '';
-  if(n.link) {
-    const char = getChar(n.link.familyId, n.link.charId);
-    const eps  = char?.seasons?.[n.link.season]||[];
-    const epIdx= eps.findIndex(e=>e.num===n.link.epNum);
-    if(epIdx>=0) {
-      actionBtn = `<button onclick="playEp('${n.link.familyId}','${n.link.charId}','${esc(n.link.season)}',${epIdx})"
-        style="flex-shrink:0;padding:9px 20px;background:linear-gradient(135deg,var(--iron),var(--iron-bright));
-               border:none;border-radius:var(--radius);color:white;font-family:var(--font-display);
-               font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
-               box-shadow:0 3px 12px var(--iron-glow);white-space:nowrap;transition:all .2s;">
-        <i class="fas fa-play"></i> Regarder
-      </button>`;
-    }
-  } else if(n.externalUrl) {
-    actionBtn = `<a href="${n.externalUrl}" target="_blank"
-      style="flex-shrink:0;padding:9px 20px;background:linear-gradient(135deg,var(--iron),var(--iron-bright));
-             border:none;border-radius:var(--radius);color:white;font-family:var(--font-display);
-             font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
-             text-decoration:none;box-shadow:0 3px 12px var(--iron-glow);white-space:nowrap;">
-      <i class="fas fa-external-link-alt"></i> ${n.externalLabel||'Voir'}
-    </a>`;
+  const notifs = DATA.notifications || { update: DATA.notification };
+  if (!notifs) {
+    banner.style.display = 'none';
+    return;
   }
 
-  inner.innerHTML = `
-    <div style="
-      display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-      padding:14px 20px;margin:16px 0 0;
-      background:linear-gradient(135deg,rgba(231,76,60,0.1),rgba(245,166,35,0.06));
-      border:1px solid rgba(245,166,35,0.25);border-left:3px solid var(--arc);
-      border-radius:var(--radius);position:relative;
-    ">
-      <span style="
-        flex-shrink:0;padding:3px 10px;background:var(--arc);color:var(--void);
-        font-family:var(--font-display);font-size:.55rem;font-weight:900;
-        letter-spacing:2px;border-radius:3px;text-transform:uppercase;
-      ">${n.label||'INFO'}</span>
-      <span style="flex:1;font-family:var(--font-body);font-size:.95rem;color:var(--text-dim);min-width:150px;">
-        ${(Array.isArray(n.texts) ? n.texts : [n.text||n.texts]).join('<br>')}
-      </span>
-      ${actionBtn}
+  let html = '';
 
-    </div>`;
-  banner.style.display = '';
+  const buildNotifHtml = (n, type) => {
+    if (!n || !n.active) return '';
+    
+    let actionBtn = '';
+    // Logique spécifique : seul le bloc 'episode' affiche le bouton lecture
+    if (type === 'episode' && n.link) {
+      const char = getChar(n.link.familyId, n.link.charId);
+      const eps  = char?.seasons?.[n.link.season] || [];
+      const epIdx = eps.findIndex(e => e.num === n.link.epNum);
+      
+      if (epIdx >= 0) {
+        actionBtn = `<button onclick="playEp('${n.link.familyId}','${n.link.charId}','${esc(n.link.season)}',${epIdx})"
+          style="flex-shrink:0;padding:9px 20px;background:linear-gradient(135deg,var(--iron),var(--iron-bright));
+                 border:none;border-radius:var(--radius);color:white;font-family:var(--font-display);
+                 font-size:.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+                 box-shadow:0 3px 12px var(--iron-glow);white-space:nowrap;transition:all .2s;">
+          <i class="fas fa-play"></i> Regarder
+        </button>`;
+      }
+    }
+
+    const labelColor = type === 'episode' ? 'var(--iron-bright)' : 'var(--arc)';
+    const borderColor = type === 'episode' ? 'rgba(231,76,60,0.3)' : 'rgba(245,166,35,0.25)';
+    const bgGradient = type === 'episode' 
+       ? 'linear-gradient(135deg,rgba(231,76,60,0.1),rgba(192,57,43,0.05))'
+       : 'linear-gradient(135deg,rgba(245,166,35,0.08),rgba(231,76,60,0.04))';
+
+    return `
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 20px;
+                  background:${bgGradient};border:1px solid ${borderColor};
+                  border-left:3px solid ${labelColor};border-radius:var(--radius);position:relative;">
+        <span style="flex-shrink:0;padding:3px 10px;background:${labelColor};color:var(--void);
+                     font-family:var(--font-display);font-size:.55rem;font-weight:900;
+                     letter-spacing:2px;border-radius:3px;text-transform:uppercase;">${n.label||'INFO'}</span>
+        <span style="flex:1;font-family:var(--font-body);font-size:.95rem;color:var(--text-dim);min-width:150px;line-height:1.5;">
+          ${Array.isArray(n.texts) ? n.texts.join('<br>') : (n.text || n.texts)}
+        </span>
+        ${actionBtn}
+      </div>`;
+  };
+
+  html += buildNotifHtml(notifs.episode, 'episode');
+  html += buildNotifHtml(notifs.update, 'update');
+
+  if (html) {
+    inner.innerHTML = html;
+    inner.style.display = 'flex';
+    inner.style.flexDirection = 'column';
+    inner.style.gap = '12px';
+    inner.style.marginTop = '16px';
+    banner.style.display = '';
+  } else {
+    banner.style.display = 'none';
+  }
 }
 
 // ── GALERIE ───────────────────────────────────────────────────

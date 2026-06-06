@@ -813,6 +813,8 @@ const DATA = {
         {num:99,title:'GTA 5 RP - Jake x Tom : La Rencontre avec Mon Père ! [Fin]',videoId:'r7Rq1RCInqQ'}
     ],
     'Saison 4':[
+      {num:100,title:'GTA 5 RP À ZÉRO ! #1 - Saison 4 (Jake Winters : Je vous présente mes enfants)',videoId:'0vZnfLlhKZo', youtubeLink:true},
+
      ],
 }, },
         { id:'oliver-winters', name:'Oliver Winters', image:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver-bannière.webp',
@@ -1448,27 +1450,31 @@ const DATA = {
   ],
 
   // ── NOTIFICATIONS (modifier manuellement ici) ────────────────
-  // Mettre null pour désactiver, ou remplir l'objet
-  notification: {
-    // active: false,  // mettre false pour masquer
-    active: true,
-    label: 'NOUVEAU',      // badge à gauche (ex: "MISE À JOUR", "NOUVEAU")
-    //text:  'Nouvel épisode disponible : ... ',
-    texts: [
-    'Nouveaux avatars disponibles ! Choisissez celui qui vous correspond → avatar → paramètres → ✏️',
-    'Galerie disponible : retrouvez les meilleures images des personnages !',
-    '10 thèmes disponibles ! Personnalisez votre interface → avatar → paramètres → couleur'
-  ],
-    // Lien vers un épisode précis (laisser null pour pas de bouton)
-    link: {
-      //familyId: 'kingsley',
-      //charId:   'zack-kingsley',
-      //season:   'Saison 1',
-      //epNum:    18           // numéro de l'épisode
+  // Mettre active: false pour masquer un bloc spécifique
+  notifications: {
+    episode: {
+      active: true,
+      label: 'NOUVEL ÉPISODE',
+      text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #1 - Saison 4 (Jake Winters : Je vous présente mes enfants)',
+      link: {
+        familyId: 'winters',
+        charId:   'jake-winters',
+        season:   'Saison 4',
+        epNum:    100
+      },
+      
+    },
+    update: {
+      active: true,
+      label: 'MISE À JOUR',
+      texts: [
+        'Nouveaux avatars disponibles ! Choisissez celui qui vous correspond → avatar → paramètres → ✏️',
+        'Galerie disponible : retrouvez les meilleures images des personnages !',
+        '10 thèmes disponibles ! Personnalisez votre interface → avatar → paramètres → couleur',
+        'Nouvelle IA "ZY" disponible : Encore en cours d\'implantation, soyez indulgeant, ne spammez pas ! Ses connaissances sont encore limitées pour l\'instant '
+      ]
+      // Possibilité d'ajouter : externalUrl: 'https://...', externalLabel: 'Voir'
     }
-    // Pour une URL externe à la place :
-    // externalUrl: 'https://...'
-    // externalLabel: 'Voir'
   },
 
   // ── CINÉMATIQUES ─────────────────────────────────────────────
