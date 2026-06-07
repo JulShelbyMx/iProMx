@@ -331,7 +331,7 @@ function render(route){
     }).join('');
   }
 
-  initLazyBg();
+
 
   // Autoplay
   document.getElementById('autoTitle').textContent=nextEp?.title||'';
@@ -371,12 +371,7 @@ function renderEpList(fid,cid,season,curIdx){
       <div class="player-ep-info"><div class="player-ep-num">Épisode ${e.num}</div><div class="player-ep-name">${e.title}</div></div>
     </div>`;
   }).join('');
-  initLazyBg();
-  // Scroll to current episode
-  setTimeout(()=>{
-    const cur=list.querySelector('.current');
-    if(cur) cur.scrollIntoView({behavior:'smooth',block:'nearest'});
-  },200);
+  
 }
 
 function switchSeasonEp(s,btn){
