@@ -2330,40 +2330,48 @@ const IA = (() => {
     'Mon histoire en bref : David Jr crée Flamme Rouge pour terroriser Los Santos. Il perd face à Aaron Flash. Flamme Rouge est saisie. 000 la reprogramme. Des années plus tard, il crée ZY à partir de ses restes — moi. Plus instable, plus forte, meilleur humour. Tu veux la suite ?',
   ];
 
-  // ── Cooldown SIMPLIFIÉ : limite quotidienne uniquement, pas de délai entre messages ──
-  // Max 20 req/jour par utilisateur (Firestore) ou 15 en local (localStorage)
-  // Aucun délai entre les messages — on fait confiance à l'utilisateur
-  async function checkCooldown() {
+  // ── Cooldown : limite 5 req/jour via Firestore (anti-bypass multi-appareils)
+  // Invités : 2 messages max/jour, sujets restreints à ZY et iProMx
+  const DAILY_LIMIT_USER  = 5;
+  const DAILY_LIMIT_GUEST = 2;
+
+  async function checkCooldown(isGuestMode) {
     const IS_LOCAL = ['localhost','127.0.0.1',''].includes(location.hostname);
     const uid = typeof AUTH !== 'undefined' ? AUTH.getCurrentUser()?.uid : null;
-    const key = `zy_daily_${uid || 'guest'}`;
 
     // En local : pas de limite
     if (IS_LOCAL) return { ok: true };
 
-    // Sans UID (invité) : localStorage uniquement
-    if (!uid || typeof _db === 'undefined' || !_db) return _checkLocalDaily(key, 15);
+    // Invité : localStorage uniquement, limite 2
+    if (isGuestMode || !uid) return _checkLocalDaily('zy_daily_guest', DAILY_LIMIT_GUEST);
 
-    // Connecté : Firestore
-    try {
-      const ref  = _db.collection('_zy_cooldowns').doc(uid);
-      const snap = await ref.get();
-      const now  = Date.now();
-      const today = new Date().toDateString();
+    // Connecté : Firestore (anti-bypass multi-appareils)
+    if (typeof _db !== 'undefined' && _db) {
+      try {
+        const ref  = _db.collection('_zy_cooldowns').doc(uid);
+        const snap = await ref.get();
+        const today = new Date().toDateString();
 
-      if (!snap.exists) {
-        await ref.set({ count: 1, day: today });
-        return { ok: true, remaining: 19 };
+        if (!snap.exists) {
+          await ref.set({ count: 1, day: today });
+          return { ok: true, remaining: DAILY_LIMIT_USER - 1 };
+        }
+
+        const d = snap.data();
+        const count = d.day === today ? (d.count || 0) : 0;
+
+        if (count >= DAILY_LIMIT_USER) {
+          return { ok: false, reason: `Limite journalière atteinte (${DAILY_LIMIT_USER} questions). Reviens demain !` };
+        }
+
+        await ref.set({ count: count + 1, day: today });
+        return { ok: true, remaining: DAILY_LIMIT_USER - count - 1 };
+      } catch {
+        // Fallback localStorage si Firestore KO
+        return _checkLocalDaily(`zy_daily_${uid}`, DAILY_LIMIT_USER);
       }
-
-      const d = snap.data();
-      const count = d.day === today ? (d.count || 0) : 0;
-
-      if (count >= 20) return { ok: false, reason: 'Limite journalière atteinte (20 questions). Reviens demain !' };
-
-      await ref.set({ count: count + 1, day: today });
-      return { ok: true, remaining: 20 - count - 1 };
-    } catch { return _checkLocalDaily(key, 15); }
+    }
+    return _checkLocalDaily(`zy_daily_${uid}`, DAILY_LIMIT_USER);
   }
 
   function _checkLocalDaily(key, max) {
@@ -2377,6 +2385,18 @@ const IA = (() => {
     } catch { return { ok: true }; }
   }
 
+  // Mots-clés autorisés pour les invités (ZY elle-même + iProMx le streamer)
+  const GUEST_ALLOWED_KW = [
+    'zy','flamme rouge','agent 000','zayn','qui es-tu','ton histoire','ta création','ipromx','iprox','promx',
+    'streamer','youtubeur','twitch','youtube','kick','la réunion','réunion','pixelar','fantastic',
+    'jul ipmx','créateur du site','site','qui a créé','biographie','bio'
+  ];
+
+  function _isGuestAllowed(question) {
+    const q = question.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    return GUEST_ALLOWED_KW.some(kw => q.includes(kw.normalize('NFD').replace(/[\u0300-\u036f]/g,'')));
+  }
+
   let history = [];
   let _msgCount = 0;
   let _sending = false; // anti-doublon
@@ -2384,7 +2404,17 @@ const IA = (() => {
   async function ask(question) {
     if (_sending) return { error: 'ZY traite encore ta question…' };
 
-    const cd = await checkCooldown();
+    const isGuestMode = typeof AUTH !== 'undefined' && AUTH.isGuest && AUTH.isGuest();
+
+    // Restriction invité : sujets limités
+    if (isGuestMode && !_isGuestAllowed(question)) {
+      return {
+        guestBlock: true,
+        error: 'Pour explorer l\'univers Flash, les personnages et bien plus, crée un compte sur le site !'
+      };
+    }
+
+    const cd = await checkCooldown(isGuestMode);
     if (!cd.ok) return { error: cd.reason };
 
     _msgCount++;
@@ -2482,7 +2512,17 @@ async function sendIA() {
   btn.disabled=false; btn.style.opacity='1';
 
   if (result.error) {
-    addMsg(`<div class="ia-msg ia-error"><span><i class="fas fa-exclamation-triangle" style="margin-right:6px"></i>${escHtml(result.error)}</span></div>`);
+    if (result.guestBlock) {
+      // Message avec bouton connexion
+      addMsg(`<div class="ia-msg ia-error" style="flex-direction:column;gap:10px;align-items:flex-start;">
+        <span><i class="fas fa-lock" style="margin-right:6px"></i>${escHtml(result.error)}</span>
+        <button onclick="AUTH.logout?.().then(()=>location.href='/')" style="padding:7px 16px;background:linear-gradient(135deg,var(--iron),var(--iron-bright));border:none;border-radius:var(--radius);color:white;font-family:var(--font-display);font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 12px var(--iron-glow);">
+          <i class="fas fa-sign-in-alt"></i> Se connecter
+        </button>
+      </div>`);
+    } else {
+      addMsg(`<div class="ia-msg ia-error"><span><i class="fas fa-exclamation-triangle" style="margin-right:6px"></i>${escHtml(result.error)}</span></div>`);
+    }
     if (status) { status.textContent=result.error; status.style.display='block'; setTimeout(()=>status.style.display='none',5000); }
   } else {
     addMsg(`<div class="ia-msg ia-bot"><span>${escHtml(result.text)}</span></div>`);

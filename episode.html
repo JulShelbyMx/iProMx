@@ -26,7 +26,7 @@
       white-space: nowrap;
     }
     .ep-back-btn:hover { border-color: var(--arc); color: var(--arc); transform: translateX(-2px); }
-    .ep-page { padding-top: 56px; min-height: 100vh; }
+    .ep-page { padding-top: 16px; min-height: 100vh; }
     @media(max-width:1100px){
       .player-layout{grid-template-columns:1fr;padding:14px;}
       .player-sidebar{position:static;height:auto;}
@@ -34,33 +34,39 @@
     }
     @media(max-width:768px){
       .ep-back-btn{top:10px;left:10px;font-size:.5rem;padding:7px 12px;letter-spacing:1px;}
-      .ep-page{padding-top:44px;}
+      .ep-page{padding-top:40px;}
+      .player-video-area{margin-top:0;}
       .player-layout{padding:10px 12px 48px;gap:14px;}
-      .player-ep-title{font-size:1.05rem;}
+      .player-ep-title{font-size:1rem;}
+      .player-series-name{font-size:.78rem;}
       .player-breadcrumb{font-size:.5rem;}
-      .player-info-block{padding:12px 0 14px;}
+      .player-info-block{padding:10px 0 12px;}
       .player-actions-row{gap:8px;}
       .btn-ep-nav{padding:8px 12px;font-size:.56rem;}
       .btn-ep-nav span{display:none;}
       .player-char-block{flex-direction:column;}
-      .player-char-block > div:first-child{width:100%;height:100px;background-size:cover;background-position:center;border-radius:var(--radius);}
+      .player-char-avatar{width:100%;height:100px;object-fit:cover;border-radius:var(--radius);}
       .player-season-tabs{gap:5px;}
       .player-season-tab{padding:6px 14px;font-size:.54rem;}
       .player-ep-item{grid-template-columns:110px 1fr;}
       .player-ep-thumb{height:62px;}
       .suggestion-card{grid-template-columns:80px 1fr;}
       .suggestion-thumb{height:45px;}
-      .upnext-thumb{height:150px;}
+      .upnext-thumb{height:130px;}
+      .upnext-card{flex-direction:column;}
+      .sidebar-section-title{font-size:.58rem;}
     }
     @media(max-width:480px){
       .ep-back-btn span{display:none;}
       .ep-back-btn{width:36px;height:36px;padding:0;justify-content:center;border-radius:50%;}
+      .player-layout{padding:8px 10px 48px;}
       .player-ep-item{grid-template-columns:1fr;}
-      .player-ep-thumb{height:150px;}
+      .player-ep-thumb{height:140px;}
       .player-actions-row{flex-direction:column;align-items:flex-start;}
       .player-nav-eps{width:100%;}
       .btn-ep-nav{flex:1;justify-content:center;}
       .btn-ep-nav span{display:inline;}
+      .player-ep-title{font-size:.95rem;}
     }
   </style>
 </head>
@@ -74,6 +80,8 @@
   const theme=T[t]||T.iron;
   Object.entries(theme).forEach(([k,v])=>document.documentElement.style.setProperty(k,v));
 })();
+// Scroll to top automatique
+window.scrollTo({ top: 0, behavior: 'instant' });
 </script>
 
 <a class="ep-back-btn" id="backBtn" href="/"><i class="fas fa-arrow-left"></i> <span id="backLabel">Retour</span></a>
