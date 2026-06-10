@@ -45,6 +45,15 @@
       position: relative; height: 58vh; min-height: 420px; max-height: 680px;
       background-size: cover; background-position: center 20%; overflow: hidden;
     }
+    /* Laws modal (Sylvester Shade) */
+    .laws-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;}
+    .laws-modal.open{display:flex;}
+    .laws-book{position:relative;max-width:90vw;max-height:90vh;background:#0a0a0a;border:1px solid var(--edge);border-radius:var(--radius-lg);overflow:hidden;}
+    .laws-close{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.6);border:none;color:white;font-size:1.1rem;cursor:pointer;z-index:2;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+    .laws-controls{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px;background:rgba(0,0,0,.7);}
+    .laws-nav-btn{background:var(--panel);border:1px solid var(--edge);color:var(--text);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.85rem;}
+    .laws-nav-btn:disabled{opacity:.3;cursor:default;}
+    .laws-page-indicator{font-family:var(--font-display);font-size:.6rem;letter-spacing:2px;color:var(--arc);}
     .char-hero::after {
       content: ''; position: absolute; inset: 0;
       background:
@@ -127,8 +136,8 @@
       .char-sidebar{position:static;}
     }
     @media(max-width:768px){
-      .char-hero{min-height:280px;height:48vw;max-height:400px;}
-      .char-hero-content{left:16px;right:5%;bottom:20px;}
+      .char-hero{min-height:320px;height:auto;max-height:none;padding-bottom:28px;}
+      .char-hero-content{position:relative;left:auto;right:auto;bottom:auto;padding:100px 16px 0;}
       .char-name{font-size:clamp(1.3rem,5vw,2rem);letter-spacing:1px;}
       .char-desc{font-size:.86rem;max-width:100%;-webkit-line-clamp:3;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden;}
       .char-actions .btn-primary,.char-actions .btn-secondary{padding:10px 16px;font-size:.62rem;}
@@ -142,8 +151,8 @@
       .user-btn{top:10px;right:10px;}
     }
     @media(max-width:480px){
-      .char-hero{min-height:230px;height:52vw;max-height:330px;}
-      .char-hero-content{left:12px;right:4%;bottom:14px;}
+      .char-hero{min-height:280px;}
+      .char-hero-content{padding:80px 12px 0;}
       .char-name{font-size:clamp(1.1rem,4.5vw,1.5rem);}
       .char-desc{font-size:.82rem;}
       .ep-grid{grid-template-columns:repeat(2,1fr);gap:7px;}
@@ -240,6 +249,7 @@ function render(route){
     <p class="char-desc">${char.description||''}</p>
     <div class="char-actions">
       ${firstEp?`<a href="${SLUG.epURL(_fid,_cid,firstEp.season,firstEp.ep.num)}" class="btn-primary" style="text-decoration:none;"><i class="fas fa-play"></i> Regarder</a>`:''}
+      ${char.hasLawBook?`<button class="btn-secondary" onclick="openLawBook()" title="Lire les Lois des Shades"><i class="fas fa-book"></i> Lois des Shades</button>`:''}
       <button class="btn-icon${inList?' active':''}" id="listBtn" onclick="handleList()" title="${inList?'Retirer de ma liste':'Ajouter à ma liste'}"><i class="fas fa-${inList?'check':'plus'}"></i></button>
       <button class="btn-icon" onclick="shareChar()" title="Partager"><i class="fas fa-share-alt"></i></button>
     </div>
@@ -408,6 +418,44 @@ appInit(()=>{
   if(route.view!=='character'&&route.view!=='episode'){location.href='/';return;}
   render(route);
 });
+
+// ── LAW BOOK (Sylvester Shade) ──────────────────────────────
+let _lawImgs=[], _lawPage=0;
+function openLawBook(){
+  const char=getChar(_fid,_cid);
+  if(!char?.lawBookImages?.length) return;
+  _lawImgs=char.lawBookImages; _lawPage=0;
+  _updateLaw();
+  document.getElementById('charLawsModal')?.classList.add('open');
+}
+function closeLawBook(){ document.getElementById('charLawsModal')?.classList.remove('open'); }
+function _updateLaw(){
+  const img=document.getElementById('charLawBookImg');
+  const pi=document.getElementById('charLawPageInd');
+  const pv=document.getElementById('charLawPrev');
+  const nx=document.getElementById('charLawNext');
+  if(img) img.src=_lawImgs[_lawPage];
+  if(pi)  pi.textContent=`${_lawPage+1} / ${_lawImgs.length}`;
+  if(pv)  pv.disabled=_lawPage===0;
+  if(nx)  nx.disabled=_lawPage===_lawImgs.length-1;
+}
+function lawCharPrev(){ if(_lawPage>0){_lawPage--;_updateLaw();} }
+function lawCharNext(){ if(_lawPage<_lawImgs.length-1){_lawPage++;_updateLaw();} }
+window.openLawBook=openLawBook; window.closeLawBook=closeLawBook;
+window.lawCharPrev=lawCharPrev; window.lawCharNext=lawCharNext;
 </script>
+
+<!-- Laws Modal -->
+<div class="laws-modal" id="charLawsModal" onclick="if(event.target===this)closeLawBook()">
+  <div class="laws-book">
+    <button class="laws-close" onclick="closeLawBook()"><i class="fas fa-times"></i></button>
+    <img id="charLawBookImg" src="" alt="Livre des Lois" style="display:block;width:100%;max-height:75vh;object-fit:contain;background:#000;">
+    <div class="laws-controls">
+      <button class="laws-nav-btn" id="charLawPrev" onclick="lawCharPrev()"><i class="fas fa-chevron-left"></i></button>
+      <span class="laws-page-indicator" id="charLawPageInd">1 / 3</span>
+      <button class="laws-nav-btn" id="charLawNext" onclick="lawCharNext()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

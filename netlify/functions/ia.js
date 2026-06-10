@@ -278,10 +278,70 @@ async function callOpenRouter(apiKey, messages) {
   return null;
 }
 
+// ── FIREBASE ADMIN (rate-limit par userId) ────────────────────
+let _adminDb = null;
+function getAdminDb() {
+  if (_adminDb) return _adminDb;
+  try {
+    const admin = require('firebase-admin');
+    if (!admin.apps.length) {
+      const svc = process.env.FIREBASE_ADMIN_KEY;
+      if (!svc) { log.warn('FIREBASE_ADMIN_KEY absente, rate-limit userId désactivé'); return null; }
+      admin.initializeApp({ credential: admin.credential.cert(JSON.parse(svc)) });
+    }
+    _adminDb = admin.firestore();
+    return _adminDb;
+  } catch(e) { log.warn('Firebase Admin init échoué: ' + e.message); return null; }
+}
+
+// Limite : MAX_DAILY_IA messages par userId (ou IP) par fenêtre de 24h
+const MAX_DAILY_IA = 30;
+const IA_WINDOW    = 24 * 60 * 60 * 1000; // 24h en ms
+
+async function checkUserRateLimit(userId, ip) {
+  const db = getAdminDb();
+  // Clé : userId si disponible, sinon IP
+  const key = userId ? `user_${userId}` : `ip_${ip.replace(/[.:]/g, '_')}`;
+  const docId = `ia_rl_${key}`;
+
+  if (!db) {
+    // Pas de Firestore dispo → on laisse passer (fail open)
+    log.warn('Rate-limit IA: Firestore indisponible, passage autorisé');
+    return { allowed: true };
+  }
+
+  const ref = db.collection('_ia_rate_limits').doc(docId);
+  const now = Date.now();
+
+  try {
+    const result = await db.runTransaction(async (tx) => {
+      const snap = await tx.get(ref);
+      const data = snap.exists ? snap.data() : { count: 0, windowStart: now };
+
+      if (now - data.windowStart > IA_WINDOW) {
+        // Nouvelle fenêtre
+        tx.set(ref, { count: 1, windowStart: now, key, updatedAt: new Date().toISOString() });
+        return { allowed: true, remaining: MAX_DAILY_IA - 1 };
+      }
+      if (data.count >= MAX_DAILY_IA) {
+        const resetIn = Math.ceil((IA_WINDOW - (now - data.windowStart)) / 3600000);
+        return { allowed: false, resetIn };
+      }
+      const admin = require('firebase-admin');
+      tx.update(ref, { count: admin.firestore.FieldValue.increment(1), updatedAt: new Date().toISOString() });
+      return { allowed: true, remaining: MAX_DAILY_IA - data.count - 1 };
+    });
+    return result;
+  } catch(e) {
+    log.warn('Rate-limit IA transaction échouée: ' + e.message);
+    return { allowed: true }; // fail open
+  }
+}
+
 exports.handler = async (event) => {
   const CORS = {
     'Access-Control-Allow-Origin':  '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type, X-User-Id',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Content-Type':                 'application/json',
   };
@@ -301,10 +361,22 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body || '{}'); }
   catch { log.error('Body JSON invalide'); return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Requête invalide.' }) }; }
 
-  const { messages, universeCtx } = body;
+  const { messages, universeCtx, userId } = body;
   if (!Array.isArray(messages) || messages.length === 0) {
     log.warn('Messages manquants');
     return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Messages requis.' }) };
+  }
+
+  // ── Rate-limit par userId (lié au compte Firebase, multi-appareils) ──
+  const ip = event.headers?.['x-forwarded-for']?.split(',')[0]?.trim()
+           || event.headers?.['client-ip'] || 'unknown';
+  const rlResult = await checkUserRateLimit(userId || null, ip);
+  if (!rlResult.allowed) {
+    log.warn('Rate-limit IA atteint pour: ' + (userId || ip));
+    return {
+      statusCode: 429, headers: CORS,
+      body: JSON.stringify({ error: `Limite quotidienne atteinte. Réessaie dans ${rlResult.resetIn}h.` }),
+    };
   }
 
   const lastUserMsg = [...messages].reverse().find(m => m.role === 'user')?.content || '';

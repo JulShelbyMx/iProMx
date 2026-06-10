@@ -283,6 +283,9 @@
   font-size: 0.92rem;
   color: var(--text-dim);
   line-height: 1.6;
+  overflow: visible;
+  display: block;
+  -webkit-line-clamp: unset;
 }
 
 /* Season tabs in player */

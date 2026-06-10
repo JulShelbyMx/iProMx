@@ -2450,6 +2450,7 @@ const IA = (() => {
             role:    m.role,
             content: String(m.content||'').slice(0,500),
           })),
+          userId: (typeof AUTH !== 'undefined' ? AUTH.getCurrentUser()?.uid : null) || null,
         }),
       });
 
