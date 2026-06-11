@@ -83,7 +83,7 @@ const SLUG = {
     if (isLocal) return `/episode.html?fid=${encodeURIComponent(fid)}&cid=${encodeURIComponent(cid)}&season=${encodeURIComponent(season)}&ep=${epNum}`;
     return `/${fid}/${this.char(cid)}/${this.seas(season)}/ep${epNum}`;
   },
-  findChar(fid, slug) { return DATA.universes[fid]?.characters.find(c => c.id.startsWith(slug + '-')) || null; },
+  findChar(fid, slug) { return DATA.universes[fid]?.characters.find(c => c.id === slug || c.id.startsWith(slug + '-')) || null; },
   findSeas(fid, cid, slug) { return Object.keys(getChar(fid, cid)?.seasons || {}).find(s => this.seas(s) === slug) || null; },
   parse(path) {
     const p = path.replace(/^\//, '').split('/').filter(Boolean);
@@ -219,7 +219,7 @@ function appInit(cb) {
 
     await new Promise(res => {
       const s = document.createElement('script');
-      s.src = '/firebase-auth.js?v=13'; s.onload = res; s.onerror = res;
+      s.src = '/firebase-auth.js?v=31'; s.onload = res; s.onerror = res;
       document.body.appendChild(s);
     });
 
