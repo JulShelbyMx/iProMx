@@ -122,36 +122,55 @@
     .ep-meta { font-family:var(--font-ui);font-size:.7rem;color:var(--text-muted); }
     .ep-stars { margin-top:5px;color:var(--arc);font-size:.7rem;letter-spacing:1px; }
     .skeleton { background:linear-gradient(90deg,var(--panel2) 25%,var(--panel3) 50%,var(--panel2) 75%);background-size:200% auto;animation:shimmer 1.4s linear infinite;border-radius:var(--radius); }
+    /* ── MOBILE HERO FIX ── */
+    /* L'image de bannière est injectée dans #charHeroBg (200px fixe) par JS.
+       Le contenu (nom/desc/boutons) coule librement EN DESSOUS, identique pour tous les persos. */
+    #charHeroBg {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 200px;
+      background-size: cover;
+      background-position: center 20%;
+      z-index: 0;
+      display: none; /* activé uniquement sur mobile via JS */
+    }
+    /* Laws modal (Sylvester Shade) */
+    .laws-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;}
+    .laws-modal.open{display:flex;}
+    .laws-book{position:relative;max-width:92vw;max-height:90vh;background:#0a0a0a;border:1px solid var(--edge);border-radius:var(--radius-lg);overflow:hidden;}
+    .laws-close{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.6);border:none;color:white;font-size:1rem;cursor:pointer;z-index:2;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+    .laws-controls{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px;background:rgba(0,0,0,.7);}
+    .laws-nav-btn{background:var(--panel);border:1px solid var(--edge);color:var(--text);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.85rem;}
+    .laws-nav-btn:disabled{opacity:.3;cursor:default;}
+    .laws-page-indicator{font-family:var(--font-display);font-size:.6rem;letter-spacing:2px;color:var(--arc);}
+
     @media(max-width:1100px){
       .char-layout{grid-template-columns:1fr;}
       .char-sidebar{position:static;}
     }
     @media(max-width:768px){
-      /* Hero: hauteur auto pour que le contenu long ne soit pas coupé */
+      /* Hero : height auto, image dans #charHeroBg (fixe 200px) via JS */
       .char-hero{
-        height:auto;
-        min-height:260px;
-        max-height:none;
-        overflow:visible;          /* plus de coupure du contenu */
-        padding-bottom:32px;
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        overflow: visible;
+        padding-bottom: 28px;
       }
-      /* L'overlay gradient couvre uniquement le fond visible */
+      /* Gradient limité à 200px (la zone image) */
       .char-hero::after{
-        position:absolute;
-        inset:0;
-        height:auto;
-        min-height:260px;
-        pointer-events:none;
+        height: 200px;
+        top: 0;
+        bottom: auto;
       }
-      /* Le contenu passe en flux normal — plus d'absolute bottom */
+      /* Contenu en flux normal, décalé par JS pour laisser la bannière visible */
       .char-hero-content{
-        position:relative;
-        left:auto; right:auto; bottom:auto;
-        padding:110px 16px 0;     /* laisse la bannière visible en haut */
-        z-index:2;
+        position: relative;
+        left: auto; right: auto; bottom: auto;
+        padding: 0 16px 0;
+        z-index: 2;
       }
-      .char-name{font-size:clamp(1.3rem,5.5vw,2.2rem);letter-spacing:1px;}
-      /* Description complète — pas de clamp */
+      .char-name{font-size:clamp(1.3rem,5.5vw,2.1rem);letter-spacing:1px;}
       .char-desc{font-size:.86rem;max-width:100%;display:block;overflow:visible;-webkit-line-clamp:unset;margin-bottom:14px;}
       .char-actions .btn-primary,.char-actions .btn-secondary{padding:10px 16px;font-size:.62rem;}
       .char-body{padding:0 12px 60px;}
@@ -164,8 +183,7 @@
       .user-btn{top:10px;right:10px;}
     }
     @media(max-width:480px){
-      .char-hero{min-height:200px;padding-bottom:24px;}
-      .char-hero-content{padding:80px 12px 0;}
+      .char-hero-content{padding:0 12px 0;}
       .char-name{font-size:clamp(1.1rem,5vw,1.6rem);}
       .char-desc{font-size:.82rem;}
       .ep-grid{grid-template-columns:repeat(2,1fr);gap:7px;}
@@ -185,6 +203,7 @@
 
 <div style="height:56px;background:var(--void);"></div>
 <div id="charHero" class="char-hero">
+  <div id="charHeroBg"></div>
   <div class="char-hero-content" id="charHeroContent">
     <div class="skeleton" style="width:120px;height:22px;margin-bottom:14px;border-radius:30px;"></div>
     <div class="skeleton" style="width:280px;height:48px;margin-bottom:12px;"></div>
@@ -262,6 +281,7 @@ function render(route){
     <p class="char-desc">${char.description||''}</p>
     <div class="char-actions">
       ${firstEp?`<a href="${SLUG.epURL(_fid,_cid,firstEp.season,firstEp.ep.num)}" class="btn-primary" style="text-decoration:none;"><i class="fas fa-play"></i> Regarder</a>`:''}
+      ${char.hasLawBook?`<button class="btn-secondary" onclick="openLawBook()" style="background:rgba(155,89,182,.15);border-color:rgba(155,89,182,.5);"><i class="fas fa-book"></i> Lois des Shades</button>`:''}
       <button class="btn-icon${inList?' active':''}" id="listBtn" onclick="handleList()" title="${inList?'Retirer de ma liste':'Ajouter à ma liste'}"><i class="fas fa-${inList?'check':'plus'}"></i></button>
       <button class="btn-icon" onclick="shareChar()" title="Partager"><i class="fas fa-share-alt"></i></button>
     </div>
@@ -281,6 +301,7 @@ function render(route){
   ).join('');
   renderEps(_fid,_cid,_curSeason);
   initLazyBg();
+  fixMobileHero();
 }
 
 function renderUserBtn(){
@@ -430,6 +451,65 @@ appInit(()=>{
   if(route.view!=='character'&&route.view!=='episode'){location.href='/';return;}
   render(route);
 });
+
+// ── MOBILE HERO : bannière fixe 200px, contenu libre ────────────────────────
+function fixMobileHero(){
+  if(window.innerWidth > 768) return;
+  const hero    = document.getElementById('charHero');
+  const bgDiv   = document.getElementById('charHeroBg');
+  const content = document.getElementById('charHeroContent');
+  if(!hero || !bgDiv || !content) return;
+
+  // Transfère l'image du hero vers le div fixe
+  bgDiv.style.backgroundImage = hero.style.backgroundImage || '';
+  bgDiv.style.display = 'block';
+  hero.style.backgroundImage = '';  // retire du hero (JS inline override)
+
+  // Décale le contenu pour laisser la bannière visible
+  requestAnimationFrame(()=>{
+    content.style.paddingTop = '150px';
+  });
+}
+window.fixMobileHero = fixMobileHero;
+window.addEventListener('resize', ()=>{ if(window.innerWidth<=768) fixMobileHero(); });
+
+// ── LAW BOOK (Sylvester Shade) ───────────────────────────────────────────────
+let _lawImgs=[], _lawPage=0;
+function openLawBook(){
+  const char=getChar(_fid,_cid);
+  if(!char?.lawBookImages?.length) return;
+  _lawImgs=char.lawBookImages; _lawPage=0;
+  _updateLaw();
+  document.getElementById('charLawsModal')?.classList.add('open');
+}
+function closeLawBook(){ document.getElementById('charLawsModal')?.classList.remove('open'); }
+function _updateLaw(){
+  const img=document.getElementById('charLawBookImg');
+  const pi =document.getElementById('charLawPageInd');
+  const pv =document.getElementById('charLawPrev');
+  const nx =document.getElementById('charLawNext');
+  if(img) img.src=_lawImgs[_lawPage];
+  if(pi)  pi.textContent=`${_lawPage+1} / ${_lawImgs.length}`;
+  if(pv)  pv.disabled=(_lawPage===0);
+  if(nx)  nx.disabled=(_lawPage===_lawImgs.length-1);
+}
+function lawCharPrev(){ if(_lawPage>0){_lawPage--;_updateLaw();} }
+function lawCharNext(){ if(_lawPage<_lawImgs.length-1){_lawPage++;_updateLaw();} }
+window.openLawBook=openLawBook; window.closeLawBook=closeLawBook;
+window.lawCharPrev=lawCharPrev; window.lawCharNext=lawCharNext;
 </script>
+
+<!-- Laws Modal -->
+<div class="laws-modal" id="charLawsModal" onclick="if(event.target===this)closeLawBook()">
+  <div class="laws-book">
+    <button class="laws-close" onclick="closeLawBook()"><i class="fas fa-times"></i></button>
+    <img id="charLawBookImg" src="" alt="Livre des Lois" style="display:block;width:100%;max-height:75vh;object-fit:contain;background:#000;">
+    <div class="laws-controls">
+      <button class="laws-nav-btn" id="charLawPrev" onclick="lawCharPrev()"><i class="fas fa-chevron-left"></i></button>
+      <span class="laws-page-indicator" id="charLawPageInd">1 / 3</span>
+      <button class="laws-nav-btn" id="charLawNext" onclick="lawCharNext()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
