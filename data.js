@@ -813,7 +813,8 @@ const DATA = {
         {num:99,title:'GTA 5 RP - Jake x Tom : La Rencontre avec Mon Père ! [Fin]',videoId:'r7Rq1RCInqQ'}
     ],
     'Saison 4':[
-      {num:100,title:'GTA 5 RP À ZÉRO ! #1 - Saison 4 (Jake Winters : Je vous présente mes enfants)',videoId:'0vZnfLlhKZo', youtubeLink:true},
+      {num:100,title:'GTA 5 RP À ZÉRO ! #1 - Saison 4 (Jake Winters : Je vous présente mes enfants)',videoId:'0vZnfLlhKZo'},
+      {num:101,title:'GTA 5 RP À ZÉRO ! #2 - (J\'ai fait une énorme connerie avec mon ex copine…)',videoId:'NukqTJn8xPU', youtubeLink:true},
 
      ],
 }, },
@@ -1455,12 +1456,12 @@ const DATA = {
     episode: {
       active: true,
       label: 'NOUVEL ÉPISODE',
-      text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #1 - Saison 4 (Jake Winters : Je vous présente mes enfants)',
+      text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #2 - (J\'ai fait une énorme connerie avec mon ex copine…)',
       link: {
         familyId: 'winters',
         charId:   'jake-winters',
         season:   'Saison 4',
-        epNum:    100
+        epNum:    101
       },
       
     },
