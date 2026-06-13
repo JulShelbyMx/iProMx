@@ -71,7 +71,19 @@ window.initLazyBg = initLazyBg;
 
 // ── SLUG ROUTER (partagé entre character.html et episode.html) ──
 const SLUG = {
-  char:  cid => cid.split('-')[0],
+  char: cid => {
+    const first = cid.split('-')[0];
+    // Collision check : si plusieurs ids dans DATA partagent le même 1er segment
+    // (ex: "le-genie" et "le-geant" -> "le"), on utilise l'id complet pour désambiguïser.
+    let count = 0;
+    for (const u of Object.values(DATA.universes || {})) {
+      for (const c of (u.characters || [])) {
+        if (c.id.split('-')[0] === first) count++;
+        if (count > 1) return cid;
+      }
+    }
+    return first;
+  },
   seas:  s   => s.toLowerCase().replace(/\s+/g, '-').normalize('NFD').replace(/[\u0300-\u036f]/g, ''),
   charURL(fid, cid) {
     const isLocal = ['localhost','127.0.0.1',''].includes(location.hostname)||location.protocol==='file:';
@@ -219,7 +231,7 @@ function appInit(cb) {
 
     await new Promise(res => {
       const s = document.createElement('script');
-      s.src = '/firebase-auth.js?v=31'; s.onload = res; s.onerror = res;
+      s.src = '/firebase-auth.js?v=37'; s.onload = res; s.onerror = res;
       document.body.appendChild(s);
     });
 
