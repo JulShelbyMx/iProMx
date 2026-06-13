@@ -2,7 +2,17 @@
 
 const ROUTER = (() => {
   const IS_LOCAL = ['localhost','127.0.0.1',''].includes(location.hostname) || location.protocol==='file:';
-  const charSlug = cid => cid.split('-')[0];
+  const charSlug = cid => {
+    const first = cid.split('-')[0];
+    let count = 0;
+    for (const u of Object.values(DATA.universes || {})) {
+      for (const c of (u.characters || [])) {
+        if (c.id.split('-')[0] === first) count++;
+        if (count > 1) return cid;
+      }
+    }
+    return first;
+  };
   const seasSlug = s   => s.toLowerCase().replace(/\s+/g,'-').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 
   function buildURL(fid,cid,season,epNum) {
@@ -2450,7 +2460,6 @@ const IA = (() => {
             role:    m.role,
             content: String(m.content||'').slice(0,500),
           })),
-          userId: (typeof AUTH !== 'undefined' ? AUTH.getCurrentUser()?.uid : null) || null,
         }),
       });
 

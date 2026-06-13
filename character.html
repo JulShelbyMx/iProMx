@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="/styles.css?v=37">
+  <link rel="stylesheet" href="/styles.css?v=38">
   <style>
     body { background: var(--void); color: var(--text); }
     .char-hero::before { content:""; position:absolute; top:0; left:0; right:0; height:80px; background:linear-gradient(to bottom, rgba(2,4,8,.7) 0%, transparent 100%); z-index:1; pointer-events:none; }
@@ -55,6 +55,15 @@
       position: absolute; bottom: 44px; left: 60px; right: 40%; z-index: 2;
     }
     .char-hero-img { display: none; }
+    /* Laws modal (Sylvester Shade) */
+    .laws-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;}
+    .laws-modal.open{display:flex;}
+    .laws-book{position:relative;max-width:92vw;max-height:90vh;background:#0a0a0a;border:1px solid var(--edge);border-radius:var(--radius-lg);overflow:hidden;}
+    .laws-close{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.6);border:none;color:white;font-size:1rem;cursor:pointer;z-index:2;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+    .laws-controls{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px;background:rgba(0,0,0,.7);}
+    .laws-nav-btn{background:var(--panel);border:1px solid var(--edge);color:var(--text);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.85rem;}
+    .laws-nav-btn:disabled{opacity:.3;cursor:default;}
+    .laws-page-indicator{font-family:var(--font-display);font-size:.6rem;letter-spacing:2px;color:var(--arc);}
     .char-family-tag {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 5px 14px; background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.35);
@@ -123,40 +132,22 @@
     .ep-meta { font-family:var(--font-ui);font-size:.7rem;color:var(--text-muted); }
     .ep-stars { margin-top:5px;color:var(--arc);font-size:.7rem;letter-spacing:1px; }
     .skeleton { background:linear-gradient(90deg,var(--panel2) 25%,var(--panel3) 50%,var(--panel2) 75%);background-size:200% auto;animation:shimmer 1.4s linear infinite;border-radius:var(--radius); }
-    /* Laws modal (Sylvester Shade) */
-    .laws-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;}
-    .laws-modal.open{display:flex;}
-    .laws-book{position:relative;max-width:92vw;max-height:90vh;background:#0a0a0a;border:1px solid var(--edge);border-radius:var(--radius-lg);overflow:hidden;}
-    .laws-close{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.6);border:none;color:white;font-size:1rem;cursor:pointer;z-index:2;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
-    .laws-controls{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px;background:rgba(0,0,0,.7);}
-    .laws-nav-btn{background:var(--panel);border:1px solid var(--edge);color:var(--text);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.85rem;}
-    .laws-nav-btn:disabled{opacity:.3;cursor:default;}
-    .laws-page-indicator{font-family:var(--font-display);font-size:.6rem;letter-spacing:2px;color:var(--arc);}
-
     @media(max-width:1100px){
       .char-layout{grid-template-columns:1fr;}
       .char-sidebar{position:static;}
     }
-
-    /* ════════════════════════════════════════════════════════════
-       MOBILE HERO — refonte complète, identique pour TOUS les persos.
-       .char-hero passe en hauteur AUTO (plus d'image dessus, plus de
-       gradient pleine hauteur). L'image devient #charHeroImg, un bloc
-       à hauteur FIXE (200/170px) en haut. .char-hero-content suit en
-       flux normal, sans overlap possible (parent = hauteur auto).
-       ════════════════════════════════════════════════════════════ */
     @media(max-width:768px){
       html, body { overflow-x: hidden; }
 
+      /* HERO — bande image fixe (200px) séparée du contenu (flux normal, hauteur auto) */
       .char-hero{
         height: auto !important;
         min-height: 0 !important;
         max-height: none !important;
         overflow: visible;
-        background-image: none !important; /* l'image est déplacée vers #charHeroImg */
+        background-image: none !important;
       }
-      .char-hero::before{ display:none; } /* gradient du haut, inutile maintenant */
-      .char-hero::after{ display:none; }  /* gradient plein écran, géré par charHeroImg */
+      .char-hero::after{ display:none; }
 
       .char-hero-img{
         display: block;
@@ -177,11 +168,10 @@
       .char-hero-content{
         position: static;
         left: auto; right: auto; bottom: auto;
-        width: 100%;
-        max-width: 100%;
+        width: 100%; max-width: 100%;
         box-sizing: border-box;
         padding: 14px 16px 24px;
-        margin-top: -28px;            /* léger chevauchement esthétique avec le bas du gradient */
+        margin-top: -28px;
         z-index: 2;
       }
       .char-family-tag{margin-bottom:8px;}
@@ -199,16 +189,33 @@
 
       .char-body{padding:0 12px 60px;}
       .char-layout{gap:20px;}
-      .ep-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;}
-      .ep-info{padding:9px 11px;}
-      .ep-title{font-size:.84rem;}
-      .ep-meta{font-size:.68rem;}
+
+      /* CONTINUE WATCHING */
       .continue-strip{margin:18px 0 6px;padding:10px 12px;gap:10px;}
       .continue-thumb{width:64px;height:40px;}
       .continue-title{font-size:.84rem;}
       .continue-meta{font-size:.66rem;}
-      .seas-nav{padding:14px 0 10px;gap:6px;}
-      .seas-tab{padding:6px 14px;font-size:.52rem;}
+
+      /* SAISONS — max 3 par ligne, retour à la ligne automatique
+         (perso à 1-2 saisons = 1 ligne, à 4 = 2 lignes de 2 ou 3+1,
+         à 7-9 = 3 lignes de 3, etc.) */
+      .seas-nav{
+        display:flex; flex-wrap:wrap; overflow-x:visible;
+        padding:14px 0 10px; gap:6px;
+      }
+      .seas-tab{
+        flex: 0 1 calc((100% - 12px)/3); /* 3 par ligne, gap=6px*2 */
+        min-width:0; text-align:center;
+        padding:7px 4px; font-size:.56rem; letter-spacing:1px;
+        white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      }
+
+      /* EPISODES */
+      .ep-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;}
+      .ep-info{padding:9px 11px;}
+      .ep-title{font-size:.84rem;}
+      .ep-meta{font-size:.68rem;}
+
       .back-btn{top:10px;left:10px;padding:7px 12px;font-size:.52rem;}
       .user-btn{top:10px;right:10px;}
     }
@@ -217,11 +224,14 @@
       .char-hero-content{padding:12px 12px 22px;margin-top:-22px;}
       .char-name{font-size:clamp(1.1rem,5vw,1.6rem);}
       .char-desc{font-size:.82rem;}
+      .seas-tab{font-size:.5rem;padding:6px 3px;}
       .ep-grid{grid-template-columns:repeat(2,1fr);gap:7px;}
       .ep-thumb{padding-top:60%;}
     }
     @media(max-width:360px){
       .char-name{font-size:1rem;}
+      /* écran très étroit : 2 par ligne pour les saisons aussi */
+      .seas-tab{flex:0 1 calc((100% - 6px)/2);}
       .ep-grid{grid-template-columns:1fr 1fr;gap:6px;}
     }
   </style>
@@ -263,8 +273,8 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="/data.js?v=34"></script>
-<script src="/app.js?v=34"></script>
+<script src="/data.js?v=38"></script>
+<script src="/app.js?v=38"></script>
 <script>
 'use strict';
 
