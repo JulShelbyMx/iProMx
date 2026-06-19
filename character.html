@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="/styles.css?v=40">
+  <link rel="stylesheet" href="/styles.css?v=34">
   <style>
     body { background: var(--void); color: var(--text); }
     .char-hero::before { content:""; position:absolute; top:0; left:0; right:0; height:80px; background:linear-gradient(to bottom, rgba(2,4,8,.7) 0%, transparent 100%); z-index:1; pointer-events:none; }
@@ -54,16 +54,6 @@
     .char-hero-content {
       position: absolute; bottom: 44px; left: 60px; right: 40%; z-index: 2;
     }
-    .char-hero-img { display: none; }
-    /* Laws modal (Sylvester Shade) */
-    .laws-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;}
-    .laws-modal.open{display:flex;}
-    .laws-book{position:relative;max-width:92vw;max-height:90vh;background:#0a0a0a;border:1px solid var(--edge);border-radius:var(--radius-lg);overflow:hidden;}
-    .laws-close{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.6);border:none;color:white;font-size:1rem;cursor:pointer;z-index:2;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
-    .laws-controls{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px;background:rgba(0,0,0,.7);}
-    .laws-nav-btn{background:var(--panel);border:1px solid var(--edge);color:var(--text);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.85rem;}
-    .laws-nav-btn:disabled{opacity:.3;cursor:default;}
-    .laws-page-indicator{font-family:var(--font-display);font-size:.6rem;letter-spacing:2px;color:var(--arc);}
     .char-family-tag {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 5px 14px; background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.35);
@@ -86,8 +76,9 @@
     .char-prog-track { height: 3px; background: rgba(255,255,255,.1); border-radius: 2px; overflow: hidden; }
     .char-prog-fill { height: 100%; background: linear-gradient(90deg,var(--iron),var(--arc)); border-radius: 2px; transition: width .8s ease; }
     .char-body { max-width: 1280px; margin: 0 auto; padding: 0 40px 80px; }
-    .char-layout { display: grid; grid-template-columns: 1fr 260px; gap: 36px; align-items: start; min-width: 0; }
-    .char-layout > * { min-width: 0; }
+    .char-layout { display: grid; grid-template-columns: 1fr 260px; gap: 36px; align-items: start; }
+    .char-layout > * { min-width: 0; } /* empêche les enfants grille d'élargir le viewport */
+    .char-hero-img { display: none; } /* bande image fixe mobile uniquement */
     .char-sidebar { position: sticky; top: 24px; }
     .side-card { background: var(--panel); border: 1px solid var(--edge2); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 14px; }
     .side-card-h { padding: 12px 16px; border-bottom: 1px solid var(--edge2); font-family: var(--font-display); font-size: .56rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--arc); display: flex; align-items: center; gap: 8px; }
@@ -133,8 +124,6 @@
     .ep-meta { font-family:var(--font-ui);font-size:.7rem;color:var(--text-muted); }
     .ep-stars { margin-top:5px;color:var(--arc);font-size:.7rem;letter-spacing:1px; }
     .skeleton { background:linear-gradient(90deg,var(--panel2) 25%,var(--panel3) 50%,var(--panel2) 75%);background-size:200% auto;animation:shimmer 1.4s linear infinite;border-radius:var(--radius); }
-    /* TRÈS GRANDS ÉCRANS (>1600px) : éviter que le hero ne devienne
-       disproportionné et que le texte ne se perde dans le vide. */
     @media(min-width:1600px){
       .char-hero{max-height:760px;}
       .char-hero-content{right:48%;}
@@ -144,119 +133,120 @@
       .char-layout{grid-template-columns:1fr;}
       .char-sidebar{position:static;}
     }
-    /* TABLETTES / TAILLES INTERMÉDIAIRES (769px–1100px) :
-       le hero reste en mode "desktop" (image + contenu en absolute),
-       mais on resserre le contenu pour éviter tout débordement vertical
-       avec overflow:hidden quand le texte est plus long. */
     @media(max-width:1100px) and (min-width:769px){
       .char-hero{min-height:460px;}
       .char-hero-content{left:40px;right:8%;bottom:36px;}
-      .char-name{font-size:clamp(1.8rem,4.2vw,3rem);margin-bottom:10px;}
-      .char-desc{
-        font-size:.92rem;max-width:560px;margin-bottom:16px;
-        display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
-      }
+      .char-name{font-size:clamp(1.8rem,4.2vw,3rem);}
     }
     @media(max-width:768px){
       html, body { overflow-x: hidden; }
+      .char-body { padding: 0 0 60px; }
+      .char-layout { gap: 0; }
+      .char-layout > * { min-width: 0; max-width: 100%; }
 
-      /* HERO — bande image fixe (200px) séparée du contenu (flux normal, hauteur auto) */
-      .char-hero{
+      /* ── HERO MOBILE ── */
+      /* Le JS pose background-image en inline sur #charHero (desktop).
+         Sur mobile on neutralise ce inline via JS (voir render()),
+         et l'image passe dans #charHeroImg à hauteur FIXE.
+         Zéro conflit CSS/inline possible. */
+      .char-hero {
         height: auto !important;
         min-height: 0 !important;
         max-height: none !important;
         overflow: visible;
-        background-image: none !important;
       }
-      .char-hero::after{ display:none; }
+      .char-hero::before { display: none; }
+      .char-hero::after  { display: none; }
 
-      .char-hero-img{
+      .char-hero-img {
         display: block;
-        position: relative;
-        width: 100%;
-        height: 200px;
+        width: 100%; height: 200px;
         background-size: cover;
         background-position: center 20%;
+        position: relative; flex-shrink: 0;
       }
-      .char-hero-img::after{
-        content:'';
-        position:absolute; inset:0;
+      .char-hero-img::after {
+        content: ''; position: absolute; inset: 0;
         background:
-          linear-gradient(to top, rgba(2,4,8,1) 0%, rgba(2,4,8,.35) 55%, rgba(2,4,8,0) 100%),
-          linear-gradient(to bottom, rgba(2,4,8,.55) 0%, transparent 40%);
+          linear-gradient(to top,  rgba(2,4,8,1) 0%, rgba(2,4,8,.3) 55%, transparent 100%),
+          linear-gradient(to bottom,rgba(2,4,8,.6) 0%, transparent 40%);
       }
 
-      .char-hero-content{
+      .char-hero-content {
         position: static;
         left: auto; right: auto; bottom: auto;
-        width: 100%; max-width: 100%;
-        box-sizing: border-box;
+        width: 100%; max-width: 100%; box-sizing: border-box;
         padding: 16px 16px 24px;
-        margin-top: 0;          /* aucun chevauchement avec la bannière */
+        margin-top: 0;
         background: var(--void);
-        z-index: 2;
       }
-      .char-family-tag{margin-bottom:8px;}
-      .char-name{font-size:clamp(1.3rem,5.5vw,2.1rem);letter-spacing:1px;margin-bottom:8px;line-height:1.15;}
-      .char-desc{
-        font-size:.86rem; max-width:100%; margin-bottom:14px;
-        display:block; overflow:visible; -webkit-line-clamp:unset; -webkit-box-orient:initial;
+      .char-family-tag { margin-bottom: 8px; }
+      .char-name {
+        font-size: clamp(1.3rem, 5.5vw, 2.1rem);
+        letter-spacing: 1px; margin-bottom: 8px; line-height: 1.15;
       }
-      .char-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px;}
+      .char-desc {
+        font-size: .86rem; max-width: 100%; margin-bottom: 14px;
+        display: block; overflow: visible;
+        -webkit-line-clamp: unset; -webkit-box-orient: initial;
+      }
+      .char-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
       .char-actions .btn-primary,
-      .char-actions .btn-secondary{padding:10px 16px;font-size:.62rem;gap:6px;}
-      .char-actions .btn-icon{width:38px;height:38px;}
-      .char-actions .btn-icon i{font-size:.85rem;}
-      .char-prog{margin-top:12px;max-width:100%;}
+      .char-actions .btn-secondary { padding: 10px 16px; font-size: .62rem; }
+      .char-actions .btn-icon { width: 38px; height: 38px; }
+      .char-actions .btn-icon i { font-size: .85rem; }
+      .char-prog { margin-top: 12px; max-width: 100%; }
 
-      .char-body{padding:0 12px 60px;}
-      .char-layout{gap:20px;}
-
-      /* CONTINUE WATCHING */
-      .continue-strip{margin:18px 0 6px;padding:10px 12px;gap:10px;}
-      .continue-thumb{width:64px;height:40px;flex-shrink:0;}
-      .continue-info{flex:1;min-width:0;overflow:hidden;}
-      .continue-title{font-size:.84rem;}
-      .continue-meta{font-size:.66rem;}
-
-      /* SAISONS — wrap NATUREL selon la longueur du titre.
-         Titres courts ("Saison 1") = plusieurs par ligne.
-         Titre long = prend toute la place nécessaire, passe seul
-         à la ligne suivante si besoin, et wrap son propre texte
-         en 2 lignes plutôt que d'être coupé/tronqué. */
-      .seas-nav{
-        display:flex; flex-wrap:wrap; overflow-x:visible;
-        padding:14px 0 10px; gap:6px;
+      /* ── CONTINUE WATCHING ── */
+      .continue-strip {
+        margin: 16px 12px 8px; padding: 10px 12px; gap: 10px;
+        max-width: 100%; box-sizing: border-box;
       }
-      .seas-tab{
-        flex: 0 1 auto;
-        min-width: 0; max-width: 100%;
-        text-align:center;
-        padding:7px 14px; font-size:.56rem; letter-spacing:1px;
-        white-space: normal; word-break: break-word; line-height:1.3;
+      .continue-thumb { width: 64px; height: 40px; flex-shrink: 0; }
+      .continue-info  { flex: 1; min-width: 0; overflow: hidden; }
+      .continue-title {
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        font-size: .86rem; max-width: 100%;
+      }
+      .continue-meta { font-size: .66rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+      /* ── SAISONS ──
+         On passe en flex-wrap, flex-shrink:1 et white-space:normal
+         → les titres courts tiennent sur 1 ligne par rangée,
+           les titres longs wrappent leur texte sur 2 lignes proprement
+           sans jamais déborder hors du conteneur. */
+      .seas-nav {
+        display: flex; flex-wrap: wrap; overflow-x: visible;
+        scrollbar-width: none; padding: 14px 12px 10px; gap: 6px;
+        max-width: 100%; box-sizing: border-box;
+      }
+      .seas-tab {
+        flex: 0 1 auto; min-width: 0;
+        padding: 7px 12px; font-size: .54rem; letter-spacing: 1px;
+        white-space: normal; word-break: break-word; line-height: 1.3;
+        text-align: center;
       }
 
-      /* EPISODES */
-      .ep-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;}
-      .ep-info{padding:9px 11px;}
-      .ep-title{font-size:.84rem;}
-      .ep-meta{font-size:.68rem;}
+      /* ── ÉPISODES ── */
+      .ep-grid { grid-template-columns: repeat(auto-fill,minmax(140px,1fr)); gap: 8px; padding: 0 12px; }
+      .ep-info  { padding: 9px 11px; }
+      .ep-title { font-size: .84rem; }
+      .ep-meta  { font-size: .68rem; }
 
-      .back-btn{top:10px;left:10px;padding:7px 12px;font-size:.52rem;}
-      .user-btn{top:10px;right:10px;}
+      .back-btn { top: 10px; left: 10px; padding: 7px 12px; font-size: .52rem; }
+      .user-btn { top: 10px; right: 10px; }
     }
     @media(max-width:480px){
-      .char-hero-img{height:170px;}
-      .char-hero-content{padding:14px 12px 22px;margin-top:0;}
-      .char-name{font-size:clamp(1.1rem,5vw,1.6rem);}
-      .char-desc{font-size:.82rem;}
-      .seas-tab{font-size:.5rem;padding:6px 10px;}
-      .ep-grid{grid-template-columns:repeat(2,1fr);gap:7px;}
-      .ep-thumb{padding-top:60%;}
+      .char-hero-img { height: 170px; }
+      .char-name { font-size: clamp(1.1rem,5vw,1.6rem); }
+      .char-desc { font-size: .82rem; }
+      .seas-tab  { font-size: .5rem; padding: 6px 10px; }
+      .ep-grid   { grid-template-columns: repeat(2,1fr); gap: 7px; }
+      .ep-thumb  { padding-top: 60%; }
     }
     @media(max-width:360px){
-      .char-name{font-size:1rem;}
-      .ep-grid{grid-template-columns:1fr 1fr;gap:6px;}
+      .char-name { font-size: 1rem; }
+      .ep-grid   { grid-template-columns: 1fr 1fr; gap: 6px; }
     }
   </style>
 </head>
@@ -297,8 +287,8 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="/data.js?v=40"></script>
-<script src="/app.js?v=40"></script>
+<script src="/data.js?v=41"></script>
+<script src="/app.js?v=41"></script>
 <script>
 'use strict';
 
@@ -332,11 +322,17 @@ function render(route){
   document.title=char.name;
   document.querySelector('meta[name=description]').content=(char.description||'').slice(0,160);
 
-  const hero=document.getElementById('charHero');
-  const heroBg=`url('${char.banner||u.banner||char.image}')`;
-  hero.style.backgroundImage=heroBg;
-  const heroImg=document.getElementById('charHeroImg');
-  if(heroImg) heroImg.style.backgroundImage=heroBg;
+  const hero    = document.getElementById('charHero');
+  const heroImg = document.getElementById('charHeroImg');
+  const heroBg  = `url('${char.banner||u.banner||char.image}')`;
+  // Desktop : background sur .char-hero (absolu, overlay gradient)
+  // Mobile  : background neutralisé sur .char-hero, posé sur #charHeroImg (200px fixe)
+  if(window.innerWidth <= 768){
+    hero.style.backgroundImage = 'none';
+    if(heroImg) heroImg.style.backgroundImage = heroBg;
+  } else {
+    hero.style.backgroundImage = heroBg;
+  }
 
   const prog=(typeof getOverallProgress==='function')?getOverallProgress(_fid,_cid):0;
   const totalEps=getTotalEps(char);
@@ -519,37 +515,40 @@ appInit(()=>{
   render(route);
 });
 
-// ── LAW BOOK (Sylvester Shade) ───────────────────────────────────────────────
+// ── LAW BOOK ─────────────────────────────────────────────────────────────────
 let _lawImgs=[], _lawPage=0;
 function openLawBook(){
-  const char=getChar(_fid,_cid);
-  if(!char?.lawBookImages?.length) return;
-  _lawImgs=char.lawBookImages; _lawPage=0;
-  _updateLaw();
+  const char=getChar(_fid,_cid); if(!char?.lawBookImages?.length) return;
+  _lawImgs=char.lawBookImages; _lawPage=0; _updateLaw();
   document.getElementById('charLawsModal')?.classList.add('open');
 }
 function closeLawBook(){ document.getElementById('charLawsModal')?.classList.remove('open'); }
 function _updateLaw(){
-  const img=document.getElementById('charLawBookImg');
-  const pi =document.getElementById('charLawPageInd');
-  const pv =document.getElementById('charLawPrev');
-  const nx =document.getElementById('charLawNext');
+  const img=$('charLawBookImg'), pi=$('charLawPageInd'), pv=$('charLawPrev'), nx=$('charLawNext');
   if(img) img.src=_lawImgs[_lawPage];
   if(pi)  pi.textContent=`${_lawPage+1} / ${_lawImgs.length}`;
-  if(pv)  pv.disabled=(_lawPage===0);
-  if(nx)  nx.disabled=(_lawPage===_lawImgs.length-1);
+  if(pv)  pv.disabled=!_lawPage;
+  if(nx)  nx.disabled=_lawPage===_lawImgs.length-1;
 }
 function lawCharPrev(){ if(_lawPage>0){_lawPage--;_updateLaw();} }
 function lawCharNext(){ if(_lawPage<_lawImgs.length-1){_lawPage++;_updateLaw();} }
 window.openLawBook=openLawBook; window.closeLawBook=closeLawBook;
 window.lawCharPrev=lawCharPrev; window.lawCharNext=lawCharNext;
 </script>
-
-<!-- Laws Modal -->
+<style>
+  .laws-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;align-items:center;justify-content:center;}
+  .laws-modal.open{display:flex;}
+  .laws-book{position:relative;max-width:92vw;max-height:90vh;background:#0a0a0a;border:1px solid var(--edge);border-radius:var(--radius-lg);overflow:hidden;}
+  .laws-close{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.6);border:none;color:white;cursor:pointer;z-index:2;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .laws-controls{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px;background:rgba(0,0,0,.7);}
+  .laws-nav-btn{background:var(--panel);border:1px solid var(--edge);color:var(--text);padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.85rem;}
+  .laws-nav-btn:disabled{opacity:.3;cursor:default;}
+  .laws-page-indicator{font-family:var(--font-display);font-size:.6rem;letter-spacing:2px;color:var(--arc);}
+</style>
 <div class="laws-modal" id="charLawsModal" onclick="if(event.target===this)closeLawBook()">
   <div class="laws-book">
     <button class="laws-close" onclick="closeLawBook()"><i class="fas fa-times"></i></button>
-    <img id="charLawBookImg" src="" alt="Livre des Lois" style="display:block;width:100%;max-height:75vh;object-fit:contain;background:#000;">
+    <img id="charLawBookImg" src="" alt="Lois" style="display:block;width:100%;max-height:75vh;object-fit:contain;background:#000;">
     <div class="laws-controls">
       <button class="laws-nav-btn" id="charLawPrev" onclick="lawCharPrev()"><i class="fas fa-chevron-left"></i></button>
       <span class="laws-page-indicator" id="charLawPageInd">1 / 3</span>
