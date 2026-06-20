@@ -1470,11 +1470,10 @@ const DATA = {
       active: true,
       label: 'MISE À JOUR',
       texts: [
-        '✔ Nouveaux avatars disponibles ! Choisissez celui qui vous correspond → avatar → paramètres → ✏️',
+        '✔ Avatars disponibles ! (avatar → paramètres → ✏️)',
         '✔ Galerie disponible : retrouvez les meilleures images des personnages !',
-        '✔ 10 thèmes disponibles ! Personnalisez votre interface → avatar → paramètres → couleur',
-        '⌛ Nouveaux systèmes de liens vers pages réelles : les problèmes de dimensions sur téléphone seront bientôt corrigés, encore désolé ! ',
-        '⌛ Nouvelle IA "ZY" disponible : Encore en cours d\'implantation, soyez indulgeant, ne spammez pas ! Ses connaissances sont encore limitées pour l\'instant ',
+        '✔ 10 thèmes disponibles ! Personnalisez votre interface (avatar → paramètres → couleur)',
+        '⌛ Nouvelle IA "ZY" disponible : Ses connaissances sont encore limitées à la Famille FLASH pour l\'instant ',
       ]
       // Possibilité d'ajouter : externalUrl: 'https://...', externalLabel: 'Voir'
     }
