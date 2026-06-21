@@ -1472,7 +1472,7 @@ const DATA = {
       texts: [
         '✔ Avatars disponibles ! (avatar → paramètres → ✏️)',
         '✔ Galerie disponible : retrouvez les meilleures images des personnages !',
-        '✔ 10 thèmes disponibles ! Personnalisez votre interface (avatar → paramètres → couleur)',
+        '✔ 10 thèmes disponibles ! (avatar → paramètres → couleur)',
         '⌛ Nouvelle IA "ZY" disponible : Ses connaissances sont encore limitées à la Famille FLASH pour l\'instant ',
       ]
       // Possibilité d'ajouter : externalUrl: 'https://...', externalLabel: 'Voir'
