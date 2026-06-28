@@ -95,6 +95,17 @@ const SLUG = {
     if (isLocal) return `/episode.html?fid=${encodeURIComponent(fid)}&cid=${encodeURIComponent(cid)}&season=${encodeURIComponent(season)}&ep=${epNum}`;
     return `/${fid}/${this.char(cid)}/${this.seas(season)}/ep${epNum}`;
   },
+  cineURL(idx) {
+    const isLocal = ['localhost','127.0.0.1',''].includes(location.hostname) || location.protocol === 'file:';
+    if (isLocal) return `/cinematic.html?idx=${idx}`;
+    return `/cinematics/ep${idx}`;
+  },
+  parseCine(path) {
+    const p = path.replace(/^\//, '').split('/').filter(Boolean);
+    if (p[0] !== 'cinematics' || !p[1]) return null;
+    const n = parseInt(p[1].replace('ep', ''));
+    return isNaN(n) ? null : { view: 'cinematic', idx: n };
+  },
   findChar(fid, slug) { return DATA.universes[fid]?.characters.find(c => c.id === slug || c.id.startsWith(slug + '-')) || null; },
   findSeas(fid, cid, slug) { return Object.keys(getChar(fid, cid)?.seasons || {}).find(s => this.seas(s) === slug) || null; },
   parse(path) {
@@ -231,7 +242,7 @@ function appInit(cb) {
 
     await new Promise(res => {
       const s = document.createElement('script');
-      s.src = '/firebase-auth.js?v=45'; s.onload = res; s.onerror = res;
+      s.src = '/firebase-auth.js?v=46'; s.onload = res; s.onerror = res;
       document.body.appendChild(s);
     });
 

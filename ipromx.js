@@ -902,6 +902,15 @@ function playCinematic(idx) {
   const items=DATA.cinematics||[];
   const c=items[idx]; if(!c) return;
 
+  // Pages comme index.html (ou character.html) n'ont pas de #playerPage dans leur DOM :
+  // le lecteur de cinématique vit uniquement sur cinematic.html. Si on n'y est pas déjà,
+  // on navigue réellement vers cette page (pushState seul ne charge pas un autre fichier HTML,
+  // d'où l'écran noir : #mainContent était caché mais #playerPage n'existait pas pour le remplacer).
+  if (!$('playerPage')) {
+    location.href = SLUG.cineURL(idx);
+    return;
+  }
+
   // Sauvegarde AVANT de détruire le player précédent
   if (window._ytProgressInterval) { clearInterval(window._ytProgressInterval); window._ytProgressInterval = null; }
   try {
@@ -924,7 +933,7 @@ DB.flushProgressNow(); // force le write Firestore immédiatement
   pp.classList.add('active');
   document.body.style.overflow=''; window.scrollTo(0,0);
   document.title=`${c.title} | iPROMX`;
-  // try { history.pushState({},``,`/cinematique/${idx}`); } catch(_){}
+  history.pushState({}, ``, SLUG.cineURL(idx));
 
   // Nav close button
   let closeBtn=$('navPlayerClose');

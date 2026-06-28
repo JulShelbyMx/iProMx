@@ -10,6 +10,22 @@
   name     = "keepalive"
   schedule = "0 0 */2 * *"
 
+# Cinématiques — page lecteur dédiée
+[[redirects]]
+  from   = "/cinematics/ep:idx"
+  to     = "/cinematic.html"
+  status = 200
+
+[[redirects]]
+  from   = "/cinematics/"
+  to     = "/index.html"
+  status = 200
+
+[[redirects]]
+  from   = "/cinematics"
+  to     = "/index.html"
+  status = 200
+
 # SPA Routing — URLs réelles pour les personnages et épisodes
 [[redirects]]
   from   = "/:fam/:char/:season/:ep"
@@ -41,6 +57,8 @@
   from   = "/*"
   to     = "/index.html"
   status = 200
+
+  # ── À AJOUTER dans netlify.toml, AVANT la règle catch-all "/*" ──
 
 # Headers
 [[headers]]
