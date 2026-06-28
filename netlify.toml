@@ -12,7 +12,7 @@
 
 # Cinématiques — page lecteur dédiée
 [[redirects]]
-  from   = "/cinematics/ep:idx"
+  from   = "/cinematics/ep*"
   to     = "/cinematic.html"
   status = 200
 
