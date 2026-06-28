@@ -815,8 +815,8 @@ const DATA = {
     'Saison 4':[
       {num:100,title:'GTA 5 RP À ZÉRO ! #1 - Saison 4 (Jake Winters : Je vous présente mes enfants)',videoId:'0vZnfLlhKZo'},
       {num:101,title:'GTA 5 RP À ZÉRO ! #2 - (J\'ai fait une énorme connerie avec mon ex copine…)',videoId:'NukqTJn8xPU'},
-      {num:102,title:'GTA 5 RP À ZÉRO ! #3 - (Mon ex m\'annonce que j\'ai un fils caché !)',videoId:'bN0YeA0yJk8', youtubeLink:true},
-
+      {num:102,title:'GTA 5 RP À ZÉRO ! #3 - (Mon ex m\'annonce que j\'ai un fils caché !)',videoId:'bN0YeA0yJk8'},
+// youtubeLink:true
      ],
 }, },
         { id:'oliver-winters', name:'Oliver Winters', image:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver-bannière.webp',
