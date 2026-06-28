@@ -385,3 +385,48 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   .char-images-grid .char-img-item:first-child{aspect-ratio:3/2}
   .char-ost-list{gap:8px}
 }
+
+/* ===== BACKGROUND PAR PERSONNAGE ===== */
+/* Usage : ajouter la classe .char-bg-SLUG sur le <body> de chaque page
+   Ex: <body class="flash-theme char-bg-sylvester">
+   Fallback : fond noir (--void) si pas de classe ou image manquante */
+
+body[class*="char-bg-"] {
+  background-color: var(--void); /* fallback noir si image absente */
+}
+
+/* La pseudo-couche background — en dessous de body::before (grid) */
+body[class*="char-bg-"]::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-repeat: repeat;
+  background-size: auto;
+  opacity: 0.5;
+  pointer-events: none;
+  
+}
+
+/* ── Flash ── */
+body.char-bg-david::after       { background-image: url('https://lafami.my.canva.site/_assets/media/63290b2f59c71732ca4cdf8882f07ddd.png'); }
+body.char-bg-john::after        { background-image: url('img/bg/john.webp'); }
+body.char-bg-ken::after         { background-image: url('img/bg/ken.webp'); }
+body.char-bg-kayton::after      { background-image: url('img/bg/kayton.webp'); }
+body.char-bg-david-jr::after    { background-image: url('img/bg/david-jr.webp'); }
+body.char-bg-aaron::after       { background-image: url('img/bg/aaron.webp'); }
+body.char-bg-damon::after       { background-image: url('img/bg/damon.webp'); }
+body.char-bg-adrian::after      { background-image: url('img/bg/adrian.webp'); }
+body.char-bg-ned::after         { background-image: url('img/bg/ned.webp'); }
+body.char-bg-eden::after        { background-image: url('img/bg/eden.webp'); }
+body.char-bg-eddy::after        { background-image: url('img/bg/eddy.webp'); }
+body.char-bg-manda::after       { background-image: url('img/bg/manda.webp'); }
+body.char-bg-zayn::after        { background-image: url('img/bg/zayn.webp'); }
+
+/* ── Shade ── */
+body.char-bg-sylvester::after   { background-image: url('img/bg/sylvester.webp'); opacity: 0.05; }
+
+/* ── Trio Ned/Eden/Eddy — classe dynamique selon l'onglet actif ── */
+body.char-bg-ned-eden-eddy::after { background-image: url('img/bg/ned.webp'); }
+body.char-bg-ned-eden-eddy.tab-eden::after  { background-image: url('img/bg/eden.webp'); }
+body.char-bg-ned-eden-eddy.tab-eddy::after  { background-image: url('img/bg/eddy.webp'); }
