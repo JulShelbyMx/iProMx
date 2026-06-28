@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>David Flash — L'Univers d'iProMx</title>
-  <meta name="description" content="L'histoire de David Flash — Le Fondateur de la Lignée — Premier Sang des Flash">
-  <meta property="og:title" content="David Flash — Encyclopédie iProMx">
-  <meta property="og:image" content="https://ik.imagekit.io/ipromx/images/logoblanc.webp">
+  <title>David Flash - L'Univers d'iProMx</title>
+  <meta name="description" content="David Flash — Le Fondateur de la Lignée — Premier Sang des Flash">
   <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,26 +17,12 @@
       --char-accent-dim: rgba(231,76,60,0.12);
       --char-accent-glow: rgba(231,76,60,0.45);
     }
-    .char-hero-bg img {
-      filter: brightness(0.42) saturate(0.75) hue-rotate(0deg);
-    }
-    .char-hero-bg::after {
+    .char-banner-overlay {
       background:
-        linear-gradient(to top, var(--void) 0%, rgba(6,5,4,0.25) 60%, transparent 100%),
-        linear-gradient(to right, var(--void) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 80% at 80% 50%, var(--char-accent-dim) 0%, transparent 70%);
+        linear-gradient(to bottom, rgba(6,5,4,0.05) 0%, rgba(6,5,4,0.95) 100%),
+        linear-gradient(to right, rgba(6,5,4,0.85) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 90% at 80% 40%, rgba(231,76,60,0.12) 0%, transparent 70%);
     }
-    .char-hero-clan { color: var(--char-accent); }
-    .char-hero-name { text-shadow: 0 0 30px var(--char-accent-glow); }
-    .char-chapter-num { color: var(--char-accent); }
-    .char-chapter-title { color: var(--char-accent); }
-    .char-chapter::before { background: linear-gradient(to bottom, var(--char-accent), transparent); }
-    .lore-section-title::before { background: linear-gradient(to bottom, var(--char-accent), var(--iron)); }
-    .char-stat { border-color: var(--char-accent-dim); }
-    .lore-nav-back:hover { color: var(--char-accent); border-color: var(--char-accent); background: var(--char-accent-dim); }
-    .char-back-btn:hover { color: var(--char-accent); border-color: var(--char-accent); background: var(--char-accent-dim); }
-    ::-webkit-scrollbar-thumb { background: var(--char-accent); }
-    ::selection { background: var(--char-accent); color: var(--void); }
   </style>
 </head>
 <body class="flash-theme">
@@ -53,7 +37,7 @@
       </div>
     </a>
     <div class="lore-nav-center">
-      <a href="index.html" class="lore-nav-link">← Toutes les familles</a>
+      <a href="index.html" class="lore-nav-link">← Encyclopédie</a>
       <a href="index.html#flash" class="lore-nav-link">Famille Flash</a>
     </div>
     <a href="../index.html" class="lore-nav-back">
@@ -65,125 +49,278 @@
 
 <div class="lore-page">
 
-  <section class="char-hero">
-    <div class="char-hero-bg">
-      <!-- // Image pleine page de David Flash (artwork, ambiance puissante, or et rouge, premier héros de la lignée) -->
-      <img src="" alt="David Flash" loading="eager">
+  <div class="char-banner">
+    <!-- // Image pleine bannière de David Flash — ambiance rouge sombre et or, puissance fondatrice, Terres des Flash en arrière-plan -->
+    <img src="https://ik.imagekit.io/ipromx/images/letigrebl/david-banni%C3%A8re.webp?updatedAt=1777902765221" alt="David Flash">
+    <div class="char-banner-overlay"></div>
+    <div class="char-banner-content">
+      <div class="char-banner-inner">
+        <div class="char-banner-clan">⚡ Famille Flash</div>
+        <h1 class="char-banner-name">David<br>Flash</h1>
+        <p class="char-banner-title">Le premier Flash à l'écran</p>
+      </div>
     </div>
-    <div class="char-hero-content">
-      <a href="index.html#flash" class="char-back-btn">
+  </div>
+
+  <div class="lore-section">
+    <div class="lore-container">
+
+      <a href="index.html#flash" class="char-page-back reveal">
         <i class="fas fa-arrow-left"></i> Famille Flash
       </a>
-      <div class="char-hero-clan">⚡ Famille Flash</div>
-      <h1 class="char-hero-name">David<br>Flash</h1>
-      <p class="char-hero-title">Le Fondateur de la Lignée — Premier Sang des Flash</p>
-      <div class="char-hero-stats">
-                <div class="char-stat">
-          <span class="char-stat-label">Génération</span>
-          <span class="char-stat-value">Flash I</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Rôle</span>
-          <span class="char-stat-value">Héritier fondateur</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Lignée</span>
-          <span class="char-stat-value">Flash</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Ancêtre</span>
-          <span class="char-stat-value">Eldric Flash</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Pouvoir</span>
-          <span class="char-stat-value">Héritage du Titan</span>
-        </div>
 
+      <!-- CARACTÉRISTIQUES -->
+      <div class="char-traits-block reveal">
+        <div class="char-traits-grid">
+          <div class="char-traits-left">
+            <div class="char-traits-label">Traits de personnalité</div>
+            <div class="char-traits-tags">
+              <span class="char-trait-tag">Serein</span>
+              <span class="char-trait-tag">Honorable</span>
+              <span class="char-trait-tag">Sage</span>
+              <span class="char-trait-tag">Protecteur</span>
+
+            </div>
+            <div class="char-totem-row">
+              <span class="char-totem-icon">🐯</span>
+              <div>
+                <div class="char-totem-label">Animal Totem</div>
+                <div class="char-totem-val">Le Tigre Blanc</div>
+              </div>
+            </div>
+          </div>
+          <div class="char-traits-right">
+            <div class="char-ost-label">OST reliée à David Flash</div>
+            <div class="char-ost-list">
+              <a href="https://www.youtube.com/watch?v=GhlLy2elSlI" class="char-ost-item" target="_blank" rel="noopener">IF YOU FALL I WILL CARRY YOU | by Efisio Cross</a>
+                <a href="https://www.youtube.com/watch?v=yMcWIbInMyw" class="char-ost-item" target="_blank" rel="noopener">Rags To Rings - Mark Petrie</a>
+                <!-- // Lien vers : Thème de David -->
+    
+            </a>
+              <a href="https://www.youtube.com/watch?v=FYAGKlb_Bz4" class="char-ost-item" target="_blank" rel="noopener">
+                <!-- // Lien vers : Héritage du Titan -->
+                <div class="char-ost-icon"><i class="fas fa-headphones"></i></div>
+                <span class="char-ost-name">David Flash (Skyword)</span>
+                <i class="fas fa-external-link-alt char-ost-arrow"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section class="char-story lore-section">
-    <div class="lore-container">
-      <div class="char-story-grid">
+      <!-- IMAGES PRINCIPALES -->
+      <div class="char-images-grid reveal">
+        <div class="char-img-item" style="aspect-ratio: 2/3;">
+          <!-- // Image principale de David Flash (pose imposante, éclairage dramatique) -->
+          <img src="https://lafami.my.canva.site/_assets/media/e158120d73357ed26ee28008732bbec9.png" alt="David Flash — Image 1" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="char-img-item">
+          <!-- // Deuxième illustration de David Flash -->
+          <img src="https://lafami.my.canva.site/_assets/media/70ab25d3061cde09141c793211660c34.png" alt="David Flash — Image 2" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="char-img-item">
+          <!-- // Troisième image de David Flash -->
+          <img src="https://lafami.my.canva.site/_assets/media/baf48fdf548a073d1c0789ce89eb4eb0.png" alt="David Flash — Image 3" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+      </div>
 
-        <div class="char-story-main">
-
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre I</div>
-            <h2 class="char-chapter-title">Aux Origines du Sang</h2>
-            <div class="char-chapter-text">
-              <p>David Flash. Premier de son nom. Héritier direct d'Eldric Flash, fondateur de la dynasty qui allait marquer à jamais les terres de l'ancien Titan Freddy.</p>
-            </div>
+      <!-- DESCRIPTION SYNTHÉTIQUE -->
+      <div class="char-desc-block reveal">
+        <div class="char-desc-text-wrap">
+          <div class="char-desc-eyebrow">Description synthétique</div>
+          <div class="char-desc-text">
+            <p>David Flash est l’ancêtre emblématique de la ligne Flash, connu pour son regard perçant et son sens du sacrifice.</p>
+            <p>Ancien chef respecté, il a transmis à ses descendants un lourd héritage de pouvoirs et de responsabilités. Calme, sage et protecteur, il porte en lui la sagesse des générations anciennes.</p>
+            <p>Même après sa mort, son aura demeure présente dans les décisions et les choix de ses descendants.</p>
+          </div>
+        </div>
+        <div class="char-info-card">
+          <div class="char-info-card-title">Fiche personnage</div>
+          <div class="char-info-row">
+            <span class="char-info-key">Génération</span>
+            <span class="char-info-val">Flash I</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Rôle</span>
+            <span class="char-info-val">Fondateur</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Ancêtre</span>
+            <span class="char-info-val">Eldric Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Lignée</span>
+            <span class="char-info-val">Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Pouvoir</span>
+            <span class="char-info-val">Héritage du Titan</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Statut</span>
+            <span class="char-info-val">Légendaire</span>
           </div>
 
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre II</div>
-            <h2 class="char-chapter-title">L'Héritage d'Eldric</h2>
-            <div class="char-chapter-text">
-              <p>De son ancêtre, David reçut un pouvoir brut, presque impossible à contenir. La même puissance qui avait conduit Eldric à sa perte face à Malakar — mais aussi la même ambition, le même feu intérieur, la même certitude d'être né pour régner.</p>
+        </div>
+      </div>
+
+      <!-- HISTOIRE COMPLÈTE -->
+      <div class="char-story-section reveal">
+        <div class="char-story-eyebrow">Histoire complète</div>
+        <h2 class="char-story-heading">Chroniques de David Flash</h2>
+        <div class="char-chapters">
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre I</div>
+              <div class="char-chapter-num-big">01</div>
+              <div class="char-chapter-title">L'Héritage d'Eldric</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>David Flash naquit dans l'ombre immense d'un ancêtre que tout le monde connaissait mais que personne n'avait vraiment compris. Eldric Flash avait tout fondé — et tout perdu en même temps. David, lui, hérita des deux.</p>
+                <p>La puissance d'abord. Brute, difficile à maîtriser, chargée de cette malédiction que Freddy lui-même avait prédite : chaque génération Flash souffrirait pour domestiquer ce qu'elle portait en elle. David ne fit pas exception.</p>
+              </div>
             </div>
           </div>
-
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre III</div>
-            <h2 class="char-chapter-title">La Marche des Flash</h2>
-            <div class="char-chapter-text">
-              <p>Sous David, la famille Flash s'affirma. Les Terres des Flash n'étaient plus une simple revendication — elles devenaient une réalité, gravée dans la pierre et dans le sang.</p>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre II</div>
+              <div class="char-chapter-num-big">02</div>
+              <div class="char-chapter-title">Le Premier Roi des Terres Flash</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Ce que David construisit n'était pas seulement un territoire. C'était un symbole. Les Terres des Flash, rebaptisées par Eldric, devinrent sous David un vrai centre de pouvoir — avec ses règles, ses fidèles, ses ennemis.</p>
+                <p>Les Shade existaient déjà, quelque part derrière leur Dôme. David le savait. Il ne chercha pas à les trouver — pas encore. Mais il commença à les surveiller. Un roi qui ignore ses ennemis n'est qu'un homme qui attend d'être surpris.</p>
+              </div>
+            </div>
+          </div>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre III</div>
+              <div class="char-chapter-num-big">03</div>
+              <div class="char-chapter-title">Ce qu'il laissa derrière lui</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>David Flash mourut en ayant accompli ce qu'Eldric n'avait jamais su finir : stabiliser. La lignée Flash avait désormais un socle. Pas parfait. Pas propre. Mais solide.</p>
+                <p>Ses successeurs hériteraient de cette double réalité : un empire à maintenir, et une puissance difficile à contrôler. David leur laissait les deux — sans manuel d'instructions.</p>
+              </div>
             </div>
           </div>
 
         </div>
-
-        <aside class="char-sidebar">
-          <div class="char-portrait-wrap">
-            <div class="char-portrait">
-              <!-- // Portrait officiel de David Flash -->
-              <img src="" alt="David Flash — Portrait">
-              <div class="char-portrait-glow"></div>
-            </div>
-
-            <div class="char-info-card">
-              <div class="char-info-title">Fiche du Personnage</div>
-                            <div class="char-info-row">
-                <span class="char-info-key">Génération</span>
-                <span class="char-info-val">Flash I</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Rôle</span>
-                <span class="char-info-val">Héritier fondateur</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Lignée</span>
-                <span class="char-info-val">Flash</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Ancêtre</span>
-                <span class="char-info-val">Eldric Flash</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Pouvoir</span>
-                <span class="char-info-val">Héritage du Titan</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Ennemi</span>
-                <span class="char-info-val">Clan Shade</span>
-              </div>
-
-            </div>
-
-            <div class="char-info-card" style="border-color: var(--char-accent-dim); background: rgba(0,0,0,0.3);">
-              <div class="char-info-title" style="color: var(--char-accent);">Citation</div>
-              <p style="font-family:var(--font-body);font-size:1rem;color:var(--text-dim);line-height:1.7;font-style:italic;">
-                « Le premier pas d'une famille, c'est toujours celui qui compte le plus. »
-              </p>
-            </div>
-          </div>
-        </aside>
-
       </div>
+
+      <!-- GALERIE -->
+      <div class="char-gallery-section reveal">
+        <div class="char-gallery-eyebrow">Galerie</div>
+        <h2 class="char-gallery-heading">Images de David Flash</h2>
+        <div class="char-gallery-grid" id="galleryGrid">
+          <div class="char-gallery-item">
+            <!-- // Galerie image 1 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 2 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 3 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 4 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 5 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 6 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 7 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 8 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 9 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 10 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 11 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 12 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 13 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 14 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 15 de David Flash -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 16 de David Flash (cachée par défaut) -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 17 de David Flash (cachée par défaut) -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 18 de David Flash (cachée par défaut) -->
+            <img src="" alt="David Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+
+        </div>
+        <div class="char-gallery-actions">
+          <button class="char-gallery-btn" id="btnVoirPlus"><i class="fas fa-plus"></i> Voir plus</button>
+          <button class="char-gallery-btn hidden" id="btnVoirMoins"><i class="fas fa-minus"></i> Voir moins</button>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
 
   <footer class="lore-footer">
     <div class="lore-footer-inner">
@@ -191,31 +328,58 @@
         <img src="https://ik.imagekit.io/ipromx/images/logoblanc.webp" alt="iProMx">
         <span class="lore-footer-brand-text">iPROMX</span>
       </div>
-      <div class="lore-footer-meta">
-        © 2026 L'Univers d'iProMx · Encyclopédie Narrative · Tous droits réservés
-      </div>
+      <div class="lore-footer-meta">© 2026 L'Univers d'iProMx · Encyclopédie Narrative</div>
       <div class="lore-footer-credits">
-        <span>Mise en forme & développement : <a href="#">Jul_ipmx</a></span>
-        <span>Contenu narratif : <a href="#" class="shade-link">killing</a></span>
-        <span><a href="index.html">← Retour à l'encyclopédie</a></span>
+        <span>Développement : <a href="#">Jul_ipmx</a></span>
+        <span>Contenu : <a href="#">killing</a></span>
+        <span><a href="index.html">← Encyclopédie</a></span>
       </div>
     </div>
   </footer>
 
 </div>
 
+<div class="lore-lightbox" id="lightbox">
+  <button class="lore-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+  <img src="" alt="" id="lightboxImg">
+</div>
+
 <script>
   const nav = document.getElementById('lorNavbar');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
-  const revealEls = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const hiddenItems = document.querySelectorAll('.char-gallery-item.hidden');
+  const btnPlus = document.getElementById('btnVoirPlus');
+  const btnMoins = document.getElementById('btnVoirMoins');
+  if (!hiddenItems.length) btnPlus.classList.add('hidden');
+  btnPlus.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.remove('hidden'));
+    btnPlus.classList.add('hidden');
+    btnMoins.classList.remove('hidden');
+  });
+  btnMoins.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.add('hidden'));
+    btnMoins.classList.add('hidden');
+    btnPlus.classList.remove('hidden');
+    document.getElementById('galleryGrid').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.char-gallery-item img, .char-img-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src; lightboxImg.alt = img.alt;
+      lightbox.classList.add('open'); document.body.style.overflow='hidden';
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-  revealEls.forEach(el => obs.observe(el));
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLB);
+  lightbox.addEventListener('click', e => { if(e.target===lightbox) closeLB(); });
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeLB(); });
+  function closeLB() { lightbox.classList.remove('open'); document.body.style.overflow=''; }
 </script>
 </body>
 </html>

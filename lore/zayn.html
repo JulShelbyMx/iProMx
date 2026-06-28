@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zayn Flash — L'Univers d'iProMx</title>
-  <meta name="description" content="L'histoire de Zayn Flash — Le Dernier de la Lignée — Là où Tout Converge">
-  <meta property="og:title" content="Zayn Flash — Encyclopédie iProMx">
-  <meta property="og:image" content="https://ik.imagekit.io/ipromx/images/logoblanc.webp">
+  <meta name="description" content="Zayn Flash — Le Dernier de la Lignée — Là où Tout Converge">
   <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,28 +15,14 @@
     :root {
       --char-accent: #f5a623;
       --char-accent-dim: rgba(245,166,35,0.12);
-      --char-accent-glow: rgba(245,166,35,0.5);
+      --char-accent-glow: rgba(245,166,35,0.55);
     }
-    .char-hero-bg img {
-      filter: brightness(0.42) saturate(0.75) hue-rotate(0deg);
-    }
-    .char-hero-bg::after {
+    .char-banner-overlay {
       background:
-        linear-gradient(to top, var(--void) 0%, rgba(6,5,4,0.25) 60%, transparent 100%),
-        linear-gradient(to right, var(--void) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 80% at 80% 50%, var(--char-accent-dim) 0%, transparent 70%);
+        linear-gradient(to bottom, rgba(6,5,4,0.05) 0%, rgba(6,5,4,0.95) 100%),
+        linear-gradient(to right, rgba(6,5,4,0.85) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 90% at 80% 40%, rgba(245,166,35,0.12) 0%, transparent 70%);
     }
-    .char-hero-clan { color: var(--char-accent); }
-    .char-hero-name { text-shadow: 0 0 30px var(--char-accent-glow); }
-    .char-chapter-num { color: var(--char-accent); }
-    .char-chapter-title { color: var(--char-accent); }
-    .char-chapter::before { background: linear-gradient(to bottom, var(--char-accent), transparent); }
-    .lore-section-title::before { background: linear-gradient(to bottom, var(--char-accent), var(--iron)); }
-    .char-stat { border-color: var(--char-accent-dim); }
-    .lore-nav-back:hover { color: var(--char-accent); border-color: var(--char-accent); background: var(--char-accent-dim); }
-    .char-back-btn:hover { color: var(--char-accent); border-color: var(--char-accent); background: var(--char-accent-dim); }
-    ::-webkit-scrollbar-thumb { background: var(--char-accent); }
-    ::selection { background: var(--char-accent); color: var(--void); }
   </style>
 </head>
 <body class="flash-theme">
@@ -53,7 +37,7 @@
       </div>
     </a>
     <div class="lore-nav-center">
-      <a href="index.html" class="lore-nav-link">← Toutes les familles</a>
+      <a href="index.html" class="lore-nav-link">← Encyclopédie</a>
       <a href="index.html#flash" class="lore-nav-link">Famille Flash</a>
     </div>
     <a href="../index.html" class="lore-nav-back">
@@ -65,125 +49,280 @@
 
 <div class="lore-page">
 
-  <section class="char-hero">
-    <div class="char-hero-bg">
-      <!-- // Image pleine page de Zayn Flash (or intense, treizième génération, entre puissance héritée et destin propre) -->
-      <img src="" alt="Zayn Flash" loading="eager">
+  <div class="char-banner">
+    <!-- // Image bannière de Zayn Flash — or intense, épique, treizième génération, entre puissance et destin -->
+    <img src="" alt="Zayn Flash" loading="eager">
+    <div class="char-banner-overlay"></div>
+    <div class="char-banner-content">
+      <div class="char-banner-inner">
+        <div class="char-banner-clan">⚡ Famille Flash</div>
+        <h1 class="char-banner-name">Zayn<br>Flash</h1>
+        <p class="char-banner-title">Le Dernier de la Lignée — Là où Tout Converge</p>
+      </div>
     </div>
-    <div class="char-hero-content">
-      <a href="index.html#flash" class="char-back-btn">
+  </div>
+
+  <div class="lore-section">
+    <div class="lore-container">
+
+      <a href="index.html#flash" class="char-page-back reveal">
         <i class="fas fa-arrow-left"></i> Famille Flash
       </a>
-      <div class="char-hero-clan">⚡ Famille Flash</div>
-      <h1 class="char-hero-name">Zayn<br>Flash</h1>
-      <p class="char-hero-title">Le Dernier de la Lignée — Là où Tout Converge</p>
-      <div class="char-hero-stats">
-                <div class="char-stat">
-          <span class="char-stat-label">Génération</span>
-          <span class="char-stat-value">Flash XIII</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Lignée</span>
-          <span class="char-stat-value">Flash</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Pouvoir</span>
-          <span class="char-stat-value">Synthèse des Flash</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Statut</span>
-          <span class="char-stat-value">Présent</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Rival</span>
-          <span class="char-stat-value">Sylvester Shade</span>
-        </div>
 
+      <!-- CARACTÉRISTIQUES -->
+      <div class="char-traits-block reveal">
+        <div class="char-traits-grid">
+          <div class="char-traits-left">
+            <div class="char-traits-label">Traits de personnalité</div>
+            <div class="char-traits-tags">
+              <span class="char-trait-tag">Complexe</span>
+              <span class="char-trait-tag">Conscient</span>
+              <span class="char-trait-tag">Puissant</span>
+              <span class="char-trait-tag">Solitaire</span>
+              <span class="char-trait-tag">Hanté</span>
+
+            </div>
+            <div class="char-totem-row">
+              <span class="char-totem-icon">🐉</span>
+              <div>
+                <div class="char-totem-label">Animal Totem</div>
+                <div class="char-totem-val">Le Dragon</div>
+              </div>
+            </div>
+          </div>
+          <div class="char-traits-right">
+            <div class="char-ost-label">OST reliée à Zayn Flash</div>
+            <div class="char-ost-list">
+              <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                <!-- // Lien vers : Thème de Zayn Flash -->
+                <div class="char-ost-icon"><i class="fas fa-music"></i></div>
+                <span class="char-ost-name">Thème de Zayn Flash</span>
+                <i class="fas fa-external-link-alt char-ost-arrow"></i>
+              </a>
+              <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                <!-- // Lien vers : Treizième — Zayn Flash -->
+                <div class="char-ost-icon"><i class="fas fa-headphones"></i></div>
+                <span class="char-ost-name">Treizième — Zayn Flash</span>
+                <i class="fas fa-external-link-alt char-ost-arrow"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section class="char-story lore-section">
-    <div class="lore-container">
-      <div class="char-story-grid">
+      <!-- IMAGES PRINCIPALES -->
+      <div class="char-images-grid reveal">
+        <div class="char-img-item" style="aspect-ratio:2/3;">
+          <!-- // Image principale de Zayn Flash (pose iconique, or et ombre, regard vers l'horizon) -->
+          <img src="" alt="Zayn Flash — Image 1" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="char-img-item">
+          <!-- // Deuxième illustration de Zayn Flash -->
+          <img src="" alt="Zayn Flash — Image 2" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="char-img-item">
+          <!-- // Troisième image de Zayn Flash -->
+          <img src="" alt="Zayn Flash — Image 3" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+      </div>
 
-        <div class="char-story-main">
-
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre I</div>
-            <h2 class="char-chapter-title">Treizième de Son Nom</h2>
-            <div class="char-chapter-text">
-              <p>Zayn Flash. Treizième génération. Dernier en date d'une lignée construite sur le sang, la domination et les pouvoirs d'un Titan depuis longtemps disparu.</p>
-            </div>
+      <!-- DESCRIPTION SYNTHÉTIQUE -->
+      <div class="char-desc-block reveal">
+        <div class="char-desc-text-wrap">
+          <div class="char-desc-eyebrow">Description synthétique</div>
+          <div class="char-desc-text">
+            <p>Zayn Flash. Treizième génération. Dernier en date d'une lignée construite sur le sang, la domination et les pouvoirs d'un Titan depuis longtemps disparu. En lui coule quelque chose de chacun de ses ancêtres — pas de façon métaphorique. De façon littérale. Le pouvoir Flash s'accumule à travers les générations.</p>
+            <p>La force brute de David. La vitesse de Kayton. La mémoire de Ned. La rage d'Aaron. La discipline de Ken. La précision de Manda. Zayn Flash est une somme — et cette somme est lourde à porter. Douze générations de décisions, de guerres, d'alliances rompues et de victoires payées au prix fort.</p>
+            <p>Zayn Flash est le Flash que Desmond Shade entraîne son fils Sylvester à combattre. Pas Zayn en particulier — mais ce qu'il représente. La continuité d'une ligne de sang qui doit, selon les Shade, prendre fin. Il le sait. Et cette conscience de sa propre cible change quelque chose dans sa façon d'exister.</p>
+          </div>
+        </div>
+        <div class="char-info-card">
+          <div class="char-info-card-title">Fiche personnage</div>
+          <div class="char-info-row">
+            <span class="char-info-key">Génération</span>
+            <span class="char-info-val">Flash XIII</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Rôle</span>
+            <span class="char-info-val">Dernier en date</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Pouvoir</span>
+            <span class="char-info-val">Synthèse des Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Rival</span>
+            <span class="char-info-val">Sylvester Shade</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Lignée</span>
+            <span class="char-info-val">Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Statut</span>
+            <span class="char-info-val">Présent</span>
           </div>
 
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre II</div>
-            <h2 class="char-chapter-title">L'Héritage de Douze Générations</h2>
-            <div class="char-chapter-text">
-              <p>En lui coule quelque chose de chacun de ses ancêtres. La force brute de David. La vitesse de Kayton. La mémoire de Ned. La rage d'Aaron. La discipline de Ken. Douze générations de Flash — et tout ce que ça implique.</p>
+        </div>
+      </div>
+
+      <!-- HISTOIRE COMPLÈTE -->
+      <div class="char-story-section reveal">
+        <div class="char-story-eyebrow">Histoire complète</div>
+        <h2 class="char-story-heading">Chroniques de Zayn Flash</h2>
+        <div class="char-chapters">
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre I</div>
+              <div class="char-chapter-num-big">01</div>
+              <div class="char-chapter-title">Treizième de Son Nom</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Zayn Flash. Treizième génération. Dernier en date d'une lignée construite sur le sang, la domination et les pouvoirs d'un Titan depuis longtemps disparu.</p>
+                <p>Il y a quelque chose d'étrange à porter ce numéro. Treize — pas un chiffre anodin dans une histoire chargée de symboles et de malédictions. Zayn ne fut pas le seul à le remarquer.</p>
+              </div>
             </div>
           </div>
-
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre III</div>
-            <h2 class="char-chapter-title">Face aux Shade</h2>
-            <div class="char-chapter-text">
-              <p>Zayn Flash est le Flash que Desmond Shade entraîne son fils Sylvester à combattre. Pas Zayn en particulier — mais ce qu'il représente. La continuité d'une ligne de sang qui doit, selon les Shade, prendre fin.</p>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre II</div>
+              <div class="char-chapter-num-big">02</div>
+              <div class="char-chapter-title">L'Héritage de Douze Générations</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>En lui coule quelque chose de chacun de ses ancêtres. La force brute de David. La vitesse de Kayton. La mémoire de Ned. La rage d'Aaron. La discipline de Ken. La précision de Manda.</p>
+                <p>Cette accumulation n'est pas sans conséquences. Porter l'héritage de douze générations de Flash, c'est aussi porter leurs contradictions, leurs traumatismes, leurs erreurs. Zayn Flash est puissant. Mais il est aussi plus chargé que n'importe lequel de ses prédécesseurs.</p>
+              </div>
+            </div>
+          </div>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre III</div>
+              <div class="char-chapter-num-big">03</div>
+              <div class="char-chapter-title">Face aux Shade</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Zayn Flash est le Flash que Desmond Shade entraîne son fils Sylvester à combattre. Pas Zayn en particulier — mais ce qu'il représente. La continuité d'une ligne de sang qui doit, selon les Shade, prendre fin.</p>
+                <p>Zayn le sait. Cette conscience de sa propre cible change quelque chose dans sa façon d'exister. Il ne peut pas ignorer les Shade — ils sont trop présents, trop déterminés, trop proches. La question n'est plus si l'affrontement aura lieu. C'est quand. Et dans quelles conditions.</p>
+              </div>
             </div>
           </div>
 
         </div>
-
-        <aside class="char-sidebar">
-          <div class="char-portrait-wrap">
-            <div class="char-portrait">
-              <!-- // Portrait officiel de Zayn Flash -->
-              <img src="" alt="Zayn Flash — Portrait">
-              <div class="char-portrait-glow"></div>
-            </div>
-
-            <div class="char-info-card">
-              <div class="char-info-title">Fiche du Personnage</div>
-                            <div class="char-info-row">
-                <span class="char-info-key">Génération</span>
-                <span class="char-info-val">Flash XIII</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Lignée</span>
-                <span class="char-info-val">Flash</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Pouvoir</span>
-                <span class="char-info-val">Synthèse des Flash</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Statut</span>
-                <span class="char-info-val">Présent</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Rival</span>
-                <span class="char-info-val">Sylvester Shade</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Ennemi</span>
-                <span class="char-info-val">Clan Shade</span>
-              </div>
-
-            </div>
-
-            <div class="char-info-card" style="border-color: var(--char-accent-dim); background: rgba(0,0,0,0.3);">
-              <div class="char-info-title" style="color: var(--char-accent);">Citation</div>
-              <p style="font-family:var(--font-body);font-size:1rem;color:var(--text-dim);line-height:1.7;font-style:italic;">
-                « Je suis le treizième. Et le premier à voir venir ce qui arrive. »
-              </p>
-            </div>
-          </div>
-        </aside>
-
       </div>
+
+      <!-- GALERIE -->
+      <div class="char-gallery-section reveal">
+        <div class="char-gallery-eyebrow">Galerie</div>
+        <h2 class="char-gallery-heading">Images de Zayn Flash</h2>
+        <div class="char-gallery-grid" id="galleryGrid">
+          <div class="char-gallery-item">
+            <!-- // Galerie image 1 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 2 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 3 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 4 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 5 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 6 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 7 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 8 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 9 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 10 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 11 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 12 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 13 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 14 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 15 de Zayn Flash -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 16 de Zayn Flash (cachée par défaut) -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 17 de Zayn Flash (cachée par défaut) -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 18 de Zayn Flash (cachée par défaut) -->
+            <img src="" alt="Zayn Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+
+        </div>
+        <div class="char-gallery-actions">
+          <button class="char-gallery-btn" id="btnVoirPlus"><i class="fas fa-plus"></i> Voir plus</button>
+          <button class="char-gallery-btn hidden" id="btnVoirMoins"><i class="fas fa-minus"></i> Voir moins</button>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
 
   <footer class="lore-footer">
     <div class="lore-footer-inner">
@@ -191,31 +330,57 @@
         <img src="https://ik.imagekit.io/ipromx/images/logoblanc.webp" alt="iProMx">
         <span class="lore-footer-brand-text">iPROMX</span>
       </div>
-      <div class="lore-footer-meta">
-        © 2026 L'Univers d'iProMx · Encyclopédie Narrative · Tous droits réservés
-      </div>
+      <div class="lore-footer-meta">© 2026 L'Univers d'iProMx · Encyclopédie Narrative</div>
       <div class="lore-footer-credits">
-        <span>Mise en forme & développement : <a href="#">Jul_ipmx</a></span>
-        <span>Contenu narratif : <a href="#" class="shade-link">killing</a></span>
-        <span><a href="index.html">← Retour à l'encyclopédie</a></span>
+        <span>Développement : <a href="#">Jul_ipmx</a></span>
+        <span>Contenu : <a href="#">killing</a></span>
+        <span><a href="index.html">← Encyclopédie</a></span>
       </div>
     </div>
   </footer>
 
 </div>
 
+<div class="lore-lightbox" id="lightbox">
+  <button class="lore-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+  <img src="" alt="" id="lightboxImg">
+</div>
+
 <script>
   const nav = document.getElementById('lorNavbar');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
-  const revealEls = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const hiddenItems = document.querySelectorAll('.char-gallery-item.hidden');
+  const btnPlus = document.getElementById('btnVoirPlus');
+  const btnMoins = document.getElementById('btnVoirMoins');
+  if (!hiddenItems.length) btnPlus.classList.add('hidden');
+  btnPlus.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.remove('hidden'));
+    btnPlus.classList.add('hidden');
+    btnMoins.classList.remove('hidden');
+  });
+  btnMoins.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.add('hidden'));
+    btnMoins.classList.add('hidden');
+    btnPlus.classList.remove('hidden');
+    document.getElementById('galleryGrid').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.char-gallery-item img, .char-img-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src; lightboxImg.alt = img.alt;
+      lightbox.classList.add('open'); document.body.style.overflow='hidden';
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-  revealEls.forEach(el => obs.observe(el));
+  });
+  document.getElementById('lightboxClose').addEventListener('click', () => { lightbox.classList.remove('open'); document.body.style.overflow=''; });
+  lightbox.addEventListener('click', e => { if(e.target===lightbox){ lightbox.classList.remove('open'); document.body.style.overflow=''; } });
+  document.addEventListener('keydown', e => { if(e.key==='Escape'){ lightbox.classList.remove('open'); document.body.style.overflow=''; } });
 </script>
 </body>
 </html>

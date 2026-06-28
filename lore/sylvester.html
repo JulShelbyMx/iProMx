@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sylvester Shade — L'Univers d'iProMx</title>
-  <meta name="description" content="L'histoire de Sylvester Shade — fils de Desmond, héritier du Clan Shade, forgé pour la guerre contre les Flash.">
-  <meta property="og:title" content="Sylvester Shade — Encyclopédie iProMx">
-  <meta property="og:image" content="https://ik.imagekit.io/ipromx/images/logoblanc.webp">
+  <meta name="description" content="Sylvester Shade — fils de Desmond, héritier du Dôme, forgé pour la guerre contre les Flash.">
   <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,21 +12,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="lore.css">
   <style>
-    /* Surcharge Shade légère sur la hero */
-    .char-hero-bg img { filter: brightness(0.42) saturate(0.7) hue-rotate(220deg); }
-    .char-hero-bg::after {
-      background:
-        linear-gradient(to top, var(--void) 0%, rgba(6,5,4,0.25) 60%, transparent 100%),
-        linear-gradient(to right, var(--void) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 80% at 80% 50%, rgba(76,29,149,0.18) 0%, transparent 70%);
+    :root {
+      --char-accent: #a855f7;
+      --char-accent-dim: rgba(168,85,247,0.12);
+      --char-accent-glow: rgba(168,85,247,0.45);
     }
-    .char-stat { border-color: rgba(124,58,237,0.25); }
-    .char-stat:hover { border-color: var(--shade-primary); }
+    .lore-section-title::before { background: linear-gradient(to bottom, var(--shade-primary), var(--shade-dark)); }
+    .char-page-back:hover { color: var(--shade-bright); border-color: var(--shade-primary); background: var(--shade-dim); }
+    .char-banner-overlay {
+      background:
+        linear-gradient(to bottom, rgba(6,5,4,0.05) 0%, rgba(6,5,4,0.95) 100%),
+        linear-gradient(to right, rgba(6,5,4,0.85) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 90% at 80% 40%, rgba(76,29,149,0.22) 0%, transparent 70%);
+    }
+    ::-webkit-scrollbar-thumb { background: var(--shade-primary); }
+    ::selection { background: var(--shade-primary); color: white; }
   </style>
 </head>
 <body class="shade-theme">
 
-<!-- NAVBAR -->
 <nav class="lore-navbar" id="lorNavbar">
   <div class="lore-navbar-inner">
     <a href="index.html" class="lore-nav-logo">
@@ -38,12 +40,10 @@
         <div class="lore-nav-logo-sub">Encyclopédie</div>
       </div>
     </a>
-
     <div class="lore-nav-center">
-      <a href="index.html" class="lore-nav-link">← Toutes les familles</a>
+      <a href="index.html" class="lore-nav-link">← Encyclopédie</a>
       <a href="index.html#shade" class="lore-nav-link">Famille Shade</a>
     </div>
-
     <a href="../index.html" class="lore-nav-back">
       <i class="fas fa-tv"></i>
       <span>Retour au streaming</span>
@@ -53,153 +53,255 @@
 
 <div class="lore-page">
 
-  <!-- HERO PERSONNAGE -->
-  <section class="char-hero">
-    <div class="char-hero-bg">
-      <!-- // Image pleine page de Sylvester Shade (artwork, illustration ou photo du personnage en pied, fond sombre/violet) -->
-      <img src="" alt="Sylvester Shade" loading="eager">
+  <!-- BANNIÈRE -->
+  <div class="char-banner">
+    <!-- // Image bannière pleine largeur de Sylvester Shade (artwork en pied ou demi-corps, fond sombre violet/noir, ambiance Dôme) -->
+    <img src="" alt="Sylvester Shade">
+    <div class="char-banner-overlay"></div>
+    <div class="char-banner-content">
+      <div class="char-banner-inner">
+        <div class="char-banner-clan">☠ Famille Shade</div>
+        <h1 class="char-banner-name">Sylvester Shade</h1>
+        <p class="char-banner-title">Le Fils forgé dans la haine — Héritier du Dôme</p>
+      </div>
     </div>
-    <div class="char-hero-content">
-      <a href="index.html#shade" class="char-back-btn">
+  </div>
+
+  <!-- CONTENU -->
+  <div class="lore-section">
+    <div class="lore-container">
+
+      <a href="index.html#shade" class="char-page-back reveal">
         <i class="fas fa-arrow-left"></i> Famille Shade
       </a>
-      <div class="char-hero-clan">☠ Clan Shade</div>
-      <h1 class="char-hero-name">Sylvester<br>Shade</h1>
-      <p class="char-hero-title">Le Fils forgé dans la haine — Héritier du Dôme</p>
-      <div class="char-hero-stats">
-        <div class="char-stat">
-          <span class="char-stat-label">Génération</span>
-          <span class="char-stat-value">Shade II</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Statut</span>
-          <span class="char-stat-value">Actif</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Père</span>
-          <span class="char-stat-value">Desmond Shade</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Clan</span>
-          <span class="char-stat-value">Shade</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Source de pouvoir</span>
-          <span class="char-stat-value">L'Ombre</span>
+
+      <!-- CARACTÉRISTIQUES -->
+      <div class="char-traits-block reveal">
+        <div class="char-traits-grid">
+          <div class="char-traits-left">
+            <div class="char-traits-label">Traits de personnalité</div>
+            <div class="char-traits-tags">
+              <span class="char-trait-tag">Charmeur</span>
+              <span class="char-trait-tag">Insouciant</span>
+              <span class="char-trait-tag">Loyal</span>
+              <span class="char-trait-tag">Torturé</span>
+              <span class="char-trait-tag">Déterminé</span>
+              <span class="char-trait-tag">Amoureux</span>
+            </div>
+            <div class="char-totem-row">
+              <span class="char-totem-icon">🐺</span>
+              <div>
+                <div class="char-totem-label">Animal Totem</div>
+                <div class="char-totem-val">Le Loup</div>
+              </div>
+            </div>
+          </div>
+          <div class="char-traits-right">
+            <div class="char-ost-label">OST reliée à Sylvester Shade</div>
+            <div class="char-ost-list">
+              <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                <!-- // Lien vers musique OST 1 de Sylvester -->
+                <div class="char-ost-icon"><i class="fas fa-music"></i></div>
+                <span class="char-ost-name">Musique principale</span>
+                <i class="fas fa-external-link-alt char-ost-arrow"></i>
+              </a>
+              <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                <!-- // Lien vers musique OST 2 de Sylvester -->
+                <div class="char-ost-icon"><i class="fas fa-music"></i></div>
+                <span class="char-ost-name">Thème combat</span>
+                <i class="fas fa-external-link-alt char-ost-arrow"></i>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- HISTOIRE -->
-  <section class="char-story lore-section">
-    <div class="lore-container">
-      <div class="char-story-grid">
+      <!-- IMAGES PRINCIPALES -->
+      <div class="char-images-grid reveal">
+        <!-- // Image principale grande (aspect libre, format portrait ou paysage) de Sylvester Shade -->
+        <div class="char-img-item" style="aspect-ratio: 2/3;">
+          <img src="" alt="Sylvester Shade — Image 1" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <!-- // Deuxième image de Sylvester Shade -->
+        <div class="char-img-item">
+          <img src="" alt="Sylvester Shade — Image 2" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <!-- // Troisième image de Sylvester Shade -->
+        <div class="char-img-item">
+          <img src="" alt="Sylvester Shade — Image 3" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+      </div>
 
-        <!-- Histoire principale -->
-        <div class="char-story-main">
+      <!-- DESCRIPTION SYNTHÉTIQUE -->
+      <div class="char-desc-block reveal">
+        <div class="char-desc-text-wrap">
+          <div class="char-desc-eyebrow">Description synthétique</div>
+          <div class="char-desc-text">
+            <p>Sylvester Shade. Le plus jeune fils de Desmond. Charmeur, insouciant, toujours à courir après June Shade — voilà ce qu'il était avant. Avant que le monde qu'il connaissait ne parte en flammes, littéralement.</p>
+            <p>Fils cadet d'un roi en paix, Sylvester grandissait dans le Dôme comme dans une bulle. Protégé. Aimé. Libre. Ce garçon-là n'était pas fait pour la guerre. Et c'est précisément pour ça que cette guerre l'a brisé différemment des autres.</p>
+            <p>Quand les Flash ont trouvé le Dôme et détruit ce que Desmond avait mis des années à construire, Sylvester a perdu sa mère. Et avec elle, cette version de lui-même qui souriait facilement. Son père l'a ensuite pris sous son aile — pas pour le consoler. Pour le forger. Les Shade ne naissent pas puissants. Ils le deviennent.</p>
+          </div>
+        </div>
+        <div class="char-info-card">
+          <div class="char-info-card-title">Fiche personnage</div>
+          <div class="char-info-row">
+            <span class="char-info-key">Famille</span>
+            <span class="char-info-val">Shade</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Père</span>
+            <span class="char-info-val">Desmond Shade</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Sœur</span>
+            <span class="char-info-val">Iris Shade</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Ancêtre</span>
+            <span class="char-info-val">Aurélus Shade</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Pouvoir</span>
+            <span class="char-info-val">L'Ombre · Obsidienne</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Ennemi</span>
+            <span class="char-info-val">Famille Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Statut</span>
+            <span class="char-info-val">En guerre</span>
+          </div>
+        </div>
+      </div>
 
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre I</div>
-            <h2 class="char-chapter-title">L'Enfance dans le Dôme</h2>
-            <div class="char-chapter-text">
-              <p>Sylvester Shade. Le plus jeune fils de Desmond. Charmeur. Insouciant. Toujours à courir après June Shade.</p>
-              <p>Il grandissait dans un équilibre parfait, protégé par le Dôme qu'Aurélus avait autrefois bâti. Une enfance à l'abri de la violence des Flash, à l'abri d'un monde qu'il ne connaissait pas encore. Le Dôme était tout son univers. Et dans cet univers, Sylvester était libre.</p>
-              <p>Il ne savait pas encore que cette liberté avait un prix.</p>
+      <!-- HISTOIRE COMPLÈTE -->
+      <div class="char-story-section reveal">
+        <div class="char-story-eyebrow">Histoire complète</div>
+        <h2 class="char-story-heading">Chroniques de Sylvester Shade</h2>
+
+        <div class="char-chapters">
+
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre I</div>
+              <div class="char-chapter-num-big">01</div>
+              <div class="char-chapter-title">L'Enfance dans le Dôme</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Sylvester Shade. Le plus jeune fils de Desmond. Charmeur. Insouciant. Toujours à courir après June Shade.</p>
+                <p>Il grandissait dans un équilibre parfait, protégé par le Dôme qu'Aurélus avait autrefois bâti. Une enfance à l'abri de la violence des Flash, à l'abri d'un monde qu'il ne connaissait pas encore. Le Dôme était tout son univers. Et dans cet univers, Sylvester était libre.</p>
+                <p>Il ne savait pas encore que cette liberté avait un prix.</p>
+              </div>
             </div>
           </div>
 
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre II</div>
-            <h2 class="char-chapter-title">Le Jour où Tout a Brûlé</h2>
-            <div class="char-chapter-text">
-              <p>Ce jour-là, les Flash ont trouvé le Dôme.</p>
-              <p>Ils ne sont pas venus parler. Ils ne sont pas venus pour comprendre. Ils sont venus détruire. Le village fut attaqué. Le sang coula. Les cris résonnèrent. Et Sylvester — l'enfant insouciant qui courait après June — vit son monde s'effondrer en quelques heures.</p>
-              <p>Sa mère. L'amour de son père. La mère de ses enfants. Dans les flammes laissées par les Flash… il ne restait qu'une chose. La haine.</p>
-              <p>Ce soir-là, Sylvester Shade perdit son innocence pour toujours.</p>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre II</div>
+              <div class="char-chapter-num-big">02</div>
+              <div class="char-chapter-title">Le Jour où Tout a Brûlé</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Ce jour-là, les Flash ont trouvé le Dôme.</p>
+                <p>Ils ne sont pas venus parler. Ils ne sont pas venus pour comprendre. Ils sont venus détruire. Le village fut attaqué. Le sang coula. Les cris résonnèrent. Et Sylvester — l'enfant insouciant qui courait après June — vit son monde s'effondrer en quelques heures.</p>
+                <p>Sa mère. L'amour de son père. La mère de ses enfants. Dans les flammes laissées par les Flash… il ne restait qu'une chose. La haine.</p>
+                <p>Ce soir-là, Sylvester Shade perdit son innocence pour toujours.</p>
+              </div>
             </div>
           </div>
 
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre III</div>
-            <h2 class="char-chapter-title">Forgé par Desmond</h2>
-            <div class="char-chapter-text">
-              <p>Desmond fit un choix. Le même que son ancêtre Aurélus. Mais cette fois… pas pour fuir. Pour se préparer à la guerre.</p>
-              <p>Il prit son fils sous son aile. Il brisa son innocence. Il forgea son cœur. Dans un seul but : anéantir les Flash, faire sortir les Shade de l'ombre. Et inscrire leur nom… non plus dans le silence… mais dans l'histoire.</p>
-              <p>Sylvester n'était plus cet enfant qui riait. Il devenait ce que son père voulait qu'il soit : une arme. Un héritier. Un symbole.</p>
-              <p>Les Shade ne naissent pas puissants. Ils le deviennent. L'entraînement. La discipline. Les responsabilités. L'obsidienne. Et surtout… l'Ombre qu'ils accumulent.</p>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre III</div>
+              <div class="char-chapter-num-big">03</div>
+              <div class="char-chapter-title">Forgé par Desmond</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Desmond fit un choix. Le même que son ancêtre Aurélus. Mais cette fois… pas pour fuir. Pour se préparer à la guerre.</p>
+                <p>Il prit son fils sous son aile. Il brisa son innocence. Il forgea son cœur. Dans un seul but : anéantir les Flash, faire sortir les Shade de l'ombre. Et inscrire leur nom… non plus dans le silence… mais dans l'histoire.</p>
+                <p>Sylvester n'était plus cet enfant qui riait. Il devenait ce que son père voulait qu'il soit : une arme. Un héritier. Un symbole.</p>
+                <p>Les Shade ne naissent pas puissants. Ils le deviennent. L'entraînement. La discipline. Les responsabilités. L'obsidienne. Et surtout… l'Ombre qu'ils accumulent.</p>
+              </div>
             </div>
           </div>
 
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre IV</div>
-            <h2 class="char-chapter-title">Dans l'Ombre des Flash</h2>
-            <div class="char-chapter-text">
-              <p>Pendant que les Flash brûlent sous la lumière… Les Shade observent. Ils apprennent. Ils évoluent. Dans le silence.</p>
-              <p>Sylvester a appris à regarder sans être vu. À frapper sans laisser de trace. À attendre. La patience est une arme que les Flash n'ont jamais maîtrisée — trop occupés à dominer, à écraser, à détruire.</p>
-              <p>Sylvester Shade, lui, sait attendre le moment de reprendre le monde.</p>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre IV</div>
+              <div class="char-chapter-num-big">04</div>
+              <div class="char-chapter-title">Dans l'Ombre des Flash</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Pendant que les Flash brûlent sous la lumière… Les Shade observent. Ils apprennent. Ils évoluent. Dans le silence.</p>
+                <p>Sylvester a appris à regarder sans être vu. À frapper sans laisser de trace. À attendre. La patience est une arme que les Flash n'ont jamais maîtrisée — trop occupés à dominer, à écraser, à détruire.</p>
+                <p>Sylvester Shade, lui, sait attendre le moment de reprendre le monde.</p>
+              </div>
             </div>
           </div>
 
         </div>
-
-        <!-- Sidebar -->
-        <aside class="char-sidebar">
-          <div class="char-portrait-wrap">
-            <div class="char-portrait">
-              <!-- // Portrait officiel de Sylvester Shade (format vertical, qualité haute) -->
-              <img src="" alt="Sylvester Shade — Portrait">
-              <div class="char-portrait-glow"></div>
-            </div>
-
-            <div class="char-info-card">
-              <div class="char-info-title">Fiche du Personnage</div>
-              <div class="char-info-row">
-                <span class="char-info-key">Nom complet</span>
-                <span class="char-info-val">Sylvester Shade</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Famille</span>
-                <span class="char-info-val">Shade</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Père</span>
-                <span class="char-info-val">Desmond Shade</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Sœur</span>
-                <span class="char-info-val">Iris Shade</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Ancêtre fondateur</span>
-                <span class="char-info-val">Aurélus Shade</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Pouvoir</span>
-                <span class="char-info-val">L'Ombre · Obsidienne</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Ennemi juré</span>
-                <span class="char-info-val">La Famille Flash</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Statut</span>
-                <span class="char-info-val">En guerre</span>
-              </div>
-            </div>
-
-            <div class="char-info-card" style="border-color: rgba(124,58,237,0.3); background: rgba(76,29,149,0.08);">
-              <div class="char-info-title" style="color: var(--shade-bright);">Citation</div>
-              <p style="font-family:var(--font-body);font-size:1rem;color:var(--text-dim);line-height:1.7;font-style:italic;">
-                « Les Flash détruisent le monde. Les Shade attendent le moment de le reprendre. »
-              </p>
-            </div>
-          </div>
-        </aside>
-
       </div>
+
+      <!-- GALERIE -->
+      <div class="char-gallery-section reveal">
+        <div class="char-gallery-eyebrow">Galerie</div>
+        <h2 class="char-gallery-heading">Images de Sylvester Shade</h2>
+
+        <div class="char-gallery-grid" id="galleryGrid">
+          <!-- // Galerie image 1 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 2 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 3 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 4 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 5 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 6 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 7 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 8 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 9 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 10 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 11 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 12 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 13 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 14 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 15 de Sylvester Shade -->
+          <div class="char-gallery-item"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 16 de Sylvester Shade (cachée par défaut) -->
+          <div class="char-gallery-item hidden"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 17 de Sylvester Shade (cachée par défaut) -->
+          <div class="char-gallery-item hidden"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          <!-- // Galerie image 18 de Sylvester Shade (cachée par défaut) -->
+          <div class="char-gallery-item hidden"><img src="" alt="Sylvester Shade" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+        </div>
+
+        <div class="char-gallery-actions">
+          <button class="char-gallery-btn" id="btnVoirPlus"><i class="fas fa-plus"></i> Voir plus</button>
+          <button class="char-gallery-btn hidden" id="btnVoirMoins"><i class="fas fa-minus"></i> Voir moins</button>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
 
   <!-- FOOTER -->
   <footer class="lore-footer">
@@ -208,32 +310,69 @@
         <img src="https://ik.imagekit.io/ipromx/images/logoblanc.webp" alt="iProMx">
         <span class="lore-footer-brand-text">iPROMX</span>
       </div>
-      <div class="lore-footer-meta">
-        © 2026 L'Univers d'iProMx · Encyclopédie Narrative · Tous droits réservés
-      </div>
+      <div class="lore-footer-meta">© 2026 L'Univers d'iProMx · Encyclopédie Narrative</div>
       <div class="lore-footer-credits">
-        <span>Mise en forme & développement : <a href="#">Jul_ipmx</a></span>
-        <span>Contenu narratif : <a href="#" class="shade-link">killing</a></span>
-        <span><a href="index.html">← Retour à l'encyclopédie</a></span>
+        <span>Développement : <a href="#">Jul_ipmx</a></span>
+        <span>Contenu : <a href="#" class="shade-link">killing</a></span>
+        <span><a href="index.html">← Encyclopédie</a></span>
       </div>
     </div>
   </footer>
 
 </div>
 
-<script>
-  const nav = document.getElementById('lorNavbar');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+<!-- LIGHTBOX -->
+<div class="lore-lightbox" id="lightbox">
+  <button class="lore-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+  <img src="" alt="" id="lightboxImg">
+</div>
 
-  const revealEls = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-    });
+<script>
+  // Navbar
+  const nav = document.getElementById('lorNavbar');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+
+  // Reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-  revealEls.forEach(el => obs.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Galerie voir plus / voir moins
+  const hiddenItems = document.querySelectorAll('.char-gallery-item.hidden');
+  const btnPlus = document.getElementById('btnVoirPlus');
+  const btnMoins = document.getElementById('btnVoirMoins');
+
+  // Masquer si pas d'items cachés
+  if (hiddenItems.length === 0) btnPlus.classList.add('hidden');
+
+  btnPlus.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.remove('hidden'));
+    btnPlus.classList.add('hidden');
+    btnMoins.classList.remove('hidden');
+  });
+  btnMoins.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.add('hidden'));
+    btnMoins.classList.add('hidden');
+    btnPlus.classList.remove('hidden');
+    document.getElementById('galleryGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.char-gallery-item img, .char-img-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLB);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLB(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+  function closeLB() { lightbox.classList.remove('open'); document.body.style.overflow = ''; }
 </script>
 </body>
 </html>

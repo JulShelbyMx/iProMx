@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kayton Flash — L'Univers d'iProMx</title>
-  <meta name="description" content="L'histoire de Kayton Flash — La Foudre Vivante — Vitesse au-delà des Limites">
-  <meta property="og:title" content="Kayton Flash — Encyclopédie iProMx">
-  <meta property="og:image" content="https://ik.imagekit.io/ipromx/images/logoblanc.webp">
+  <meta name="description" content="Kayton Flash — La Foudre Vivante — Vitesse au-delà des Limites">
   <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,28 +15,14 @@
     :root {
       --char-accent: #f5a623;
       --char-accent-dim: rgba(245,166,35,0.12);
-      --char-accent-glow: rgba(245,166,35,0.5);
+      --char-accent-glow: rgba(245,166,35,0.6);
     }
-    .char-hero-bg img {
-      filter: brightness(0.42) saturate(0.75) hue-rotate(50deg);
-    }
-    .char-hero-bg::after {
+    .char-banner-overlay {
       background:
-        linear-gradient(to top, var(--void) 0%, rgba(6,5,4,0.25) 60%, transparent 100%),
-        linear-gradient(to right, var(--void) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 80% at 80% 50%, var(--char-accent-dim) 0%, transparent 70%);
+        linear-gradient(to bottom, rgba(6,5,4,0.05) 0%, rgba(6,5,4,0.95) 100%),
+        linear-gradient(to right, rgba(6,5,4,0.85) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 90% at 80% 40%, rgba(245,166,35,0.12) 0%, transparent 70%);
     }
-    .char-hero-clan { color: var(--char-accent); }
-    .char-hero-name { text-shadow: 0 0 30px var(--char-accent-glow); }
-    .char-chapter-num { color: var(--char-accent); }
-    .char-chapter-title { color: var(--char-accent); }
-    .char-chapter::before { background: linear-gradient(to bottom, var(--char-accent), transparent); }
-    .lore-section-title::before { background: linear-gradient(to bottom, var(--char-accent), var(--iron)); }
-    .char-stat { border-color: var(--char-accent-dim); }
-    .lore-nav-back:hover { color: var(--char-accent); border-color: var(--char-accent); background: var(--char-accent-dim); }
-    .char-back-btn:hover { color: var(--char-accent); border-color: var(--char-accent); background: var(--char-accent-dim); }
-    ::-webkit-scrollbar-thumb { background: var(--char-accent); }
-    ::selection { background: var(--char-accent); color: var(--void); }
   </style>
 </head>
 <body class="flash-theme">
@@ -53,7 +37,7 @@
       </div>
     </a>
     <div class="lore-nav-center">
-      <a href="index.html" class="lore-nav-link">← Toutes les familles</a>
+      <a href="index.html" class="lore-nav-link">← Encyclopédie</a>
       <a href="index.html#flash" class="lore-nav-link">Famille Flash</a>
     </div>
     <a href="../index.html" class="lore-nav-back">
@@ -65,125 +49,280 @@
 
 <div class="lore-page">
 
-  <section class="char-hero">
-    <div class="char-hero-bg">
-      <!-- // Image pleine page de Kayton Flash (en mouvement, traînée lumineuse, ambiance électrique or et blanc) -->
-      <img src="" alt="Kayton Flash" loading="eager">
+  <div class="char-banner">
+    <!-- // Image bannière de Kayton Flash — traînée lumineuse, électrique, or et blanc, ambiance vitesse pure -->
+    <img src="" alt="Kayton Flash" loading="eager">
+    <div class="char-banner-overlay"></div>
+    <div class="char-banner-content">
+      <div class="char-banner-inner">
+        <div class="char-banner-clan">⚡ Famille Flash</div>
+        <h1 class="char-banner-name">Kayton<br>Flash</h1>
+        <p class="char-banner-title">La Foudre Vivante — Vitesse au-delà des Limites</p>
+      </div>
     </div>
-    <div class="char-hero-content">
-      <a href="index.html#flash" class="char-back-btn">
+  </div>
+
+  <div class="lore-section">
+    <div class="lore-container">
+
+      <a href="index.html#flash" class="char-page-back reveal">
         <i class="fas fa-arrow-left"></i> Famille Flash
       </a>
-      <div class="char-hero-clan">⚡ Famille Flash</div>
-      <h1 class="char-hero-name">Kayton<br>Flash</h1>
-      <p class="char-hero-title">La Foudre Vivante — Vitesse au-delà des Limites</p>
-      <div class="char-hero-stats">
-                <div class="char-stat">
-          <span class="char-stat-label">Génération</span>
-          <span class="char-stat-value">Flash IV</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Lignée</span>
-          <span class="char-stat-value">Flash</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Pouvoir</span>
-          <span class="char-stat-value">Vitesse extrême</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Surnom</span>
-          <span class="char-stat-value">La Foudre</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Statut</span>
-          <span class="char-stat-value">Mythique</span>
-        </div>
 
+      <!-- CARACTÉRISTIQUES -->
+      <div class="char-traits-block reveal">
+        <div class="char-traits-grid">
+          <div class="char-traits-left">
+            <div class="char-traits-label">Traits de personnalité</div>
+            <div class="char-traits-tags">
+              <span class="char-trait-tag">Foudroyant</span>
+              <span class="char-trait-tag">Intuitif</span>
+              <span class="char-trait-tag">Insaisissable</span>
+              <span class="char-trait-tag">Impatient</span>
+              <span class="char-trait-tag">Brûlant</span>
+
+            </div>
+            <div class="char-totem-row">
+              <span class="char-totem-icon">🐆</span>
+              <div>
+                <div class="char-totem-label">Animal Totem</div>
+                <div class="char-totem-val">Le Guépard</div>
+              </div>
+            </div>
+          </div>
+          <div class="char-traits-right">
+            <div class="char-ost-label">OST reliée à Kayton Flash</div>
+            <div class="char-ost-list">
+              <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                <!-- // Lien vers : Thème de Kayton Flash -->
+                <div class="char-ost-icon"><i class="fas fa-music"></i></div>
+                <span class="char-ost-name">Thème de Kayton Flash</span>
+                <i class="fas fa-external-link-alt char-ost-arrow"></i>
+              </a>
+              <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                <!-- // Lien vers : Vitesse — Kayton Flash -->
+                <div class="char-ost-icon"><i class="fas fa-headphones"></i></div>
+                <span class="char-ost-name">Vitesse — Kayton Flash</span>
+                <i class="fas fa-external-link-alt char-ost-arrow"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section class="char-story lore-section">
-    <div class="lore-container">
-      <div class="char-story-grid">
+      <!-- IMAGES PRINCIPALES -->
+      <div class="char-images-grid reveal">
+        <div class="char-img-item" style="aspect-ratio:2/3;">
+          <!-- // Image principale de Kayton Flash (en mouvement, flou cinétique, or) -->
+          <img src="" alt="Kayton Flash — Image 1" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="char-img-item">
+          <!-- // Deuxième illustration de Kayton Flash -->
+          <img src="" alt="Kayton Flash — Image 2" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="char-img-item">
+          <!-- // Troisième image de Kayton Flash -->
+          <img src="" alt="Kayton Flash — Image 3" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+      </div>
 
-        <div class="char-story-main">
-
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre I</div>
-            <h2 class="char-chapter-title">Né dans l'Éclair</h2>
-            <div class="char-chapter-text">
-              <p>Kayton Flash. Le plus rapide de sa génération. Peut-être de toutes les générations. On disait qu'il pouvait franchir un horizon avant même que son adversaire n'ait levé les yeux.</p>
-            </div>
+      <!-- DESCRIPTION SYNTHÉTIQUE -->
+      <div class="char-desc-block reveal">
+        <div class="char-desc-text-wrap">
+          <div class="char-desc-eyebrow">Description synthétique</div>
+          <div class="char-desc-text">
+            <p>Kayton Flash. Le plus rapide de sa génération. Peut-être de toutes les générations. On disait qu'il pouvait franchir un horizon avant même que son adversaire n'ait levé les yeux. Ce n'était pas une métaphore — c'était presque littéral.</p>
+            <p>La vitesse des Flash n'est pas qu'une bénédiction — Kayton en fit l'expérience amère. Trop vite pour raisonner. Trop vite pour ressentir pleinement. Trop vite pour vivre au même rythme que ceux qui l'entouraient. La solitude de Kayton n'était pas émotionnelle. Elle était physique. Temporelle.</p>
+            <p>Kayton Flash devint une légende de son vivant. Un fantôme dans les batailles. Une tempête que personne ne vit venir. Et quand il disparut — parce que les hommes de sa trempe disparaissent toujours trop vite — il laissa derrière lui un vide que personne dans la lignée ne comblera jamais vraiment.</p>
+          </div>
+        </div>
+        <div class="char-info-card">
+          <div class="char-info-card-title">Fiche personnage</div>
+          <div class="char-info-row">
+            <span class="char-info-key">Génération</span>
+            <span class="char-info-val">Flash IV</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Surnom</span>
+            <span class="char-info-val">La Foudre</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Pouvoir</span>
+            <span class="char-info-val">Vitesse extrême</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Lignée</span>
+            <span class="char-info-val">Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Héritage</span>
+            <span class="char-info-val">Lien avec Eddy Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Statut</span>
+            <span class="char-info-val">Mythique</span>
           </div>
 
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre II</div>
-            <h2 class="char-chapter-title">Le Don Incontrôlable</h2>
-            <div class="char-chapter-text">
-              <p>La vitesse des Flash n'est pas qu'une bénédiction — Kayton en fit l'expérience amère. Trop vite pour raisonner. Trop vite pour ressentir. Trop vite pour vivre pleinement.</p>
+        </div>
+      </div>
+
+      <!-- HISTOIRE COMPLÈTE -->
+      <div class="char-story-section reveal">
+        <div class="char-story-eyebrow">Histoire complète</div>
+        <h2 class="char-story-heading">Chroniques de Kayton Flash</h2>
+        <div class="char-chapters">
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre I</div>
+              <div class="char-chapter-num-big">01</div>
+              <div class="char-chapter-title">Né dans l'Éclair</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Kayton Flash. Le plus rapide de sa génération. On disait qu'il pouvait franchir un horizon avant même que son adversaire n'ait levé les yeux. Ce n'était pas une métaphore — c'était presque littéral.</p>
+                <p>Son don se manifesta tôt. Trop tôt, peut-être. Avant qu'il ait appris à le contrôler, à comprendre ce que ça faisait de vivre à cette vitesse quand le monde autour de vous avance au ralenti.</p>
+              </div>
             </div>
           </div>
-
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre III</div>
-            <h2 class="char-chapter-title">La Légende de l'Éclair</h2>
-            <div class="char-chapter-text">
-              <p>Kayton Flash devint une légende de son vivant. Un fantôme dans les batailles. Une tempête que personne ne vit venir.</p>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre II</div>
+              <div class="char-chapter-num-big">02</div>
+              <div class="char-chapter-title">Le Don Incontrôlable</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>La vitesse des Flash n'est pas qu'une bénédiction — Kayton en fit l'expérience amère. Trop vite pour raisonner pleinement. Trop vite pour ressentir. Trop vite pour vivre au même rythme que ceux qui l'entouraient.</p>
+                <p>La solitude de Kayton n'était pas émotionnelle. Elle était physique. Temporelle. Il voyait les choses se produire avant les autres. Il prenait des décisions pendant que ses adversaires finissaient encore de former leurs intentions. C'est une forme d'isolement que peu de gens peuvent comprendre.</p>
+              </div>
+            </div>
+          </div>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre III</div>
+              <div class="char-chapter-num-big">03</div>
+              <div class="char-chapter-title">La Légende de la Foudre</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Kayton Flash devint une légende de son vivant. Un fantôme dans les batailles. Une tempête que personne ne vit venir. Les Shade l'étudiaient avec une crainte particulière — comment vaincre quelqu'un que vous n'avez pas encore vu bouger ?</p>
+                <p>Quand il disparut, il laissa derrière lui un vide que personne dans la lignée ne comblera jamais vraiment. Et un mystère : était-ce simplement la vitesse, ou avait-il touché quelque chose de plus fondamental dans le pouvoir Flash ?</p>
+              </div>
             </div>
           </div>
 
         </div>
-
-        <aside class="char-sidebar">
-          <div class="char-portrait-wrap">
-            <div class="char-portrait">
-              <!-- // Portrait officiel de Kayton Flash -->
-              <img src="" alt="Kayton Flash — Portrait">
-              <div class="char-portrait-glow"></div>
-            </div>
-
-            <div class="char-info-card">
-              <div class="char-info-title">Fiche du Personnage</div>
-                            <div class="char-info-row">
-                <span class="char-info-key">Génération</span>
-                <span class="char-info-val">Flash IV</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Lignée</span>
-                <span class="char-info-val">Flash</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Pouvoir</span>
-                <span class="char-info-val">Vitesse extrême</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Surnom</span>
-                <span class="char-info-val">La Foudre</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Statut</span>
-                <span class="char-info-val">Mythique</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Ennemi</span>
-                <span class="char-info-val">Clan Shade</span>
-              </div>
-
-            </div>
-
-            <div class="char-info-card" style="border-color: var(--char-accent-dim); background: rgba(0,0,0,0.3);">
-              <div class="char-info-title" style="color: var(--char-accent);">Citation</div>
-              <p style="font-family:var(--font-body);font-size:1rem;color:var(--text-dim);line-height:1.7;font-style:italic;">
-                « À ma vitesse, le monde s'arrête. Seul moi avance encore. »
-              </p>
-            </div>
-          </div>
-        </aside>
-
       </div>
+
+      <!-- GALERIE -->
+      <div class="char-gallery-section reveal">
+        <div class="char-gallery-eyebrow">Galerie</div>
+        <h2 class="char-gallery-heading">Images de Kayton Flash</h2>
+        <div class="char-gallery-grid" id="galleryGrid">
+          <div class="char-gallery-item">
+            <!-- // Galerie image 1 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 2 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 3 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 4 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 5 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 6 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 7 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 8 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 9 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 10 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 11 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 12 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 13 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 14 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 15 de Kayton Flash -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 16 de Kayton Flash (cachée par défaut) -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 17 de Kayton Flash (cachée par défaut) -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 18 de Kayton Flash (cachée par défaut) -->
+            <img src="" alt="Kayton Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+
+        </div>
+        <div class="char-gallery-actions">
+          <button class="char-gallery-btn" id="btnVoirPlus"><i class="fas fa-plus"></i> Voir plus</button>
+          <button class="char-gallery-btn hidden" id="btnVoirMoins"><i class="fas fa-minus"></i> Voir moins</button>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
 
   <footer class="lore-footer">
     <div class="lore-footer-inner">
@@ -191,31 +330,57 @@
         <img src="https://ik.imagekit.io/ipromx/images/logoblanc.webp" alt="iProMx">
         <span class="lore-footer-brand-text">iPROMX</span>
       </div>
-      <div class="lore-footer-meta">
-        © 2026 L'Univers d'iProMx · Encyclopédie Narrative · Tous droits réservés
-      </div>
+      <div class="lore-footer-meta">© 2026 L'Univers d'iProMx · Encyclopédie Narrative</div>
       <div class="lore-footer-credits">
-        <span>Mise en forme & développement : <a href="#">Jul_ipmx</a></span>
-        <span>Contenu narratif : <a href="#" class="shade-link">killing</a></span>
-        <span><a href="index.html">← Retour à l'encyclopédie</a></span>
+        <span>Développement : <a href="#">Jul_ipmx</a></span>
+        <span>Contenu : <a href="#">killing</a></span>
+        <span><a href="index.html">← Encyclopédie</a></span>
       </div>
     </div>
   </footer>
 
 </div>
 
+<div class="lore-lightbox" id="lightbox">
+  <button class="lore-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+  <img src="" alt="" id="lightboxImg">
+</div>
+
 <script>
   const nav = document.getElementById('lorNavbar');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
-  const revealEls = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const hiddenItems = document.querySelectorAll('.char-gallery-item.hidden');
+  const btnPlus = document.getElementById('btnVoirPlus');
+  const btnMoins = document.getElementById('btnVoirMoins');
+  if (!hiddenItems.length) btnPlus.classList.add('hidden');
+  btnPlus.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.remove('hidden'));
+    btnPlus.classList.add('hidden');
+    btnMoins.classList.remove('hidden');
+  });
+  btnMoins.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.add('hidden'));
+    btnMoins.classList.add('hidden');
+    btnPlus.classList.remove('hidden');
+    document.getElementById('galleryGrid').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.char-gallery-item img, .char-img-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src; lightboxImg.alt = img.alt;
+      lightbox.classList.add('open'); document.body.style.overflow='hidden';
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-  revealEls.forEach(el => obs.observe(el));
+  });
+  document.getElementById('lightboxClose').addEventListener('click', () => { lightbox.classList.remove('open'); document.body.style.overflow=''; });
+  lightbox.addEventListener('click', e => { if(e.target===lightbox){ lightbox.classList.remove('open'); document.body.style.overflow=''; } });
+  document.addEventListener('keydown', e => { if(e.key==='Escape'){ lightbox.classList.remove('open'); document.body.style.overflow=''; } });
 </script>
 </body>
 </html>

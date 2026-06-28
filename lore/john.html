@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>John Flash — L'Univers d'iProMx</title>
-  <meta name="description" content="L'histoire de John Flash — Le Guerrier silencieux — Second de la Lignée">
-  <meta property="og:title" content="John Flash — Encyclopédie iProMx">
-  <meta property="og:image" content="https://ik.imagekit.io/ipromx/images/logoblanc.webp">
+  <meta name="description" content="John Flash — Le Guerrier silencieux — Second de la Lignée">
   <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,26 +17,12 @@
       --char-accent-dim: rgba(230,126,34,0.12);
       --char-accent-glow: rgba(230,126,34,0.45);
     }
-    .char-hero-bg img {
-      filter: brightness(0.42) saturate(0.75) hue-rotate(20deg);
-    }
-    .char-hero-bg::after {
+    .char-banner-overlay {
       background:
-        linear-gradient(to top, var(--void) 0%, rgba(6,5,4,0.25) 60%, transparent 100%),
-        linear-gradient(to right, var(--void) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 80% at 80% 50%, var(--char-accent-dim) 0%, transparent 70%);
+        linear-gradient(to bottom, rgba(6,5,4,0.05) 0%, rgba(6,5,4,0.95) 100%),
+        linear-gradient(to right, rgba(6,5,4,0.85) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 90% at 80% 40%, rgba(230,126,34,0.12) 0%, transparent 70%);
     }
-    .char-hero-clan { color: var(--char-accent); }
-    .char-hero-name { text-shadow: 0 0 30px var(--char-accent-glow); }
-    .char-chapter-num { color: var(--char-accent); }
-    .char-chapter-title { color: var(--char-accent); }
-    .char-chapter::before { background: linear-gradient(to bottom, var(--char-accent), transparent); }
-    .lore-section-title::before { background: linear-gradient(to bottom, var(--char-accent), var(--iron)); }
-    .char-stat { border-color: var(--char-accent-dim); }
-    .lore-nav-back:hover { color: var(--char-accent); border-color: var(--char-accent); background: var(--char-accent-dim); }
-    .char-back-btn:hover { color: var(--char-accent); border-color: var(--char-accent); background: var(--char-accent-dim); }
-    ::-webkit-scrollbar-thumb { background: var(--char-accent); }
-    ::selection { background: var(--char-accent); color: var(--void); }
   </style>
 </head>
 <body class="flash-theme">
@@ -53,7 +37,7 @@
       </div>
     </a>
     <div class="lore-nav-center">
-      <a href="index.html" class="lore-nav-link">← Toutes les familles</a>
+      <a href="index.html" class="lore-nav-link">← Encyclopédie</a>
       <a href="index.html#flash" class="lore-nav-link">Famille Flash</a>
     </div>
     <a href="../index.html" class="lore-nav-back">
@@ -65,125 +49,280 @@
 
 <div class="lore-page">
 
-  <section class="char-hero">
-    <div class="char-hero-bg">
-      <!-- // Image pleine page de John Flash (guerrier, ambiance sombre et or, force tranquille) -->
-      <img src="" alt="John Flash" loading="eager">
+  <div class="char-banner">
+    <!-- // Image bannière de John Flash — ambiance guerrière, orange sombre et or, force tranquille -->
+    <img src="" alt="John Flash" loading="eager">
+    <div class="char-banner-overlay"></div>
+    <div class="char-banner-content">
+      <div class="char-banner-inner">
+        <div class="char-banner-clan">⚡ Famille Flash</div>
+        <h1 class="char-banner-name">John<br>Flash</h1>
+        <p class="char-banner-title">Le Guerrier silencieux — Second de la Lignée</p>
+      </div>
     </div>
-    <div class="char-hero-content">
-      <a href="index.html#flash" class="char-back-btn">
+  </div>
+
+  <div class="lore-section">
+    <div class="lore-container">
+
+      <a href="index.html#flash" class="char-page-back reveal">
         <i class="fas fa-arrow-left"></i> Famille Flash
       </a>
-      <div class="char-hero-clan">⚡ Famille Flash</div>
-      <h1 class="char-hero-name">John<br>Flash</h1>
-      <p class="char-hero-title">Le Guerrier silencieux — Second de la Lignée</p>
-      <div class="char-hero-stats">
-                <div class="char-stat">
-          <span class="char-stat-label">Génération</span>
-          <span class="char-stat-value">Flash II</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Père</span>
-          <span class="char-stat-value">David Flash</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Lignée</span>
-          <span class="char-stat-value">Flash</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Rôle</span>
-          <span class="char-stat-value">Héritier</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Pouvoir</span>
-          <span class="char-stat-value">Force des Flash</span>
-        </div>
 
+      <!-- CARACTÉRISTIQUES -->
+      <div class="char-traits-block reveal">
+        <div class="char-traits-grid">
+          <div class="char-traits-left">
+            <div class="char-traits-label">Traits de personnalité</div>
+            <div class="char-traits-tags">
+              <span class="char-trait-tag">Tenace</span>
+              <span class="char-trait-tag">Discret</span>
+              <span class="char-trait-tag">Endurci</span>
+              <span class="char-trait-tag">Fiable</span>
+              <span class="char-trait-tag">Protecteur</span>
+
+            </div>
+            <div class="char-totem-row">
+              <span class="char-totem-icon">🐻</span>
+              <div>
+                <div class="char-totem-label">Animal Totem</div>
+                <div class="char-totem-val">L'Ours</div>
+              </div>
+            </div>
+          </div>
+          <div class="char-traits-right">
+            <div class="char-ost-label">OST reliée à John Flash</div>
+            <div class="char-ost-list">
+              <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                <!-- // Lien vers : Thème de John Flash -->
+                <div class="char-ost-icon"><i class="fas fa-music"></i></div>
+                <span class="char-ost-name">Thème de John Flash</span>
+                <i class="fas fa-external-link-alt char-ost-arrow"></i>
+              </a>
+              <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                <!-- // Lien vers : Combat — John Flash -->
+                <div class="char-ost-icon"><i class="fas fa-headphones"></i></div>
+                <span class="char-ost-name">Combat — John Flash</span>
+                <i class="fas fa-external-link-alt char-ost-arrow"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section class="char-story lore-section">
-    <div class="lore-container">
-      <div class="char-story-grid">
+      <!-- IMAGES PRINCIPALES -->
+      <div class="char-images-grid reveal">
+        <div class="char-img-item" style="aspect-ratio:2/3;">
+          <!-- // Image principale de John Flash (pose défensive ou stoïque, lumière rasante) -->
+          <img src="" alt="John Flash — Image 1" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="char-img-item">
+          <!-- // Deuxième illustration de John Flash -->
+          <img src="" alt="John Flash — Image 2" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="char-img-item">
+          <!-- // Troisième image de John Flash -->
+          <img src="" alt="John Flash — Image 3" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+      </div>
 
-        <div class="char-story-main">
-
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre I</div>
-            <h2 class="char-chapter-title">L'Ombre de son Père</h2>
-            <div class="char-chapter-text">
-              <p>John Flash. Fils de David. Né dans l'ombre d'un nom déjà trop grand pour lui.</p>
-            </div>
+      <!-- DESCRIPTION SYNTHÉTIQUE -->
+      <div class="char-desc-block reveal">
+        <div class="char-desc-text-wrap">
+          <div class="char-desc-eyebrow">Description synthétique</div>
+          <div class="char-desc-text">
+            <p>John Flash. Fils de David. Né dans l'ombre d'un nom déjà trop grand pour lui. Son père avait posé les bases d'un empire — à John revenait la tâche ingrate de le maintenir debout. Pas de gloire dans ça. Juste du travail, du sang, et une loyauté à toute épreuve envers ce que le premier David avait construit.</p>
+            <p>Là où David avait hérité d'un don brut, John dut tout mériter. Il apprit à canaliser le pouvoir Flash non plus comme un flambeau reçu, mais comme une arme qu'il forgea de ses propres mains. Chaque matin, à recommencer. Cette discipline silencieuse devint sa marque.</p>
+            <p>John Flash ne fut jamais le plus puissant. Mais il fut peut-être le plus nécessaire — celui qui maintint la lignée vivante à une époque où les Flash auraient pu s'éteindre d'eux-mêmes, victimes de leur propre arrogance.</p>
+          </div>
+        </div>
+        <div class="char-info-card">
+          <div class="char-info-card-title">Fiche personnage</div>
+          <div class="char-info-row">
+            <span class="char-info-key">Génération</span>
+            <span class="char-info-val">Flash II</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Père</span>
+            <span class="char-info-val">David Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Pouvoir</span>
+            <span class="char-info-val">Force des Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Rôle</span>
+            <span class="char-info-val">Héritier</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Lignée</span>
+            <span class="char-info-val">Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Statut</span>
+            <span class="char-info-val">Légendaire</span>
           </div>
 
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre II</div>
-            <h2 class="char-chapter-title">Se Forger Soi-Même</h2>
-            <div class="char-chapter-text">
-              <p>Là où David avait hérité d'un don, John dut tout mériter. Il apprit à canaliser le pouvoir Flash non plus comme un flambeau reçu, mais comme une arme qu'il forgea de ses propres mains.</p>
+        </div>
+      </div>
+
+      <!-- HISTOIRE COMPLÈTE -->
+      <div class="char-story-section reveal">
+        <div class="char-story-eyebrow">Histoire complète</div>
+        <h2 class="char-story-heading">Chroniques de John Flash</h2>
+        <div class="char-chapters">
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre I</div>
+              <div class="char-chapter-num-big">01</div>
+              <div class="char-chapter-title">L'Ombre du Père</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>John Flash grandit dans l'ombre immense de David — le fondateur, le premier, celui dont tout le monde parlait encore. Pour un fils, c'est une prison dorée.</p>
+                <p>Pourtant John refusa de se laisser définir par cette comparaison. Il prit une décision tôt : il ne serait pas David. Il serait John. Avec tout ce que ça impliquait — à commencer par trouver sa propre façon de servir la lignée.</p>
+              </div>
             </div>
           </div>
-
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre III</div>
-            <h2 class="char-chapter-title">La Continuité du Trône</h2>
-            <div class="char-chapter-text">
-              <p>John Flash ne fut jamais le plus puissant. Mais il fut peut-être le plus nécessaire — celui qui maintint la lignée vivante à une époque où les Flash auraient pu disparaître.</p>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre II</div>
+              <div class="char-chapter-num-big">02</div>
+              <div class="char-chapter-title">Se Forger Soi-même</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Là où David avait reçu, John construisit. Il n'attendit pas que le pouvoir Flash le submergue — il alla le chercher, centimètre par centimètre, à travers l'entraînement, les défaites, les recommencements.</p>
+                <p>Cette endurance silencieuse devint sa réputation. On ne parlait pas de John Flash pour ses victoires spectaculaires. On parlait de lui parce qu'il était encore debout quand les autres étaient tombés.</p>
+              </div>
+            </div>
+          </div>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre III</div>
+              <div class="char-chapter-num-big">03</div>
+              <div class="char-chapter-title">La Continuité du Trône</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>John Flash ne régnait pas avec éclat. Il régnait avec constance. Et dans une famille aussi explosive que les Flash, c'était peut-être la forme de pouvoir la plus rare.</p>
+                <p>Quand il mourut, il ne laissa pas de légende fracassante. Il laissa quelque chose de plus précieux : une lignée qui avait survécu à sa propre nature. C'est lui qui avait rendu ça possible.</p>
+              </div>
             </div>
           </div>
 
         </div>
-
-        <aside class="char-sidebar">
-          <div class="char-portrait-wrap">
-            <div class="char-portrait">
-              <!-- // Portrait officiel de John Flash -->
-              <img src="" alt="John Flash — Portrait">
-              <div class="char-portrait-glow"></div>
-            </div>
-
-            <div class="char-info-card">
-              <div class="char-info-title">Fiche du Personnage</div>
-                            <div class="char-info-row">
-                <span class="char-info-key">Génération</span>
-                <span class="char-info-val">Flash II</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Père</span>
-                <span class="char-info-val">David Flash</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Lignée</span>
-                <span class="char-info-val">Flash</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Rôle</span>
-                <span class="char-info-val">Héritier</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Pouvoir</span>
-                <span class="char-info-val">Force des Flash</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Statut</span>
-                <span class="char-info-val">Légendaire</span>
-              </div>
-
-            </div>
-
-            <div class="char-info-card" style="border-color: var(--char-accent-dim); background: rgba(0,0,0,0.3);">
-              <div class="char-info-title" style="color: var(--char-accent);">Citation</div>
-              <p style="font-family:var(--font-body);font-size:1rem;color:var(--text-dim);line-height:1.7;font-style:italic;">
-                « On ne naît pas Flash. On le devient, chaque matin, en se relevant. »
-              </p>
-            </div>
-          </div>
-        </aside>
-
       </div>
+
+      <!-- GALERIE -->
+      <div class="char-gallery-section reveal">
+        <div class="char-gallery-eyebrow">Galerie</div>
+        <h2 class="char-gallery-heading">Images de John Flash</h2>
+        <div class="char-gallery-grid" id="galleryGrid">
+          <div class="char-gallery-item">
+            <!-- // Galerie image 1 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 2 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 3 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 4 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 5 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 6 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 7 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 8 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 9 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 10 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 11 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 12 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 13 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 14 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 15 de John Flash -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 16 de John Flash (cachée par défaut) -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 17 de John Flash (cachée par défaut) -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 18 de John Flash (cachée par défaut) -->
+            <img src="" alt="John Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+
+        </div>
+        <div class="char-gallery-actions">
+          <button class="char-gallery-btn" id="btnVoirPlus"><i class="fas fa-plus"></i> Voir plus</button>
+          <button class="char-gallery-btn hidden" id="btnVoirMoins"><i class="fas fa-minus"></i> Voir moins</button>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
 
   <footer class="lore-footer">
     <div class="lore-footer-inner">
@@ -191,31 +330,57 @@
         <img src="https://ik.imagekit.io/ipromx/images/logoblanc.webp" alt="iProMx">
         <span class="lore-footer-brand-text">iPROMX</span>
       </div>
-      <div class="lore-footer-meta">
-        © 2026 L'Univers d'iProMx · Encyclopédie Narrative · Tous droits réservés
-      </div>
+      <div class="lore-footer-meta">© 2026 L'Univers d'iProMx · Encyclopédie Narrative</div>
       <div class="lore-footer-credits">
-        <span>Mise en forme & développement : <a href="#">Jul_ipmx</a></span>
-        <span>Contenu narratif : <a href="#" class="shade-link">killing</a></span>
-        <span><a href="index.html">← Retour à l'encyclopédie</a></span>
+        <span>Développement : <a href="#">Jul_ipmx</a></span>
+        <span>Contenu : <a href="#">killing</a></span>
+        <span><a href="index.html">← Encyclopédie</a></span>
       </div>
     </div>
   </footer>
 
 </div>
 
+<div class="lore-lightbox" id="lightbox">
+  <button class="lore-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+  <img src="" alt="" id="lightboxImg">
+</div>
+
 <script>
   const nav = document.getElementById('lorNavbar');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
-  const revealEls = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const hiddenItems = document.querySelectorAll('.char-gallery-item.hidden');
+  const btnPlus = document.getElementById('btnVoirPlus');
+  const btnMoins = document.getElementById('btnVoirMoins');
+  if (!hiddenItems.length) btnPlus.classList.add('hidden');
+  btnPlus.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.remove('hidden'));
+    btnPlus.classList.add('hidden');
+    btnMoins.classList.remove('hidden');
+  });
+  btnMoins.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.add('hidden'));
+    btnMoins.classList.add('hidden');
+    btnPlus.classList.remove('hidden');
+    document.getElementById('galleryGrid').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.char-gallery-item img, .char-img-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src; lightboxImg.alt = img.alt;
+      lightbox.classList.add('open'); document.body.style.overflow='hidden';
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-  revealEls.forEach(el => obs.observe(el));
+  });
+  document.getElementById('lightboxClose').addEventListener('click', () => { lightbox.classList.remove('open'); document.body.style.overflow=''; });
+  lightbox.addEventListener('click', e => { if(e.target===lightbox){ lightbox.classList.remove('open'); document.body.style.overflow=''; } });
+  document.addEventListener('keydown', e => { if(e.key==='Escape'){ lightbox.classList.remove('open'); document.body.style.overflow=''; } });
 </script>
 </body>
 </html>

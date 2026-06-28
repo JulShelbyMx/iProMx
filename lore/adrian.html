@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adrian J. Flash — L'Univers d'iProMx</title>
-  <meta name="description" content="L'histoire de Adrian J. Flash — Le Juge — Loi et Exécution">
-  <meta property="og:title" content="Adrian J. Flash — Encyclopédie iProMx">
-  <meta property="og:image" content="https://ik.imagekit.io/ipromx/images/logoblanc.webp">
+  <meta name="description" content="Adrian J. Flash — Le Juge — Loi et Exécution">
   <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,26 +17,12 @@
       --char-accent-dim: rgba(41,128,185,0.12);
       --char-accent-glow: rgba(41,128,185,0.45);
     }
-    .char-hero-bg img {
-      filter: brightness(0.42) saturate(0.75) hue-rotate(200deg);
-    }
-    .char-hero-bg::after {
+    .char-banner-overlay {
       background:
-        linear-gradient(to top, var(--void) 0%, rgba(6,5,4,0.25) 60%, transparent 100%),
-        linear-gradient(to right, var(--void) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 80% at 80% 50%, var(--char-accent-dim) 0%, transparent 70%);
+        linear-gradient(to bottom, rgba(6,5,4,0.05) 0%, rgba(6,5,4,0.95) 100%),
+        linear-gradient(to right, rgba(6,5,4,0.85) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 90% at 80% 40%, rgba(41,128,185,0.12) 0%, transparent 70%);
     }
-    .char-hero-clan { color: var(--char-accent); }
-    .char-hero-name { text-shadow: 0 0 30px var(--char-accent-glow); }
-    .char-chapter-num { color: var(--char-accent); }
-    .char-chapter-title { color: var(--char-accent); }
-    .char-chapter::before { background: linear-gradient(to bottom, var(--char-accent), transparent); }
-    .lore-section-title::before { background: linear-gradient(to bottom, var(--char-accent), var(--iron)); }
-    .char-stat { border-color: var(--char-accent-dim); }
-    .lore-nav-back:hover { color: var(--char-accent); border-color: var(--char-accent); background: var(--char-accent-dim); }
-    .char-back-btn:hover { color: var(--char-accent); border-color: var(--char-accent); background: var(--char-accent-dim); }
-    ::-webkit-scrollbar-thumb { background: var(--char-accent); }
-    ::selection { background: var(--char-accent); color: var(--void); }
   </style>
 </head>
 <body class="flash-theme">
@@ -53,7 +37,7 @@
       </div>
     </a>
     <div class="lore-nav-center">
-      <a href="index.html" class="lore-nav-link">← Toutes les familles</a>
+      <a href="index.html" class="lore-nav-link">← Encyclopédie</a>
       <a href="index.html#flash" class="lore-nav-link">Famille Flash</a>
     </div>
     <a href="../index.html" class="lore-nav-back">
@@ -65,125 +49,280 @@
 
 <div class="lore-page">
 
-  <section class="char-hero">
-    <div class="char-hero-bg">
-      <!-- // Image pleine page de Adrian Jefferson Flash (figure d'autorité, bleu froid et or, imposant) -->
-      <img src="" alt="Adrian J. Flash" loading="eager">
+  <div class="char-banner">
+    <!-- // Image bannière de Adrian Jefferson Flash — bleu froid et or, autorité, figure imposante -->
+    <img src="" alt="Adrian J. Flash" loading="eager">
+    <div class="char-banner-overlay"></div>
+    <div class="char-banner-content">
+      <div class="char-banner-inner">
+        <div class="char-banner-clan">⚡ Famille Flash</div>
+        <h1 class="char-banner-name">Adrian J.<br>Flash</h1>
+        <p class="char-banner-title">Le Juge — Loi et Exécution</p>
+      </div>
     </div>
-    <div class="char-hero-content">
-      <a href="index.html#flash" class="char-back-btn">
+  </div>
+
+  <div class="lore-section">
+    <div class="lore-container">
+
+      <a href="index.html#flash" class="char-page-back reveal">
         <i class="fas fa-arrow-left"></i> Famille Flash
       </a>
-      <div class="char-hero-clan">⚡ Famille Flash</div>
-      <h1 class="char-hero-name">Adrian<br>J. Flash</h1>
-      <p class="char-hero-title">Le Juge — Loi et Exécution</p>
-      <div class="char-hero-stats">
-                <div class="char-stat">
-          <span class="char-stat-label">Nom complet</span>
-          <span class="char-stat-value">Adrian Jefferson Flash</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Génération</span>
-          <span class="char-stat-value">Flash VIII</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Lignée</span>
-          <span class="char-stat-value">Flash</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Pouvoir</span>
-          <span class="char-stat-value">Force + Code moral</span>
-        </div>
-        <div class="char-stat">
-          <span class="char-stat-label">Surnom</span>
-          <span class="char-stat-value">Le Juge</span>
-        </div>
 
+      <!-- CARACTÉRISTIQUES -->
+      <div class="char-traits-block reveal">
+        <div class="char-traits-grid">
+          <div class="char-traits-left">
+            <div class="char-traits-label">Traits de personnalité</div>
+            <div class="char-traits-tags">
+              <span class="char-trait-tag">Juste</span>
+              <span class="char-trait-tag">Intransigeant</span>
+              <span class="char-trait-tag">Réfléchi</span>
+              <span class="char-trait-tag">Distant</span>
+              <span class="char-trait-tag">Inflexible</span>
+
+            </div>
+            <div class="char-totem-row">
+              <span class="char-totem-icon">🦅</span>
+              <div>
+                <div class="char-totem-label">Animal Totem</div>
+                <div class="char-totem-val">L'Aigle Royal</div>
+              </div>
+            </div>
+          </div>
+          <div class="char-traits-right">
+            <div class="char-ost-label">OST reliée à Adrian J. Flash</div>
+            <div class="char-ost-list">
+              <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                <!-- // Lien vers : Thème de Adrian Jefferson Flash -->
+                <div class="char-ost-icon"><i class="fas fa-music"></i></div>
+                <span class="char-ost-name">Thème de Adrian Jefferson Flash</span>
+                <i class="fas fa-external-link-alt char-ost-arrow"></i>
+              </a>
+              <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                <!-- // Lien vers : Sentence — Adrian J. Flash -->
+                <div class="char-ost-icon"><i class="fas fa-headphones"></i></div>
+                <span class="char-ost-name">Sentence — Adrian J. Flash</span>
+                <i class="fas fa-external-link-alt char-ost-arrow"></i>
+              </a>
+
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section class="char-story lore-section">
-    <div class="lore-container">
-      <div class="char-story-grid">
+      <!-- IMAGES PRINCIPALES -->
+      <div class="char-images-grid reveal">
+        <div class="char-img-item" style="aspect-ratio:2/3;">
+          <!-- // Image principale de Adrian J. Flash (pose d'autorité, regard froid et juste) -->
+          <img src="" alt="Adrian J. Flash — Image 1" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="char-img-item">
+          <!-- // Deuxième illustration de Adrian J. Flash -->
+          <img src="" alt="Adrian J. Flash — Image 2" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+        <div class="char-img-item">
+          <!-- // Troisième image de Adrian J. Flash -->
+          <img src="" alt="Adrian J. Flash — Image 3" loading="lazy">
+          <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+        </div>
+      </div>
 
-        <div class="char-story-main">
-
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre I</div>
-            <h2 class="char-chapter-title">L'Ordre au-dessus de Tout</h2>
-            <div class="char-chapter-text">
-              <p>Adrian Jefferson Flash. Le seul Flash qui refusait de frapper avant d'avoir rendu son verdict. Dans une famille qui détruisait d'abord et questionnait ensuite, Adrian était une anomalie.</p>
-            </div>
+      <!-- DESCRIPTION SYNTHÉTIQUE -->
+      <div class="char-desc-block reveal">
+        <div class="char-desc-text-wrap">
+          <div class="char-desc-eyebrow">Description synthétique</div>
+          <div class="char-desc-text">
+            <p>Adrian Jefferson Flash. Le seul Flash qui refusait de frapper avant d'avoir rendu son verdict. Dans une famille qui détruisait d'abord et questionnait ensuite — quand elle questionnait — Adrian était une anomalie. Une conscience dans un empire de puissance.</p>
+            <p>Pour Adrian, le pouvoir Flash n'était pas un droit. C'était une responsabilité. Chaque frappe était une sentence prononcée. Chaque décision, irrévocable. Il ne se battait pas par colère, pas par orgueil — il se battait parce qu'il avait jugé que c'était nécessaire. Cette distinction changeait tout.</p>
+            <p>Dans le chaos de la guerre contre les Shade, Adrian tenta d'imposer quelque chose que sa famille n'avait jamais vraiment connu : une limite. Une ligne qu'on ne franchit pas, même contre ses ennemis. Il n'y réussit pas toujours. Mais il essaya. C'était déjà exceptionnel dans cette lignée.</p>
+          </div>
+        </div>
+        <div class="char-info-card">
+          <div class="char-info-card-title">Fiche personnage</div>
+          <div class="char-info-row">
+            <span class="char-info-key">Nom complet</span>
+            <span class="char-info-val">Adrian Jefferson Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Génération</span>
+            <span class="char-info-val">Flash VIII</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Surnom</span>
+            <span class="char-info-val">Le Juge</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Pouvoir</span>
+            <span class="char-info-val">Force + Code moral</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Lignée</span>
+            <span class="char-info-val">Flash</span>
+          </div>
+          <div class="char-info-row">
+            <span class="char-info-key">Statut</span>
+            <span class="char-info-val">Connu</span>
           </div>
 
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre II</div>
-            <h2 class="char-chapter-title">La Force comme Sentence</h2>
-            <div class="char-chapter-text">
-              <p>Pour Adrian, le pouvoir Flash n'était pas un droit. C'était une responsabilité. Chaque frappe était une sentence prononcée. Chaque décision, irrévocable.</p>
+        </div>
+      </div>
+
+      <!-- HISTOIRE COMPLÈTE -->
+      <div class="char-story-section reveal">
+        <div class="char-story-eyebrow">Histoire complète</div>
+        <h2 class="char-story-heading">Chroniques de Adrian J. Flash</h2>
+        <div class="char-chapters">
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre I</div>
+              <div class="char-chapter-num-big">01</div>
+              <div class="char-chapter-title">L'Ordre au-dessus de Tout</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Adrian Jefferson Flash. Le seul Flash qui refusait de frapper avant d'avoir rendu son verdict. Dans une famille qui détruisait d'abord et questionnait ensuite, Adrian était une anomalie.</p>
+                <p>Il développa tôt cette conviction : la puissance sans règle n'est que destruction en attente de victime. Et il décida qu'il ne serait pas ce type de Flash.</p>
+              </div>
             </div>
           </div>
-
-          <div class="char-chapter reveal">
-            <div class="char-chapter-num">Chapitre III</div>
-            <h2 class="char-chapter-title">Un Code dans la Tempête</h2>
-            <div class="char-chapter-text">
-              <p>Dans le chaos de la guerre contre les Shade, Adrian tenta d'imposer quelque chose que sa famille n'avait jamais vraiment connu : une limite. Une ligne qu'on ne franchit pas.</p>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre II</div>
+              <div class="char-chapter-num-big">02</div>
+              <div class="char-chapter-title">La Force comme Sentence</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Pour Adrian, le pouvoir Flash n'était pas un droit. C'était une responsabilité. Chaque frappe était une sentence prononcée. Chaque décision, irrévocable.</p>
+                <p>Il ne se battait pas par colère, pas par orgueil — il se battait parce qu'il avait jugé que c'était nécessaire. Cette distinction changeait tout dans sa façon de combattre, dans son rapport aux Shade, dans sa relation avec le reste de sa famille.</p>
+              </div>
+            </div>
+          </div>
+          <div class="char-chapter">
+            <div class="char-chapter-left">
+              <div class="char-chapter-num">Chapitre III</div>
+              <div class="char-chapter-num-big">03</div>
+              <div class="char-chapter-title">Un Code dans la Tempête</div>
+            </div>
+            <div class="char-chapter-right">
+              <div class="char-chapter-text">
+                <p>Dans le chaos de la guerre contre les Shade, Adrian tenta d'imposer quelque chose que sa famille n'avait jamais vraiment connu : une limite. Une ligne qu'on ne franchit pas, même contre ses ennemis.</p>
+                <p>Il n'y réussit pas toujours. Les autres Flash le regardaient parfois comme un idéaliste dangereux. Les Shade, eux, ne savaient pas quoi faire de lui — un Flash avec un code moral était plus difficile à haïr simplement. Et ça les déstabilisait.</p>
+              </div>
             </div>
           </div>
 
         </div>
-
-        <aside class="char-sidebar">
-          <div class="char-portrait-wrap">
-            <div class="char-portrait">
-              <!-- // Portrait officiel de Adrian Jefferson Flash -->
-              <img src="" alt="Adrian J. Flash — Portrait">
-              <div class="char-portrait-glow"></div>
-            </div>
-
-            <div class="char-info-card">
-              <div class="char-info-title">Fiche du Personnage</div>
-                            <div class="char-info-row">
-                <span class="char-info-key">Nom complet</span>
-                <span class="char-info-val">Adrian Jefferson Flash</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Génération</span>
-                <span class="char-info-val">Flash VIII</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Lignée</span>
-                <span class="char-info-val">Flash</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Pouvoir</span>
-                <span class="char-info-val">Force + Code moral</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Surnom</span>
-                <span class="char-info-val">Le Juge</span>
-              </div>
-              <div class="char-info-row">
-                <span class="char-info-key">Statut</span>
-                <span class="char-info-val">Connu</span>
-              </div>
-
-            </div>
-
-            <div class="char-info-card" style="border-color: var(--char-accent-dim); background: rgba(0,0,0,0.3);">
-              <div class="char-info-title" style="color: var(--char-accent);">Citation</div>
-              <p style="font-family:var(--font-body);font-size:1rem;color:var(--text-dim);line-height:1.7;font-style:italic;">
-                « La puissance sans règle est juste une destruction en attente de victime. »
-              </p>
-            </div>
-          </div>
-        </aside>
-
       </div>
+
+      <!-- GALERIE -->
+      <div class="char-gallery-section reveal">
+        <div class="char-gallery-eyebrow">Galerie</div>
+        <h2 class="char-gallery-heading">Images de Adrian J. Flash</h2>
+        <div class="char-gallery-grid" id="galleryGrid">
+          <div class="char-gallery-item">
+            <!-- // Galerie image 1 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 2 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 3 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 4 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 5 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 6 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 7 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 8 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 9 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 10 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 11 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 12 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 13 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 14 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item">
+            <!-- // Galerie image 15 de Adrian J. Flash -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 16 de Adrian J. Flash (cachée par défaut) -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 17 de Adrian J. Flash (cachée par défaut) -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-gallery-item hidden">
+            <!-- // Galerie image 18 de Adrian J. Flash (cachée par défaut) -->
+            <img src="" alt="Adrian J. Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+
+        </div>
+        <div class="char-gallery-actions">
+          <button class="char-gallery-btn" id="btnVoirPlus"><i class="fas fa-plus"></i> Voir plus</button>
+          <button class="char-gallery-btn hidden" id="btnVoirMoins"><i class="fas fa-minus"></i> Voir moins</button>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
 
   <footer class="lore-footer">
     <div class="lore-footer-inner">
@@ -191,31 +330,57 @@
         <img src="https://ik.imagekit.io/ipromx/images/logoblanc.webp" alt="iProMx">
         <span class="lore-footer-brand-text">iPROMX</span>
       </div>
-      <div class="lore-footer-meta">
-        © 2026 L'Univers d'iProMx · Encyclopédie Narrative · Tous droits réservés
-      </div>
+      <div class="lore-footer-meta">© 2026 L'Univers d'iProMx · Encyclopédie Narrative</div>
       <div class="lore-footer-credits">
-        <span>Mise en forme & développement : <a href="#">Jul_ipmx</a></span>
-        <span>Contenu narratif : <a href="#" class="shade-link">killing</a></span>
-        <span><a href="index.html">← Retour à l'encyclopédie</a></span>
+        <span>Développement : <a href="#">Jul_ipmx</a></span>
+        <span>Contenu : <a href="#">killing</a></span>
+        <span><a href="index.html">← Encyclopédie</a></span>
       </div>
     </div>
   </footer>
 
 </div>
 
+<div class="lore-lightbox" id="lightbox">
+  <button class="lore-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+  <img src="" alt="" id="lightboxImg">
+</div>
+
 <script>
   const nav = document.getElementById('lorNavbar');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
-  const revealEls = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const hiddenItems = document.querySelectorAll('.char-gallery-item.hidden');
+  const btnPlus = document.getElementById('btnVoirPlus');
+  const btnMoins = document.getElementById('btnVoirMoins');
+  if (!hiddenItems.length) btnPlus.classList.add('hidden');
+  btnPlus.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.remove('hidden'));
+    btnPlus.classList.add('hidden');
+    btnMoins.classList.remove('hidden');
+  });
+  btnMoins.addEventListener('click', () => {
+    hiddenItems.forEach(el => el.classList.add('hidden'));
+    btnMoins.classList.add('hidden');
+    btnPlus.classList.remove('hidden');
+    document.getElementById('galleryGrid').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.char-gallery-item img, .char-img-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src; lightboxImg.alt = img.alt;
+      lightbox.classList.add('open'); document.body.style.overflow='hidden';
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-  revealEls.forEach(el => obs.observe(el));
+  });
+  document.getElementById('lightboxClose').addEventListener('click', () => { lightbox.classList.remove('open'); document.body.style.overflow=''; });
+  lightbox.addEventListener('click', e => { if(e.target===lightbox){ lightbox.classList.remove('open'); document.body.style.overflow=''; } });
+  document.addEventListener('keydown', e => { if(e.key==='Escape'){ lightbox.classList.remove('open'); document.body.style.overflow=''; } });
 </script>
 </body>
 </html>

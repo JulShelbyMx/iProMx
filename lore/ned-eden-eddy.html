@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ned · Eden · Eddy Flash — L'Univers d'iProMx</title>
+  <meta name="description" content="Ned, Eden et Eddy Flash — trois générations, trois natures, une même lignée.">
+  <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="lore.css">
+  <style>
+    :root {
+      --char-accent: #f5a623;
+      --char-accent-dim: rgba(245,166,35,0.12);
+      --char-accent-glow: rgba(245,166,35,0.45);
+    }
+    .char-banner-overlay {
+      background:
+        linear-gradient(to bottom, rgba(6,5,4,0.05) 0%, rgba(6,5,4,0.95) 100%),
+        linear-gradient(to right, rgba(6,5,4,0.85) 0%, transparent 60%);
+    }
+
+    /* Tabs navigation */
+    .trio-tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--panel);
+      border: 1px solid var(--edge);
+      border-radius: var(--radius-lg);
+      padding: 6px;
+      margin-bottom: 48px;
+      width: fit-content;
+    }
+    .trio-tab {
+      font-family: var(--font-display);
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border-radius: var(--radius);
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .trio-tab:hover { color: var(--text-dim); }
+    .trio-tab.active {
+      background: var(--char-accent);
+      color: var(--void);
+    }
+    .trio-tab.ned.active { background: #8e44ad; color: white; }
+    .trio-tab.eden.active { background: #27ae60; color: white; }
+    .trio-tab.eddy.active { background: #16a085; color: white; }
+
+    /* Panels */
+    .trio-panel { display: none; }
+    .trio-panel.active { display: block; }
+
+    /* Ned accent */
+    .ned-accent { --char-accent: #8e44ad; --char-accent-dim: rgba(142,68,173,0.12); --char-accent-glow: rgba(142,68,173,0.45); }
+    /* Eden accent */
+    .eden-accent { --char-accent: #27ae60; --char-accent-dim: rgba(39,174,96,0.12); --char-accent-glow: rgba(39,174,96,0.45); }
+    /* Eddy accent */
+    .eddy-accent { --char-accent: #16a085; --char-accent-dim: rgba(22,160,133,0.12); --char-accent-glow: rgba(22,160,133,0.45); }
+  </style>
+</head>
+<body class="flash-theme">
+
+<nav class="lore-navbar" id="lorNavbar">
+  <div class="lore-navbar-inner">
+    <a href="index.html" class="lore-nav-logo">
+      <img src="https://ik.imagekit.io/ipromx/images/logoblanc.webp" alt="iProMx">
+      <div>
+        <div class="lore-nav-logo-text">iPROMX</div>
+        <div class="lore-nav-logo-sub">Encyclopédie</div>
+      </div>
+    </a>
+    <div class="lore-nav-center">
+      <a href="index.html" class="lore-nav-link">← Encyclopédie</a>
+      <a href="index.html#flash" class="lore-nav-link">Famille Flash</a>
+    </div>
+    <a href="../index.html" class="lore-nav-back">
+      <i class="fas fa-tv"></i>
+      <span>Retour au streaming</span>
+    </a>
+  </div>
+</nav>
+
+<div class="lore-page">
+
+  <!-- BANNIÈRE COMMUNE -->
+  <div class="char-banner">
+    <!-- // Image bannière commune Ned · Eden · Eddy Flash (montage des 3 personnages ou illustration de groupe, ambiance dorée-verte-teal) -->
+    <img src="" alt="Ned · Eden · Eddy Flash">
+    <div class="char-banner-overlay"></div>
+    <div class="char-banner-content">
+      <div class="char-banner-inner">
+        <div class="char-banner-clan">⚡ Famille Flash — Générations IX · X · XI</div>
+        <h1 class="char-banner-name" style="font-size: clamp(1.8rem, 4vw, 3.5rem);">Ned · Eden · Eddy<br>Flash</h1>
+        <p class="char-banner-title">La Mémoire, la Lumière, le Courant — Trois natures. Un même sang.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="lore-section">
+    <div class="lore-container">
+
+      <a href="index.html#flash" class="char-page-back reveal">
+        <i class="fas fa-arrow-left"></i> Famille Flash
+      </a>
+
+      <!-- TABS -->
+      <div class="trio-tabs reveal">
+        <button class="trio-tab ned active" onclick="showTab('ned')">Ned Flash</button>
+        <button class="trio-tab eden" onclick="showTab('eden')">Eden Flash</button>
+        <button class="trio-tab eddy" onclick="showTab('eddy')">Eddy Flash</button>
+      </div>
+
+      <!-- ═══ NED ═══ -->
+      <div class="trio-panel ned-accent active" id="panel-ned">
+
+        <div class="char-traits-block reveal" style="--char-accent: #8e44ad; --char-accent-dim: rgba(142,68,173,0.12);">
+          <div class="char-traits-grid">
+            <div class="char-traits-left">
+              <div class="char-traits-label">Traits de personnalité</div>
+              <div class="char-traits-tags">
+                <span class="char-trait-tag">Méthodique</span>
+                <span class="char-trait-tag">Silencieux</span>
+                <span class="char-trait-tag">Implacable</span>
+                <span class="char-trait-tag">Omniscient</span>
+                <span class="char-trait-tag">Solitaire</span>
+              </div>
+              <div class="char-totem-row">
+                <span class="char-totem-icon">🦉</span>
+                <div>
+                  <div class="char-totem-label">Animal Totem</div>
+                  <div class="char-totem-val">Le Hibou</div>
+                </div>
+              </div>
+            </div>
+            <div class="char-traits-right">
+              <div class="char-ost-label">OST reliée à Ned Flash</div>
+              <div class="char-ost-list">
+                <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                  <!-- // Lien vers musique OST principale de Ned Flash -->
+                  <div class="char-ost-icon" style="background:#8e44ad;"><i class="fas fa-music"></i></div>
+                  <span class="char-ost-name">Thème de Ned</span>
+                  <i class="fas fa-external-link-alt char-ost-arrow"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="char-images-grid reveal">
+          <div class="char-img-item" style="aspect-ratio:2/3;">
+            <!-- // Image principale de Ned Flash (bibliothèque, archives, ambiance violet et or) -->
+            <img src="" alt="Ned Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-img-item">
+            <!-- // Deuxième image de Ned Flash -->
+            <img src="" alt="Ned Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-img-item">
+            <!-- // Troisième image de Ned Flash -->
+            <img src="" alt="Ned Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </div>
+
+        <div class="char-desc-block reveal" style="--char-accent:#8e44ad;">
+          <div class="char-desc-text-wrap">
+            <div class="char-desc-eyebrow">Description synthétique</div>
+            <div class="char-desc-text">
+              <p>Ned Flash avait une mémoire absolue. Chaque bataille des Flash depuis Eldric. Chaque accord rompu. Chaque promesse non tenue. Chaque mort. Il portait tout ça en lui, sans jamais se plaindre — parce qu'il comprenait que si personne ne se souvenait, tout recommencerait.</p>
+              <p>Dans une famille construite sur la puissance et l'action, Ned était l'anomalie : celui qui observait, cataloguait, retenait. Pas spectaculaire. Pas flamboyant. Mais potentiellement le plus dangereux à long terme — parce qu'il n'oubliait jamais rien.</p>
+              <p>Ses connaissances étaient ses armes. Connaître chaque faiblesse de chaque ennemi. Chaque erreur de chaque allié. Chaque point de rupture dans une alliance. Ned Flash ne frappait pas souvent. Mais quand il le faisait, c'était au bon endroit.</p>
+            </div>
+          </div>
+          <div class="char-info-card" style="border-color: rgba(142,68,173,0.3);">
+            <div class="char-info-card-title">Fiche — Ned Flash</div>
+            <div class="char-info-row"><span class="char-info-key">Génération</span><span class="char-info-val">Flash XI</span></div>
+            <div class="char-info-row"><span class="char-info-key">Surnom</span><span class="char-info-val">Le Porteur</span></div>
+            <div class="char-info-row"><span class="char-info-key">Pouvoir</span><span class="char-info-val">Mémoire absolue</span></div>
+            <div class="char-info-row"><span class="char-info-key">Lignée</span><span class="char-info-val">Flash</span></div>
+            <div class="char-info-row"><span class="char-info-key">Statut</span><span class="char-info-val">Connu</span></div>
+          </div>
+        </div>
+
+        <div class="char-story-section reveal" style="--char-accent:#8e44ad;">
+          <div class="char-story-eyebrow">Histoire complète</div>
+          <h2 class="char-story-heading">Chroniques de Ned Flash</h2>
+          <div class="char-chapters">
+            <div class="char-chapter">
+              <div class="char-chapter-left">
+                <div class="char-chapter-num">Chapitre I</div>
+                <div class="char-chapter-num-big">01</div>
+                <div class="char-chapter-title">Celui qui Se Souvient</div>
+              </div>
+              <div class="char-chapter-right">
+                <div class="char-chapter-text">
+                  <p>Ned Flash avait une mémoire absolue. Chaque bataille des Flash depuis Eldric. Chaque accord rompu. Chaque promesse non tenue. Chaque mort.</p>
+                  <p>Porter la mémoire d'une lignée aussi violente que les Flash n'était pas un cadeau. C'était un fardeau. Ned le portait sans se plaindre — parce qu'il comprenait que si personne ne se souvenait, tout recommencerait.</p>
+                </div>
+              </div>
+            </div>
+            <div class="char-chapter">
+              <div class="char-chapter-left">
+                <div class="char-chapter-num">Chapitre II</div>
+                <div class="char-chapter-num-big">02</div>
+                <div class="char-chapter-title">L'Archiviste Armé</div>
+              </div>
+              <div class="char-chapter-right">
+                <div class="char-chapter-text">
+                  <p>Ned n'était pas qu'un historien. Ses connaissances devenaient des armes. Connaître chaque faiblesse de chaque ennemi. Chaque erreur de chaque allié. Chaque point de rupture.</p>
+                  <p>Les Shade essayèrent plusieurs fois de l'approcher — convaincus qu'un Flash qui n'attaquait pas était un Flash qu'on pouvait retourner. Ils avaient tort. Ned connaissait trop bien leur histoire pour se laisser séduire par leurs arguments.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="char-gallery-section reveal" style="--char-accent:#8e44ad;">
+          <div class="char-gallery-eyebrow">Galerie</div>
+          <h2 class="char-gallery-heading">Images de Ned Flash</h2>
+          <div class="char-gallery-grid" id="galleryNed">
+            <!-- // Galerie images 1 à 15 de Ned Flash -->
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item hidden"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item hidden"><img src="" alt="Ned Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          </div>
+          <div class="char-gallery-actions">
+            <button class="char-gallery-btn" id="nedPlus" onclick="toggleGallery('galleryNed','nedPlus','nedMoins')"><i class="fas fa-plus"></i> Voir plus</button>
+            <button class="char-gallery-btn hidden" id="nedMoins" onclick="toggleGallery('galleryNed','nedPlus','nedMoins',true)"><i class="fas fa-minus"></i> Voir moins</button>
+          </div>
+        </div>
+
+      </div><!-- /panel-ned -->
+
+      <!-- ═══ EDEN ═══ -->
+      <div class="trio-panel eden-accent" id="panel-eden">
+
+        <div class="char-traits-block reveal" style="--char-accent:#27ae60;--char-accent-dim:rgba(39,174,96,0.12);">
+          <div class="char-traits-grid">
+            <div class="char-traits-left">
+              <div class="char-traits-label">Traits de personnalité</div>
+              <div class="char-traits-tags">
+                <span class="char-trait-tag">Empathique</span>
+                <span class="char-trait-tag">Forte</span>
+                <span class="char-trait-tag">Idéaliste</span>
+                <span class="char-trait-tag">Rebelle</span>
+                <span class="char-trait-tag">Protectrice</span>
+              </div>
+              <div class="char-totem-row">
+                <span class="char-totem-icon">🦋</span>
+                <div>
+                  <div class="char-totem-label">Animal Totem</div>
+                  <div class="char-totem-val">Le Papillon</div>
+                </div>
+              </div>
+            </div>
+            <div class="char-traits-right">
+              <div class="char-ost-label">OST reliée à Eden Flash</div>
+              <div class="char-ost-list">
+                <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                  <!-- // Lien vers musique OST principale de Eden Flash -->
+                  <div class="char-ost-icon" style="background:#27ae60;"><i class="fas fa-music"></i></div>
+                  <span class="char-ost-name">Thème d'Eden</span>
+                  <i class="fas fa-external-link-alt char-ost-arrow"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="char-images-grid reveal">
+          <div class="char-img-item" style="aspect-ratio:2/3;">
+            <!-- // Image principale de Eden Flash (lumineuse, verte, contraste avec l'obscurité Flash) -->
+            <img src="" alt="Eden Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-img-item">
+            <!-- // Deuxième image de Eden Flash -->
+            <img src="" alt="Eden Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-img-item">
+            <!-- // Troisième image de Eden Flash -->
+            <img src="" alt="Eden Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </div>
+
+        <div class="char-desc-block reveal" style="--char-accent:#27ae60;">
+          <div class="char-desc-text-wrap">
+            <div class="char-desc-eyebrow">Description synthétique</div>
+            <div class="char-desc-text">
+              <p>Eden Flash naquit au milieu d'un conflit qui durait depuis des générations. Mais contrairement à ses aînés, elle refusa de laisser cette guerre définir qui elle était.</p>
+              <p>Eden développa un aspect des pouvoirs Flash que les autres avaient négligé ou ignoré : la capacité de restaurer. De reconstruire. De faire pousser quelque chose à l'endroit où il n'y avait que cendres.</p>
+              <p>Dans une lignée construite sur la domination et la destruction, Eden Flash représentait quelque chose de rare : l'espoir que le cycle pouvait, un jour, s'arrêter.</p>
+            </div>
+          </div>
+          <div class="char-info-card" style="border-color: rgba(39,174,96,0.3);">
+            <div class="char-info-card-title">Fiche — Eden Flash</div>
+            <div class="char-info-row"><span class="char-info-key">Génération</span><span class="char-info-val">Flash IX</span></div>
+            <div class="char-info-row"><span class="char-info-key">Surnom</span><span class="char-info-val">La Lumière</span></div>
+            <div class="char-info-row"><span class="char-info-key">Pouvoir</span><span class="char-info-val">Restauration · Force Flash</span></div>
+            <div class="char-info-row"><span class="char-info-key">Lignée</span><span class="char-info-val">Flash</span></div>
+            <div class="char-info-row"><span class="char-info-key">Statut</span><span class="char-info-val">Connu</span></div>
+          </div>
+        </div>
+
+        <div class="char-story-section reveal" style="--char-accent:#27ae60;">
+          <div class="char-story-eyebrow">Histoire complète</div>
+          <h2 class="char-story-heading">Chroniques de Eden Flash</h2>
+          <div class="char-chapters">
+            <div class="char-chapter">
+              <div class="char-chapter-left">
+                <div class="char-chapter-num">Chapitre I</div>
+                <div class="char-chapter-num-big">01</div>
+                <div class="char-chapter-title">Née dans la Guerre</div>
+              </div>
+              <div class="char-chapter-right">
+                <div class="char-chapter-text">
+                  <p>Eden Flash naquit au milieu d'un conflit qui durait depuis des générations. Mais contrairement à ses aînés, elle refusa de laisser cette guerre définir qui elle était.</p>
+                  <p>Elle développa un aspect des pouvoirs Flash que les autres avaient négligé ou ignoré : la capacité de restaurer. De reconstruire. De faire pousser quelque chose à l'endroit où il n'y avait que cendres.</p>
+                </div>
+              </div>
+            </div>
+            <div class="char-chapter">
+              <div class="char-chapter-left">
+                <div class="char-chapter-num">Chapitre II</div>
+                <div class="char-chapter-num-big">02</div>
+                <div class="char-chapter-title">Une Anomalie chez les Flash</div>
+              </div>
+              <div class="char-chapter-right">
+                <div class="char-chapter-text">
+                  <p>Dans une lignée construite sur la domination et la destruction, Eden Flash représentait quelque chose de rare : l'espoir que le cycle pouvait, un jour, s'arrêter.</p>
+                  <p>On peut être Flash et refuser de brûler ce qu'on touche.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="char-gallery-section reveal" style="--char-accent:#27ae60;">
+          <div class="char-gallery-eyebrow">Galerie</div>
+          <h2 class="char-gallery-heading">Images de Eden Flash</h2>
+          <div class="char-gallery-grid" id="galleryEden">
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item hidden"><img src="" alt="Eden Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          </div>
+          <div class="char-gallery-actions">
+            <button class="char-gallery-btn" id="edenPlus" onclick="toggleGallery('galleryEden','edenPlus','edenMoins')"><i class="fas fa-plus"></i> Voir plus</button>
+            <button class="char-gallery-btn hidden" id="edenMoins" onclick="toggleGallery('galleryEden','edenPlus','edenMoins',true)"><i class="fas fa-minus"></i> Voir moins</button>
+          </div>
+        </div>
+
+      </div><!-- /panel-eden -->
+
+      <!-- ═══ EDDY ═══ -->
+      <div class="trio-panel eddy-accent" id="panel-eddy">
+
+        <div class="char-traits-block reveal" style="--char-accent:#16a085;--char-accent-dim:rgba(22,160,133,0.12);">
+          <div class="char-traits-grid">
+            <div class="char-traits-left">
+              <div class="char-traits-label">Traits de personnalité</div>
+              <div class="char-traits-tags">
+                <span class="char-trait-tag">Électrique</span>
+                <span class="char-trait-tag">Imprévisible</span>
+                <span class="char-trait-tag">Intense</span>
+                <span class="char-trait-tag">Connecté</span>
+                <span class="char-trait-tag">Instable</span>
+              </div>
+              <div class="char-totem-row">
+                <span class="char-totem-icon">⚡</span>
+                <div>
+                  <div class="char-totem-label">Animal Totem</div>
+                  <div class="char-totem-val">L'Anguille Électrique</div>
+                </div>
+              </div>
+            </div>
+            <div class="char-traits-right">
+              <div class="char-ost-label">OST reliée à Eddy Flash</div>
+              <div class="char-ost-list">
+                <a href="" class="char-ost-item" target="_blank" rel="noopener">
+                  <!-- // Lien vers musique OST principale de Eddy Flash -->
+                  <div class="char-ost-icon" style="background:#16a085;"><i class="fas fa-music"></i></div>
+                  <span class="char-ost-name">Thème d'Eddy</span>
+                  <i class="fas fa-external-link-alt char-ost-arrow"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="char-images-grid reveal">
+          <div class="char-img-item" style="aspect-ratio:2/3;">
+            <!-- // Image principale de Eddy Flash (électricité, teal et or, énergie débordante) -->
+            <img src="" alt="Eddy Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-img-item">
+            <!-- // Deuxième image de Eddy Flash -->
+            <img src="" alt="Eddy Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+          <div class="char-img-item">
+            <!-- // Troisième image de Eddy Flash -->
+            <img src="" alt="Eddy Flash" loading="lazy">
+            <div class="char-img-item-overlay"><i class="fas fa-expand"></i></div>
+          </div>
+        </div>
+
+        <div class="char-desc-block reveal" style="--char-accent:#16a085;">
+          <div class="char-desc-text-wrap">
+            <div class="char-desc-eyebrow">Description synthétique</div>
+            <div class="char-desc-text">
+              <p>Eddy Flash. Incontrôlable. Imprévisible. Le Flash qui semblait connecté à quelque chose de plus grand — comme si le courant de l'univers lui-même passait à travers lui.</p>
+              <p>Eddy n'était jamais totalement présent dans un seul endroit. Une partie de lui semblait toujours ailleurs — dans le courant, dans l'espace entre les secondes.</p>
+              <p>S'il y avait un lien entre Eddy et Kayton Flash — le plus rapide de la lignée — c'était celui-là : une connexion à quelque chose de fondamental dans le pouvoir Flash, quelque chose que les autres membres n'avaient jamais su toucher.</p>
+            </div>
+          </div>
+          <div class="char-info-card" style="border-color: rgba(22,160,133,0.3);">
+            <div class="char-info-card-title">Fiche — Eddy Flash</div>
+            <div class="char-info-row"><span class="char-info-key">Génération</span><span class="char-info-val">Flash X</span></div>
+            <div class="char-info-row"><span class="char-info-key">Surnom</span><span class="char-info-val">Le Courant</span></div>
+            <div class="char-info-row"><span class="char-info-key">Pouvoir</span><span class="char-info-val">Électricité · Courant</span></div>
+            <div class="char-info-row"><span class="char-info-key">Lignée</span><span class="char-info-val">Flash</span></div>
+            <div class="char-info-row"><span class="char-info-key">Statut</span><span class="char-info-val">Connu</span></div>
+          </div>
+        </div>
+
+        <div class="char-story-section reveal" style="--char-accent:#16a085;">
+          <div class="char-story-eyebrow">Histoire complète</div>
+          <h2 class="char-story-heading">Chroniques de Eddy Flash</h2>
+          <div class="char-chapters">
+            <div class="char-chapter">
+              <div class="char-chapter-left">
+                <div class="char-chapter-num">Chapitre I</div>
+                <div class="char-chapter-num-big">01</div>
+                <div class="char-chapter-title">L'Énergie Pure</div>
+              </div>
+              <div class="char-chapter-right">
+                <div class="char-chapter-text">
+                  <p>Eddy Flash. Incontrôlable. Imprévisible. Le Flash qui semblait connecté à quelque chose de plus grand — comme si le courant de l'univers lui-même passait à travers lui.</p>
+                  <p>Eddy n'était jamais totalement présent dans un seul endroit. Une partie de lui semblait toujours ailleurs — dans le courant, dans l'espace entre les secondes. Il ne courait pas. Il circulait.</p>
+                </div>
+              </div>
+            </div>
+            <div class="char-chapter">
+              <div class="char-chapter-left">
+                <div class="char-chapter-num">Chapitre II</div>
+                <div class="char-chapter-num-big">02</div>
+                <div class="char-chapter-title">L'Héritage de l'Éclair</div>
+              </div>
+              <div class="char-chapter-right">
+                <div class="char-chapter-text">
+                  <p>S'il y avait un lien entre Eddy et Kayton Flash — le plus rapide de la lignée — c'était celui-là : une connexion à quelque chose de fondamental dans le pouvoir Flash, quelque chose que les autres membres n'avaient jamais su toucher.</p>
+                  <p>Les Shade l'observaient avec une inquiétude particulière. Un Flash imprévisible était un Flash impossible à anticiper. Et ce qu'on ne peut pas anticiper, on ne peut pas vaincre facilement.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="char-gallery-section reveal" style="--char-accent:#16a085;">
+          <div class="char-gallery-eyebrow">Galerie</div>
+          <h2 class="char-gallery-heading">Images de Eddy Flash</h2>
+          <div class="char-gallery-grid" id="galleryEddy">
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+            <div class="char-gallery-item hidden"><img src="" alt="Eddy Flash" loading="lazy"><div class="char-img-item-overlay"><i class="fas fa-expand"></i></div></div>
+          </div>
+          <div class="char-gallery-actions">
+            <button class="char-gallery-btn" id="eddyPlus" onclick="toggleGallery('galleryEddy','eddyPlus','eddyMoins')"><i class="fas fa-plus"></i> Voir plus</button>
+            <button class="char-gallery-btn hidden" id="eddyMoins" onclick="toggleGallery('galleryEddy','eddyPlus','eddyMoins',true)"><i class="fas fa-minus"></i> Voir moins</button>
+          </div>
+        </div>
+
+      </div><!-- /panel-eddy -->
+
+    </div>
+  </div>
+
+  <footer class="lore-footer">
+    <div class="lore-footer-inner">
+      <div class="lore-footer-brand">
+        <img src="https://ik.imagekit.io/ipromx/images/logoblanc.webp" alt="iProMx">
+        <span class="lore-footer-brand-text">iPROMX</span>
+      </div>
+      <div class="lore-footer-meta">© 2026 L'Univers d'iProMx · Encyclopédie Narrative</div>
+      <div class="lore-footer-credits">
+        <span>Développement : <a href="#">Jul_ipmx</a></span>
+        <span>Contenu : <a href="#">killing</a></span>
+        <span><a href="index.html">← Encyclopédie</a></span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<div class="lore-lightbox" id="lightbox">
+  <button class="lore-lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+  <img src="" alt="" id="lightboxImg">
+</div>
+
+<script>
+  const nav = document.getElementById('lorNavbar');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), {passive:true});
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, {threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  function showTab(name) {
+    document.querySelectorAll('.trio-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.trio-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    document.querySelector('.trio-tab.' + name).classList.add('active');
+  }
+
+  function toggleGallery(gridId, plusId, moinsId, collapse) {
+    const hidden = document.querySelectorAll('#' + gridId + ' .char-gallery-item.hidden, #' + gridId + ' .char-gallery-item[data-hidden]');
+    const grid = document.getElementById(gridId);
+    if (collapse) {
+      grid.querySelectorAll('.char-gallery-item').forEach((el, i) => {
+        if (i >= 15) { el.classList.add('hidden'); }
+      });
+      document.getElementById(plusId).classList.remove('hidden');
+      document.getElementById(moinsId).classList.add('hidden');
+      grid.scrollIntoView({behavior:'smooth',block:'start'});
+    } else {
+      grid.querySelectorAll('.char-gallery-item.hidden').forEach(el => el.classList.remove('hidden'));
+      document.getElementById(plusId).classList.add('hidden');
+      document.getElementById(moinsId).classList.remove('hidden');
+    }
+  }
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.char-gallery-item img, .char-img-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src; lightboxImg.alt = img.alt;
+      lightbox.classList.add('open'); document.body.style.overflow='hidden';
+    });
+  });
+  document.getElementById('lightboxClose').addEventListener('click', () => { lightbox.classList.remove('open'); document.body.style.overflow=''; });
+  lightbox.addEventListener('click', e => { if(e.target===lightbox){ lightbox.classList.remove('open'); document.body.style.overflow=''; } });
+  document.addEventListener('keydown', e => { if(e.key==='Escape'){ lightbox.classList.remove('open'); document.body.style.overflow=''; } });
+</script>
+</body>
+</html>
