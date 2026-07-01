@@ -29,6 +29,36 @@
       display: block;
       filter: brightness(0.9) saturate(0.85);
     }
+
+    /* ═══════════════════════════════════════════════════
+       Arbres généalogiques & Chronologie — pile d'images
+       sans le moindre espace entre elles (elles forment
+       une seule grande image continue en hauteur).
+    ═══════════════════════════════════════════════════ */
+    .lore-tree-stack {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--edge);
+      background: var(--panel);
+      box-shadow: 0 0 60px rgba(0,0,0,0.7), 0 0 30px var(--arc-dim);
+      /* line-height/font-size à 0 = filet de sécurité anti-espace
+         (l'espace blanc entre <img> vient du mode "inline") */
+      line-height: 0;
+      font-size: 0;
+    }
+    .lore-tree-stack img {
+      display: block;      /* supprime l'espace fantôme sous chaque image */
+      width: 100%;
+      height: auto;        /* la hauteur suit le ratio d'origine de l'image, rien n'est rogné */
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: var(--panel2);
+    }
   </style>
 </head>
 <body>
@@ -47,6 +77,7 @@
       <a href="#intro" class="lore-nav-link">Intro Narrative</a>
       <a href="#flash" class="lore-nav-link">Flash</a>
       <a href="#shade" class="lore-nav-link">Shade</a>
+      <a href="#arbres" class="lore-nav-link">Arbres & Chronologie</a>
     </div>
     <a href="../index.html" class="lore-nav-back">
       <i class="fas fa-tv"></i>
@@ -430,13 +461,6 @@
 
       </div>
 
-      <!-- Arbre généalogique Flash -->
-      <h3 class="lore-section-title reveal" style="font-size:0.95rem;margin-bottom:20px;margin-top:8px;">Arbre Généalogique</h3>
-      <div class="lore-tree-wrap reveal">
-        <!-- // Image de l'arbre généalogique de la Famille Flash (peut être grande en hauteur, pas de restriction de taille) -->
-        <img src="" alt="Arbre généalogique — Famille Flash" loading="lazy">
-      </div>
-
     </div>
   </section>
 
@@ -490,13 +514,48 @@
         👑 GLOIRE AUX SHADE.
       </div>
 
-      <!-- Arbre généalogique Shade -->
-      <h3 class="lore-section-title reveal" style="font-size:0.95rem;margin-bottom:20px;margin-top:48px;">Arbre Généalogique</h3>
-      <div class="lore-tree-wrap reveal" style="border-color: rgba(124,58,237,0.3);">
-        <!-- // Image de l'arbre généalogique de la Famille Shade (peut être grande en hauteur) -->
-        <img src="" alt="Arbre généalogique — Famille Shade" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       ARBRES GÉNÉALOGIQUES & CHRONOLOGIE
+       Espace unique regroupant l'ensemble des arbres (Flash + Shade)
+       et la chronologie de l'univers. 15 images (format paysage)
+       empilées SANS aucun espace entre elles pour ne former
+       qu'une seule grande image verticale continue.
+  ════════════════════════════════════════ -->
+  <section class="lore-section" id="arbres">
+    <div class="lore-container">
+      <div class="lore-section-label">Généalogie & Temps</div>
+      <h2 class="lore-section-title reveal">Arbres Généalogiques &amp; Chronologie</h2>
+
+        
       </div>
 
+      <div class="lore-tree-stack reveal">
+        <!-- // 15 images paysage formant un seul arbre/chronologie continu en hauteur.
+             IMPORTANT : ne jamais laisser d'espace/marge entre les <img>, elles doivent
+             se toucher pour reconstituer une seule grande image verticale.
+             ASTUCE PERF : si tes images viennent d'ImageKit (ik.imagekit.io comme le
+             reste du site), ajoute "?tr=w-1400,q-75,f-webp" à la fin de chaque URL
+             pour réduire drastiquement leur poids SANS les rogner ni les déformer
+             (ImageKit redimensionne juste la largeur, la hauteur suit automatiquement). -->
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image1.webp" alt="Arbre généalogique & Chronologie — partie 1" loading="eager" fetchpriority="high" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image2.webp" alt="Arbre généalogique & Chronologie — partie 2" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image3.webp" alt="Arbre généalogique & Chronologie — partie 3" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image4.webp" alt="Arbre généalogique & Chronologie — partie 4" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image5.webp" alt="Arbre généalogique & Chronologie — partie 5" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image6.webp" alt="Arbre généalogique & Chronologie — partie 6" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image7.webp" alt="Arbre généalogique & Chronologie — partie 7" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image8.webp" alt="Arbre généalogique & Chronologie — partie 8" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image9.webp" alt="Arbre généalogique & Chronologie — partie 9" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image10.webp" alt="Arbre généalogique & Chronologie — partie 10" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image11.webp" alt="Arbre généalogique & Chronologie — partie 11" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image12.webp" alt="Arbre généalogique & Chronologie — partie 12" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image13.webp" alt="Arbre généalogique & Chronologie — partie 13" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image14.webp" alt="Arbre généalogique & Chronologie — partie 14" loading="lazy" decoding="async">
+        <img src="https://ik.imagekit.io/ipromx/images/lore/arbres/image15.jpg" alt="Arbre généalogique & Chronologie — partie 15" loading="lazy" decoding="async">
+      </div>
     </div>
   </section>
 
