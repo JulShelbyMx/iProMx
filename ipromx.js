@@ -582,7 +582,7 @@ const GALLERY_IMAGES = [  // 333 images
   _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img111.webp'),
   _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img163.webp'),
   _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img289.webp'), //grande image
-  _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img85.webp'),
+  _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img85.webp?updatedAt=1782926292614'),
   _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img125.webp'),
   _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img267.webp'),
   _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img98.webp'),
