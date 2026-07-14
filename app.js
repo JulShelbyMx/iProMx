@@ -47,6 +47,26 @@ function getOverallProgress(fid, cid) {
   return total ? Math.round((watched / total) * 100) : 0;
 }
 
+// Progression de lecture du lore : même mécanisme que les épisodes (DB.getProgress/
+// saveProgress), avec une "saison" dédiée '__lore__' et le numéro de chapitre comme
+// numéro d'épisode. 100% = chapitre lu. Isolé de getOverallProgress (contenu vidéo).
+const LORE_SEASON_KEY = '__lore__';
+function isChapterRead(fid, cid, chapterIdx) {
+  return typeof DB !== 'undefined' && DB.getProgress(fid, cid, LORE_SEASON_KEY, chapterIdx).pct >= 100;
+}
+function setChapterRead(fid, cid, chapterIdx, read) {
+  if (typeof DB === 'undefined') return;
+  DB.saveProgress(fid, cid, LORE_SEASON_KEY, chapterIdx, read ? 100 : 0, 0);
+  DB.flushProgressNow();
+}
+function getLoreProgress(fid, cid) {
+  const char = getChar(fid, cid);
+  const chapters = char?.lore?.chapters || [];
+  if (!chapters.length) return { read: 0, total: 0, pct: 0 };
+  const read = chapters.filter((_, i) => isChapterRead(fid, cid, i)).length;
+  return { read, total: chapters.length, pct: Math.round((read / chapters.length) * 100) };
+}
+
 function initLazyBg() {
   if (!('IntersectionObserver' in window)) {
     document.querySelectorAll('.lazy-bg[data-bg]').forEach(el => {
@@ -72,6 +92,11 @@ window.initLazyBg = initLazyBg;
 // ── SLUG ROUTER (partagé entre character.html et episode.html) ──
 const SLUG = {
   char: cid => {
+    // Slug explicite (surcharge manuelle dans data.js, ex: 'ned-eden-eddy')
+    for (const u of Object.values(DATA.universes || {})) {
+      const found = (u.characters || []).find(c => c.id === cid);
+      if (found?.slug) return found.slug;
+    }
     const first = cid.split('-')[0];
     // Collision check : si plusieurs ids dans DATA partagent le même 1er segment
     // (ex: "le-genie" et "le-geant" -> "le"), on utilise l'id complet pour désambiguïser.
@@ -106,7 +131,7 @@ const SLUG = {
     const n = parseInt(p[1].replace('ep', ''));
     return isNaN(n) ? null : { view: 'cinematic', idx: n };
   },
-  findChar(fid, slug) { return DATA.universes[fid]?.characters.find(c => c.id === slug || c.id.startsWith(slug + '-')) || null; },
+  findChar(fid, slug) { return DATA.universes[fid]?.characters.find(c => c.slug === slug || c.id === slug || c.id.startsWith(slug + '-')) || null; },
   findSeas(fid, cid, slug) { return Object.keys(getChar(fid, cid)?.seasons || {}).find(s => this.seas(s) === slug) || null; },
   parse(path) {
     const p = path.replace(/^\//, '').split('/').filter(Boolean);
@@ -227,6 +252,43 @@ window.toggleList = function(fid, cid, btn) {
     }
   }
 };
+
+// ── USER BTN FLOTTANT (character.html, lore/index.html, pages secondaires) ──
+function renderUserBtn(){
+  const user=typeof AUTH!=='undefined'?AUTH.getCurrentUser():null;
+  const isGuest=typeof AUTH!=='undefined'?AUTH.isGuest():false;
+  const btn=document.getElementById('userBtnFixed');
+  if(!btn)return;
+  if(!user&&!isGuest){btn.style.display='none';return;}
+  const avSrc=user?.avatarId&&typeof PRESET_AVATARS!=='undefined'?PRESET_AVATARS?.find(a=>a.id===user.avatarId)?.src:null;
+  const initials=(user?.username||'G').slice(0,2).toUpperCase();
+  btn.innerHTML=`<span style="font-family:var(--font-display);font-size:.56rem;letter-spacing:1px;color:var(--text-muted);">${user?.username||'Invité'}</span>
+    ${avSrc?`<img src="${avSrc}" class="user-btn-avatar">`:`<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--iron),var(--arc));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:.65rem;font-weight:700;color:white;">${initials}</div>`}`;
+}
+window.renderUserBtn=renderUserBtn;
+
+function openUserMenu(){
+  const float=document.getElementById('userMenuFloat');
+  if(!float)return;
+  if(float.style.display!=='none'){float.style.display='none';return;}
+  const user=typeof AUTH!=='undefined'?AUTH.getCurrentUser():null;
+  const isGuest=typeof AUTH!=='undefined'?AUTH.isGuest():false;
+  float.innerHTML=`<div style="background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);overflow:hidden;min-width:190px;box-shadow:var(--shadow-arc);animation:fadeInUp .18s ease;">
+    <div style="padding:12px 16px;border-bottom:1px solid var(--edge2);">
+      <div style="font-family:var(--font-display);font-size:.7rem;font-weight:700;color:var(--text);">${user?.username||'Invité'}</div>
+      ${user?.email?`<div style="font-family:var(--font-ui);font-size:.7rem;color:var(--text-muted);margin-top:2px;">${user.email}</div>`:''}
+    </div>
+    <button class="dd-item" onclick="location.href='/'"><i class="fas fa-home"></i> Accueil</button>
+    <button class="dd-item danger" onclick="${isGuest
+      ? "AUTH.logout?.().then(()=>location.href='/')"
+      : "AUTH.logout?.().then(()=>location.href='/')"}">
+      <i class="fas fa-sign-out-alt"></i> ${isGuest?'Quitter':'Déconnexion'}
+    </button>
+  </div>`;
+  float.style.display='block';
+  setTimeout(()=>document.addEventListener('click',()=>{float.style.display='none';},{once:true}),0);
+}
+window.openUserMenu=openUserMenu;
 
 // ── INIT COMMUN (character.html + episode.html) ──
 function appInit(cb) {

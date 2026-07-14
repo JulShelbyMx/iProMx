@@ -8,23 +8,13 @@
   <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="/styles.css?v=48">
   <style>
     body { background: var(--void); color: var(--text); }
     .char-hero::before { content:""; position:absolute; top:0; left:0; right:0; height:80px; background:linear-gradient(to bottom, rgba(2,4,8,.7) 0%, transparent 100%); z-index:1; pointer-events:none; }
-    .back-btn {
-      position: fixed; top: 18px; left: 20px; z-index: 9000;
-      display: flex; align-items: center; gap: 8px;
-      padding: 9px 18px;
-      background: rgba(2,4,8,.82); border: 1px solid var(--edge); border-radius: var(--radius);
-      color: var(--text-dim); font-family: var(--font-display); font-size: .58rem;
-      font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-      cursor: pointer; transition: var(--transition); text-decoration: none;
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    }
-    .back-btn:hover { border-color: var(--arc); color: var(--arc); transform: translateX(-2px); }
+    /* .back-btn est maintenant mutualisé dans styles.css (utilisé aussi par /lore/) */
     .user-btn {
       position: fixed; top: 18px; right: 20px; z-index: 9000;
       display: flex; align-items: center; gap: 8px;
@@ -48,8 +38,8 @@
     .char-hero::after {
       content: ''; position: absolute; inset: 0;
       background:
-        linear-gradient(to right, rgba(2,4,8,.92) 0%, rgba(2,4,8,.45) 55%, rgba(2,4,8,.05) 100%),
-        linear-gradient(to top, rgba(2,4,8,1) 0%, rgba(2,4,8,.5) 42%, transparent 100%);
+        linear-gradient(to right, rgba(2,4,8,.68) 0%, rgba(2,4,8,.32) 55%, rgba(2,4,8,.03) 100%),
+        linear-gradient(to top, rgba(2,4,8,.78) 0%, rgba(2,4,8,.35) 42%, transparent 100%);
     }
     .char-hero-content {
       position: absolute; bottom: 44px; left: 60px; right: 40%; z-index: 2;
@@ -80,6 +70,47 @@
     .char-layout > * { min-width: 0; } /* empêche les enfants grille d'élargir le viewport */
     .char-hero-img { display: none; } /* bande image fixe mobile uniquement */
     .char-sidebar { position: sticky; top: 24px; }
+
+    /* ── Barre d'onglets de la fiche personnage (Streaming / Lore / ...) ── */
+    .char-tabbar {
+      position: relative; display: flex; align-items: flex-end; gap: 4px;
+      border-bottom: 1px solid var(--edge2); margin-bottom: 28px;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .char-tabbar::-webkit-scrollbar { display: none; }
+    .char-tab {
+      flex-shrink: 0; display: flex; align-items: center; gap: 9px;
+      padding: 13px 22px; background: none; border: none; cursor: pointer;
+      font-family: var(--font-display); font-size: .68rem; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-muted);
+      transition: color .25s ease; position: relative; white-space: nowrap;
+    }
+    .char-tab i { font-size: .82rem; opacity: .75; transition: opacity .25s ease; }
+    .char-tab:hover { color: var(--text-dim); }
+    .char-tab:hover i { opacity: 1; }
+    .char-tab.active { color: var(--arc); }
+    .char-tab.active i { opacity: 1; }
+    .char-tab:focus-visible { outline: 2px solid var(--arc); outline-offset: -2px; border-radius: 4px; }
+    .char-tab-badge {
+      font-family: var(--font-display); font-size: .58rem; font-weight: 700; letter-spacing: 1px;
+      color: var(--arc); background: var(--arc-dim); border: 1px solid var(--arc);
+      border-radius: 20px; padding: 1px 7px; line-height: 1.5;
+    }
+    .char-tab-indicator {
+      position: absolute; bottom: -1px; height: 2px; border-radius: 2px;
+      background: linear-gradient(90deg, var(--iron), var(--arc));
+      box-shadow: 0 0 10px var(--arc-glow);
+      transition: left .32s cubic-bezier(.65,0,.35,1), width .32s cubic-bezier(.65,0,.35,1);
+      pointer-events: none;
+    }
+    .char-tab-content { position: relative; }
+    .char-tab-pane { display: none; }
+    .char-tab-pane.active { display: block; animation: charTabFade .32s ease; }
+    @keyframes charTabFade { from { opacity: 0; } to { opacity: 1; } }
+    @media (max-width: 640px) {
+      .char-tab { padding: 11px 15px; font-size: .6rem; gap: 6px; }
+      .char-tab i { font-size: .74rem; }
+    }
     .side-card { background: var(--panel); border: 1px solid var(--edge2); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 14px; }
     .side-card-h { padding: 12px 16px; border-bottom: 1px solid var(--edge2); font-family: var(--font-display); font-size: .56rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--arc); display: flex; align-items: center; gap: 8px; }
     .side-card-h::before { content:''; width:3px; height:13px; background:linear-gradient(to bottom,var(--arc),var(--iron)); border-radius:2px; }
@@ -233,7 +264,6 @@
       .ep-title { font-size: .84rem; }
       .ep-meta  { font-size: .68rem; }
 
-      .back-btn { top: 10px; left: 10px; padding: 7px 12px; font-size: .52rem; }
       .user-btn { top: 10px; right: 10px; }
     }
     @media(max-width:480px){
@@ -272,13 +302,25 @@
     <a href="/" style="color:rgba(245,166,35,.7);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:5px;" onmouseover="this.style.color='var(--arc)'" onmouseout="this.style.color='rgba(245,166,35,.7)'"><i class="fas fa-home"></i> Accueil</a>
     <span>›</span><span id="breadFam"></span><span>›</span><span id="breadChar"></span>
   </div>
-  <div class="char-layout" style="padding-top:4px;">
-    <div id="charMain">
-      <div id="continueWatching"></div>
-      <nav class="seas-nav" id="seasNav"></nav>
-      <div class="ep-grid" id="epGrid"></div>
+
+  <div class="char-tabbar" id="charTabbar" role="tablist" style="margin-top:14px;">
+    <div class="char-tab-indicator" id="charTabIndicator"></div>
+  </div>
+
+  <div class="char-tab-content" id="charTabContent">
+    <div class="char-tab-pane active" id="tabPane-streaming" data-tab="streaming" role="tabpanel" aria-labelledby="tab-streaming">
+      <div class="char-layout" style="padding-top:4px;">
+        <div id="charMain">
+          <div id="continueWatching"></div>
+          <nav class="seas-nav" id="seasNav"></nav>
+          <div class="ep-grid" id="epGrid"></div>
+        </div>
+        <aside class="char-sidebar" id="charSidebar"></aside>
+      </div>
     </div>
-    <aside class="char-sidebar" id="charSidebar"></aside>
+
+    <div class="char-tab-pane" id="tabPane-lore" data-tab="lore" role="tabpanel" aria-labelledby="tab-lore"></div>
+    <div class="char-tab-pane" id="tabPane-genealogie" data-tab="genealogie" role="tabpanel" aria-labelledby="tab-genealogie"></div>
   </div>
 </div>
 
@@ -357,6 +399,7 @@ function render(route){
   renderUserBtn();
   renderSidebar(char,u,prog,totalEps);
   renderContinueWatching(char);
+  setupCharTabs(char,u);
 
   const seasons=Object.keys(char.seasons||{});
   _curSeason=seasons[0]||null;
@@ -367,41 +410,140 @@ function render(route){
   initLazyBg();
 }
 
-function renderUserBtn(){
-  const user=typeof AUTH!=='undefined'?AUTH.getCurrentUser():null;
-  const isGuest=typeof AUTH!=='undefined'?AUTH.isGuest():false;
-  const btn=document.getElementById('userBtnFixed');
-  if(!btn)return;
-  if(!user&&!isGuest){btn.style.display='none';return;}
-  const avSrc=user?.avatarId&&typeof PRESET_AVATARS!=='undefined'?PRESET_AVATARS?.find(a=>a.id===user.avatarId)?.src:null;
-  const initials=(user?.username||'G').slice(0,2).toUpperCase();
-  btn.innerHTML=`<span style="font-family:var(--font-display);font-size:.56rem;letter-spacing:1px;color:var(--text-muted);">${user?.username||'Invité'}</span>
-    ${avSrc?`<img src="${avSrc}" class="user-btn-avatar">`:`<div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--iron),var(--arc));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:.65rem;font-weight:700;color:white;">${initials}</div>`}`;
+// renderUserBtn() et openUserMenu() sont mutualisées dans app.js (réutilisées aussi par /lore/)
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SYSTÈME D'ONGLETS DE LA FICHE PERSONNAGE
+// Registre générique : ajouter un onglet futur (Galerie, Relations, Citations…)
+// ne nécessite qu'une entrée ici + un renderer dédié. Le contenu de chaque
+// onglet est généré dynamiquement depuis data.js (aucun bloc HTML statique
+// dupliqué) et rendu paresseusement (au premier clic) pour ne pas coûter de
+// travail DOM aux utilisateurs qui ne consultent que le Streaming.
+// ═══════════════════════════════════════════════════════════════════════════
+// Familles disposant du contenu Lore/Généalogie. Pour en ajouter une plus
+// tard (ex: une nouvelle famille avec son propre lore), il suffit d'ajouter
+// son id ici — aucune autre modification nécessaire.
+const LORE_ENABLED_FAMILIES = ['flash','shade'];
+
+const CHAR_TABS = [
+  { id:'streaming', label:'Streaming', icon:'fa-play-circle',
+    isAvailable: ()=>true,
+    render: null }, // le contenu de ce panneau est déjà géré par render()/renderEps() existants
+  { id:'lore', label:'Lore', icon:'fa-scroll',
+    isAvailable: char=>LORE_ENABLED_FAMILIES.includes(_fid)&&!!(char.lore&&(char.lore.chapters?.length||char.lore.loreDesc?.length||char.lore.traits?.length||char.lore.subProfiles?.length)),
+    render: renderLoreTab,
+    badge: (char)=>{ const p=getLoreProgress(_fid,_cid); return p.total?`${p.read}/${p.total}`:''; } },
+  { id:'genealogie', label:'Généalogie', icon:'fa-sitemap',
+    isAvailable: ()=>LORE_ENABLED_FAMILIES.includes(_fid), // contenu partagé par famille, pas de suivi de lecture
+    render: renderGenealogyTab },
+  // Futurs onglets : { id:'gallery', label:'Galerie', icon:'fa-images', isAvailable: c=>!!c.gallery?.length, render: renderGalleryTab },
+];
+
+let _tabRendered={}; // cache de rendu paresseux, remis à zéro à chaque changement de personnage
+
+// Prologue narratif partagé par tout l'univers (affiché en tête de l'onglet Lore,
+// avant le contenu propre à chaque personnage).
+const UNIVERSE_INTRO = [
+  "Dans les antiques légendes, les Titans finissent toujours par céder leur place. Chronos tombe devant Zeus, Hadès et Poséidon. Ymir est abattu par Odin, et de sa dépouille naissent les neuf mondes. Mais cette chronique oubliée raconte l’histoire d’un autre Titan : Freddy. Après des siècles de guerres, Freddy est las. Il renonce à son pouvoir et disparaît dans un sanctuaire oublié. Des siècles plus tard, un jeune sorcier, Eldric Flash, retrouve sa trace. Freddy choisit alors de lui transmettre son héritage. Eldric reçoit la plus grande part et devient immensément puissant, mais ce don devient aussi un lourd fardeau pour sa lignée. Freddy confie également une faible part de son pouvoir à un autre héritier : Aurélius Shade. Aurélius est moins puissant qu’Eldric, mais il possède un destin différent : celui de grandir avec le temps, de devenir plus fort par sa volonté et ses efforts. Eldric, consumé par la jalousie, s’empare des terres sacrées de Freddy et fonde la Famille Flash. Aurélius refuse d’entrer en guerre. Il part en exil avec les siens et fonde le Clan Shade, vivant dans l’ombre, porté par l’espoir qu’un jour, un descendant de son sang puisse enfin accomplir leur destinée",
+];
+
+// Fondation canon de chaque famille, affichée sous le Prologue (théorie) de
+// l'onglet Lore. Contenu différent selon _fid (Flash / Shade).
+const FAMILY_FOUNDATION = {
+  flash: [
+    "Les anciennes chroniques racontent qu’avant la naissance des grandes lignées, deux jeunes prodiges étudièrent ensemble au sein de l’école de magie de Vaylar : Eldric Flash et Malthor Veyne. Liés par une profonde amitié, ils dépassèrent rapidement tous les autres élèves, jusqu’à faire redouter l’immensité de leur pouvoir. Pourtant, leurs destinées finirent par diverger. Malthor consacra son existence à la magie primordiale, une force antique aussi mystérieuse que dangereuse. Eldric, quant à lui, commença à entendre des voix venues d’ailleurs, l’appelant sans cesse vers un pouvoir interdit. Guidé par ces murmures, Eldric ouvrit une faille entre les mondes et libéra une ancienne entité : Freddy. Fasciné par cette puissance, il chercha à unir l’héritage du Titan à la magie primordiale, donnant ainsi naissance aux fondations des futurs pouvoirs de la Famille Flash. Aux côtés de Malthor, ils dérobèrent des grimoires interdits. Malthor façonna le Grimoire des Souffles et forgea un immense artefact : l’Orion. Mais cette magie le corrompit peu à peu, jusqu’à faire disparaître Malthor derrière un nouveau nom : Malakar. L’amitié céda alors sa place à une rivalité légendaire. Eldric Flash et Malakar s’affrontèrent à plusieurs reprises, jusqu’à leur ultime duel au cœur d'une forêt dévastée. À bout de forces, ils saisirent ensemble l’Orion au même instant. Une puissance inconnue, appelée le Monolithe, s’abattit alors sur eux et les anéantit. Lorsque le silence revint, seules leurs mains demeuraient encore agrippées à l’Orion. Depuis ce jour, l’artefact est resté inaccessible : seule la confrontation entre un héritier Flash et un héritier Veyne peut espérer le réveiller.",
+    ],
+  shade: [
+    "Les anciennes légendes nomment Aurélius Shade comme le second héritier du Titan Freddy. Là où les Flash reçurent une puissance immense et dévastatrice, lui hérita d’un autre legs : la colère silencieuse, la frustration et les ténèbres. Témoin de la domination et des ravages causés par les Flash, Aurélius choisit de ne jamais suivre leur voie. À l’image de Freddy avant lui, il quitta leurs terres et s’enfonça dans un exil sans retour. Au cœur de cet exil, il érigea un Dôme, un monde caché destiné à protéger les siens et à préparer les générations futures. Ainsi naquit le Clan Shade. Contrairement aux Flash, les Shade ne naissent jamais puissants : ils le deviennent. Leur force est forgée par l’entraînement, la discipline et les ombres où ils grandissent. Tandis que les Flash brillent et ravagent le monde, les Shade observent, patientent et progressent dans le silence. Les siècles s’écoulèrent. Aurélius disparut, mais son héritage traversa le temps. Aujourd’hui, Desmond Shade est le gardien de cette ancienne lignée. Il vivait en paix avec sa famille dans le Dôme, jusqu’au jour où les Flash retrouvèrent enfin leur refuge. Sans le moindre avertissement, ils lancèrent leur assaut. Le village fut réduit en cendres. Desmond perdit tout, jusqu’à son épouse. Ce jour-là, le destin des Shade bascula. Comme son ancêtre avant lui, Desmond renonça définitivement à la fuite et choisit de préparer la guerre. Il éleva alors son fils dans un seul but : renverser les Flash et faire enfin sortir les Shade de l’ombre. ",
+    "Vous l'avez bien compris. Ici, c'est : MORT AUX FLASH. GLOIRE AUX SHADE.",
+  ],
+};
+
+// Petit utilitaire debounce (utilisé par les indicateurs d'onglets/sélecteurs au resize)
+function debounce(fn,delay){
+  let t;
+  return (...args)=>{ clearTimeout(t); t=setTimeout(()=>fn(...args),delay); };
+}
+function escHtml(s){
+  return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function safeUrl(u){
+  try{
+    const url=new URL(u,location.href);
+    return (url.protocol==='https:'||url.protocol==='http:')?url.href:'';
+  }catch{return '';}
 }
 
-function openUserMenu(){
-  const float=document.getElementById('userMenuFloat');
-  if(!float)return;
-  if(float.style.display!=='none'){float.style.display='none';return;}
-  const user=typeof AUTH!=='undefined'?AUTH.getCurrentUser():null;
-  const isGuest=typeof AUTH!=='undefined'?AUTH.isGuest():false;
-  float.innerHTML=`<div style="background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);overflow:hidden;min-width:190px;box-shadow:var(--shadow-arc);animation:fadeInUp .18s ease;">
-    <div style="padding:12px 16px;border-bottom:1px solid var(--edge2);">
-      <div style="font-family:var(--font-display);font-size:.7rem;font-weight:700;color:var(--text);">${user?.username||'Invité'}</div>
-      ${user?.email?`<div style="font-family:var(--font-ui);font-size:.7rem;color:var(--text-muted);margin-top:2px;">${user.email}</div>`:''}
-    </div>
-    <button class="dd-item" onclick="location.href='/'"><i class="fas fa-home"></i> Accueil</button>
-    ${!isGuest?`<button class="dd-item" onclick="float.style.display='none';" disabled><i class="fas fa-cog"></i> Paramètres (accueil)</button>`:''}
-    <button class="dd-item danger" onclick="${isGuest
-      ? "AUTH.logout?.().then(()=>location.href='/')"
-      : "AUTH.logout?.().then(()=>location.href='/')"}">
-      <i class="fas fa-sign-out-alt"></i> ${isGuest?'Quitter':'Déconnexion'}
-    </button>
-  </div>`;
-  float.style.display='block';
-  setTimeout(()=>document.addEventListener('click',()=>{float.style.display='none';},{once:true}),0);
+function setupCharTabs(char,u){
+  _tabRendered={};
+  const bar=document.getElementById('charTabbar');
+  const available=CHAR_TABS.filter(t=>t.isAvailable(char));
+  bar.querySelectorAll('.char-tab').forEach(el=>el.remove());
+  available.forEach(t=>{
+    const btn=document.createElement('button');
+    btn.className='char-tab';
+    btn.id='tab-'+t.id;
+    btn.setAttribute('role','tab');
+    btn.setAttribute('aria-controls','tabPane-'+t.id);
+    btn.setAttribute('tabindex','-1');
+    const badge=t.badge?t.badge(char):'';
+    btn.innerHTML=`<i class="fas ${t.icon}"></i> ${t.label}${badge?` <span class="char-tab-badge" id="tabBadge-${t.id}">${badge}</span>`:''}`;
+    btn.addEventListener('click',()=>switchCharTab(t.id,char,u));
+    btn.addEventListener('keydown',e=>{
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+        e.preventDefault();
+        const tabs=[...bar.querySelectorAll('.char-tab')];
+        const i=tabs.indexOf(btn);
+        const next=tabs[(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];
+        next.focus(); next.click();
+      }
+    });
+    bar.appendChild(btn);
+  });
+
+  // Masquer les panneaux dont l'onglet n'est plus disponible pour ce personnage
+  document.querySelectorAll('.char-tab-pane').forEach(p=>{
+    const id=p.dataset.tab;
+    if(!available.find(t=>t.id===id)) p.classList.remove('active');
+  });
+
+  const saved=localStorage.getItem('ipx_lastCharTab');
+  const initial=available.find(t=>t.id===saved)?saved:'streaming';
+  switchCharTab(initial,char,u,true);
 }
-window.openUserMenu=openUserMenu;
+
+function switchCharTab(tabId,char,u,skipSave){
+  char=char||getChar(_fid,_cid); u=u||DATA.universes[_fid];
+  const bar=document.getElementById('charTabbar');
+  const btn=document.getElementById('tab-'+tabId);
+  if(!btn)return;
+
+  bar.querySelectorAll('.char-tab').forEach(b=>{
+    const active=b===btn;
+    b.classList.toggle('active',active);
+    b.setAttribute('aria-selected',active?'true':'false');
+    b.setAttribute('tabindex',active?'0':'-1');
+  });
+  document.querySelectorAll('.char-tab-pane').forEach(p=>p.classList.toggle('active',p.dataset.tab===tabId));
+
+  // Indicateur animé sous l'onglet actif
+  const ind=document.getElementById('charTabIndicator');
+  if(ind){ ind.style.left=btn.offsetLeft+'px'; ind.style.width=btn.offsetWidth+'px'; }
+
+  // Rendu paresseux : le contenu de l'onglet n'est construit qu'à la première activation
+  const tabDef=CHAR_TABS.find(t=>t.id===tabId);
+  if(tabDef?.render && !_tabRendered[tabId]){
+    tabDef.render(char,u);
+    _tabRendered[tabId]=true;
+  }
+
+  if(!skipSave) localStorage.setItem('ipx_lastCharTab',tabId);
+}
+window.addEventListener('resize',debounce(()=>{
+  const active=document.querySelector('.char-tab.active');
+  const ind=document.getElementById('charTabIndicator');
+  if(active&&ind){ ind.style.left=active.offsetLeft+'px'; ind.style.width=active.offsetWidth+'px'; }
+},150));
 
 function renderContinueWatching(char){
   const cw=document.getElementById('continueWatching');if(!cw)return;
@@ -424,6 +566,249 @@ function renderContinueWatching(char){
     </div>
     <i class="fas fa-chevron-right" style="color:var(--arc);opacity:.6;font-size:1.1rem;flex-shrink:0;"></i>
   </div>`;
+}
+
+// ── Onglet LORE ── contenu généré depuis char.lore (data.js), avec suivi de
+// lecture par chapitre réutilisant exactement DB.getProgress/saveProgress
+// (même mécanisme que la progression des épisodes, cf. getLoreProgress dans app.js).
+// Génère les cartes "Profil" + "OST reliée" de la sidebar Lore. Réutilisée telle
+// quelle pour un personnage simple, ou une fois par sous-personnage quand
+// lore.subProfiles est défini (ex: Ned, Eden, Eddy sur une même fiche).
+function renderProfileOstCards(profileLabel,ostLabel,traits,ost,totemVal,totemIcon,totemImgUrl){
+  const traitsHtml=(traits||[]).map(t=>`<span class="trait-tag">${escHtml(t)}</span>`).join('');
+  const ostList=(ost||[]).filter(o=>o.label);
+  let html='';
+  if(traitsHtml||totemVal){
+    html+=`<div class="side-card">
+      <div class="side-card-h">${escHtml(profileLabel)}</div>
+      <div class="side-card-b">
+        ${totemVal?`<div class="stat-row"><span class="stat-lbl">Animal totem</span><span class="stat-val" style="display:flex;align-items:center;gap:8px;">${totemImgUrl?`<img class="totem-icon-img" src="${escHtml(totemImgUrl)}" alt="${escHtml(totemVal)}" loading="lazy" onerror="this.style.display='none';this.nextSibling.style.display='inline';"><span style="display:none;">${escHtml(totemIcon||'')}</span>`:escHtml(totemIcon||'')} ${escHtml(totemVal)}</span></div>`:''}
+        ${traitsHtml?`<div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:${totemVal?'10px':'0'};">${traitsHtml}</div>`:''}
+      </div>
+    </div>`;
+  }
+  if(ostList.length){
+    html+=`<div class="side-card">
+      <div class="side-card-h">${escHtml(ostLabel)}</div>
+      <div class="side-card-b" style="display:flex;flex-direction:column;gap:0;">
+        ${ostList.map(o=>{
+          const href=safeUrl(o.url||'');
+          return `<a href="${href||'#'}" ${href?'target="_blank" rel="noopener noreferrer"':'onclick="return false;" style="cursor:default;"'} style="display:flex;align-items:center;gap:8px;text-decoration:none;padding:7px 0;border-bottom:1px solid var(--edge2);color:var(--text-dim);font-size:.85rem;">
+            <i class="fas fa-headphones" style="color:var(--arc);font-size:.8rem;"></i> ${escHtml(o.label)}
+          </a>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }
+  return html;
+}
+
+function renderLoreTab(char,u){
+  const host=document.getElementById('tabPane-lore');
+  if(!host)return;
+  const lore=char.lore||{};
+
+  const descParas=(lore.loreDesc||[]).map(p=>`<p>${escHtml(p)}</p>`).join('');
+  const summaryChapters=lore.summaryChapters||[];
+  const detailedChapters=lore.chapters||[];
+  const summaryChaptersHtml=summaryChapters.map((c,i)=>`
+    <div class="summary-chapter" id="sumChap-${i}">
+      <div class="summary-chapter-head"><span class="summary-chapter-num">${escHtml(c.num)}</span><span class="summary-chapter-title">${escHtml(c.title)}</span></div>
+      <div class="summary-chapter-text">${(c.text||[]).map(p=>`<p>${escHtml(p)}</p>`).join('')}</div>
+      ${detailedChapters[i]?`<button class="summary-chapter-more" onclick="switchHistoryView('detailed',${i})">Lire ce chapitre en détail <i class="fas fa-arrow-right"></i></button>`:''}
+    </div>`).join('');
+  const chaptersHtml=detailedChapters.map((c,i)=>{
+    const read=isChapterRead(_fid,_cid,i);
+    return `
+    <div class="chapter-block" id="chapBlock-${i}">
+      <div class="chapter-num">${escHtml(c.num)}</div>
+      <div>
+        <div class="chapter-title">${escHtml(c.title)}</div>
+        <div class="chapter-text">${(c.text||[]).map(p=>`<p>${escHtml(p)}</p>`).join('')}</div>
+        <button class="chapter-read-btn${read?' read':''}" id="chapRead-${i}" onclick="toggleChapterRead(${i})">
+          <i class="fas fa-${read?'check-circle':'circle'}"></i> ${read?'Lu':'Marquer comme lu'}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+
+  const galleryImgs=(lore.gallery||[]).map(safeUrl).filter(Boolean);
+  const lp=getLoreProgress(_fid,_cid);
+  const totemImg=safeUrl(lore.totemImg||'');
+  const foundation=FAMILY_FOUNDATION[_fid]||[];
+  const bgUrl=safeUrl(lore.bgImage||'');
+  const noteHtml=lore.note?`<div class="lore-warning" style="margin-bottom:18px;"><i class="fas fa-circle-info"></i> ${escHtml(lore.note)}</div>`:'';
+
+  host.innerHTML=`
+    <div class="lore-bg" id="loreBg"${bgUrl?` style="background-image:url('${escHtml(bgUrl)}')"`:''}></div>
+    <div class="lore-content">
+    <div class="char-layout" style="align-items:start;">
+      <div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:30px;">
+          <button class="skip-to-desc-btn" onclick="document.getElementById('resumeAnchor').scrollIntoView({behavior:'smooth',block:'start'})">
+            <i class="fas fa-arrow-down"></i> Aller directement à l'histoire
+          </button>
+          <button class="skip-to-desc-btn" onclick="document.getElementById('galleryAnchor').scrollIntoView({behavior:'smooth',block:'start'})">
+            <i class="fas fa-images"></i> Aller directement à la galerie
+          </button>
+        </div>
+
+        <div style="max-width:840px;margin-bottom:36px;padding-bottom:32px;border-bottom:1px solid var(--edge2);">
+          <div class="lore-byline">Contenu rédigé par <strong>@kiling_</strong></div>
+          <div class="section-header"><div class="section-title">Prologue <span class="content-badge theory">Théorie</span></div></div>
+          <div class="lore-warning"><i class="fas fa-triangle-exclamation"></i> Ce prologue (mythologie des origines) est une théorie non-officielle : il sera mis à jour dès que l'histoire officielle sera révélée. L'histoire de ${escHtml(char.name)} présentée plus bas, elle, est confirmée.</div>
+          <div class="prose" style="margin-top:22px;">${UNIVERSE_INTRO.map(p=>`<p>${escHtml(p)}</p>`).join('')}</div>
+        </div>
+        ${foundation.length?`<div style="max-width:840px;margin-bottom:36px;padding-bottom:32px;border-bottom:1px solid var(--edge2);">
+          <div class="section-header"><div class="section-title">Fondation <span class="content-badge canon">Canon</span></div></div>
+          <div class="prose">${foundation.map(p=>`<p>${escHtml(p)}</p>`).join('')}</div>
+        </div>`:''}
+
+        ${lore.title?`<p class="char-desc" style="max-width:820px;font-style:italic;opacity:.85;margin-bottom:26px;">${escHtml(lore.title)}</p>`:''}
+
+        <div id="resumeAnchor" class="section-header" style="scroll-margin-top:90px;"><div class="section-title"><i class="fas fa-star" style="color:var(--arc);margin-right:8px;font-size:.85em;"></i>Histoire de ${escHtml(char.name)} ${(summaryChaptersHtml||chaptersHtml||descParas)?'<span class="content-badge canon">Canon</span>':''}</div></div>
+        ${noteHtml}
+        ${(summaryChaptersHtml||chaptersHtml)?`
+        <div class="history-intro-teaser">L'essentiel en quelques lignes, ou chaque instant vécu en détail : les deux racontent la même histoire, à toi de choisir ton rythme (tu peux basculer à tout moment).</div>
+        <div class="history-view-toggle" id="historyViewToggle" role="tablist">
+          <div class="history-view-indicator" id="historyViewIndicator"></div>
+          <button class="history-view-btn" data-view="short" onclick="switchHistoryView('short')" role="tab"><i class="fas fa-bolt"></i> Version courte</button>
+          <button class="history-view-btn" data-view="detailed" onclick="switchHistoryView('detailed')" role="tab"><i class="fas fa-book-open"></i> Version détaillée</button>
+        </div>
+
+        <div class="history-view-pane" id="historyViewShort" data-view="short">
+          ${summaryChaptersHtml
+            ? `<div class="summary-chapters">${summaryChaptersHtml}</div>
+               ${chaptersHtml?`<div class="history-view-switch-cta">
+                 <div class="history-view-switch-cta-text">Envie de <strong>vivre chaque scène en détail</strong> ?</div>
+                 <button class="skip-to-desc-btn" onclick="switchHistoryView('detailed')"><i class="fas fa-book-open"></i> Passer en version détaillée</button>
+               </div>`:''}`
+            : (descParas?`<div class="resume-block">${descParas}</div>`:`<div class="content-soon">Résumé à venir pour ce personnage.</div>`)}
+        </div>
+
+        <div class="history-view-pane" id="historyViewDetailed" data-view="detailed">
+          ${chaptersHtml
+            ? `<div class="chapter-timeline" id="chapterTimeline">${chaptersHtml}</div>
+               ${summaryChaptersHtml?`<div class="history-view-switch-cta">
+                 <div class="history-view-switch-cta-text">Juste envie de <strong>l'essentiel</strong> ?</div>
+                 <button class="skip-to-desc-btn" onclick="switchHistoryView('short')"><i class="fas fa-bolt"></i> Passer en version courte</button>
+               </div>`:''}`
+            : `<div class="content-soon">Histoire détaillée à venir pour ce personnage.</div>`}
+        </div>`
+          : `<div class="content-soon">Bientôt disponible.</div>`}
+
+        <div id="galleryAnchor" class="section-header" style="margin-top:32px;scroll-margin-top:90px;"><div class="section-title">Galerie</div></div>
+        ${galleryImgs.length?`<div class="lore-gallery" id="charGalleryGrid">${galleryImgs.map(src=>`
+          <div class="lore-gallery-item"><img src="${escHtml(src)}" alt="${escHtml(char.name)}" loading="lazy"></div>`).join('')}</div>`:`<div class="content-soon">Bientôt disponible.</div>`}
+      </div>
+
+      <aside class="char-sidebar lore-fixed-sidebar">
+        ${(lore.subProfiles&&lore.subProfiles.length)
+          ? (lore.totemVal?renderProfileOstCards('Animal totem','',[],[],lore.totemVal,lore.totemIcon,totemImg):'')
+            + lore.subProfiles.map(sp=>renderProfileOstCards(sp.name,`OST — ${sp.name}`,sp.traits,sp.ost,null,null,null)).join('')
+          : renderProfileOstCards('Profil','OST reliée',lore.traits,lore.ost,lore.totemVal,lore.totemIcon,totemImg)}
+        ${lp.total?`<div class="side-card">
+          <div class="side-card-h">Lecture</div>
+          <div class="side-card-b">
+            <div class="char-prog" style="margin-top:0;max-width:none;">
+              <div class="char-prog-label"><span>Chapitres lus</span><span id="loreProgLabel">${lp.read}/${lp.total}</span></div>
+              <div class="char-prog-track"><div class="char-prog-fill" id="loreProgFill" style="width:${lp.pct}%"></div></div>
+            </div>
+          </div>
+        </div>`:''}
+      </aside>
+    </div>
+    </div>`;
+
+  const grid=document.getElementById('charGalleryGrid');
+  if(grid)grid.querySelectorAll('img').forEach(img=>img.addEventListener('click',()=>openCharLightbox(img.src,img.alt)));
+
+  if(document.getElementById('historyViewToggle')){
+    const saved=localStorage.getItem('ipx_lastHistoryView');
+    const initial=(saved==='detailed'&&chaptersHtml)?'detailed':(summaryChaptersHtml?'short':'detailed');
+    switchHistoryView(initial,null,true);
+  }
+}
+
+// Bascule entre "Version courte" et "Version détaillée" de l'histoire (onglet Lore).
+// focusIndex : si fourni, fait défiler jusqu'au chapitre correspondant dans le format ciblé
+// (permet les allers-retours chapitre par chapitre entre les deux versions).
+function switchHistoryView(view,focusIndex,skipSave){
+  const shortBtn=document.querySelector('.history-view-btn[data-view="short"]');
+  const detailBtn=document.querySelector('.history-view-btn[data-view="detailed"]');
+  const shortPane=document.getElementById('historyViewShort');
+  const detailPane=document.getElementById('historyViewDetailed');
+  const ind=document.getElementById('historyViewIndicator');
+  if(!shortBtn||!detailBtn||!shortPane||!detailPane)return;
+  const activeBtn=view==='short'?shortBtn:detailBtn;
+  [shortBtn,detailBtn].forEach(b=>b.classList.toggle('active',b===activeBtn));
+  shortPane.classList.toggle('active',view==='short');
+  detailPane.classList.toggle('active',view==='detailed');
+  if(ind){ ind.style.left=activeBtn.offsetLeft+'px'; ind.style.width=activeBtn.offsetWidth+'px'; }
+  if(!skipSave) localStorage.setItem('ipx_lastHistoryView',view);
+  if(typeof focusIndex==='number'){
+    const target=document.getElementById((view==='short'?'sumChap-':'chapBlock-')+focusIndex);
+    if(target) setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),60);
+  }
+}
+window.switchHistoryView=switchHistoryView;
+window.addEventListener('resize',debounce(()=>{
+  const activeHistBtn=document.querySelector('.history-view-btn.active');
+  const ind=document.getElementById('historyViewIndicator');
+  if(activeHistBtn&&ind){ ind.style.left=activeHistBtn.offsetLeft+'px'; ind.style.width=activeHistBtn.offsetWidth+'px'; }
+},150));
+
+function toggleChapterRead(i){
+  const nowRead=!isChapterRead(_fid,_cid,i);
+  setChapterRead(_fid,_cid,i,nowRead);
+  const btn=document.getElementById('chapRead-'+i);
+  if(btn){
+    btn.classList.toggle('read',nowRead);
+    btn.innerHTML=`<i class="fas fa-${nowRead?'check-circle':'circle'}"></i> ${nowRead?'Lu':'Marquer comme lu'}`;
+  }
+  const lp=getLoreProgress(_fid,_cid);
+  const lbl=document.getElementById('loreProgLabel'); if(lbl)lbl.textContent=`${lp.read}/${lp.total}`;
+  const fill=document.getElementById('loreProgFill'); if(fill)fill.style.width=lp.pct+'%';
+  const badge=document.getElementById('tabBadge-lore'); if(badge&&lp.total)badge.textContent=`${lp.read}/${lp.total}`;
+}
+window.toggleChapterRead=toggleChapterRead;
+
+function openCharLightbox(src,alt){
+  let lb=document.getElementById('charLightbox');
+  if(!lb){
+    lb=document.createElement('div');
+    lb.id='charLightbox';
+    lb.className='gallery-lightbox';
+    lb.innerHTML=`<div class="gallery-lightbox-box" onclick="event.stopPropagation()">
+      <button class="gallery-lightbox-close" onclick="document.getElementById('charLightbox').classList.remove('open')"><i class="fas fa-times"></i></button>
+      <div class="gallery-lightbox-inner"><img id="charLightboxImg" src="" alt=""></div>
+    </div>`;
+    lb.addEventListener('click',()=>lb.classList.remove('open'));
+    document.body.appendChild(lb);
+  }
+  document.getElementById('charLightboxImg').src=src;
+  document.getElementById('charLightboxImg').alt=alt||'';
+  lb.classList.add('open');
+}
+
+// ── Onglet GÉNÉALOGIE ── contenu partagé par famille (Flash / Shade), pas
+// par personnage. Pas de suivi de lecture ici.
+const GENEALOGY_TREE_IMAGES = Array.from({length:15},(_,i)=>
+  `https://ik.imagekit.io/ipromx/images/lore/arbres/image${i+1}.${i===14?'jpg':'webp'}`
+);
+const GENEALOGY_BY_FAMILY = {
+  flash: GENEALOGY_TREE_IMAGES.filter((_,i)=>i!==10&&i!==11), // toutes sauf image11 et image12
+  shade: GENEALOGY_TREE_IMAGES.filter((_,i)=>i>=10),          // image11 à image15
+};
+function renderGenealogyTab(char,u){
+  const host=document.getElementById('tabPane-genealogie');
+  if(!host)return;
+  const images=GENEALOGY_BY_FAMILY[_fid]||GENEALOGY_TREE_IMAGES;
+  host.innerHTML=`
+    <div class="section-header"><div class="section-title">Arbre généalogique &amp; Chronologie — ${escHtml(u.name)}</div></div>
+    <div class="tree-stack full-bleed">
+      ${images.map((src,i)=>`<img src="${escHtml(src)}" alt="Arbre généalogique et chronologie ${escHtml(u.name)} — partie ${i+1}" loading="${i===0?'eager':'lazy'}" ${i===0?'fetchpriority="high"':''} decoding="async">`).join('')}
+    </div>`;
 }
 
 function renderSidebar(char,u,prog,totalEps){

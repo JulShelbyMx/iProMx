@@ -42,16 +42,7 @@
   to     = "/character.html"
   status = 200
 
-# Lore — Encyclopédie narrative (fichiers statiques dans /lore/)
-[[redirects]]
-  from   = "/lore"
-  to     = "/lore/index.html"
-  status = 200
-
-[[redirects]]
-  from   = "/lore/"
-  to     = "/lore/index.html"
-  status = 200
+# Lore — intégré directement aux onglets des fiches personnages (character.html)
 
 [[redirects]]
   from   = "/*"

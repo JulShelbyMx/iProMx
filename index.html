@@ -145,6 +145,7 @@
       </a>
       <div class="nav-links">
         <a class="nav-link" href="#secUniverses">Univers</a>
+        <a class="nav-link" href="#secGenesis">Genèse</a>
         <a class="nav-link" href="#secHistory">Historique</a>
         <a class="nav-link" href="#secMyList">Ma Liste</a>
         <a class="nav-link" href="https://ipromx.store" target="_blank">
@@ -166,6 +167,7 @@
 <div class="mobile-nav" id="mobileNav">
   <div class="mobile-nav-links">
     <a class="mobile-nav-link" href="#secUniverses"><i class="fas fa-globe"></i> Univers</a>
+    <a class="mobile-nav-link" href="#secGenesis"><i class="fas fa-scroll"></i> Genèse</a>
     <a class="mobile-nav-link" href="#secHistory"><i class="fas fa-history"></i> Historique</a>
     <a class="mobile-nav-link" href="#secMyList"><i class="fas fa-star"></i> Ma Liste</a>
     <a class="mobile-nav-link" href="https://ipromx.store" target="_blank"><i class="fas fa-store"></i> Store</a>
@@ -331,8 +333,38 @@
     </div>
   </div>
 
+  <!-- GENÈSE — Créateur de l'univers -->
+  <section class="section" id="secGenesis">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-title">Créateur de l'Univers</div>
+      </div>
+      <div class="creator-block">
+        <div class="creator-photo-wrap">
+          <img class="creator-photo" src="https://ik.imagekit.io/ipromx/images/ipromxlogo.jpg?updatedAt=1777902837879" alt="iProMx">
+          <div class="creator-badge">Créateur</div>
+        </div>
+        <div>
+          <div class="creator-name">iProMx</div>
+          <div class="creator-role">Streamer · YouTubeur · Créateur de l'univers</div>
+          <div class="creator-timeline">
+            <div class="creator-tl-item"><span class="creator-tl-year">Origines</span><span class="creator-tl-text">Né le 12 avril 1993, originaire de La Réunion. Spécialisé dans le Roleplay sur GTA RP.</span></div>
+            <div class="creator-tl-item"><span class="creator-tl-year">2009</span><span class="creator-tl-text">Débuts sur YouTube sous "IphoneTheProMx" : vidéos iPhone. Sa chaîne est hackée, alors reconstruction totale.</span></div>
+            <div class="creator-tl-item"><span class="creator-tl-year">2011</span><span class="creator-tl-text">Recréation de la chaîne iProMx le 14 novembre.</span></div>
+            <div class="creator-tl-item"><span class="creator-tl-year">2014–15</span><span class="creator-tl-text">Vidéos GTA 5 (astuces, trolls, roleplay). Lancement Twitch en février 2015.</span></div>
+            <div class="creator-tl-item"><span class="creator-tl-year">2019</span><span class="creator-tl-text">Dépasse le million d'abonnés YouTube depuis septembre.</span></div>
+            <div class="creator-tl-item"><span class="creator-tl-year">2020</span><span class="creator-tl-text">Jusqu'à 5 000 spectateurs simultanés en live sur Twitch.</span></div>
+            <div class="creator-tl-item"><span class="creator-tl-year">2023</span><span class="creator-tl-text">School RP (rôle du concierge) en avril. Partenaire Kick le 8 juillet.</span></div>
+            <div class="creator-tl-item"><span class="creator-tl-year">2026</span><span class="creator-tl-text">Ferme "Fantastic", ouvre "Pixelar" : nouveau serveur RP avec un lore inédit.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- COMMUNAUTÉ -->
   <section class="section">
+
     <div class="section-container">
       <div class="section-header"><div class="section-title">Communauté</div></div>
       <div class="social-grid" id="socialGrid"></div>
@@ -381,6 +413,14 @@
         <div style="font-family:var(--font-body);font-size:.9rem;color:var(--text-muted);">Fournisseur de résumés pour concevoir la base de donnée de l'IA iProMx</div>
       </div>
       <div style="font-family:var(--font-display);font-size:.52rem;letter-spacing:3px;color:rgba(255,255,255,.15);text-transform:uppercase;">2026 · Tous droits réservés</div>
+    </div>
+  </div>
+
+  <!-- Modal de mise à jour (affiché à l'arrivée si nouvelle version, cf. DATA.notifications.update) -->
+  <div id="updateModal" style="display:none;position:fixed;inset:0;z-index:99500;background:rgba(0,0,0,.97);backdrop-filter:blur(20px);align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)closeUpdateModal()">
+    <div style="position:relative;max-width:480px;width:100%;background:var(--panel);border:1px solid var(--edge2);border-radius:var(--radius-lg);padding:36px 32px;animation:fadeInUp .4s ease;">
+      <button onclick="closeUpdateModal()" style="position:absolute;top:14px;right:14px;background:none;border:1px solid var(--edge);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);cursor:pointer;font-size:.9rem;transition:.2s;" onmouseover="this.style.borderColor='var(--arc)'" onmouseout="this.style.borderColor='var(--edge)'"><i class="fas fa-times"></i></button>
+      <div id="updateModalBody"></div>
     </div>
   </div>
 
