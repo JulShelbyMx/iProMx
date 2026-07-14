@@ -2374,12 +2374,13 @@ const DATA = {
   // pour que le modal réapparaisse pour tout le monde.
   updateModal: {
     active: true,
-    version: '1.15.1',
+    version: '1.15.2',
     label: 'DERNIÈRE MISE À JOUR',
     texts: [
       '✔ Catégorie "Lore" (Version écrite de l\'Histoire) disponible dans les fiches personnages des Flash et Shade (AVANT → Uniquement STREAMING 🎞️, MAINTENANT → onglets STREAMING 🎞️ / LORE 📖 / GENEALOGIE 🌳).',
       '✔ Nouveau système de Progression de Lecture par Chapitre sur les Pages Lore.',
       '✔ Arbres Généalogiques Flash & Shade disponibles.',
+      '✔ Nouvelle catégorie "Créateur de l`\Univers" disponible',
     ]
   },
 

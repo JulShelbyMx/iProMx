@@ -304,7 +304,7 @@ function appInit(cb) {
 
     await new Promise(res => {
       const s = document.createElement('script');
-      s.src = '/firebase-auth.js?v=51'; s.onload = res; s.onerror = res;
+      s.src = '/firebase-auth.js?v=52'; s.onload = res; s.onerror = res;
       document.body.appendChild(s);
     });
 

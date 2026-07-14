@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="/styles.css?v=50">
+  <link rel="stylesheet" href="/styles.css?v=52">
   <style>
     body { background: var(--void); color: var(--text); }
     .char-hero::before { content:""; position:absolute; top:0; left:0; right:0; height:80px; background:linear-gradient(to bottom, rgba(2,4,8,.7) 0%, transparent 100%); z-index:1; pointer-events:none; }
@@ -329,8 +329,8 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="/data.js?v=50"></script>
-<script src="/app.js?v=50"></script>
+<script src="/data.js?v=52"></script>
+<script src="/app.js?v=52"></script>
 <script>
 'use strict';
 
@@ -793,21 +793,33 @@ function openCharLightbox(src,alt){
 
 // ── Onglet GÉNÉALOGIE ── contenu partagé par famille (Flash / Shade), pas
 // par personnage. Pas de suivi de lecture ici.
-const GENEALOGY_TREE_IMAGES = Array.from({length:15},(_,i)=>
-  `https://ik.imagekit.io/ipromx/images/lore/arbres/image${i+1}.${i===14?'jpg':'webp'}`
+const GENEALOGY_TREE_IMAGES = Array.from({ length: 15 }, (_, i) => 
+  `https://ik.imagekit.io/ipromx/images/lore/arbres/image${i + 1}.5.webp`
 );
+
 const GENEALOGY_BY_FAMILY = {
-  flash: GENEALOGY_TREE_IMAGES.filter((_,i)=>i!==10&&i!==11), // toutes sauf image11 et image12
-  shade: GENEALOGY_TREE_IMAGES.filter((_,i)=>i>=10),          // image11 à image15
+  flash: GENEALOGY_TREE_IMAGES.filter((_, i) => i !== 10 && i !== 11), // toutes sauf image11.5 et image12.5
+  shade: GENEALOGY_TREE_IMAGES.filter((_, i) => i >= 10),              // image11.5 à image15.5
 };
-function renderGenealogyTab(char,u){
-  const host=document.getElementById('tabPane-genealogie');
-  if(!host)return;
-  const images=GENEALOGY_BY_FAMILY[_fid]||GENEALOGY_TREE_IMAGES;
-  host.innerHTML=`
-    <div class="section-header"><div class="section-title">Arbre généalogique &amp; Chronologie — ${escHtml(u.name)}</div></div>
+
+function renderGenealogyTab(char, u) {
+  const host = document.getElementById('tabPane-genealogie');
+  if (!host) return;
+  
+  const images = GENEALOGY_BY_FAMILY[_fid] || GENEALOGY_TREE_IMAGES;
+  
+  host.innerHTML = `
+    <div class="section-header">
+      <div class="section-title">Arbre généalogique &amp; Chronologie — ${escHtml(u.name)}</div>
+    </div>
     <div class="tree-stack full-bleed">
-      ${images.map((src,i)=>`<img src="${escHtml(src)}" alt="Arbre généalogique et chronologie ${escHtml(u.name)} — partie ${i+1}" loading="${i===0?'eager':'lazy'}" ${i===0?'fetchpriority="high"':''} decoding="async">`).join('')}
+      ${images.map((src, i) => `
+        <img src="${escHtml(src)}" 
+             alt="Arbre généalogique et chronologie ${escHtml(u.name)} — partie ${i + 1}" 
+             loading="${i === 0 ? 'eager' : 'lazy'}" 
+             ${i === 0 ? 'fetchpriority="high"' : ''} 
+             decoding="async">
+      `).join('')}
     </div>`;
 }
 
