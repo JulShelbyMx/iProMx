@@ -3498,22 +3498,13 @@ body.player-open {
 .lore-content { position: relative; z-index: 1; }
 @media (max-width: 640px) { .lore-bg { opacity: .22; filter: blur(18px) brightness(.5); } }
 
-
-/* ── Sidebar Profil/Lecture/OST de l'onglet Lore : vraiment fixe à l'écran ── */
-/* (comme le bouton "retour en haut"), pas seulement collante à la colonne.  ── */
-@media (min-width: 1101px) {
-  .lore-fixed-sidebar {
-    position: fixed;
-    top: 96px;
-    right: max(24px, calc((100vw - 1280px) / 2 + 40px));
-    width: 260px;
-    max-height: calc(100vh - 120px);
-    overflow-y: auto;
-    z-index: 40;
-  }
-  .lore-fixed-sidebar::-webkit-scrollbar { width: 4px; }
-  .lore-fixed-sidebar::-webkit-scrollbar-thumb { background: var(--edge); border-radius: 2px; }
+/* ── Cartes Profil / Lecture / OST : en haut de l'onglet Lore, identique */
+/* mobile et desktop (plus de sidebar flottante/fixe séparée du contenu). ── */
+.lore-topcards {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px; margin: 14px 0 34px; align-items: start;
 }
+.lore-topcards .side-card { margin-bottom: 0; }
 
 
 /* ── Bouton "passer à la description synthétique" : bien visible sur tout fond ── */

@@ -420,9 +420,13 @@ function render(route){
 // dupliqué) et rendu paresseusement (au premier clic) pour ne pas coûter de
 // travail DOM aux utilisateurs qui ne consultent que le Streaming.
 // ═══════════════════════════════════════════════════════════════════════════
-// Familles disposant du contenu Lore/Généalogie. Pour en ajouter une plus
-// tard (ex: une nouvelle famille avec son propre lore), il suffit d'ajouter
-// son id ici — aucune autre modification nécessaire.
+// Familles disposant du contenu Lore/Généalogie. Pour en activer une plus tard
+// (ex: "autres", ou toute nouvelle famille) :
+//   1) ajouter son id dans le tableau ci-dessous ;
+//   2) ajouter un objet lore:{...} (mêmes champs que Flash/Shade) sur les
+//      personnages concernés dans data.js.
+// Un personnage sans lore:{...} ne montrera jamais les onglets Lore/Généalogie,
+// même si sa famille est listée ici — les deux conditions sont nécessaires.
 const LORE_ENABLED_FAMILIES = ['flash','shade'];
 
 const CHAR_TABS = [
@@ -642,67 +646,18 @@ function renderLoreTab(char,u){
   host.innerHTML=`
     <div class="lore-bg" id="loreBg"${bgUrl?` style="background-image:url('${escHtml(bgUrl)}')"`:''}></div>
     <div class="lore-content">
-    <div class="char-layout" style="align-items:start;">
-      <div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:30px;">
-          <button class="skip-to-desc-btn" onclick="document.getElementById('resumeAnchor').scrollIntoView({behavior:'smooth',block:'start'})">
-            <i class="fas fa-arrow-down"></i> Aller directement à l'histoire
-          </button>
-          <button class="skip-to-desc-btn" onclick="document.getElementById('galleryAnchor').scrollIntoView({behavior:'smooth',block:'start'})">
-            <i class="fas fa-images"></i> Aller directement à la galerie
-          </button>
-        </div>
-
-        <div style="max-width:840px;margin-bottom:36px;padding-bottom:32px;border-bottom:1px solid var(--edge2);">
-          <div class="lore-byline">Contenu rédigé par <strong>@kiling_</strong></div>
-          <div class="section-header"><div class="section-title">Prologue <span class="content-badge theory">Théorie</span></div></div>
-          <div class="lore-warning"><i class="fas fa-triangle-exclamation"></i> Ce prologue (mythologie des origines) est une théorie non-officielle : il sera mis à jour dès que l'histoire officielle sera révélée. L'histoire de ${escHtml(char.name)} présentée plus bas, elle, est confirmée.</div>
-          <div class="prose" style="margin-top:22px;">${UNIVERSE_INTRO.map(p=>`<p>${escHtml(p)}</p>`).join('')}</div>
-        </div>
-        ${foundation.length?`<div style="max-width:840px;margin-bottom:36px;padding-bottom:32px;border-bottom:1px solid var(--edge2);">
-          <div class="section-header"><div class="section-title">Fondation <span class="content-badge canon">Canon</span></div></div>
-          <div class="prose">${foundation.map(p=>`<p>${escHtml(p)}</p>`).join('')}</div>
-        </div>`:''}
-
-        ${lore.title?`<p class="char-desc" style="max-width:820px;font-style:italic;opacity:.85;margin-bottom:26px;">${escHtml(lore.title)}</p>`:''}
-
-        <div id="resumeAnchor" class="section-header" style="scroll-margin-top:90px;"><div class="section-title"><i class="fas fa-star" style="color:var(--arc);margin-right:8px;font-size:.85em;"></i>Histoire de ${escHtml(char.name)} ${(summaryChaptersHtml||chaptersHtml||descParas)?'<span class="content-badge canon">Canon</span>':''}</div></div>
-        ${noteHtml}
-        ${(summaryChaptersHtml||chaptersHtml)?`
-        <div class="history-intro-teaser">L'essentiel en quelques lignes, ou chaque instant vécu en détail : les deux racontent la même histoire, à toi de choisir ton rythme (tu peux basculer à tout moment).</div>
-        <div class="history-view-toggle" id="historyViewToggle" role="tablist">
-          <div class="history-view-indicator" id="historyViewIndicator"></div>
-          <button class="history-view-btn" data-view="short" onclick="switchHistoryView('short')" role="tab"><i class="fas fa-bolt"></i> Version courte</button>
-          <button class="history-view-btn" data-view="detailed" onclick="switchHistoryView('detailed')" role="tab"><i class="fas fa-book-open"></i> Version détaillée</button>
-        </div>
-
-        <div class="history-view-pane" id="historyViewShort" data-view="short">
-          ${summaryChaptersHtml
-            ? `<div class="summary-chapters">${summaryChaptersHtml}</div>
-               ${chaptersHtml?`<div class="history-view-switch-cta">
-                 <div class="history-view-switch-cta-text">Envie de <strong>vivre chaque scène en détail</strong> ?</div>
-                 <button class="skip-to-desc-btn" onclick="switchHistoryView('detailed')"><i class="fas fa-book-open"></i> Passer en version détaillée</button>
-               </div>`:''}`
-            : (descParas?`<div class="resume-block">${descParas}</div>`:`<div class="content-soon">Résumé à venir pour ce personnage.</div>`)}
-        </div>
-
-        <div class="history-view-pane" id="historyViewDetailed" data-view="detailed">
-          ${chaptersHtml
-            ? `<div class="chapter-timeline" id="chapterTimeline">${chaptersHtml}</div>
-               ${summaryChaptersHtml?`<div class="history-view-switch-cta">
-                 <div class="history-view-switch-cta-text">Juste envie de <strong>l'essentiel</strong> ?</div>
-                 <button class="skip-to-desc-btn" onclick="switchHistoryView('short')"><i class="fas fa-bolt"></i> Passer en version courte</button>
-               </div>`:''}`
-            : `<div class="content-soon">Histoire détaillée à venir pour ce personnage.</div>`}
-        </div>`
-          : `<div class="content-soon">Bientôt disponible.</div>`}
-
-        <div id="galleryAnchor" class="section-header" style="margin-top:32px;scroll-margin-top:90px;"><div class="section-title">Galerie</div></div>
-        ${galleryImgs.length?`<div class="lore-gallery" id="charGalleryGrid">${galleryImgs.map(src=>`
-          <div class="lore-gallery-item"><img src="${escHtml(src)}" alt="${escHtml(char.name)}" loading="lazy"></div>`).join('')}</div>`:`<div class="content-soon">Bientôt disponible.</div>`}
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
+        <button class="skip-to-desc-btn" onclick="document.getElementById('resumeAnchor').scrollIntoView({behavior:'smooth',block:'start'})">
+          <i class="fas fa-arrow-down"></i> Aller directement à l'histoire
+        </button>
+        <button class="skip-to-desc-btn" onclick="document.getElementById('galleryAnchor').scrollIntoView({behavior:'smooth',block:'start'})">
+          <i class="fas fa-images"></i> Aller directement à la galerie
+        </button>
       </div>
 
-      <aside class="char-sidebar lore-fixed-sidebar">
+      <div class="lore-byline">Contenu rédigé par <strong>@kiling_</strong></div>
+
+      <div class="lore-topcards">
         ${(lore.subProfiles&&lore.subProfiles.length)
           ? (lore.totemVal?renderProfileOstCards('Animal totem','',[],[],lore.totemVal,lore.totemIcon,totemImg):'')
             + lore.subProfiles.map(sp=>renderProfileOstCards(sp.name,`OST — ${sp.name}`,sp.traits,sp.ost,null,null,null)).join('')
@@ -716,8 +671,54 @@ function renderLoreTab(char,u){
             </div>
           </div>
         </div>`:''}
-      </aside>
-    </div>
+      </div>
+
+      <div style="max-width:840px;margin-bottom:36px;padding-bottom:32px;border-bottom:1px solid var(--edge2);">
+        <div class="section-header"><div class="section-title">Prologue <span class="content-badge theory">Théorie</span></div></div>
+        <div class="lore-warning"><i class="fas fa-triangle-exclamation"></i> Ce prologue (mythologie des origines) est une théorie non-officielle : il sera mis à jour dès que l'histoire officielle sera révélée. L'histoire de ${escHtml(char.name)} présentée plus bas, elle, est confirmée.</div>
+        <div class="prose" style="margin-top:22px;">${UNIVERSE_INTRO.map(p=>`<p>${escHtml(p)}</p>`).join('')}</div>
+      </div>
+      ${foundation.length?`<div style="max-width:840px;margin-bottom:36px;padding-bottom:32px;border-bottom:1px solid var(--edge2);">
+        <div class="section-header"><div class="section-title">Fondation <span class="content-badge canon">Canon</span></div></div>
+        <div class="prose">${foundation.map(p=>`<p>${escHtml(p)}</p>`).join('')}</div>
+      </div>`:''}
+
+      ${lore.title?`<p class="char-desc" style="max-width:820px;font-style:italic;opacity:.85;margin-bottom:26px;">${escHtml(lore.title)}</p>`:''}
+
+      <div id="resumeAnchor" class="section-header" style="scroll-margin-top:90px;"><div class="section-title"><i class="fas fa-star" style="color:var(--arc);margin-right:8px;font-size:.85em;"></i>Histoire de ${escHtml(char.name)} ${(summaryChaptersHtml||chaptersHtml||descParas)?'<span class="content-badge canon">Canon</span>':''}</div></div>
+      ${noteHtml}
+      ${(summaryChaptersHtml||chaptersHtml)?`
+      <div class="history-intro-teaser">L'essentiel en quelques lignes, ou chaque instant vécu en détail : les deux racontent la même histoire, à toi de choisir ton rythme (tu peux basculer à tout moment).</div>
+      <div class="history-view-toggle" id="historyViewToggle" role="tablist">
+        <div class="history-view-indicator" id="historyViewIndicator"></div>
+        <button class="history-view-btn" data-view="short" onclick="switchHistoryView('short')" role="tab"><i class="fas fa-bolt"></i> Version courte</button>
+        <button class="history-view-btn" data-view="detailed" onclick="switchHistoryView('detailed')" role="tab"><i class="fas fa-book-open"></i> Version détaillée</button>
+      </div>
+
+      <div class="history-view-pane" id="historyViewShort" data-view="short">
+        ${summaryChaptersHtml
+          ? `<div class="summary-chapters">${summaryChaptersHtml}</div>
+             ${chaptersHtml?`<div class="history-view-switch-cta">
+               <div class="history-view-switch-cta-text">Envie de <strong>vivre chaque scène en détail</strong> ?</div>
+               <button class="skip-to-desc-btn" onclick="switchHistoryView('detailed')"><i class="fas fa-book-open"></i> Passer en version détaillée</button>
+             </div>`:''}`
+          : (descParas?`<div class="resume-block">${descParas}</div>`:`<div class="content-soon">Résumé à venir pour ce personnage.</div>`)}
+      </div>
+
+      <div class="history-view-pane" id="historyViewDetailed" data-view="detailed">
+        ${chaptersHtml
+          ? `<div class="chapter-timeline" id="chapterTimeline">${chaptersHtml}</div>
+             ${summaryChaptersHtml?`<div class="history-view-switch-cta">
+               <div class="history-view-switch-cta-text">Juste envie de <strong>l'essentiel</strong> ?</div>
+               <button class="skip-to-desc-btn" onclick="switchHistoryView('short')"><i class="fas fa-bolt"></i> Passer en version courte</button>
+             </div>`:''}`
+          : `<div class="content-soon">Histoire détaillée à venir pour ce personnage.</div>`}
+      </div>`
+        : `<div class="content-soon">Bientôt disponible.</div>`}
+
+      <div id="galleryAnchor" class="section-header" style="margin-top:32px;scroll-margin-top:90px;"><div class="section-title">Galerie</div></div>
+      ${galleryImgs.length?`<div class="lore-gallery" id="charGalleryGrid">${galleryImgs.map(src=>`
+        <div class="lore-gallery-item"><img src="${escHtml(src)}" alt="${escHtml(char.name)}" loading="lazy"></div>`).join('')}</div>`:`<div class="content-soon">Bientôt disponible.</div>`}
     </div>`;
 
   const grid=document.getElementById('charGalleryGrid');
