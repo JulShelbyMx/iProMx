@@ -1701,7 +1701,7 @@ const DATA = {
       {num:103,title:'GTA 5 RP À ZÉRO ! #4 - (Je prépare la plus grosse évasion !)',videoId:'ghROG6l29_w'},
       {num:104,title:'GTA 5 RP À ZÉRO ! #5 - (Rachel me trompe... 💔)',videoId:'pl-ULcsXy_M', youtubeLink:true},
       {num:105,title:'#6 VERSION LIVE: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'uJLPV6YVSUY'},
-      {num:106,title:'#6 VERSION VIDEO: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'x8NsDcY4PzA'},
+      {num:106,title:'#6 VERSION VIDEO: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'x8NsDcY4PzA', youtubeLink:true},
 // youtubeLink:true
      ],
 }, },
