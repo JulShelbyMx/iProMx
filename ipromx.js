@@ -546,7 +546,10 @@ function renderNotification() {
       </div>`;
   };
 
-  html += buildNotifHtml(notifs.episode, 'episode');
+  // notifications.episode peut être UN objet (ancien format, toujours supporté)
+  // ou UN TABLEAU d'objets pour afficher plusieurs notifs "nouvel épisode" à la fois.
+  const episodeList = Array.isArray(notifs.episode) ? notifs.episode : (notifs.episode ? [notifs.episode] : []);
+  html += episodeList.map(n => buildNotifHtml(n, 'episode')).join('');
   html += buildNotifHtml(notifs.update, 'update');
 
   if (html) {

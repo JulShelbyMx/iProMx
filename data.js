@@ -1700,7 +1700,8 @@ const DATA = {
       {num:102,title:'GTA 5 RP À ZÉRO ! #3 - (Mon ex m\'annonce que j\'ai un fils caché !)',videoId:'bN0YeA0yJk8'},
       {num:103,title:'GTA 5 RP À ZÉRO ! #4 - (Je prépare la plus grosse évasion !)',videoId:'ghROG6l29_w'},
       {num:104,title:'GTA 5 RP À ZÉRO ! #5 - (Rachel me trompe... 💔)',videoId:'pl-ULcsXy_M', youtubeLink:true},
-      //{num:105,title:'#6 EXCLU VERSION LIVE: Toute la vérité sur Jake Winters... | GTA 5 RP',videoId:'uJLPV6YVSUY'},
+      {num:105,title:'#6 VERSION LIVE: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'uJLPV6YVSUY'},
+      {num:106,title:'#6 VERSION VIDEO: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'x8NsDcY4PzA'},
 // youtubeLink:true
      ],
 }, },
@@ -2339,18 +2340,33 @@ const DATA = {
   // ── NOTIFICATIONS (modifier manuellement ici) ────────────────
   // Mettre active: false pour masquer un bloc spécifique
   notifications: {
-    episode: {
-      active: true,
-      label: 'NOUVEL ÉPISODE',
-      text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #5 - (Rachel me trompe... 💔)',
-      link: {
-        familyId: 'winters',
-        charId:   'jake-winters',
-        season:   'Saison 4',
-        epNum:    104
+    // notifications.episode accepte plusieurs notifs à la fois : il suffit
+    // d'ajouter d'autres objets {active,label,text,link} dans ce tableau.
+    episode: [
+      {
+        active: true,
+        label: 'NOUVEL ÉPISODE',
+        text: '(Jake Winters) : #6 VERSION LIVE: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',
+        link: {
+          familyId: 'winters',
+          charId:   'jake-winters',
+          season:   'Saison 4',
+          epNum:    105
+        },
+        
       },
-      
-    },
+      {
+        active: true,
+        label: 'NOUVEL ÉPISODE',
+        text: '(Jake Winters) : #6 VERSION VIDEO: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',
+        link: {
+          familyId: 'winters',
+          charId:   'jake-winters',
+          season:   'Saison 4',
+          epNum:    106
+        },
+      },
+    ],
     update: {
       // Bannière affichée sous "NOUVEL ÉPISODE" — "RAPPEL DE NOUVEAUTÉS"
       active: true,
