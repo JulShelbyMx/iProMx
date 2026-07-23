@@ -918,6 +918,8 @@ const DATA = {
               "https://ik.imagekit.io/ipromx/images/downloadimg/img67.webp",
               "https://ik.imagekit.io/ipromx/images/downloadimg/img90.webp",
               "https://ik.imagekit.io/ipromx/images/downloadimg/img136.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img349.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img348.webp",
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/adrian/img1.webp",
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/adrian/img2.webp",
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/adrian/img3.webp",
@@ -1091,6 +1093,17 @@ const DATA = {
               "https://ik.imagekit.io/ipromx/images/downloadimg/img295.webp",
               "https://ik.imagekit.io/ipromx/images/downloadimg/img283.webp",
               "https://ik.imagekit.io/ipromx/images/downloadimg/img267.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img339.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img342.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img343.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img344.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img345.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img346.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img347.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img348.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img351.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img352.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img353.webp",
               
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/3freres/img1.webp",
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/3freres/img2.webp",
@@ -1534,6 +1547,8 @@ const DATA = {
               "https://ik.imagekit.io/ipromx/images/downloadimg/img206.webp",
               "https://ik.imagekit.io/ipromx/images/downloadimg/img211.webp",
               "https://ik.imagekit.io/ipromx/images/downloadimg/img333.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img340.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img341.webp",
 
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/sylvester/img1.webp",
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/sylvester/img2.webp",
@@ -1701,8 +1716,10 @@ const DATA = {
       {num:103,title:'GTA 5 RP À ZÉRO ! #4 - (Je prépare la plus grosse évasion !)',videoId:'ghROG6l29_w'},
       {num:104,title:'GTA 5 RP À ZÉRO ! #5 - (Rachel me trompe... 💔)',videoId:'pl-ULcsXy_M', youtubeLink:true},
       {num:105,title:'#6 VERSION LIVE: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'uJLPV6YVSUY'},
-      {num:106,title:'#6 VERSION VIDEO: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'x8NsDcY4PzA', youtubeLink:true},
-// youtubeLink:true
+      {num:106,title:'#6 VERSION VIDEO: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'x8NsDcY4PzA'},
+      {num:107,title:'GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',videoId:'8U2It-ofEBY', youtubeLink:true},
+      
+      // youtubeLink:true
      ],
 }, },
         { id:'oliver-winters', name:'Oliver Winters', image:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver-bannière.webp',
@@ -2346,26 +2363,16 @@ const DATA = {
       {
         active: true,
         label: 'NOUVEL ÉPISODE',
-        text: '(Jake Winters) : #6 VERSION LIVE: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',
+        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',
         link: {
           familyId: 'winters',
           charId:   'jake-winters',
           season:   'Saison 4',
-          epNum:    105
+          epNum:    107
         },
         
       },
-      {
-        active: true,
-        label: 'NOUVEL ÉPISODE',
-        text: '(Jake Winters) : #6 VERSION VIDEO: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',
-        link: {
-          familyId: 'winters',
-          charId:   'jake-winters',
-          season:   'Saison 4',
-          epNum:    106
-        },
-      },
+      
     ],
     update: {
       // Bannière affichée sous "NOUVEL ÉPISODE" — "RAPPEL DE NOUVEAUTÉS"

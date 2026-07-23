@@ -1,7 +1,7 @@
 import random
 
 # ==================== CONFIGURATION ====================
-MAX_IMAGES = 336          # ← Change ce nombre simplement pour les prochaines fois
+MAX_IMAGES = 353         # ← Change ce nombre simplement pour les prochaines fois
 # ====================================================
 
 def generate_gallery(max_img=MAX_IMAGES):
@@ -31,10 +31,14 @@ def generate_gallery(max_img=MAX_IMAGES):
     print(f"const GALLERY_IMAGES = [  // {max_img} images")
     for i in range(max_img):
         num = gallery[i]
-        base = f"  _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img{num}.webp')"
+        
+        # === EXCEPTION img5 ===
+        if num == 5:
+            base = f"  _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img5.1.webp')"
+        else:
+            base = f"  _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img{num}.webp')"
         
         if i % 8 == 4:
-            # Virgule avant le commentaire comme tu l'as demandé
             line = base + ", //grande image"
         else:
             if i < max_img - 1:
