@@ -1,7 +1,7 @@
 import random
 
 # ==================== CONFIGURATION ====================
-MAX_IMAGES = 353         # ← Change ce nombre simplement pour les prochaines fois
+MAX_IMAGES = 354      # ← Change ce nombre simplement pour les prochaines fois
 # ====================================================
 
 def generate_gallery(max_img=MAX_IMAGES):
@@ -32,9 +32,11 @@ def generate_gallery(max_img=MAX_IMAGES):
     for i in range(max_img):
         num = gallery[i]
         
-        # === EXCEPTION img5 ===
+        # === EXCEPTIONS ===
         if num == 5:
             base = f"  _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img5.1.webp')"
+        elif num == 85:
+            base = f"  _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img85.1.webp')"
         else:
             base = f"  _gimg('https://ik.imagekit.io/ipromx/images/downloadimg/img{num}.webp')"
         
