@@ -1743,11 +1743,11 @@ async function sendPasswordReset() {
 // ── AVATAR PICKER (style Netflix/Crunchyroll) ─────────────────
 // ── AVATAR FAMILY MAPPING ─────────────────────────────────────
 const AVATAR_FAMILY_MAP = {
-  flash:   ['av1','av2','av3','av5','av13','av14','av15','av16','av17','av18','av19','av20','av21','av22','av24','av25','av26','av27','av28','av33','av34','av35','av36','av37','av38','av39','av40','av43','av44','av45','av46','av47','av48','av49','av50','av51','av52','av53','av54','av55','av56','av57','av71','av72','av73','av74','av75','av76','av77','av78','av79'],
-  shade:   ['av59','av60','av61','av62','av63','av64','av65','av66','av67','av68','av69','av70'],
-  winters: ['av32','av58'],
+  flash:   ['av1','av2','av3','av5','av13','av14','av15','av16','av17','av18','av19','av20','av21','av22','av24','av25','av26','av27','av28','av33','av34','av35','av36','av37','av38','av39','av40','av43','av44','av45','av46','av47','av48','av49','av50','av51','av52','av53','av54','av55','av56','av57', 'av58','av72','av73','av74','av75','av76','av77','av78','av79','av80'],
+  shade:   ['av60','av61','av62','av63','av64','av65','av66','av67','av68','av69','av70', 'av71'],
+  winters: ['av32','av59'],
   escobar: ['av7','av8','av9','av10','av11'],
-  kingsley:['av80'],
+  kingsley:['av81'],
   autres:  [,'av4','av6','av12','av23','av29','av30','av31','av41','av42']
 };
 const AVATAR_FAMILIES = [

@@ -70,7 +70,7 @@ const PRESET_AVATARS = [
   { id:'av67', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/silver7.webp',     label:'Sylvester Shade 7' },
   { id:'av68', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/silver8.webp',     label:'Sylvester Shade 8' },
   { id:'av69', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/lamort1.webp',     label:'La Mort 1' },
-  { id:'av79', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/lamort2.webp',     label:'La Mort 2' },
+  { id:'av70', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/lamort2.webp',     label:'La Mort 2' },
   { id:'av71', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/lamort3.webp',     label:'La Mort 3' },
   { id:'av72', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/zayn1.webp',       label:'Zayn Flash 1' },
   { id:'av73', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/zayn2.webp',       label:'Zayn Flash 2' },
