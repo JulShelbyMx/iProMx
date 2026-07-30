@@ -1718,7 +1718,8 @@ const DATA = {
       {num:104,title:'GTA 5 RP À ZÉRO ! #5 - (Rachel me trompe... 💔)',videoId:'pl-ULcsXy_M', youtubeLink:true},
       {num:105,title:'#6 VERSION LIVE: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'uJLPV6YVSUY'},
       {num:106,title:'#6 VERSION VIDEO: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'x8NsDcY4PzA'},
-      {num:107,title:'GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',videoId:'8U2It-ofEBY', youtubeLink:true},
+      {num:107,title:'#7 VERSION LIVE: GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',videoId:'QmxqNrDqDvI'},
+      {num:108,title:'#7 VERSION VIDEO: GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',videoId:'8U2It-ofEBY'},
       
       // youtubeLink:true
      ],
