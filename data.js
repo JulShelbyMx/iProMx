@@ -1602,7 +1602,7 @@ const DATA = {
       id:'winters', name:'Famille Winters', color:'#3498db',
       image:'https://ik.imagekit.io/ipromx/images/winters-universe.jpg', banner:'https://ik.imagekit.io/ipromx/images/winters-banner.jpg',
       characters:[
-        { id:'jake-winters', name:'Jake Winters', image:'https://ik.imagekit.io/ipromx/images/letigrebl/jake.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/jake-bannière.webp',
+        { id:'jake-winters', name:'Jake Winters', image:'https://ik.imagekit.io/ipromx/images/letigrebl/jakev2.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/jake-bannièrev2.webp',
           description:'Parti à la poursuite du rêve américain, Jake Winters voit son destin basculer lorsqu\'il est contraint de rejoindre l\'armée de Cayo Perico. Plus tard, il rejoint aussi l\'armée des Russes contre Cayo. Hanté par ses origines, il consacre sa vie à rechercher son père, Oliver Winters, tout en traquant la trace de « l’Œil du Faucon », une technologie légendaire capable de tout contrôler. Au fil de sa quête, il réalise que les secrets de son passé et cette puissance technologique sont bien plus liés à sa propre existence qu\'il ne l\'imaginait.', 
           seasons:{
     'Saison 1':[

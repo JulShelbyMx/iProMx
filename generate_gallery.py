@@ -1,7 +1,7 @@
 import random
 
 # ==================== CONFIGURATION ====================
-MAX_IMAGES = 354      # ← Change ce nombre simplement pour les prochaines fois
+MAX_IMAGES = 363     # ← Change ce nombre simplement pour les prochaines fois
 # ====================================================
 
 def generate_gallery(max_img=MAX_IMAGES):
