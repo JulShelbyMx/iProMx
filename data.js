@@ -2365,12 +2365,25 @@ const DATA = {
       {
         active: true,
         label: 'NOUVEL ÉPISODE',
-        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',
+        text: '(Jake Winters) : #7 VERSION LIVE: GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',
         link: {
           familyId: 'winters',
           charId:   'jake-winters',
           season:   'Saison 4',
           epNum:    107
+        },
+        
+      },
+
+      {
+        active: true,
+        label: 'NOUVEL ÉPISODE',
+        text: '(Jake Winters) : #7 VERSION VIDEO: GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',
+        link: {
+          familyId: 'winters',
+          charId:   'jake-winters',
+          season:   'Saison 4',
+          epNum:    108
         },
         
       },
