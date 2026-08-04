@@ -2366,7 +2366,7 @@ const DATA = {
       {
         active: true,
         label: 'NOUVEL ÉPISODE',
-        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !',
+        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !)',
         link: {
           familyId: 'winters',
           charId:   'jake-winters',

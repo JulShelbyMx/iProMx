@@ -1,6 +1,6 @@
 
 // 👉 LA seule ligne à modifier quand tu veux forcer un rechargement du cache
-window.SITE_VERSION = 65;
+window.SITE_VERSION = 66;
 
 (function () {
   function vAsset(path) {
