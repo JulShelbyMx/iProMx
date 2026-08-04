@@ -1720,6 +1720,7 @@ const DATA = {
       {num:106,title:'#6 VERSION VIDEO: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'x8NsDcY4PzA'},
       {num:107,title:'#7 VERSION LIVE: GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',videoId:'QmxqNrDqDvI'},
       {num:108,title:'#7 VERSION VIDEO: GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',videoId:'8U2It-ofEBY'},
+      {num:109,title:'GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !)',videoId:'0WYVeNGl5S0', youtubeLink:true},
       
       // youtubeLink:true
      ],
@@ -2365,28 +2366,17 @@ const DATA = {
       {
         active: true,
         label: 'NOUVEL ÉPISODE',
-        text: '(Jake Winters) : #7 VERSION LIVE: GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',
+        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !',
         link: {
           familyId: 'winters',
           charId:   'jake-winters',
           season:   'Saison 4',
-          epNum:    107
+          epNum:    109
         },
         
       },
 
-      {
-        active: true,
-        label: 'NOUVEL ÉPISODE',
-        text: '(Jake Winters) : #7 VERSION VIDEO: GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',
-        link: {
-          familyId: 'winters',
-          charId:   'jake-winters',
-          season:   'Saison 4',
-          epNum:    108
-        },
-        
-      },
+
       
     ],
     update: {
