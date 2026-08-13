@@ -1731,7 +1731,7 @@ const DATA = {
       {num:110,title:'#8 VERSION VIDEO: GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !)',videoId:'0WYVeNGl5S0'},
       {num:111,title:'GTA 5 RP À ZÉRO ! #9 - (Ma femme découvre ma maîtresse… ÇA FINIT EN BAGARRE !)',videoId:'L8dfFu5biLY', youtubeLink:true},
       // youtubeLink:true
-      
+
      ],
 }, },
         { id:'oliver-winters', name:'Oliver Winters', image:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver-bannière.webp',
@@ -2375,12 +2375,12 @@ const DATA = {
       {
         active: true,
         label: 'NOUVEL ÉPISODE',
-        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !)',
+        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #9 - (Ma femme découvre ma maîtresse… ÇA FINIT EN BAGARRE !)',
         link: {
           familyId: 'winters',
           charId:   'jake-winters',
           season:   'Saison 4',
-          epNum:    109
+          epNum:    111
         },
         
       },
