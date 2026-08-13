@@ -1550,6 +1550,13 @@ const DATA = {
               "https://ik.imagekit.io/ipromx/images/downloadimg/img333.webp",
               "https://ik.imagekit.io/ipromx/images/downloadimg/img340.webp",
               "https://ik.imagekit.io/ipromx/images/downloadimg/img341.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img364.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img365.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img366.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img367.webp",
+              "https://ik.imagekit.io/ipromx/images/downloadimg/img368.webp",
+              
+
 
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/sylvester/img1.webp",
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/sylvester/img2.webp",
@@ -1720,9 +1727,11 @@ const DATA = {
       {num:106,title:'#6 VERSION VIDEO: GTA 5 RP À ZÉRO ! - (La vérité sur les yeux de Jake Winters !)',videoId:'x8NsDcY4PzA'},
       {num:107,title:'#7 VERSION LIVE: GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',videoId:'QmxqNrDqDvI'},
       {num:108,title:'#7 VERSION VIDEO: GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',videoId:'8U2It-ofEBY'},
-      {num:109,title:'GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !)',videoId:'0WYVeNGl5S0', youtubeLink:true},
-      
+      {num:109,title:'#8 VERSION LIVE: GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !)',videoId:'jTO-mZFbrzo'},
+      {num:110,title:'#8 VERSION VIDEO: GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !)',videoId:'0WYVeNGl5S0'},
+      {num:111,title:'GTA 5 RP À ZÉRO ! #9 - (Ma femme découvre ma maîtresse… ÇA FINIT EN BAGARRE !)',videoId:'L8dfFu5biLY', youtubeLink:true},
       // youtubeLink:true
+      
      ],
 }, },
         { id:'oliver-winters', name:'Oliver Winters', image:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/oliver-bannière.webp',
