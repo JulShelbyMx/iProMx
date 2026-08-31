@@ -5,12 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>iPROMX</title>
   <meta name="description" content="Découvrez les épisodes sur l'Univers iPROMX.">
+  <meta property="og:type" content="video.other">
+  <meta property="og:site_name" content="L'Univers d'iProMx">
+  <meta property="og:title" content="iPROMX — Personnage" id="ogTitle">
+  <meta property="og:description" content="Découvre ce personnage et ses épisodes sur l'Univers iPROMX." id="ogDesc">
+  <meta property="og:image" content="https://ik.imagekit.io/ipromx/images/logoblanc.webp" id="ogImage">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="/styles.css?v=72">
+  <link rel="stylesheet" href="/styles.css?v=75">
   <style>
     body { background: var(--void); color: var(--text); }
     .char-hero::before { content:""; position:absolute; top:0; left:0; right:0; height:80px; background:linear-gradient(to bottom, rgba(2,4,8,.7) 0%, transparent 100%); z-index:1; pointer-events:none; }
@@ -46,7 +52,7 @@
     }
     .char-family-tag {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 5px 14px; background: rgba(245,166,35,.1); border: 1px solid rgba(245,166,35,.35);
+      padding: 5px 14px; background: rgba(var(--arc-rgb), .1); border: 1px solid rgba(var(--arc-rgb), .35);
       border-radius: 30px; font-family: var(--font-display); font-size: .58rem;
       font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--arc);
       margin-bottom: 14px;
@@ -135,17 +141,17 @@
     .seas-nav::-webkit-scrollbar { display: none; }
     .seas-tab { flex-shrink: 0; padding: 7px 18px; background: transparent; border: 1px solid var(--edge2); border-radius: 30px; color: var(--text-muted); font-family: var(--font-display); font-size: .58rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: var(--transition); }
     .seas-tab:hover { color: var(--text-dim); border-color: var(--edge); }
-    .seas-tab.active { background: var(--arc-dim); border-color: rgba(245,166,35,.5); color: var(--arc); }
+    .seas-tab.active { background: var(--arc-dim); border-color: rgba(var(--arc-rgb), .5); color: var(--arc); }
     /* Episodes grid */
     .ep-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap: 14px; }
     .ep-card { background: var(--panel); border: 1px solid var(--edge2); border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; transition: border-color .2s, transform .2s, box-shadow .2s; text-decoration: none; display: block; position: relative; }
-    .ep-card:hover { border-color: rgba(245,166,35,.35); transform: translateY(-3px); box-shadow: var(--shadow-arc); }
+    .ep-card:hover { border-color: rgba(var(--arc-rgb), .35); transform: translateY(-3px); box-shadow: var(--shadow-arc); }
     .ep-card.watched { opacity: .72; } .ep-card.watched:hover { opacity: 1; }
     .ep-thumb { position: relative; width: 100%; padding-top: 56.25%; background-size: cover; background-position: center; background-color: var(--panel2); overflow: hidden; }
     .ep-thumb::after { content:''; position:absolute;inset:0;background:linear-gradient(to top,rgba(2,4,8,.65) 0%,transparent 55%); }
-    .ep-play { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;background:rgba(231,76,60,.88);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:white;opacity:0;transition:opacity .2s;z-index:2;box-shadow:0 4px 18px var(--iron-glow); }
+    .ep-play { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;background:rgba(var(--iron-rgb),.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:white;opacity:0;transition:opacity .2s;z-index:2;box-shadow:0 4px 18px var(--iron-glow); }
     .ep-card:hover .ep-play { opacity: 1; }
-    .ep-num { position:absolute;bottom:8px;left:10px;font-family:var(--font-display);font-size:.54rem;font-weight:700;letter-spacing:2px;color:rgba(245,166,35,.9);z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.8); }
+    .ep-num { position:absolute;bottom:8px;left:10px;font-family:var(--font-display);font-size:.54rem;font-weight:700;letter-spacing:2px;color:rgba(var(--arc-rgb), .9);z-index:2;text-shadow:0 1px 4px rgba(0,0,0,.8); }
     .ep-done { position:absolute;top:8px;right:8px;width:22px;height:22px;background:rgba(46,204,113,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:white;z-index:2; }
     .ep-new { position:absolute;top:8px;left:8px;padding:2px 7px;background:var(--iron);border-radius:3px;font-family:var(--font-display);font-size:.44rem;font-weight:700;letter-spacing:2px;color:white;z-index:2; }
     .ep-prog { position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(0,0,0,.3);z-index:2; }
@@ -286,6 +292,29 @@
 <div class="user-btn" id="userBtnFixed" onclick="openUserMenu()"></div>
 <div id="userMenuFloat" style="position:fixed;top:60px;right:20px;z-index:9001;display:none;"></div>
 
+<!-- Lecteur audio flottant (Lore en écoute, format YouTube) — persiste au
+     changement d'onglet, pour pouvoir écouter tout en lisant le texte dans
+     l'onglet Lore. Bascule Court/Long dans le même lecteur (pas de rechargement). -->
+<div class="lore-audio-player" id="loreAudioPlayer">
+  <div class="lap-header">
+    <div class="lap-title" id="lapTitle">—</div>
+    <button class="lap-close" onclick="closeLoreAudioPlayer()" title="Fermer">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="lap-video-wrap">
+    <div id="loreYtTarget"></div>
+  </div>
+  <div class="lap-controls">
+    <button class="lap-format-btn" id="lapFormatShort" onclick="switchLoreAudioFormat('short')">Format court</button>
+    <button class="lap-format-btn" id="lapFormatLong" onclick="switchLoreAudioFormat('long')">Format long</button>
+    <button class="lap-playpause" id="lapPlayPause" onclick="toggleLoreAudioPlay()" title="Lecture / Pause">
+      <i class="fas fa-pause"></i>
+    </button>
+  </div>
+</div>
+
+
 <div style="height:56px;background:var(--void);"></div>
 <div id="charHero" class="char-hero">
   <div id="charHeroImg" class="char-hero-img"></div>
@@ -299,7 +328,7 @@
 
 <div class="char-body">
   <div style="padding:14px 0 0;font-family:var(--font-display);font-size:.54rem;letter-spacing:2px;color:var(--text-muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-    <a href="/" style="color:rgba(245,166,35,.7);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:5px;" onmouseover="this.style.color='var(--arc)'" onmouseout="this.style.color='rgba(245,166,35,.7)'"><i class="fas fa-home"></i> Accueil</a>
+    <a href="/" style="color:rgba(var(--arc-rgb), .7);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:5px;" onmouseover="this.style.color='var(--arc)'" onmouseout="this.style.color='rgba(var(--arc-rgb), .7)'"><i class="fas fa-home"></i> Accueil</a>
     <span>›</span><span id="breadFam"></span><span>›</span><span id="breadChar"></span>
   </div>
 
@@ -320,6 +349,7 @@
     </div>
 
     <div class="char-tab-pane" id="tabPane-lore" data-tab="lore" role="tabpanel" aria-labelledby="tab-lore"></div>
+    <div class="char-tab-pane" id="tabPane-audio" data-tab="audio" role="tabpanel" aria-labelledby="tab-audio"></div>
     <div class="char-tab-pane" id="tabPane-genealogie" data-tab="genealogie" role="tabpanel" aria-labelledby="tab-genealogie"></div>
   </div>
 </div>
@@ -329,16 +359,17 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="/data.js?v=72"></script>
-<script src="/app.js?v=72"></script>
+<script src="/data.js?v=75"></script>
+<script src="/app.js?v=75"></script>
 <script>
 'use strict';
 
 // Apply saved theme immediately
 (()=>{
-  const t=localStorage.getItem('ipx_theme')||'iron';
-  const T={'iron':{'--arc':'#f5a623','--iron':'#c0392b','--iron-bright':'#e74c3c','--void':'#060504','--panel':'#111009','--panel2':'#171410','--panel3':'#1e1a0c','--arc-dim':'rgba(245,166,35,0.12)','--arc-glow':'rgba(245,166,35,0.45)','--iron-glow':'rgba(231,76,60,0.45)','--edge':'rgba(245,166,35,0.22)','--edge2':'rgba(245,166,35,0.08)','--text':'#f0e8d8'},'midnight':{'--arc':'#7c8cff','--iron':'#4f46e5','--iron-bright':'#6366f1','--void':'#04040a','--panel':'#0a0a14','--panel2':'#111122','--panel3':'#181830','--arc-dim':'rgba(124,140,255,0.12)','--arc-glow':'rgba(124,140,255,0.45)','--iron-glow':'rgba(99,102,241,0.45)','--edge':'rgba(124,140,255,0.22)','--edge2':'rgba(124,140,255,0.08)','--text':'#e8eaf8'},'crimson':{'--arc':'#ff6b6b','--iron':'#c0392b','--iron-bright':'#e74c3c','--void':'#080404','--panel':'#130808','--panel2':'#1a0a0a','--panel3':'#200c0c','--arc-dim':'rgba(255,107,107,0.12)','--arc-glow':'rgba(255,107,107,0.45)','--iron-glow':'rgba(231,76,60,0.45)','--edge':'rgba(255,107,107,0.22)','--edge2':'rgba(255,107,107,0.08)','--text':'#f8e8e8'},'forest':{'--arc':'#4ade80','--iron':'#16a34a','--iron-bright':'#22c55e','--void':'#030806','--panel':'#081209','--panel2':'#0d180e','--panel3':'#111e12','--arc-dim':'rgba(74,222,128,0.12)','--arc-glow':'rgba(74,222,128,0.45)','--iron-glow':'rgba(34,197,94,0.45)','--edge':'rgba(74,222,128,0.22)','--edge2':'rgba(74,222,128,0.08)','--text':'#e8f8ec'},'ocean':{'--arc':'#38bdf8','--iron':'#0369a1','--iron-bright':'#0ea5e9','--void':'#020a10','--panel':'#071220','--panel2':'#0c1a2e','--panel3':'#10223a','--arc-dim':'rgba(56,189,248,0.12)','--arc-glow':'rgba(56,189,248,0.45)','--iron-glow':'rgba(14,165,233,0.45)','--edge':'rgba(56,189,248,0.22)','--edge2':'rgba(56,189,248,0.08)','--text':'#e0f4ff'},'ember':{'--arc':'#fb923c','--iron':'#9a3412','--iron-bright':'#ea580c','--void':'#080402','--panel':'#180a04','--panel2':'#220e06','--panel3':'#2c1208','--arc-dim':'rgba(251,146,60,0.12)','--arc-glow':'rgba(251,146,60,0.45)','--iron-glow':'rgba(234,88,12,0.45)','--edge':'rgba(251,146,60,0.22)','--edge2':'rgba(251,146,60,0.08)','--text':'#fff1e6'},'neon':{'--arc':'#e879f9','--iron':'#a21caf','--iron-bright':'#d946ef','--void':'#060108','--panel':'#100614','--panel2':'#180a1e','--panel3':'#200d28','--arc-dim':'rgba(232,121,249,0.12)','--arc-glow':'rgba(232,121,249,0.45)','--iron-glow':'rgba(217,70,239,0.45)','--edge':'rgba(232,121,249,0.22)','--edge2':'rgba(232,121,249,0.08)','--text':'#fce7ff'},'gold':{'--arc':'#fbbf24','--iron':'#92400e','--iron-bright':'#d97706','--void':'#060400','--panel':'#130e00','--panel2':'#1c1500','--panel3':'#261d00','--arc-dim':'rgba(251,191,36,0.12)','--arc-glow':'rgba(251,191,36,0.45)','--iron-glow':'rgba(217,119,6,0.45)','--edge':'rgba(251,191,36,0.22)','--edge2':'rgba(251,191,36,0.08)','--text':'#fffbeb'},'ice':{'--arc':'#a5f3fc','--iron':'#164e63','--iron-bright':'#06b6d4','--void':'#020608','--panel':'#060e12','--panel2':'#0a161c','--panel3':'#0e1e26','--arc-dim':'rgba(165,243,252,0.12)','--arc-glow':'rgba(165,243,252,0.45)','--iron-glow':'rgba(6,182,212,0.4)','--edge':'rgba(165,243,252,0.2)','--edge2':'rgba(165,243,252,0.07)','--text':'#ecfeff'},'smoke':{'--arc':'#94a3b8','--iron':'#475569','--iron-bright':'#64748b','--void':'#050507','--panel':'#0e0e12','--panel2':'#141418','--panel3':'#1a1a1e','--arc-dim':'rgba(148,163,184,0.12)','--arc-glow':'rgba(148,163,184,0.35)','--iron-glow':'rgba(100,116,139,0.4)','--edge':'rgba(148,163,184,0.18)','--edge2':'rgba(148,163,184,0.07)','--text':'#e2e8f0'}};
-  const theme=T[t]||T.iron;
+  const t=localStorage.getItem('ipx_theme')||'blue_violet';
+  const T={'blue_violet':{'--arc':'#4fc3ff','--arc-rgb':'79,195,255','--iron':'#7c3aed','--iron-rgb':'124,58,237','--iron-bright':'#8b5cf6','--void':'#040b0e','--panel':'#071218','--panel2':'#0b1921','--panel3':'#0f2029','--arc-dim':'rgba(79,195,255,0.12)','--arc-glow':'rgba(79,195,255,0.45)','--iron-glow':'rgba(139,92,246,0.45)','--edge':'rgba(79,195,255,0.22)','--edge2':'rgba(79,195,255,0.08)','--text':'#eef4fb'},'ipromx':{'--arc':'#f5a623','--arc-rgb':'245,166,35','--iron':'#c0392b','--iron-rgb':'192,57,43','--iron-bright':'#e74c3c','--void':'#060504','--panel':'#111009','--panel2':'#171410','--panel3':'#1e1a0c','--arc-dim':'rgba(245,166,35,0.12)','--arc-glow':'rgba(245,166,35,0.45)','--iron-glow':'rgba(231,76,60,0.45)','--edge':'rgba(245,166,35,0.22)','--edge2':'rgba(245,166,35,0.08)','--text':'#f0e8d8'},'indigo_magenta':{'--arc':'#818cf8','--arc-rgb':'129,140,248','--iron':'#c026d3','--iron-rgb':'192,38,211','--iron-bright':'#d946ef','--void':'#04050e','--panel':'#080917','--panel2':'#0c0e1f','--panel3':'#111327','--arc-dim':'rgba(129,140,248,0.12)','--arc-glow':'rgba(129,140,248,0.45)','--iron-glow':'rgba(217,70,239,0.45)','--edge':'rgba(129,140,248,0.22)','--edge2':'rgba(129,140,248,0.08)','--text':'#eef4fb'},'red_violet':{'--arc':'#f87171','--arc-rgb':'248,113,113','--iron':'#7c3aed','--iron-rgb':'124,58,237','--iron-bright':'#9333ea','--void':'#0e0404','--panel':'#170808','--panel2':'#1f0c0c','--panel3':'#271111','--arc-dim':'rgba(248,113,113,0.12)','--arc-glow':'rgba(248,113,113,0.45)','--iron-glow':'rgba(147,51,234,0.45)','--edge':'rgba(248,113,113,0.22)','--edge2':'rgba(248,113,113,0.08)','--text':'#eef4fb'},'green_orange':{'--arc':'#4ade80','--arc-rgb':'74,222,128','--iron':'#ea580c','--iron-rgb':'234,88,12','--iron-bright':'#fb923c','--void':'#050d08','--panel':'#09150e','--panel2':'#0e1d14','--panel3':'#13251a','--arc-dim':'rgba(74,222,128,0.12)','--arc-glow':'rgba(74,222,128,0.45)','--iron-glow':'rgba(251,146,60,0.45)','--edge':'rgba(74,222,128,0.22)','--edge2':'rgba(74,222,128,0.08)','--text':'#eef4fb'},'orange_yellow':{'--arc':'#fb923c','--arc-rgb':'251,146,60','--iron':'#ca8a04','--iron-rgb':'202,138,4','--iron-bright':'#eab308','--void':'#0e0804','--panel':'#170e07','--panel2':'#20150b','--panel3':'#281b10','--arc-dim':'rgba(251,146,60,0.12)','--arc-glow':'rgba(251,146,60,0.45)','--iron-glow':'rgba(234,179,8,0.45)','--edge':'rgba(251,146,60,0.22)','--edge2':'rgba(251,146,60,0.08)','--text':'#eef4fb'},'pink_violet':{'--arc':'#f472b6','--arc-rgb':'244,114,182','--iron':'#7c3aed','--iron-rgb':'124,58,237','--iron-bright':'#9333ea','--void':'#0e0409','--panel':'#160810','--panel2':'#1f0c16','--panel3':'#27111d','--arc-dim':'rgba(244,114,182,0.12)','--arc-glow':'rgba(244,114,182,0.45)','--iron-glow':'rgba(147,51,234,0.45)','--edge':'rgba(244,114,182,0.22)','--edge2':'rgba(244,114,182,0.08)','--text':'#eef4fb'},'cyan_indigo':{'--arc':'#22d3ee','--arc-rgb':'34,211,238','--iron':'#4f46e5','--iron-rgb':'79,70,229','--iron-bright':'#6366f1','--void':'#040c0e','--panel':'#081517','--panel2':'#0c1d1f','--panel3':'#112427','--arc-dim':'rgba(34,211,238,0.12)','--arc-glow':'rgba(34,211,238,0.45)','--iron-glow':'rgba(99,102,241,0.45)','--edge':'rgba(34,211,238,0.22)','--edge2':'rgba(34,211,238,0.08)','--text':'#eef4fb'},'gray_blue':{'--arc':'#94a3b8','--arc-rgb':'148,163,184','--iron':'#2563eb','--iron-rgb':'37,99,235','--iron-bright':'#3b82f6','--void':'#08090a','--panel':'#0e0f11','--panel2':'#131518','--panel3':'#191c1f','--arc-dim':'rgba(148,163,184,0.12)','--arc-glow':'rgba(148,163,184,0.45)','--iron-glow':'rgba(59,130,246,0.45)','--edge':'rgba(148,163,184,0.22)','--edge2':'rgba(148,163,184,0.08)','--text':'#eef4fb'}};
+  let theme=T[t]||T.blue_violet;
+  if (t==='custom') { try { const c=JSON.parse(localStorage.getItem('ipx_custom_theme_colors')||'null'); if(c&&c.primary&&c.secondary){ theme=Object.assign({},T.blue_violet,{'--arc':c.primary,'--iron':c.secondary}); } } catch(e){} }
   Object.entries(theme).forEach(([k,v])=>document.documentElement.style.setProperty(k,v));
 })();
 
@@ -363,6 +394,7 @@ function render(route){
 
   document.title=char.name;
   document.querySelector('meta[name=description]').content=(char.description||'').slice(0,160);
+  syncOG({ title: `${char.name} | iPROMX`, desc: (char.description||'Découvre ce personnage sur l\'Univers iPROMX.').slice(0,160), image: char.banner||u.banner||char.image });
 
   const hero    = document.getElementById('charHero');
   const heroImg = document.getElementById('charHeroImg');
@@ -437,6 +469,19 @@ const CHAR_TABS = [
     isAvailable: char=>LORE_ENABLED_FAMILIES.includes(_fid)&&!!(char.lore&&(char.lore.chapters?.length||char.lore.loreDesc?.length||char.lore.traits?.length||char.lore.subProfiles?.length)),
     render: renderLoreTab,
     badge: (char)=>{ const p=getLoreProgress(_fid,_cid); return p.total?`${p.read}/${p.total}`:''; } },
+  { id:'audio', label:'Audio', icon:'fa-headphones-simple',
+    // Réservé aux personnages ayant déjà un Lore écrit ET au moins une
+    // version audio fournie avec un vrai ID de vidéo YouTube (exclut le
+    // placeholder d'exemple laissé dans data.js tant qu'il n'a pas été remplacé).
+    isAvailable: char=>{
+      if (!LORE_ENABLED_FAMILIES.includes(_fid)) return false;
+      if (!(char.lore && (char.lore.chapters?.length || char.lore.loreDesc?.length))) return false;
+      const la = char.loreAudio;
+      if (!la) return false;
+      const isReal = id => id && id !== 'TON_VIDEO_ID';
+      return isReal(la.short?.videoId) || isReal(la.long?.videoId);
+    },
+    render: renderAudioTab },
   { id:'genealogie', label:'Généalogie', icon:'fa-sitemap',
     isAvailable: ()=>LORE_ENABLED_FAMILIES.includes(_fid), // contenu partagé par famille, pas de suivi de lecture
     render: renderGenealogyTab },
@@ -802,6 +847,130 @@ const GENEALOGY_BY_FAMILY = {
   flash: GENEALOGY_TREE_IMAGES.filter((_, i) => i !== 10 && i !== 11), // toutes sauf image11.5 et image12.5
   shade: GENEALOGY_TREE_IMAGES.filter((_, i) => i >= 10),              // image11.5 à image15.5
 };
+
+// ── ONGLET AUDIO (Lore en version audio, hébergé sur YouTube) ───────
+function renderAudioTab(char, u) {
+  const pane = document.getElementById('tabPane-audio');
+  if (!pane) return;
+  const la = char.loreAudio || {};
+  const isReal = id => !!id && id !== 'TON_VIDEO_ID';
+  const versions = [
+    isReal(la.short?.videoId) ? { key:'short', label:'Version courte', icon:'fa-bolt', desc:"L'essentiel du lore, condensé", data: la.short } : null,
+    isReal(la.long?.videoId)  ? { key:'long',  label:'Version longue',  icon:'fa-scroll', desc:'Le récit complet, dans le détail', data: la.long  } : null,
+  ].filter(Boolean);
+
+  if (!versions.length) { pane.innerHTML = ''; return; }
+
+  pane.innerHTML = `
+    <div class="lore-audio-intro">
+      <div class="lore-audio-intro-title"><i class="fas fa-headphones-simple"></i> Écoute le Lore</div>
+      <div class="lore-audio-intro-sub">L'histoire de ${escHtml(char.name)}, racontée à voix haute.</div>
+    </div>
+    <div class="lore-warning">
+      <i class="fas fa-lightbulb"></i>
+      Pour une meilleure expérience, lance l'écoute puis passe sur l'onglet <strong>Lore</strong> pour lire le texte en même temps — le lecteur reste actif en flottant pendant que tu navigues sur la page.
+    </div>
+    <div class="lore-audio-grid">
+      ${versions.map(v => `
+        <div class="lore-audio-card">
+          <div class="lore-audio-card-cover" style="background-image:url('https://i.ytimg.com/vi/${v.data.videoId}/hqdefault.jpg')">
+            <button class="lore-audio-play-btn" onclick='playLoreAudio(${JSON.stringify(la).replace(/'/g,"&#39;")}, "${escHtml(char.name)}", "${v.key}")' title="Écouter">
+              <i class="fas fa-play"></i>
+            </button>
+          </div>
+          <div class="lore-audio-card-info">
+            <div class="lore-audio-card-icon"><i class="fas ${v.icon}"></i></div>
+            <div class="lore-audio-card-text">
+              <div class="lore-audio-card-title">${v.label}</div>
+              <div class="lore-audio-card-desc">${v.desc}${v.data.duration ? ` · ${v.data.duration}` : ''}</div>
+            </div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+// ── LECTEUR AUDIO FLOTTANT (YouTube, persiste au changement d'onglet) ──
+let _loreYtPlayer = null;
+let _loreAudioVersions = null;
+let _loreCurrentFormat = null;
+
+function _ensureYTApiForLore(cb) {
+  if (window.YT && window.YT.Player) { cb(); return; }
+  if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+    const s = document.createElement('script');
+    s.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(s);
+  }
+  const prev = window.onYouTubeIframeAPIReady;
+  window.onYouTubeIframeAPIReady = () => { if (typeof prev === 'function') prev(); cb(); };
+}
+
+function playLoreAudio(versions, title, startFormat) {
+  _loreAudioVersions = versions;
+  const player = document.getElementById('loreAudioPlayer');
+  const titleEl = document.getElementById('lapTitle');
+  if (!player || !versions?.[startFormat]?.videoId) return;
+  if (titleEl) titleEl.textContent = title || 'Lore audio';
+  player.classList.add('visible');
+
+  const btnShort = document.getElementById('lapFormatShort');
+  const btnLong  = document.getElementById('lapFormatLong');
+  if (btnShort) btnShort.style.display = versions.short?.videoId ? '' : 'none';
+  if (btnLong)  btnLong.style.display  = versions.long?.videoId  ? '' : 'none';
+
+  if (!_loreYtPlayer) {
+    _ensureYTApiForLore(() => {
+      _loreYtPlayer = new YT.Player('loreYtTarget', {
+        videoId: versions[startFormat].videoId,
+        playerVars: { autoplay: 1, rel: 0, modestbranding: 1 },
+        events: {
+          onReady: () => { _loreCurrentFormat = startFormat; _updateLoreFormatButtons(); },
+          onStateChange: _onLoreYtStateChange,
+        }
+      });
+    });
+  } else {
+    _loreYtPlayer.loadVideoById(versions[startFormat].videoId);
+    _loreCurrentFormat = startFormat;
+    _updateLoreFormatButtons();
+  }
+}
+
+function switchLoreAudioFormat(format) {
+  if (!_loreAudioVersions?.[format]?.videoId || !_loreYtPlayer) return;
+  if (_loreCurrentFormat === format) return;
+  _loreYtPlayer.loadVideoById(_loreAudioVersions[format].videoId);
+  _loreCurrentFormat = format;
+  _updateLoreFormatButtons();
+}
+
+function _updateLoreFormatButtons() {
+  document.getElementById('lapFormatShort')?.classList.toggle('active', _loreCurrentFormat === 'short');
+  document.getElementById('lapFormatLong')?.classList.toggle('active', _loreCurrentFormat === 'long');
+}
+
+function toggleLoreAudioPlay() {
+  if (!_loreYtPlayer || typeof _loreYtPlayer.getPlayerState !== 'function') return;
+  if (_loreYtPlayer.getPlayerState() === YT.PlayerState.PLAYING) _loreYtPlayer.pauseVideo();
+  else _loreYtPlayer.playVideo();
+}
+
+function _onLoreYtStateChange(e) {
+  const btn = document.getElementById('lapPlayPause');
+  if (!btn) return;
+  btn.innerHTML = e.data === YT.PlayerState.PLAYING ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+}
+
+function closeLoreAudioPlayer() {
+  const player = document.getElementById('loreAudioPlayer');
+  if (_loreYtPlayer && typeof _loreYtPlayer.pauseVideo === 'function') { try { _loreYtPlayer.pauseVideo(); } catch {} }
+  if (player) player.classList.remove('visible');
+}
+
+window.playLoreAudio = playLoreAudio;
+window.switchLoreAudioFormat = switchLoreAudioFormat;
+window.toggleLoreAudioPlay = toggleLoreAudioPlay;
+window.closeLoreAudioPlayer = closeLoreAudioPlayer;
 
 function renderGenealogyTab(char, u) {
   const host = document.getElementById('tabPane-genealogie');

@@ -14,7 +14,7 @@ except ImportError:
 
 ARIA2C_PATH = r"D:\aria2-1.37.0-win-64bit-build1\aria2-1.37.0-win-64bit-build1\aria2c.exe"
 OUTPUT_DIR = Path(r"D:\Twitch_VODs")
-COOKIES_PATH = Path("cookies.txt")
+COOKIES_PATH = Path(r"D:\Twitch_VODs\cookies.txt")
 
 # Client-Id public utilisé par le front-end web de Twitch.
 # (le même que celui utilisé en interne par yt-dlp / streamlink / twitch-dl)

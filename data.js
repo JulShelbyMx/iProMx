@@ -53,6 +53,18 @@ const DATA = {
             bgImage:"https://ik.imagekit.io/ipromx/images/galeries%20persos/david/bgimage.webp",
             draft:true
           },
+          // ── Lore en version audio (onglet "Audio", avant Généalogie) ──
+          // ⚠️ EXEMPLE À COMPLÉTER : remplace ces videoId par les tiens une
+          // fois tes vidéos YouTube (audio) mises en ligne — même principe
+          // que les autres videoId du site (juste l'ID après "v=" dans l'URL
+          // YouTube). "duration" est un texte libre affiché sur la carte
+          // (ex: "4:12"), laisse-le vide si tu ne veux rien afficher.
+          // Un personnage sans loreAudio (ou avec aucune des deux clés
+          // valides) ne montrera jamais l'onglet Audio, même s'il a un Lore.
+          loreAudio:{
+            short:{ videoId:"ia2SaMKky14", duration:"02:58" },
+            long:{ videoId:"jXmeKXcpg2g", duration:"07:00" }
+          },
           seasons:{
     'Saison 1':[
         {num:1,title:'POUR LA PREMIERE FOIS JE TESTE GTAV RP - UN TROLLEUR SUR UN JEU ROLEPLAY ?',videoId:'z_H0tafxHAc'},
@@ -181,6 +193,18 @@ const DATA = {
             bgImage:"https://ik.imagekit.io/ipromx/images/galeries%20persos/john/bgimage.webp",
             draft:true
           },
+          // ── Lore en version audio (onglet "Audio", avant Généalogie) ──
+          // ⚠️ EXEMPLE À COMPLÉTER : remplace ces videoId par les tiens une
+          // fois tes vidéos YouTube (audio) mises en ligne — même principe
+          // que les autres videoId du site (juste l'ID après "v=" dans l'URL
+          // YouTube). "duration" est un texte libre affiché sur la carte
+          // (ex: "4:12"), laisse-le vide si tu ne veux rien afficher.
+          // Un personnage sans loreAudio (ou avec aucune des deux clés
+          // valides) ne montrera jamais l'onglet Audio, même s'il a un Lore.
+          loreAudio:{
+            short:{ videoId:"zZ-OitshRiQ", duration:"03:12" },
+            long:{ videoId:"51i2-LCXuWE", duration:"18:28" }
+          },
           seasons:{
     'Saison 1':[
         {num:1,title:'LES BOSS DES RUES ! GTAV RP #1',videoId:'NGjgos92uSU'},
@@ -302,6 +326,18 @@ const DATA = {
             ],
             bgImage:"https://ik.imagekit.io/ipromx/images/galeries%20persos/ken/bgimage.webp",
             draft:true
+          },
+          // ── Lore en version audio (onglet "Audio", avant Généalogie) ──
+          // ⚠️ EXEMPLE À COMPLÉTER : remplace ces videoId par les tiens une
+          // fois tes vidéos YouTube (audio) mises en ligne — même principe
+          // que les autres videoId du site (juste l'ID après "v=" dans l'URL
+          // YouTube). "duration" est un texte libre affiché sur la carte
+          // (ex: "4:12"), laisse-le vide si tu ne veux rien afficher.
+          // Un personnage sans loreAudio (ou avec aucune des deux clés
+          // valides) ne montrera jamais l'onglet Audio, même s'il a un Lore.
+          loreAudio:{
+            short:{ videoId:"iz4zmnGlNuo", duration:"05:07" },
+            long:{ videoId:"DhI05O3Ytck", duration:"30:30" }
           },
           seasons:{
     'Saison 1':[
@@ -470,6 +506,18 @@ const DATA = {
             ],
             bgImage:"https://ik.imagekit.io/ipromx/images/galeries%20persos/aaron/bgimage.webp",
             draft:true
+          },
+          // ── Lore en version audio (onglet "Audio", avant Généalogie) ──
+          // ⚠️ EXEMPLE À COMPLÉTER : remplace ces videoId par les tiens une
+          // fois tes vidéos YouTube (audio) mises en ligne — même principe
+          // que les autres videoId du site (juste l'ID après "v=" dans l'URL
+          // YouTube). "duration" est un texte libre affiché sur la carte
+          // (ex: "4:12"), laisse-le vide si tu ne veux rien afficher.
+          // Un personnage sans loreAudio (ou avec aucune des deux clés
+          // valides) ne montrera jamais l'onglet Audio, même s'il a un Lore.
+          loreAudio:{
+            short:{ videoId:"R4ryxGrIYYc", duration:"04:27" },
+            long:{ videoId:"MONID", duration:"" }
           },
           seasons:{
     'Saison 1':[
@@ -1729,7 +1777,12 @@ const DATA = {
       {num:108,title:'#7 VERSION VIDEO: GTA 5 RP À ZÉRO ! #7 - (J\'ai espionné ma femme... La vérité m\'a détruit)',videoId:'8U2It-ofEBY'},
       {num:109,title:'#8 VERSION LIVE: GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !)',videoId:'jTO-mZFbrzo'},
       {num:110,title:'#8 VERSION VIDEO: GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !)',videoId:'0WYVeNGl5S0'},
-      {num:111,title:'GTA 5 RP À ZÉRO ! #9 - (Ma femme découvre ma maîtresse… ÇA FINIT EN BAGARRE !)',videoId:'L8dfFu5biLY', youtubeLink:true},
+      {num:111,title:'#9 VERSION LIVE: GTA 5 RP À ZÉRO ! #9 - (Ma femme découvre ma maîtresse… ÇA FINIT EN BAGARRE !)',videoId:'l0OuW8zgz5k'},
+      {num:112,title:'#9 VERSION VIDEO: GTA 5 RP À ZÉRO ! #9 - (Ma femme découvre ma maîtresse… ÇA FINIT EN BAGARRE !)',videoId:'L8dfFu5biLY'},
+      {num:113,title:'#10 FORMAT LIVE : GTA 5 RP À ZÉRO ! #10 - (Le plus grand spectacle de Jake Winters !)',videoId:'8OJuJ7gxPk0'},
+      {num:114,title:'#10 VERSION VIDEO: GTA 5 RP À ZÉRO ! #10 - (Le plus grand spectacle de Jake Winters !)',videoId:'0nqDhV3x0ik'},
+      {num:115,title:'GTA 5 RP À ZÉRO ! #11 - (j’ai fait quelque chose de grave cette nuit…)',videoId:'RpYdiuQzKb0', youtubeLink:true},
+      
       // youtubeLink:true
 
      ],
@@ -2350,16 +2403,16 @@ const DATA = {
     }
   },
   social:[
-    { id:'youtube',  name:'YouTube Principal',  url:'https://www.youtube.com/@iProMx',             icon:'fab fa-youtube',    color:'#ff0000', bg:'rgba(255,0,0,0.08)',       border:'rgba(255,0,0,0.25)',       cta:'Voir la chaîne',       ctaIcon:'fab fa-youtube'      },
-    { id:'youtube2', name:'YouTube Secondaire', url:'https://www.youtube.com/@iProMx_ytb',         icon:'fab fa-youtube',    color:'#ff4444', bg:'rgba(255,68,68,0.07)',     border:'rgba(255,68,68,0.22)',     cta:'Voir la chaîne',       ctaIcon:'fab fa-youtube'      },
-    { id:'twitch',   name:'Twitch',             url:'https://www.twitch.tv/ipromx',                icon:'fab fa-twitch',     color:'#9147ff', bg:'rgba(145,71,255,0.08)',    border:'rgba(145,71,255,0.25)',    cta:'Regarder en direct',   ctaIcon:'fas fa-play-circle'  },
+    { id:'youtube',  name:'YouTube Principal',  url:'https://www.youtube.com/@iProMx',             icon:'fab fa-youtube',    color:'#ff0000', bg:'rgba(255,0,0,0.08)',       border:'rgba(255,0,0,0.25)',       cta:'Voir la chaîne',       ctaIcon:'fab fa-youtube',   stat:'1,25 M'   },
+    { id:'youtube2', name:'YouTube Secondaire', url:'https://www.youtube.com/@iProMx_ytb',         icon:'fab fa-youtube',    color:'#ff4444', bg:'rgba(255,68,68,0.07)',     border:'rgba(255,68,68,0.22)',     cta:'Voir la chaîne',       ctaIcon:'fab fa-youtube',   stat:'129 K'    },
+    { id:'twitch',   name:'Twitch',             url:'https://www.twitch.tv/ipromx',                icon:'fab fa-twitch',     color:'#9147ff', bg:'rgba(145,71,255,0.08)',    border:'rgba(145,71,255,0.25)',    cta:'Regarder en direct',   ctaIcon:'fas fa-play-circle', stat:'278 K+' },
     { id:'discord',  name:'Discord',            url:'https://discord.gg/iProMx',                   icon:'fab fa-discord',    color:'#7289da', bg:'rgba(114,137,218,0.08)',   border:'rgba(114,137,218,0.25)',   cta:'Rejoindre le serveur', ctaIcon:'fab fa-discord'      },
     { id:'discord2',  name:'Discord PixelarWL',            url:'https://discord.gg/pixelarwl',              icon:'fab fa-discord',    color:'#5064af', bg:'rgba(98, 116, 179, 0.08)',   border:'rgba(114,137,218,0.25)',   cta:'Rejoindre le serveur', ctaIcon:'fab fa-discord'      },
     { id:'discord3',  name:'Discord MX Workshop',            url:'https://discord.com/invite/xeP9xtM3Kd',              icon:'fab fa-discord',    color:'#374886', bg:'rgba(63, 79, 139, 0.08)',   border:'rgba(65, 92, 197, 0.3)',   cta:'Rejoindre le serveur', ctaIcon:'fab fa-discord'      },
-    { id:'tiktok',   name:'TikTok',             url:'https://www.tiktok.com/@ipromx__',            icon:'fab fa-tiktok',     color:'#ff0050', bg:'rgba(255,0,80,0.08)',      border:'rgba(255,0,80,0.25)',      cta:'Voir les vidéos',      ctaIcon:'fab fa-tiktok'       },
-    { id:'tiktok2',  name:'TikTok Clips',       url:'https://www.tiktok.com/@ipromxclipofficiel',  icon:'fab fa-tiktok',     color:'#69c9d0e4', bg:'rgba(105,201,208,0.08)',   border:'rgba(105,201,208,0.25)',   cta:'Voir les clips',       ctaIcon:'fab fa-tiktok'       },
+    { id:'tiktok',   name:'TikTok',             url:'https://www.tiktok.com/@ipromx__',            icon:'fab fa-tiktok',     color:'#ff0050', bg:'rgba(255,0,80,0.08)',      border:'rgba(255,0,80,0.25)',      cta:'Voir les vidéos',      ctaIcon:'fab fa-tiktok',    stat:'37,7 K+'  },
+    { id:'tiktok2',  name:'TikTok Clips',       url:'https://www.tiktok.com/@ipromxclipofficiel',  icon:'fab fa-tiktok',     color:'#69c9d0e4', bg:'rgba(105,201,208,0.08)',   border:'rgba(105,201,208,0.25)',   cta:'Voir les clips',       ctaIcon:'fab fa-tiktok',    stat:'8 640+'   },
     { id:'x',        name:'X (Twitter)',         url:'https://x.com/@iProMxYt',                    icon:'fab fa-x-twitter',  color:'#e7e7e77d', bg:'rgba(255,255,255,0.05)',   border:'rgba(255,255,255,0.15)',   cta:'Suivre',               ctaIcon:'fab fa-x'    },
-     { id:'insta',        name:'Instagram',         url:'https://www.instagram.com/ipromx_officiel/',                    icon:'fab fa-instagram',  color:'#ee22817d', bg:'rgba(108, 44, 90, 0.05)',   border:'rgba(148, 12, 132, 0.15)',   cta:'Suivre',               ctaIcon:'fab fa-instagram'    },
+     { id:'insta',        name:'Instagram',         url:'https://www.instagram.com/ipromx_officiel/',                    icon:'fab fa-instagram',  color:'#ee22817d', bg:'rgba(108, 44, 90, 0.05)',   border:'rgba(148, 12, 132, 0.15)',   cta:'Suivre',               ctaIcon:'fab fa-instagram',  stat:'34,8 K+' },
     { id:'boutique', name:'Boutique',            url:'https://ipromx.store/',                      icon:'fas fa-store',      color:'#f5a623', bg:'rgba(245,166,35,0.08)',    border:'rgba(245,166,35,0.25)',    cta:'Visiter la boutique',  ctaIcon:'fas fa-shopping-bag' },
     { id:'tebex',    name:'Tebex',               url:'https://ipromx.tebex.io/',                   icon:'fas fa-gamepad',    color:'#00b4d8', bg:'rgba(0,180,216,0.08)',     border:'rgba(0,180,216,0.25)',     cta:'Accéder au Tebex',     ctaIcon:'fas fa-gamepad'      },
     { id:'tierlistflash',    name:'Tier-List Flash',               url:'https://share.google/fI16WAB9w7dv5cFn7',                   icon:'fas fa-list-ol',    color:'#00d80e', bg:'rgba(0, 216, 18, 0.08)',     border:'rgba(0, 216, 148, 0.25)',     cta:'Accéder à la Tier-list Flash',     ctaIcon:'fas fa-list-ol'      },
@@ -2375,12 +2428,12 @@ const DATA = {
       {
         active: true,
         label: 'NOUVEL ÉPISODE',
-        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #9 - (Ma femme découvre ma maîtresse… ÇA FINIT EN BAGARRE !)',
+        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #11 - (j’ai fait quelque chose de grave cette nuit…)',
         link: {
           familyId: 'winters',
           charId:   'jake-winters',
           season:   'Saison 4',
-          epNum:    111
+          epNum:    115
         },
         
       },
@@ -2391,12 +2444,12 @@ const DATA = {
     update: {
       // Bannière affichée sous "NOUVEL ÉPISODE" — "RAPPEL DE NOUVEAUTÉS"
       active: true,
-      label: 'RAPPEL DE NOUVEAUTÉS',
+      label: 'RAPPEL D\'ANCIENNES NOUVEAUTÉS',
       texts: [
-        '✔ Avatars disponibles ! (avatar → paramètres → ✏️)',
-        '✔ Galerie disponible : retrouvez les meilleures images des personnages !',
-        '✔ 10 thèmes disponibles ! (avatar → paramètres → couleur)',
-        '⌛ Nouvelle IA "ZY" disponible : Ses connaissances sont encore limitées à la Famille FLASH pour l\'instant ',
+        '✔ Fiches Personnages (Flash & Shade) : Directement séparées en 3 onglets : STREAMING 🎞️, LORE 📖 et GÉNÉALOGIE 🌳.',
+        '✔ Exploration : Suivi de progression par chapitre sur le Lore + Arbres généalogiques dispos.',
+        '✔ Nouveaux Contenus : Galerie d\'images des personnages + catégorie "Créateur de l\'Univers".',
+        '✔ Bonus : Choix de l\'avatar (avatar → paramètres → ✏️) + arrivée de l\'IA "ZY" (focus Famille FLASH). ',
       ]
       // Possibilité d'ajouter : externalUrl: 'https://...', externalLabel: 'Voir'
     }
@@ -2409,22 +2462,28 @@ const DATA = {
   // elle sert uniquement en interne à savoir si le visiteur a déjà vu cette mise
   // à jour (comparaison avec le localStorage du navigateur). Changez cette valeur
   // pour que le modal réapparaisse pour tout le monde.
-  updateModal: {
-    active: true,
-    version: '1.15.2',
-    label: 'DERNIÈRE MISE À JOUR',
-    texts: [
-      '✔ Catégorie "Lore" (Version écrite de l\'Histoire) disponible dans les fiches personnages des Flash et Shade (AVANT → Uniquement STREAMING 🎞️, MAINTENANT → onglets STREAMING 🎞️ / LORE 📖 / GENEALOGIE 🌳).',
-      '✔ Nouveau système de Progression de Lecture par Chapitre sur les Pages Lore.',
-      '✔ Arbres Généalogiques Flash & Shade disponibles.',
-      '✔ Nouvelle catégorie "Créateur de l`\Univers" disponible',
-    ]
-  },
+ updateModal: {
+  active: true,
+  version: '1.16.0',
+  label: 'DERNIÈRE MISE À JOUR',
+  texts: [
+    '✔ Design : Thème "🔵 Bleu avec Violet", thèmes perso et nav ajustable.',
+    '✔ Mode Invité : Paramètres et avatars aléatoires accessibles.',
+    '✔ Contenus : Section Mappings + refonte visuelle "Réseaux" et "Créateur".',
+    '✔ IA ZY : Mode vocal (bêta) et interactions dynamiques.',
+    '⌛ Audio (Lore) : En cours d\'implantation (dispo : David, John et Ken FLASH).'
+  ]
+},
 
   // ── CINÉMATIQUES ─────────────────────────────────────────────
   // Ajouter ici tes cinématiques MP4 locales ou YouTube
   cinematics: [
     // Format : { id, title, desc, image (thumbnail), videoId (YouTube) }
+    {
+      title: "Teaser – Le nouveau numéro de Jake Winters ! | GTA 5 RP",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/jakeeldiablo.webp",
+      videoId: "oTq4yL_oXPE"
+    },
     {
       title: "JAKE WINTERS : LA DERNIÈRE MISSION ! (Teaser)",
       image: "https://ik.imagekit.io/ipromx/images/letigrebl/jakemissionfinale.png",
@@ -2447,7 +2506,7 @@ const DATA = {
     },
     {
       title: "TOM ESCOBAR CONTACTE JAKE WINTERS ! | CINÉMATIQUE",
-      image: "https://ik.imagekit.io/ipromx/images/letigrebl/tomadulteciné.png",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/tomjake.jpg",
       videoId: "tYJZLe8fNYs"
     },
     {
@@ -2757,6 +2816,192 @@ const DATA = {
     }
     // Ajoute d'autres cinématiques ici :
     // { id:'mon-id', title:'Titre', desc:'Description', image:'https://ik.imagekit.io/ipromx/images/...', videoId:'YOUTUBE_ID' }
+  ],
+
+  // ── MAPPINGS / MLO (FiveM GTAV) ──────────────────────────────
+  // Format : { id, title, desc, image (miniature), videoId (présentation YouTube),
+  //            tebexUrl (lien boutique Tebex), price (texte libre, ex: '25€') }
+  mappings: [
+    {
+      id: 'academy-of-magic',
+      title: 'GTA V MLO/MAP - Academy of Magic - [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/gybHrN_3N0c/hqdefault.jpg",
+      videoId: "gybHrN_3N0c",
+      tebexUrl: "https://ipromx.tebex.io/category/magic-mapmlo",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'sombrazar-prison',
+      title: 'GTA V MLO/MAP - Sombrazar Prison - [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/p-ImKBfWODc/hqdefault.jpg",
+      videoId: "p-ImKBfWODc",
+      tebexUrl: "https://ipromx.tebex.io/package/7414888",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'fantastic-school',
+      title: 'GTA V MLO - Fantastic School - [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/kiNRxdWH6R4/hqdefault.jpg",
+      videoId: "kiNRxdWH6R4",
+      tebexUrl: "https://ipromx.tebex.io/package/7314858",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'dragzone-island',
+      title: 'GTA V MAP/MLO - DragZone Island !',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/HGerny_fDa8/hqdefault.jpg",
+      videoId: "HGerny_fDa8",
+      tebexUrl: "https://ipromx.tebex.io/package/6783734",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'majestic-studio-the-vinewood-dream',
+      title: 'GTA V MLO - Majestic Studio : The Vinewood Dream',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/xSJw8rz0u2o/hqdefault.jpg",
+      videoId: "xSJw8rz0u2o",
+      tebexUrl: "https://ipromx.tebex.io/package/6508554",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'school-academy',
+      title: 'GTA V MLO - School Academy - [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/TlurxMN9hHE/hqdefault.jpg",
+      videoId: "TlurxMN9hHE",
+      tebexUrl: "https://ipromx.tebex.io/package/6023384",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'upside-down-the-portals-of-death',
+      title: 'GTA V MLO - Upside Down : The portals of death - [Halloween]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/jrXuFhXcwbU/hqdefault.jpg",
+      videoId: "jrXuFhXcwbU",
+      tebexUrl: "https://ipromx.tebex.io/package/6483642",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'secret-underground-hacking-area',
+      title: 'GTA V MLO - Secret Underground Hacking Area - [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/oX2Hv6Q65Po/hqdefault.jpg",
+      videoId: "oX2Hv6Q65Po",
+      tebexUrl: "https://ipromx.tebex.io/package/5551418",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'cyber-garage',
+      title: 'GTA V MLO CYBER GARAGE',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/HQk5Ut0CJJE/hqdefault.jpg",
+      videoId: "HQk5Ut0CJJE",
+      tebexUrl: "https://ipromx.tebex.io/package/5327973",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'cyber-garage-update-paleto',
+      title: 'GTA V MLO CYBER GARAGE UPDATE IN PALETO 1.0.1 !',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/9srJ7Dnv7bU/hqdefault.jpg",
+      videoId: "9srJ7Dnv7bU",
+      tebexUrl: "https://ipromx.tebex.io/package/5327973",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'luxury-cinema',
+      title: 'GTA V MLO LUXURY CINEMA [FIVE M]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/jt_LSqTakgA/hqdefault.jpg",
+      videoId: "jt_LSqTakgA",
+      tebexUrl: "https://ipromx.tebex.io/package/5069075",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'adrians-grave',
+      title: 'GTA V MLO ADRIAN\'S GRAVE - Halloween special [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/L5w3XwNWPPQ/hqdefault.jpg",
+      videoId: "L5w3XwNWPPQ",
+      tebexUrl: "https://ipromx.tebex.io/package/5342866",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'scientists-secret-cave',
+      title: 'GTA V MLO - The Scientist\'s Secret Cave - [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/_B0FSsMqh00/hqdefault.jpg",
+      videoId: "_B0FSsMqh00",
+      tebexUrl: "https://ipromx.tebex.io/package/5376995",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'retro-motorcycle-dealer',
+      title: 'GTA V MLO - Rétro Motorcycle Dealer - [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/wo6MmpDroSI/hqdefault.jpg",
+      videoId: "wo6MmpDroSI",
+      tebexUrl: "https://ipromx.tebex.io/package/5414032",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'johnnys-diner',
+      title: 'GTA V MLO - Johnny\'s Diner - [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/OtTnlJ8XoSs/hqdefault.jpg",
+      videoId: "OtTnlJ8XoSs",
+      tebexUrl: "https://ipromx.tebex.io/package/5713336",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'squid-game',
+      title: 'GTA V MAP SQUID GAME [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/zz1b7eb0c7U/hqdefault.jpg",
+      videoId: "zz1b7eb0c7U",
+      tebexUrl: "https://ipromx.tebex.io/package/5343904",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'illegal-hostel',
+      title: 'GTA V MLO ILLEGAL HOSTEL [FIVE M]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/qy40zEOsc_M/hqdefault.jpg",
+      videoId: "qy40zEOsc_M",
+      tebexUrl: "https://ipromx.tebex.io/package/5129704",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'the-maze-no-way-out',
+      title: 'GTA V MAP/MLO - The Maze : No Way Out - [Halloween]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/Rx5YlwaR7gM/hqdefault.jpg",
+      videoId: "Rx5YlwaR7gM",
+      tebexUrl: "https://ipromx.tebex.io/package/7064913",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'academy-of-magic-v2',
+      title: 'GTA V MLO/MAP - Academy of Magic V2 - [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/VbuXGlnUwtY/hqdefault.jpg",
+      videoId: "VbuXGlnUwtY",
+      tebexUrl: "https://ipromx.tebex.io/category/magic-mapmlo",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'academy-of-magic-v2-forbidden-kingdom',
+      title: 'GTA V MAP - Academy of Magic V2 - The Forbidden Kingdom !',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/w6gPQ8zHvE8/hqdefault.jpg",
+      videoId: "w6gPQ8zHvE8",
+      tebexUrl: "https://ipromx.tebex.io/category/magic-mapmlo",
+      price: "Voir sur Tebex"
+    }
   ]
 };
 

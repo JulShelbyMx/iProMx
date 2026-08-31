@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>iPROMX — Épisode</title>
   <meta name="description" content="Regarder cet épisode sur l'univers iPROMX.">
+  <meta property="og:type" content="video.episode">
+  <meta property="og:site_name" content="L'Univers d'iProMx">
+  <meta property="og:title" content="iPROMX — Épisode" id="ogTitle">
+  <meta property="og:description" content="Regarder cet épisode sur l'univers iPROMX." id="ogDesc">
+  <meta property="og:image" content="https://ik.imagekit.io/ipromx/images/logoblanc.webp" id="ogImage">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="/styles.css?v=72">
-  <link rel="stylesheet" href="/player.css?v=72">
+  <link rel="stylesheet" href="/styles.css?v=75">
+  <link rel="stylesheet" href="/player.css?v=75">
   <style>
     body { background: var(--void); color: var(--text); margin: 0; overflow-x: hidden; }
     .ep-back-btn {
@@ -75,9 +81,10 @@
 <!-- Apply theme immediately before render -->
 <script>
 (()=>{
-  const t=localStorage.getItem('ipx_theme')||'iron';
-  const T={'iron':{'--arc':'#f5a623','--iron':'#c0392b','--iron-bright':'#e74c3c','--void':'#060504','--panel':'#111009','--panel2':'#171410','--panel3':'#1e1a0c','--arc-dim':'rgba(245,166,35,0.12)','--arc-glow':'rgba(245,166,35,0.45)','--iron-glow':'rgba(231,76,60,0.45)','--edge':'rgba(245,166,35,0.22)','--edge2':'rgba(245,166,35,0.08)','--text':'#f0e8d8'},'midnight':{'--arc':'#7c8cff','--iron':'#4f46e5','--iron-bright':'#6366f1','--void':'#04040a','--panel':'#0a0a14','--panel2':'#111122','--panel3':'#181830','--arc-dim':'rgba(124,140,255,0.12)','--arc-glow':'rgba(124,140,255,0.45)','--iron-glow':'rgba(99,102,241,0.45)','--edge':'rgba(124,140,255,0.22)','--edge2':'rgba(124,140,255,0.08)','--text':'#e8eaf8'},'crimson':{'--arc':'#ff6b6b','--iron':'#c0392b','--iron-bright':'#e74c3c','--void':'#080404','--panel':'#130808','--panel2':'#1a0a0a','--panel3':'#200c0c','--arc-dim':'rgba(255,107,107,0.12)','--arc-glow':'rgba(255,107,107,0.45)','--iron-glow':'rgba(231,76,60,0.45)','--edge':'rgba(255,107,107,0.22)','--edge2':'rgba(255,107,107,0.08)','--text':'#f8e8e8'},'forest':{'--arc':'#4ade80','--iron':'#16a34a','--iron-bright':'#22c55e','--void':'#030806','--panel':'#081209','--panel2':'#0d180e','--panel3':'#111e12','--arc-dim':'rgba(74,222,128,0.12)','--arc-glow':'rgba(74,222,128,0.45)','--iron-glow':'rgba(34,197,94,0.45)','--edge':'rgba(74,222,128,0.22)','--edge2':'rgba(74,222,128,0.08)','--text':'#e8f8ec'},'ocean':{'--arc':'#38bdf8','--iron':'#0369a1','--iron-bright':'#0ea5e9','--void':'#020a10','--panel':'#071220','--panel2':'#0c1a2e','--panel3':'#10223a','--arc-dim':'rgba(56,189,248,0.12)','--arc-glow':'rgba(56,189,248,0.45)','--iron-glow':'rgba(14,165,233,0.45)','--edge':'rgba(56,189,248,0.22)','--edge2':'rgba(56,189,248,0.08)','--text':'#e0f4ff'},'ember':{'--arc':'#fb923c','--iron':'#9a3412','--iron-bright':'#ea580c','--void':'#080402','--panel':'#180a04','--panel2':'#220e06','--panel3':'#2c1208','--arc-dim':'rgba(251,146,60,0.12)','--arc-glow':'rgba(251,146,60,0.45)','--iron-glow':'rgba(234,88,12,0.45)','--edge':'rgba(251,146,60,0.22)','--edge2':'rgba(251,146,60,0.08)','--text':'#fff1e6'},'neon':{'--arc':'#e879f9','--iron':'#a21caf','--iron-bright':'#d946ef','--void':'#060108','--panel':'#100614','--panel2':'#180a1e','--panel3':'#200d28','--arc-dim':'rgba(232,121,249,0.12)','--arc-glow':'rgba(232,121,249,0.45)','--iron-glow':'rgba(217,70,239,0.45)','--edge':'rgba(232,121,249,0.22)','--edge2':'rgba(232,121,249,0.08)','--text':'#fce7ff'},'gold':{'--arc':'#fbbf24','--iron':'#92400e','--iron-bright':'#d97706','--void':'#060400','--panel':'#130e00','--panel2':'#1c1500','--panel3':'#261d00','--arc-dim':'rgba(251,191,36,0.12)','--arc-glow':'rgba(251,191,36,0.45)','--iron-glow':'rgba(217,119,6,0.45)','--edge':'rgba(251,191,36,0.22)','--edge2':'rgba(251,191,36,0.08)','--text':'#fffbeb'},'ice':{'--arc':'#a5f3fc','--iron':'#164e63','--iron-bright':'#06b6d4','--void':'#020608','--panel':'#060e12','--panel2':'#0a161c','--panel3':'#0e1e26','--arc-dim':'rgba(165,243,252,0.12)','--arc-glow':'rgba(165,243,252,0.45)','--iron-glow':'rgba(6,182,212,0.4)','--edge':'rgba(165,243,252,0.2)','--edge2':'rgba(165,243,252,0.07)','--text':'#ecfeff'},'smoke':{'--arc':'#94a3b8','--iron':'#475569','--iron-bright':'#64748b','--void':'#050507','--panel':'#0e0e12','--panel2':'#141418','--panel3':'#1a1a1e','--arc-dim':'rgba(148,163,184,0.12)','--arc-glow':'rgba(148,163,184,0.35)','--iron-glow':'rgba(100,116,139,0.4)','--edge':'rgba(148,163,184,0.18)','--edge2':'rgba(148,163,184,0.07)','--text':'#e2e8f0'}};
-  const theme=T[t]||T.iron;
+  const t=localStorage.getItem('ipx_theme')||'blue_violet';
+  const T={'blue_violet':{'--arc':'#4fc3ff','--arc-rgb':'79,195,255','--iron':'#7c3aed','--iron-rgb':'124,58,237','--iron-bright':'#8b5cf6','--void':'#040b0e','--panel':'#071218','--panel2':'#0b1921','--panel3':'#0f2029','--arc-dim':'rgba(79,195,255,0.12)','--arc-glow':'rgba(79,195,255,0.45)','--iron-glow':'rgba(139,92,246,0.45)','--edge':'rgba(79,195,255,0.22)','--edge2':'rgba(79,195,255,0.08)','--text':'#eef4fb'},'ipromx':{'--arc':'#f5a623','--arc-rgb':'245,166,35','--iron':'#c0392b','--iron-rgb':'192,57,43','--iron-bright':'#e74c3c','--void':'#060504','--panel':'#111009','--panel2':'#171410','--panel3':'#1e1a0c','--arc-dim':'rgba(245,166,35,0.12)','--arc-glow':'rgba(245,166,35,0.45)','--iron-glow':'rgba(231,76,60,0.45)','--edge':'rgba(245,166,35,0.22)','--edge2':'rgba(245,166,35,0.08)','--text':'#f0e8d8'},'indigo_magenta':{'--arc':'#818cf8','--arc-rgb':'129,140,248','--iron':'#c026d3','--iron-rgb':'192,38,211','--iron-bright':'#d946ef','--void':'#04050e','--panel':'#080917','--panel2':'#0c0e1f','--panel3':'#111327','--arc-dim':'rgba(129,140,248,0.12)','--arc-glow':'rgba(129,140,248,0.45)','--iron-glow':'rgba(217,70,239,0.45)','--edge':'rgba(129,140,248,0.22)','--edge2':'rgba(129,140,248,0.08)','--text':'#eef4fb'},'red_violet':{'--arc':'#f87171','--arc-rgb':'248,113,113','--iron':'#7c3aed','--iron-rgb':'124,58,237','--iron-bright':'#9333ea','--void':'#0e0404','--panel':'#170808','--panel2':'#1f0c0c','--panel3':'#271111','--arc-dim':'rgba(248,113,113,0.12)','--arc-glow':'rgba(248,113,113,0.45)','--iron-glow':'rgba(147,51,234,0.45)','--edge':'rgba(248,113,113,0.22)','--edge2':'rgba(248,113,113,0.08)','--text':'#eef4fb'},'green_orange':{'--arc':'#4ade80','--arc-rgb':'74,222,128','--iron':'#ea580c','--iron-rgb':'234,88,12','--iron-bright':'#fb923c','--void':'#050d08','--panel':'#09150e','--panel2':'#0e1d14','--panel3':'#13251a','--arc-dim':'rgba(74,222,128,0.12)','--arc-glow':'rgba(74,222,128,0.45)','--iron-glow':'rgba(251,146,60,0.45)','--edge':'rgba(74,222,128,0.22)','--edge2':'rgba(74,222,128,0.08)','--text':'#eef4fb'},'orange_yellow':{'--arc':'#fb923c','--arc-rgb':'251,146,60','--iron':'#ca8a04','--iron-rgb':'202,138,4','--iron-bright':'#eab308','--void':'#0e0804','--panel':'#170e07','--panel2':'#20150b','--panel3':'#281b10','--arc-dim':'rgba(251,146,60,0.12)','--arc-glow':'rgba(251,146,60,0.45)','--iron-glow':'rgba(234,179,8,0.45)','--edge':'rgba(251,146,60,0.22)','--edge2':'rgba(251,146,60,0.08)','--text':'#eef4fb'},'pink_violet':{'--arc':'#f472b6','--arc-rgb':'244,114,182','--iron':'#7c3aed','--iron-rgb':'124,58,237','--iron-bright':'#9333ea','--void':'#0e0409','--panel':'#160810','--panel2':'#1f0c16','--panel3':'#27111d','--arc-dim':'rgba(244,114,182,0.12)','--arc-glow':'rgba(244,114,182,0.45)','--iron-glow':'rgba(147,51,234,0.45)','--edge':'rgba(244,114,182,0.22)','--edge2':'rgba(244,114,182,0.08)','--text':'#eef4fb'},'cyan_indigo':{'--arc':'#22d3ee','--arc-rgb':'34,211,238','--iron':'#4f46e5','--iron-rgb':'79,70,229','--iron-bright':'#6366f1','--void':'#040c0e','--panel':'#081517','--panel2':'#0c1d1f','--panel3':'#112427','--arc-dim':'rgba(34,211,238,0.12)','--arc-glow':'rgba(34,211,238,0.45)','--iron-glow':'rgba(99,102,241,0.45)','--edge':'rgba(34,211,238,0.22)','--edge2':'rgba(34,211,238,0.08)','--text':'#eef4fb'},'gray_blue':{'--arc':'#94a3b8','--arc-rgb':'148,163,184','--iron':'#2563eb','--iron-rgb':'37,99,235','--iron-bright':'#3b82f6','--void':'#08090a','--panel':'#0e0f11','--panel2':'#131518','--panel3':'#191c1f','--arc-dim':'rgba(148,163,184,0.12)','--arc-glow':'rgba(148,163,184,0.45)','--iron-glow':'rgba(59,130,246,0.45)','--edge':'rgba(148,163,184,0.22)','--edge2':'rgba(148,163,184,0.08)','--text':'#eef4fb'}};
+  let theme=T[t]||T.blue_violet;
+  if (t==='custom') { try { const c=JSON.parse(localStorage.getItem('ipx_custom_theme_colors')||'null'); if(c&&c.primary&&c.secondary){ theme=Object.assign({},T.blue_violet,{'--arc':c.primary,'--iron':c.secondary}); } } catch(e){} }
   Object.entries(theme).forEach(([k,v])=>document.documentElement.style.setProperty(k,v));
 })();
 // Scroll to top automatique
@@ -93,7 +100,7 @@ window.scrollTo({ top: 0, behavior: 'instant' });
       <div class="player-video-aspect">
         <div id="ytPlayerContainer" style="position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center;">
           <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
-            <div style="width:40px;height:40px;border:3px solid rgba(245,166,35,.2);border-top-color:var(--arc);border-radius:50%;animation:spin .7s linear infinite;"></div>
+            <div style="width:40px;height:40px;border:3px solid rgba(var(--arc-rgb), .2);border-top-color:var(--arc);border-radius:50%;animation:spin .7s linear infinite;"></div>
             <div style="font-family:var(--font-display);font-size:.62rem;letter-spacing:3px;color:var(--arc);">CHARGEMENT</div>
           </div>
         </div>
@@ -118,9 +125,9 @@ window.scrollTo({ top: 0, behavior: 'instant' });
       <div class="player-main">
         <!-- Breadcrumb -->
         <div class="player-breadcrumb" id="epBreadcrumb">
-          <a href="/" style="color:rgba(245,166,35,.7);text-decoration:none;display:flex;align-items:center;gap:5px;"><i class="fas fa-home"></i></a>
+          <a href="/" style="color:rgba(var(--arc-rgb), .7);text-decoration:none;display:flex;align-items:center;gap:5px;"><i class="fas fa-home"></i></a>
           <span class="sep">›</span>
-          <a href="#" id="bcChar" style="color:rgba(245,166,35,.7);text-decoration:none;transition:color .2s;"></a>
+          <a href="#" id="bcChar" style="color:rgba(var(--arc-rgb), .7);text-decoration:none;transition:color .2s;"></a>
           <span class="sep">›</span>
           <span id="bcSeason" style="color:var(--text-muted);"></span>
           <span class="sep">›</span>
@@ -180,8 +187,8 @@ window.scrollTo({ top: 0, behavior: 'instant' });
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="/data.js?v=72"></script>
-<script src="/app.js?v=72"></script>
+<script src="/data.js?v=75"></script>
+<script src="/app.js?v=75"></script>
 <script>
 'use strict';
 
@@ -246,6 +253,7 @@ function render(route){
 
   const ep=_eps[_epIdx];
   document.title=`${ep.title} — ${_char.name}`;
+  syncOG({ title: `${ep.title} — ${_char.name} | iPROMX`, desc: `Regarde cet épisode de ${_char.name} sur l'Univers iPROMX.`, image: (typeof epThumb==='function'?epThumb(ep):'') });
 
   // Back button
   const backBtn=document.getElementById('backBtn');
@@ -280,7 +288,7 @@ function render(route){
       <div class="player-char-name">${_char.name}</div>
       <div class="player-char-family">${_u.name}</div>
       <div class="player-char-desc">${_char.description||''}</div>
-      <a href="${SLUG.charURL(_fid,_cid)}" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-family:var(--font-display);font-size:.56rem;letter-spacing:2px;color:var(--arc);text-decoration:none;padding:7px 14px;border:1px solid rgba(245,166,35,.3);border-radius:var(--radius);transition:.2s;" onmouseover="this.style.background='rgba(245,166,35,.1)'" onmouseout="this.style.background=''">
+      <a href="${SLUG.charURL(_fid,_cid)}" style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-family:var(--font-display);font-size:.56rem;letter-spacing:2px;color:var(--arc);text-decoration:none;padding:7px 14px;border:1px solid rgba(var(--arc-rgb), .3);border-radius:var(--radius);transition:.2s;" onmouseover="this.style.background='rgba(var(--arc-rgb), .1)'" onmouseout="this.style.background=''">
         <i class="fas fa-list"></i> Tous les épisodes
       </a>
     </div>`;
@@ -342,6 +350,7 @@ function render(route){
   // History
   if(typeof DB!=='undefined') DB.addHistory({familyId:_fid,charId:_cid,season:_season,epNum:ep.num,epIdx:_epIdx,videoId:ep.videoId,title:ep.title});
   window._currentEpMeta={fid:_fid,cid:_cid,season:_season,epNum:ep.num};
+  window._nowPlaying = { title: `${ep.title} — ${_char.name}`, thumb: (typeof epThumb==='function'?epThumb(ep):''), videoArea: document.getElementById('playerVideoArea') };
 
   loadVideo(ep);
   setupKeyboard(prevEp,nextEp);
@@ -420,8 +429,16 @@ window.handleListToggle=handleListToggle;
 
 function shareEpisode(){
   const text=`${_eps?.[_epIdx]?.title} — ${_char?.name} | iPROMX`;
-  if(navigator.share)navigator.share({title:text,url:location.href}).catch(()=>{});
-  else navigator.clipboard?.writeText(location.href).then(()=>toast('Lien copié !','success'));
+  let url=location.href.split('#')[0].replace(/([?&])t=\d+&?/,'$1').replace(/[?&]$/,'');
+  let t=0;
+  try{ if(ytPlayer&&typeof ytPlayer.getCurrentTime==='function') t=Math.floor(ytPlayer.getCurrentTime()); }catch{}
+  if(t>3){
+    const sep=url.includes('?')?'&':'?';
+    url=`${url}${sep}t=${t}`;
+  }
+  const successMsg = t>3 ? `Lien copié ! Reprend à ${fmtTime(t)}.` : 'Lien copié !';
+  if(navigator.share)navigator.share({title:text,url}).catch(()=>{});
+  else navigator.clipboard?.writeText(url).then(()=>toast(successMsg,'success'));
 }
 window.shareEpisode=shareEpisode;
 
@@ -474,7 +491,11 @@ function _createYTPlayer(videoId){
     events:{
       onReady(e){
         e.target.playVideo();
-        if(typeof DB!=='undefined'&&window._currentEpMeta){
+        // Priorité au timestamp d'un lien partagé (?t=123), sinon reprise normale
+        const shareT = parseInt(new URLSearchParams(location.search).get('t'), 10);
+        if (shareT > 0) {
+          setTimeout(()=>{try{e.target.seekTo(shareT,true);}catch{}},800);
+        } else if(typeof DB!=='undefined'&&window._currentEpMeta){
           const m=window._currentEpMeta;
           const saved=DB.getProgress(m.fid,m.cid,m.season,m.epNum);
           if(saved?.sec>5) setTimeout(()=>{try{e.target.seekTo(saved.sec,true);}catch{}},800);
@@ -547,7 +568,9 @@ appInit(()=>{
   yt.src='https://www.youtube.com/iframe_api';
   document.head.appendChild(yt);
   render(route);
+  initMiniPip();
 });
 </script>
+  <div id="miniPip" class="mini-pip"></div>
 </body>
 </html>

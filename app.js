@@ -88,6 +88,29 @@ function initLazyBg() {
 }
 window.initLazyBg = initLazyBg;
 
+// ── Frise "Créateur de l'Univers" : révélation progressive au scroll ──
+function initCreatorTimelineReveal() {
+  const items = document.querySelectorAll('.creator-tl-item');
+  if (!items.length) return;
+  if (!('IntersectionObserver' in window)) {
+    items.forEach(el => el.classList.add('in-view'));
+    return;
+  }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+  items.forEach((el, i) => {
+    el.style.transitionDelay = `${Math.min(i * 60, 300)}ms`;
+    obs.observe(el);
+  });
+}
+window.initCreatorTimelineReveal = initCreatorTimelineReveal;
+
 
 // ── SLUG ROUTER (partagé entre character.html et episode.html) ──
 const SLUG = {
@@ -124,6 +147,11 @@ const SLUG = {
     const isLocal = ['localhost','127.0.0.1',''].includes(location.hostname) || location.protocol === 'file:';
     if (isLocal) return `/cinematic.html?idx=${idx}`;
     return `/cinematics/ep${idx}`;
+  },
+  mapURL(idx) {
+    const isLocal = ['localhost','127.0.0.1',''].includes(location.hostname) || location.protocol === 'file:';
+    if (isLocal) return `/mapping.html?idx=${idx}`;
+    return `/mappings/ep${idx}`;
   },
   parseCine(path) {
     const p = path.replace(/^\//, '').split('/').filter(Boolean);
@@ -187,7 +215,8 @@ function renderNavUser() {
 
   const initials  = user?.displayName ? user.displayName.slice(0, 2).toUpperCase()
                   : user?.username    ? user.username.slice(0, 2).toUpperCase() : 'G';
-  const avatarImg = user?.photoURL || (user?.avatarId ? PRESET_AVATARS?.find(a => a.id === user.avatarId)?.src : null);
+  const guestAvatarSrc = (isGuest && typeof getGuestAvatarSrc === 'function') ? getGuestAvatarSrc() : null;
+  const avatarImg = user?.photoURL || (user?.avatarId ? PRESET_AVATARS?.find(a => a.id === user.avatarId)?.src : null) || guestAvatarSrc;
 
   area.innerHTML = `
     <div class="user-menu" id="uMenu">
@@ -204,7 +233,7 @@ function renderNavUser() {
         </div>
         <button class="dd-item" onclick="closeDD();window.location='/'"><i class="fas fa-home"></i> Accueil</button>
         ${!isGuest ? `<button class="dd-item" onclick="closeDD();openStatsPage?.()"><i class="fas fa-chart-bar"></i> Mes stats</button>` : ''}
-        ${!isGuest ? `<button class="dd-item" onclick="closeDD();if(typeof openSettings==='function')openSettings()"><i class="fas fa-cog"></i> Paramètres</button>` : ''}
+        <button class="dd-item" onclick="closeDD();if(typeof openSettings==='function')openSettings()"><i class="fas fa-cog"></i> Paramètres</button>
         <button class="dd-item danger" onclick="${isGuest
           ? "if(typeof AUTH!=='undefined')AUTH.logout?.().then(()=>location.href='/')"
           : "if(typeof AUTH!=='undefined')AUTH.logout?.().then(()=>location.href='/')"}">
@@ -304,7 +333,7 @@ function appInit(cb) {
 
     await new Promise(res => {
       const s = document.createElement('script');
-      s.src = '/firebase-auth.js?v=72'; s.onload = res; s.onerror = res;
+      s.src = '/firebase-auth.js?v=75'; s.onload = res; s.onerror = res;
       document.body.appendChild(s);
     });
 
@@ -342,3 +371,123 @@ function appInit(cb) {
   else run();
 }
 window.appInit = appInit;
+
+// ── AIDE RACCOURCIS CLAVIER ("?") — disponible sur toutes les pages ──
+// La liste affichée s'adapte selon les fonctions disponibles sur la page
+// courante (une page lecteur n'a pas les mêmes raccourcis que l'accueil).
+function _buildShortcutsList() {
+  const rows = [];
+  if (typeof openSearch === 'function') rows.push(['/', 'Rechercher']);
+  if (typeof showHome === 'function') rows.push(['H', 'Retour à l\'accueil']);
+  if (typeof surpriseMe === 'function') rows.push(['G', 'Surprends-moi (contenu au hasard)']);
+  if (typeof navigate === 'function') { rows.push(['← →', 'Précédent / Suivant']); rows.push(['Espace', 'Lecture / Pause']); rows.push(['F', 'Plein écran']); }
+  rows.push(['Échap', 'Fermer une fenêtre ouverte']);
+  rows.push(['?', 'Afficher cette aide']);
+  return rows;
+}
+function showShortcutsModal() {
+  let modal = document.getElementById('shortcutsModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'shortcutsModal';
+    modal.style.cssText = 'position:fixed;inset:0;z-index:99997;background:rgba(2,4,8,0.85);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;';
+    modal.onclick = e => { if (e.target === modal) closeShortcutsModal(); };
+    document.body.appendChild(modal);
+  }
+  const rows = _buildShortcutsList();
+  modal.innerHTML = `
+    <div style="max-width:420px;width:100%;background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);padding:26px 24px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+        <div style="font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--text);"><i class="fas fa-keyboard" style="margin-right:8px;color:var(--arc);"></i>Raccourcis clavier</div>
+        <button onclick="closeShortcutsModal()" style="background:none;border:none;color:var(--text-muted);font-size:1.1rem;cursor:pointer;">&times;</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        ${rows.map(([key,label])=>`
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;">
+            <span style="font-family:var(--font-ui);font-size:.85rem;color:var(--text-dim);">${label}</span>
+            <kbd style="background:var(--panel2);border:1px solid var(--edge);border-radius:5px;padding:3px 9px;font-family:var(--font-display);font-size:.72rem;color:var(--arc);white-space:nowrap;">${key}</kbd>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  modal.style.display = 'flex';
+}
+function closeShortcutsModal() {
+  const modal = document.getElementById('shortcutsModal');
+  if (modal) modal.style.display = 'none';
+}
+window.showShortcutsModal = showShortcutsModal;
+window.closeShortcutsModal = closeShortcutsModal;
+
+// ── MINI-LECTEUR FLOTTANT (scroll au-delà du lecteur = rappel "Reprendre") ──
+// Ne déplace jamais l'iframe YouTube réelle (évite tout rechargement) :
+// affiche juste un rappel flottant léger avec vignette + titre, qui ramène
+// au lecteur d'un clic. La lecture continue normalement en arrière-plan.
+function initMiniPip() {
+  const pip = document.getElementById('miniPip');
+  if (!pip) return;
+  let visible = false;
+  const check = throttle(() => {
+    const np = window._nowPlaying;
+    if (!np || !np.videoArea) { if (visible) hidePip(); return; }
+    const rect = np.videoArea.getBoundingClientRect();
+    const pastPlayer = rect.bottom < 60;
+    if (pastPlayer && !visible && !document.fullscreenElement) showPip();
+    else if ((!pastPlayer || document.fullscreenElement) && visible) hidePip();
+  }, 200);
+  window.addEventListener('scroll', check, { passive: true });
+  window.addEventListener('resize', check, { passive: true });
+
+  function showPip() {
+    visible = true;
+    const np = window._nowPlaying;
+    pip.innerHTML = `
+      <div onclick="scrollToPlayer()" style="display:flex;gap:10px;padding:10px;cursor:pointer;align-items:center;">
+        <div style="width:64px;height:36px;border-radius:6px;background-image:url('${np.thumb || ''}');background-size:cover;background-position:center;background-color:var(--panel2);flex-shrink:0;"></div>
+        <div style="min-width:0;">
+          <div style="font-family:var(--font-display);font-size:.58rem;font-weight:700;color:var(--arc);letter-spacing:1px;margin-bottom:2px;">EN COURS</div>
+          <div style="font-family:var(--font-ui);font-size:.78rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${np.title || ''}</div>
+        </div>
+      </div>
+      <div class="pip-controls">
+        <button onclick="scrollToPlayer()" title="Reprendre"><i class="fas fa-arrow-up"></i></button>
+        <button onclick="hideMiniPip()" title="Fermer"><i class="fas fa-times"></i></button>
+      </div>`;
+    pip.style.display = 'flex';
+  }
+  function hidePip() { visible = false; pip.style.display = 'none'; }
+  window.hideMiniPip = hidePip;
+}
+function scrollToPlayer() {
+  const np = window._nowPlaying;
+  if (np && np.videoArea) np.videoArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+window.scrollToPlayer = scrollToPlayer;
+window.initMiniPip = initMiniPip;
+
+// ── Open Graph — synchronisation dynamique côté client ──────────
+// Utile pour la cohérence de la page (titre d'onglet, méta réellement
+// à jour) et certains contextes qui lisent le DOM en direct. À noter :
+// les robots de prévisualisation (Discord, Twitter/X, Facebook...) ne
+// lisent QUE le HTML statique et n'exécutent pas de JS — pour un aperçu
+// vraiment personnalisé par personnage/épisode sur ces plateformes, il
+// faudrait une fonction serveur (Netlify Edge Function) dédiée.
+function syncOG({ title, desc, image }) {
+  if (title) {
+    const t = document.getElementById('ogTitle'); if (t) t.setAttribute('content', title);
+  }
+  if (desc) {
+    const d = document.getElementById('ogDesc'); if (d) d.setAttribute('content', desc);
+  }
+  if (image) {
+    const i = document.getElementById('ogImage'); if (i) i.setAttribute('content', image);
+  }
+}
+window.syncOG = syncOG;
+
+document.addEventListener('keydown', e => {
+  const tag = document.activeElement?.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement?.isContentEditable) return;
+  if (e.key === '?') { e.preventDefault(); showShortcutsModal(); return; }
+  if (e.key === 'Escape') closeShortcutsModal();
+  if ((e.key === 'g' || e.key === 'G') && typeof surpriseMe === 'function') surpriseMe();
+});

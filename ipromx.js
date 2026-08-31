@@ -58,7 +58,7 @@ async function initAuth() {
   if (loader) loader.style.display = 'none';
   if (card)   card.style.display   = '';
 
-  if (loggedIn || AUTH.isGuest()) { hideAuth(); initApp(); return; }
+  if (loggedIn || AUTH.isGuest()) { hideAuth(); initApp(); if (AUTH.isGuest()) setTimeout(maybeShowFirstVisitThemeModal, 400); return; }
   // Sinon afficher la page de connexion
 }
 
@@ -101,7 +101,7 @@ function setupAuthListeners() {
     hideAuth(); initApp();
   });
   // Guest
-  $('guestBtn')?.addEventListener('click',()=>{ AUTH.enterGuest(); hideAuth(); initApp(); });
+  $('guestBtn')?.addEventListener('click',()=>{ AUTH.enterGuest(); hideAuth(); initApp(); setTimeout(maybeShowFirstVisitThemeModal, 400); });
 }
 
 function showErr(msg) { const e=document.querySelector('.auth-error'); if(e){e.textContent=msg;e.style.display='block';} }
@@ -147,13 +147,18 @@ async function submitForgotPassword() {
 
 // ── APP ───────────────────────────────────────────────────────
 function initApp() {
+  loadCustomThemeIfNeeded();
   loadSavedTheme();
+  loadSavedNavPosition();
+  loadSavedNavBrightness();
+  initGlobalKeyboardShortcuts();
   renderNavUser();
   renderNotification();
   checkUpdateModal();
   renderHero();
   renderUniverses();
   renderCinematics();
+  renderMappings();
   renderGallery();
   renderHistory();
   renderMyList();
@@ -163,10 +168,13 @@ function initApp() {
   setupSearch();
   setupHeroSwipe();
   setupKeyboardShortcuts();
+  _setupKonamiCode();
+  initZYInteractif();
   startHeroAuto();
   ROUTER.init();
   checkTwitchLive();
   setTimeout(initLazyBg, 100);
+  setTimeout(initCreatorTimelineReveal, 100);
   initScrollTopBtn();
   const redirect = sessionStorage.getItem('ipx_redirect');
   if (redirect) { sessionStorage.removeItem('ipx_redirect'); }
@@ -380,12 +388,254 @@ function updateHero(i) {
         :`<a class="btn-primary" href="${ROUTER.charURL(slide.familyId,slide.charId)}" style="text-decoration:none;"><i class="fas fa-info-circle"></i> Découvrir</a>`}
       <a class="btn-secondary" href="${ROUTER.charURL(slide.familyId,slide.charId)}" style="text-decoration:none;"><i class="fas fa-info-circle"></i> Plus d'infos</a>
       <button class="btn-icon${inList?' active':''}" onclick="toggleList('${slide.familyId}','${slide.charId}',this)"><i class="fas fa-${inList?'check':'plus'}"></i></button>
+      <button class="btn-icon" onclick="surpriseMe()" title="Surprends-moi"><i class="fas fa-dice"></i></button>
     </div>`;
   const dots=document.querySelector('.hero-indicators');
   if(dots) dots.innerHTML=HERO_SLIDES.map((_,j)=>`<div class="hero-dot${j===i?' active':''}" onclick="goHero(${j})"></div>`).join('');
 }
 function goHero(i) { updateHero(i); clearInterval(heroTimer); startHeroAuto(); }
 function startHeroAuto() { heroTimer=setInterval(()=>updateHero((heroIdx+1)%HERO_SLIDES.length),8000); }
+
+// ── MODE ALÉATOIRE — "Surprends-moi" ────────────────────────────
+// Pioche au hasard un épisode, une cinématique ou un mapping et y navigue
+// directement. Mélange pondéré : les épisodes (contenu principal) ont plus
+// de poids que les cinématiques/mappings (contenu plus ponctuel).
+function surpriseMe() {
+  const pool = [];
+  getAllChars().forEach(c => {
+    Object.entries(c.seasons || {}).forEach(([season, eps]) => {
+      eps.forEach(ep => {
+        pool.push({ type: 'episode', weight: 3, go: () => location.href = ROUTER.buildURL(c.familyId, c.id, season, ep.num) });
+      });
+    });
+  });
+  (DATA.cinematics || []).forEach((_, i) => {
+    pool.push({ type: 'cinematic', weight: 1, go: () => location.href = SLUG.cineURL(i) });
+  });
+  (DATA.mappings || []).forEach((_, i) => {
+    pool.push({ type: 'mapping', weight: 1, go: () => location.href = SLUG.mapURL(i) });
+  });
+  if (!pool.length) { toast('Rien à découvrir pour le moment.', 'warning'); return; }
+
+  const weighted = [];
+  pool.forEach(item => { for (let k = 0; k < item.weight; k++) weighted.push(item); });
+  const pick = weighted[Math.floor(Math.random() * weighted.length)];
+
+  toast('En route vers une surprise...', 'success');
+  zyReactToRapidClicks('surpriseMe');
+  zyReact('surpriseMe');
+  setTimeout(() => pick.go(), 350);
+}
+window.surpriseMe = surpriseMe;
+
+// ── EASTER EGG — Konami Code (page d'accueil uniquement) ────────
+// ↑ ↑ ↓ ↓ ← → ← → B A → confettis + réplique sarcastique de ZY.
+const KONAMI_SEQUENCE = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+let _konamiProgress = 0;
+const ZY_KONAMI_LINES = [
+  "Tiens, le Konami Code. Une suite de touches vieille de 40 ans, retrouvée avec brio... pour ne débloquer strictement rien d'utile. Mais bravo, sincèrement.",
+  "Konami Code détecté. Tu viens de prouver que tu maîtrises ton clavier. C'est une compétence. Pas franchement rentable, mais c'en est une.",
+  "Séquence reconnue. Je dois avouer un léger respect... immédiatement annulé par le constat que ça ne sert absolument à rien.",
+];
+function _setupKonamiCode() {
+  if (window._konamiListenerBound) return;
+  window._konamiListenerBound = true;
+  document.addEventListener('keydown', e => {
+    const tag = document.activeElement?.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement?.isContentEditable) return;
+    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    if (key === KONAMI_SEQUENCE[_konamiProgress]) {
+      _konamiProgress++;
+      if (_konamiProgress === KONAMI_SEQUENCE.length) {
+        _konamiProgress = 0;
+        triggerKonamiEasterEgg();
+      }
+    } else {
+      _konamiProgress = (key === KONAMI_SEQUENCE[0]) ? 1 : 0;
+    }
+  });
+}
+function triggerKonamiEasterEgg() {
+  _spawnConfetti();
+  const line = ZY_KONAMI_LINES[Math.floor(Math.random() * ZY_KONAMI_LINES.length)];
+  toastZY(line);
+}
+function _spawnConfetti() {
+  const colors = [
+    getComputedStyle(document.documentElement).getPropertyValue('--arc').trim() || '#4fc3ff',
+    getComputedStyle(document.documentElement).getPropertyValue('--iron-bright').trim() || '#8b5cf6',
+    '#ffffff',
+  ];
+  const container = document.createElement('div');
+  container.style.cssText = 'position:fixed;inset:0;z-index:99998;pointer-events:none;overflow:hidden;';
+  document.body.appendChild(container);
+  const COUNT = 70;
+  for (let i = 0; i < COUNT; i++) {
+    const p = document.createElement('div');
+    const size = 6 + Math.random() * 6;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const left = Math.random() * 100;
+    const duration = 2.2 + Math.random() * 1.4;
+    const delay = Math.random() * 0.4;
+    const rotate = Math.random() * 360;
+    p.style.cssText = `position:absolute;top:-20px;left:${left}vw;width:${size}px;height:${size*0.4}px;background:${color};
+      opacity:.9;border-radius:1px;transform:rotate(${rotate}deg);
+      animation:konamiFall ${duration}s ${delay}s cubic-bezier(.4,0,.6,1) forwards;`;
+    container.appendChild(p);
+  }
+  setTimeout(() => container.remove(), 4200);
+}
+// Petite bulle façon "ZY parle" — réutilisée aussi par le futur ZY interactif
+function toastZY(text) {
+  let bubble = $('zySpeechBubble');
+  if (!bubble) {
+    bubble = document.createElement('div');
+    bubble.id = 'zySpeechBubble';
+    bubble.className = 'zy-speech-bubble';
+    document.body.appendChild(bubble);
+  }
+  bubble.innerHTML = `
+    <div class="zy-speech-avatar"><i class="fas fa-robot"></i></div>
+    <div class="zy-speech-content">
+      <div class="zy-speech-text">${text}</div>
+    </div>
+    <button class="zy-speech-close" onclick="dismissZYBubble()"><i class="fas fa-times"></i></button>`;
+  bubble.classList.add('visible');
+  clearTimeout(_zyBubbleTimer);
+  _zyBubbleTimer = setTimeout(dismissZYBubble, 7000);
+}
+let _zyBubbleTimer = null;
+function dismissZYBubble() { $('zySpeechBubble')?.classList.remove('visible'); }
+window.dismissZYBubble = dismissZYBubble;
+window.toastZY = toastZY;
+
+// ══════════════════════════════════════════════════════════════
+// ZY INTERACTIF — compagnon ambiant réagissant aux actions
+// ══════════════════════════════════════════════════════════════
+// Principes :
+// - Jamais en mode invité (retiré entièrement, aucune trace).
+// - Activable/désactivable dans les paramètres (compte connecté).
+// - Chaque bulle porte un lien "Désactiver ZY interactif" → paramètres.
+// - Conçu pour un coût quasi nul : aucun intervalle/poll, uniquement des
+//   accroches ponctuelles sur des actions déjà existantes + un seul timer
+//   d'inactivité (réinitialisé, jamais empilé) + garde-fous probabilité
+//   et cooldown pour rester discret et ne jamais spammer.
+const ZY_INTERACTIF_KEY = 'ipx_zy_interactif_enabled';
+const ZY_REACT_COOLDOWN_MS = 55_000; // au moins 55s entre deux réactions
+const ZY_REACT_PROBABILITY = 0.35;   // ~1 chance sur 3 à chaque déclencheur "normal"
+let _zyLastReactAt = 0;
+let _zyClickCounts = {};
+
+function isZYInteractifAllowed() {
+  if (typeof AUTH === 'undefined') return false;
+  if (AUTH.isGuest && AUTH.isGuest()) return false; // jamais en invité, sans exception
+  return !!(AUTH.getCurrentUser && AUTH.getCurrentUser());
+}
+function isZYInteractifEnabled() {
+  if (!isZYInteractifAllowed()) return false;
+  const saved = localStorage.getItem(ZY_INTERACTIF_KEY);
+  return saved === null ? true : saved === '1'; // activé par défaut pour les comptes
+}
+function setZYInteractifEnabled(on) {
+  localStorage.setItem(ZY_INTERACTIF_KEY, on ? '1' : '0');
+}
+
+// Banque de répliques courtes, par contexte. Ton : sec, sarcastique, jamais
+// méchant — cohérent avec la personnalité déjà établie de ZY.
+const ZY_LINES = {
+  addToList: [
+    "Ajouté à ta liste. Je note, sans juger. Beaucoup.",
+    "Encore un ajout. Ta liste devient presque aussi longue que mes archives.",
+    "Bon choix. Ou pas. Je garde ça pour moi.",
+  ],
+  removeFromList: [
+    "Retiré. Une rupture de plus dans ta vie de spectateur.",
+    "Parti. J'espère que tu sais ce que tu fais.",
+  ],
+  themeChange: [
+    "Nouveau thème. Esthétiquement discutable, mais c'est ton écran.",
+    "Changement de couleurs détecté. Je m'adapte. Je ne juge pas. Enfin, un peu.",
+    "Un thème de plus testé. À ce rythme tu vas tous les épuiser avant moi.",
+  ],
+  surpriseMe: [
+    "Tirage aléatoire effectué. Ne me remercie pas, c'est littéralement mon seul vrai talent ici.",
+    "Un choix au hasard. Si c'est mauvais, ce n'est pas ma faute, c'est les probabilités.",
+  ],
+  rapidClicks: [
+    "Tu peux arrêter de cliquer comme ça ? Je suis rapide, pas increvable.",
+    "J'ai bien reçu tes 47 clics. Un seul aurait suffi, mais bon.",
+    "Calme-toi. Le bouton ne va nulle part, promis.",
+  ],
+  idle: [
+    "Toujours là ? Ou t'es juste parti chercher un café en laissant l'onglet ouvert.",
+    "Le silence, ça va deux minutes. Fais quelque chose, ou je vais m'ennuyer aussi.",
+  ],
+  episodeEnd: [
+    "Épisode terminé. Le suivant t'attend, si le courage suit.",
+  ],
+};
+
+function _zyDisableLinkHTML() {
+  return `<div style="margin-top:8px;"><a href="#" onclick="event.preventDefault();dismissZYBubble();openSettings();" style="font-family:var(--font-ui);font-size:.72rem;color:var(--text-muted);text-decoration:underline;">Désactiver ZY interactif</a></div>`;
+}
+
+// Point d'entrée central : à appeler depuis n'importe quelle action du site.
+// type = clé de ZY_LINES. Gère lui-même invité/désactivé/probabilité/cooldown.
+function zyReact(type) {
+  if (!isZYInteractifEnabled()) return;
+  const now = Date.now();
+  if (now - _zyLastReactAt < ZY_REACT_COOLDOWN_MS) return;
+  if (Math.random() > ZY_REACT_PROBABILITY) return;
+  const lines = ZY_LINES[type];
+  if (!lines || !lines.length) return;
+  _zyLastReactAt = now;
+  const line = lines[Math.floor(Math.random() * lines.length)];
+  toastZY(line + _zyDisableLinkHTML());
+}
+
+// Cas "énervement" : clics répétés sur une même action en peu de temps.
+// Contourne le cooldown normal (c'est justement le but : réagir à l'excès).
+function zyReactToRapidClicks(key) {
+  if (!isZYInteractifEnabled()) return;
+  const now = Date.now();
+  const entry = _zyClickCounts[key] || { count: 0, since: now };
+  if (now - entry.since > 4000) { entry.count = 0; entry.since = now; }
+  entry.count++;
+  _zyClickCounts[key] = entry;
+  if (entry.count >= 4 && now - _zyLastReactAt > 15000) {
+    _zyLastReactAt = now;
+    entry.count = 0;
+    const lines = ZY_LINES.rapidClicks;
+    toastZY(lines[Math.floor(Math.random() * lines.length)] + _zyDisableLinkHTML());
+  }
+}
+
+// Timer d'inactivité unique (jamais empilé) — coût négligeable.
+let _zyIdleTimer = null;
+function _resetZYIdleTimer() {
+  if (!isZYInteractifEnabled()) return;
+  clearTimeout(_zyIdleTimer);
+  _zyIdleTimer = setTimeout(() => {
+    if (Math.random() <= ZY_REACT_PROBABILITY) {
+      const lines = ZY_LINES.idle;
+      toastZY(lines[Math.floor(Math.random() * lines.length)] + _zyDisableLinkHTML());
+    }
+    _resetZYIdleTimer();
+  }, 4 * 60 * 1000); // 4 minutes d'inactivité
+}
+function initZYInteractif() {
+  if (!isZYInteractifAllowed()) return; // jamais construit pour les invités
+  if (window._zyInteractifListenersBound) { _resetZYIdleTimer(); return; }
+  window._zyInteractifListenersBound = true;
+  ['click', 'keydown', 'scroll'].forEach(evt =>
+    window.addEventListener(evt, throttle(_resetZYIdleTimer, 5000), { passive: true })
+  );
+  _resetZYIdleTimer();
+}
+window.zyReact = zyReact;
+window.zyReactToRapidClicks = zyReactToRapidClicks;
+window.initZYInteractif = initZYInteractif;
+
 
 // ── UNIVERSES ─────────────────────────────────────────────────
 function renderUniverses(filter='all') {
@@ -453,10 +703,12 @@ function toggleList(fid,cid,btn) {
     DB.removeFromList(fid,cid);
     if(btn){btn.innerHTML='<i class="fas fa-plus"></i>';btn.classList.remove('active');}
     toast('Retiré de votre liste.','info');
+    zyReact('removeFromList');
   } else {
     DB.addToList({familyId:fid,charId:cid,name:getChar(fid,cid)?.name});
     if(btn){btn.innerHTML='<i class="fas fa-check"></i>';btn.classList.add('active');}
     toast('Ajouté à votre liste !','success');
+    zyReact('addToList');
   }
   renderMyList();
 }
@@ -465,28 +717,12 @@ function toggleList(fid,cid,btn) {
 function renderSocial() {
   const g=$('socialGrid'); if(!g) return;
   g.innerHTML = DATA.social.map(s => `
-    <a href="${s.url}" target="_blank" style="
-      display:flex;flex-direction:column;
-      background:${s.bg};
-      border:1px solid ${s.border};
-      border-radius:var(--radius-lg);
-      overflow:hidden;
-      text-decoration:none;
-      transition:transform .2s,box-shadow .2s;
-      cursor:pointer;
-    " onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 16px 40px ${s.border}'"
-       onmouseout="this.style.transform='';this.style.boxShadow=''">
-      <div style="height:3px;background:${s.color};width:100%;"></div>
-      <div style="padding:18px 18px 16px;display:flex;flex-direction:column;gap:14px;flex:1;">
-        <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:42px;height:42px;border-radius:10px;background:${s.color};display:flex;align-items:center;justify-content:center;font-size:1.15rem;color:white;flex-shrink:0;">
-            <i class="${s.icon}"></i>
-          </div>
-          <span style="font-family:var(--font-display);font-size:.75rem;font-weight:900;letter-spacing:2px;color:var(--text);text-transform:uppercase;">${s.name}</span>
-        </div>
-        <div style="display:inline-flex;align-items:center;gap:7px;padding:7px 14px;background:${s.color};border-radius:30px;color:white;font-family:var(--font-display);font-size:.58rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;align-self:flex-start;margin-top:auto;">
-          <i class="${s.ctaIcon}" style="font-size:.78rem;"></i> ${s.cta}
-        </div>
+    <a href="${s.url}" target="_blank" class="social-card" style="--sc-color:${s.color};">
+      <div class="social-card-banner"><i class="${s.icon}"></i></div>
+      <div class="social-card-body">
+        <div class="social-card-name">${s.name}</div>
+        ${s.stat ? `<div class="social-card-stat"><i class="fas fa-user-group"></i>${s.stat} abonnés</div>` : ''}
+        <div class="social-card-cta"><i class="${s.ctaIcon||s.icon}"></i><span>${s.cta}</span></div>
       </div>
     </a>`).join('');
 }
@@ -527,10 +763,10 @@ function renderNotification() {
     }
 
     const labelColor = type === 'episode' ? 'var(--iron-bright)' : 'var(--arc)';
-    const borderColor = type === 'episode' ? 'rgba(231,76,60,0.3)' : 'rgba(245,166,35,0.25)';
+    const borderColor = type === 'episode' ? 'rgba(231,76,60,0.3)' : 'rgba(var(--arc-rgb), 0.25)';
     const bgGradient = type === 'episode' 
        ? 'linear-gradient(135deg,rgba(231,76,60,0.1),rgba(192,57,43,0.05))'
-       : 'linear-gradient(135deg,rgba(245,166,35,0.08),rgba(231,76,60,0.04))';
+       : 'linear-gradient(135deg,rgba(var(--arc-rgb), 0.08),rgba(231,76,60,0.04))';
 
     return `
       <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 20px;
@@ -1137,6 +1373,33 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape')     closeLightbox(null, true);
 });
 
+// ── RACCOURCIS CLAVIER GLOBAUX ──────────────────────────────────
+// "/" ouvre la recherche, "Échap" ferme le panneau/overlay actif.
+// N'interfère jamais avec la saisie dans un champ texte.
+function initGlobalKeyboardShortcuts() {
+  if (window._ipxShortcutsBound) return; // évite un double-attachement si initApp() est rappelé
+  window._ipxShortcutsBound = true;
+  document.addEventListener('keydown', (e) => {
+    const tag = (document.activeElement && document.activeElement.tagName || '').toLowerCase();
+    const typing = tag === 'input' || tag === 'textarea' || (document.activeElement && document.activeElement.isContentEditable);
+
+    if (e.key === '/' && !typing) {
+      e.preventDefault();
+      openSearch();
+      return;
+    }
+
+    if (e.key === 'Escape') {
+      const ia = $('iaPanel');
+      if (ia && ia.style.display === 'flex') toggleIA();
+      const lp = $('localPlayerModal');
+      if (lp && lp.classList.contains('open')) closeLocalPlayer();
+      const ap = $('avatarPickerModal');
+      if (ap && ap.style.display && ap.style.display !== 'none') closeAvatarPicker();
+    }
+  });
+}
+
 function downloadGalleryImg(dlUrl, filename) {
   const a = document.createElement('a');
   a.href = dlUrl;
@@ -1155,14 +1418,38 @@ function renderCinematics() {
   if(!items.length){ if(sec) sec.style.display='none'; return; }
   if(sec) sec.style.display='';
   track.innerHTML=items.map((c,i)=>`
-    <div class="card" onclick="playCinematic(${i})">
+    <div class="card card-cine" onclick="playCinematic(${i})">
       <div class="card-thumb" style="background-image:url('${c.image||''}')">
         <div class="card-play-icon"><i class="fas fa-film"></i></div>
-        <div class="card-badge" style="background:rgba(245,166,35,0.85);color:#000;">CINÉMATIQUE</div>
+        <div class="card-badge" style="background:var(--arc-dim);color:var(--arc);border:1px solid rgba(var(--arc-rgb),.4);">CINÉMATIQUE</div>
       </div>
       <div class="card-info"><div class="card-title">${c.title}</div><div class="card-meta">${c.desc||''}</div></div>
     </div>`).join('');
   setTimeout(()=>setupCarousel('cinematicsTrack','cinematicsPrev','cinematicsNext'),50);
+}
+
+function renderMappings() {
+  const track=$('mappingsTrack'), sec=$('secMappings');
+  if(!track) return;
+  const items=DATA.mappings||[];
+  if(!items.length){ if(sec) sec.style.display='none'; return; }
+  if(sec) sec.style.display='';
+  track.innerHTML=items.map((m,i)=>`
+    <div class="card card-cine card-mapping" onclick="playMapping(${i})">
+      <div class="card-thumb" style="background-image:url('${m.image||''}')">
+        <div class="card-play-icon"><i class="fas fa-play"></i></div>
+        <div class="card-badge" style="background:var(--arc-dim);color:var(--arc);border:1px solid rgba(var(--arc-rgb),.4);"><i class="fas fa-map-location-dot" style="margin-right:4px;"></i>MAPPING</div>
+        ${m.price ? `<div class="card-mapping-price">${m.price}</div>` : ''}
+      </div>
+      <div class="card-info"><div class="card-title">${m.title}</div><div class="card-meta">${m.desc||''}</div></div>
+    </div>`).join('');
+  setTimeout(()=>setupCarousel('mappingsTrack','mappingsPrev','mappingsNext'),50);
+}
+
+function playMapping(idx) {
+  const items=DATA.mappings||[];
+  const m=items[idx]; if(!m) return;
+  location.href = SLUG.mapURL(idx);
 }
 
 // APRÈS
@@ -1209,9 +1496,9 @@ DB.flushProgressNow(); // force le write Firestore immédiatement
     closeBtn=document.createElement('button');
     closeBtn.id='navPlayerClose';
     closeBtn.innerHTML='<i class="fas fa-times"></i><span>Fermer</span>';
-    closeBtn.style.cssText='display:inline-flex;align-items:center;gap:7px;padding:7px 16px;background:rgba(231,76,60,0.13);border:1px solid rgba(231,76,60,0.5);border-radius:6px;color:#e74c3c;font-family:var(--font-display);font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;margin-left:14px;flex-shrink:0;';
-    closeBtn.onmouseover=()=>{closeBtn.style.background='rgba(231,76,60,0.28)';};
-    closeBtn.onmouseout=()=>{closeBtn.style.background='rgba(231,76,60,0.13)';};
+    closeBtn.style.cssText='display:inline-flex;align-items:center;gap:7px;padding:7px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:6px;color:var(--text);font-family:var(--font-display);font-size:0.62rem;font-weight:700;letter-spacing:1px;text-transform:none;cursor:pointer;transition:all .2s;margin-left:14px;flex-shrink:0;';
+    closeBtn.onmouseover=()=>{closeBtn.style.background='rgba(255,255,255,.16)';};
+    closeBtn.onmouseout=()=>{closeBtn.style.background='rgba(255,255,255,.08)';};
     document.querySelector('.navbar-left')?.appendChild(closeBtn);
   }
   closeBtn.style.display='inline-flex';
@@ -1613,6 +1900,13 @@ function openSettings() {
   // Scroll to top de l'overlay
   overlay.scrollTop = 0;
 
+  // Mode invité : rendu synchrone dédié (localStorage uniquement, pas de
+  // dépendance Firebase) — corrige le chargement infini qui bloquait ici.
+  if (typeof AUTH !== 'undefined' && AUTH.isGuest && AUTH.isGuest() && !AUTH.getCurrentUser()) {
+    renderGuestSettings();
+    return;
+  }
+
   const user = AUTH.getCurrentUser();
   if (!user) {
     const sc = overlay.querySelector('#settingsContent');
@@ -1623,7 +1917,15 @@ function openSettings() {
     let n = 0;
     const t = setInterval(()=>{ n++;
       if (AUTH.getCurrentUser()) { clearInterval(t); renderSettings(); }
-      if (n > 15) clearInterval(t);
+      if (n > 15) {
+        clearInterval(t);
+        // Après 4.5s sans session détectée, ne pas laisser le spinner tourner
+        // dans le vide : informer l'utilisateur plutôt que de bloquer l'écran.
+        if (sc) sc.innerHTML = `<div style="text-align:center;padding:80px 20px;">
+          <div style="font-family:var(--font-ui);font-size:.9rem;color:var(--text-dim);margin-bottom:16px;">Impossible de charger ton profil.</div>
+          <button class="btn-small" onclick="closeSettings();location.reload();">Recharger la page</button>
+        </div>`;
+      }
     }, 300);
     return;
   }
@@ -1637,6 +1939,136 @@ function closeSettings() {
   const sp = $('settingsPage');
   if (sp) sp.style.display = 'none';
 }
+
+// Ré-affiche/masque la section "Position de la navigation" si la fenêtre
+// franchit le seuil des 1024px pendant que les paramètres sont ouverts
+// (ex: redimensionnement de la fenêtre ou rotation de tablette).
+let _navPosResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(_navPosResizeTimer);
+  _navPosResizeTimer = setTimeout(() => {
+    const ov = $('settingsOverlay');
+    if (!ov || ov.style.display === 'none') return;
+    if (typeof AUTH !== 'undefined' && AUTH.isGuest && AUTH.isGuest() && !AUTH.getCurrentUser()) {
+      renderGuestSettings();
+    } else if (typeof AUTH !== 'undefined' && AUTH.getCurrentUser && AUTH.getCurrentUser()) {
+      renderSettings();
+    }
+  }, 250);
+});
+
+// ── PARAMÈTRES — MODE INVITÉ (restreint) ───────────────────────
+function renderGuestSettings() {
+  const sc = ($('settingsOverlay') || document).querySelector('#settingsContent');
+  if (!sc) return;
+
+  const pool = getGuestAvatarPool();
+  const selectedId = getGuestAvatarSelectedId();
+  const canSelect = canSelectGuestAvatarToday();
+  const rerollMs = guestAvatarRerollRemainingMs();
+  const canReroll = rerollMs <= 0;
+  const devActive = isDevMode();
+  const themeLocked = isGuestThemeLocked();
+
+  sc.innerHTML = `
+    <div style="max-width:700px;margin:0 auto;">
+
+      <div class="settings-section">
+        <div class="settings-section-header"><i class="fas fa-user-secret"></i> Mode invité</div>
+        <div style="padding:18px 24px;">
+          <p style="font-family:var(--font-ui);font-size:.88rem;color:var(--text-dim);line-height:1.5;margin-bottom:16px;">
+            Crée un compte pour sauvegarder ta progression, ton thème et débloquer ZY sans limite.
+          </p>
+          <button class="btn-small" style="background:var(--arc-dim);border-color:var(--arc);color:var(--arc);" onclick="closeSettings();if(typeof AUTH!=='undefined')AUTH.logout?.().then(()=>location.href='/')">
+            <i class="fas fa-user-plus" style="margin-right:6px;"></i>Créer un compte
+          </button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-section-header"><i class="fas fa-image"></i> Avatar</div>
+        <div style="padding:20px 24px;">
+          <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;">
+            ${pool.map(id => {
+              const av = (typeof PRESET_AVATARS!=='undefined'?PRESET_AVATARS:[]).find(a=>a.id===id);
+              if (!av) return '';
+              const isSel = id === selectedId;
+              return `<div onclick="${canSelect ? `selectGuestAvatarUI('${id}')` : `toast('Tu as déjà changé d\\'avatar aujourd\\'hui. Reviens demain ou crée un compte.','warning')`}"
+                style="cursor:${canSelect?'pointer':'not-allowed'};position:relative;width:76px;height:76px;border-radius:50%;overflow:hidden;border:3px solid ${isSel?'var(--arc)':'var(--edge)'};${isSel?'box-shadow:0 0 14px var(--arc-glow);':''}opacity:${canSelect || isSel ?1:.5};transition:.2s;">
+                <img src="${av.src}" style="width:100%;height:100%;object-fit:cover;" loading="lazy" onerror="this.style.display='none'">
+                ${isSel ? `<div style="position:absolute;bottom:0;right:0;width:22px;height:22px;border-radius:50%;background:var(--arc);display:flex;align-items:center;justify-content:center;"><i class="fas fa-check" style="font-size:.6rem;color:#000;"></i></div>` : ''}
+              </div>`;
+            }).join('')}
+          </div>
+          <button class="btn-small" id="guestRerollBtn" ${canReroll?'':'disabled'} onclick="rerollGuestAvatarUI()"
+            style="${canReroll?'':'opacity:.5;cursor:not-allowed;'}">
+            <i class="fas fa-shuffle" style="margin-right:6px;"></i><span id="guestRerollLabel">${canReroll ? 'Autres avatars' : `Patiente ${Math.ceil(rerollMs/1000)}s`}</span>
+          </button>
+          <p style="font-family:var(--font-ui);font-size:.74rem;color:var(--text-muted);margin-top:10px;">
+            1 changement d'avatar par jour en mode invité. Crée un compte pour choisir librement.
+          </p>
+        </div>
+      </div>
+
+      ${renderThemeSectionHtml(true)}
+
+      ${renderNavPositionSectionHtml()}
+
+      <div class="settings-section">
+        <div class="settings-section-header"><i class="fas fa-code"></i> Développeur</div>
+        ${devActive ? `
+          <div class="settings-item">
+            <div class="settings-item-info"><div class="settings-item-label">Mode développeur</div><div class="settings-item-desc">Actif — thème libre et ZY sans limite</div></div>
+            <div class="settings-item-action"><button class="btn-small danger" onclick="disableDevMode();renderGuestSettings();toast('Mode développeur désactivé.','success');">Désactiver</button></div>
+          </div>
+        ` : `
+          <div style="padding:18px 24px;">
+            <p style="font-family:var(--font-ui);font-size:.82rem;color:var(--text-muted);margin-bottom:12px;">Accès restreint. Entre le mot de passe pour débloquer le thème libre et ZY sans limite.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <input id="devPasswordInput" type="password" placeholder="Mot de passe"
+                style="background:var(--void);border:1px solid var(--edge);border-radius:var(--radius);padding:9px 14px;color:var(--text);font-family:var(--font-ui);font-size:.9rem;flex:1;min-width:160px;outline:none;">
+              <button class="btn-small" onclick="submitDevPassword()">Activer</button>
+            </div>
+          </div>
+        `}
+      </div>
+
+    </div>`;
+}
+
+function selectGuestAvatarUI(id) {
+  const res = selectGuestAvatar(id);
+  if (!res.ok) { toast('Tu as déjà changé d\'avatar aujourd\'hui. Reviens demain ou crée un compte.', 'warning'); return; }
+  toast('Avatar mis à jour !', 'success');
+  renderNavUser();
+  renderGuestSettings();
+}
+
+function rerollGuestAvatarUI() {
+  const res = rerollGuestAvatarPool();
+  if (!res.ok) { toast(`Patiente encore ${Math.ceil(res.remainingMs/1000)}s.`, 'warning'); return; }
+  renderGuestSettings();
+  // Rafraîchit le compte à rebours affiché sur le bouton pendant le cooldown
+  const btn = $('guestRerollBtn');
+  if (btn) {
+    const iv = setInterval(() => {
+      const ms = guestAvatarRerollRemainingMs();
+      const label = $('guestRerollLabel');
+      if (ms <= 0) { clearInterval(iv); if (label) label.textContent = 'Autres avatars'; btn.disabled = false; btn.style.opacity=''; btn.style.cursor=''; return; }
+      if (label) label.textContent = `Patiente ${Math.ceil(ms/1000)}s`;
+    }, 1000);
+  }
+}
+
+async function submitDevPassword() {
+  const input = $('devPasswordInput');
+  const pwd = input?.value || '';
+  const res = await tryEnableDevMode(pwd);
+  if (!res.ok) { toast(res.error || 'Erreur.', 'error'); return; }
+  toast('Mode développeur activé !', 'success');
+  renderGuestSettings();
+}
+
 function renderSettings() {
   const user=AUTH.getCurrentUser(); if(!user) return;
   // Chercher le settingsContent dans l'overlay dynamique d'abord, sinon dans le DOM
@@ -1691,28 +2123,28 @@ function renderSettings() {
           <div class="settings-item-action"><button class="btn-small" onclick="closeSettings();openMyList();">Gérer</button></div>
         </div>
       </div>
+      ${renderThemeSectionHtml(false)}
+
+      ${renderNavPositionSectionHtml()}
+
       <div class="settings-section">
-        <div class="settings-section-header"><i class="fas fa-palette"></i> Thème</div>
-        <div class="settings-item" style="flex-direction:column;align-items:flex-start;gap:14px;">
-          <div class="settings-item-info"><div class="settings-item-label">Couleur de l'interface</div><div class="settings-item-desc">Choisissez l'ambiance visuelle</div></div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;width:100%;">
-            ${[
-              ['iron','⚙️ Iron Man','#f5a623'],
-              ['midnight','🌙 Midnight','#7c8cff'],
-              ['crimson','🔴 Crimson','#ff6b6b'],
-              ['forest','🌿 Forest','#4ade80'],
-              ['ocean','🌊 Ocean','#38bdf8'],
-              ['ember','🔥 Ember','#fb923c'],
-              ['neon','💜 Neon','#e879f9'],
-              ['gold','✨ Gold','#fbbf24'],
-              ['ice','❄️ Ice','#a5f3fc'],
-              ['smoke','🌫️ Smoke','#94a3b8'],
-            ].map(([id,label,col])=>{
-              const cur=(localStorage.getItem('ipx_theme')||'iron')===id;
-              return `<button class="theme-btn${cur?' active':''}" data-theme="${id}"
-                onclick="applyTheme('${id}');renderSettings();"
-                style="padding:9px 12px;border-radius:8px;border:2px solid ${col}${cur?'':';opacity:.65'};background:${cur?col+';color:#000':cur?col+';color:#000':'transparent;color:var(--text-dim)'};font-family:var(--font-display);font-size:.56rem;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;justify-content:center;">${label}</button>`;
-            }).join('')}
+        <div class="settings-section-header"><i class="fas fa-robot"></i> Intelligence Artificielle</div>
+        <div class="settings-item">
+          <div class="settings-item-info"><div class="settings-item-label">Lecture vocale de ZY</div><div class="settings-item-desc">ZY lit ses réponses à voix haute (voix française)</div></div>
+          <div class="settings-item-action">
+            <button class="btn-small" id="zyVoiceSettingsBtn" onclick="toggleZYVoiceFromSettings()"
+              style="${isZYVoiceEnabled()?'background:var(--arc-dim);border-color:var(--arc);color:var(--arc);':''}">
+              <i class="fas ${isZYVoiceEnabled()?'fa-volume-high':'fa-volume-xmark'}" style="margin-right:6px;"></i>${isZYVoiceEnabled()?'Activée':'Désactivée'}
+            </button>
+          </div>
+        </div>
+        <div class="settings-item">
+          <div class="settings-item-info"><div class="settings-item-label">ZY interactif</div><div class="settings-item-desc">ZY réagit parfois à tes actions sur le site (courtes répliques, occasionnelles)</div></div>
+          <div class="settings-item-action">
+            <button class="btn-small" id="zyInteractifSettingsBtn" onclick="toggleZYInteractifFromSettings()"
+              style="${isZYInteractifEnabled()?'background:var(--arc-dim);border-color:var(--arc);color:var(--arc);':''}">
+              <i class="fas ${isZYInteractifEnabled()?'fa-comment-dots':'fa-comment-slash'}" style="margin-right:6px;"></i>${isZYInteractifEnabled()?'Activé':'Désactivé'}
+            </button>
           </div>
         </div>
       </div>
@@ -1808,7 +2240,7 @@ function _renderAvatarGrid() {
       for(const av of famAvatars) {
         const isSelected = user?.avatarId===av.id || _selectedAvatarId===av.id;
         html += `<div onclick="selectAvatar('${av.id}',this)" data-avid="${av.id}" class="avatar-pick-item"
-          style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px;border-radius:10px;transition:background .15s;${isSelected?'background:rgba(245,166,35,0.07);':''}">
+          style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px;border-radius:10px;transition:background .15s;${isSelected?'background:rgba(var(--arc-rgb),0.1);':''}">
           <div class="avatar-pick-circle" style="width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;
             border:3px solid ${isSelected?'var(--arc)':'rgba(255,255,255,0.08)'};
             box-shadow:${isSelected?'0 0 14px var(--arc-glow)':'none'};
@@ -1824,7 +2256,7 @@ function _renderAvatarGrid() {
     for(const av of filtered) {
       const isSelected = user?.avatarId===av.id || _selectedAvatarId===av.id;
       html += `<div onclick="selectAvatar('${av.id}',this)" data-avid="${av.id}" class="avatar-pick-item"
-        style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px;border-radius:10px;transition:background .15s;${isSelected?'background:rgba(245,166,35,0.07);':''}">
+        style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px;border-radius:10px;transition:background .15s;${isSelected?'background:rgba(var(--arc-rgb),0.1);':''}">
         <div class="avatar-pick-circle" style="width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;
           border:3px solid ${isSelected?'var(--arc)':'rgba(255,255,255,0.08)'};
           box-shadow:${isSelected?'0 0 14px var(--arc-glow)':'none'};
@@ -1907,7 +2339,7 @@ function selectAvatar(avId, el) {
   // Highlight sélectionné
   const circle = el.querySelector('.avatar-pick-circle');
   if(circle) { circle.style.borderColor='var(--arc)'; circle.style.boxShadow='0 0 14px var(--arc-glow)'; }
-  el.style.background = 'rgba(245,166,35,0.07)';
+  el.style.background = 'rgba(var(--arc-rgb),0.1)';
 }
 
 async function applyAvatar() {
@@ -1928,11 +2360,54 @@ function closeAvatarPicker() {
   _selectedAvatarId=null;
 }
 // ── SEARCH ────────────────────────────────────────────────────
+const SEARCH_HISTORY_KEY = 'ipx_search_history';
+const SEARCH_HISTORY_MAX = 5;
+
+function getSearchHistory() {
+  try { const h = JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY) || '[]'); return Array.isArray(h) ? h : []; }
+  catch { return []; }
+}
+function addToSearchHistory(term) {
+  term = (term || '').trim();
+  if (term.length < 2) return;
+  let h = getSearchHistory().filter(t => t.toLowerCase() !== term.toLowerCase());
+  h.unshift(term);
+  h = h.slice(0, SEARCH_HISTORY_MAX);
+  localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(h));
+}
+function clearSearchHistory() {
+  localStorage.removeItem(SEARCH_HISTORY_KEY);
+  renderSearchHistory();
+}
+function renderSearchHistory() {
+  const res = $('searchResults'); if (!res) return;
+  const h = getSearchHistory();
+  if (!h.length) { res.innerHTML = ''; return; }
+  res.innerHTML = `
+    <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <span style="font-family:var(--font-display);font-size:.62rem;font-weight:700;letter-spacing:1.5px;color:var(--text-muted);"><i class="fas fa-clock-rotate-left" style="margin-right:6px;"></i>RECHERCHES RÉCENTES</span>
+      <button onclick="clearSearchHistory()" style="background:none;border:none;color:var(--text-muted);font-family:var(--font-ui);font-size:.72rem;cursor:pointer;text-decoration:underline;">Effacer</button>
+    </div>
+    <div style="grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;">
+      ${h.map(term => `<button onclick="applySearchSuggestion('${esc(term)}')" style="padding:7px 14px;border-radius:20px;background:var(--panel2);border:1px solid var(--edge);color:var(--text-dim);font-family:var(--font-ui);font-size:.82rem;cursor:pointer;transition:var(--transition);"
+        onmouseover="this.style.borderColor='var(--arc)';this.style.color='var(--arc)'" onmouseout="this.style.borderColor='var(--edge)';this.style.color='var(--text-dim)'">
+        <i class="fas fa-magnifying-glass" style="margin-right:6px;font-size:.7rem;opacity:.6;"></i>${term}</button>`).join('')}
+    </div>`;
+}
+function applySearchSuggestion(term) {
+  const input = $('searchInput');
+  if (!input) return;
+  input.value = term;
+  input.dispatchEvent(new Event('input'));
+}
+window.clearSearchHistory = clearSearchHistory;
+window.applySearchSuggestion = applySearchSuggestion;
+
 function setupSearch() {
   const doSearch = debounce(e => {
     const raw = e.target.value.trim();
     const res  = $('searchResults'); if (!res) return;
-    if (raw.length < 2) { res.innerHTML = ''; return; }
+    if (raw.length < 2) { renderSearchHistory(); return; }
     const q = raw.toLowerCase();
 
     // Exact name match first, then fuzzy
@@ -1952,7 +2427,7 @@ function setupSearch() {
     res.innerHTML = combined.map(c => {
       const eps = getTotalEps(c);
       const pct = getOverallProgress(c.familyId, c.id);
-      return `<div class="search-result-card" onclick="closeSearch();location.href=ROUTER.charURL('${c.familyId}','${c.id}')">
+      return `<div class="search-result-card" onclick="addToSearchHistory('${esc(raw)}');closeSearch();location.href=ROUTER.charURL('${c.familyId}','${c.id}')">
         <div class="search-result-thumb lazy-bg" data-bg="${c.image}" style="background-image:url('${c.image}');position:relative;">
           ${pct>0?`<div class="src-progress"><div class="src-progress-fill" style="width:${pct}%"></div></div>`:''}
         </div>
@@ -1970,7 +2445,7 @@ function setupSearch() {
     if (e.key === 'Escape') { closeSearch(); closeSettings(); }
   });
 }
-function openSearch() { $('searchOverlay')?.classList.add('open'); $('searchInput')?.focus(); }
+function openSearch() { $('searchOverlay')?.classList.add('open'); $('searchInput')?.focus(); renderSearchHistory(); }
 function closeSearch() { $('searchOverlay')?.classList.remove('open'); const i=$('searchInput');if(i)i.value=''; const r=$('searchResults');if(r)r.innerHTML=''; }
 
 // ── NAV ───────────────────────────────────────────────────────
@@ -2105,18 +2580,18 @@ function showPlayerPage(fid,cid,season,epIdx) {
     closeBtn.style.cssText = [
       'display:inline-flex','align-items:center','gap:7px',
       'padding:7px 16px',
-      'background:rgba(231,76,60,0.13)',
-      'border:1px solid rgba(231,76,60,0.5)',
+      'background:rgba(255,255,255,.08)',
+      'border:1px solid rgba(255,255,255,.16)',
       'border-radius:6px',
-      'color:#e74c3c',
+      'color:var(--text)',
       'font-family:var(--font-display)',
-      'font-size:0.62rem','font-weight:700','letter-spacing:2px',
-      'text-transform:uppercase','cursor:pointer',
+      'font-size:0.62rem','font-weight:700','letter-spacing:1px',
+      'text-transform:none','cursor:pointer',
       'transition:background .15s,border-color .15s',
       'margin-left:14px','flex-shrink:0'
     ].join(';');
-    closeBtn.onmouseover = () => { closeBtn.style.background='rgba(231,76,60,0.28)'; };
-    closeBtn.onmouseout  = () => { closeBtn.style.background='rgba(231,76,60,0.13)'; };
+    closeBtn.onmouseover = () => { closeBtn.style.background='rgba(255,255,255,.16)'; };
+    closeBtn.onmouseout  = () => { closeBtn.style.background='rgba(255,255,255,.08)'; };
     document.querySelector('.navbar-left')?.appendChild(closeBtn);
   }
   closeBtn.style.display = 'inline-flex';
@@ -2413,29 +2888,437 @@ function cancelAutoplay() {
 // Flush Firestore avant fermeture de l'onglet (évite la perte de données)
 
 // ── THEME SYSTEM ──────────────────────────────────────────────
+// 9 thèmes = 1 couleur principale (--arc) + 1 couleur secondaire (--iron).
+// Thème par défaut : blue_violet (Nuit Bleue). "ipromx" = ancien thème classique conservé tel quel.
+const THEME_DEFAULT = 'blue_violet';
 const THEMES = {
-  iron:    { '--arc':'#f5a623','--arc-dim':'rgba(245,166,35,0.12)','--arc-glow':'rgba(245,166,35,0.45)','--iron':'#c0392b','--iron-bright':'#e74c3c','--iron-glow':'rgba(231,76,60,0.45)','--void':'#060504','--panel':'#111009','--panel2':'#171410','--panel3':'#1e1a0c','--edge':'rgba(245,166,35,0.22)','--edge2':'rgba(245,166,35,0.08)','--text':'#f0e8d8' },
-  midnight:{ '--arc':'#7c8cff','--arc-dim':'rgba(124,140,255,0.12)','--arc-glow':'rgba(124,140,255,0.45)','--iron':'#4f46e5','--iron-bright':'#6366f1','--iron-glow':'rgba(99,102,241,0.45)','--void':'#04040a','--panel':'#0a0a14','--panel2':'#111122','--panel3':'#181830','--edge':'rgba(124,140,255,0.22)','--edge2':'rgba(124,140,255,0.08)','--text':'#e8eaf8' },
-  crimson: { '--arc':'#ff6b6b','--arc-dim':'rgba(255,107,107,0.12)','--arc-glow':'rgba(255,107,107,0.45)','--iron':'#c0392b','--iron-bright':'#e74c3c','--iron-glow':'rgba(231,76,60,0.45)','--void':'#080404','--panel':'#130808','--panel2':'#1a0a0a','--panel3':'#200c0c','--edge':'rgba(255,107,107,0.22)','--edge2':'rgba(255,107,107,0.08)','--text':'#f8e8e8' },
-  forest:  { '--arc':'#4ade80','--arc-dim':'rgba(74,222,128,0.12)','--arc-glow':'rgba(74,222,128,0.45)','--iron':'#16a34a','--iron-bright':'#22c55e','--iron-glow':'rgba(34,197,94,0.45)','--void':'#030806','--panel':'#081209','--panel2':'#0d180e','--panel3':'#111e12','--edge':'rgba(74,222,128,0.22)','--edge2':'rgba(74,222,128,0.08)','--text':'#e8f8ec' },
-  ocean:   { '--arc':'#38bdf8','--arc-dim':'rgba(56,189,248,0.12)','--arc-glow':'rgba(56,189,248,0.45)','--iron':'#0369a1','--iron-bright':'#0ea5e9','--iron-glow':'rgba(14,165,233,0.45)','--void':'#020a10','--panel':'#071220','--panel2':'#0c1a2e','--panel3':'#10223a','--edge':'rgba(56,189,248,0.22)','--edge2':'rgba(56,189,248,0.08)','--text':'#e0f4ff' },
-  ember:   { '--arc':'#fb923c','--arc-dim':'rgba(251,146,60,0.12)','--arc-glow':'rgba(251,146,60,0.45)','--iron':'#9a3412','--iron-bright':'#ea580c','--iron-glow':'rgba(234,88,12,0.45)','--void':'#080402','--panel':'#180a04','--panel2':'#220e06','--panel3':'#2c1208','--edge':'rgba(251,146,60,0.22)','--edge2':'rgba(251,146,60,0.08)','--text':'#fff1e6' },
-  neon:    { '--arc':'#e879f9','--arc-dim':'rgba(232,121,249,0.12)','--arc-glow':'rgba(232,121,249,0.45)','--iron':'#a21caf','--iron-bright':'#d946ef','--iron-glow':'rgba(217,70,239,0.45)','--void':'#060108','--panel':'#100614','--panel2':'#180a1e','--panel3':'#200d28','--edge':'rgba(232,121,249,0.22)','--edge2':'rgba(232,121,249,0.08)','--text':'#fce7ff' },
-  gold:    { '--arc':'#fbbf24','--arc-dim':'rgba(251,191,36,0.12)','--arc-glow':'rgba(251,191,36,0.45)','--iron':'#92400e','--iron-bright':'#d97706','--iron-glow':'rgba(217,119,6,0.45)','--void':'#060400','--panel':'#130e00','--panel2':'#1c1500','--panel3':'#261d00','--edge':'rgba(251,191,36,0.22)','--edge2':'rgba(251,191,36,0.08)','--text':'#fffbeb' },
-  ice:     { '--arc':'#a5f3fc','--arc-dim':'rgba(165,243,252,0.12)','--arc-glow':'rgba(165,243,252,0.45)','--iron':'#164e63','--iron-bright':'#06b6d4','--iron-glow':'rgba(6,182,212,0.4)','--void':'#020608','--panel':'#060e12','--panel2':'#0a161c','--panel3':'#0e1e26','--edge':'rgba(165,243,252,0.2)','--edge2':'rgba(165,243,252,0.07)','--text':'#ecfeff' },
-  smoke:   { '--arc':'#94a3b8','--arc-dim':'rgba(148,163,184,0.12)','--arc-glow':'rgba(148,163,184,0.35)','--iron':'#475569','--iron-bright':'#64748b','--iron-glow':'rgba(100,116,139,0.4)','--void':'#050507','--panel':'#0e0e12','--panel2':'#141418','--panel3':'#1a1a1e','--edge':'rgba(148,163,184,0.18)','--edge2':'rgba(148,163,184,0.07)','--text':'#e2e8f0' },
+  blue_violet:    { '--arc':'#4fc3ff','--arc-rgb':'79,195,255','--arc-dim':'rgba(79,195,255,0.12)','--arc-glow':'rgba(79,195,255,0.45)','--iron':'#7c3aed','--iron-rgb':'124,58,237','--iron-bright':'#8b5cf6','--iron-glow':'rgba(139,92,246,0.45)','--void':'#040b0e','--panel':'#071218','--panel2':'#0b1921','--panel3':'#0f2029','--edge':'rgba(79,195,255,0.22)','--edge2':'rgba(79,195,255,0.08)','--text':'#eef4fb' },
+  ipromx:         { '--arc':'#f5a623','--arc-rgb':'245,166,35','--arc-dim':'rgba(245,166,35,0.12)','--arc-glow':'rgba(245,166,35,0.45)','--iron':'#c0392b','--iron-rgb':'192,57,43','--iron-bright':'#e74c3c','--iron-glow':'rgba(231,76,60,0.45)','--void':'#060504','--panel':'#111009','--panel2':'#171410','--panel3':'#1e1a0c','--edge':'rgba(245,166,35,0.22)','--edge2':'rgba(245,166,35,0.08)','--text':'#f0e8d8' },
+  indigo_magenta: { '--arc':'#818cf8','--arc-rgb':'129,140,248','--arc-dim':'rgba(129,140,248,0.12)','--arc-glow':'rgba(129,140,248,0.45)','--iron':'#c026d3','--iron-rgb':'192,38,211','--iron-bright':'#d946ef','--iron-glow':'rgba(217,70,239,0.45)','--void':'#04050e','--panel':'#080917','--panel2':'#0c0e1f','--panel3':'#111327','--edge':'rgba(129,140,248,0.22)','--edge2':'rgba(129,140,248,0.08)','--text':'#eef4fb' },
+  red_violet:     { '--arc':'#f87171','--arc-rgb':'248,113,113','--arc-dim':'rgba(248,113,113,0.12)','--arc-glow':'rgba(248,113,113,0.45)','--iron':'#7c3aed','--iron-rgb':'124,58,237','--iron-bright':'#9333ea','--iron-glow':'rgba(147,51,234,0.45)','--void':'#0e0404','--panel':'#170808','--panel2':'#1f0c0c','--panel3':'#271111','--edge':'rgba(248,113,113,0.22)','--edge2':'rgba(248,113,113,0.08)','--text':'#eef4fb' },
+  green_orange:   { '--arc':'#4ade80','--arc-rgb':'74,222,128','--arc-dim':'rgba(74,222,128,0.12)','--arc-glow':'rgba(74,222,128,0.45)','--iron':'#ea580c','--iron-rgb':'234,88,12','--iron-bright':'#fb923c','--iron-glow':'rgba(251,146,60,0.45)','--void':'#050d08','--panel':'#09150e','--panel2':'#0e1d14','--panel3':'#13251a','--edge':'rgba(74,222,128,0.22)','--edge2':'rgba(74,222,128,0.08)','--text':'#eef4fb' },
+  orange_yellow:  { '--arc':'#fb923c','--arc-rgb':'251,146,60','--arc-dim':'rgba(251,146,60,0.12)','--arc-glow':'rgba(251,146,60,0.45)','--iron':'#ca8a04','--iron-rgb':'202,138,4','--iron-bright':'#eab308','--iron-glow':'rgba(234,179,8,0.45)','--void':'#0e0804','--panel':'#170e07','--panel2':'#20150b','--panel3':'#281b10','--edge':'rgba(251,146,60,0.22)','--edge2':'rgba(251,146,60,0.08)','--text':'#eef4fb' },
+  pink_violet:    { '--arc':'#f472b6','--arc-rgb':'244,114,182','--arc-dim':'rgba(244,114,182,0.12)','--arc-glow':'rgba(244,114,182,0.45)','--iron':'#7c3aed','--iron-rgb':'124,58,237','--iron-bright':'#9333ea','--iron-glow':'rgba(147,51,234,0.45)','--void':'#0e0409','--panel':'#160810','--panel2':'#1f0c16','--panel3':'#27111d','--edge':'rgba(244,114,182,0.22)','--edge2':'rgba(244,114,182,0.08)','--text':'#eef4fb' },
+  cyan_indigo:    { '--arc':'#22d3ee','--arc-rgb':'34,211,238','--arc-dim':'rgba(34,211,238,0.12)','--arc-glow':'rgba(34,211,238,0.45)','--iron':'#4f46e5','--iron-rgb':'79,70,229','--iron-bright':'#6366f1','--iron-glow':'rgba(99,102,241,0.45)','--void':'#040c0e','--panel':'#081517','--panel2':'#0c1d1f','--panel3':'#112427','--edge':'rgba(34,211,238,0.22)','--edge2':'rgba(34,211,238,0.08)','--text':'#eef4fb' },
+  gray_blue:      { '--arc':'#94a3b8','--arc-rgb':'148,163,184','--arc-dim':'rgba(148,163,184,0.12)','--arc-glow':'rgba(148,163,184,0.45)','--iron':'#2563eb','--iron-rgb':'37,99,235','--iron-bright':'#3b82f6','--iron-glow':'rgba(59,130,246,0.45)','--void':'#08090a','--panel':'#0e0f11','--panel2':'#131518','--panel3':'#191c1f','--edge':'rgba(148,163,184,0.22)','--edge2':'rgba(148,163,184,0.08)','--text':'#eef4fb' },
 };
 
-function applyTheme(name) {
-  const theme = THEMES[name] || THEMES.iron;
+// Métadonnées d'affichage (ordre + libellés) utilisées par les settings
+const THEME_META = [
+  ['blue_violet',    '🔵 Bleu avec Violet'],
+  ['ipromx',         '🧡 Jaune avec Rouge'],
+  ['indigo_magenta', '🌙 Indigo avec Magenta'],
+  ['red_violet',     '🔴 Rouge avec Violet'],
+  ['green_orange',   '🌿 Vert avec Orange'],
+  ['orange_yellow',  '🔥 Orange avec Jaune'],
+  ['pink_violet',    '💜 Rose avec Violet'],
+  ['cyan_indigo',    '❄️ Cyan avec Indigo'],
+  ['gray_blue',      '🌫️ Gris avec Bleu'],
+];
+
+function applyTheme(name, opts) {
+  opts = opts || {};
+  const theme = THEMES[name] || THEMES[THEME_DEFAULT];
+  const resolvedName = THEMES[name] ? name : THEME_DEFAULT;
   const root  = document.documentElement;
   Object.entries(theme).forEach(([k, v]) => root.style.setProperty(k, v));
-  localStorage.setItem('ipx_theme', name);
-  document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === name));
+  if (!opts.skipSave) localStorage.setItem('ipx_theme', resolvedName);
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === resolvedName));
+  return resolvedName;
 }
 
 function loadSavedTheme() {
-  applyTheme(localStorage.getItem('ipx_theme') || 'iron');
+  applyTheme(localStorage.getItem('ipx_theme') || THEME_DEFAULT);
+}
+
+// ── MODE DÉVELOPPEUR ───────────────────────────────────────────
+// Débloque : thème libre en mode invité (plus de restriction "1 seule fois")
+// + ZY sans limite de messages/jour pour les invités.
+// Le mot de passe n'est JAMAIS stocké côté client : il est vérifié par une
+// fonction Netlify qui lit la variable d'environnement DEV_MODE_PASSWORD.
+const DEV_MODE_KEY = 'ipx_dev_mode';
+function isDevMode() { return localStorage.getItem(DEV_MODE_KEY) === '1'; }
+function disableDevMode() { localStorage.removeItem(DEV_MODE_KEY); }
+async function tryEnableDevMode(password) {
+  if (!password || !password.trim()) return { ok:false, error:'Mot de passe requis.' };
+  try {
+    const res = await fetch('/.netlify/functions/verify-dev-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: password.trim() })
+    });
+    if (!res.ok) return { ok:false, error:'Serveur indisponible. Réessaie plus tard.' };
+    const data = await res.json();
+    if (data.ok) { localStorage.setItem(DEV_MODE_KEY, '1'); return { ok:true }; }
+    return { ok:false, error:'Mot de passe incorrect.' };
+  } catch {
+    return { ok:false, error:'Erreur réseau. Réessaie.' };
+  }
+}
+
+// ── MODE INVITÉ — AVATAR (3 aléatoires, reroll 60s, 1 sélection/jour) ──
+const GUEST_AVATAR_POOL_KEY    = 'ipx_guest_avatar_pool';
+const GUEST_AVATAR_SELECT_KEY  = 'ipx_guest_avatar_selected';
+const GUEST_AVATAR_SELDAY_KEY  = 'ipx_guest_avatar_select_day';
+const GUEST_AVATAR_REROLL_KEY  = 'ipx_guest_avatar_reroll_until';
+const GUEST_REROLL_COOLDOWN_MS = 60 * 1000;
+
+function _guestRandomAvatarIds(n, excludeIds) {
+  excludeIds = excludeIds || [];
+  const pool = (typeof PRESET_AVATARS !== 'undefined' ? PRESET_AVATARS : []).filter(a => !excludeIds.includes(a.id));
+  const shuffled = pool.slice().sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, n).map(a => a.id);
+}
+function getGuestAvatarPool() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(GUEST_AVATAR_POOL_KEY) || 'null');
+    if (Array.isArray(saved) && saved.length === 3) return saved;
+  } catch {}
+  const fresh = _guestRandomAvatarIds(3, []);
+  localStorage.setItem(GUEST_AVATAR_POOL_KEY, JSON.stringify(fresh));
+  return fresh;
+}
+function guestAvatarRerollRemainingMs() {
+  const until = Number(localStorage.getItem(GUEST_AVATAR_REROLL_KEY) || 0);
+  return Math.max(0, until - Date.now());
+}
+function rerollGuestAvatarPool() {
+  if (guestAvatarRerollRemainingMs() > 0) return { ok:false, remainingMs: guestAvatarRerollRemainingMs() };
+  const fresh = _guestRandomAvatarIds(3, getGuestAvatarPool());
+  localStorage.setItem(GUEST_AVATAR_POOL_KEY, JSON.stringify(fresh));
+  localStorage.setItem(GUEST_AVATAR_REROLL_KEY, String(Date.now() + GUEST_REROLL_COOLDOWN_MS));
+  return { ok:true, pool: fresh };
+}
+function canSelectGuestAvatarToday() {
+  if (isDevMode()) return true;
+  return localStorage.getItem(GUEST_AVATAR_SELDAY_KEY) !== new Date().toDateString();
+}
+function selectGuestAvatar(avId) {
+  if (!canSelectGuestAvatarToday()) return { ok:false };
+  localStorage.setItem(GUEST_AVATAR_SELECT_KEY, avId);
+  localStorage.setItem(GUEST_AVATAR_SELDAY_KEY, new Date().toDateString());
+  return { ok:true };
+}
+function getGuestAvatarSelectedId() { return localStorage.getItem(GUEST_AVATAR_SELECT_KEY) || null; }
+function getGuestAvatarSrc() {
+  const id = getGuestAvatarSelectedId();
+  return id && typeof getAvatarSrc === 'function' ? getAvatarSrc(id) : null;
+}
+
+// ── MODE INVITÉ — THÈME (1 seul choix, sauf mode développeur) ─────────
+const GUEST_THEME_LOCK_KEY = 'ipx_guest_theme_locked';
+function isGuestThemeLocked() {
+  if (isDevMode()) return false;
+  return localStorage.getItem(GUEST_THEME_LOCK_KEY) === '1';
+}
+function lockGuestTheme() { localStorage.setItem(GUEST_THEME_LOCK_KEY, '1'); }
+
+function guestChooseTheme(id) {
+  if (isGuestThemeLocked()) return { ok:false };
+  applyTheme(id);
+  lockGuestTheme();
+  return { ok:true };
+}
+
+// ── MODAL PREMIÈRE VISITE (invité, aucun thème enregistré) ────────────
+function maybeShowFirstVisitThemeModal() {
+  if (typeof AUTH === 'undefined' || !AUTH.isGuest || !AUTH.isGuest()) return;
+  if (localStorage.getItem('ipx_theme')) return; // déjà un thème enregistré, rien à faire
+  showFirstVisitThemeModal();
+}
+
+function showFirstVisitThemeModal() {
+  let modal = $('firstVisitThemeModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'firstVisitThemeModal';
+    modal.style.cssText = 'position:fixed;inset:0;z-index:99995;background:rgba(2,4,8,0.92);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;padding:20px;';
+    modal.innerHTML = `
+      <div style="max-width:520px;width:100%;background:var(--panel);border:1px solid var(--edge);border-radius:var(--radius-lg);padding:32px 28px;text-align:center;">
+        <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:6px;">Couleur de l'interface</div>
+        <div style="font-family:var(--font-ui);font-size:.88rem;color:var(--text-dim);margin-bottom:22px;">Choisissez l'ambiance visuelle</div>
+        <div id="firstVisitThemeGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;"></div>
+        <div style="font-family:var(--font-ui);font-size:.72rem;color:var(--text-muted);margin-top:18px;">Ce choix est définitif en mode invité. Crée un compte pour en changer librement.</div>
+      </div>`;
+    document.body.appendChild(modal);
+  }
+  const grid = modal.querySelector('#firstVisitThemeGrid');
+  grid.innerHTML = THEME_META.map(([id,label]) => {
+    const col = THEMES[id]['--arc'];
+    return `<button onclick="guestChooseTheme('${id}');$('firstVisitThemeModal').remove();renderNavUser();"
+      style="padding:12px 10px;border-radius:8px;border:2px solid ${col};background:transparent;color:var(--text);font-family:var(--font-display);font-size:.62rem;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:.2s;"
+      onmouseover="this.style.background='${col}';this.style.color='#000'"
+      onmouseout="this.style.background='transparent';this.style.color='var(--text)'">${label}</button>`;
+  }).join('');
+  modal.style.display = 'flex';
+}
+
+// ── POSITION DE LA NAVIGATION (réglage global, invité inclus) ──────────
+// 4 positions possibles pour la navigation principale : haut (défaut,
+// comportement d'origine), gauche, droite, bas. Sauvegardé en localStorage
+// pour tout le monde, y compris les comptes connectés.
+const NAV_POS_KEY = 'ipx_nav_position';
+const NAV_POS_DEFAULT = 'top';
+const NAV_POS_VALUES = ['top', 'left', 'right', 'bottom'];
+const NAV_POS_META = [
+  ['top',    'Haut',   'fa-arrow-up'],
+  ['left',   'Gauche', 'fa-arrow-left'],
+  ['right',  'Droite', 'fa-arrow-right'],
+  ['bottom', 'Bas',    'fa-arrow-down'],
+];
+
+function getNavPosition() {
+  const v = localStorage.getItem(NAV_POS_KEY);
+  return NAV_POS_VALUES.includes(v) ? v : NAV_POS_DEFAULT;
+}
+
+function applyNavPosition(pos) {
+  if (!NAV_POS_VALUES.includes(pos)) pos = NAV_POS_DEFAULT;
+  document.body.dataset.navPos = pos;
+  localStorage.setItem(NAV_POS_KEY, pos);
+  const sideNav = $('sideNav');
+  if (sideNav) sideNav.classList.toggle('side-nav-right', pos === 'right');
+}
+
+function loadSavedNavPosition() { applyNavPosition(getNavPosition()); }
+
+// ── NAVIGATION — Luminosité ──────────────────────────────────────────
+const NAV_BRIGHTNESS_KEY = 'ipx_nav_brightness';
+const NAV_BRIGHTNESS_DEFAULT = 100;
+
+function getNavBrightness() {
+  const v = parseInt(localStorage.getItem(NAV_BRIGHTNESS_KEY), 10);
+  return (!isNaN(v) && v >= 30 && v <= 100) ? v : NAV_BRIGHTNESS_DEFAULT;
+}
+function updateNavBrightnessLive(pct) {
+  // filter:brightness() plutôt qu'un canal alpha : évite tout effet de flou
+  // parasite lié à la transparence + backdrop-filter déjà présent sur la nav.
+  document.documentElement.style.setProperty('--nav-brightness', (pct / 100).toFixed(2));
+  const el = $('navBrightVal'); if (el) el.textContent = `${pct}%`;
+}
+function applyNavBrightness(pct) {
+  pct = Math.max(30, Math.min(100, parseInt(pct, 10) || NAV_BRIGHTNESS_DEFAULT));
+  localStorage.setItem(NAV_BRIGHTNESS_KEY, String(pct));
+  updateNavBrightnessLive(pct);
+}
+function loadSavedNavBrightness() {
+  updateNavBrightnessLive(getNavBrightness());
+}
+function resetNavBrightness() {
+  applyNavBrightness(NAV_BRIGHTNESS_DEFAULT);
+  const slider = $('navBrightSlider'); if (slider) slider.value = NAV_BRIGHTNESS_DEFAULT;
+  toast('Luminosité réinitialisée.', 'success');
+}
+window.resetNavBrightness = resetNavBrightness;
+window.updateNavBrightnessLive = updateNavBrightnessLive;
+window.applyNavBrightness = applyNavBrightness;
+
+function renderNavPositionSectionHtml() {
+  // Ce réglage n'a de sens que sur grand écran (≥1024px) : seule cette
+  // largeur permet réellement de déplacer le menu à gauche/droite. Sur
+  // mobile/tablette, où ce n'est pas possible, on masque tout le bloc
+  // plutôt que de proposer un choix partiel et confus.
+  if (typeof window !== 'undefined' && window.innerWidth < 1024) return '';
+  const current = getNavPosition();
+  const brightness = getNavBrightness();
+  const order = [['left','Gauche','fa-arrow-left'], ['top','Haut','fa-arrow-up'], ['right','Droite','fa-arrow-right'], ['bottom','Bas','fa-arrow-down']];
+  return `
+      <div class="settings-section nav-card">
+        <div class="nav-card-tag"><i class="fas fa-compass"></i> Navigation</div>
+        <div class="settings-item-label" style="font-size:1rem;margin-bottom:4px;">Position du menu</div>
+        <div class="settings-item-desc" style="margin-bottom:18px;">Sur ordinateur uniquement — déplace la barre d'icônes</div>
+        <div class="nav-pos-row">
+          ${order.map(([id,label,icon])=>{
+            const cur = current === id;
+            return `<button class="nav-pos-btn2${cur?' active':''}" data-navpos="${id}"
+              onclick="applyNavPosition('${id}');renderNavPosBtnsState();toast('Navigation déplacée : ${label}.','success');">
+              <i class="fas ${icon}"></i>${label.toUpperCase()}</button>`;
+          }).join('')}
+        </div>
+        <div class="nav-slider-row">
+          <div class="nav-slider-label">
+            <span>Luminosité</span>
+            <span class="nav-slider-value-group">
+              <span id="navBrightVal">${brightness}%</span>
+              <button class="nav-reset-btn" title="Réinitialiser" onclick="resetNavBrightness()"><i class="fas fa-rotate-left"></i></button>
+            </span>
+          </div>
+          <input type="range" min="30" max="100" value="${brightness}" id="navBrightSlider" class="nav-slider"
+            oninput="updateNavBrightnessLive(this.value)" onchange="applyNavBrightness(this.value)">
+        </div>
+      </div>`;
+}
+function renderNavPosBtnsState() {
+  const current = getNavPosition();
+  document.querySelectorAll('.nav-pos-btn2').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.navpos === current);
+  });
+}
+
+function renderCustomThemeBlockHtml(isGuestMode) {
+  const colors = getCustomThemeColors();
+  const left = customThemeChangesLeftToday();
+  const isCustomActive = (localStorage.getItem('ipx_theme') || THEME_DEFAULT) === 'custom';
+  return `
+      <div class="custom-theme-block${isGuestMode ? ' disabled' : ''}">
+        <div class="custom-theme-header"><i class="fas fa-palette"></i> Thème personnalisé</div>
+        <div class="custom-theme-row">
+          <label>Couleur principale
+            <input type="color" id="customThemePrimary" value="${colors.primary}" ${isGuestMode ? 'disabled' : ''}>
+          </label>
+          <label>Couleur secondaire
+            <input type="color" id="customThemeSecondary" value="${colors.secondary}" ${isGuestMode ? 'disabled' : ''}>
+          </label>
+          <button class="btn-outline" ${isGuestMode || left <= 0 ? 'disabled' : ''} onclick="submitCustomTheme()">
+            ${isCustomActive ? 'METTRE À JOUR' : 'APPLIQUER MES COULEURS'}
+          </button>
+        </div>
+        ${!isGuestMode ? `<div class="custom-theme-hint">${left}/${CUSTOM_THEME_DAILY_LIMIT} changement(s) restant(s) aujourd'hui</div>` : ''}
+      </div>`;
+}
+
+// ── CARTE THÈME UNIFIÉE (thèmes + thème personnalisé), invité + connecté ──
+function renderThemeSectionHtml(isGuestMode) {
+  const currentTheme = localStorage.getItem('ipx_theme') || THEME_DEFAULT;
+  const themeLocked = isGuestMode && isGuestThemeLocked();
+
+  return `
+      <div class="settings-section theme-card">
+        <div class="settings-card-header">
+          <div class="settings-item-label">Couleur de l'interface</div>
+          <div class="settings-item-desc">${isGuestMode ? "Crée un compte pour changer de thème" : "Choisis l'ambiance visuelle du site"}</div>
+        </div>
+
+        ${isGuestMode ? `
+        <div class="theme-lock-banner">
+          <div><i class="fas fa-lock"></i><span>${themeLocked ? "Ton thème est verrouillé en mode invité." : "Tu peux choisir 1 seule fois en mode invité."}</span></div>
+          <button class="btn-small" onclick="closeSettings();if(typeof AUTH!=='undefined')AUTH.logout?.().then(()=>location.href='/')">Créer un compte</button>
+        </div>` : ''}
+
+        <div class="theme-grid">
+          ${THEME_META.map(([id,label]) => {
+            const col = THEMES[id]['--arc'];
+            const cur = currentTheme === id;
+            const locked = themeLocked && !cur;
+            const onclick = locked
+              ? `toast('Thème verrouillé. Crée un compte pour en changer librement.','warning')`
+              : (isGuestMode
+                  ? `guestChooseTheme('${id}');renderGuestSettings();zyReact('themeChange');`
+                  : `applyTheme('${id}');renderSettings();zyReact('themeChange');`);
+            return `<button class="theme-pill${cur ? ' active' : ''}" data-theme="${id}" style="--pill-color:${col};" ${locked ? 'disabled' : ''} onclick="${onclick}">
+              <span class="theme-pill-dot"></span>${label}</button>`;
+          }).join('')}
+        </div>
+
+        ${renderCustomThemeBlockHtml(isGuestMode)}
+      </div>`;
+}
+
+async function submitCustomTheme() {
+  const p = $('customThemePrimary')?.value, s = $('customThemeSecondary')?.value;
+  if (!p || !s) return;
+  const res = applyCustomTheme(p, s);
+  if (!res.ok) { toast(res.error, 'warning'); return; }
+  toast(`Thème personnalisé appliqué ! (${res.left}/${CUSTOM_THEME_DAILY_LIMIT} restants aujourd'hui)`, 'success');
+  renderSettings();
+}
+
+// ── THÈME PERSONNALISÉ (comptes connectés uniquement) ───────────────────
+// Couleur principale + couleur secondaire au choix, limité à 5
+// changements par jour, sauvegardé en localStorage.
+const CUSTOM_THEME_COLORS_KEY  = 'ipx_custom_theme_colors';  // { primary, secondary }
+const CUSTOM_THEME_CHANGES_KEY = 'ipx_custom_theme_changes'; // { day, count }
+const CUSTOM_THEME_DAILY_LIMIT = 5;
+
+function _hexToRgbTriplet(hex) {
+  hex = (hex || '#4fc3ff').replace('#', '');
+  if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+  const r = parseInt(hex.substr(0, 2), 16) || 0;
+  const g = parseInt(hex.substr(2, 2), 16) || 0;
+  const b = parseInt(hex.substr(4, 2), 16) || 0;
+  return [r, g, b];
+}
+function _rgbaStr(triplet, a) { return `rgba(${triplet[0]},${triplet[1]},${triplet[2]},${a})`; }
+function _shadeHex(hex, targetLightness, satMult) {
+  satMult = satMult == null ? 0.6 : satMult;
+  const [r0, g0, b0] = _hexToRgbTriplet(hex).map(v => v / 255);
+  const max = Math.max(r0, g0, b0), min = Math.min(r0, g0, b0);
+  let h = 0, s = 0; const d = max - min;
+  if (d !== 0) {
+    s = (max + min) > 1 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r0: h = ((g0 - b0) / d) + (g0 < b0 ? 6 : 0); break;
+      case g0: h = (b0 - r0) / d + 2; break;
+      default: h = (r0 - g0) / d + 4;
+    }
+    h /= 6;
+  }
+  s = Math.min(s * satMult, 1);
+  const l = targetLightness;
+  function hue2rgb(p, q, t) { if (t < 0) t += 1; if (t > 1) t -= 1; if (t < 1/6) return p + (q - p) * 6 * t; if (t < 1/2) return q; if (t < 2/3) return p + (q - p) * (2/3 - t) * 6; return p; }
+  let r2, g2, b2;
+  if (s === 0) { r2 = g2 = b2 = l; }
+  else {
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r2 = hue2rgb(p, q, h + 1/3); g2 = hue2rgb(p, q, h); b2 = hue2rgb(p, q, h - 1/3);
+  }
+  const toHex = v => Math.round(v * 255).toString(16).padStart(2, '0');
+  return `#${toHex(r2)}${toHex(g2)}${toHex(b2)}`;
+}
+function buildCustomTheme(primary, secondary) {
+  const arcT = _hexToRgbTriplet(primary), ironT = _hexToRgbTriplet(secondary);
+  return {
+    '--arc': primary,
+    '--arc-rgb': arcT.join(','),
+    '--arc-dim': _rgbaStr(arcT, 0.12),
+    '--arc-glow': _rgbaStr(arcT, 0.45),
+    '--iron': secondary,
+    '--iron-rgb': ironT.join(','),
+    '--iron-bright': _shadeHex(secondary, 0.62),
+    '--iron-glow': _rgbaStr(ironT, 0.45),
+    '--void': _shadeHex(primary, 0.035),
+    '--panel': _shadeHex(primary, 0.06),
+    '--panel2': _shadeHex(primary, 0.085),
+    '--panel3': _shadeHex(primary, 0.11),
+    '--edge': _rgbaStr(arcT, 0.22),
+    '--edge2': _rgbaStr(arcT, 0.08),
+    '--text': '#eef4fb',
+  };
+}
+function getCustomThemeColors() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(CUSTOM_THEME_COLORS_KEY) || 'null');
+    if (saved && saved.primary && saved.secondary) return saved;
+  } catch {}
+  return { primary: '#4fc3ff', secondary: '#7c3aed' };
+}
+function customThemeChangesLeftToday() {
+  try {
+    const d = JSON.parse(localStorage.getItem(CUSTOM_THEME_CHANGES_KEY) || '{}');
+    const today = new Date().toDateString();
+    const count = d.day === today ? (d.count || 0) : 0;
+    return Math.max(0, CUSTOM_THEME_DAILY_LIMIT - count);
+  } catch { return CUSTOM_THEME_DAILY_LIMIT; }
+}
+function loadCustomThemeIfNeeded() {
+  // Reconstruit THEMES.custom à partir des couleurs sauvegardées : sans ça,
+  // un rechargement de page perdrait le thème personnalisé (retour au défaut).
+  const colors = getCustomThemeColors();
+  THEMES.custom = buildCustomTheme(colors.primary, colors.secondary);
+}
+function applyCustomTheme(primary, secondary) {
+  const left = customThemeChangesLeftToday();
+  if (left <= 0) return { ok: false, error: `Limite de ${CUSTOM_THEME_DAILY_LIMIT} changements atteinte pour aujourd'hui. Réessaie demain.` };
+  THEMES.custom = buildCustomTheme(primary, secondary);
+  localStorage.setItem(CUSTOM_THEME_COLORS_KEY, JSON.stringify({ primary, secondary }));
+  const today = new Date().toDateString();
+  let d = {};
+  try { d = JSON.parse(localStorage.getItem(CUSTOM_THEME_CHANGES_KEY) || '{}'); } catch {}
+  const count = d.day === today ? (d.count || 0) + 1 : 1;
+  localStorage.setItem(CUSTOM_THEME_CHANGES_KEY, JSON.stringify({ day: today, count }));
+  applyTheme('custom');
+  return { ok: true, left: CUSTOM_THEME_DAILY_LIMIT - count };
 }
 
 // ── HERO SWIPE ────────────────────────────────────────────────
@@ -2477,7 +3360,7 @@ function fuzzyScore(str, q) {
 function hlMatch(text, q) {
   if (!q) return text;
   const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
-  return text.replace(re, '<mark style="background:rgba(245,166,35,.3);color:var(--arc);border-radius:2px;padding:0 2px;">$1</mark>');
+  return text.replace(re, '<mark style="background:rgba(var(--arc-rgb), .3);color:var(--arc);border-radius:2px;padding:0 2px;">$1</mark>');
 }
 
 // ── STATS PAGE ────────────────────────────────────────────────
@@ -2629,6 +3512,9 @@ const IA = (() => {
     // En local : pas de limite
     if (IS_LOCAL) return { ok: true };
 
+    // Mode développeur (invité) : ZY sans limite
+    if (isGuestMode && typeof isDevMode === 'function' && isDevMode()) return { ok: true };
+
     // Invité : localStorage uniquement, limite 2
     if (isGuestMode || !uid) return _checkLocalDaily('zy_daily_guest', DAILY_LIMIT_GUEST);
 
@@ -2772,9 +3658,135 @@ function toggleIA() {
   if (_iaOpen) {
     try { const a=new Audio('audios/zy-audio.mp3'); a.volume=0.6; a.play().catch(()=>{}); } catch {}
     setTimeout(() => document.getElementById('iaInput')?.focus(), 80);
+    updateZYVoiceToggleUI();
+  } else {
+    stopZYVoice();
   }
 }
 window.toggleIA = toggleIA;
+
+// ── LECTURE VOCALE ZY (Text-to-Speech) ──────────────────────────
+// Réservée aux comptes connectés (jamais en mode invité). Voix française,
+// féminine, aiguë. Utilise l'API Web Speech native (aucune dépendance).
+const ZY_VOICE_KEY = 'ipx_zy_voice_enabled';
+let _zyVoicesCache = null;
+let _zyVoicesPromise = null;
+
+function isZYVoiceAllowed() {
+  // Jamais pour les invités, même si le flag traîne en localStorage
+  if (typeof AUTH === 'undefined') return false;
+  if (AUTH.isGuest && AUTH.isGuest()) return false;
+  return !!(AUTH.getCurrentUser && AUTH.getCurrentUser());
+}
+function isZYVoiceEnabled() {
+  return isZYVoiceAllowed() && localStorage.getItem(ZY_VOICE_KEY) === '1';
+}
+function setZYVoiceEnabled(on) {
+  localStorage.setItem(ZY_VOICE_KEY, on ? '1' : '0');
+  updateZYVoiceToggleUI();
+}
+
+function getZYVoicesAsync() {
+  if (_zyVoicesCache) return Promise.resolve(_zyVoicesCache);
+  if (_zyVoicesPromise) return _zyVoicesPromise;
+  if (typeof speechSynthesis === 'undefined') return Promise.resolve([]);
+  _zyVoicesPromise = new Promise(resolve => {
+    let voices = speechSynthesis.getVoices();
+    if (voices && voices.length) { _zyVoicesCache = voices; resolve(voices); return; }
+    const onVoices = () => {
+      voices = speechSynthesis.getVoices();
+      if (voices && voices.length) {
+        _zyVoicesCache = voices;
+        speechSynthesis.removeEventListener('voiceschanged', onVoices);
+        resolve(voices);
+      }
+    };
+    speechSynthesis.addEventListener('voiceschanged', onVoices);
+    // Filet de sécurité si l'événement ne se déclenche jamais (certains navigateurs)
+    setTimeout(() => { onVoices(); resolve(speechSynthesis.getVoices() || []); }, 1200);
+  });
+  return _zyVoicesPromise;
+}
+
+// Heuristique : voix française, en priorité un nom à consonance féminine
+// couramment utilisé par les moteurs TTS (Google, Microsoft, Apple...).
+const ZY_FEMALE_VOICE_HINTS = ['amelie','audrey','celine','marie','julie','lea','manon','chloe','elise','femme','female','google français','virginie'];
+function pickZYVoice(voices) {
+  const fr = voices.filter(v => (v.lang || '').toLowerCase().startsWith('fr'));
+  if (!fr.length) return null;
+  const female = fr.find(v => ZY_FEMALE_VOICE_HINTS.some(h => v.name.toLowerCase().includes(h)));
+  return female || fr[0];
+}
+
+function speakZY(text) {
+  if (!isZYVoiceEnabled()) return;
+  if (typeof speechSynthesis === 'undefined') return;
+  const clean = text.replace(/[*_#`]/g, '').trim();
+  if (!clean) return;
+  getZYVoicesAsync().then(voices => {
+    const voice = pickZYVoice(voices);
+    speechSynthesis.cancel(); // évite le chevauchement si une lecture est déjà en cours
+    const u = new SpeechSynthesisUtterance(clean);
+    if (voice) u.voice = voice;
+    u.lang = voice ? voice.lang : 'fr-FR';
+    u.pitch = 1.75;  // voix aiguë, comme demandé
+    u.rate = 1.05;
+    u.volume = 1;
+    speechSynthesis.speak(u);
+  });
+}
+function stopZYVoice() {
+  if (typeof speechSynthesis !== 'undefined') speechSynthesis.cancel();
+}
+
+function toggleZYVoice() {
+  if (!isZYVoiceAllowed()) { toast('La lecture vocale de ZY est réservée aux comptes connectés.', 'warning'); return; }
+  const next = !isZYVoiceEnabled();
+  setZYVoiceEnabled(next);
+  if (!next) stopZYVoice();
+  toast(next ? 'Lecture vocale de ZY activée.' : 'Lecture vocale de ZY désactivée.', 'success');
+}
+
+function toggleZYVoiceFromSettings() {
+  toggleZYVoice();
+  const btn = $('zyVoiceSettingsBtn');
+  if (!btn) return;
+  const on = isZYVoiceEnabled();
+  btn.style.background = on ? 'var(--arc-dim)' : '';
+  btn.style.borderColor = on ? 'var(--arc)' : '';
+  btn.style.color = on ? 'var(--arc)' : '';
+  btn.innerHTML = `<i class="fas ${on?'fa-volume-high':'fa-volume-xmark'}" style="margin-right:6px;"></i>${on?'Activée':'Désactivée'}`;
+}
+window.toggleZYVoiceFromSettings = toggleZYVoiceFromSettings;
+
+function toggleZYInteractifFromSettings() {
+  const next = !isZYInteractifEnabled();
+  setZYInteractifEnabled(next);
+  if (next) initZYInteractif(); else clearTimeout(_zyIdleTimer);
+  const btn = $('zyInteractifSettingsBtn');
+  if (btn) {
+    btn.style.background = next ? 'var(--arc-dim)' : '';
+    btn.style.borderColor = next ? 'var(--arc)' : '';
+    btn.style.color = next ? 'var(--arc)' : '';
+    btn.innerHTML = `<i class="fas ${next?'fa-comment-dots':'fa-comment-slash'}" style="margin-right:6px;"></i>${next?'Activé':'Désactivé'}`;
+  }
+  toast(next ? 'ZY interactif activé.' : 'ZY interactif désactivé.', 'success');
+}
+window.toggleZYInteractifFromSettings = toggleZYInteractifFromSettings;
+
+function updateZYVoiceToggleUI() {
+  const btn = document.getElementById('zyVoiceToggle');
+  if (!btn) return;
+  if (!isZYVoiceAllowed()) { btn.style.display = 'none'; return; }
+  btn.style.display = 'flex';
+  const on = isZYVoiceEnabled();
+  btn.dataset.active = on ? '1' : '0';
+  btn.innerHTML = `<i class="fas ${on ? 'fa-volume-high' : 'fa-volume-xmark'}"></i>`;
+  btn.style.color = on ? 'var(--arc)' : 'var(--text-muted)';
+  btn.style.borderColor = on ? 'var(--arc)' : 'var(--edge2)';
+  btn.title = on ? 'Désactiver la lecture vocale' : 'Activer la lecture vocale';
+}
+window.toggleZYVoice = toggleZYVoice;
 
 async function sendIA() {
   const input  = document.getElementById('iaInput');
@@ -2813,6 +3825,7 @@ async function sendIA() {
     if (status) { status.textContent=result.error; status.style.display='block'; setTimeout(()=>status.style.display='none',5000); }
   } else {
     addMsg(`<div class="ia-msg ia-bot"><span>${escHtml(result.text)}</span></div>`);
+    speakZY(result.text);
     if (result.remaining != null && result.remaining <= 5 && status) {
       status.textContent = result.remaining > 0
         ? `${result.remaining} question${result.remaining>1?'s':''} restante${result.remaining>1?'s':''} aujourd\'hui`

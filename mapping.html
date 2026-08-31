@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iPROMX — Cinématique</title>
-  <meta name="description" content="Regarder cette cinématique sur l'univers iPROMX.">
-  <meta property="og:type" content="video.other">
+  <title>iPROMX — Mapping</title>
+  <meta name="description" content="Découvre ce mapping / MLO FiveM GTAV créé par iProMx et disponible à l'achat.">
+  <meta property="og:type" content="website">
   <meta property="og:site_name" content="L'Univers d'iProMx">
-  <meta property="og:title" content="iPROMX — Cinématique" id="ogTitle">
-  <meta property="og:description" content="Regarder cette cinématique sur l'univers iPROMX." id="ogDesc">
+  <meta property="og:title" content="iPROMX — Mapping" id="ogTitle">
+  <meta property="og:description" content="Découvre ce mapping / MLO FiveM GTAV créé par iProMx et disponible à l'achat." id="ogDesc">
   <meta property="og:image" content="https://ik.imagekit.io/ipromx/images/logoblanc.webp" id="ogImage">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="https://ik.imagekit.io/ipromx/images/logo.webp">
@@ -16,8 +16,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="/styles.css?v=75">
-  <link rel="stylesheet" href="/player.css?v=75">
+  <link rel="stylesheet" href="/styles.css?v=72">
+  <link rel="stylesheet" href="/player.css?v=72">
   <style>
     body { background: var(--void); color: var(--text); margin: 0; overflow-x: hidden; }
 
@@ -42,6 +42,56 @@
       font-family: var(--font-display); font-size: .5rem;
       font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
       color: var(--arc); margin-bottom: 10px;
+    }
+
+    /* Zone d'achat Tebex — mise en avant, sobre mais engageante */
+    .mapping-buy-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 22px 26px;
+      margin: 4px 0 20px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(120deg, var(--panel2), var(--panel3));
+      border: 1px solid rgba(var(--arc-rgb), .3);
+      box-shadow: 0 0 0 1px rgba(var(--arc-rgb), .06), 0 12px 40px rgba(0,0,0,.35);
+    }
+    .mapping-buy-info { min-width: 0; }
+    .mapping-buy-label {
+      font-family: var(--font-display); font-size: .58rem; font-weight: 700;
+      letter-spacing: 2px; color: var(--text-muted); margin-bottom: 6px;
+    }
+    .mapping-buy-price {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 800;
+      color: var(--arc); line-height: 1.2;
+    }
+    .mapping-buy-sub {
+      font-family: var(--font-body); font-size: .82rem; color: var(--text-dim); margin-top: 4px;
+    }
+    .mapping-buy-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px;
+      background: var(--arc);
+      color: var(--void);
+      font-family: var(--font-display); font-size: .78rem; font-weight: 800;
+      letter-spacing: 1px;
+      border-radius: 10px;
+      text-decoration: none;
+      white-space: nowrap;
+      box-shadow: 0 6px 24px rgba(var(--arc-rgb), .4);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .mapping-buy-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(var(--arc-rgb), .55);
+      filter: brightness(1.08);
+    }
+    .mapping-buy-btn i { font-size: .95rem; }
+    @media (max-width: 560px) {
+      .mapping-buy-box { flex-direction: column; align-items: stretch; text-align: center; padding: 20px; }
+      .mapping-buy-btn { justify-content: center; }
     }
 
     /* Grid de cinématiques "Dans cette collection" */
@@ -160,7 +210,7 @@ window.scrollTo({ top: 0, behavior: 'instant' });
         <div class="autoplay-banner" id="autoplayBanner">
           <div class="autoplay-info">
             <div>
-              <div class="autoplay-text">CINÉMATIQUE SUIVANTE DANS <span id="autoCD">10</span>s</div>
+              <div class="autoplay-text">MAPPING SUIVANT DANS <span id="autoCD">10</span>s</div>
               <div class="autoplay-title" id="autoTitle"></div>
             </div>
             <div class="autoplay-actions">
@@ -180,23 +230,35 @@ window.scrollTo({ top: 0, behavior: 'instant' });
         <div class="player-breadcrumb" id="cineBreadcrumb">
           <a href="/" style="color:rgba(var(--arc-rgb), .7);text-decoration:none;display:flex;align-items:center;gap:5px;"><i class="fas fa-home"></i></a>
           <span class="sep">›</span>
-          <a href="/cinematics/" style="color:rgba(var(--arc-rgb), .7);text-decoration:none;transition:color .2s;">Cinématiques</a>
+          <a href="/mappings/" style="color:rgba(var(--arc-rgb), .7);text-decoration:none;transition:color .2s;">Mappings</a>
           <span class="sep">›</span>
           <span id="bcCineTitle" style="color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px;"></span>
         </div>
 
         <!-- Info -->
         <div class="player-info-block">
-          <div class="cine-badge"><i class="fas fa-film"></i> CINÉMATIQUE</div>
+          <div class="cine-badge"><i class="fas fa-map-location-dot"></i> MAPPING FIVEM</div>
           <div class="player-ep-title" id="cineTitle"></div>
           <div class="player-ep-meta" id="cineMeta"></div>
+        </div>
+
+        <!-- Zone d'achat Tebex -->
+        <div class="mapping-buy-box">
+          <div class="mapping-buy-info">
+            <div class="mapping-buy-label">DISPONIBLE MAINTENANT</div>
+            <div class="mapping-buy-price" id="mapPrice"></div>
+            <div class="mapping-buy-sub">Achat sécurisé sur la boutique officielle iProMx</div>
+          </div>
+          <a class="mapping-buy-btn" id="mapBuyBtn" target="_blank" rel="noopener">
+            <i class="fas fa-cart-shopping"></i> Acheter sur Tebex
+          </a>
         </div>
 
         <!-- Actions (nav prev/next + share) -->
         <div class="player-actions-row">
           <div class="player-nav-eps">
-            <button class="btn-ep-nav" id="btnPrev" disabled><i class="fas fa-step-backward"></i> <span>Précédente</span></button>
-            <button class="btn-ep-nav" id="btnNext" disabled><span>Suivante</span> <i class="fas fa-step-forward"></i></button>
+            <button class="btn-ep-nav" id="btnPrev" disabled><i class="fas fa-step-backward"></i> <span>Précédent</span></button>
+            <button class="btn-ep-nav" id="btnNext" disabled><span>Suivant</span> <i class="fas fa-step-forward"></i></button>
           </div>
           <div class="player-extra-actions">
             <button class="btn-player-action" onclick="shareCinematic()" title="Partager">
@@ -215,11 +277,11 @@ window.scrollTo({ top: 0, behavior: 'instant' });
       <!-- Sidebar -->
       <div class="player-sidebar">
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Cinématique suivante</div>
+          <div class="sidebar-section-title">Mapping suivant</div>
           <div id="upnextCard"></div>
         </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Recommandées</div>
+          <div class="sidebar-section-title">Autres mappings</div>
           <div class="sidebar-suggestions" id="suggestList"></div>
         </div>
       </div>
@@ -232,8 +294,8 @@ window.scrollTo({ top: 0, behavior: 'instant' });
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-<script src="/data.js?v=75"></script>
-<script src="/app.js?v=75"></script>
+<script src="/data.js?v=72"></script>
+<script src="/app.js?v=72"></script>
 <script>
 'use strict';
 
@@ -246,21 +308,21 @@ const AUTOPLAY_SEC = 10;
 // ── URL helpers ──────────────────────────────────────────────────
 function cineURL(idx) {
   const isLocal = ['localhost','127.0.0.1',''].includes(location.hostname) || location.protocol === 'file:';
-  if (isLocal) return `/cinematic.html?idx=${idx}`;
-  return `/cinematics/ep${idx}`;
+  if (isLocal) return `/mapping.html?idx=${idx}`;
+  return `/mappings/ep${idx}`;
 }
 
 function parsePath() {
   // Query-string mode (local dev)
   const p = new URLSearchParams(location.search);
-  if (p.has('idx')) return { view: 'cinematic', idx: parseInt(p.get('idx')) || 0 };
-  // Pretty URL mode: /cinematics/ep{n}
+  if (p.has('idx')) return { view: 'mapping', idx: parseInt(p.get('idx')) || 0 };
+  // Pretty URL mode: /mappings/ep{n}
   const parts = location.pathname.replace(/^\//, '').split('/').filter(Boolean);
-  if (parts[0] === 'cinematics' && parts[1]) {
+  if (parts[0] === 'mappings' && parts[1]) {
     const n = parseInt(parts[1].replace('ep', ''));
-    if (!isNaN(n)) return { view: 'cinematic', idx: n };
+    if (!isNaN(n)) return { view: 'mapping', idx: n };
   }
-  return { view: 'cinematic', idx: 0 };
+  return { view: 'mapping', idx: 0 };
 }
 
 // ── Video loaders ────────────────────────────────────────────────
@@ -342,7 +404,7 @@ window.triggerAutoplay = triggerAutoplay;
 
 // ── Render ───────────────────────────────────────────────────────
 function render(route) {
-  _items = DATA.cinematics || [];
+  _items = DATA.mappings || [];
   _idx = route.idx;
 
   if (!_items.length || _idx < 0 || _idx >= _items.length) {
@@ -352,8 +414,8 @@ function render(route) {
   const c = _items[_idx];
   const thumb = c.image || (c.videoId ? `https://i.ytimg.com/vi/${c.videoId}/mqdefault.jpg` : 'https://ik.imagekit.io/ipromx/images/flash.jpg');
 
-  document.title = `${c.title} — Cinématiques · iPROMX`;
-  syncOG({ title: `${c.title} | iPROMX`, desc: c.desc || 'Regarder cette cinématique sur l\'univers iPROMX.', image: thumb });
+  document.title = `${c.title} — Mappings · iPROMX`;
+  syncOG({ title: `${c.title} | iPROMX`, desc: c.desc || 'Mapping/MLO FiveM GTAV créé par iProMx, disponible à l\'achat.', image: thumb });
 
   // Breadcrumb
   const bcTitle = document.getElementById('bcCineTitle');
@@ -362,7 +424,16 @@ function render(route) {
   // Info
   document.getElementById('cineTitle').textContent = c.title;
   document.getElementById('cineMeta').innerHTML =
-    `<span>Cinématique ${_idx + 1} / ${_items.length}</span><span class="dot"></span><span>FanTasTic RP · Pixelar</span>`;
+    `<span>Mapping ${_idx + 1} / ${_items.length}</span><span class="dot"></span><span>FiveM GTAV · iProMx</span>`;
+
+  // Zone d'achat Tebex
+  const priceEl = document.getElementById('mapPrice');
+  if (priceEl) priceEl.textContent = c.price || 'Voir le prix sur la boutique';
+  const buyBtn = document.getElementById('mapBuyBtn');
+  if (buyBtn) {
+    if (c.tebexUrl) { buyBtn.href = c.tebexUrl; buyBtn.style.display = ''; }
+    else { buyBtn.style.display = 'none'; }
+  }
 
   // Description
   const descEl = document.getElementById('cineDesc');
@@ -387,13 +458,13 @@ function render(route) {
       upnext.innerHTML = `<div class="upnext-card" onclick="navigate(${nextIdx})" style="cursor:pointer;">
         <div class="upnext-thumb lazy-bg" data-bg="${nt}"><div class="upnext-play-btn"><i class="fas fa-play"></i></div></div>
         <div class="upnext-info">
-          <div class="upnext-label">Cinématique suivante</div>
+          <div class="upnext-label">Mapping suivant</div>
           <div class="upnext-title">${nc.title}</div>
-          <div class="upnext-ep">N°${nextIdx + 1} · Cinématiques</div>
+          <div class="upnext-ep">N°${nextIdx + 1} · Mappings</div>
         </div>
       </div>`;
     } else {
-      upnext.innerHTML = `<div style="padding:20px;text-align:center;color:var(--text-muted);font-family:var(--font-display);font-size:.58rem;letter-spacing:2px;"><i class="fas fa-flag-checkered" style="font-size:1.5rem;display:block;margin-bottom:10px;opacity:.35;"></i>FIN DE LA COLLECTION</div>`;
+      upnext.innerHTML = `<div style="padding:20px;text-align:center;color:var(--text-muted);font-family:var(--font-display);font-size:.58rem;letter-spacing:2px;"><i class="fas fa-flag-checkered" style="font-size:1.5rem;display:block;margin-bottom:10px;opacity:.35;"></i>FIN DU CATALOGUE</div>`;
     }
   }
 
@@ -420,7 +491,7 @@ function render(route) {
   const listSec = document.getElementById('cineListSection');
   if (listSec) {
     listSec.innerHTML = `
-      <div class="sidebar-section-title" style="margin:0 0 12px;">Toutes les cinématiques</div>
+      <div class="sidebar-section-title" style="margin:0 0 12px;">Tous les mappings</div>
       <div class="cine-grid" id="cineFullGrid"></div>`;
     renderCineList();
   }
@@ -430,13 +501,9 @@ function render(route) {
   document.getElementById('autoPlayBtn').style.display = nextIdx !== null ? '' : 'none';
   window._autoTarget = nextIdx;
 
-  // Progress meta (pour DB)
-  window._currentCineMeta = { fid: 'cinematic', cid: String(_idx), season: 'cinematic', epNum: _idx };
-
-  // History
-  if (typeof DB !== 'undefined') {
-    DB.addHistory({ familyId: 'cinematic', charId: String(_idx), season: 'cinematic', epNum: _idx, title: c.title, videoId: c.videoId });
-  }
+  // Note : pas de suivi d'historique/progression pour les mappings — il
+  // s'agit de vidéos de présentation commerciales, pas de contenu narratif
+  // à "reprendre" comme dans Historique/Ma Liste.
 
   window._nowPlaying = { title: c.title, thumb, videoArea: document.getElementById('playerVideoArea') };
 
@@ -469,7 +536,7 @@ function navigate(idx) {
   if (window._ytProgressInterval) { clearInterval(window._ytProgressInterval); window._ytProgressInterval = null; }
   const url = cineURL(idx);
   history.pushState({}, ``, url);
-  render({ view: 'cinematic', idx });
+  render({ view: 'mapping', idx });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 window.navigate = navigate;
@@ -477,7 +544,7 @@ window.navigate = navigate;
 // ── Share (avec reprise au timestamp exact) ─────────────────────────
 function shareCinematic() {
   const c = _items[_idx];
-  const text = c ? `${c.title} | iPROMX` : 'Cinématique iPROMX';
+  const text = c ? `${c.title} | iPROMX` : 'Mapping iPROMX';
   let url = location.href.split('#')[0].replace(/([?&])t=\d+&?/, '$1').replace(/[?&]$/, '');
   let t = 0;
   try { if (ytPlayer && typeof ytPlayer.getCurrentTime === 'function') t = Math.floor(ytPlayer.getCurrentTime()); } catch {}
@@ -512,14 +579,14 @@ function setupKeyboard(prevIdx, nextIdx) {
 // ── History / back ────────────────────────────────────────────────
 window.addEventListener('popstate', () => {
   const route = parsePath();
-  if (route.view === 'cinematic') render(route);
+  if (route.view === 'mapping') render(route);
   else location.reload();
 });
 
 // ── Boot ──────────────────────────────────────────────────────────
 appInit(() => {
   const route = parsePath();
-  if (route.view !== 'cinematic') { location.href = '/'; return; }
+  if (route.view !== 'mapping') { location.href = '/'; return; }
   // Load YouTube IFrame API
   const yt = document.createElement('script');
   yt.src = 'https://www.youtube.com/iframe_api';

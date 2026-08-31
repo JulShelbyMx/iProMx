@@ -26,6 +26,22 @@
   to     = "/index.html"
   status = 200
 
+# Mappings — page lecteur + tunnel d'achat Tebex dédiée
+[[redirects]]
+  from   = "/mappings/ep*"
+  to     = "/mapping.html"
+  status = 200
+
+[[redirects]]
+  from   = "/mappings/"
+  to     = "/index.html"
+  status = 200
+
+[[redirects]]
+  from   = "/mappings"
+  to     = "/index.html"
+  status = 200
+
 # SPA Routing — URLs réelles pour les personnages et épisodes
 [[redirects]]
   from   = "/:fam/:char/:season/:ep"
@@ -48,8 +64,6 @@
   from   = "/*"
   to     = "/index.html"
   status = 200
-
-  # ── À AJOUTER dans netlify.toml, AVANT la règle catch-all "/*" ──
 
 # Headers
 [[headers]]
