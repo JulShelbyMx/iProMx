@@ -2823,6 +2823,15 @@ const DATA = {
   //            tebexUrl (lien boutique Tebex), price (texte libre, ex: '25€') }
   mappings: [
     {
+      id: 'mystic-hollow',
+      title: 'GTA V MLO/MAP - Mystic Hollow - FiveM !',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/11EMGRLsy-k/hqdefault.jpg",
+      videoId: "11EMGRLsy-k",
+      tebexUrl: "https://discord.com/invite/MKjkCm2XwY",
+      price: "Voir sur Tebex"
+    },
+    {
       id: 'academy-of-magic',
       title: 'GTA V MLO/MAP - Academy of Magic - [FIVEM]',
       desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
