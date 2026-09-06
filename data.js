@@ -1781,7 +1781,8 @@ const DATA = {
       {num:112,title:'#9 VERSION VIDEO: GTA 5 RP À ZÉRO ! #9 - (Ma femme découvre ma maîtresse… ÇA FINIT EN BAGARRE !)',videoId:'L8dfFu5biLY'},
       {num:113,title:'#10 FORMAT LIVE : GTA 5 RP À ZÉRO ! #10 - (Le plus grand spectacle de Jake Winters !)',videoId:'8OJuJ7gxPk0'},
       {num:114,title:'#10 VERSION VIDEO: GTA 5 RP À ZÉRO ! #10 - (Le plus grand spectacle de Jake Winters !)',videoId:'0nqDhV3x0ik'},
-      {num:115,title:'GTA 5 RP À ZÉRO ! #11 - (j’ai fait quelque chose de grave cette nuit…)',videoId:'RpYdiuQzKb0', youtubeLink:true},
+      {num:115,title:'GTA 5 RP À ZÉRO ! #11 - (j’ai fait quelque chose de grave cette nuit…)',videoId:'RpYdiuQzKb0'},
+      {num:117,title:'GTA 5 RP À ZÉRO ! #12 - (Je n’aurais jamais dû retourner à l’asile…)',videoId:'aFBsSAV8ebw', youtubeLink:true},
       
       // youtubeLink:true
 
@@ -2428,12 +2429,12 @@ const DATA = {
       {
         active: true,
         label: 'NOUVEL ÉPISODE',
-        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #11 - (j’ai fait quelque chose de grave cette nuit…)',
+        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #12 - (Je n’aurais jamais dû retourner à l’asile…)',
         link: {
           familyId: 'winters',
           charId:   'jake-winters',
           season:   'Saison 4',
-          epNum:    115
+          epNum:    117
         },
         
       },
