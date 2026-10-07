@@ -996,6 +996,8 @@ const DATA = {
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/adrian/img26.webp",
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/adrian/img27.webp",
               "https://ik.imagekit.io/ipromx/images/galeries%20persos/adrian/img28.webp",
+              "https://ik.imagekit.io/ipromx/images/galeries%20persos/adrian/img29.webp",
+              "https://ik.imagekit.io/ipromx/images/galeries%20persos/adrian/img30.webp",
 
             ],
             bgImage:"https://ik.imagekit.io/ipromx/images/galeries%20persos/adrian/bgimage.webp",
@@ -1779,10 +1781,17 @@ const DATA = {
       {num:110,title:'#8 VERSION VIDEO: GTA 5 RP À ZÉRO ! #8 - (Je découvre enfin l\'homme que je dois faire évader !)',videoId:'0WYVeNGl5S0'},
       {num:111,title:'#9 VERSION LIVE: GTA 5 RP À ZÉRO ! #9 - (Ma femme découvre ma maîtresse… ÇA FINIT EN BAGARRE !)',videoId:'l0OuW8zgz5k'},
       {num:112,title:'#9 VERSION VIDEO: GTA 5 RP À ZÉRO ! #9 - (Ma femme découvre ma maîtresse… ÇA FINIT EN BAGARRE !)',videoId:'L8dfFu5biLY'},
-      {num:113,title:'#10 FORMAT LIVE : GTA 5 RP À ZÉRO ! #10 - (Le plus grand spectacle de Jake Winters !)',videoId:'8OJuJ7gxPk0'},
+      {num:113,title:'#10 VERSION LIVE: GTA 5 RP À ZÉRO ! #10 - (Le plus grand spectacle de Jake Winters !)',videoId:'8OJuJ7gxPk0'},
       {num:114,title:'#10 VERSION VIDEO: GTA 5 RP À ZÉRO ! #10 - (Le plus grand spectacle de Jake Winters !)',videoId:'0nqDhV3x0ik'},
-      {num:115,title:'GTA 5 RP À ZÉRO ! #11 - (j’ai fait quelque chose de grave cette nuit…)',videoId:'RpYdiuQzKb0'},
-      {num:117,title:'GTA 5 RP À ZÉRO ! #12 - (Je n’aurais jamais dû retourner à l’asile…)',videoId:'aFBsSAV8ebw', youtubeLink:true},
+      {num:115,title:'#11 VERSION LIVE: GTA 5 RP À ZÉRO ! #11 - (j’ai fait quelque chose de grave cette nuit…)',videoId:'Bo-tcTEeIXw'},
+      {num:116,title:'#11 VERSION VIDEO: GTA 5 RP À ZÉRO ! #11 - (j’ai fait quelque chose de grave cette nuit…)',videoId:'RpYdiuQzKb0'},
+      {num:117,title:'#12 VERSION LIVE: GTA 5 RP À ZÉRO ! #12 - (Je n’aurais jamais dû retourner à l’asile…)',videoId:'5m1mWkGc1HU'},
+      {num:118,title:'#12 VERSION VIDEO: GTA 5 RP À ZÉRO ! #12 - (Je n’aurais jamais dû retourner à l’asile…)',videoId:'aFBsSAV8ebw'},
+      {num:119,title:'#13 VERSION LIVE: GTA 5 RP À ZÉRO ! #13 – (Comment ont-ils pu me cacher ça sur mes yeux ?)',videoId:'K2tESz0MAFs'},
+      {num:120,title:'#13 VERSION VIDEO: GTA 5 RP À ZÉRO ! #13 – (Comment ont-ils pu me cacher ça sur mes yeux ?)',videoId:'IdNsTWuaxLM'},
+      {num:121,title:'GTA 5 RP À ZÉRO ! #14 – (Je révèle mon plus grand secret à mes fils !)',videoId:'N2Q3_XbIyos'},
+      {num:122,title:'GTA 5 RP À ZÉRO ! #15 – (Je ne m’attendais PAS à ça pendant mon date…)',videoId:'Kif3aWiF6QU'},
+
       
       // youtubeLink:true
 
@@ -2256,7 +2265,7 @@ const DATA = {
         {num:15,title:'GTA 5 RP À ZÉRO ! #15 (La jalousie explose… et mon drone évolue dangereusement🔥)',videoId:'LH_65m6zJFQ'},
         {num:16,title:'GTA 5 RP À ZÉRO ! #16 (J’ai créé le système le plus CHEATÉ de FiveM)',videoId:'d25Bq_h_1FM'},
         {num:17,title:'GTA 5 RP À ZÉRO ! #17 (Je deviens le maître du jeu…)',videoId:'OgIyhA0r6Qw'},
-        {num:18,title:'GTA 5 RP À ZÉRO ! #18 (Mon île se fait attaquer !)',videoId:'HXBC67CpfIA',},
+        {num:18,title:'GTA 5 RP À ZÉRO ! #18 (Mon île se fait attaquer !)',videoId:'HXBC67CpfIA', youtubeLink:true},
         //youtubeLink:true},
     ]
 }, }
@@ -2400,6 +2409,14 @@ const DATA = {
         {num:2,title:'GTA V SCHOOL RP ! #2 (Le Livre Secret du concierge)',videoId:'kPKtLvGyVC4'},
     ]
 }, },
+{ id:'enzo-castelli', name:'Enzo Castelli', image:'https://ik.imagekit.io/ipromx/images/letigrebl/enzo-castelli.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/enzo-castelli-banner.webp',
+          description:'Je m\'appelle Enzo Castelli. Mon père m\'a envoyé ici pour retrouver un certain Dylan. Mais en chemin, je croise le maire de la ville… charmant devant les caméras. Beaucoup moins une fois la porte de son bureau fermée.', 
+          seasons:{
+    'Saison 1':[
+        {num:1,title:'J’ai créé un GTA 5 RP où les PNJ sont vraiment VIVANTS ! #1',videoId:'dW7q-Q1pC7M'},
+        {num:2,title:'GTA 5 RP PNJ — J’ai fait confiance au mauvais PNJ… - #2',videoId:'MUjdagJgWW4', youtubeLink:true},
+    ]
+}, },
       ]
     }
   },
@@ -2429,12 +2446,25 @@ const DATA = {
       {
         active: true,
         label: 'NOUVEL ÉPISODE',
-        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #12 - (Je n’aurais jamais dû retourner à l’asile…)',
+        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #15 – (Je ne m’attendais PAS à ça pendant mon date…)',
         link: {
           familyId: 'winters',
           charId:   'jake-winters',
           season:   'Saison 4',
-          epNum:    117
+          epNum:    122
+        },
+        
+      },
+
+      {
+        active: true,
+        label: 'NOUVEL ÉPISODE',
+        text: '(Enzo Castelli) : GTA 5 RP PNJ - J’ai fait confiance au mauvais PNJ… #2',
+        link: {
+          familyId: 'castelli',
+          charId:   'enzo-castelli',
+          season:   'Saison 1',
+          epNum:    2
         },
         
       },
@@ -2824,6 +2854,24 @@ const DATA = {
   //            tebexUrl (lien boutique Tebex), price (texte libre, ex: '25€') }
   mappings: [
     {
+      id: 'taka-circus',
+      title: 'GTA 5 — Taka Circus | Map + Scripts - FiveM',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/gEwcGMBHePc/hqdefault.jpg",
+      videoId: "gEwcGMBHePc",
+      tebexUrl: "https://discord.com/invite/MKjkCm2XwY",
+      price: "Voir sur Tebex"
+    },
+    {
+      id: 'griffin',
+      title: 'GTA 5 MOUNT/SCRIPT - Flying Griffin with Powers - [FIVEM]',
+      desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
+      image: "https://i.ytimg.com/vi/YRAKrqvOMiM/hqdefault.jpg",
+      videoId: "YRAKrqvOMiM",
+      tebexUrl: "https://discord.com/invite/MKjkCm2XwY",
+      price: "Voir sur Tebex"
+    },
+    {
       id: 'mystic-hollow',
       title: 'GTA V MLO/MAP - Mystic Hollow - FiveM !',
       desc: "Mapping/MLO complet pour FiveM GTAV. Présentation vidéo ci-dessus, achat sur la boutique officielle Tebex.",
@@ -3025,6 +3073,7 @@ const HERO_SLIDES=[
 
 // Ordre d'affichage dans "Univers" (tel que demandé)
 const CHAR_ORDER = [
+  ['Castelli','enzo-castelli'],
   ['kingsley','zack-kingsley'],
   ['flash','zayn-flash'],
   ['shade','sylvester-shade'],
