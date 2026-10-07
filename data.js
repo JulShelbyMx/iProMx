@@ -3073,7 +3073,7 @@ const HERO_SLIDES=[
 
 // Ordre d'affichage dans "Univers" (tel que demandé)
 const CHAR_ORDER = [
-  ['Castelli','enzo-castelli'],
+  ['castelli','enzo-castelli'],
   ['kingsley','zack-kingsley'],
   ['flash','zayn-flash'],
   ['shade','sylvester-shade'],
