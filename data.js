@@ -2271,6 +2271,24 @@ const DATA = {
 }, }
       ]
     },
+    castelli: {
+      id:'castelli', name:'Castelli', color:'#1abc9c',
+      description:'Dans cette série, tous les personnages sont pilotés par une intelligence artificielle. Ils me parlent avec leur propre voix, ont leur caractère, leur vie, leurs embrouilles… et ils se souviennent de tout ce que je leur dis et de tout ce que je fais. Aucun dialogue n\'est écrit à l\'avance : chaque rencontre peut tout changer.',
+      characters:[
+        { id:'enzo-castelli', name:'Enzo Castelli', image:'https://ik.imagekit.io/ipromx/images/letigrebl/enzo-castelli.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/enzo-castelli-banner.webp',
+          description:'Arrivé à Los Santos avec de simples économies en poche, Enzo Castelli cherche désespérément sa place dans une ville sous tension, plongée en pleine campagne électorale. Le jeune homme se retrouve rapidement pris dans un engrenage dangereux lorsque le maire corrompu, Jean-Claude Vasseur, le recrute comme homme de main avant de l\'entraîner dans un réseau de chantages et de complots politiques. Traqué par la police, manipulé par le pouvoir et partagé entre des alliances criminelles et des amitiés locales, Enzo doit apprendre à jouer cartes sur table au milieu de PNJ dotés d\'une conscience propre s\'il veut survivre !',
+          seasons:{
+    'Saison 1':[
+        {num:1,title:'J\'ai créé un GTA 5 RP où les PNJ sont vraiment VIVANTS ! #1',videoId:'dW7q-Q1pC7M'},
+        {num:2,title:'GTA 5 RP PNJ — J’ai fait confiance au mauvais PNJ… - #2',videoId:'MUjdagJgWW4', youtubeLink:true},
+        //youtubeLink:true,
+    ]
+}, }
+
+
+
+      ]
+    },
     autres: {
       id:'autres', name:'Autres', color:'#95a5a6',
       characters:[
@@ -2409,14 +2427,6 @@ const DATA = {
         {num:2,title:'GTA V SCHOOL RP ! #2 (Le Livre Secret du concierge)',videoId:'kPKtLvGyVC4'},
     ]
 }, },
-{ id:'enzo-castelli', name:'Enzo Castelli', image:'https://ik.imagekit.io/ipromx/images/letigrebl/enzo-castelli.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/enzo-castelli-banner.webp',
-          description:'Je m\'appelle Enzo Castelli. Mon père m\'a envoyé ici pour retrouver un certain Dylan. Mais en chemin, je croise le maire de la ville… charmant devant les caméras. Beaucoup moins une fois la porte de son bureau fermée.', 
-          seasons:{
-    'Saison 1':[
-        {num:1,title:'J’ai créé un GTA 5 RP où les PNJ sont vraiment VIVANTS ! #1',videoId:'dW7q-Q1pC7M'},
-        {num:2,title:'GTA 5 RP PNJ — J’ai fait confiance au mauvais PNJ… - #2',videoId:'MUjdagJgWW4', youtubeLink:true},
-    ]
-}, },
       ]
     }
   },
@@ -2468,8 +2478,6 @@ const DATA = {
         },
         
       },
-
-
       
     ],
     update: {
