@@ -3073,10 +3073,11 @@ const DATA = {
 
 const HERO_SLIDES=[
   {familyId:'flash',charId:'ned-flash'},
+  {familyId:'castelli',charId:'enzo-castelli'},
+  {familyId:'escobar',charId:'tom-escobar'},
+  {familyId:'shade',charId:'sylvester-shade'},
   {familyId:'kingsley',charId:'zack-kingsley'},
   {familyId:'flash',charId:'adrian-flash'},
-  {familyId:'shade',charId:'sylvester-shade'},
-  {familyId:'escobar',charId:'tom-escobar'}
 ];
 
 // Ordre d'affichage dans "Univers" (tel que demandé)
