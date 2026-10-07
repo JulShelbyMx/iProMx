@@ -2201,6 +2201,7 @@ const AVATAR_FAMILY_MAP = {
   winters: ['av32','av59'],
   escobar: ['av7','av8','av9','av10','av11'],
   kingsley:['av81'],
+  castelli:['av82'],
   autres:  [,'av4','av6','av12','av23','av29','av30','av31','av41','av42']
 };
 const AVATAR_FAMILIES = [
@@ -2210,6 +2211,7 @@ const AVATAR_FAMILIES = [
   { id:'winters',  label:'Winters',  color:'#3498db' },
   { id:'escobar',  label:'Escobar',  color:'#ab0909' },
   { id:'kingsley', label:'Kingsley', color:'#f1c40f' },
+  { id:'castelli', label:'Castelli', color:'#64c292' },
   { id:'autres',   label:'Autres',   color:'#95a5a6' }
 ];
 
@@ -2233,8 +2235,8 @@ function _renderAvatarGrid() {
   // Group by family when showing "all"
   let html = '';
   if(_avatarFamilyFilter === 'all') {
-    const families = ['flash','shade','winters','escobar','kingsley','autres'];
-    const famLabels = {flash:'Famille Flash',shade:'Famille Shade',winters:'Famille Winters',escobar:'Famille Escobar',kingsley:'Famille Kingsley',autres:'Autres'};
+    const families = ['flash','shade','winters','escobar','kingsley', 'castelli','autres'];
+    const famLabels = {flash:'Famille Flash',shade:'Famille Shade',winters:'Famille Winters',escobar:'Famille Escobar',kingsley:'Famille Kingsley', castelli:'Famille Castelli', autres:'Autres'};
     const famColors = {flash:'#e74c3c',shade:'#9b59b6',winters:'#3498db',escobar:'#e67e22',kingsley:'#f1c40f',autres:'#95a5a6'};
     for(const fam of families) {
       const famAvatars = PRESET_AVATARS.filter(av=>(AVATAR_FAMILY_MAP[fam]||[]).includes(av.id));

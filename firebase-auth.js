@@ -81,7 +81,9 @@ const PRESET_AVATARS = [
   { id:'av78', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/zayn7.webp',       label:'Zayn Flash 7' },
   { id:'av79', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/zayn8.webp',       label:'Zayn Flash 8' },
   { id:'av80', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/zayn9.webp',       label:'Zayn Flash 9' },
-  { id:'av81', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/zack.webp',        label:'Zack Kingsley' }
+  { id:'av81', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/zack.webp',        label:'Zack Kingsley' },
+  { id:'av82', src:'https://ik.imagekit.io/ipromx/images/avatars/letigrebl/enzo.webp',        label:'Enzo Castelli' },
+
 ];
 
 function getAvatarSrc(id) {
