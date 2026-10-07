@@ -2276,7 +2276,7 @@ const DATA = {
       description:'Dans cette série, tous les personnages sont pilotés par une intelligence artificielle. Ils me parlent avec leur propre voix, ont leur caractère, leur vie, leurs embrouilles… et ils se souviennent de tout ce que je leur dis et de tout ce que je fais. Aucun dialogue n\'est écrit à l\'avance : chaque rencontre peut tout changer.',
       characters:[
         { id:'enzo-castelli', name:'Enzo Castelli', image:'https://ik.imagekit.io/ipromx/images/letigrebl/enzo-castelli.webp', banner:'https://ik.imagekit.io/ipromx/images/letigrebl/enzo-castelli-banner.webp',
-          description:'Arrivé à Los Santos avec de simples économies en poche, Enzo Castelli cherche désespérément sa place dans une ville sous tension, plongée en pleine campagne électorale. Le jeune homme se retrouve rapidement pris dans un engrenage dangereux lorsque le maire corrompu, Jean-Claude Vasseur, le recrute comme homme de main avant de l\'entraîner dans un réseau de chantages et de complots politiques. Traqué par la police, manipulé par le pouvoir et partagé entre des alliances criminelles et des amitiés locales, Enzo doit apprendre à jouer cartes sur table au milieu de PNJ dotés d\'une conscience propre s\'il veut survivre !',
+          description:'Arrivé à Los Santos avec de simples économies en poche, Enzo Castelli cherche désespérément sa place dans une ville sous tension. Le jeune homme doit apprendre à jouer cartes sur table au milieu de PNJ dotés d\'une conscience propre s\'il veut survivre !',
           seasons:{
     'Saison 1':[
         {num:1,title:'J\'ai créé un GTA 5 RP où les PNJ sont vraiment VIVANTS ! #1',videoId:'dW7q-Q1pC7M'},
