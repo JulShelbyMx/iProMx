@@ -2519,6 +2519,11 @@ const DATA = {
   cinematics: [
     // Format : { id, title, desc, image (thumbnail), videoId (YouTube) }
     {
+      title: "GTA 5 RP À ZÉRO ! – Jake Winters : OPÉRATION AMAZONIE (TEASER)",
+      image: "https://ik.imagekit.io/ipromx/images/letigrebl/jakeamazonie.webp",
+      videoId: "8Ez07dZd63g"
+    },
+    {
       title: "Teaser – Le nouveau numéro de Jake Winters ! | GTA 5 RP",
       image: "https://ik.imagekit.io/ipromx/images/letigrebl/jakeeldiablo.webp",
       videoId: "oTq4yL_oXPE"
@@ -3072,8 +3077,9 @@ const DATA = {
 };
 
 const HERO_SLIDES=[
-  {familyId:'flash',charId:'ned-flash'},
+  {familyId:'winters',charId:'jake-winters'},
   {familyId:'castelli',charId:'enzo-castelli'},
+  {familyId:'flash',charId:'ned-flash'},
   {familyId:'escobar',charId:'tom-escobar'},
   {familyId:'shade',charId:'sylvester-shade'},
   {familyId:'kingsley',charId:'zack-kingsley'},
