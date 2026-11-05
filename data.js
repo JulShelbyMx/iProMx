@@ -1791,7 +1791,9 @@ const DATA = {
       {num:120,title:'#13 VERSION VIDEO: GTA 5 RP À ZÉRO ! #13 – (Comment ont-ils pu me cacher ça sur mes yeux ?)',videoId:'IdNsTWuaxLM'},
       {num:121,title:'GTA 5 RP À ZÉRO ! #14 – (Je révèle mon plus grand secret à mes fils !)',videoId:'N2Q3_XbIyos'},
       {num:122,title:'GTA 5 RP À ZÉRO ! #15 – (Je ne m’attendais PAS à ça pendant mon date…)',videoId:'Kif3aWiF6QU'},
-
+      {num:123,title:'#16 VERSION LIVE PARTIE 1: GTA 5 RP – Opération Amazonie : L’évasion la plus dangereuse de ma vie ! #16',videoId:'4Nom-iFPeLo'},
+      {num:124,title:'#17 VERSION LIVE: GTA 5 RP – Opération Amazonie : Si je rate mon évasion, je suis mort ! #17',videoId:'PZpmUX0b8kw'},
+      {num:125,title:'#16 & 17 VERSION VIDEO: GTA 5 RP – Opération Amazonie : Si je rate mon évasion, je suis mort ! #17',videoId:'PZpmUX0b8kw'},
       
       // youtubeLink:true
 
@@ -2280,7 +2282,7 @@ const DATA = {
           seasons:{
     'Saison 1':[
         {num:1,title:'J\'ai créé un GTA 5 RP où les PNJ sont vraiment VIVANTS ! #1',videoId:'dW7q-Q1pC7M'},
-        {num:2,title:'GTA 5 RP PNJ — J’ai fait confiance au mauvais PNJ… - #2',videoId:'MUjdagJgWW4', youtubeLink:true},
+        {num:2,title:'GTA 5 RP PNJ — J’ai fait confiance au mauvais PNJ… - #2',videoId:'MUjdagJgWW4'},
         //youtubeLink:true,
     ]
 }, }
