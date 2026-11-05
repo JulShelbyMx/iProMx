@@ -1793,7 +1793,9 @@ const DATA = {
       {num:122,title:'GTA 5 RP À ZÉRO ! #15 – (Je ne m’attendais PAS à ça pendant mon date…)',videoId:'Kif3aWiF6QU'},
       {num:123,title:'#16 VERSION LIVE PARTIE 1: GTA 5 RP – Opération Amazonie : L’évasion la plus dangereuse de ma vie ! #16',videoId:'4Nom-iFPeLo'},
       {num:124,title:'#17 VERSION LIVE: GTA 5 RP – Opération Amazonie : Si je rate mon évasion, je suis mort ! #17',videoId:'PZpmUX0b8kw'},
-      {num:125,title:'#16 & 17 VERSION VIDEO: GTA 5 RP – Opération Amazonie : Si je rate mon évasion, je suis mort ! #17',videoId:'PZpmUX0b8kw'},
+      {num:125,title:'#16 & 17 VERSION VIDEO: Jake Winters – Opération Amazonie – [Le Film]',videoId:'m3BHgf94O7s'},
+      {num:126,title:'GTA 5 RP À ZÉRO ! #18 – (Piégé en Amazonie ! Raven est encore en vie ?)',videoId:'HC4zHBibHC4'},
+      {num:127,title:'GTA 5 RP À ZÉRO ! #19 – (Capturé par Tom Escobar)',videoId:'C51AfbEhH3g', youtubeLink:true},
       
       // youtubeLink:true
 
@@ -2460,12 +2462,12 @@ const DATA = {
       {
         active: true,
         label: 'NOUVEL ÉPISODE',
-        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #15 – (Je ne m’attendais PAS à ça pendant mon date…)',
+        text: '(Jake Winters) : GTA 5 RP À ZÉRO ! #19 – (Capturé par Tom Escobar)',
         link: {
           familyId: 'winters',
           charId:   'jake-winters',
           season:   'Saison 4',
-          epNum:    122
+          epNum:    127
         },
         
       },
